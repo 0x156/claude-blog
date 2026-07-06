@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "status": "scaffold",
+  "domain": "blog content creation, optimization, and management dual-optimized for Google rankings (E-E-A-T, the 2026 core updates) and AI citations (GEO/AEO), spanning writing, rewriting and freshness, SERP-informed briefs and outlines, editorial calendars and strategy, semantic topic clusters, schema and internal linking, multilingual publishing, the FLOW framework, factchecking, personas, distribution, and the blog delivery contract, grounded in the claude-blog skill",
+  "generic_only": true,
+  "raw_input_types": [
+    "claude-blog skill v1.10.0 SKILL.md, 30 sub-skills, 5 agents, 21 references, 12 templates, and analysis scripts; Google Search Central docs; web.dev CWV; FLOW framework bibliography; GEO/AEO studies; content-marketing and copywriting research"
+  ],
+  "rules": {
+    "domain_adapted_requires": [
+      "one real domain importer or ingestion path",
+      "one domain-specific synthesis module",
+      "one report renderer",
+      "one fixture per supported input type",
+      "tests for importer, synthesis, rendering, malformed input, and missing credentials"
+    ]
+  },
+  "input_schemas": [],
+  "importers": [],
+  "synthesis_modules": [],
+  "report_renderers": [],
+  "fixtures": [],
+  "tests": []
+}

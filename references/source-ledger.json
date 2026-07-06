@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "status": "scaffold",
+  "domain": "blog content creation, optimization, and management dual-optimized for Google rankings (E-E-A-T, the 2026 core updates) and AI citations (GEO/AEO), spanning writing, rewriting and freshness, SERP-informed briefs and outlines, editorial calendars and strategy, semantic topic clusters, schema and internal linking, multilingual publishing, the FLOW framework, factchecking, personas, distribution, and the blog delivery contract, grounded in the claude-blog skill",
+  "refresh_cadence": "monthly for Google algorithm updates and Search Central policy; before every release for E-E-A-T framing, schema deprecations, and GEO/AEO citation claims; on-changelog for the claude-blog skill",
+  "rules": {
+    "researched_requires": [
+      "at least two captured sources for fast-moving or high-stakes domains",
+      "at least one official/primary source for lower-risk domains",
+      "retrieved dates, refresh_due dates, source_type, confidence, and claim coverage",
+      "no placeholder/example URLs"
+    ],
+    "accepted_primary_types": [
+      "official",
+      "primary",
+      "vendor",
+      "regulator",
+      "government",
+      "standards",
+      "standards-body",
+      "authority",
+      "api-docs"
+    ]
+  },
+  "sources": []
+}
