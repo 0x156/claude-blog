@@ -174,8 +174,9 @@ Quick research pass to fill the template:
 4. Read 2-3 native blog posts in the target market to calibrate
    `formality.default` and `cta_tone.style`.
 
-Save the new profile by appending it as a new section in this file
-(prefixed with the locale name) so future runs reuse it.
+Save custom locale profiles outside this shared skill reference, for example in
+a project-local `.claude/blog-locale-profiles/<locale>.md` file or in the task
+output. Do not append runtime profiles to this file.
 
 ## Profile Selection Logic
 

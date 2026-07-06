@@ -81,6 +81,7 @@ For every language version verify:
 | Title tag | Present, correct length for the language | Critical |
 | Meta description | Present, correct length, contains a stat | Critical |
 | `lang` attribute or frontmatter `lang` | Present, valid ISO 639-1 | Critical |
+| Canonical URL | Points to the same-language page, not the source-language page or x-default | Critical |
 | Schema `inLanguage` | Matches `lang` | High |
 | Schema `translationOfWork` | Points to the source URL | High |
 | Alt text | Translated (no English alt in non-EN posts) | High |
@@ -97,7 +98,8 @@ exists in the directory:
 |-------|------|----------|
 | Self-referencing | Each page references itself | Critical |
 | Return tags | Every relationship is bidirectional | Critical |
-| `x-default` | Present, points to source language | Critical |
+| Canonical consistency | Every hreflang page canonicalizes to its same-language URL | Critical |
+| `x-default` | Present, points to the unmatched-language fallback such as a language selector or default market page | Critical |
 | Language codes | Valid ISO 639-1 (with optional region) | High |
 | URL consistency | Same protocol, same trailing-slash convention | Medium |
 | Completeness | Every language version represented | High |

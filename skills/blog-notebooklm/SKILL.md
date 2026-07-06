@@ -5,7 +5,7 @@ description: >
   answers from user-uploaded documents. Manages notebook library, handles
   Google authentication, and supports smart discovery. Works standalone
   via /blog notebooklm or internally from blog-write and blog-researcher
-  for Tier 1 research data. Falls back gracefully when not configured.
+  for source-grounded research context. Falls back gracefully when not configured.
   Use when user says "notebooklm", "notebook", "query notebook",
   "ask notebook", "notebook research", "source grounded research",
   "document query", "notebook library".
@@ -22,12 +22,14 @@ metadata:
 
 Query Google NotebookLM notebooks directly from Claude Code for citation-backed
 answers from Gemini. Each question opens a headless browser session, retrieves
-the answer exclusively from your uploaded documents, and closes. Responses are
-Tier 1 quality (user's own primary sources): zero hallucination risk.
-Answers satisfy the FLOW evidence triple: use the returned source title as the
-inline citation and the notebook URL plus retrieval date as the bibliography
-entry. This is the highest-confidence path to meeting the "verified source"
-bar that FLOW requires before any statistic goes public.
+the answer from your uploaded documents, and closes. Responses are
+source-grounded model answers, not proof of truth: uploaded documents may be
+primary or secondary, and the answer can still omit context.
+
+Answers satisfy the FLOW evidence triple only when the returned citation includes
+a verifiable underlying source URL plus a publication or retrieval date. Use the
+underlying source title as the inline citation. Do not cite the private NotebookLM
+URL as the bibliography entry for public content.
 
 ## Quick Reference
 
@@ -208,7 +210,9 @@ When invoked as a Task subagent from blog-write or blog-researcher:
 - **Source:** [Notebook name]
 - **Question:** [What was asked]
 - **Answer:** [Source-grounded response from user's documents]
-- **Source Quality:** Tier 1 (user-uploaded primary documents)
+- **Underlying Source:** [Public source URL or document identifier]
+- **Underlying Source Date:** [Publication date or retrieval date]
+- **Source Quality:** [Tier 1-3 after classifying the underlying document]
 ```
 
 **Graceful fallback:** If auth is missing or query fails, return immediately

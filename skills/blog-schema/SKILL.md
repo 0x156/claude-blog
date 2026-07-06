@@ -1,8 +1,8 @@
 ---
 name: blog-schema
 description: >
-  Generate complete JSON-LD schema markup for blog posts including BlogPosting,
-  Person, Organization, BreadcrumbList, FAQPage, and ImageObject. Validates
+  Generate complete JSON-LD schema markup for blog posts with Article/BlogPosting,
+  Person, Organization, BreadcrumbList, ImageObject, and optional FAQPage. Validates
   against Google requirements and warns about deprecated types. Use when user
   says "schema", "blog schema", "json-ld", "structured data", "schema markup",
   "generate schema".
@@ -146,7 +146,7 @@ Navigation breadcrumb schema showing content hierarchy:
 If no category is available, use "Blog" as the second breadcrumb item with
 `{siteUrl}/blog` as the URL.
 
-### Step 6: Generate FAQPage Schema
+### Step 6: Generate FAQPage Entity Schema
 
 Extract Q&A pairs from the blog post's FAQ section:
 
@@ -167,12 +167,10 @@ Extract Q&A pairs from the blog post's FAQ section:
 }
 ```
 
-Important note: Google restricted FAQ rich results to government and health
-sites since August 2023. However, FAQ schema markup still provides value
-because:
-- AI systems (ChatGPT, Perplexity, Gemini) extract FAQ data for citations
-- It structures content for future rich result eligibility changes
-- It improves content organization signals
+Important note: Google retired FAQ rich results for all sites on 2026-05-07.
+FAQPage is not a Google rich result path. Only emit FAQPage when visible FAQ
+content exists, and treat it as an entity clarity and AI-citation signal. The
+Article/BlogPosting schema remains the priority for blog search eligibility.
 
 ### Step 7: Generate VideoObject (if videos present)
 
@@ -227,7 +225,7 @@ Image requirements:
 Check for deprecated schema types and apply validation rules:
 
 **NEVER use these deprecated types:**
-- **HowTo** - Deprecated September 2023 (Google no longer shows rich results)
+- **HowTo** - Deprecated August 2023 (Google no longer shows rich results)
 - **SpecialAnnouncement** - Deprecated July 2025
 - **Practice Problem** - Deprecated (education markup)
 - **Dataset** - Deprecated for general use
@@ -242,12 +240,13 @@ Check for deprecated schema types and apply validation rules:
 5. All URLs are absolute (not relative)
 6. Image dimensions are positive integers
 7. BreadcrumbList positions are sequential starting from 1
-8. FAQPage has at least 2 questions
+8. If FAQPage is emitted, it has at least 2 questions
 
-**AI citation optimization note:** Pages using 3 or more schema types have
-approximately 13% higher AI citation likelihood. This skill generates up to 7
-types (BlogPosting, Person, Organization, BreadcrumbList, FAQPage, ImageObject,
-VideoObject) to maximize both search engine understanding and AI extraction.
+**AI citation optimization note:** Stacking relevant schema can help entity
+disambiguation, but claims that 3+ schema types directly raise AI citation
+likelihood are directional and unverified. Prioritize Article/BlogPosting,
+Person, Organization, and BreadcrumbList. Add ImageObject or VideoObject when
+assets exist, and add FAQPage only when visible FAQ content exists.
 
 ### Step 9: Output
 

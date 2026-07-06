@@ -5,7 +5,7 @@ description: >
   schedules, content decay detection, freshness update plans, seasonal
   opportunities, content mix formula, template integration, and distribution
   scheduling. Plans monthly or quarterly calendars optimized for SEO topic
-  authority and AI citation freshness requirements (30-day update cycles).
+  authority and freshness signals based on content priority.
   Use when user says "editorial calendar", "content calendar", "blog calendar",
   "publishing schedule", "blog plan", "content plan", "what should I write".
 user-invokable: true
@@ -18,7 +18,7 @@ license: MIT
 Generates editorial calendars with topic clusters, publishing cadence,
 freshness update schedules, content decay detection, template recommendations,
 distribution planning, and seasonal hooks. Optimized for building topical
-authority (Google) and maintaining citation freshness (AI platforms).
+authority (Google) and maintaining citation freshness for AI surfaces.
 
 ## Cross-reference
 
@@ -68,7 +68,7 @@ Classify each post by staleness using these thresholds:
 | Medium-traffic posts | >90 days since update | >180 days |
 | Low-traffic posts | >180 days since update | >365 days |
 
-Reference: 76% of top AI citations are from content updated within 30 days.
+Reference: practitioner AI-citation SEO research has found roughly 76% of top AI citations coming from content updated within 30 days in some datasets. Treat this as a directional signal, not a universal rule.
 
 Output a decay report:
 
@@ -89,7 +89,7 @@ Priority levels:
 
 ### Step 3: Freshness Update Schedule
 
-AI platforms heavily favor fresh content (76% of top citations updated within 30 days).
+AI citation surfaces often favor fresh content, but the 30-day signal is directional and methodology-dependent, not a universal rule.
 
 Plan update cycles:
 - **High-priority posts** (traffic drivers): Update every 30 days
@@ -103,7 +103,7 @@ Research seasonal opportunities:
 1. **Industry events**: Conferences, product launches, algorithm updates
 2. **Seasonal trends**: Use WebSearch to check Google Trends for the niche
 3. **Annual reports**: When do major studies release new data?
-4. **Algorithm updates**: Google core updates (typically 3-4 per year)
+4. **Algorithm updates**: Validate the current Google update timeline. As of 2026-07-07, 2026 includes the Feb Discover update, Mar core update, Mar spam update, May core update, and Jun spam update.
 
 #### Seasonal Trends Integration
 
@@ -280,7 +280,7 @@ Set up a system for ongoing freshness maintenance:
 ```
 
 Automation recommendations:
-- Set calendar reminders for 30-day refresh cycles on high-traffic posts
+- Set calendar reminders for 30-day review cycles on high-traffic or fast-changing posts
 - List posts by "next refresh date" in ascending order (most urgent first)
 - Prioritize refresh order by traffic/importance
 - After each refresh, update the `lastUpdated` frontmatter field

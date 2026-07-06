@@ -65,17 +65,20 @@ Recommended voice combinations for two-speaker podcast/dialogue format:
 | Technical | Laomedeia (Upbeat) | Iapetus (Clear) | Curious host + precise technical expert |
 | News | Schedar (Even) | Rasalgethi (Informative) | Neutral anchor + informed analyst |
 
-## Model Comparison
+## Model Support
 
-| Model | ID | Best For | Cost (output) |
-|-------|----|---------|----|
-| **Flash** | `gemini-2.5-flash-preview-tts` | Summaries, standard narration, cost-sensitive | $10/1M tokens |
-| **Pro** | `gemini-2.5-pro-preview-tts` | Dialogue mode, premium podcasts, audiobooks | $20/1M tokens |
+Google's Gemini TTS supported-model list changes. As of 2026-07-07, the
+official Gemini API TTS guide lists these preview-capable models:
 
-**Default:** Flash for summary/full modes, Pro for dialogue mode.
+| Model | ID | Single speaker | Multispeaker | Note |
+|-------|----|----------------|--------------|------|
+| Gemini 3.1 Flash TTS Preview | `gemini-3.1-flash-tts-preview` | Yes | Yes | Streaming supported on 3.1 TTS |
+| Gemini 2.5 Flash Preview TTS | `gemini-2.5-flash-preview-tts` | Yes | Yes | Local `flash` alias currently maps here |
+| Gemini 2.5 Pro Preview TTS | `gemini-2.5-pro-preview-tts` | Yes | Yes | Local `pro` alias currently maps here |
 
-Flash is 2x cheaper and faster. Pro has higher fidelity and better handling of
-multi-speaker turn-taking. Use Pro when audio quality is the priority.
+**Default:** Flash for summary/full modes, Pro for dialogue mode. The local
+wrapper accepts `flash` and `pro`; verify `scripts/generate_audio.py` before
+using a newly listed model ID.
 
 ## Language Notes
 

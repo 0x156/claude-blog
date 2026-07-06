@@ -52,7 +52,7 @@ python3 scripts/generate_audio.py --text "..."  # Fails without venv
 Before generating audio, check for the API key:
 
 ```bash
-echo $GOOGLE_AI_API_KEY
+test -n "${GOOGLE_AI_API_KEY:-}" && echo "GOOGLE_AI_API_KEY is set" || echo "GOOGLE_AI_API_KEY is not set"
 ```
 
 - If set: proceed with generation

@@ -102,6 +102,8 @@ separate discipline.
    - `localize` / `cultural-adaptation` → `blog-localize` (cultural deep-adaptation)
    - `locale-audit` / `translation-audit` → `blog-locale-audit` (multilingual QA)
    - `flow` / `find-leverage-optimize-win` → `blog-flow` (FLOW framework prompts)
+   - `style` → `blog-style` (learn author voice profile from existing posts)
+   - `decay` → `blog-decay` (content-decay detection from GSC exports)
 
 ### Platform Detection
 

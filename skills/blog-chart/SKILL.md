@@ -13,6 +13,7 @@ description: >
   "visualize data", or when the blog-write workflow identifies chart-worthy
   data points (3+ comparable metrics, trends, before/after data).
 user-invokable: false
+license: MIT
 ---
 
 # Blog Chart: Built-In SVG Data Visualization
@@ -32,7 +33,7 @@ Chart Request:
 - Type: horizontal bar
 - Title: "AI Citation Sources by Platform"
 - Data: ChatGPT 43.8%, Perplexity 6.6%, Google AI Overviews 2.2%, Reddit 7.15%
-- Source: Ahrefs, December 2025
+- Source: [Verified source], [publication date]
 - Platform: mdx (or html)
 ```
 
@@ -74,7 +75,9 @@ Label text:        fill="currentColor" opacity="0.8"
 | Purple | `#a78bfa` | Tertiary / special category |
 | Green | `#22c55e` | Quaternary / positive indicator |
 
-For text inside colored elements: `fill="white"` with `fontWeight="800"`.
+For text inside approved colored elements: use `fill="#111827"` with
+`fontWeight="800"`. Only use white text after checking the contrast ratio is
+at least 4.5:1 against that specific fill color.
 
 ## Standard SVG Shell (HTML)
 
@@ -238,7 +241,7 @@ Wrap every chart in a `<figure>` element:
 
 ## Quality Checklist (Verify Before Returning)
 
-- [ ] No hardcoded text colors (all use `currentColor`)
+- [ ] No hardcoded text colors except contrast-checked labels inside colored elements
 - [ ] No white/light backgrounds (transparent or none)
 - [ ] Source attribution text present at bottom
 - [ ] `role="img"` and `aria-label` present on `<svg>`

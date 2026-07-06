@@ -1,12 +1,13 @@
 ---
 name: blog-rewrite
 description: >
-  Rewrite and optimize existing blog posts for Google rankings (December 2025
-  Core Update, E-E-A-T) and AI citations (GEO/AEO). Full rewrite for both
+  Rewrite and optimize existing blog posts for Google SEO (May 2026 Core
+  Update, March 2026 core/spam context, June 2026 spam context, E-E-A-T)
+  and AI citation visibility as one SEO discipline. Full rewrite for both
   Google rankings AND AI citations. For AI-citation-only audit (no Google
   work), use blog-geo instead. Replaces fabricated statistics with sourced
   data, applies answer-first formatting, adds Pixabay/Unsplash images,
-  generates built-in SVG charts, injects FAQ schema, performs AI content
+  generates built-in SVG charts, validates Article-priority schema, performs AI content
   detection, adds citation capsules and information gain markers, and
   updates freshness signals. Works with any blog format (MDX, markdown,
   HTML). Use when user says "rewrite blog", "optimize blog", "update blog",
@@ -45,7 +46,7 @@ For 21 evidence-led optimization prompts (AI-detector test, CTR audit, schema, P
    - Count images and charts (type diversity?)
    - Measure paragraph lengths (any > 150 words?)
    - Check heading hierarchy (H1 -> H2 -> H3, no skips?)
-   - Look for FAQ schema
+   - Check schema presence and validity, prioritizing Article/BlogPosting, Person, Organization, and BreadcrumbList; FAQPage is optional entity markup only
    - Check freshness signals (lastUpdated, dateModified)
    - Assess self-promotion level
    - Evaluate citation tier quality
@@ -160,7 +161,7 @@ Every H2 section MUST open with a 40-60 word paragraph containing:
 #### 4d. Replace Fabricated Statistics
 - Search for patterns: "X% of...", "X out of Y...", unsourced claims
 - Replace with real data from tier 1-3 sources
-- Always include inline attribution: `([Source Name](url), year)`
+- Always include the full FLOW evidence triple: year anchor in prose, inline citation with publisher + document title/report name, and a source block entry with full URL + retrieval date
 
 #### 4e. Improve Headings
 - Convert statement headings to questions where natural (60-70% target)
@@ -186,9 +187,9 @@ If the post lacks YouTube video embeds:
 - Include noscript fallback for AI crawlers
 
 #### 4i. Add/Improve FAQ
-- If no FAQ exists, add one (3-5 questions)
-- If FAQ exists, ensure answers are 40-60 words with statistics
-- Add FAQ schema markup appropriate to platform
+- If the query set warrants it and no FAQ exists, add one (3-5 questions)
+- If FAQ exists, ensure answers are 40-60 words with verified statistics
+- FAQPage is an entity/AI-citation signal only, not a Google rich result after 2026-05-07. Do not make it a core gate; prioritize Article/BlogPosting + Person + Organization + BreadcrumbList.
 
 #### 4j. Reduce Self-Promotion
 - Max 1 brand mention (author bio context only)
@@ -278,7 +279,7 @@ After rewriting, verify all quality gates pass:
 2. No paragraph exceeds 150 words
 3. Zero fabricated statistics
 4. Heading hierarchy is clean
-5. FAQ section present with schema
+5. Article-priority schema present and valid; FAQPage only if useful as optional entity markup
 6. Images have descriptive alt text
 7. Cover image present in frontmatter (coverImage + ogImage)
 8. If MDX: build the project to verify no compilation errors
@@ -331,7 +332,7 @@ After rewriting, verify all quality gates pass:
 - [X] SVG charts added (types: ...)
 - [X] images added from Pixabay/Unsplash
 - Answer-first formatting applied to [N] H2 sections
-- FAQ schema injected with [N] questions
+- FAQ section updated with [N] questions; FAQPage emitted only as optional entity markup if appropriate
 - TL;DR box: [added/updated]
 - Information gain markers: [N] ([types])
 - Citation capsules: [N] across H2 sections
@@ -371,4 +372,4 @@ When invoked as `/blog update <file>`, focus on freshness:
 3. Refresh images if older than 1 year
 4. Update `lastUpdated` in frontmatter
 5. Preserve the existing structure - minimize rewrites
-6. Target: at least 30% content change to register as "fresh" for AI crawlers
+6. Target: genuine freshness only. Replace stale statistics, add real new developments, and update `lastUpdated`/`dateModified`; do not rewrite to hit a percentage-change threshold.

@@ -5,7 +5,7 @@ description: >
   and keyword placement, meta description quality, heading hierarchy and keyword
   density, internal/external link audit with anchor text analysis, canonical URL
   verification, Open Graph meta tags (og:title, og:description, og:image), Twitter
-  Card validation, URL structure optimization, and image alt text presence. Produces
+  Card validation, structured data presence and validity, URL structure optimization, and image alt text presence. Produces
   prioritized fix list with specific recommendations. Use when user says "seo check",
   "check seo", "validate seo", "blog seo", "seo validation", "on-page seo",
   "title tag check", "meta description check", "heading check", "link audit".
@@ -30,6 +30,7 @@ Read the target file and extract:
 - **Heading structure** - H1, H2, H3 hierarchy with full text
 - **Links** - All internal and external links with anchor text
 - **Meta tags** - OG tags, Twitter Card tags, canonical URL
+- **Structured data** - JSON-LD or microdata types, required fields, and syntax validity
 - **Body content** - Full text for keyword and structural analysis
 
 If the user provides a URL instead of a file path, use WebFetch to retrieve
@@ -149,6 +150,19 @@ Posts that fail any of the three either drop the unverifiable claim or replace i
 | twitter:description | Present, under 200 characters |
 | twitter:image | Present, same as or similar to og:image |
 | twitter:site | Present if the site has a Twitter/X account |
+
+### Step 9.5: Structured Data Presence and Validity
+
+| Check | Pass Criteria |
+|-------|---------------|
+| Article schema | Article or BlogPosting present with headline, author, datePublished, and dateModified when available |
+| Entity schema | Person and Organization present where the site provides author and brand data |
+| Breadcrumb schema | BreadcrumbList present for indexable blog posts |
+| JSON-LD validity | Valid JSON, no duplicate conflicting entities, URLs are absolute where required |
+| Date consistency | dateModified matches `lastUpdated` or the visible updated date |
+| FAQPage optional | If present, valid as entity markup only. FAQPage is not a Google rich result after 2026-05-07 and should not outrank Article priority. |
+
+Prioritize Article/BlogPosting + Person + Organization + BreadcrumbList. Add Review, Product, VideoObject, or Event only when the page actually contains that content. Do not recommend HowTo as a rich-result tactic.
 
 ### Step 10: URL Structure
 

@@ -138,8 +138,8 @@ If fewer than 3 suitable stock images are found, or the topic is too niche/abstr
 ### When Querying NotebookLM
 
 If the user has NotebookLM notebooks relevant to the blog topic, use them for
-Tier 1 research data (user-uploaded primary sources). This is optional and
-should never block the research workflow.
+source-grounded research context. This is optional and should never block the
+research workflow.
 
 1. Check if `blog-notebooklm` is configured:
    ```bash
@@ -153,11 +153,15 @@ should never block the research workflow.
    ```bash
    python3 skills/blog-notebooklm/scripts/run.py ask_question.py --question "[research question]" --notebook-id [id] --json
    ```
-4. Parse the JSON response and include findings as Tier 1 sources
+4. Parse the JSON response and pass through the underlying source title, public
+   source URL, publication date or retrieval date, and document type for each
+   finding. Do not import the NotebookLM answer itself as the source.
 5. If auth is missing or no notebooks match, skip silently and continue with WebSearch
 
-**Source classification:** NotebookLM answers are Tier 1 because they come
-exclusively from the user's own uploaded documents: zero hallucination risk.
+**Source classification:** NotebookLM answers are source-grounded model output.
+Classify the underlying document using the normal Tier 1-3 system. If the
+response lacks a verifiable underlying source URL and date, use it only as
+internal context and do not include it as a public citation.
 
 ### When Analyzing Competition
 

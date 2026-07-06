@@ -4,7 +4,7 @@ description: >
   Write new blog articles from scratch optimized for Google rankings and AI
   citations. Generates full articles with template selection, answer-first
   formatting, Key Takeaways summary box, information gain markers, citation capsules, sourced
-  statistics, Pixabay/Unsplash images, built-in SVG chart generation, FAQ schema,
+  statistics, Pixabay/Unsplash images, built-in SVG chart generation, optional FAQ sections,
   internal linking zones, and proper heading hierarchy. Supports MDX, markdown,
   and HTML output.
   Use when user says "write blog", "new blog post", "create article",
@@ -284,7 +284,7 @@ Every public statistic must carry three components AT DRAFTING TIME:
 
 2. **Inline citation with publisher and title.** Name both the publisher
    and the document title (or report name), not just a brand. Example:
-   - GOOD: "Ahrefs, AI Overviews CTR update, December 2025"
+   - GOOD: "Ahrefs, [document or report title], 2026"
    - WEAK: "Ahrefs reported..."
 
 3. **URL plus retrieval date in the source block at the bottom of the post.**
@@ -428,13 +428,15 @@ Include aria-label, noscript fallback for AI crawlers. Place after relevant H2, 
 #### 5l. Citation Format
 Inline attribution (always):
 ```markdown
-Organic CTR declined 61% with AI Overviews ([Seer Interactive](https://www.seerinteractive.com/), 2025).
+In February 2026, Seer Interactive's AI Overview CTR tracker reported a 2.4% organic CTR on AI Overview SERPs ([Seer Interactive](https://www.seerinteractive.com/), retrieved YYYY-MM-DD).
 ```
 
 #### 5m. FAQ Section
-Add 3-5 FAQ items with 40-60 word answers. Each answer must contain a statistic.
+Add 3-5 FAQ items with 40-60 word answers when user questions warrant it. Each answer must contain a verified statistic when a relevant source-backed number exists.
 
-For MDX with FAQSchema component:
+FAQPage is an entity/AI-citation signal only, not a Google rich result after 2026-05-07. Do not make FAQ schema a core output or a citation lever. Prioritize Article/BlogPosting + Person + Organization + BreadcrumbList; emit FAQPage only as optional entity markup when the platform already supports it.
+
+For MDX with an optional FAQSchema component:
 ```mdx
 <FAQSchema faqs={[
   { question: "Question?", answer: "40-60 word answer with statistic and source." },
@@ -466,7 +468,7 @@ Before delivering, verify:
 4. 2-4 charts with type diversity
 5. 3-5 inline images with descriptive alt text
 6. Cover image present in frontmatter (coverImage + ogImage)
-7. FAQ section present with 3-5 items
+7. FAQ section present with 3-5 items when warranted by user questions
 8. Heading hierarchy is clean (H1 -> H2 -> H3)
 9. Meta description is 150-160 chars with a stat
 
@@ -538,7 +540,7 @@ Summary template:
 
 ### Structure
 - [N] H2 sections with answer-first formatting
-- [N] FAQ items with schema
+- [N] FAQ items; FAQPage emitted only as optional entity markup if appropriate
 - Word count: ~[N] words
 - Estimated reading time: [N] min
 

@@ -1,15 +1,15 @@
 <!-- (c) Daniel Agrici, FLOW (https://github.com/AgriciDaniel/flow), CC BY 4.0 -->
 <!-- Synced from FLOW on 2026-04-27 -->
 ---
-title: "Visiblity Prompt"
-description: "Visiblity Prompt"
+title: "Visibility Prompt"
+description: "Visibility Prompt"
 updated: 2026-04-25
 tags:
   - prompts
   - optimize
 ---
 
-# Visiblity Prompt
+# Visibility Prompt
 
 ## Use This When
 
@@ -63,8 +63,8 @@ Expected output: a prioritized rewrite brief, facts to reconcile, internal links
 ## See Also
 
 - [Prompt Library](../README.md)
-- [FLOW Framework](../../01-framework/flow-framework.md)
-- [Bibliography](../../10-references/bibliography.md)
+- [FLOW Framework](../../flow-framework.md)
+- [Bibliography](../../bibliography.md)
 
 ## Source Note
 

@@ -27,7 +27,7 @@ Read the blog post and extract the core content elements:
 
 - **Title** - Original blog post title
 - **Key insights** (5-7) - The most important takeaways, each as a standalone statement
-- **Statistics** - All sourced data points with attribution
+- **Verified statistics** - Only source-backed data points with attribution; unsourced numbers cannot be reused
 - **Quotes** - Any notable quotations or expert statements
 - **Main argument** - The central thesis in 1-2 sentences
 - **TL;DR** - A 2-3 sentence summary that delivers standalone value
@@ -52,15 +52,17 @@ skip this step and generate for that platform only.
 
 Generate a complete thread optimized for Twitter/X engagement:
 
+Hard stat rule for every platform: reuse only verified, source-backed statistics extracted from the source post. If a platform format asks for a statistic and no verified stat fits, use a qualitative insight instead of inventing or rounding a number.
+
 **Hook tweet** (tweet 1):
-- Open with a curiosity gap or bold statistic
+- Open with a curiosity gap or verified statistic
 - Must be under 280 characters
 - Should make someone stop scrolling
-- Pattern: "[Surprising stat or contrarian take]. Here's what [audience] needs to know:"
+- Pattern: "[Surprising verified stat or contrarian take]. Here's what [audience] needs to know:"
 
 **Insight tweets** (tweets 2-6):
 - One key point per tweet, each delivering standalone value
-- Include a statistic with source where possible
+- Include a verified, source-backed statistic where possible
 - Use line breaks for readability
 - Each tweet should work even if read in isolation
 
@@ -92,7 +94,7 @@ Adapt the blog for LinkedIn's professional audience and format:
   generous line breaks between points
 - Numbered lists for key takeaways
 - Short paragraphs (1-3 sentences each)
-- Include 2-3 key statistics with sources
+- Include 2-3 verified, source-backed statistics
 - More personal and opinion-led than the original blog
 
 **Closing:**
@@ -110,7 +112,7 @@ Generate a complete video script structured for retention:
 
 **Hook** (0-15 seconds):
 - Bold statement or surprising question drawn from the blog's strongest insight
-- Pattern: "Did you know that [shocking stat]? Today I'm going to show you [promise]."
+- Pattern: "Did you know that [verified stat]? Today I'm going to show you [promise]."
 - Must grab attention before viewers click away
 
 **Intro** (15-60 seconds):
@@ -121,7 +123,7 @@ Generate a complete video script structured for retention:
 
 **Main content** (3-5 talking points):
 - Derived from the blog's H2 sections
-- Each section: key point, supporting data, practical example
+- Each section: key point, verified source-backed data, practical example
 - Include visual cues throughout:
   - `[SHOW CHART: description]` - for data visualizations
   - `[CUT TO SCREENCAST]` - for demonstrations
@@ -156,7 +158,7 @@ Reframe the blog content as an authentic community discussion:
 - Lead with a question or interesting observation
 - Share key findings as if reporting results to peers
 - Use Reddit markdown formatting (headers, bullet points, bold)
-- Include 3-5 key data points with sources
+- Include 3-5 verified, source-backed data points
 - End with a discussion prompt: "Has anyone else seen similar results?"
 
 **Self-promotion compliance:**
@@ -186,7 +188,7 @@ Generate a concise newsletter section optimized for email engagement:
 
 **Body:**
 - **TL;DR** (2-3 sentences): Standalone summary with the key takeaway
-- **3 key takeaways** (bullet points): Each with a statistic and source
+- **3 key takeaways** (bullet points): Each with a verified statistic and source when available
 - **CTA**: Clear link to the full blog post
   - Button text: "Read the full analysis" or similar action-oriented phrase
 

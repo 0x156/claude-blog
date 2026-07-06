@@ -201,6 +201,12 @@ Read the persona JSON and confirm activation. Print a summary of the key constra
 that will be enforced. The persona stays active for the current conversation session.
 Blog-write and blog-rewrite check for the active persona before generating content.
 
+Known scorer limitation: `scripts/analyze_blog.py` currently scores readability
+against the consumer band regardless of the active persona. Activating a persona
+with `/blog persona use <name>` changes writer and rewriter guidance, but it does
+not change the analyzer readability score yet. State this honestly if the user
+expects the score to move after persona activation.
+
 ## Error Handling
 
 - **Invalid tone values**: If a user provides values outside 0.0-1.0, clamp to the nearest valid bound and warn

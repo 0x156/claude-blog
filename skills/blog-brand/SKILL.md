@@ -53,9 +53,14 @@ Ask:
 - **Problems the reader is actively trying to solve** (3 to 5 bullets)
 - **Common misconceptions the audience holds** (used to anchor information gain)
 
-### Step 2: Positioning
+### Step 2: Positioning and Canonical Entity
 
 Ask:
+- **Official entity name** (legal or public brand name)
+- **Homepage URL** (canonical brand front door)
+- **Logo URL or file path** (preferred square or SVG asset)
+- **sameAs profiles** (LinkedIn, X, YouTube, Crunchbase, GitHub, or other official profiles)
+- **Wikidata Q-ID** if one exists; leave blank if not notable
 - **One-sentence brand mission** (what the brand helps people do)
 - **Distinctive point of view** (the contrarian or non-obvious belief that shapes content)
 - **What this brand is NOT** (anti-positioning, what to never be confused with)
@@ -114,6 +119,13 @@ Write to project root as:
 
 ## Positioning
 
+- **Official entity name**: [brand/entity]
+- **Homepage**: [canonical URL]
+- **Logo**: [URL or file path]
+- **sameAs profiles**:
+  - [profile URL 1]
+  - [profile URL 2]
+- **Wikidata Q-ID**: [QID or none]
 - **Mission**: [one sentence]
 - **Distinctive POV**: [contrarian or non-obvious belief]
 - **What we are NOT**: [anti-positioning]

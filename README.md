@@ -459,6 +459,7 @@ Detailed documentation is in [`docs/`](docs/):
 - [Templates](docs/TEMPLATES.md): Template reference and customization.
 - [Troubleshooting](docs/TROUBLESHOOTING.md): Common issues and fixes.
 - [MCP Integration](docs/MCP-INTEGRATION.md): Optional MCP server setup.
+- [Demo](docs/DEMO.md): Worked end-to-end example.
 
 ## How to cite
 

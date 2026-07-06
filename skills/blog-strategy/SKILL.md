@@ -4,7 +4,7 @@ description: >
   Blog strategy development including topic cluster architecture with
   hub-and-spoke design, audience mapping, competitive landscape analysis,
   AI citation surface strategy across ChatGPT/Perplexity/AI Overviews,
-  distribution channel planning (YouTube, Reddit, review platforms for GEO),
+  distribution channel planning (YouTube, Reddit, review platforms for AI-citation SEO),
   content scoring targets, measurement framework, and content differentiation
   through original research and first-hand experience.
   Use when user says "blog strategy", "content strategy", "blog positioning",
@@ -19,7 +19,7 @@ license: MIT
 Develops comprehensive blog strategies that build topical authority for
 Google rankings while establishing brand presence for AI citation platforms.
 Includes topic cluster architecture, AI citation surface strategy, content
-scoring targets, and GEO-specific optimization plans.
+scoring targets, and AI-citation SEO plans.
 
 **Research discipline references (v1.8.0)**:
 - `skills/blog/references/research-quality.md` - 5-dim rubric, pre-flight trap classes, cross-source clustering, freshness floors
@@ -160,8 +160,7 @@ Reference: `references/internal-linking.md` for hub-and-spoke model and anchor t
 
 ### Step 5: Differentiation Strategy
 
-The December 2025 Core Update rewards first-hand experience. Plan
-how to demonstrate genuine expertise:
+Use the 2026 update timeline as context, not a one-update tactic: May 2026 is the latest core update, March 2026 had core and spam updates, and June 2026 had a spam update. Since Dec 2025, E-E-A-T applies to all competitive queries. Plan how to demonstrate genuine expertise:
 
 | Signal Type | Implementation |
 |-------------|---------------|
@@ -174,9 +173,7 @@ how to demonstrate genuine expertise:
 
 ### Step 5.5: AI Citation Surface Strategy
 
-Plan how to maximize AI citation across platforms. 80% of LLM citations
-come from outside the top 100 organic results. Traditional SEO alone
-is insufficient.
+Plan how to maximize AI citation across platforms as part of SEO. Off-site entity authority and brand presence influence AI citations, so classic on-page SEO alone is insufficient.
 
 #### On-Site Optimization
 
@@ -184,9 +181,9 @@ Structure every piece of content for AI citability:
 - Every H2 opens with an answer-first paragraph (40-60 words with stat + source)
 - **Citation capsules**: 40-60 word self-contained passages per H2 section
 - **Q&A format**: 60-70% of H2 headings phrased as questions
-- **FAQ sections** with schema markup on every post
+- **FAQ sections** only when user questions warrant them; FAQPage is optional entity markup, not a Google rich result
 - **Entity clarity**: consistent terminology throughout (no synonym variation for key concepts)
-- **Structured data**: JSON-LD for Article, FAQ, HowTo, and Review schemas
+- **Structured data**: JSON-LD for Article/BlogPosting, Person, Organization, and BreadcrumbList; add Review/Product/Event only when genuinely applicable. FAQPage is optional entity markup only; do not use HowTo as a rich-result tactic.
 
 #### Off-Site Presence (Critical: 88-92% of AI citations from off-site)
 
@@ -205,7 +202,7 @@ Structure every piece of content for AI citability:
 - 80% of LLM citations come from outside the top 100 organic results
 - Monitor monthly: search 10-20 target queries on each platform, log citations
 
-Reference: `references/geo-optimization.md` for detailed GEO tactics.
+Reference: `references/geo-optimization.md` for detailed AI-citation SEO tactics.
 
 ### Step 5.6: Content Scoring Targets
 
@@ -217,17 +214,17 @@ Set quality standards that all blog content must meet:
 |--------|--------|-------------|
 | Blog quality score | 80+ | `/blog analyze` |
 | E-E-A-T compliance | Named author + 8+ tier 1-3 sources | Manual review |
-| AI citation readiness | Answer-first + FAQ + citation capsules | `/blog analyze` |
+| AI citation readiness | Answer-first + optional FAQ + citation capsules | `/blog analyze` |
 | Visual minimum | 2+ charts + 3+ images per post | Asset count |
 | Internal links | 5+ per post (within cluster) | Link audit |
-| Schema markup | Article + FAQ + relevant type | Structured data test |
+| Schema markup | Article/BlogPosting + Person + Organization + BreadcrumbList | Structured data test |
 | Word count | 1,500+ for spokes, 3,000+ for pillars | Word count tool |
 ```
 
 Every post should be scored before publishing. Posts below 80 quality score
 should be revised before going live.
 
-### Step 5.7: GEO-Specific Strategy
+### Step 5.7: AI-Citation SEO Strategy
 
 Plan passage-level citability across all content, tailored to each AI platform.
 
@@ -235,12 +232,12 @@ Plan passage-level citability across all content, tailored to each AI platform.
 |-------------|--------|-------------------|
 | ChatGPT | Recency, brand authority, conversational clarity | Update posts within 30 days, clear entity definitions |
 | Perplexity | Citations, source diversity, structured answers | Tier 1-3 sources, numbered lists, data tables |
-| Google AI Overviews | Structured data, schema, topical authority | FAQ schema, HowTo schema, complete topic clusters |
+| Google AI Overviews | Topical authority, source quality, entity clarity, eligible Article/entity schema | Complete topic clusters, answer-first sections, Article/BlogPosting + Person + Organization + BreadcrumbList |
 
 Strategy by platform:
 - **ChatGPT**: Ensure brand name appears consistently, maintain 30-day freshness, use conversational answer-first formatting
 - **Perplexity**: Maximize external citation count (8+ per post), use structured data tables, cite authoritative sources
-- **AI Overviews**: Complete topic cluster coverage, implement all relevant schema types, achieve featured snippet format
+- **AI Overviews**: Complete topic cluster coverage, validate Article/entity schema, use featured-snippet-friendly formatting, and track Search Console gen-AI visibility where available
 
 Reference: `references/geo-optimization.md` for platform-specific optimization guides.
 
@@ -318,7 +315,7 @@ Output format:
 ## AI Citation Surface Strategy
 [On-site optimization checklist]
 [Off-site presence plan with priority channels]
-[Platform-specific GEO tactics]
+[Platform-specific AI-citation SEO tactics]
 
 ## Content Quality Standards
 [Scoring targets for all content]
@@ -358,7 +355,7 @@ Output format:
 ## Reference Documents
 - `references/internal-linking.md` - Hub-and-spoke model, anchor text rules
 - `references/distribution-playbook.md` - Channel tactics and templates
-- `references/geo-optimization.md` - GEO platform-specific optimization
+- `references/geo-optimization.md` - AI-citation SEO tactics (legacy filename)
 - `references/content-templates.md` - 12 content templates with structures
 
 ## Next Steps

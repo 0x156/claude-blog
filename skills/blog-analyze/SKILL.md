@@ -54,7 +54,7 @@ Read the blog post and extract:
 - Images (count, alt text presence, format)
 - Charts/SVGs (count, type diversity)
 - Links (internal, external, broken)
-- FAQ section presence
+- Optional FAQ section presence
 - Schema markup (types present)
 - Meta tags (title, description, OG tags, twitter cards)
 - Sentence lengths for burstiness analysis
@@ -110,7 +110,7 @@ When scoring source citations under E-E-A-T, evaluate whether each public statis
 #### Technical Elements (15 points)
 | Check | Points | Pass Criteria |
 |-------|--------|---------------|
-| Schema markup (3+ types = bonus) | 4 | BlogPosting + FAQ + Person minimum |
+| Schema markup validity | 4 | Article/BlogPosting + Person + Organization + BreadcrumbList priority; FAQPage optional entity markup only |
 | Image optimization | 3 | AVIF/WebP, descriptive alt text, lazy except LCP |
 | Structured data elements | 2 | Tables, lists, comparison blocks |
 | Page speed signals | 2 | LCP < 2.5s, no render-blocking JS |
@@ -121,7 +121,7 @@ When scoring source citations under E-E-A-T, evaluate whether each public statis
 | Check | Points | Pass Criteria |
 |-------|--------|---------------|
 | Passage-level citability (120-180 words) | 4 | Self-contained sections with stat + source |
-| Q&A formatted sections | 3 | 60-70% of H2s as questions, FAQ present |
+| Q&A formatted sections | 3 | 60-70% of H2s as questions; optional FAQ when useful |
 | Entity clarity | 3 | Unambiguous topic entity, consistent terminology |
 | Content structure for extraction | 3 | Answer-first, tables with thead, comparison formats |
 | AI crawler accessibility | 2 | SSR/SSG, no JS-gated content |

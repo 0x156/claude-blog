@@ -64,8 +64,8 @@ discovered blog files:
 
 #### Schema Validation Agent
 - Detect structured data across all posts
-- Validate BlogPosting schema completeness
-- Check FAQ schema presence and format
+- Validate Article/BlogPosting, Person, Organization, and BreadcrumbList schema completeness
+- If FAQPage exists, validate it as optional entity markup only, not a Google rich result
 - Verify dateModified matches lastUpdated frontmatter
 - Flag missing or malformed schema
 
@@ -207,7 +207,7 @@ After saving, inform the user:
 - Report location: `[project-root]/blog-audit-report.md`
 - Summary of findings (total posts, average score, critical issues count)
 - Suggest running `/blog analyze <file>` on the lowest-scoring post first
-- Suggest running `/blog geo <file>` for AI citation optimization on key posts
+- Suggest running `/blog flow optimize` for AI-citation SEO checks on key posts
 
 ## Cross-reference
 

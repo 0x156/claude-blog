@@ -95,7 +95,8 @@ Progress: `Phase 1: Configuration complete, [N] languages selected ([codes])`
 
 Invoke the `blog-write` sub-skill (route through `/blog write` so all
 existing rules apply: template auto-selection, sourced statistics, citation
-capsules, FAQ schema, internal-link zones, charts, image embedding). Pass the
+capsules, Article schema priority, FAQPage only as an entity signal when
+visible FAQ content exists, internal-link zones, charts, image embedding). Pass the
 topic and any blog-write parameters surfaced by the user.
 
 Save the original to `multilingual/{source-lang}/{slug}.{ext}`.
@@ -146,13 +147,15 @@ Copy-paste ready tags for `<head>`:
 <link rel="alternate" hreflang="{source}" href="{source-url}" />
 <link rel="alternate" hreflang="{lang-1}" href="{lang-1-url}" />
 <link rel="alternate" hreflang="{lang-2}" href="{lang-2-url}" />
-<link rel="alternate" hreflang="x-default" href="{source-url}" />
+<link rel="alternate" hreflang="x-default" href="{fallback-url}" />
 ```
 
 Rules (mirrored from `seo-hreflang`):
 
 - Every page references all alternates including itself (self-referencing).
-- `x-default` points to the source-language version.
+- `x-default` points to the unmatched-language fallback, such as a global
+  language selector or default market page. It does not have to be the source
+  language version.
 - All URLs use the same protocol (HTTPS) and trailing-slash convention.
 - Bidirectional: every relationship is reciprocal.
 
@@ -168,7 +171,7 @@ Save to `multilingual/hreflang-tags.html`.
     <loc>{source-url}</loc>
     <xhtml:link rel="alternate" hreflang="{source}" href="{source-url}" />
     <xhtml:link rel="alternate" hreflang="{lang-1}" href="{lang-1-url}" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="{source-url}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="{fallback-url}" />
   </url>
   <!-- Repeat one <url> block per language version -->
 </urlset>
@@ -203,18 +206,17 @@ Machine-readable mapping for CMS integration:
   ],
   "hreflang": {
     "method": "html",
-    "x-default": "en"
+    "x-default": "fallback-url"
   }
 }
 ```
 
 Save to `multilingual/hreflang-map.json`.
 
-#### 5d. Localized Schema (Optional)
+#### 5d. Localized Article Schema (Required)
 
-If the user asks, or if a frontmatter `schema: true` flag is present, attach
-or update JSON-LD on every language version with `inLanguage` and
-`translationOfWork` fields:
+Attach or update Article/BlogPosting JSON-LD on every language version with
+`inLanguage` and `translationOfWork` fields:
 
 ```json
 {
@@ -232,8 +234,10 @@ or update JSON-LD on every language version with `inLanguage` and
 }
 ```
 
-Use the existing `/blog schema` sub-skill if richer schema (FAQ, Person,
-Breadcrumb) is wanted on each version.
+Use the existing `/blog schema` sub-skill for richer schema on each version.
+Keep Article/BlogPosting, Person, Organization, and BreadcrumbList as the
+priority stack. FAQPage is optional and only for visible FAQ content as an
+entity and AI-citation signal, not a Google rich result target.
 
 ### Phase 6: Delivery Summary
 
@@ -255,7 +259,7 @@ Breadcrumb) is wanted on each version.
 - multilingual/hreflang-tags.html
 - multilingual/hreflang-sitemap.xml
 - multilingual/hreflang-map.json
-- Localized schema embedded per version (if requested)
+- Localized Article schema embedded per version
 
 ### Total
 - [N] posts in [N] languages
@@ -287,7 +291,7 @@ Breadcrumb) is wanted on each version.
 | `blog-write` missing | Error: "This skill requires `blog-write`. Reinstall claude-blog." |
 | One translation fails | Complete the rest, report partial results, suggest a retry command |
 | Source language equals a target | Skip that target, log a notice |
-| More than 10 target languages | Warn about wall-clock time, proceed if confirmed |
+| 10 or more target languages | Stop before writing. Explain scaled-content-abuse risk and require reviewed batches of at most 9 target languages |
 | `seo-hreflang` not installed | Use the self-contained generator, note it in the summary |
 
 ## Commands Recap

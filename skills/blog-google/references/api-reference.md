@@ -184,7 +184,7 @@ Each entity includes `name`, `type`, `salience` (0-1), `sentiment`, and `metadat
 
 ## YouTube Data API v3
 
-YouTube mentions correlate strongly with AI citation visibility (GEO research).
+YouTube mentions can support AI citation visibility as part of SEO research.
 
 | Method | Quota Cost | Description |
 |--------|-----------|-------------|

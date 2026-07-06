@@ -6,7 +6,7 @@ description: >
   chart suggestions, word count targets, internal linking architecture,
   template recommendations (12 types), TL;DR drafts, citation capsule
   planning, information gain prompts, and multi-channel distribution plans.
-  Briefs are optimized for Google rankings and AI citations (GEO/AEO). Use
+  Briefs are optimized for Google rankings and AI citation visibility as part of SEO. Use
   when user says "content brief", "blog brief", "write brief", "outline blog",
   "plan blog post", "blog outline", "content outline".
 user-invokable: true
@@ -92,7 +92,7 @@ Analyze the top 3-5 ranking pages for the target keyword:
 3. **Visual elements**: Do competitors use charts, images, videos?
 4. **Content gaps**: What do all competitors miss?
 5. **Freshness**: How recently were they updated?
-6. **Schema**: Do they use FAQ or other rich results? (Note: HowTo deprecated Sept 2023)
+6. **Schema**: Do they validate Article/BlogPosting, Person, Organization, and BreadcrumbList? FAQPage is not a Google rich result after 2026-05-07; HowTo rich results were removed in 2023.
 7. **Template pattern**: What content format do top results use?
 
 ### Step 4: Statistics Research
@@ -131,7 +131,7 @@ what the searcher wants]
 - **H2 sections**: [6-8]
 - **Images**: 3-5 from Pixabay/Unsplash
 - **Charts**: 2-4 via built-in blog-chart (diverse types)
-- **FAQ items**: 3-5
+- **FAQ items**: Optional 3-5 when People Also Ask or user questions warrant them; not a Google rich-result target
 
 ## Recommended Title
 [Question-format title including primary keyword, under 60 chars]
@@ -178,7 +178,7 @@ Alternative titles:
 
 [... repeat for 6-8 sections ...]
 
-### FAQ Section (3-5 items)
+### Optional FAQ Section (3-5 items)
 1. [Question]: Answer with [stat + source]
 2. [Question]: Answer with [stat + source]
 3. [Question]: Answer with [stat + source]

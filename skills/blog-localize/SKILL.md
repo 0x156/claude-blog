@@ -91,10 +91,16 @@ Swap foreign examples for local equivalents:
 
 #### 3b. Statistics Localization
 
-- Search for equivalent local statistics (`[topic] statistik [country] 2025
-  2026`).
-- If local data exists, swap the source and the figure together. Keep one
-  named source per claim.
+- Use primary or high-quality local sources for replacement statistics:
+  national statistics offices, regulators, official industry bodies, academic
+  datasets, or named research reports with methodology.
+- Do not rely on generic WebSearch snippets as evidence. Fetch the cited page,
+  verify the figure and context, and record the source URL and date.
+- If local data exists with comparable methodology, swap the source and the
+  figure together. Keep one named source per claim.
+- If local data is related but uses a different methodology or timeframe, do
+  not silently swap it. Keep the original claim scoped, or rewrite the claim to
+  match the local source.
 - If not, keep the original stat but mark its geographic scope ("In the
   US, ...").
 - Never strip source attribution.
@@ -144,7 +150,9 @@ substitution tables. Common examples:
 - CTAs match cultural expectations.
 - Formal or informal address is consistent end to end.
 - Content still supports the same argument as the original.
-- SEO elements remain optimized (keywords, meta, headings).
+- SEO elements remain optimized beyond keyword placement: localized title and
+  meta, heading intent, slug, alt text, internal-link anchors, same-language
+  canonical, hreflang compatibility, and schema `inLanguage`.
 - Word count is within the expected ratio for the language pair.
 
 ### Phase 5: Save and Report

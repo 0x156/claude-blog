@@ -32,7 +32,7 @@ Local-SEO prompts are excluded by design. See claude-seo for those.
 | optimize | step-2-the-follow-up-qualifying-prompt.md | Step 2: The Follow-Up Qualifying Prompt | Step 2: The Follow-Up Qualifying Prompt |
 | optimize | technical-audit-prompt.md | Technical Audit Prompt | Technical Audit Prompt |
 | optimize | visibility-follow-up-prompt.md | Visibility Follow Up Prompt | Visibility Follow Up Prompt |
-| optimize | visiblity-prompt.md | Visiblity Prompt | Visiblity Prompt |
+| optimize | visibility-prompt.md | Visibility Prompt | Visibility Prompt |
 | win | bofu-page-brief-generator.md | BOFU Page Brief Generator | BOFU Page Brief Generator |
 | win | conversion-audit-prompt.md | Conversion Audit Prompt | Conversion Audit Prompt |
 | win | dual-surface-content-scorecard.md | Dual-Surface Content Scorecard | Dual-Surface Content Scorecard |

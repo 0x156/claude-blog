@@ -253,7 +253,9 @@ After each post is written:
 
 ### Step 6. Failure handling
 
-If `blog-write` fails for a single post (timeout, error, or quality gate fail), log the failure and continue with remaining posts. Do not abort the cluster. The scorecard will mark the gap and recommend a retry with `/blog write` invoked manually for that post.
+If `blog-write` returns a quality-gate failure for any post, stop the batch immediately. Save progress, mark the failed post and all remaining posts as skipped, and tell the user to inspect or retry the failed post manually before continuing. Do not keep generating 5 to 15 posts after a quality failure, because that can create scaled-content-abuse risk.
+
+If `blog-write` fails before content is generated because of a timeout or runtime error, log the failure in the scorecard and stop unless the user explicitly resumes after checking the cause.
 
 If the user cancels mid-execution, save progress and note completed posts. On the next `/blog cluster execute`, detect already-written files and resume from the next unwritten post.
 

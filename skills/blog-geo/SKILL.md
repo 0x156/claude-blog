@@ -1,9 +1,9 @@
 ---
 name: blog-geo
 description: >
-  AI citation readiness audit ONLY (does not touch Google rankings, use
-  blog-rewrite for combined Google+AI work). Use whenever the user wants
-  their content to rank in ChatGPT, Perplexity, Claude, Gemini, or Google
+  AI citation readiness audit as part of SEO, covering classic Google search
+  and AI search surfaces together. Use whenever the user wants their content
+  to rank or be cited in ChatGPT, Perplexity, Claude, Gemini, or Google
   AI Overviews. AI citation optimization audit scoring blog posts for
   ChatGPT, Perplexity, and Google AI Overview citability. Evaluates
   passage-level citability, Q&A formatting, entity clarity, structured
@@ -19,8 +19,13 @@ license: MIT
 # Blog GEO: AI Citation Optimization Audit
 
 Scores blog posts for AI citation readiness across ChatGPT, Perplexity, and
-Google AI Overviews. Generates citation capsules and a 0-100 AI Citation
-Readiness score with platform-specific recommendations.
+Google AI Overviews as one SEO workflow, not a separate discipline. Generates
+citation capsules and a 0-100 AI Citation Readiness score with platform-specific
+recommendations.
+
+Google's 2026-05-15 guidance frames generative-AI optimization as SEO: no
+special markup, llms.txt requirement, or separate GEO/AEO playbook is required
+for Google visibility. Use GEO/AEO as shorthand labels only.
 
 ## Cross-reference
 
@@ -35,9 +40,10 @@ Reference these benchmarks throughout the audit:
 - Only 11% of domains cited by both ChatGPT and Perplexity (Digital Bloom, domain-level)
 - 80% of LLM citations don't rank in Google's top 100 (Ahrefs)
 - Brands 6.5x more likely cited through third-party sources (AirOps)
-- 120-180 word sections get 70% more ChatGPT citations (SE Ranking, Nov 2025)
+- Self-contained 130-170 word answer passages are a practitioner heuristic
 - Comparison tables with `<thead>` achieve 47% higher AI citation rates (directional)
 - Content freshness: 76.4% of top citations updated within 30 days (Ahrefs, ~17M citations)
+- AI Overviews coverage is methodology-dependent: cite a range, not a fixed point
 
 ## Audit Process
 
@@ -159,7 +165,7 @@ Evaluate the post for each AI platform's citation preferences:
 #### Google AI Overviews
 - Favors Google properties (23% of citations)
 - High Domain Rating strongly correlated with citation
-- Present in 49% of SERPs
+- Coverage varies by methodology, roughly 15.69% to 48-60% in recent studies
 - Prefers content that already ranks well organically
 
 For each platform, provide:

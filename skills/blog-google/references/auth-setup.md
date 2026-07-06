@@ -29,7 +29,7 @@ Navigate to **APIs & Services > Library** and enable:
 | Google Search Console API | Search Analytics, URL Inspection, Sitemaps |
 | Web Search Indexing API | Indexing API v3 (new post notifications) |
 | Google Analytics Data API | GA4 organic traffic analysis |
-| YouTube Data API v3 | Video research for GEO/AEO optimization |
+| YouTube Data API v3 | Video research for AI-search SEO visibility |
 | Cloud Natural Language API | Entity salience, sentiment, classification |
 | Knowledge Graph Search API | Entity/brand verification |
 
