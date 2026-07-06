@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes._
 
+## [1.10.0] - 2026-07-06
+
+### Knowledge refresh
+- Modernized 2026 Google, E-E-A-T, GEO, and schema knowledge across 8 reference docs to mid-2026 against a verified primary-source substrate: zero-click 68% US, AI Overview CTR partial rebound (cited pages get +120% clicks per impression), FAQ rich results retired so Article schema is now the priority, AI Mode 1B users but only about 0.34% of query volume, the full 2026 algorithm timeline (Mar and May core, Mar and Jun spam), and QRG unchanged since 2025-09-11.
+
+### Added (Phase 2)
+- AI Citation Probability Scoring (`scripts/ai_citation_score.py`): 0-100 per-engine (AI Overview, Perplexity, ChatGPT) citation likelihood, surfaced through blog-geo.
+- Writing Style Learning (`/blog style learn`, `skills/blog-style`): author voice profile from 5 to 10 posts.
+- Content Decay Detection (`/blog decay`, `skills/blog-decay`): flags 20%+ quarter-over-quarter traffic decline from GSC exports with refresh, consolidate, or prune actions.
+- Pre-commit quality gate (`scripts/quality_gate.py` + `.pre-commit-config.yaml`): blocks commits of blog posts scoring below 70.
+
+### Changed
+- Applied 13 Dependabot dependency bumps (pyproject dev deps, blog-google, blog-audio, and blog-notebooklm requirements, CI action SHAs).
+- Component counts refreshed across docs: 32 sub-skills, 13 root scripts, 206 tests.
+
 ## [1.9.1] - 2026-05-18
 
 ### Security hardening pass (11 commits)
