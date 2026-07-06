@@ -269,3 +269,15 @@ If blog-google credentials include Tier 1 (GSC) and the post has a published URL
 3. Check indexation: `python3 skills/blog-google/scripts/run.py gsc_inspect <url> --json`
 4. Report indexation status, canonical selection, mobile usability.
 5. Falls back silently if not configured.
+
+### Optional: AI Citation Probability Score
+
+For a per-engine likelihood that the post gets cited by AI answer engines (distinct
+from the 15-point AI Citation Readiness category scored by `/blog analyze`), run:
+
+```bash
+python3 scripts/ai_citation_score.py <file> --format markdown
+```
+
+It returns a 0-100 overall score plus per-engine subscores for Google AI Overview,
+Perplexity, and ChatGPT, a factor breakdown, and up to three highest-impact fixes.

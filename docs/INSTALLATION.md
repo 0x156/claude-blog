@@ -324,8 +324,8 @@ chmod +x uninstall.sh
 This removes:
 
 - `~/.claude/skills/blog/` (main skill, references, templates, scripts)
-- `~/.claude/skills/blog-*/` (all 29 sub-skills: write, rewrite, analyze, brief, calendar, strategy, outline, seo-check, schema, repurpose, geo, audit, chart [internal], image, cannibalization, factcheck, persona, taxonomy, notebooklm, audio, google, cluster, flow, multilingual, translate, localize, locale-audit, brand, discourse)
-- `~/.claude/scripts/` (9 root-level scripts: analyze_blog, blog_preflight, blog_render, cognitive_load, discourse_research, generate_hero, load_untrusted_root, lint_prose, sync_flow)
+- `~/.claude/skills/blog-*/` (all 31 sub-skills: write, rewrite, analyze, brief, calendar, strategy, outline, seo-check, schema, repurpose, geo, audit, chart [internal], image, cannibalization, factcheck, persona, taxonomy, notebooklm, audio, google, cluster, flow, multilingual, translate, localize, locale-audit, brand, discourse, style, decay)
+- `~/.claude/scripts/` (13 root-level scripts: analyze_blog, blog_preflight, blog_render, cognitive_load, discourse_research, generate_hero, load_untrusted_root, lint_prose, sync_flow, ai_citation_score, content_decay, quality_gate, style_learn)
 - `~/.claude/agents/blog-*.md` (all 5 agents: blog-researcher, blog-writer, blog-seo, blog-reviewer, blog-translator)
 
 ### Manual Uninstall
@@ -338,7 +338,7 @@ rm -rf ~/.claude/skills/blog-*
 # All 5 agents
 rm -f ~/.claude/agents/blog-{researcher,writer,seo,reviewer,translator}.md
 
-# All 9 root-level scripts (only if no other plugin uses ~/.claude/scripts/)
+# All 13 root-level scripts (only if no other plugin uses ~/.claude/scripts/)
 rm -f ~/.claude/scripts/{analyze_blog,blog_preflight,blog_render,cognitive_load,discourse_research,generate_hero,load_untrusted_root,lint_prose,sync_flow}.py
 ```
 

@@ -50,7 +50,7 @@ data flow, scoring methodology, file conventions, and extension points.
        |          |
        v          v
 +------------------+  +------------------------+
-|  5 Subagents     |  |  9 root-level Scripts  |
+|  5 Subagents     |  |  13 root-level Scripts  |
 |  agents/*.md     |  |  scripts/*.py          |
 |                  |  |                        |
 |  blog-researcher |  |  analyze_blog          |
@@ -487,11 +487,11 @@ After installation, `claude-blog` occupies this structure inside `~/.claude/`:
     └── blog-translator.md              # v1.7.0
 ```
 
-**Component counts (v1.9.0)**: 1 orchestrator + 29 sub-skills = 30 skill dirs
+**Component counts (v1.9.0)**: 1 orchestrator + 31 sub-skills = 32 skill dirs
 total, 5 agents (blog-researcher, blog-writer, blog-seo, blog-reviewer,
 blog-translator), 21 references in `skills/blog/references/` (plus per-sub-skill
 references and 30 synced FLOW prompts under `skills/blog-flow/references/`),
-12 content templates, 9 root-level scripts (`scripts/analyze_blog.py`,
+12 content templates, 13 root-level scripts (`scripts/analyze_blog.py`,
 `blog_preflight.py`, `blog_render.py`, `cognitive_load.py`,
 `discourse_research.py`, `generate_hero.py`, `load_untrusted_root.py`,
 `lint_prose.py`, `sync_flow.py`) plus per-sub-skill scripts under

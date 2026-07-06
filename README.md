@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-MIT-green" alt="License: MIT">
   <img src="https://img.shields.io/badge/Python-3.11%2B-blue" alt="Python 3.11+">
   <img src="https://img.shields.io/badge/Sub--Skills-30-orange" alt="Sub-Skills">
-  <img src="https://img.shields.io/badge/Tests-187%20passing-brightgreen" alt="Tests: 187 passing">
+  <img src="https://img.shields.io/badge/Tests-206%20passing-brightgreen" alt="Tests: 206 passing">
 </p>
 
 <p align="center">
@@ -36,7 +36,7 @@
 
 ## Key takeaways
 
-- **What it is**: a full-lifecycle blog engine: 30 sub-skills, 5 agents, 12 content templates, 21 on-demand references, 9 root-level Python scripts, 160 passing tests.
+- **What it is**: a full-lifecycle blog engine: 32 sub-skills, 5 agents, 12 content templates, 21 on-demand references, 13 root-level Python scripts, 206 passing tests.
 - **Who it is for**: solo bloggers, marketing teams, agencies, and Claude Code skill builders who want production-grade content output, not one-shot drafts.
 - **Core promise**: every draft passes a 5-gate delivery contract (Capability, Format, Visual, Content Review, Asset Integrity) or the writer iterates up to 3 times before escalating to you.
 - **What makes it different**: it eats its own dogfood. Version-coherence is CI-enforced across 14 surfaces, prose-hygiene runs on every PR, three mutation-tested regression suites lock the v1.9.0 fixes, and `blog-reviewer` is a BLOCKING gate, not advisory.
@@ -50,7 +50,7 @@ claude-blog serves three audiences with one engine:
 
 **Marketing teams and agencies** managing many posts across topics, languages, and platforms. The skill ships topic-cluster planning (`/blog cluster`), multilingual one-command publishing (`/blog multilingual`), cannibalization detection (`/blog cannibalization`), and persona-driven voice profiles (`/blog persona`) so the same engine produces consistent content across the team.
 
-**Claude Code skill builders** who want a production-grade reference for skill architecture, agent dispatch, delivery contracts, and CI gating. The repo demonstrates the Agent Skills open standard at Tier 4 complexity with 160 tests, version-coherence enforcement, installer-sync regression tests, and the v1.9.0 5-gate contract pattern. Read the source for inspiration; fork the patterns into your own skills.
+**Claude Code skill builders** who want a production-grade reference for skill architecture, agent dispatch, delivery contracts, and CI gating. The repo demonstrates the Agent Skills open standard at Tier 4 complexity with 206 tests, version-coherence enforcement, installer-sync regression tests, and the v1.9.0 5-gate contract pattern. Read the source for inspiration; fork the patterns into your own skills.
 
 ## What does claude-blog produce?
 
@@ -175,7 +175,7 @@ Restart Claude Code after installation to activate.
 </p>
 
 <p align="center">
-  <img src="assets/diagrams/03-sub-skill-map-B.svg" alt="claude-blog sub-skill ecosystem: orchestrator hub at the center with 30 sub-skills organized into 8 thematic clusters (writing, strategy, quality, AI and search, multilingual, research, media, distribution); panel sizes auto-scale to skill counts" width="100%">
+  <img src="assets/diagrams/03-sub-skill-map-B.svg" alt="claude-blog sub-skill ecosystem: orchestrator hub at the center with 32 sub-skills organized into 8 thematic clusters (writing, strategy, quality, AI and search, multilingual, research, media, distribution); panel sizes auto-scale to skill counts" width="100%">
 </p>
 
 | Command | Description |
@@ -209,7 +209,7 @@ Restart Claude Code after installation to activate.
 | `/blog brand [init\|show\|update]` | Generate BRAND.md + VOICE.md context auto-loaded by all sub-skills |
 | `/blog discourse <topic>` | API-free last-30-days discourse research; produces DISCOURSE.md |
 
-> **30 sub-skill directories total**: 29 user-invokable (28 distinct slash commands + `/blog update` aliased to rewrite) + 1 internal-only (`blog-chart`, invoked by blog-write/blog-rewrite for inline SVG charts). `blog-image` is user-invokable AND callable internally.
+> **32 sub-skill directories total**: 31 user-invokable (30 distinct slash commands + `/blog update` aliased to rewrite) + 1 internal-only (`blog-chart`, invoked by blog-write/blog-rewrite for inline SVG charts). `blog-image` is user-invokable AND callable internally.
 
 ## How does claude-blog compare?
 
@@ -334,17 +334,17 @@ Hero image ladder: Banana MCP, direct Gemini API, premium stock (Unsplash, Pexel
   <img src="assets/diagrams/01-architecture-B.svg" alt="claude-blog system architecture: left-to-right pipeline from user command through orchestrator routing, sub-skill execution, and agent dispatch to the 5-gate delivery contract before reaching the user" width="100%">
 </p>
 
-claude-blog ships as one orchestrator plus 29 sub-skills, 5 agents, 21 references, 12 templates, and 9 root-level scripts. The orchestrator routes user commands to sub-skills, which spawn agents and call scripts via Bash.
+claude-blog ships as one orchestrator plus 31 sub-skills, 5 agents, 21 references, 12 templates, and 13 root-level scripts. The orchestrator routes user commands to sub-skills, which spawn agents and call scripts via Bash.
 
 | Layer | Count | Where |
 |---|---:|---|
-| Sub-skills (user-invokable) | 29 | `skills/blog-*/SKILL.md` |
+| Sub-skills (user-invokable) | 31 | `skills/blog-*/SKILL.md` |
 | Sub-skills (internal) | 1 | `skills/blog-chart/SKILL.md` |
 | Specialized agents | 5 | `agents/blog-*.md` |
 | On-demand references | 21 | `skills/blog/references/*.md` |
 | Content templates | 12 | `skills/blog/templates/*.md` |
 | Root-level Python scripts | 9 | `scripts/*.py` |
-| Tests | 160 | `tests/test_*.py` |
+| Tests | 206 | `tests/test_*.py` |
 
 Full directory tree, data flow diagrams, scoring methodology, and extension points: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -356,7 +356,7 @@ Full directory tree, data flow diagrams, scoring methodology, and extension poin
 
 ### Quality gates (CI-enforced on every PR)
 
-1. **pytest**: 160 tests across security, behavioral, regression, and delivery-contract suites.
+1. **pytest**: 206 tests across security, behavioral, regression, and delivery-contract suites.
 2. **Plugin validation**: `claude plugin validate .` plus hand-rolled JSON/regex checks.
 3. **Stale-path lint**: catches drift in `references/` and `templates/` cross-references.
 4. **Prose hygiene**: `scripts/lint_prose.py` (fence-aware, backtick-aware) enforces the CONTRIBUTING.md no-em-dash, no-en-dash, no-` -- ` rule.
@@ -373,7 +373,7 @@ claude plugin validate .
 ## Frequently Asked Questions
 
 ### What is claude-blog?
-claude-blog is a Claude Code skill suite for writing, optimizing, and auditing blog content. It runs 30 sub-skills and 5 agents through a 5-gate delivery contract so that every article meets a 90/100 quality bar before it reaches you.
+claude-blog is a Claude Code skill suite for writing, optimizing, and auditing blog content. It runs 32 sub-skills and 5 agents through a 5-gate delivery contract so that every article meets a 90/100 quality bar before it reaches you.
 
 ### How is claude-blog different from prompting Claude or ChatGPT directly?
 Direct prompting gives you one draft from one prompt. claude-blog gives you a structured pipeline: research with sourced statistics, outline approval, draft generation, multi-pass quality scoring, AI-content detection, fact verification, schema injection, and a blocking review that iterates up to 3 times before delivery. The skill enforces what a senior editor would otherwise do manually.
@@ -486,7 +486,7 @@ GitHub also surfaces the structured [`CITATION.cff`](CITATION.cff) file via "Cit
 
 Contributions welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for guidelines. Before opening a PR:
 
-1. Run `python -m pytest tests/` (all 160 must pass).
+1. Run `python -m pytest tests/` (all 206 must pass).
 2. Run `python3 scripts/lint_prose.py --root .` (zero violations).
 3. Run `claude plugin validate .` (must pass).
 4. Bump versions coherently if you touch user-visible counts or behavior (see [`docs/PUBLISHING.md`](docs/PUBLISHING.md)).

@@ -1,7 +1,7 @@
 ---
 name: blog
 description: >
-  Full-lifecycle blog engine with 30 sub-skills, 12 content templates, 5-category
+  Full-lifecycle blog engine with 32 sub-skills, 12 content templates, 5-category
   100-point scoring, and 5 specialized agents. Routes user requests to the right
   sub-skill: writing, rewriting, analysis, outlines, audits, schema, charts,
   images, repurposing, AI-citation optimization, FLOW framework prompts,
@@ -61,6 +61,8 @@ Perplexity, Google AI Overviews, Gemini).
 | `/blog localize <file> --locale <code>` | Cultural deep-adaptation (DACH, FR, ES, JA, custom) |
 | `/blog locale-audit <directory>` | Multilingual content QA (completeness, hreflang, parity, freshness) |
 | `/blog flow [find\|optimize\|win\|prompts\|sync]` | FLOW framework prompts (evidence-led, 30 blog-applicable) |
+| `/blog style learn <paths>` | Learn author voice profile from 5-10 posts (feeds blog-write and blog-persona) |
+| `/blog decay <current-gsc> <previous-gsc>` | Detect content decay: flag 20%+ QoQ traffic decline from GSC exports |
 
 ## Orchestration Logic
 
@@ -305,7 +307,7 @@ Templates are in `templates/` and contain section structure, markers, and checkl
 | `blog-localize` | Cultural deep-adaptation per locale (DACH, FR, ES, JA, custom) (v1.7.0) |
 | `blog-locale-audit` | Multilingual content QA (completeness, hreflang, parity, freshness) (v1.7.0) |
 
-Total: 30 sub-skill directories on disk (29 listed above plus this orchestrator `blog/`). 28 are user-facing slash commands; `blog-chart` is internal-only and `blog-image` is also callable internally by `blog-write` and `blog-rewrite`.
+Total: 32 sub-skill directories on disk (31 listed above plus this orchestrator `blog/`). 30 are user-facing slash commands; `blog-chart` is internal-only and `blog-image` is also callable internally by `blog-write` and `blog-rewrite`.
 
 ## Agents
 

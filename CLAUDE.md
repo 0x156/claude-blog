@@ -4,7 +4,7 @@
 
 This repository contains **Claude Blog**, a Tier 4 Claude Code skill for blog content
 creation, optimization, and management. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 30 sub-skills, 5 specialized
+3-layer architecture (directive, orchestration, execution). 32 sub-skills, 5 specialized
 subagents, 12 content templates, and 21 reference docs are dual-optimized for Google rankings
 (December 2025 Core Update, E-E-A-T) and AI citations (GEO/AEO). Includes FLOW framework
 integration, semantic topic-cluster planning + execution, multilingual publishing (Pro Hub
@@ -34,7 +34,11 @@ claude-blog/
   scripts/load_untrusted_root.py     # Code-enforced fence helper for BRAND/VOICE/DISCOURSE (v1.8.3)
   scripts/lint_prose.py              # Fence-aware prose-hygiene linter (v1.8.4; CI-enforced)
   scripts/sync_flow.py               # Pulls FLOW references (stdlib, sandboxed)
-  skills/                            # 30 sub-skills (blog/ is the orchestrator)
+  scripts/ai_citation_score.py       # AI citation probability 0-100 per post (v1.10.0)
+  scripts/content_decay.py           # GSC content-decay detector: 20%+ QoQ decline (v1.10.0)
+  scripts/quality_gate.py            # Pre-commit gate: block posts scoring < 70 (v1.10.0)
+  scripts/style_learn.py             # Author voice-profile learner from sample posts (v1.10.0)
+  skills/                            # 32 sub-skills (blog/ is the orchestrator)
     blog/SKILL.md                   # Main orchestrator, routing, scoring
       references/                   # 21 on-demand knowledge files (5 in v1.8.0, 1 in v1.9.0)
       templates/                    # 12 content templates
@@ -94,7 +98,7 @@ claude-blog/
     blog-seo.md                     # SEO validation
     blog-reviewer.md                # Quality scoring (no Bash, post v1.7.0 hardening)
     blog-translator.md              # Multilingual translation (no Bash, v1.7.0)
-  tests/                             # pytest suite (160 tests) incl. test_blog_delivery_contract.py + test_security_guardrails.py
+  tests/                             # pytest suite (206 tests) incl. test_blog_delivery_contract.py + test_security_guardrails.py
 ```
 
 ## Commands

@@ -60,7 +60,7 @@ STEP 2: Edit the three data tables in generate_diagrams.py
   WAVES      = [...]   (around line 189)
 
   Keep total SUB_SKILLS count consistent with the product's advertised
-  surface (e.g. 29 sub-skills + 1 orchestrator = 30). The auto-sizing
+  surface (e.g. 31 sub-skills + 1 orchestrator = 32). The auto-sizing
   in 03-sub-skill-map handles variable counts per category. FRAMEWORK
   must have exactly 4 phase tuples for the radial wheel layout.
 

@@ -1,6 +1,6 @@
 # Command Reference
 
-Complete reference for all 29 `/blog` slash commands (30 sub-skills total;
+Complete reference for all 31 `/blog` slash commands (32 sub-skills total;
 `blog-chart` is internal-only, invoked from blog-write/blog-rewrite).
 Every command is invoked through the main orchestrator
 (`skills/blog/SKILL.md`), which routes to the appropriate sub-skill.
@@ -48,6 +48,8 @@ Every command is invoked through the main orchestrator
 | `brand [init\|show\|update]` | blog-brand | Generate BRAND.md + VOICE.md context auto-loaded by all sub-skills (v1.8.0) |
 | `discourse <topic>` | blog-discourse | API-free last-30-days discourse research; produces DISCOURSE.md (v1.8.0) |
 | `update <file>` | blog-rewrite | Freshness update (alias for rewrite) |
+| `style learn <paths>` | blog-style | Learn author voice profile from existing posts (v1.10.0) |
+| `decay <current-gsc> <previous-gsc>` | blog-decay | Detect content decay: 20%+ QoQ decline from GSC exports (v1.10.0) |
 
 ---
 
