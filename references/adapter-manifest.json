@@ -1,10 +1,16 @@
 {
   "version": 1,
-  "status": "scaffold",
+  "status": "researched",
   "domain": "blog content creation, optimization, and management dual-optimized for Google rankings (E-E-A-T, the 2026 core updates) and AI citations (GEO/AEO), spanning writing, rewriting and freshness, SERP-informed briefs and outlines, editorial calendars and strategy, semantic topic clusters, schema and internal linking, multilingual publishing, the FLOW framework, factchecking, personas, distribution, and the blog delivery contract, grounded in the claude-blog skill",
   "generic_only": true,
+  "last_verified": "2026-07-06",
   "raw_input_types": [
-    "claude-blog skill v1.10.0 SKILL.md, 30 sub-skills, 5 agents, 21 references, 12 templates, and analysis scripts; Google Search Central docs; web.dev CWV; FLOW framework bibliography; GEO/AEO studies; content-marketing and copywriting research"
+    "blog-post/audit input contract",
+    "Markdown blog post with frontmatter",
+    "HTML blog post with canonical URL and metadata",
+    "claude-blog quality report JSON",
+    "blog delivery contract preflight output",
+    "Google algorithm-update ledger"
   ],
   "rules": {
     "domain_adapted_requires": [
@@ -15,10 +21,37 @@
       "tests for importer, synthesis, rendering, malformed input, and missing credentials"
     ]
   },
-  "input_schemas": [],
-  "importers": [],
-  "synthesis_modules": [],
-  "report_renderers": [],
-  "fixtures": [],
-  "tests": []
+  "input_schemas": [
+    {"name": "blog-post-input", "path": "schemas/blog-post-input.schema.json", "planned": false}
+  ],
+  "importers": [
+    {"name": "ingest_blog_post", "path": "scripts/ingest_blog_post.py", "planned": true},
+    {"name": "ingest_blog_audit", "path": "scripts/ingest_blog_audit.py", "planned": true},
+    {"name": "ingest_google_update_ledger", "path": "scripts/ingest_google_update_ledger.py", "planned": true},
+    {"name": "ingest_claude_blog_reference_pack", "path": "scripts/ingest_claude_blog_reference_pack.py", "planned": true}
+  ],
+  "synthesis_modules": [
+    {"name": "synthesize_blog_research_pack", "path": "claude_blog_brain/blog_research.py", "planned": true},
+    {"name": "synthesize_blog_quality_plan", "path": "claude_blog_brain/blog_quality.py", "planned": true},
+    {"name": "synthesize_geo_citation_plan", "path": "claude_blog_brain/blog_geo.py", "planned": true},
+    {"name": "synthesize_topic_cluster_plan", "path": "claude_blog_brain/blog_clusters.py", "planned": true}
+  ],
+  "report_renderers": [
+    {"name": "render_blog_brief", "path": "scripts/render_blog_brief.py", "planned": true},
+    {"name": "render_blog_audit_report", "path": "scripts/render_blog_audit_report.py", "planned": true},
+    {"name": "render_geo_readiness_register", "path": "scripts/render_geo_readiness_register.py", "planned": true}
+  ],
+  "fixtures": [
+    {"name": "sample-blog-post", "path": "tests/fixtures/sample-blog-post.json", "planned": true},
+    {"name": "sample-blog-audit", "path": "tests/fixtures/sample-blog-audit.json", "planned": true},
+    {"name": "sample-google-updates", "path": "tests/fixtures/sample-google-updates.json", "planned": true},
+    {"name": "sample-claude-blog-reference-pack", "path": "tests/fixtures/sample-claude-blog-reference-pack.json", "planned": true}
+  ],
+  "tests": [
+    {"name": "test_blog_post_input_schema", "path": "tests/test_blog_post_input_schema.py", "planned": true},
+    {"name": "test_blog_importers", "path": "tests/test_blog_importers.py", "planned": true},
+    {"name": "test_blog_synthesis", "path": "tests/test_blog_synthesis.py", "planned": true},
+    {"name": "test_blog_renderers", "path": "tests/test_blog_renderers.py", "planned": true},
+    {"name": "test_blog_adapter_malformed_input", "path": "tests/test_blog_adapter_malformed_input.py", "planned": true}
+  ]
 }

@@ -1,47 +1,61 @@
 # Claude Blog Brain Product Spec
 
+Status: researched. This is not market-ready until domain adapters, demo verification, source-cited reports, and release audits pass.
+
 ## Buyer
 
-Content teams, bloggers, SEO content strategists, and operators who run the claude-blog skill and need a persistent, source-cited operating system for writing, optimizing, and auditing blog content that ranks on Google and gets cited by AI assistants.
+Content teams, bloggers, SEO content strategists, and operators who run the claude-blog skill and need a persistent, source-cited operating system for writing, optimizing, and auditing blog content that ranks on Google and can be cited by AI assistants.
 
 ## Domain
 
-blog content creation, optimization, and management dual-optimized for Google rankings (E-E-A-T, the 2026 core updates) and AI citations (GEO/AEO), spanning writing, rewriting and freshness, SERP-informed briefs and outlines, editorial calendars and strategy, semantic topic clusters, schema and internal linking, multilingual publishing, the FLOW framework, factchecking, personas, distribution, and the blog delivery contract, grounded in the claude-blog skill
+Claude Blog Brain serves blog content creation, optimization, and management. It covers Google ranking work, E-E-A-T, 2026 core and spam updates, GEO and AEO, schema, topic clusters, multilingual publishing, FLOW evidence discipline, factchecking, persona and voice context, distribution, and the blog delivery contract.
+
+## Skill Surface
+
+The brain is grounded in the claude-blog skill. The served workflows include `/blog write`, `/blog rewrite`, `/blog analyze`, `/blog brief`, `/blog outline`, `/blog calendar`, `/blog strategy`, `/blog seo-check`, `/blog schema`, `/blog repurpose`, `/blog geo`, `/blog audit`, `/blog cannibalization`, `/blog factcheck`, `/blog persona`, `/blog discourse`, `/blog taxonomy`, `/blog google`, `/blog update`, `/blog cluster`, `/blog multilingual`, `/blog translate`, `/blog localize`, `/blog locale-audit`, and `/blog flow`.
 
 ## Core Workflows
 
-- Source intake and provenance capture from the claude-blog skill and official docs
-- Answer-first article writing and rewriting via the 6-pillar dual-optimization framework
-- SERP-informed brief and outline construction with heading hierarchy
-- Semantic topic-cluster planning and hub-and-spoke execution
-- Schema stack, internal linking, and GEO/AEO citation-readiness review
-- 5-category quality scoring and the blog delivery-contract gate
-- Multilingual publishing, translation, and localization review
-- Approval queue for content recommendations with rollback notes
-- Auto brain fill and update from the Google algorithm-update ledger
+- Source intake and provenance capture from the claude-blog skill, Google Search Central, web.dev, Schema.org, QRG, FLOW, GEO research, and vetted market studies.
+- Answer-first article writing and rewriting through the six-pillar dual optimization framework.
+- SERP-informed briefs, outlines, heading hierarchy, and source-backed statistics.
+- Semantic topic-cluster planning with hub and spoke internal linking.
+- Schema stack review for BlogPosting or Article, Person, Organization, BreadcrumbList, VideoObject, Product where relevant, and visible Q and A content.
+- GEO and AEO citation readiness review at the passage level.
+- Blog quality scoring across content quality, SEO, E-E-A-T, technical elements, and AI citation readiness.
+- Multilingual publishing, translation, localization, hreflang, and locale audit planning.
+- Distribution planning across owned site, Search, AI assistants, communities, video, email, and social surfaces.
+- Google algorithm-update memory and freshness refresh.
+- Approval queue for recommendations, with confidence and rollback notes.
 
 ## Deliverables
 
-- Blog quality score (5-category 100-point) synthesis playbook
-- SERP-informed content brief and outline
-- Semantic topic-cluster map with internal-link matrix
-- GEO and AI-citation readiness register
-- Schema stack and internal-linking reference library
-- Editorial calendar and content-strategy plan
-- Blog delivery-contract gate report
-- Approval queue for recommendations
-- Google algorithm-update memory and refresh log
+- Blog quality score synthesis playbook.
+- SERP-informed content brief and outline.
+- Semantic topic-cluster map with internal-link matrix.
+- GEO and AI-citation readiness register.
+- Schema stack and internal-linking reference library.
+- Editorial calendar and content strategy plan.
+- Blog delivery-contract gate report.
+- Multilingual publishing and locale review checklist.
+- Approval queue for recommendations.
+- Google algorithm-update memory and refresh log.
+
+## Input Contract
+
+The first domain input contract is `schemas/blog-post-input.schema.json`. It accepts a blog post or audit target with title, URL, Markdown body or HTML body, frontmatter, target keyword, locale, and optional evidence blocks. The adapter plan names the intended importer, synthesis module, renderer, fixtures, and tests, but code adapters are not built in this slice.
 
 ## Promise
 
-Turn raw sources and recurring decisions into a persistent, source-cited
-operating brain.
+Turn volatile blog SEO, content quality, and AI citation requirements into a persistent, source-cited operating brain that can support claude-blog planning, drafting, auditing, and delivery decisions.
 
-## Non-Promises
+## Explicit Non-Promises
 
-- No ranking or traffic guarantee; content outcomes are probabilistic and never certain
-- No credentials, tokens, API keys, or private client content in repo artifacts
-- No mutation of a CMS, GSC, GA4, or publishing platform; the brain is advisory and read-only
-- No recommendation without a dated source, confidence level, and rollback note
-- No deprecated advice (HowTo schema, retired FAQ rich results, FID) presented as current
-- No fabricated or unsourced statistics and no AI-detectable filler presented as fact
+- No ranking or traffic guarantee. Content outcomes are probabilistic and never certain.
+- No guarantee of AI Overview, AI Mode, ChatGPT, Perplexity, Gemini, or Copilot citation.
+- No credentials, tokens, API keys, or private client content in repo artifacts.
+- No mutation of a CMS, GSC, GA4, GBP, ad platform, or publishing platform. V1 is advisory and read-only.
+- No recommendation without a dated source, confidence level, and rollback note.
+- No deprecated advice presented as current, including HowTo rich results, FAQ rich results, and FID.
+- No fabricated statistics, unsourced market claims, or AI-detectable filler presented as fact.
+- No treatment of third-party SEO tools as access to Google's internal ranking systems.
