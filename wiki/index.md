@@ -1,41 +1,45 @@
 ---
-type: index
+type: meta
 title: "Index"
 status: active
 created: 2026-07-06
 updated: 2026-07-06
-tags: [index, meta, active]
+tags: [meta, index, active]
 domain: "Blog Content Brain"
 confidence: verified
 related:
   - "[[Start Here]]"
   - "[[Hot]]"
-  - "[[Dashboard]]"
   - "[[CONVENTIONS]]"
+  - "[[Dashboard]]"
   - "[[Dual Optimization]]"
-  - "[[Blog Quality Score]]"
-  - "[[Google Algorithm Update Ledger]]"
+  - "[[AI Citation Mechanics]]"
+  - "[[Blog Schema Stack]]"
   - "[[Research Pack Index]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
   - "https://developers.google.com/search/docs/appearance/ai-features"
+  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
 ---
 
 # Index
 
-Top-level entry note. For the complete navigation map, open [[Index]] in the meta folder.
+## Summary
 
-## Start
+Navigation map for the Claude Blog Brain root wiki.
+
+Start at [[Start Here]], scan [[Hot]], then open the theme hub closest to the work.
+
+## Core meta
 
 - [[Start Here]]
-- [[overview]]
-- [[hot]]
-- [[log]]
-- [[Dashboard]]
+- [[Hot]]
 - [[CONVENTIONS]]
 - [[Tag Taxonomy]]
-- [[Research Pack Index]]
+- [[Dashboard]]
+- [[overview]]
+- [[index]]
+- [[log]]
 
 ## Theme hubs
 
@@ -55,4 +59,29 @@ Top-level entry note. For the complete navigation map, open [[Index]] in the met
 - [[Google Data Integrations]]
 - [[Images Audio and Charts]]
 - [[Google Algorithm Update Ledger]]
+- [[Research Pack Index]]
+
+## Working memory
+
+- [[Hot]] is the under 500 word working cache and is overwritten in place.
+- [[log]] is append-only and records durable changes.
+- [[Dashboard]] tracks this foundation slice and known structural gaps.
+- [[CONVENTIONS]] controls frontmatter, tags, citation posture, and read-only boundaries.
+
+## Source routes
+
+- Use [[Research Pack Index]] for source lookup.
+- Use [[Google Algorithm Update Ledger]] for update history and volatility quarantine.
+- Use [[Google Data Integrations]] when GSC, GA4, or API evidence is needed.
+- Use [[AI Citation Mechanics]] when AI Overview or AI Mode claims appear.
+
+## Related
+
+- [[Start Here]]
+- [[Hot]]
+- [[CONVENTIONS]]
+- [[Dashboard]]
+- [[Dual Optimization]]
+- [[AI Citation Mechanics]]
+- [[Blog Schema Stack]]
 - [[Research Pack Index]]

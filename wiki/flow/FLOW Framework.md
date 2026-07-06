@@ -62,6 +62,7 @@ This hub routes FLOW into the blog brain without expanding the full prompt corpu
 - [[FLOW Confidence Tags]]
 - [[FLOW Rollback Notes]]
 - [[FLOW Read Only Boundary]]
+- [[FLOW Approval Queue]]
 
 ## Workflow sequence
 
@@ -106,4 +107,5 @@ This hub routes FLOW into the blog brain without expanding the full prompt corpu
 
 - Fill [[FLOW Source Intake]] before workflow automation.
 - Fill [[FLOW Confidence Tags]] before scoring reports.
+- Use [[FLOW Approval Queue]] before high-impact advisory recommendations move forward.
 - Link [[FLOW Read Only Boundary]] back to [[CONVENTIONS]].

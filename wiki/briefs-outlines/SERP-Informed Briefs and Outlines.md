@@ -62,6 +62,7 @@ This hub defines the brief skeleton for later spoke notes.
 - [[Outline QA Checklist]]
 - [[Brief To Draft Handoff]]
 - [[Brief Risk Notes]]
+- [[SERP Observation Ledger]]
 
 ## Brief sections
 
@@ -108,4 +109,5 @@ This hub defines the brief skeleton for later spoke notes.
 
 - Fill [[SERP Brief Input Contract]] before brief automation.
 - Fill [[Heading Hierarchy Rules]] before outline generation.
+- Use [[SERP Observation Ledger]] when dated SERP observations influence the brief.
 - Link handoff checks to [[6-Pillar Dual Optimization]].

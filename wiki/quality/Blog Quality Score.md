@@ -70,6 +70,7 @@ This hub defines the five-category 100-point skeleton without filling detailed s
 - [[Recommendation Confidence Labels]]
 - [[Rollback Note Patterns]]
 - [[Delivery Contract Gate]]
+- [[Quality Review Evidence Log]]
 
 ## Scoring posture
 
@@ -112,4 +113,5 @@ This hub defines the five-category 100-point skeleton without filling detailed s
 
 - Fill [[Quality Score Rubric]] before scoring examples.
 - Fill [[Delivery Contract Gate]] before report rendering.
+- Use [[Quality Review Evidence Log]] when a score must be auditable.
 - Link confidence labels to [[CONVENTIONS]].

@@ -62,6 +62,7 @@ This hub keeps distribution aligned with dual optimization rather than treating 
 - [[Distribution Measurement Plan]]
 - [[Owned Audience Loop]]
 - [[AI Referral Reporting]]
+- [[Channel Asset Inventory]]
 
 ## Repurpose rules
 
@@ -104,4 +105,5 @@ This hub keeps distribution aligned with dual optimization rather than treating 
 
 - Fill [[Repurposing Source Fidelity]] before channel templates.
 - Fill [[Distribution Measurement Plan]] before reporting.
+- Use [[Channel Asset Inventory]] before publishing derivative assets.
 - Link media variants to [[Images Audio and Charts]].

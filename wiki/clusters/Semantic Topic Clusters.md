@@ -62,6 +62,7 @@ This hub defines the skeleton for cluster planning without filling the later spo
 - [[Topical Authority Caveats]]
 - [[Cluster Refresh Cadence]]
 - [[Cluster Performance Score]]
+- [[Cluster Canonical Page Rules]]
 
 ## Cluster planning flow
 
@@ -104,4 +105,5 @@ This hub defines the skeleton for cluster planning without filling the later spo
 
 - Fill [[Intent Coverage Matrix]] before cluster generation.
 - Fill [[Internal Link Matrix]] before link recommendations.
+- Use [[Cluster Canonical Page Rules]] before consolidation decisions.
 - Link decay decisions to [[Freshness and Content Decay]].
