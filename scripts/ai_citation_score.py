@@ -473,7 +473,10 @@ def score_analysis(analysis: dict[str, Any], engine: str = "all") -> dict[str, A
 
 
 def score_file(file_path: str | Path, engine: str = "all") -> dict[str, Any]:
-    analysis = analyze_blog.analyze_file(str(file_path))
+    try:
+        analysis = analyze_blog.analyze_file(str(file_path))
+    except (OSError, UnicodeDecodeError) as exc:
+        analysis = {"error": f"Could not analyze {file_path}: {exc}"}
     return score_analysis(analysis, engine=engine)
 
 

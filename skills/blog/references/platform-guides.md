@@ -575,7 +575,7 @@ Use the Custom HTML block:
 Use ACF (Advanced Custom Fields) or native custom fields:
 - `last_updated`: for dateModified in schema
 - `author_bio`: for E-E-A-T author section
-- `faq_items`: for FAQ schema generation
+- `faq_items`: for FAQPage entity markup when visible Q&A exists
 
 ### Featured Image
 Set via the "Featured Image" panel in the post editor sidebar. This image
@@ -1071,7 +1071,8 @@ Place in `<head>` for BlogPosting:
 </script>
 ```
 
-Place in `<head>` for FAQPage:
+Place in `<head>` for FAQPage only when visible Q&A exists. It is entity
+support for AI citation, not a Google rich result:
 ```html
 <script type="application/ld+json">
 {
@@ -1083,7 +1084,7 @@ Place in `<head>` for FAQPage:
       "name": "What is the question?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The 40-60 word answer with a specific statistic and source."
+        "text": "The visible answer text with a specific statistic and source."
       }
     }
   ]

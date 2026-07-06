@@ -6,8 +6,9 @@ distribution tactics to maximize both traditional search rankings and AI
 citation rates.
 
 **Budget allocation**: 40% owned content / 60% earned media and distribution.
-Most companies allocate 90/10: this is wrong for GEO. Off-site presence
-is the dominant factor in whether AI systems cite your content.
+Most companies allocate 90/10: this is wrong for AI search SEO. Treat the
+split as directional, vendor-reported guidance. Off-site presence is a major
+factor in whether AI systems cite your content.
 
 ## Contents
 

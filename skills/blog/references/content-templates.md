@@ -28,7 +28,7 @@ optimization elements get forgotten, and writing takes longer.
 |---------|--------|-----|
 | Consistent structure | 15-20% higher quality scores | Every post follows a proven section pattern |
 | Faster writing | 40% reduction in drafting time | Writer focuses on content, not structure |
-| Complete optimization | All scoring elements included | Answer-first, FAQ, visuals, citations built into skeleton |
+| Complete optimization | All scoring elements included | Answer-first, visible Q&A, visuals, citations built into skeleton |
 | Predictable output | Scoring 75+ without additional passes | Template alignment maps directly to scoring categories |
 | Reduced revision cycles | Fewer review rounds needed | Structure issues caught at outline stage, not in review |
 
@@ -54,7 +54,7 @@ Use this table to select the right template based on content goals.
 | Thought leadership | `thought-leadership` | Industry opinion, predictions, analysis | 2,000-3,000 |
 | Curate expertise | `roundup` | Expert quotes, multi-source collections | 2,000-2,500 |
 | Technical audience | `tutorial` | Code walkthroughs, tool demos | 2,500-3,500 |
-| Timely content | `news-analysis` | Event reactions, algorithm update coverage | 800-1,500 |
+| Timely content | `news-analysis` | Event reactions, algorithm update coverage | 800-1,200 |
 | Original research | `data-research` | Proprietary data, survey results, experiments | 2,500-3,500 |
 | Answer questions | `faq-knowledge` | Knowledge base pages, Q&A reference content | 1,500-2,000 |
 
@@ -78,7 +78,7 @@ guide the writer (and `/blog write`) on what content each section needs.
 
 | Marker | Purpose | Example |
 |--------|---------|---------|
-| `[ANSWER-FIRST]` | Opening paragraph must be 40-60 words with a stat + source | "According to [Source], [stat]. This means [direct answer to heading question]." |
+| `[ANSWER-FIRST]` | Start with an about 50-word direct-answer sentence, then a 120-180 word citable passage with stat + source | "In 2026, [direct answer]. [Source-backed context follows]." |
 | `[VISUAL: chart-type]` | Place a chart of the specified type here | `[VISUAL: grouped-bar]` for before/after data |
 | `[IMAGE]` | Place a relevant image with descriptive alt text here | After H2 heading, before body text |
 | `[INFO-GAIN: type]` | Section requires original data or unique perspective | `[INFO-GAIN: case-study]`, `[INFO-GAIN: personal-experience]` |
@@ -99,7 +99,7 @@ Every template, regardless of content type, follows this outer structure:
 - Promise: [What they'll learn by reading]
 
 ## H2: [Section: usually Question Format] (word count)
-[ANSWER-FIRST]: 40-60 words, stat + source, direct answer
+[ANSWER-FIRST]: about 50-word direct-answer sentence, then 120-180 word citable passage with stat + source
 [CONTENT]: Topic coverage guidance
 [INFO-GAIN]: Where unique perspective is needed
 [VISUAL]: Chart type or [IMAGE] placement
@@ -178,8 +178,8 @@ Conclusion (top pick + comparison table)
 **Visual plan**: Comparison bar chart + market share donut chart.
 Logo/screenshot per item, or grouped comparison image.
 
-**AI citation strength**: Very high. 50% of top AI citations are listicles
-(Onely). AI systems extract individual list items and recommendations.
+**AI citation strength**: High, but vendor-reported listicle shares vary.
+AI systems often extract individual list items and recommendations.
 
 ---
 
@@ -293,8 +293,9 @@ Conclusion (final rating + recommendation)
 Screenshots from actual testing (critical for E-E-A-T).
 
 **Critical requirement**: First-hand testing data. Product reviews without
-genuine hands-on experience are penalized by the December 2025 Core Update.
-71% of affiliate sites without original testing were negatively impacted.
+genuine hands-on experience remain exposed to May 2026 core quality reassessment
+and 2026 spam enforcement. Treat the reported 71% affiliate-site loss figure as
+third-party, methodology-limited context.
 
 ---
 
@@ -390,7 +391,7 @@ Conclusion (outlook)
 **Visual plan**: 1-2 charts (impact visualization). Lighter on visuals
 because speed of publication is the priority.
 
-**Word count**: 800-1,500 words. Shorter format because timeliness is the
+**Word count**: 800-1,200 words. Shorter format because timeliness is the
 primary value. Update with additional data as it becomes available.
 
 ---
@@ -446,8 +447,9 @@ Conclusion (additional resources + [INTERNAL-LINK])
 structure itself provides the value.
 
 **Special requirements**: Every answer must contain a specific statistic.
-FAQPage schema is critical for this type: it directly impacts SERP features
-and AI citation rates (+28%, per sponsored SEL article).
+FAQPage schema is optional entity markup for visible Q&A. It does not generate
+Google rich results or known SERP features; use it only to clarify question and
+answer entities for AI citation support.
 
 ---
 
@@ -563,7 +565,7 @@ Changes take effect immediately: no restart needed.
 ## FAQ Section Guidelines (All Templates)
 
 Every template includes an FAQ section. The FAQ is a scoring element (4 points)
-and directly impacts AI citation rates (+28%, per sponsored SEL article).
+and may aid AI citation as an entity signal. It is not a Google rich result.
 
 ### FAQ Requirements
 
@@ -574,7 +576,7 @@ and directly impacts AI citation rates (+28%, per sponsored SEL article).
 | Answer length | 40-60 words each |
 | Statistics | Every answer must contain at least one specific statistic |
 | Source attribution | Every statistic must cite a named source |
-| Schema | FAQPage schema must be generated (see `references/content-rules.md`) |
+| Schema | Generate FAQPage only when FAQ content is visible; never present it as a Google rich result; keep Article + Person + Organization + BreadcrumbList as the 2026 priority |
 
 ### FAQ Question Sources
 - People Also Ask results for the target keyword

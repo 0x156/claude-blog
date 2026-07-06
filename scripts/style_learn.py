@@ -220,7 +220,29 @@ def sentence_lengths(text: str) -> list[int]:
 
 def word_tokens(text: str) -> list[str]:
     """Return normalized word tokens for corpus-level rates."""
-    return re.findall(r"[a-z0-9]+(?:'[a-z]+)?", text.lower())
+    tokens: list[str] = []
+    current: list[str] = []
+    normalized = text.lower()
+
+    for index, char in enumerate(normalized):
+        if char.isalnum():
+            current.append(char)
+            continue
+        if (
+            char == "'"
+            and current
+            and index + 1 < len(normalized)
+            and normalized[index + 1].isalnum()
+        ):
+            current.append(char)
+            continue
+        if current:
+            tokens.append("".join(current))
+            current = []
+
+    if current:
+        tokens.append("".join(current))
+    return tokens
 
 
 def content_tokens(text: str) -> list[str]:
@@ -414,6 +436,11 @@ def learn_style(inputs: Sequence[str | Path], min_posts: int = 5) -> dict[str, A
     all_word_tokens = [token for sample in samples for token in sample["word_tokens"]]
     all_tokens = [token for sample in samples for token in sample["content_tokens"]]
     total_word_count = sum(sample["word_count"] for sample in samples)
+    zero_content_corpus = total_word_count == 0
+    if zero_content_corpus:
+        warnings.append(
+            "No analyzable words found in the sample corpus. Tone descriptors were skipped."
+        )
 
     transition_count = sum(s["analysis"]["transition_words"]["transition_count"] for s in samples)
     transition_sentences = sum(s["analysis"]["transition_words"]["total_sentences"] for s in samples)
@@ -502,7 +529,7 @@ def learn_style(inputs: Sequence[str | Path], min_posts: int = 5) -> dict[str, A
             for sample in samples
         ],
     }
-    profile["tone_descriptors"] = derive_tone_descriptors(profile)
+    profile["tone_descriptors"] = [] if zero_content_corpus else derive_tone_descriptors(profile)
     return profile
 
 

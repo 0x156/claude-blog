@@ -28,7 +28,7 @@ data flow, scoring methodology, file conventions, and extension points.
               |                                            |
               v                                            v
 +----------------------------+            +---------------------------+
-|     30 Sub-Skills          |            |    On-Demand References   |
+|     31 Sub-Skills          |            |    On-Demand References   |
 |  skills/blog-*/SKILL.md   |            |  skills/blog/references/*.md     |
 |                            |            |  skills/blog/templates/*.md      |
 |  write    rewrite          |            |                           |
@@ -436,7 +436,7 @@ After installation, `claude-blog` occupies this structure inside `~/.claude/`:
 │   │   │   ├── schema-stack.md
 │   │   │   └── visual-media.md
 │   │   ├── templates/
-│   │   │   ├── how-to.md
+│   │   │   ├── how-to-guide.md
 │   │   │   ├── listicle.md
 │   │   │   ├── case-study.md
 │   │   │   ├── comparison.md
@@ -447,7 +447,7 @@ After installation, `claude-blog` occupies this structure inside `~/.claude/`:
 │   │   │   ├── tutorial.md
 │   │   │   ├── news-analysis.md
 │   │   │   ├── data-research.md
-│   │   │   └── faq-knowledge-base.md
+│   │   │   └── faq-knowledge.md
 │   │   └── scripts/
 │   │       └── analyze_blog.py
 │   ├── blog-write/SKILL.md
@@ -501,6 +501,6 @@ DISCOURSE.md, auto-loaded via `scripts/load_untrusted_root.py` with
 CSPRNG nonce fencing). v1.8.4+ enforces prose hygiene and version
 coherence via CI (see `scripts/lint_prose.py`, `tests/test_version_coherence.py`).
 v1.9.0 adds the 5-gate Blog Delivery Contract (see
-`skills/blog/references/blog-delivery-contract.md`) and 160-test pytest
+`skills/blog/references/blog-delivery-contract.md`) and 206-test pytest
 suite including mutation-test-verified XSS, symlink, and frontmatter
 regression coverage.

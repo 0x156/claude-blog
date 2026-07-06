@@ -123,7 +123,7 @@ Reader should not have to remember what was said three sections ago to follow th
 
 The post should reward both modes: executive who scans, practitioner who reads end to end.
 
-**Check for**: bold lead-ins on key points; pull quotes for high-leverage claims; each H2 opener is a 40 to 60 word answer-first paragraph; lists where lists are right, prose where prose is right; FAQ section.
+**Check for**: bold lead-ins on key points; pull quotes for high-leverage claims; each H2 opener starts with an about 50-word direct-answer sentence followed by a 120 to 180 word citable passage; lists where lists are right, prose where prose is right; FAQ section.
 
 | Score | Criteria |
 |---|---|

@@ -38,7 +38,7 @@ from typing import Callable, Optional
 OUTPUT_FILE_PREFIX = "hero"
 DEFAULT_WIDTH = 1200
 DEFAULT_HEIGHT = 630
-DEFAULT_GEMINI_MODEL = os.environ.get("NANOBANANA_MODEL", "gemini-3.1-flash-image-preview")
+DEFAULT_GEMINI_MODEL = os.environ.get("NANOBANANA_MODEL") or "gemini-3.1-flash-image"
 OPENVERSE_API = "https://api.openverse.engineering/v1/images/"
 UNSPLASH_API = "https://api.unsplash.com/search/photos"
 PEXELS_API = "https://api.pexels.com/v1/search"
@@ -230,8 +230,10 @@ def _try_gemini(topic: str, tags: list[str], out_dir: Path, width: int, height: 
     img_bytes: Optional[bytes] = None
     used_model = model
 
-    # Try Gemini image-preview models first (via generate_content)
-    for try_model in (model, "gemini-3.1-flash-image-preview", "gemini-2.5-flash-image"):
+    # Try Gemini image-capable GA models first (via generate_content).
+    for try_model in dict.fromkeys((model, "gemini-3.1-flash-image", "gemini-2.5-flash-image")):
+        if not try_model:
+            continue
         try:
             response = client.models.generate_content(model=try_model, contents=prompt)
             cands = getattr(response, "candidates", None) or []
@@ -251,23 +253,6 @@ def _try_gemini(topic: str, tags: list[str], out_dir: Path, width: int, height: 
                 break
         except Exception as e:
             print(f"[gemini] {try_model} generate_content failed: {e}", file=sys.stderr)
-
-    # Fall back to Imagen via generate_images
-    if not img_bytes:
-        for try_model in ("imagen-4.0-fast-generate-001", "imagen-4.0-generate-001"):
-            try:
-                response = client.models.generate_images(
-                    model=try_model, prompt=prompt,
-                    config={"number_of_images": 1, "aspect_ratio": "16:9"},
-                )
-                imgs = getattr(response, "generated_images", None) or []
-                if imgs:
-                    img_obj = imgs[0].image
-                    img_bytes = getattr(img_obj, "image_bytes", None) or img_obj.read()
-                    used_model = try_model
-                    break
-            except Exception as e:
-                print(f"[gemini] {try_model} generate_images failed: {e}", file=sys.stderr)
 
     if not img_bytes:
         return None

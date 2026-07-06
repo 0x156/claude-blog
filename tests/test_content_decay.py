@@ -7,6 +7,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 import content_decay
@@ -84,6 +86,41 @@ def test_load_export_accepts_gsc_rows_object(tmp_path: Path):
     assert pages["https://example.com/from-keys"]["clicks"] == 3
 
 
+def test_load_export_rejects_non_finite_json(tmp_path: Path):
+    export = tmp_path / "nan.json"
+    export.write_text(
+        '[{"page": "https://example.com/nan", "clicks": NaN, "impressions": 10}]',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(content_decay.ContentDecayError, match="non-finite"):
+        content_decay.load_export(export)
+
+
+def test_analyze_decay_rejects_non_finite_metric_value():
+    current_rows = [
+        {"page": "https://example.com/nan", "clicks": float("nan"), "impressions": 10}
+    ]
+    previous_rows = [
+        {"page": "https://example.com/nan", "clicks": 10, "impressions": 20}
+    ]
+
+    with pytest.raises(content_decay.ContentDecayError, match="finite number"):
+        content_decay.analyze_decay(current_rows, previous_rows)
+
+
+def test_analyze_decay_rejects_page_missing_selected_metric():
+    current_rows = [
+        {"page": "https://example.com/missing", "impressions": 10}
+    ]
+    previous_rows = [
+        {"page": "https://example.com/missing", "clicks": 10, "impressions": 20}
+    ]
+
+    with pytest.raises(content_decay.ContentDecayError, match="missing selected metric"):
+        content_decay.analyze_decay(current_rows, previous_rows, metric="clicks")
+
+
 def test_markdown_output_contains_table_and_recommendations():
     report = content_decay.analyze_decay(
         _fixture("gsc_current.json"),
@@ -95,6 +132,32 @@ def test_markdown_output_contains_table_and_recommendations():
     assert "| Severity | Page | Previous | Current | Decline | Dropped out | Recommendation |" in markdown
     assert "investigate query shift" in markdown
     assert "https://example.com/drop-out" in markdown
+
+
+def test_markdown_output_escapes_table_cells():
+    page = "https://example.com/a|b\\c\nnext"
+    report = content_decay.analyze_decay(
+        [{"page": page, "clicks": 1, "impressions": 90}],
+        [{"page": page, "clicks": 10, "impressions": 100}],
+    )
+
+    markdown = content_decay.format_markdown(report)
+
+    assert "https://example.com/a\\|b\\\\c\\nnext" in markdown
+    assert page not in markdown
+
+
+def test_low_prior_demand_alone_does_not_recommend_prune():
+    action, _reason = content_decay.recommend_action(
+        metric="clicks",
+        threshold=0.20,
+        severity="warning",
+        dropped_out=False,
+        current={"clicks": 2.0, "impressions": 30.0},
+        previous={"clicks": 2.0, "impressions": 30.0},
+    )
+
+    assert action != "prune"
 
 
 def test_cli_writes_json_output(tmp_path: Path):

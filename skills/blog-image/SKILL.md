@@ -143,9 +143,9 @@ Call `set_aspect_ratio` BEFORE generating:
 | `clear_conversation` | Reset session context |
 
 **Model selection** (use `set_model` MCP tool if switching):
-- **NB2 Flash** (default): Best for most blog images - fast, 14 ratios, 4K, $0.067/img
-- **NB Pro**: Use for hero images with text overlays (94% text accuracy) or highest quality - $0.134/img
-- **Original**: Budget option at $0.039/img - 5 ratios, 1K max
+- **NB2 Flash** (`gemini-3.1-flash-image`, default): Best for most blog images - fast, 14 ratios, 4K, $0.067/img
+- **NB Pro** (`gemini-3-pro-image`): Use for hero images with text overlays (94% text accuracy) or highest quality - $0.134/img
+- **Original** (`gemini-2.5-flash-image`): Budget option at $0.039/img - 5 ratios, 1K max
 
 Load `references/mcp-tools.md` for parameter details.
 Load `references/gemini-models.md` for model specs, pricing, and rate limits.

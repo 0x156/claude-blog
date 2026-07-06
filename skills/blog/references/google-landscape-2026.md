@@ -1,11 +1,12 @@
 # SEO Landscape 2026: Google Updates & E-E-A-T
 
-## December 2025 Core Update
+## Mid 2026 Core Update Baseline
 
-Ran December 11-29, 2025 (18 days). Google's official statement: "designed to better
-surface relevant, satisfying content." Rewarded authentic first-hand experience and
-penalized "fake freshness." 71% of affiliate sites without original testing were
-negatively impacted (ALM Corp). E-E-A-T requirements expanded beyond YMYL to ALL competitive queries.
+Latest confirmed core update: May 2026 Core Update, 2026-05-21 to
+2026-06-02. March 2026 Core ran 2026-03-27 to 2026-04-08. The
+December 2025 Core Update ran 2025-12-11 to 2025-12-29 and remains
+important because since then E-E-A-T applies to all competitive queries,
+not just YMYL.
 
 ### Authenticity Signals Google Evaluates
 
@@ -29,11 +30,11 @@ content creator without human expertise and oversight is not.
 
 ### Post-Update Analysis: Winners & Losers
 
-Post-December 2025 core update visibility shifts:
+Core update visibility patterns to preserve in 2026:
 - Sites with original testing, case studies, and first-hand experience gained visibility
 - 71% of affiliate sites without original testing lost rankings (ALM Corp analysis of 847
   sites across 23 industries; methodology not independently verified)
-- E-E-A-T expanded beyond YMYL to ALL competitive queries - this is the biggest shift
+- Since December 2025, E-E-A-T applies to ALL competitive queries: this is the biggest shift
   since E-A-T was introduced
 - Winners share a common trait: unique data or perspectives AI cannot replicate
 - Losers overwhelmingly produced "consensus content" - rewritten summaries of existing
@@ -45,7 +46,7 @@ Post-December 2025 core update visibility shifts:
 - Added AI Overview evaluation criteria - raters now assess AI-generated summary accuracy
 - Expanded YMYL definitions to cover broader range of topics affecting wellbeing
 - Key principle codified: "Trust is the most important member of the E-E-A-T family"
-- This 182-page September 11, 2025 version remains current as of 2026-07-06
+- This 182-page September 11, 2025 version remains current as of 2026-07-07
 
 **January 2025 QRG Update:**
 - First formal "generative AI" definition added to the guidelines
@@ -56,23 +57,26 @@ Post-December 2025 core update visibility shifts:
 
 ## 2026 Algorithm Timeline
 
-Google-owned status sources are current through 2026-06-30. No Google-owned
-ranking, spam, core, schema, policy, QRG, or AI-search change was announced
-from 2026-07-01 through 2026-07-06.
+Google-owned status sources are current through 2026-07-07. From
+2026-07-01 through 2026-07-07, Google announced only AMP documentation
+simplification and a Barcelona event post. No ranking, spam, core, schema,
+policy, QRG, or AI search change was announced in that window.
 
 | Update | Dates | Blog Impact |
 |--------|-------|-------------|
+| December 2025 Core Update | 2025-12-11 to 2025-12-29 | Established the all competitive query E-E-A-T framing |
+| Discover Update | 2026-02-05 | Monitor Discover traffic separately from core ranking volatility |
 | March 2026 Spam Update | 2026-03-24 | Spam enforcement; keep scaled and low-value AI pages out of the index |
 | March 2026 Core Update | 2026-03-27 to 2026-04-08 | Core quality reassessment; original experience and trust signals mattered most |
-| May 2026 Core Update | 2026-05-21 to 2026-06-02 | Core quality reassessment; reinforced differentiated, satisfying content |
+| May 2026 Core Update | 2026-05-21 to 2026-06-02 | Latest core update as of 2026-07-07; reinforced differentiated, satisfying content |
 | June 2026 Spam Update | 2026-06-24 to 2026-06-26 | Spam enforcement; thin aggregation and abusive automation remain high risk |
 
 Treat third-party reports of an unconfirmed July 2026 update as volatility only,
 not as a Google-confirmed event.
 
-## E-E-A-T Framework (Extended December 2025)
+## E-E-A-T Framework Since December 2025
 
-**Critical**: December 2025 core update extended E-E-A-T to ALL competitive queries,
+**Critical**: Since the December 2025 core update, E-E-A-T applies to ALL competitive queries,
 not just YMYL.
 
 | Factor | Weight | Key Signals |
@@ -221,7 +225,7 @@ stated this explicitly. However, readability drives the engagement signals
 Google DOES measure - bounce rate, time on page, scroll depth, and return
 visits.
 
-### December 2025 Core Update: Readability Correlation
+### Core Update Quality Patterns in 2026
 Raptive analysis (published Feb 2026, high reliability) found:
 - Sites with <7% of pages ≤500 words had more stable rankings
 - Winning pages averaged 393 days freshness vs 500 for losers
@@ -232,9 +236,9 @@ Raptive analysis (published Feb 2026, high reliability) found:
 - Thin content, template-based pages, and generic AI aggregation were penalized
 
 ### E-E-A-T Expansion
-E-E-A-T now applies to virtually ALL content categories, not just YMYL. The
-December 2025 Core Update extended E-E-A-T evaluation to ALL competitive
-queries - the biggest scope expansion since E-A-T was introduced.
+E-E-A-T now applies to virtually ALL content categories, not just YMYL. Since
+the December 2025 Core Update, E-E-A-T evaluation applies to ALL competitive
+queries: the biggest scope expansion since E-A-T was introduced.
 
 ### Quality Rater Guidelines Updates
 - **January 2025 QRG**: Added "Filler" section penalizing pages that bury useful

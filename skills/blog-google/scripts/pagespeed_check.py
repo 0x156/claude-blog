@@ -92,6 +92,7 @@ def run_pagespeed(
         "lighthouse_scores": {},
         "lab_metrics": {},
         "field_metrics": {},
+        "audit_details": {},
         "opportunities": [],
         "diagnostics": [],
         "failed_audits": [],

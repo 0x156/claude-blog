@@ -12,7 +12,7 @@
 - [Visual Content Rules](#visual-content-rules)
 - [Anti-Pattern Detection](#anti-pattern-detection)
 - [Content Length Guidelines](#content-length-guidelines)
-- [Citation & Statistics Rules (GEO)](#citation--statistics-rules-geo)
+- [Citation Statistics Rules (AI Search SEO)](#citation-statistics-rules-ai-search-seo)
 - [Information Gain: The Key Differentiator](#information-gain----the-key-differentiator)
 - [Meta Description Formula](#meta-description-formula)
 - [Citation Format](#citation-format)
@@ -22,19 +22,20 @@
 
 ## Answer-First Formatting (Strong AI Citation Improvement)
 
-The most impactful single optimization. Every H2 section must open with a
-approximately 50-word TL;DR paragraph that:
+The most impactful single optimization. Every H2 section must open with an
+approximately 50-word direct-answer sentence that:
 
-1. Contains at least one specific statistic with source attribution
-2. Directly answers the heading's implicit question
-3. Uses natural, conversational language
+1. Directly answers the heading's implicit question
+2. Names the core entity, year, and practical implication
+3. Leads into a 120-180 word citable passage with a specific statistic and source attribution
 
 ### Pattern
 ```markdown
 ## How Does X Impact Y in 2026?
 
-[Stat] ([Source](url), year). [Direct answer in 1-2 more sentences, explaining
-the implication for the reader. Keep this opening paragraph about 50 words total.]
+[About 50-word direct answer sentence naming the year, entity, and answer.]
+[Continue with a self-contained 120-180 word passage that adds the
+source-backed statistic, dates, implications, and an example.]
 ```
 
 ### Why It Works
@@ -42,11 +43,11 @@ AI systems extract answers from section openers. If your answer is buried in
 paragraph 3 of a section, it will not be cited. Lead with the answer, then
 explain.
 
-44.2% of all LLM citations come from the first 30% of text (Growth Memo,
-Feb 2026). Use declarative "X is Y because Z" sentence structures for maximum
-AI extractability. In 2026, target a roughly 50-word TL;DR under each H2, then
-build a self-contained 130-170 word answer passage with named entities, dates,
-and source attribution.
+A single-source Growth Memo finding reports that 44.2% of all LLM citations
+come from the first 30% of text (Feb 2026). Treat this as directional, not as
+a hard law. Use declarative "X is Y because Z" sentence structures, then build
+a self-contained 120-180 word answer passage with named entities, dates, and
+source attribution.
 
 ## Title Optimization
 
@@ -60,7 +61,7 @@ and source attribution.
 
 ### Title Formula
 Pattern: `[Power Word] [Topic]: [Specific Outcome/Number] [Year]`
-Example: "Definitive Guide to GEO: 7 Strategies That Drive AI Citations in 2026"
+Example: "Definitive Guide to AI Search SEO: 7 Strategies That Drive AI Citations in 2026"
 
 Avoid: clickbait, ALL CAPS words, excessive punctuation, vague promises.
 
@@ -101,7 +102,7 @@ For backward compatibility, blog-analyze accepts both "TL;DR" and "Key Takeaways
 - Include primary keyword naturally in 2-3 headings
 
 ### Question-Format Headings
-Convert 60-70% of H2s to questions:
+Convert 40-60% of H2s to questions:
 - "The Future of X" → "What Does X Look Like in 2026?"
 - "Strategies for Y" → "How Do You Achieve Y in 2026?"
 - Keep 2-3 statement headings for variety
@@ -118,7 +119,7 @@ show these in People Also Ask. Users scan headings as questions they want answer
 | Max sentence length | 25 words | >20 words | Yoast flags >20 |
 | Sentences over 20 words | ≤25% | >25% | Yoast threshold |
 | Sentence length variance | StdDev ≥5 words | <5 StdDev | Wikipedia AI guidelines |
-| AEO-optimal average | 15-18 words | - | GEO research synthesis |
+| AI search average | 15-18 words | - | AI search SEO research synthesis |
 
 ### Sentence Rhythm
 Mix short (5-10 words), medium (15-20 words), and occasional long (20-25 words)
@@ -134,7 +135,7 @@ No more than 3 consecutive sentences within 5 words of each other's length.
 | Paragraph length | 40-80 words | >100 words | 150 words (200 = Yoast red) | Yoast, NNGroup |
 | Sentences per paragraph | 2-3 | >3 | 4 max | NNGroup scanning research |
 | Mobile paragraph max | 60 words / 2-3 visual lines | - | - | WCAG, Baymard |
-| Extractable chunks | 130-170 words | - | - | GEO citation research |
+| Extractable chunks | 120-180 words | - | - | AI search citation research |
 
 ### Key Principle
 Start each paragraph with the most important sentence. This enables both
@@ -153,14 +154,15 @@ One topic per paragraph - no topic drift within a paragraph.
 
 | Metric | Target | Acceptable | Source |
 |--------|--------|-----------|--------|
-| Flesch Reading Ease | 60-70 | 55-75 | Yoast ≥60; Spotlight 18K prompts: 60-75 = 31% more AI citations |
+| Flesch Reading Ease | 60-70 | 55-75 | Yoast >=60; AI citation lift claims are vendor-reported and unverified |
 | Flesch-Kincaid Grade | 7-8 | 6-9 (B2B/technical: 8-10) | Siteimprove, First Page Sage |
 | Gunning Fog | 7-8 | Max 12 | Springer 2023: highest correlation with engagement |
 | SMOG | ≤8 | - | Healthcare gold standard |
 
-Flesch 60-70 is the optimal band for both engagement and AI citation.
-Content in this range demonstrates expertise through clear expression of
-complex ideas - not oversimplification. The key is conversational authority:
+Flesch 60-70 is the default clarity band for engagement. AI citation impact is
+directional and still depends on original evidence, entity clarity, and source
+quality. Content in this range demonstrates expertise through clear expression
+of complex ideas - not oversimplification. The key is conversational authority:
 natural language that mirrors how experts actually explain things.
 
 AI systems prefer content that is fluent, specific, and well-structured.
@@ -246,22 +248,24 @@ topical dilution, needless repetition, intent mismatch.
 | Standard blog post | 2,000-2,500 words | 1,500 |
 | Comparison post | 1,500-2,000 words | 1,200 |
 | FAQ/listicle | 1,500-2,000 words | 1,000 |
-| News/update | 800-1,200 words | 600 |
+| News/update | 800-1,200 words | 800 |
 
-Sweet spot: 1,500-2,500 words for most content. Minimum 700 words
-(absolute floor: 300 words for news updates). Long-form (2,000+ words)
-gets 3x more AI citations than short posts.
+Sweet spot: 1,500-2,500 words for most content. Most non-news posts should
+clear 1,000 words. News/update content should stay in the 800-1,200 word
+benchmark; do not publish ultra-short news briefs through this skill. Long-form
+content often earns more citations in vendor studies, but exact multipliers are
+directional.
 
 Reading time: word count ÷ 225, rounded up. Optimal reading time is
 5-7 minutes (~1,100-1,575 words). Engagement falls off sharply after
 7 minutes; approaches zero at 14+ minutes (Medium, Smartocto 2025).
 
-## Citation & Statistics Rules (GEO)
+## Citation Statistics Rules (AI Search SEO)
 
-| Parameter | Target | GEO-Optimized | Source |
+| Parameter | Target | AI Search SEO Optimized | Source |
 |-----------|--------|--------------|--------|
 | Statistic density | 1 per 200 words | 1 per 150 words | Princeton GEO paper |
-| External citations | 1-3 per 1,000 words | - | GEO best practices |
+| External citations | 1-3 per 1,000 words | - | AI search SEO best practices |
 | Internal links | 2-5 per 1,000 words | - | SEO + engagement |
 
 Statistics addition boosts AI visibility up to 41% (Princeton GEO paper,

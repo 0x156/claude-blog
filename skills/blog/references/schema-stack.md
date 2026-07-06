@@ -19,13 +19,13 @@
 
 ## Why Schema Matters
 
-Article schema with author Person and publisher Organization is the priority
-schema family for blog content in 2026. FAQ and HowTo no longer earn Google
-rich result real estate, so standard article entities carry more of the SEO and
-AI-citation load. Pages using 3+ schema
-types have approximately 13% higher likelihood of AI citation. Schema must
-appear in HTML source: not injected via JavaScript: because most AI crawlers
-do not execute JS.
+Article schema with author Person, publisher Organization, and BreadcrumbList
+is the priority schema family for blog content in 2026. FAQ and HowTo no
+longer earn Google rich result real estate, so standard article entities carry
+more of the SEO and AI-citation load. Complete schema graphs may increase AI
+citation likelihood, but exact lifts are directional and unverified. Schema
+must appear in HTML source: not injected via JavaScript: because most AI
+crawlers do not execute JS.
 
 Still rich-result-eligible for blog content in 2026: Article, BreadcrumbList,
 Video, Product, Review, and Event. FAQPage and HowTo no longer earn visual
@@ -265,11 +265,11 @@ will appear in Google Search**. The markup produces no visual search enhancement
 Search Console FAQ filters retire around June 2026, and Rich Results Test/API
 support ends around August 2026.
 
-However, the markup is still worth including for AI citation reasons: LLMs parse
-your page's **visible FAQ text** and Q&A-formatted content improves
+However, the markup can remain as optional entity support: LLMs parse your
+page's **visible FAQ text**, and Q&A-formatted content can improve
 extractability for citation. Google says there is "no need to proactively
 remove" existing FAQPage markup and it "does not cause problems for Search."
-Implement for AI/LLM entity value, not rich results.
+Implement for AI/LLM entity value only, not rich results.
 
 ### Structure
 
@@ -310,7 +310,7 @@ FAQPage
       "name": "Do AI search engines use schema markup?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. AI search engines like ChatGPT Search, Perplexity, and Google AI Overviews use schema markup to identify authoritative content. Pages with 3 or more schema types have approximately 13% higher likelihood of being cited in AI-generated responses compared to pages without structured data."
+        "text": "AI search engines can use schema markup to identify entities and relationships, but exact citation lifts are unverified. For blogs in 2026, prioritize Article or BlogPosting, Person author, Organization publisher, and BreadcrumbList. Add FAQPage only for visible Q&A entity support, not Google rich results."
       }
     }
   ]
@@ -536,8 +536,8 @@ AI/LLM entity support.
 
 ## ProfilePage Schema (Author Pages)
 
-Fully supported since December 2025. Add to author bio/team pages to strengthen E-E-A-T
-signals and improve eligibility for the "Discussions and Forums" SERP feature.
+Supported in 2026. Add to author bio/team pages to strengthen E-E-A-T signals
+and improve eligibility for author entity understanding.
 
 ```json
 {
@@ -709,7 +709,7 @@ multiple schema types.
 | Author @id matches author page | Same URI used everywhere | Inconsistent references |
 | Image URLs are absolute | Start with `https://` | Relative paths |
 | No deprecated types used | None from deprecated list | HowTo, Q&A, etc. |
-| 3+ schema types per page | BlogPosting + Person + Org + Breadcrumb minimum | Fewer than 3 |
+| Complete schema graph per page | Article/BlogPosting + Person + Organization + BreadcrumbList minimum | Missing priority entity baseline |
 | Validates in Google Rich Results Test | No errors | Errors present |
 
 ### Validation Tools

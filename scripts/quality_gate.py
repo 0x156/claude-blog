@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -26,12 +27,13 @@ BLOG_SUFFIXES = {".md", ".mdx"}
 
 
 def _path_for_policy(path: Path, root: Path | None = None) -> Path:
-    """Return a path relative to root when possible for directory checks."""
-    root = (root or Path.cwd()).resolve()
+    """Return a lexical path relative to root when possible for directory checks."""
+    root = Path(os.path.abspath(os.fspath(root or Path.cwd())))
+    absolute_path = Path(os.path.abspath(os.fspath(path)))
     try:
-        return path.resolve(strict=False).relative_to(root)
+        return absolute_path.relative_to(root)
     except ValueError:
-        return path
+        return absolute_path
 
 
 def is_excluded_path(file_path: str | Path, root: Path | None = None) -> bool:
@@ -44,10 +46,7 @@ def is_excluded_path(file_path: str | Path, root: Path | None = None) -> bool:
 def has_blog_frontmatter(file_path: str | Path) -> bool:
     """Return True when a Markdown file has blog post frontmatter keys."""
     path = Path(file_path)
-    try:
-        content = path.read_text(encoding="utf-8")
-    except (OSError, UnicodeDecodeError):
-        return False
+    content = path.read_text(encoding="utf-8")
 
     frontmatter = analyze_blog.extract_frontmatter(content)
     normalized = {key.lower(): value for key, value in frontmatter.items()}
@@ -66,7 +65,10 @@ def is_blog_post(file_path: str | Path, root: Path | None = None) -> bool:
         return False
     if not path.is_file():
         return False
-    return has_blog_frontmatter(path)
+    try:
+        return has_blog_frontmatter(path)
+    except (OSError, UnicodeDecodeError):
+        return True
 
 
 def _staged_files() -> list[str]:
@@ -101,29 +103,41 @@ def _top_high_severity_issues(
     return [issue for issue in issues if issue.get("severity") == "high"][:limit]
 
 
+def _safe_analyze_file(path: Path) -> dict[str, Any]:
+    """Run the shared analyzer and convert file read failures into JSON errors."""
+    try:
+        return analyze_blog.analyze_file(str(path))
+    except (OSError, UnicodeDecodeError) as exc:
+        return {"error": f"Could not analyze {path}: {exc}"}
+
+
 def analyze_post(file_path: str | Path, threshold: int) -> dict[str, Any]:
     """Analyze a selected post and return gate-oriented result data."""
     path = Path(file_path)
-    result = analyze_blog.analyze_file(str(path))
+    result = _safe_analyze_file(path)
+    error_message = result.get("error")
     if "error" in result:
         score = 0
         issues = [
             {
                 "category": "analyzer",
                 "severity": "high",
-                "issue": result["error"],
+                "issue": error_message,
             }
         ]
     else:
         score = result["score"]["total"]
         issues = result["score"].get("issues", [])
 
-    return {
+    output = {
         "file": str(path),
         "score": score,
         "passed": score >= threshold,
         "issues": _top_high_severity_issues(issues),
     }
+    if error_message:
+        output["error"] = error_message
+    return output
 
 
 def _format_text(results: list[dict[str, Any]], failures: list[dict[str, Any]], threshold: int) -> str:
@@ -151,11 +165,14 @@ def _format_text(results: list[dict[str, Any]], failures: list[dict[str, Any]], 
 def _format_json(
     results: list[dict[str, Any]], failures: list[dict[str, Any]], threshold: int
 ) -> str:
+    errors = [result["error"] for result in results if result.get("error")]
     payload = {
         "threshold": threshold,
         "checked": results,
         "failures": failures,
     }
+    if errors:
+        payload["error"] = "; ".join(errors)
     return json.dumps(payload, indent=2, sort_keys=True)
 
 

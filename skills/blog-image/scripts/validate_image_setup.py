@@ -22,6 +22,41 @@ from pathlib import Path
 MCP_NAME = "nanobanana-mcp"
 OUTPUT_DIR = Path.home() / "Documents" / "nanobanana_generated"
 GLOBAL_SETTINGS_PATH = Path.home() / ".claude" / "settings.json"
+DEFAULT_NANOBANANA_MODEL = "gemini-3.1-flash-image"
+SUPPORTED_GA_MODELS = {
+    "gemini-3.1-flash-image": "Nano Banana 2 default",
+    "gemini-3-pro-image": "Nano Banana Pro high quality",
+    "gemini-3.1-flash-lite-image": "Nano Banana Lite low latency",
+    "gemini-2.5-flash-image": "Nano Banana Original stable fallback",
+}
+DEPRECATED_MODEL_REPLACEMENTS = {
+    "gemini-3.1-flash-image-preview": (
+        "deprecated on 2026-05-28 and shut down on 2026-06-25; "
+        "use gemini-3.1-flash-image"
+    ),
+    "gemini-3-pro-image-preview": (
+        "deprecated on 2026-05-28 and shut down on 2026-06-25; "
+        "use gemini-3-pro-image"
+    ),
+    "gemini-2.5-flash-image-preview": (
+        "shut down on 2026-01-15; use gemini-2.5-flash-image"
+    ),
+    "gemini-2.0-flash-exp": (
+        "shut down on 2026-06-01; use gemini-3.1-flash-image"
+    ),
+    "imagen-4.0-fast-generate-001": (
+        "deprecated on 2026-06-15 and shuts down on 2026-08-17; "
+        "use gemini-3.1-flash-image"
+    ),
+    "imagen-4.0-generate-001": (
+        "deprecated on 2026-06-15 and shuts down on 2026-08-17; "
+        "use gemini-3.1-flash-image"
+    ),
+    "imagen-4.0-ultra-generate-001": (
+        "deprecated on 2026-06-15 and shuts down on 2026-08-17; "
+        "use gemini-3.1-flash-image"
+    ),
+}
 
 
 def find_project_mcp_json() -> Path:
@@ -54,6 +89,27 @@ def check(label: str, passed: bool, detail: str = "") -> bool:
         msg += f" - {detail}"
     print(msg)
     return passed
+
+
+def _supported_model_list() -> str:
+    return ", ".join(sorted(SUPPORTED_GA_MODELS))
+
+
+def validate_nanobanana_model(model: str) -> tuple:
+    """Validate the configured image model against supported GA model IDs."""
+    model = (model or "").strip()
+    if not model:
+        return True, f"(not set - package will use default {DEFAULT_NANOBANANA_MODEL})"
+    if model in SUPPORTED_GA_MODELS:
+        return True, f"{model} ({SUPPORTED_GA_MODELS[model]})"
+    if model in DEPRECATED_MODEL_REPLACEMENTS:
+        return False, f"{model} (WARNING: {DEPRECATED_MODEL_REPLACEMENTS[model]})"
+    if "-preview" in model:
+        return False, (
+            f"{model} (WARNING: preview image models are deprecated or shut down; "
+            f"use one of: {_supported_model_list()})"
+        )
+    return False, f"{model} (unsupported; use one of: {_supported_model_list()})"
 
 
 def find_mcp_config() -> tuple:
@@ -156,12 +212,13 @@ def main() -> int:
                 display,
             ))
 
-        # 7. Model configured (optional - package has a default)
+        # 7. Model configured (optional - package has a supported GA default)
         model = env.get("NANOBANANA_MODEL", "")
+        model_ok, model_detail = validate_nanobanana_model(model)
         results.append(check(
-            "NANOBANANA_MODEL is set",
-            True,  # Always pass - model is optional, package defaults to gemini-3.1-flash
-            model or "(not set - package will use default model)",
+            "NANOBANANA_MODEL is supported",
+            model_ok,
+            model_detail,
         ))
 
     # 8. Node.js/npx available

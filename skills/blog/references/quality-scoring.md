@@ -40,7 +40,7 @@ Score each blog post against this checklist. Used by `/blog analyze`.
 
 | Check | Points | Pass Criteria |
 |-------|--------|---------------|
-| Schema markup (3+ types = bonus) | 4 | BlogPosting + FAQ + Person minimum; dateModified current |
+| Schema markup priority baseline | 4 | Article/BlogPosting + Person + Organization + BreadcrumbList; FAQPage optional only for visible Q&A entity support; dateModified current |
 | Image optimization (alt text, format, lazy load) | 3 | AVIF/WebP, descriptive alt text, lazy except LCP |
 | Structured data elements | 2 | Tables, lists, comparison blocks for AI extraction |
 | Page speed signals (no render-blocking) | 2 | LCP < 2.5s, no render-blocking JS, fetchpriority on hero |
@@ -51,8 +51,8 @@ Score each blog post against this checklist. Used by `/blog analyze`.
 
 | Check | Points | Pass Criteria |
 |-------|--------|---------------|
-| Passage-level citability (120-180 word blocks) | 4 | Self-contained sections between headings with stat + source |
-| Q&A formatted sections | 3 | 60-70% of H2s as questions, FAQ section present |
+| Passage-level citability (120-180 word passages) | 4 | About 50-word direct-answer sentence followed by self-contained passage with stat + source |
+| Q&A formatted sections | 3 | 40-60% of H2s as questions, visible FAQ section when template calls for it |
 | Entity clarity | 3 | Unambiguous topic entity, consistent terminology |
 | Content structure for extraction | 3 | Answer-first, tables with `<thead>`, comparison formats |
 | AI crawler accessibility | 2 | SSR/SSG, no JS-gated content, robots.txt allows AI bots |
@@ -84,7 +84,8 @@ When reporting issues, classify by priority:
 
 ### High Priority
 - Missing answer-first formatting on H2 sections
-- No FAQ section/schema
+- Missing Article/Person/Organization/BreadcrumbList schema baseline
+- Missing visible Q&A section when the selected template calls for FAQ
 - Fewer than 8 sourced statistics
 - Missing meta description or lastUpdated
 - Title tag outside 40-60 character range
@@ -109,7 +110,7 @@ When reporting issues, classify by priority:
 
 ### Low Priority
 - Paragraph length slightly above 80 words (but under 150)
-- Non-question H2 headings above 40%
+- Question-format H2 ratio outside 40-60%
 - Missing chart type diversity
 - Images without alt text
 - Missing external links to tier 1-3 sources
@@ -156,8 +157,8 @@ These can be detected programmatically:
 28. lastUpdated presence (frontmatter check)
 
 ### AI Citation Readiness
-29. Section word count between headings (target 120-180)
-30. Question-format heading ratio (target 60-70% of H2s)
-31. FAQ presence (search for "FAQ" or "Frequently Asked")
+29. Opening citable passage after each H2 (target 120-180 words after about 50-word answer sentence)
+30. Question-format heading ratio (target 40-60% of H2s)
+31. Visible Q&A presence when template calls for FAQ
 32. Table presence with `<thead>` (for AI extraction)
 33. robots.txt AI bot allowance (site-level check)

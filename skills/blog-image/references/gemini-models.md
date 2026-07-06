@@ -1,29 +1,29 @@
 # Gemini Image Generation Models - Nano Banana
 
-> Last updated: 2026-03-14
-> Aligned with Google's March 2026 API state and pricing
+> Last updated: 2026-07-07
+> Aligned with Google's July 2026 model availability state. Prices are approximate.
 
 ## Available Models
 
-### gemini-3.1-flash-image-preview (Recommended - Speed + Quality)
+### gemini-3.1-flash-image (Recommended - Speed + Quality)
 | Property | Value |
 |----------|-------|
-| **Model ID** | `gemini-3.1-flash-image-preview` |
+| **Model ID** | `gemini-3.1-flash-image` |
 | **Tier** | Nano Banana 2 (Flash) |
 | **Speed** | Fast - optimized for high-volume use |
 | **Aspect Ratios** | All 14 ratios (see table below) |
 | **Max Resolution** | Up to 4096×4096 (4K tier) |
 | **Features** | Google Search grounding (web + image), thinking levels, image-only output, extreme aspect ratios, 512px drafts |
-| **Rate Limits (Free)** | ~5-15 RPM / ~20-500 RPD (preview model - more restrictive than stable) |
+| **Rate Limits (Free)** | ~5-15 RPM / ~20-500 RPD, varies by billing and region |
 | **Output Tokens** | ~1,290 output tokens per image |
 | **Cost (1K)** | ~$0.067/image |
 | **Arena Rank** | #1 on Artificial Analysis Image Arena |
 | **Best For** | Most blog images, rapid iteration, batch generation |
 
-### gemini-3-pro-image-preview (Highest Quality - Text + Detail)
+### gemini-3-pro-image (Highest Quality - Text + Detail)
 | Property | Value |
 |----------|-------|
-| **Model ID** | `gemini-3-pro-image-preview` |
+| **Model ID** | `gemini-3-pro-image` |
 | **Tier** | Nano Banana Pro |
 | **Speed** | Slower - uses reasoning before generating (generates interim images internally) |
 | **Aspect Ratios** | All 14 ratios |
@@ -34,7 +34,7 @@
 | **Cost (1K)** | ~$0.134/image (2× Flash) |
 | **Best For** | Hero images with text overlays, highest quality final assets, branded content |
 
-**Note:** The base text model `gemini-3-pro-preview` was deprecated March 9, 2026, but the **image variant** (`gemini-3-pro-image-preview`) remains active on AI Studio and Vertex AI.
+**Note:** The preview image ID `gemini-3-pro-image-preview` shut down on 2026-06-25. Use `gemini-3-pro-image`.
 
 ### gemini-2.5-flash-image (Stable Fallback)
 | Property | Value |
@@ -48,16 +48,25 @@
 | **Cost (1K)** | ~$0.039/image |
 | **Best For** | Budget-conscious workflows, proven quality, stable fallback |
 
-### Imagen 4 (Dedicated Image Models)
+### Imagen 4 (Deprecated Dedicated Image Models)
 | Property | Fast | Standard | Ultra |
 |----------|------|----------|-------|
+| **Model IDs** | `imagen-4.0-fast-generate-001` | `imagen-4.0-generate-001` | `imagen-4.0-ultra-generate-001` |
 | **Pricing** | $0.02/image | $0.04/image | $0.06/image |
 | **Speed** | Fastest | Medium | Slowest |
 | **Best For** | Batch generation, drafts | General-purpose blog images | Maximum detail, print |
 
-**Notes:** Imagen 4 models are dedicated image generators (not multimodal LLMs). They lack conversational editing but offer lower per-image cost for high-volume workflows.
+**Status:** Deprecated on 2026-06-15; shutdown scheduled for 2026-08-17. Use `gemini-3.1-flash-image` for current standard image generation, or `gemini-3-pro-image` for highest quality.
+
+**Notes:** Imagen 4 models are dedicated image generators (not multimodal LLMs). They lack conversational editing and should not be used for new workflows.
 
 ## Deprecated Models (DO NOT USE)
+
+### gemini-3.1-flash-image-preview
+- **Status:** Deprecated on 2026-05-28 and shut down on 2026-06-25. Use `gemini-3.1-flash-image`.
+
+### gemini-3-pro-image-preview
+- **Status:** Deprecated on 2026-05-28 and shut down on 2026-06-25. Use `gemini-3-pro-image`.
 
 ### gemini-2.5-flash-image-preview
 - **Status:** Shut down - use the stable `gemini-2.5-flash-image` variant
@@ -66,7 +75,7 @@
 - **Status:** Deprecated, shutdown June 1, 2026. Use `gemini-2.5-flash-image`
 
 ### Legacy models (Gemini 2.0 Flash and earlier)
-- **Status:** All retiring June 1, 2026. Migrate to NB2 Flash or Imagen 4.
+- **Status:** Shut down June 1, 2026. Migrate to `gemini-3.1-flash-image` or `gemini-3-pro-image`.
 
 ## Model Selection for Blog Content
 
@@ -123,7 +132,7 @@ Google cut free-tier limits by ~92% in December 2025. Current structure:
 | Tier 1 (Pay-as-you-go) | 150-300 | 1,500-10,000 | Enable billing on Google Cloud project |
 | Tier 2 ($250+ spend) | 1,000+ | Unlimited | Cumulative $250+ API spend |
 
-**Important:** Preview models (NB2, Pro) have more restrictive limits than stable models. Free tier for image generation may require billing to be enabled - some users report 0 IPM (images per minute) without billing.
+**Important:** The old NB2 and Pro preview image IDs are shut down. Free tier for image generation may require billing to be enabled - some users report 0 IPM (images per minute) without billing.
 
 ## Pricing (March 2026)
 
@@ -135,9 +144,9 @@ Google cut free-tier limits by ~92% in December 2025. Current structure:
 | Pro | 1K | ~$0.134 | 2× Flash |
 | Pro | 4K | ~$0.536 | Premium quality |
 | Original (2.5) | 1K | ~$0.039 | Budget option |
-| Imagen 4 Fast | - | $0.02 | Cheapest dedicated image model |
-| Imagen 4 Standard | - | $0.04 | Mid-range dedicated |
-| Imagen 4 Ultra | - | $0.06 | Highest quality dedicated |
+| Imagen 4 Fast | - | $0.02 | Deprecated, shutdown 2026-08-17 |
+| Imagen 4 Standard | - | $0.04 | Deprecated, shutdown 2026-08-17 |
+| Imagen 4 Ultra | - | $0.06 | Deprecated, shutdown 2026-08-17 |
 | Batch API | Any | 50% discount | Asynchronous, higher latency |
 
 **Cost optimization:** Use 512px for drafts (cheapest), 1K for standard blog images, reserve 2K-4K for hero images and final assets.

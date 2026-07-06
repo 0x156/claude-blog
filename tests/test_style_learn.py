@@ -110,6 +110,39 @@ def test_signature_phrases_are_deterministic(tmp_path):
     assert "the content" not in phrases
 
 
+def test_unicode_corpus_produces_vocabulary_metrics(tmp_path):
+    body = """## Что изменилось?
+
+Мы проверили стратегия контента на нескольких страницах. Стратегия контента стала понятнее для редакторов.
+
+## Как команда использует профиль?
+
+Команда пишет короткие выводы и сохраняет спокойный тон в каждом разделе.
+"""
+    path = tmp_path / "unicode.md"
+    path.write_text(_post("Кириллический пример", body), encoding="utf-8")
+
+    profile = style_learn.learn_style([tmp_path], min_posts=1)
+
+    assert profile["vocabulary"]["total_words"] > 0
+    assert profile["vocabulary"]["unique_words"] > 0
+    assert any("стратегия" in item["phrase"] for item in profile["signature_phrases"])
+
+
+def test_empty_corpus_warns_and_skips_tone_descriptors(tmp_path):
+    for index in range(2):
+        path = tmp_path / f"empty-{index}.md"
+        path.write_text("---\ntitle: Empty\n---\n\n", encoding="utf-8")
+
+    profile = style_learn.learn_style([tmp_path], min_posts=2)
+
+    assert profile["vocabulary"]["total_words"] == 0
+    assert profile["tone_descriptors"] == []
+    assert profile["sample"]["warnings"] == [
+        "No analyzable words found in the sample corpus. Tone descriptors were skipped."
+    ]
+
+
 def test_markdown_render_is_voice_profile_block(tmp_path):
     _write_posts(tmp_path, count=5)
     profile = style_learn.learn_style([tmp_path], min_posts=5)

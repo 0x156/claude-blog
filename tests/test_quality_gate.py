@@ -1,15 +1,20 @@
 """Tests for the blog post quality gate."""
 
 import json
+import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 import analyze_blog
 import quality_gate
 
+ROOT = Path(__file__).resolve().parent.parent
 FIXTURES = Path(__file__).parent / "fixtures"
+SCRIPT = ROOT / "scripts" / "quality_gate.py"
 
 
 def _copy_fixture(name: str, tmp_path: Path) -> Path:
@@ -86,6 +91,44 @@ def test_selection_skips_non_blog_paths(tmp_path):
     assert quality_gate.is_blog_post(post_file, root=tmp_path)
 
 
+def test_selection_uses_lexical_path_for_symlinks(tmp_path):
+    docs_dir = tmp_path / "docs"
+    posts_dir = tmp_path / "posts"
+    docs_dir.mkdir()
+    posts_dir.mkdir()
+
+    docs_post = docs_dir / "doc-post.md"
+    docs_post.write_text(
+        "---\n"
+        "title: Docs Post\n"
+        "description: This target lives in an excluded directory.\n"
+        "---\n\n"
+        "# Docs Post\n",
+        encoding="utf-8",
+    )
+
+    real_post = posts_dir / "real-post.md"
+    real_post.write_text(
+        "---\n"
+        "title: Real Post\n"
+        "description: This target lives outside excluded directories.\n"
+        "---\n\n"
+        "# Real Post\n",
+        encoding="utf-8",
+    )
+
+    docs_link = docs_dir / "linked-real.md"
+    root_link = tmp_path / "linked-docs.md"
+    try:
+        docs_link.symlink_to(real_post)
+        root_link.symlink_to(docs_post)
+    except OSError:
+        pytest.skip("symlinks not supported on this filesystem")
+
+    assert not quality_gate.is_blog_post(docs_link, root=tmp_path)
+    assert quality_gate.is_blog_post(root_link, root=tmp_path)
+
+
 def test_json_format_shape(tmp_path, capsys):
     post = _copy_fixture("blog_fail.md", tmp_path)
 
@@ -99,3 +142,29 @@ def test_json_format_shape(tmp_path, capsys):
     assert payload["failures"][0]["score"] < quality_gate.DEFAULT_THRESHOLD
     assert payload["failures"][0]["issues"]
     assert payload["failures"][0]["issues"][0]["severity"] == "high"
+
+
+def test_invalid_utf8_returns_structured_json_error(tmp_path):
+    bad_post = tmp_path / "bad.md"
+    bad_post.write_bytes(
+        b"---\ntitle: Bad\ndescription: Invalid bytes\n---\n\n# Bad\n\xff\n"
+    )
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPT),
+            str(bad_post),
+            "--format",
+            "json",
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 1
+    payload = json.loads(result.stdout)
+    assert "error" in payload
+    assert "Could not analyze" in payload["error"]
+    assert "Traceback" not in result.stderr

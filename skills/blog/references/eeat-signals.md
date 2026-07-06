@@ -10,7 +10,7 @@
 - [Trust Indicators](#trust-indicators)
 - [September 2025 QRG Key Principle](#september-2025-qrg-key-principle)
 - [E-E-A-T Scoring Rubric](#e-e-a-t-scoring-rubric)
-- [E-E-A-T Applies to ALL Queries (December 2025)](#e-e-a-t-applies-to-all-queries-december-2025)
+- [E-E-A-T Applies to ALL Competitive Queries Since December 2025](#e-e-a-t-applies-to-all-competitive-queries-since-december-2025)
 - [E-E-A-T Signals by Content Type](#e-e-a-t-signals-by-content-type)
 
 ## Named Author Attribution
@@ -247,7 +247,7 @@ Trust encompasses and validates all other signals.
 ## September 2025 QRG Key Principle
 
 Google's Quality Rater Guidelines (September 11, 2025 revision) remain the
-current QRG in mid-2026 as of 2026-07-06. That 182-page version renamed "YMYL
+current QRG in mid-2026 as of 2026-07-07. That 182-page version renamed "YMYL
 Society" to "YMYL Government, Civics & Society," added AI Overview evaluation
 examples, and assigned lowest ratings to value-less auto or AI content.
 
@@ -284,7 +284,7 @@ Trust Assessment → If Low → Cap at "Low E-E-A-T"
 
 ---
 
-## E-E-A-T Applies to ALL Queries (December 2025)
+## E-E-A-T Applies to ALL Competitive Queries Since December 2025
 
 The December 2025 core update expanded E-E-A-T evaluation beyond YMYL topics
 to all competitive queries. This means:

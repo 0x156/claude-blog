@@ -70,8 +70,9 @@ Switch the active Gemini model.
 | `model` | string | Yes | Model identifier |
 
 **Available models:**
-- `gemini-3.1-flash-image-preview` (default, recommended)
-- `gemini-2.5-flash-image` (stable fallback)
+- `gemini-3.1-flash-image` (default, recommended, Nano Banana 2)
+- `gemini-3-pro-image` (high-quality, Nano Banana Pro)
+- `gemini-2.5-flash-image` (stable fallback, Nano Banana Original)
 
 ### get_image_history
 Retrieve list of images generated in the current session.
@@ -92,7 +93,7 @@ Reset session context and conversation history.
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `GOOGLE_AI_API_KEY` | Yes | API key from https://aistudio.google.com/apikey |
-| `NANOBANANA_MODEL` | No | Override default model (default: `gemini-3.1-flash-image-preview`) |
+| `NANOBANANA_MODEL` | No | Override default model (default: `gemini-3.1-flash-image`) |
 
 ## Output Directory
 All generated images are saved to: `~/Documents/nanobanana_generated/`

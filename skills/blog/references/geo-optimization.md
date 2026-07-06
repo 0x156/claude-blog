@@ -1,16 +1,22 @@
-# GEO/AEO Optimization: AI Citation Strategies
+# AI Search SEO: Citation Strategies
 
-## Core GEO Research
+Use GEO and AEO as legacy labels for AI citation readiness. For Google, the
+2026-05-15 gen-AI optimization guidance is explicit: optimization for AI
+Overviews and AI Mode is SEO, not a separate discipline.
+
+## Core AI Search SEO Research
 
 ### Princeton GEO Paper (KDD 2024)
-GEO methods boost AI visibility by up to 40%.
+The Princeton GEO paper reports that content changes can boost AI visibility
+by up to 40% in test conditions. Treat the result as research on AI search
+surfaces, not as a separate Google ranking discipline.
 
 | Technique | Improvement |
 |-----------|-------------|
 | Citing authoritative sources | +115.1% visibility (5th-ranked sites, main experiment) |
 | Quotation addition | +28% (main experiment); +37% (Perplexity.ai validation, Table 7) |
 | Statistics addition | +41% (main experiment); +22% (Perplexity.ai validation, Table 7) |
-| FAQ schema | +28% (sponsored article on SEL; not editorial research) |
+| FAQPage entity markup | May aid AI citation as an entity signal for visible Q&A; no Google rich result; impact unverified |
 
 Traditional keyword stuffing performs **worse than baseline** in generative engines.
 
@@ -18,8 +24,8 @@ Traditional keyword stuffing performs **worse than baseline** in generative engi
 
 - Only 11% of domains are cited by both ChatGPT and Perplexity (Digital Bloom, 2025;
   domain-level, not URL-level; AI Overviews not included in that study)
-- 80% of LLM citations don't rank in Google's top 100 (Ahrefs, Aug 2025) - traditional
-  SEO rankings are a poor predictor of AI citation
+- 80% of LLM citations don't rank in Google's top 100 (Ahrefs, Aug 2025) - classic
+  organic rankings alone are a poor predictor of AI citation
 - Brands are 6.5x more likely to be cited through third-party sources than their own
   domains (AirOps, Oct 2025) - earned media dominates AI visibility
 
@@ -41,21 +47,21 @@ Three critical stages:
 
 | Format | Impact | Source |
 |--------|--------|--------|
-| Listicles | 50% of top AI citations (Onely/nobori.ai; Wix/Peec 75K-answer study found 21.9%) |
-| Tables/structured data | 2.5x more citations (Onely citing Averi AI) |
-| Long-form (2,000+ words) | ~3x more citations (Moz 2025 found 3.2x; SE Ranking found 1.6x) |
-| FAQ schema | +28% (sponsored SEL article, not editorial research) |
-| Content with statistics | +40% higher citation rates | Onely |
-| Sections of 120-180 words between headings | 70% more ChatGPT citations | SE Ranking, Nov 2025 |
-| Comparison tables with `<thead>` | 47% higher AI citation rates (SEL; primary source unlocatable) |
+| Listicles | Often over-index in vendor datasets; exact shares vary and are directional |
+| Tables/structured data | May improve extractability; specific 2.5x vendor claim is unverified |
+| Long-form (2,000+ words) | Often over-indexes in vendor studies; treat multipliers as directional |
+| FAQPage entity markup | May aid AI citation as an entity signal for visible Q&A; no Google rich result; impact unverified |
+| Content with statistics | Original, sourced statistics improve citeability; exact lifts vary by study |
+| Sections of 120-180 words between headings | Self-contained passages likely help extraction; exact lift is unverified |
+| Comparison tables with `<thead>` | May improve extraction; attributed SEL figure is unverified |
 
 ### Passage-Level Extractability (2026)
 
 Google's AI systems fragment pages and evaluate self-contained answer passages,
-not just whole documents. Target 130-170 word passages that can stand alone if
-quoted or summarized. Put an approximately 50-word TL;DR directly under each H2,
-then support it with named entities, dates, source attribution, and a specific
-example.
+not just whole documents. Start each H2 with an approximately 50-word
+direct-answer sentence, then build a 120-180 word passage that can stand alone
+if quoted or summarized. Support it with named entities, dates, source
+attribution, and a specific example.
 
 Entity density and demonstrated first-hand Experience break ties. A single
 clean passage with original testing, named tools, and verifiable evidence can
@@ -126,9 +132,10 @@ freshness-dependent platform. Content older than 1 week sees sharp citation drop
 
 ### Budget Allocation
 Recommended: **40% owned content / 60% earned media**
-(Most companies allocate 90/10 - this is wrong for GEO)
+(Most companies allocate 90/10 - this is wrong for AI search SEO)
 
-88-92% of AI citations come from off-site signals, not on-page optimization alone.
+88-92% of AI citations come from off-site signals in vendor-reported datasets.
+Treat this as directional, not a universal law.
 
 ## AI Crawler Technical Requirements
 
@@ -184,7 +191,7 @@ Allow: /
 ### llms.txt Standard
 Google does not need llms.txt for AI Overviews or AI Mode. Treat the file as an
 optional site inventory for non-Google tools, not a ranking or citation lever.
-Do not spend GEO budget on llms.txt before crawlability, passage extraction,
+Do not spend AI search SEO budget on llms.txt before crawlability, passage extraction,
 Article schema, source quality, and entity consistency.
 
 ## Attribution Gaps
@@ -193,7 +200,11 @@ Perplexity visits ~10 pages per query but cites only 3-4. Not all AI responses
 include citations - optimizing for retrieval is critical. Content must enter the
 candidate set before citation is possible.
 
-## GEO Case Study Results
+## AI Search Case Study Results
+
+These examples are illustrative, vendor-reported, and not independently
+verified. Do not reuse the numbers as factual benchmarks without primary
+confirmation.
 
 | Company | Results | Timeframe |
 |---------|---------|-----------|
@@ -215,26 +226,27 @@ Entity building timeline (3-6 months):
 4. Practice "controlled co-occurrence" via third-party mentions
 5. Earn external citations from recognized publications
 
-## Readability-GEO Connection
+## Readability and AI Search Connection
 
-Readability directly impacts AI citation rates. Content in the Flesch 60-75
-band receives significantly more AI citations across all major platforms.
+Readability can support AI citation rates, but the lift is not independently
+verified. Use Flesch 60-75 as a clarity heuristic, not as a citation guarantee.
 
 ### Flesch Score & AI Citation Rates
-- **Flesch 60-75 = 31% more AI citations** (Spotlight, 18,000 monitored prompts;
-  self-reported internal data from a commercial platform, no independent verification)
+- Commercial platform reports associate Flesch 60-75 with more AI citations;
+  this is vendor-reported internal data with no independent verification.
 - Teams improving Flesch from 52→68 saw parallel citation lifts within two
   crawl windows
 - Content that is too complex (Flesch <50) or too simple (Flesch >80) gets
   fewer citations - AI systems prefer fluent, authoritative writing
 
 ### Citation Position Bias
-- **44.2% of all LLM citations come from the first 30% of text** (Growth Memo,
-  Feb 2026, Kevin Indig). Answer-first formatting is critical for citation capture.
+- **44.2% of all LLM citations come from the first 30% of text** is a
+  single-source Growth Memo finding (Feb 2026, Kevin Indig). Treat it as
+  directional support for answer-first formatting, not a settled benchmark.
 - Direct answers in the first 1-2 sentences of each section maximize
   extractability for AI systems
 
-### GEO Tactic Combinations
+### AI Search Tactic Combinations
 Princeton GEO paper (KDD 2024) findings on readability-related tactics:
 - **Fluency optimization** = 15-30% visibility boost
 - **Statistics addition** = up to 41% visibility boost

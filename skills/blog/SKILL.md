@@ -4,9 +4,9 @@ description: >
   Full-lifecycle blog engine with 32 sub-skills, 12 content templates, 5-category
   100-point scoring, and 5 specialized agents. Routes user requests to the right
   sub-skill: writing, rewriting, analysis, outlines, audits, schema, charts,
-  images, repurposing, AI-citation optimization, FLOW framework prompts,
+  images, repurposing, AI citation SEO, FLOW framework prompts,
   topic-cluster execution, and multilingual publishing. Optimized for Google
-  rankings (December 2025 Core Update, E-E-A-T) and AI citations (GEO/AEO).
+  rankings around the May 2026 Core Update, E-E-A-T, and AI citations as one SEO discipline.
   Supports any platform (WordPress, Next.js MDX, Hugo, Ghost, Astro, Jekyll,
   11ty, Gatsby, HTML). Use when user says "blog", "write a blog", "blog post",
   "blog strategy", "content brief", "editorial calendar", "blog audit",
@@ -25,8 +25,10 @@ argument-hint: "[write|rewrite|analyze|brief|calendar|cannibalization|strategy|o
 
 Full-lifecycle blog management: strategy, briefs, outlines, writing, analysis,
 optimization, schema generation, repurposing, and editorial planning. Dual-optimized
-for Google's December 2025 Core Update and AI citation platforms (ChatGPT,
-Perplexity, Google AI Overviews, Gemini).
+for Google's May 2026 Core Update, March 2026 core quality baseline, March and
+June 2026 spam enforcement, and AI citation platforms (ChatGPT, Perplexity,
+Google AI Overviews, Gemini). Google treats gen-AI optimization as SEO, not a
+separate discipline.
 
 ## Quick Reference
 
@@ -125,11 +127,11 @@ Every blog post targets these 6 optimization pillars:
 
 | Pillar | Impact | Implementation |
 |--------|--------|---------------|
-| Answer-First Formatting | Strong AI citation lift | Every H2 opens with 40-60 word stat-rich paragraph |
+| Answer-First Formatting | Strong AI citation lift | Every H2 opens with an about 50-word direct-answer sentence followed by a self-contained 120-180 word citable passage |
 | Real Sourced Data | E-E-A-T trust | Tier 1-3 sources only, inline attribution |
 | Visual Media | Engagement + citations | Pixabay/Unsplash images + AI generation via Gemini + built-in SVG charts + YouTube video embeds |
-| FAQ Schema | AI citation signal | Structured FAQ with 40-60 word answers |
-| Content Structure | AI extractability | 50-150 word chunks, question headings, proper H hierarchy |
+| FAQ Entity Signal | AI citation context only | Visible Q&A may use FAQPage, but never as a Google rich result; 2026 priority is Article + Person + Organization + BreadcrumbList |
+| Content Structure | AI extractability | 120-180 word citable passages, question headings, proper H hierarchy |
 | Freshness Signals | 76% of top citations | Updated within 30 days, dateModified schema |
 
 ### How the 6 Pillars map to the FLOW framework (v1.7.0)
@@ -138,11 +140,11 @@ claude-blog adopts the FLOW evidence-led model (`github.com/AgriciDaniel/flow`, 
 
 | Pillar | FLOW concept it implements | claude-blog adds beyond FLOW |
 |--------|---------------------------|------------------------------|
-| Answer-First Formatting | "Extraction-readable" passages for AI Overviews and assistant citations | Concrete 40-60 word format spec |
+| Answer-First Formatting | "Extraction-readable" passages for AI Overviews and assistant citations | About 50-word direct-answer sentence plus 120-180 word citable passage |
 | Real Sourced Data | The FLOW evidence triple: year anchor in prose + inline citation (publisher + title) + URL with retrieval date | Tier 1-3 source classification, `blog-factcheck` automation |
 | Visual Media | (Outside FLOW scope; FLOW is asset-agnostic) | Full pipeline: Gemini image gen, SVG charts, stock libraries, YouTube embeds |
-| FAQ Schema | Structured Q&A as an AI-citation surface signal | JSON-LD generation via `blog-schema` |
-| Content Structure | "AI-readable document" with clear headings, direct answers, source labels | 50-150 word chunk rule, proper H hierarchy enforcement |
+| FAQ Entity Signal | Structured Q&A as optional AI-citation entity support, never a Google rich result | FAQPage only when visible Q&A exists; Article + Person + Organization + BreadcrumbList remain the schema baseline |
+| Content Structure | "AI-readable document" with clear headings, direct answers, source labels | 120-180 word citable passage rule, proper H hierarchy enforcement |
 | Freshness Signals | Year anchor in prose; source retrieval dates | dateModified schema, 30-day freshness threshold, `blog-audit` decay detection |
 
 The FLOW evidence triple is enforced AT DRAFTING time inside `blog-write` (not just at audit). For the full alignment doc (5-surface model, FLOW stages mapped to skills, what claude-blog adds), load `references/flow-alignment.md`. For the upstream FLOW framework itself, load `skills/blog-flow/references/flow-framework.md` or run `/blog flow` for prompt-driven workflows.
@@ -230,8 +232,8 @@ Blog quality is scored across 5 categories (100 points total):
 
 Load on-demand as needed (21 references; 13 original + 5 v1.8.0 methodology + 2 supplemental + 1 v1.9.0 delivery contract):
 
-- `references/google-landscape-2026.md`: December 2025 Core Update, E-E-A-T, algorithm changes
-- `references/geo-optimization.md`: GEO/AEO techniques, AI citation factors
+- `references/google-landscape-2026.md`: May 2026 Core Update, March 2026 Core Update, E-E-A-T, spam updates, algorithm changes
+- `references/geo-optimization.md`: AI search SEO techniques, AI citation factors, legacy GEO and AEO terminology
 - `references/content-rules.md`: Structure, readability, answer-first formatting
 - `references/visual-media.md`: Image sourcing (Pixabay, Unsplash, Pexels), AI image generation, SVG chart integration
 - `references/quality-scoring.md`: Full 5-category scoring checklist (100 points)
@@ -285,9 +287,9 @@ Templates are in `templates/` and contain section structure, markers, and checkl
 | `blog-strategy` | Positioning, topic clusters, AI citation surface strategy |
 | `blog-outline` | SERP-informed outlines with competitive gap analysis |
 | `blog-seo-check` | Post-writing SEO validation (title, meta, headings, links, OG) |
-| `blog-schema` | JSON-LD schema generation (BlogPosting, Person, FAQ, Breadcrumb) |
+| `blog-schema` | JSON-LD schema generation (Article/BlogPosting, Person, Organization, BreadcrumbList; FAQPage only for visible Q&A entity support) |
 | `blog-repurpose` | Cross-platform repurposing (social, email, YouTube, Reddit) |
-| `blog-geo` | AI citation readiness audit with 0-100 GEO score |
+| `blog-geo` | AI citation readiness audit with 0-100 AI search SEO score |
 | `blog-audit` | Full-site blog health assessment with parallel subagents |
 | `blog-cannibalization` | Keyword overlap detection with severity scoring |
 | `blog-chart` | Generate inline SVG data visualization charts with dark-mode styling (internal-only) |
@@ -464,7 +466,7 @@ DISCOURSE.md adds a recency-and-engagement lens to research (what real practitio
 
 | Anti-Pattern | Why |
 |-------------|-----|
-| Fabricate statistics | December 2025 Core Update penalizes unsourced claims |
+| Fabricate statistics | May 2026 Core Update and 2026 spam systems reward verifiable trust, not invented claims |
 | Use the same chart type twice | Visual monotony, reduces engagement |
 | Keyword-stuff headings or meta | Google ignores/penalizes this |
 | Bury answers in paragraphs | AI systems extract from section openers |

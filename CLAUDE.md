@@ -21,9 +21,9 @@ claude-blog/
   CLAUDE.md                          # Project instructions (this file)
   CONTRIBUTORS.md                    # Pro Hub Challenge attribution and integration decisions
   CHANGELOG.md                       # Keep a Changelog format
-  .claude-plugin/plugin.json         # Plugin manifest (v1.9.0)
+  .claude-plugin/plugin.json         # Plugin manifest (v1.10.0)
   .claude-plugin/marketplace.json    # Marketplace catalog for distribution
-  .mcp.json                          # MCP server configuration (nanobanana-mcp)
+  .mcp.example.json                  # MCP config example (tracked; .mcp.json is gitignored)
   pyproject.toml                     # Python packaging (3.11+)
   scripts/analyze_blog.py            # 5-category quality scoring (stdlib)
   scripts/blog_preflight.py          # 5-gate delivery contract runner (v1.9.0)

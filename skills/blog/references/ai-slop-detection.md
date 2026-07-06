@@ -144,7 +144,7 @@ Overall: [PASS only if both passes clean]
 
 ## Why this matters for ranking + AI citations
 
-- **Google December 2025 Core Update**: rewards content that demonstrates "experience" and original perspective. Second-order patterns are exactly what makes "AI consensus content," the kind being demoted.
+- **Google core updates through May 2026**: reward content that demonstrates "experience" and original perspective. Second-order patterns are exactly what makes "AI consensus content," the kind being demoted.
 - **AI citations**: ChatGPT and Perplexity reward citable, distinctive passages. Second-order tics produce interchangeable prose that no AI surface has reason to prefer over the source it was trained on.
 
 The two-tier check is the editorial parallel to impeccable's "design slop" methodology: vocabulary-clean is necessary but not sufficient; structural distinctiveness is what separates citeable content from indexable filler.

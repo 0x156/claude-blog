@@ -327,13 +327,14 @@ but they do not replace the need for SSR - standard crawlers still dominate cita
 
 Crawler access gets a page into the candidate set. Citation selection depends on
 whether the page contains self-contained answer passages AI systems can extract.
-Target 130-170 word passages that answer one question without relying on the
+Target 120-180 word passages that answer one question without relying on the
 surrounding article.
 
-Under each H2, start with an approximately 50-word TL;DR that gives the answer,
-the year, the named entity, and the source attribution. Follow with specific
-entities, dates, original examples, and first-hand Experience markers. A clean
-passage can earn an AI Overview citation even when the full page is not cited.
+Under each H2, start with an approximately 50-word direct-answer sentence that
+gives the answer, the year, the named entity, and the source attribution. Follow
+with specific entities, dates, original examples, and first-hand Experience
+markers. A clean passage can earn an AI Overview citation even when the full
+page is not cited.
 
 AI Overviews also began highlighting links from a user's subscribed
 publications in 2026, so publisher trust and subscriptions can affect which

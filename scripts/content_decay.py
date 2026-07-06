@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 from typing import Any
@@ -33,14 +34,23 @@ class ContentDecayError(ValueError):
     """Raised when an export cannot be used for content decay analysis."""
 
 
-def _as_number(value: Any) -> float:
-    """Return value as a nonnegative float, using 0 for missing values."""
+def _reject_json_constant(value: str) -> None:
+    """Reject JSON constants that are not valid finite JSON numbers."""
+    raise ValueError(f"non-finite JSON value is not allowed: {value}")
+
+
+def _as_number(value: Any, *, metric: str, page: str) -> float:
+    """Return value as a nonnegative finite float, using 0 for null values."""
     if value is None:
         return 0.0
     try:
         number = float(value)
     except (TypeError, ValueError):
         return 0.0
+    if not math.isfinite(number):
+        raise ContentDecayError(
+            f"Metric {metric} for page {page} must be a finite number."
+        )
     return max(number, 0.0)
 
 
@@ -74,9 +84,13 @@ def load_export(path: str | Path) -> list[dict[str, Any]]:
         raise ContentDecayError(f"{export_path} is empty.")
 
     try:
-        data = json.loads(raw)
+        data = json.loads(raw, parse_constant=_reject_json_constant)
     except json.JSONDecodeError as exc:
         raise ContentDecayError(f"{export_path} is not valid JSON: {exc.msg}") from exc
+    except ValueError as exc:
+        raise ContentDecayError(
+            f"{export_path} contains a non-finite JSON value: {exc}"
+        ) from exc
 
     if isinstance(data, list):
         rows = data
@@ -96,17 +110,27 @@ def load_export(path: str | Path) -> list[dict[str, Any]]:
     return rows
 
 
-def aggregate_pages(rows: list[dict[str, Any]]) -> dict[str, dict[str, float]]:
+def aggregate_pages(
+    rows: list[dict[str, Any]], *, required_metric: str | None = None
+) -> dict[str, dict[str, float]]:
     """Aggregate GSC rows by page and sum clicks and impressions."""
     pages: dict[str, dict[str, float]] = {}
     for row in rows:
         page = _row_page(row)
         if not page:
             continue
+        if required_metric is not None and required_metric not in row:
+            raise ContentDecayError(
+                f"Row for page {page} is missing selected metric column: {required_metric}."
+            )
         if page not in pages:
             pages[page] = {"clicks": 0.0, "impressions": 0.0}
-        pages[page]["clicks"] += _as_number(row.get("clicks"))
-        pages[page]["impressions"] += _as_number(row.get("impressions"))
+        pages[page]["clicks"] += _as_number(
+            row.get("clicks"), metric="clicks", page=page
+        )
+        pages[page]["impressions"] += _as_number(
+            row.get("impressions"), metric="impressions", page=page
+        )
     return pages
 
 
@@ -139,8 +163,13 @@ def recommend_action(
     previous_impressions = previous.get("impressions", 0.0)
     current_metric = current.get(metric, 0.0)
     previous_metric = previous.get(metric, 0.0)
+    metric_decline = _decline(previous_metric, current_metric)
 
-    if previous_clicks <= 3 and previous_impressions <= 100:
+    if (
+        previous_clicks <= 3
+        and previous_impressions <= 100
+        and metric_decline >= threshold
+    ):
         return (
             "prune",
             "The page had low prior demand, so pruning may be better than a rewrite.",
@@ -184,11 +213,11 @@ def analyze_decay(
     """Compare two GSC exports and return a structured content decay report."""
     if metric not in {"clicks", "impressions"}:
         raise ContentDecayError("Metric must be clicks or impressions.")
-    if threshold < 0 or threshold > 1:
+    if not math.isfinite(threshold) or threshold < 0 or threshold > 1:
         raise ContentDecayError("Threshold must be between 0 and 1.")
 
-    current_pages = aggregate_pages(current_rows)
-    previous_pages = aggregate_pages(previous_rows)
+    current_pages = aggregate_pages(current_rows, required_metric=metric)
+    previous_pages = aggregate_pages(previous_rows, required_metric=metric)
 
     if not current_pages:
         raise ContentDecayError("Current export has no usable page rows.")
@@ -266,6 +295,17 @@ def analyze_decay(
     }
 
 
+def _escape_markdown_cell(value: Any) -> str:
+    """Escape table cell characters that can break markdown table structure."""
+    text = str(value)
+    text = text.replace("\\", "\\\\")
+    text = text.replace("|", "\\|")
+    text = text.replace("\r\n", "\\n")
+    text = text.replace("\n", "\\n")
+    text = text.replace("\r", "\\n")
+    return text
+
+
 def format_markdown(report: dict[str, Any]) -> str:
     """Render a content decay report as markdown."""
     summary = report["summary"]
@@ -295,13 +335,13 @@ def format_markdown(report: dict[str, Any]) -> str:
         dropped = "yes" if row["dropped_out"] else "no"
         lines.append(
             "| {severity} | {page} | {previous:g} | {current:g} | {decline:.1f}% | {dropped} | {action} |".format(
-                severity=row["severity"],
-                page=row["page"],
+                severity=_escape_markdown_cell(row["severity"]),
+                page=_escape_markdown_cell(row["page"]),
                 previous=row["previous_metric"],
                 current=row["current_metric"],
                 decline=row["decline_percent"],
-                dropped=dropped,
-                action=row["recommended_action"],
+                dropped=_escape_markdown_cell(dropped),
+                action=_escape_markdown_cell(row["recommended_action"]),
             )
         )
 
@@ -360,13 +400,13 @@ def main(argv: list[str] | None = None) -> int:
             metric=args.metric,
         )
     except ContentDecayError as exc:
-        print(json.dumps({"error": str(exc)}, indent=2))
+        print(json.dumps({"error": str(exc)}, indent=2, allow_nan=False))
         return 1
 
     if args.format == "markdown":
         output = format_markdown(report)
     else:
-        output = json.dumps(report, indent=2) + "\n"
+        output = json.dumps(report, indent=2, allow_nan=False) + "\n"
     write_output(output, args.output)
     return 0
 

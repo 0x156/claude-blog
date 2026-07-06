@@ -1,5 +1,7 @@
 """Tests for the AI citation probability scorer."""
 
+import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -10,6 +12,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 import ai_citation_score
 
 
+ROOT = Path(__file__).resolve().parent.parent
+SCRIPT = ROOT / "scripts" / "ai_citation_score.py"
 FRONTMATTER_BOUNDARY = "-" * 3
 
 
@@ -99,3 +103,31 @@ def test_high_quality_fixture_scores_higher_than_thin_fixture(tmp_path):
     thin_score = ai_citation_score.score_file(thin_post)["overall"]
 
     assert high_score > thin_score
+
+
+def test_invalid_utf8_file_returns_structured_error(tmp_path):
+    bad_post = tmp_path / "bad.md"
+    bad_post.write_bytes(b"# Bad\n\xff\n")
+
+    result = ai_citation_score.score_file(bad_post)
+
+    assert "error" in result
+    assert "Could not analyze" in result["error"]
+
+
+def test_invalid_utf8_cli_exits_cleanly_with_json_error(tmp_path):
+    bad_post = tmp_path / "bad.md"
+    bad_post.write_bytes(b"# Bad\n\xff\n")
+
+    result = subprocess.run(
+        [sys.executable, str(SCRIPT), str(bad_post)],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 1
+    payload = json.loads(result.stdout)
+    assert "error" in payload
+    assert "Could not analyze" in payload["error"]
+    assert "Traceback" not in result.stderr

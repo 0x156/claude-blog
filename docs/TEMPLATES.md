@@ -10,7 +10,7 @@ consistent quality and optimization across all content.
 
 | Template | Content Type | Word Count Target | Best For |
 |----------|-------------|-------------------|----------|
-| how-to.md | How-To Guide | 2,000-2,500 | Step-by-step tutorials, process guides |
+| how-to-guide.md | How-To Guide | 2,000-2,500 | Step-by-step tutorials, process guides |
 | listicle.md | Listicle | 1,500-2,000 | Ranked lists, curated collections |
 | case-study.md | Case Study | 2,000-3,000 | Client results, project retrospectives |
 | comparison.md | Comparison | 1,500-2,000 | X vs Y, tool evaluations |
@@ -21,7 +21,7 @@ consistent quality and optimization across all content.
 | tutorial.md | Tutorial | 2,500-3,500 | Code walkthroughs, technical demos |
 | news-analysis.md | News Analysis | 800-1,500 | Industry updates, algorithm changes |
 | data-research.md | Data/Research | 2,500-3,500 | Original research, survey results |
-| faq-knowledge-base.md | FAQ / Knowledge Base | 1,500-2,000 | Reference content, Q&A collections |
+| faq-knowledge.md | FAQ / Knowledge Base | 1,500-2,000 | Reference content, Q&A collections |
 
 ---
 
@@ -106,7 +106,7 @@ If the user specifies a content type, that template is used directly:
 
 ```
 /blog write "10 Best CI/CD Tools for 2026"      --> listicle.md
-/blog write "How to Set Up Kubernetes Monitoring" --> how-to.md
+/blog write "How to Set Up Kubernetes Monitoring" --> how-to-guide.md
 /blog write case study: Acme Corp migration       --> case-study.md
 ```
 
@@ -116,7 +116,7 @@ If no type is specified, the orchestrator analyzes the topic:
 
 | Topic Signal | Template Selected |
 |-------------|-------------------|
-| "How to...", "Guide to..." | how-to.md |
+| "How to...", "Guide to..." | how-to-guide.md |
 | Numbers in title ("10 Best...", "7 Ways...") | listicle.md |
 | "X vs Y", "compared", "alternative" | comparison.md |
 | "Review", "tested", "hands-on" | product-review.md |
@@ -125,20 +125,20 @@ If no type is specified, the orchestrator analyzes the topic:
 | "Tutorial", "walkthrough", "step by step" | tutorial.md |
 | News event, update, announcement | news-analysis.md |
 | Survey, study, data, research | data-research.md |
-| "FAQ", "questions about" | faq-knowledge-base.md |
+| "FAQ", "questions about" | faq-knowledge.md |
 | Industry trend, prediction, opinion | thought-leadership.md |
 | Expert quotes, collection, roundup | roundup.md |
 
 ### 3. Default
 
-If the topic is ambiguous, the orchestrator defaults to `how-to.md` as the
+If the topic is ambiguous, the orchestrator defaults to `how-to-guide.md` as the
 most versatile template and confirms with the user.
 
 ---
 
 ## Template Details
 
-### how-to.md
+### how-to-guide.md
 
 Best for step-by-step guides where the reader wants to accomplish something.
 
@@ -359,7 +359,7 @@ Visuals: 3-4 charts (data visualizations are central)
 Info-Gain: Original data is the entire value proposition
 ```
 
-### faq-knowledge-base.md
+### faq-knowledge.md
 
 Best for comprehensive Q&A reference content.
 
@@ -395,7 +395,7 @@ Schema: FAQPage schema critical for this type
 
 1. Copy an existing template as a starting point:
    ```bash
-   cp ~/.claude/skills/blog/templates/how-to.md \
+   cp ~/.claude/skills/blog/templates/how-to-guide.md \
       ~/.claude/skills/blog/templates/my-custom-type.md
    ```
 2. Define the section structure for your content type

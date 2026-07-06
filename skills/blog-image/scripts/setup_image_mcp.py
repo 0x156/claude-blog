@@ -21,7 +21,7 @@ from pathlib import Path
 
 MCP_NAME = "nanobanana-mcp"
 MCP_PACKAGE = "@ycse/nanobanana-mcp"
-DEFAULT_MODEL = "gemini-3.1-flash-image-preview"
+DEFAULT_MODEL = "gemini-3.1-flash-image"
 PINNED_PACKAGE = "@ycse/nanobanana-mcp@1.1.1"  # latest stable as of 2026-04-27
 ENV_PLACEHOLDER = "${GOOGLE_AI_API_KEY}"
 PLUGIN_NAME = "claude-blog"
