@@ -1,16 +1,11 @@
 {
   "version": 1,
-  "status": "researched",
+  "status": "domain-adapted",
   "domain": "blog content creation, optimization, and management dual-optimized for Google rankings (E-E-A-T, the 2026 core updates) and AI citations (GEO/AEO), spanning writing, rewriting and freshness, SERP-informed briefs and outlines, editorial calendars and strategy, semantic topic clusters, schema and internal linking, multilingual publishing, the FLOW framework, factchecking, personas, distribution, and the blog delivery contract, grounded in the claude-blog skill",
-  "generic_only": true,
+  "generic_only": false,
   "last_verified": "2026-07-06",
   "raw_input_types": [
-    "blog-post/audit input contract",
-    "Markdown blog post with frontmatter",
-    "HTML blog post with canonical URL and metadata",
-    "claude-blog quality report JSON",
-    "blog delivery contract preflight output",
-    "Google algorithm-update ledger"
+    "blog-post input JSON using schemas/blog-post-input.schema.json"
   ],
   "rules": {
     "domain_adapted_requires": [
@@ -18,40 +13,55 @@
       "one domain-specific synthesis module",
       "one report renderer",
       "one fixture per supported input type",
-      "tests for importer, synthesis, rendering, malformed input, and missing credentials"
+      "tests for importer, synthesis, rendering, malformed input, and deterministic output"
     ]
   },
   "input_schemas": [
-    {"name": "blog-post-input", "path": "schemas/blog-post-input.schema.json", "planned": false}
+    {
+      "name": "blog-post-input",
+      "path": "schemas/blog-post-input.schema.json",
+      "status": "implemented",
+      "planned": false
+    }
   ],
   "importers": [
-    {"name": "ingest_blog_post", "path": "scripts/ingest_blog_post.py", "planned": true},
-    {"name": "ingest_blog_audit", "path": "scripts/ingest_blog_audit.py", "planned": true},
-    {"name": "ingest_google_update_ledger", "path": "scripts/ingest_google_update_ledger.py", "planned": true},
-    {"name": "ingest_claude_blog_reference_pack", "path": "scripts/ingest_claude_blog_reference_pack.py", "planned": true}
+    {
+      "name": "ingest_blog_input",
+      "path": "scripts/ingest_blog_input.py",
+      "status": "domain-adapted",
+      "planned": false
+    }
   ],
   "synthesis_modules": [
-    {"name": "synthesize_blog_research_pack", "path": "claude_blog_brain/blog_research.py", "planned": true},
-    {"name": "synthesize_blog_quality_plan", "path": "claude_blog_brain/blog_quality.py", "planned": true},
-    {"name": "synthesize_geo_citation_plan", "path": "claude_blog_brain/blog_geo.py", "planned": true},
-    {"name": "synthesize_topic_cluster_plan", "path": "claude_blog_brain/blog_clusters.py", "planned": true}
+    {
+      "name": "synthesize_blog_plan",
+      "path": "scripts/synthesize_blog_plan.py",
+      "status": "domain-adapted",
+      "planned": false
+    }
   ],
   "report_renderers": [
-    {"name": "render_blog_brief", "path": "scripts/render_blog_brief.py", "planned": true},
-    {"name": "render_blog_audit_report", "path": "scripts/render_blog_audit_report.py", "planned": true},
-    {"name": "render_geo_readiness_register", "path": "scripts/render_geo_readiness_register.py", "planned": true}
+    {
+      "name": "render_blog_report",
+      "path": "scripts/render_blog_report.py",
+      "status": "domain-adapted",
+      "planned": false
+    }
   ],
   "fixtures": [
-    {"name": "sample-blog-post", "path": "tests/fixtures/sample-blog-post.json", "planned": true},
-    {"name": "sample-blog-audit", "path": "tests/fixtures/sample-blog-audit.json", "planned": true},
-    {"name": "sample-google-updates", "path": "tests/fixtures/sample-google-updates.json", "planned": true},
-    {"name": "sample-claude-blog-reference-pack", "path": "tests/fixtures/sample-claude-blog-reference-pack.json", "planned": true}
+    {
+      "name": "sample-blog-post",
+      "path": "tests/fixtures/sample-blog-post.json",
+      "status": "implemented",
+      "planned": false
+    }
   ],
   "tests": [
-    {"name": "test_blog_post_input_schema", "path": "tests/test_blog_post_input_schema.py", "planned": true},
-    {"name": "test_blog_importers", "path": "tests/test_blog_importers.py", "planned": true},
-    {"name": "test_blog_synthesis", "path": "tests/test_blog_synthesis.py", "planned": true},
-    {"name": "test_blog_renderers", "path": "tests/test_blog_renderers.py", "planned": true},
-    {"name": "test_blog_adapter_malformed_input", "path": "tests/test_blog_adapter_malformed_input.py", "planned": true}
+    {
+      "name": "test_blog_adapters",
+      "path": "tests/test_blog_adapters.py",
+      "status": "implemented",
+      "planned": false
+    }
   ]
 }
