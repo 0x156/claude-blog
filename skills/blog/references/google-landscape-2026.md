@@ -45,6 +45,7 @@ Post-December 2025 core update visibility shifts:
 - Added AI Overview evaluation criteria - raters now assess AI-generated summary accuracy
 - Expanded YMYL definitions to cover broader range of topics affecting wellbeing
 - Key principle codified: "Trust is the most important member of the E-E-A-T family"
+- This 182-page September 11, 2025 version remains current as of 2026-07-06
 
 **January 2025 QRG Update:**
 - First formal "generative AI" definition added to the guidelines
@@ -52,6 +53,22 @@ Post-December 2025 core update visibility shifts:
   marked as lowest quality
 - Raters instructed to evaluate whether AI-generated content demonstrates genuine
   expertise or merely mimics it
+
+## 2026 Algorithm Timeline
+
+Google-owned status sources are current through 2026-06-30. No Google-owned
+ranking, spam, core, schema, policy, QRG, or AI-search change was announced
+from 2026-07-01 through 2026-07-06.
+
+| Update | Dates | Blog Impact |
+|--------|-------|-------------|
+| March 2026 Spam Update | 2026-03-24 | Spam enforcement; keep scaled and low-value AI pages out of the index |
+| March 2026 Core Update | 2026-03-27 to 2026-04-08 | Core quality reassessment; original experience and trust signals mattered most |
+| May 2026 Core Update | 2026-05-21 to 2026-06-02 | Core quality reassessment; reinforced differentiated, satisfying content |
+| June 2026 Spam Update | 2026-06-24 to 2026-06-26 | Spam enforcement; thin aggregation and abusive automation remain high risk |
+
+Treat third-party reports of an unconfirmed July 2026 update as volatility only,
+not as a Google-confirmed event.
 
 ## E-E-A-T Framework (Extended December 2025)
 
@@ -87,18 +104,27 @@ Identifies content from forums, social media, niche blogs where people share
 ## Structured Data 2026
 
 ### Active (Recommend Freely)
-- BlogPosting, Article
+- Article or BlogPosting with Person author and Organization publisher. Article is
+  the priority type for blog content after FAQ and HowTo rich result removal.
 - Organization, LocalBusiness
-- FAQPage (keep answers 40-60 words; note: rich results only shown for government/health
-  sites since Aug 2023 - still valuable for AI citation, not for Google rich snippets)
 - BreadcrumbList
 - Person (author credentials)
 - Product, SoftwareApplication
 - AggregateRating, Review (only supported on eligible types: Product, Recipe,
   SoftwareApplication, LocalBusiness, Movie, Book - NOT on BlogPosting directly)
+- Video, Product, Review, and Event when the page has eligible visible content
+
+Still rich-result-eligible for blog content in 2026: Article, BreadcrumbList,
+Video, Product, Review, and Event.
+
+FAQPage markup is AI/LLM citation support only. Google retired FAQ rich results
+for all sites on 2026-05-07, superseding the August 2023 government and health
+limit. FAQPage is not penalized, but it earns no visual Google rich result.
+Search Console FAQ filters retire around June 2026, and Rich Results Test/API
+support ends around August 2026.
 
 ### Deprecated (Never Recommend)
-- HowTo (Sept 2023)
+- HowTo rich results (removed in 2025; stay gone in 2026)
 - SpecialAnnouncement (July 2025)
 - ClaimReview (June 2025, Google structured data simplification)
 - Practice Problem (Jan 2026, confirmed via Google Search Console changelog)
@@ -112,30 +138,43 @@ Most AI crawlers cannot execute JS. 72% of first-page results use schema markup.
 ## Google AI Overviews & AI Mode
 
 ### Coverage
-- AI Overviews appear in 49% of SERPs (across all query types)
-- 15-21% global (conservative) to 60% US queries
-- Doubled from 6.49% (Jan 2025) to 24.61% peak (July 2025), stabilized ~15.69% (Semrush,
-  10M+ keywords, Dec 2025)
+- AI Overview coverage is methodology-dependent, not one fixed 49% figure.
+- Conservative floor: about 20% of searches in Ahrefs data cited by SparkToro
+  (SparkToro, 2026-06-09).
+- Higher upper estimate: about 48% in BrightEdge reporting, but this is
+  unconfirmed second-hand data.
+- Semrush recalibrated AI Overview visibility to about 15.7% in November 2025.
 
-### Traffic Impact (Seer Interactive, 3,119 queries, 42 orgs)
-- Organic CTR declined 61% with AI Overviews (1.76% → 0.61%)
-- Paid CTR declined 68% (19.7% → 6.34%)
-- Even without AI Overviews: 41% organic CTR decline
-- BUT: brands cited in AI Overviews see 35% higher organic CTR, 91% higher paid CTR
+### Traffic Impact (Seer Interactive, April 2026, 53 brands, 5.47M queries)
+- AI Overview organic CTR hit a 1.3% floor in December 2025, then rebounded to
+  about 2.4% by February 2026.
+- The AIO-present CTR gap narrowed from about 61% to about 38% compared with
+  no-AIO results.
+- Being cited inside the AI Overview is now the concrete target: cited pages
+  receive 120% more clicks per impression than uncited pages.
 
 ### AI Mode (Separate Product)
-- 200+ countries, 100 million monthly users
-- 300-word average responses (vs 157 for AI Overviews)
-- 12.6 links per response (vs 9.26)
-- 93% zero-click rate
-- Gemini 3 default model (Jan 27, 2026)
+- 1B+ monthly users announced at Google I/O 2026 on 2026-05-19
+- Only about 0.34% of US query volume (SparkToro, 2026-06-09)
+- About 12.6 links per answer
+- 97% of answers carry at least one citation
+- About 92-94% zero-click behavior
+- Gemini 3.5 Flash default model
 
 ## Market Context
 
-- Google market share below 90% for first time since 2015 (87.3% US; global share ~89%)
+- Google market share is about 89.85% global in March 2026 and about 90% in
+  April 2026; mobile is about 95.5%, desktop about 84.5%, and Bing about 5.1%
+  (StatCounter).
 - ChatGPT: 900M weekly users (Feb 2026), 2.5B daily queries (Jul 2025)
-- AI referral traffic: 1.08% of all web traffic, grew 527% (Jan-May 2025)
-- Zero-click searches: 58-60%, projected 65-70% by mid-2026
+- AI referral traffic is small but the fastest-growing channel. It grew 3x+
+  year over year from September 2024 to September 2025; Gemini surged to about
+  18% share with 237% YoY growth, while ChatGPT share slid from about 87% to the
+  high-60s (Similarweb, 2026-05-28). Do not cite a standardized share of total
+  web traffic.
+- Zero-click searches reached 68.01% of US Google searches from January to
+  April 2026, up from 60.45% in 2024. About 276 clicks reach the open web per
+  1,000 searches (SparkToro, 2026-06-09).
 - Gartner: 25% decline in traditional search volume by 2026 (appears accurate)
 - B2B SaaS discovery search declined 70-80% as buyers use AI assistants instead
   (primarily based on HubSpot case study; no rigorous sector-wide study confirms this as

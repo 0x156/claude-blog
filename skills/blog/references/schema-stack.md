@@ -19,27 +19,37 @@
 
 ## Why Schema Matters
 
-72% of first-page results use structured data markup. Pages using 3+ schema
+Article schema with author Person and publisher Organization is the priority
+schema family for blog content in 2026. FAQ and HowTo no longer earn Google
+rich result real estate, so standard article entities carry more of the SEO and
+AI-citation load. Pages using 3+ schema
 types have approximately 13% higher likelihood of AI citation. Schema must
 appear in HTML source: not injected via JavaScript: because most AI crawlers
 do not execute JS.
+
+Still rich-result-eligible for blog content in 2026: Article, BreadcrumbList,
+Video, Product, Review, and Event. FAQPage and HowTo no longer earn visual
+Google rich results.
 
 ---
 
 ## BlogPosting Schema
 
-The primary schema for every blog post. Embeds author, publisher, and article
+The priority schema family for every blog post is Article. `BlogPosting` remains
+acceptable as an Article-family implementation, but the required shape is the
+same: author Person, publisher Organization, dates, headline, and canonical page
 metadata in a single structured entity.
 
 ### Full Property Reference
 
-**Note:** Google states "there are no required properties" for BlogPosting - all properties
-below are recommended. `@context` and `@type` are required by the JSON-LD spec itself.
+**Note:** Google states "there are no required properties" for Article or
+BlogPosting structured data. All properties below are recommended. `@context`
+and `@type` are required by the JSON-LD spec itself.
 
 | Property | Status | Type | Description |
 |----------|--------|------|-------------|
 | `@context` | JSON-LD required | URL | Always `"https://schema.org"` |
-| `@type` | JSON-LD required | String | Always `"BlogPosting"` |
+| `@type` | JSON-LD required | String | `"Article"` or `"BlogPosting"` |
 | `@id` | Recommended | URI | Stable identifier: `{siteUrl}/blog/{slug}#article` |
 | `headline` | Recommended | String | Post title, max 110 characters |
 | `description` | Recommended | String | Meta description, 150-160 characters |
@@ -57,11 +67,11 @@ below are recommended. `@context` and `@type` are required by the JSON-LD spec i
 | `thumbnailUrl` | Optional | URL | Smaller preview image |
 | `articleBody` | Optional | String | Full text (usually omitted for size) |
 
-### Complete BlogPosting Example
+### Complete Article/BlogPosting Example
 
 ```json
 {
-  "@type": "BlogPosting",
+  "@type": "Article",
   "@id": "https://example.com/blog/technical-seo-guide#article",
   "headline": "Complete Guide to Technical SEO in 2026",
   "description": "Technical SEO has evolved beyond Core Web Vitals. 72% of top-ranking pages now use structured data. Here's how to optimize your site for both traditional search and AI systems.",
@@ -249,14 +259,17 @@ Each breadcrumb item requires `@type`, `position`, `name`, and `item` (URL).
 
 ## FAQPage Schema
 
-**Important**: Since August 2023, Google restricted FAQ rich results to government and health
-authority websites only. For all other sites, **no FAQ rich results will appear in Google
-Search** - the markup produces no visual search enhancement.
+**Important**: Google retired FAQ rich results for all sites on 2026-05-07,
+superseding the August 2023 government and health limit. **No FAQ rich results
+will appear in Google Search**. The markup produces no visual search enhancement.
+Search Console FAQ filters retire around June 2026, and Rich Results Test/API
+support ends around August 2026.
 
-However, the markup is still worth including for AI citation reasons: LLMs parse your page's
-**visible FAQ text** (not the JSON-LD) and Q&A-formatted content improves extractability for
-citation. Google says there is "no need to proactively remove" existing FAQPage markup and it
-"does not cause problems for Search." Implement for AI citation value, not rich results.
+However, the markup is still worth including for AI citation reasons: LLMs parse
+your page's **visible FAQ text** and Q&A-formatted content improves
+extractability for citation. Google says there is "no need to proactively
+remove" existing FAQPage markup and it "does not cause problems for Search."
+Implement for AI/LLM entity value, not rich results.
 
 ### Structure
 
@@ -497,10 +510,12 @@ Instead of embedding a full Person object in every BlogPosting, reference the
 
 These types have been deprecated by Google. Using them does not cause penalties
 but wastes implementation effort and may trigger rich result validation warnings.
+FAQPage is different: the rich result is retired, but the markup can remain for
+AI/LLM entity support.
 
 | Type | Deprecated | Date | Notes |
 |------|------------|------|-------|
-| HowTo | Yes | September 2023 | Rich results removed entirely |
+| HowTo | Yes | 2025 | Rich results removed entirely and stay gone in 2026 |
 | SpecialAnnouncement | Yes | July 2025 | COVID-era, no longer processed |
 | ClaimReview | Yes | June 2025 | Google structured data simplification; no longer generates rich results |
 | Practice Problem | Yes |: | Educational, no longer generates rich results |
@@ -512,7 +527,7 @@ but wastes implementation effort and may trigger rich result validation warnings
 
 | Deprecated Type | Alternative |
 |----------------|-------------|
-| HowTo | Use standard BlogPosting with clear step headings (H2/H3) |
+| HowTo | Use standard Article or BlogPosting with clear step headings (H2/H3) |
 | Q&A | Use FAQPage for editorial Q&A; no replacement for community Q&A |
 | SpecialAnnouncement | Use standard Article or NewsArticle |
 | ClaimReview | No direct replacement for blogs; use Author entity with credentials |
@@ -602,7 +617,7 @@ multiple schema types.
       }
     },
     {
-      "@type": "BlogPosting",
+      "@type": "Article",
       "@id": "https://example.com/blog/technical-seo-guide#article",
       "headline": "Complete Guide to Technical SEO in 2026",
       "description": "Technical SEO has evolved beyond Core Web Vitals. 72% of top-ranking pages now use structured data. Here's how to optimize your site for both traditional search and AI systems.",
@@ -671,7 +686,7 @@ multiple schema types.
           "name": "What schema types should every blog post have?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Every blog post should have BlogPosting, Person (author), Organization (publisher), and BreadcrumbList schemas at minimum. Adding FAQPage as a fifth type increases AI citation likelihood by approximately 13%."
+            "text": "Every blog post should have Article or BlogPosting, Person author, Organization publisher, and BreadcrumbList schemas at minimum. Add FAQPage only for visible Q&A content and AI citation support, not Google rich results."
           }
         }
       ]

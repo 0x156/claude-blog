@@ -25,7 +25,7 @@ the corresponding format rules below.
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "Organic CTR declined 61% with AI Overviews. Here's how to optimize for both Google rankings and AI citations in 2026."
+description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize for Google rankings and AI citations in 2026."
 date: "2026-02-18"
 lastUpdated: "2026-02-18"
 author: "Author Name"
@@ -85,23 +85,23 @@ cause compilation errors.
     viewBox="0 0 560 380"
     style={{maxWidth: '100%', height: 'auto', fontFamily: "'Inter', system-ui, sans-serif"}}
     role="img"
-    aria-label="Chart showing 61% CTR decline with AI Overviews"
+    aria-label="Chart showing AIO organic CTR rebound from 1.3% to about 2.4%"
   >
-    <title>Organic CTR Impact</title>
-    <desc>Bar chart comparing organic CTR before and after AI Overviews</desc>
+    <title>AIO Organic CTR Rebound</title>
+    <desc>Bar chart comparing the December 2025 AIO CTR floor to the February 2026 rebound</desc>
     <text x="280" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="currentColor">
-      Organic CTR Decline
+      AIO Organic CTR Rebound
     </text>
-    <rect x="100" y="60" width="160" height="200" rx="6" fill="#f97316" />
-    <text x="180" y="170" textAnchor="middle" fontSize="14" fontWeight="800" fill="white">
-      1.76%
+    <rect x="100" y="152" width="160" height="108" rx="6" fill="#f97316" />
+    <text x="180" y="212" textAnchor="middle" fontSize="14" fontWeight="800" fill="white">
+      1.3%
     </text>
-    <rect x="300" y="180" width="160" height="80" rx="6" fill="#38bdf8" />
-    <text x="380" y="225" textAnchor="middle" fontSize="14" fontWeight="800" fill="white">
-      0.61%
+    <rect x="300" y="60" width="160" height="200" rx="6" fill="#38bdf8" />
+    <text x="380" y="165" textAnchor="middle" fontSize="14" fontWeight="800" fill="white">
+      ~2.4%
     </text>
     <text x="280" y="372" textAnchor="middle" fontSize="10" fill="currentColor" opacity="0.35">
-      Source: Seer Interactive (2025)
+      Source: Seer Interactive (Apr 2026)
     </text>
   </svg>
 </figure>
@@ -129,7 +129,7 @@ cause compilation errors.
 import { BarChart } from '@/components/charts/BarChart'
 import { FAQSchema } from '@/components/FAQSchema'
 
-<BarChart data={chartData} title="Organic CTR Decline" />
+<BarChart data={chartData} title="AIO Organic CTR Rebound" />
 <FAQSchema faqs={[{ question: "...", answer: "..." }]} />
 ```
 
@@ -183,7 +183,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "Organic CTR declined 61% with AI Overviews. Here's how to optimize."
+description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
 pubDate: 2026-02-18
 updatedDate: 2026-02-18
 author: "Author Name"
@@ -263,7 +263,7 @@ const { title, ariaLabel } = Astro.props
 
 Use standard HTML attributes (not camelCase) in `.astro` and `.md` files:
 ```html
-<svg viewBox="0 0 560 380" role="img" aria-label="CTR decline chart">
+<svg viewBox="0 0 560 380" role="img" aria-label="AIO CTR rebound chart">
   <text x="280" y="30" text-anchor="middle" font-size="16" fill="currentColor">
     Chart Title
   </text>
@@ -286,7 +286,7 @@ Use standard HTML attributes (not camelCase) in `.astro` and `.md` files:
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "Organic CTR declined 61% with AI Overviews. Here's how to optimize."
+description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
 date: 2026-02-18
 lastmod: 2026-02-18
 author: "Author Name"
@@ -303,7 +303,7 @@ draft: false
 ```toml
 +++
 title = "How Does AI Search Impact Organic Traffic in 2026?"
-description = "Organic CTR declined 61% with AI Overviews."
+description = "AI Overview CTR gap narrowed to about 38%."
 date = 2026-02-18
 lastmod = 2026-02-18
 author = "Author Name"
@@ -353,8 +353,8 @@ Create a custom shortcode for inline SVG:
 
 Usage in markdown:
 ```markdown
-{{< chart caption="Source: Seer Interactive (2025)" >}}
-<svg viewBox="0 0 560 380" role="img" aria-label="CTR decline chart">
+{{< chart caption="Source: Seer Interactive (Apr 2026)" >}}
+<svg viewBox="0 0 560 380" role="img" aria-label="AIO CTR rebound chart">
   <!-- SVG content -->
 </svg>
 {{< /chart >}}
@@ -413,7 +413,7 @@ Create new posts with: `hugo new blog/my-post-title.md`
 ---
 layout: post
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "Organic CTR declined 61% with AI Overviews. Here's how to optimize."
+description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
 date: 2026-02-18
 last_modified_at: 2026-02-18
 author: "Author Name"
@@ -442,10 +442,10 @@ Jekyll uses the kramdown renderer, which passes through raw HTML:
 
 ```markdown
 <figure>
-  <svg viewBox="0 0 560 380" role="img" aria-label="CTR decline chart">
+  <svg viewBox="0 0 560 380" role="img" aria-label="AIO CTR rebound chart">
     <!-- SVG content with standard HTML attributes -->
   </svg>
-  <figcaption>Source: Seer Interactive (2025)</figcaption>
+  <figcaption>Source: Seer Interactive (Apr 2026)</figcaption>
 </figure>
 ```
 
@@ -529,10 +529,10 @@ Gutenberg uses block-based editing. Key blocks for blog content:
 ```html
 <h2>How Does AI Search Impact Organic Traffic?</h2>
 
-<p>Organic CTR declined 61% with AI Overviews
-(<a href="https://seerinteractive.com">Seer Interactive</a>, 2025).
-This means brands must optimize for AI citation to maintain visibility
-in a landscape where zero-click searches dominate.</p>
+<p>AIO organic CTR rebounded from 1.3% in December 2025 to about 2.4%
+in February 2026 (<a href="https://seerinteractive.com">Seer Interactive</a>,
+April 2026). This means brands should optimize for citation, since cited pages
+earn 120% more clicks per impression.</p>
 
 <figure>
   <img src="https://cdn.pixabay.com/photo/.../image.jpg"
@@ -615,11 +615,11 @@ const api = new GhostAdminAPI({
 
 api.posts.add({
   title: 'How Does AI Search Impact Organic Traffic in 2026?',
-  html: '<p>Organic CTR declined 61%...</p>',
+  html: '<p>AIO organic CTR rebounded from 1.3% to about 2.4%...</p>',
   status: 'draft',
   tags: [{ name: 'AI Search' }, { name: 'SEO' }],
   meta_title: 'AI Search Impact on Organic Traffic (2026 Data)',
-  meta_description: 'Organic CTR declined 61% with AI Overviews...',
+  meta_description: 'AI Overview CTR gap narrowed to about 38%...',
   og_image: 'https://cdn.pixabay.com/photo/.../cover.jpg',
   og_title: 'AI Search Impact on Organic Traffic',
   og_description: 'New data reveals how AI search reshapes organic visibility.',
@@ -713,7 +713,7 @@ taxonomies:
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "Organic CTR declined 61% with AI Overviews. Here's how to optimize."
+description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
 date: 2026-02-18
 lastUpdated: 2026-02-18
 author: "Author Name"
@@ -762,10 +762,10 @@ without stripping.
 
 ```markdown
 <figure>
-  <svg viewBox="0 0 560 380" role="img" aria-label="CTR decline chart">
+  <svg viewBox="0 0 560 380" role="img" aria-label="AIO CTR rebound chart">
     <!-- SVG content -->
   </svg>
-  <figcaption>Source: Seer Interactive (2025)</figcaption>
+  <figcaption>Source: Seer Interactive (Apr 2026)</figcaption>
 </figure>
 ```
 
@@ -812,7 +812,7 @@ module.exports = function(eleventyConfig) {
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "Organic CTR declined 61% with AI Overviews. Here's how to optimize."
+description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
 date: "2026-02-18"
 lastUpdated: "2026-02-18"
 author: "Author Name"
@@ -942,12 +942,12 @@ exports.createPages = async ({ graphql, actions }) => {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How Does AI Search Impact Organic Traffic in 2026?</title>
-  <meta name="description" content="Organic CTR declined 61% with AI Overviews. Here's how to optimize for both Google rankings and AI citations in 2026.">
+  <meta name="description" content="AI Overview CTR gap narrowed to about 38%. Here's how to optimize for Google rankings and AI citations in 2026.">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="How Does AI Search Impact Organic Traffic in 2026?">
-  <meta property="og:description" content="Organic CTR declined 61% with AI Overviews.">
+  <meta property="og:description" content="AI Overview CTR gap narrowed to about 38%.">
   <meta property="og:image" content="https://cdn.pixabay.com/photo/.../cover.jpg">
   <meta property="og:url" content="https://yourblog.com/ai-search-organic-traffic">
   <meta property="article:published_time" content="2026-02-18T00:00:00Z">
@@ -956,7 +956,7 @@ exports.createPages = async ({ graphql, actions }) => {
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How Does AI Search Impact Organic Traffic in 2026?">
-  <meta name="twitter:description" content="Organic CTR declined 61% with AI Overviews.">
+  <meta name="twitter:description" content="AI Overview CTR gap narrowed to about 38%.">
   <meta name="twitter:image" content="https://cdn.pixabay.com/photo/.../cover.jpg">
 
   <!-- JSON-LD Structured Data -->
@@ -965,7 +965,7 @@ exports.createPages = async ({ graphql, actions }) => {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "How Does AI Search Impact Organic Traffic in 2026?",
-    "description": "Organic CTR declined 61% with AI Overviews.",
+    "description": "AI Overview CTR gap narrowed to about 38%.",
     "image": "https://cdn.pixabay.com/photo/.../cover.jpg",
     "datePublished": "2026-02-18",
     "dateModified": "2026-02-18",
@@ -1002,14 +1002,14 @@ exports.createPages = async ({ graphql, actions }) => {
 
     <section>
       <h2>What Is the Impact of AI Overviews on Click-Through Rates?</h2>
-      <p>Organic CTR declined 61% with AI Overviews, dropping from 1.76% to
-      0.61% (<a href="https://seerinteractive.com">Seer Interactive</a>, 2025).
-      This represents the most significant shift in search behavior since
-      mobile-first indexing.</p>
+      <p>AIO organic CTR rebounded from 1.3% in December 2025 to about 2.4%
+      in February 2026 (<a href="https://seerinteractive.com">Seer Interactive</a>,
+      April 2026). Cited pages now earn 120% more clicks per impression than
+      uncited pages.</p>
 
       <figure>
         <img src="https://cdn.pixabay.com/photo/.../image.jpg"
-             alt="Marketing dashboard showing declining organic CTR metrics"
+             alt="Marketing dashboard showing AI search CTR metrics"
              width="1200" height="630" loading="lazy">
         <figcaption>Photo via Pixabay</figcaption>
       </figure>
@@ -1046,12 +1046,12 @@ exports.createPages = async ({ graphql, actions }) => {
   <svg viewBox="0 0 560 380"
        style="max-width: 100%; height: auto; font-family: 'Inter', system-ui, sans-serif"
        role="img"
-       aria-label="Chart showing 61% CTR decline">
-    <title>Organic CTR Decline with AI Overviews</title>
-    <desc>Bar chart comparing 1.76% organic CTR before to 0.61% after AI Overviews</desc>
+       aria-label="Chart showing AIO organic CTR rebound from 1.3% to about 2.4%">
+    <title>AIO Organic CTR Rebound</title>
+    <desc>Bar chart comparing the December 2025 AIO CTR floor to the February 2026 rebound</desc>
     <!-- SVG content with standard HTML attributes -->
   </svg>
-  <figcaption>Source: Seer Interactive (2025)</figcaption>
+  <figcaption>Source: Seer Interactive (Apr 2026)</figcaption>
 </figure>
 ```
 

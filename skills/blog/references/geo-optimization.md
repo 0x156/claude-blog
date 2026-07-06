@@ -49,6 +49,19 @@ Three critical stages:
 | Sections of 120-180 words between headings | 70% more ChatGPT citations | SE Ranking, Nov 2025 |
 | Comparison tables with `<thead>` | 47% higher AI citation rates (SEL; primary source unlocatable) |
 
+### Passage-Level Extractability (2026)
+
+Google's AI systems fragment pages and evaluate self-contained answer passages,
+not just whole documents. Target 130-170 word passages that can stand alone if
+quoted or summarized. Put an approximately 50-word TL;DR directly under each H2,
+then support it with named entities, dates, source attribution, and a specific
+example.
+
+Entity density and demonstrated first-hand Experience break ties. A single
+clean passage with original testing, named tools, and verifiable evidence can
+earn an AI Overview citation even when the full page is not the strongest
+organic result.
+
 ## Platform-Specific Citation Patterns
 
 Each AI platform has distinct content preferences:
@@ -58,6 +71,10 @@ Each AI platform has distinct content preferences:
 | ChatGPT | "Best X" listicles | 43.8% of citations are list-format content |
 | Perplexity | Reddit discussions | 6.6% of all citations come from Reddit |
 | AI Overviews | Google properties | 23% of citations favor Google-owned sources |
+
+2026 wrinkle: AI Overviews now highlight links from a user's subscribed
+publications, so publisher subscriptions can influence which sources users see
+inside the AI answer (Nieman Lab, 2026-05).
 
 **Perplexity content decay**: Citation relevance begins declining 2-3 days
 post-publication - Perplexity heavily weights recency, making it the most
@@ -127,6 +144,13 @@ Recommended: **40% owned content / 60% earned media**
 **Critical**: Content behind JavaScript is invisible to ChatGPT, Claude, Perplexity.
 Use SSR, SSG, or ISR. Test by disabling JS and reloading.
 
+### Google's Official Gen-AI Guidance (2026-05-15)
+
+Google's stance holds: optimization for AI Overviews and AI Mode is SEO. There
+is no special schema for gen-AI features, and Google does not need llms.txt.
+Use standard crawlable HTML, Article schema with author and Organization
+entities, helpful content, clear source attribution, and fast server responses.
+
 ### AI Crawler Traffic Growth
 
 - Cloudflare AI crawling rose 32% YoY across all monitored sites
@@ -158,8 +182,10 @@ Allow: /
 ```
 
 ### llms.txt Standard
-Markdown file at site root helping LLMs understand content at inference time.
-Keep under 10KB, plain URLs with brief comments.
+Google does not need llms.txt for AI Overviews or AI Mode. Treat the file as an
+optional site inventory for non-Google tools, not a ranking or citation lever.
+Do not spend GEO budget on llms.txt before crawlability, passage extraction,
+Article schema, source quality, and entity consistency.
 
 ## Attribution Gaps
 

@@ -176,6 +176,9 @@ The Person schema embedded in BlogPosting and on author pages.
 
 Phrases that demonstrate first-hand experience. Use these naturally throughout
 content to signal genuine expertise to both human readers and quality raters.
+In AI citation selection, demonstrated Experience is the tie-breaker when two
+sources are similarly authoritative: original testing, named workflows, direct
+observations, and proprietary data win over generic summaries.
 
 ### Use These Patterns
 
@@ -243,7 +246,12 @@ Trust encompasses and validates all other signals.
 
 ## September 2025 QRG Key Principle
 
-Google's Quality Rater Guidelines (September 2025 revision) established:
+Google's Quality Rater Guidelines (September 11, 2025 revision) remain the
+current QRG in mid-2026 as of 2026-07-06. That 182-page version renamed "YMYL
+Society" to "YMYL Government, Civics & Society," added AI Overview evaluation
+examples, and assigned lowest ratings to value-less auto or AI content.
+
+The E-E-A-T framing is stable. Google's September 2025 revision established:
 
 > "Trust is the most important member of the E-E-A-T family because untrustworthy
 > pages have low E-E-A-T no matter how Experienced, Expert, or Authoritative they

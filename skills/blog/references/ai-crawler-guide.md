@@ -4,8 +4,10 @@
 
 - [robots.txt Template for AI Crawlers](#robotstxt-template-for-ai-crawlers)
 - [Cloudflare AI Crawl Control: CRITICAL](#cloudflare-ai-crawl-control----critical)
+- [Google Gen-AI Guidance](#google-gen-ai-guidance)
 - [llms.txt Implementation](#llmstxt-implementation)
 - [Server-Side Rendering Requirements](#server-side-rendering-requirements)
+- [Passage-Level Extractability](#passage-level-extractability)
 - [Performance Requirements](#performance-requirements)
 - [Testing AI Crawler Visibility](#testing-ai-crawler-visibility)
 - [AI Crawler Traffic Growth](#ai-crawler-traffic-growth)
@@ -200,15 +202,25 @@ If you get a 403 or an HTML page with "Cloudflare" in it, the crawler is blocked
 
 ---
 
+## Google Gen-AI Guidance
+
+Google's 2026-05-15 gen-AI optimization guidance says optimization for AI
+Overviews and AI Mode is SEO. Google does not require special schema or
+llms.txt for AI features. Use crawlable HTML, standard Article schema with
+author Person and publisher Organization, clear source attribution, strong
+E-E-A-T, and fast server responses.
+
+---
+
 ## llms.txt Implementation
 
 The `llms.txt` standard (proposed by llmstxt.org, Sep 2024) provides a machine-readable
 summary of your site for LLMs. Place at site root: `https://example.com/llms.txt`.
 
-**Important caveat:** No major AI platform has confirmed reading llms.txt. Google's Gary Illyes
-stated Google doesn't support it (Jul 2025). Semrush testing showed zero AI crawler visits to
-llms.txt files across 9 test sites. It is low-cost to implement but benefits are currently
-unproven. Implement it - but don't rely on it as a visibility strategy.
+**Important caveat:** Google's current stance is no llms.txt needed for AI
+Overviews or AI Mode (Google gen-AI optimization guide, 2026-05-15). No major AI
+platform has confirmed relying on it. Treat it as an optional site inventory for
+non-Google tools, not a ranking, indexing, or citation requirement.
 
 ### Specification
 
@@ -255,6 +267,7 @@ unproven. Implement it - but don't rely on it as a visibility strategy.
 - Include only your most important and highest-quality pages
 - Update when you publish significant new content
 - This is NOT a sitemap replacement: it supplements sitemap.xml
+- Do not treat a missing llms.txt file as an AI visibility blocker
 
 ---
 
@@ -307,6 +320,24 @@ Standard AI crawlers do not execute JavaScript. However, **agentic tools** are d
 
 These are user-directed agents, not automated crawlers. They can see JS-rendered content,
 but they do not replace the need for SSR - standard crawlers still dominate citation indexing.
+
+---
+
+## Passage-Level Extractability
+
+Crawler access gets a page into the candidate set. Citation selection depends on
+whether the page contains self-contained answer passages AI systems can extract.
+Target 130-170 word passages that answer one question without relying on the
+surrounding article.
+
+Under each H2, start with an approximately 50-word TL;DR that gives the answer,
+the year, the named entity, and the source attribution. Follow with specific
+entities, dates, original examples, and first-hand Experience markers. A clean
+passage can earn an AI Overview citation even when the full page is not cited.
+
+AI Overviews also began highlighting links from a user's subscribed
+publications in 2026, so publisher trust and subscriptions can affect which
+citations users notice (Nieman Lab, 2026-05).
 
 ---
 
@@ -396,8 +427,10 @@ to serve these crawlers are losing compounding visibility.
 | PerplexityBot traffic growth | +157,490% YoY | Cloudflare Radar, 2025 |
 | AI crawling volume overall | +32% YoY | Cloudflare, 2025 |
 | Top 10 domains' citation share | 46% of all ChatGPT citations per topic | Growth Memo, Mar 2026 |
-| AI referral traffic share | 1.08% of all web traffic | Similarweb, May 2025 |
-| AI referral traffic growth | +527% Jan-May 2025 | Similarweb, 2025 |
+| AI referral traffic share | Small but fastest-growing; no standardized total-web share | Similarweb, 2026-05-28 |
+| AI referral traffic growth | 3x+ YoY from September 2024 to September 2025 | Similarweb, 2026-05-28 |
+| Gemini referral trend | About 18% share, +237% YoY | Similarweb, 2026-05-28 |
+| ChatGPT referral trend | Share slid from about 87% to the high-60s | Similarweb, 2026-05-28 |
 
 ---
 
@@ -407,9 +440,9 @@ to serve these crawlers are losing compounding visibility.
 |-------|------|------|
 | robots.txt allows AI crawlers | All major bots listed with `Allow: /` | Missing entries or `Disallow: /` |
 | Cloudflare AI settings reviewed | AI crawlers explicitly allowed in dashboard | Default block left in place |
-| llms.txt present at site root | Under 10KB, lists key URLs | Missing or over 10KB |
+| llms.txt treated as optional | Not required for Google AI visibility | Treating a missing file as a blocker |
 | Content in HTML source | `curl` returns full content | Empty divs, JS-only rendering |
 | TTFB under 200ms | Measured from CDN edge | Over 600ms = excluded |
-| Schema in HTML source | JSON-LD in `<head>` or `<body>` | Schema injected via JS |
+| Schema in HTML source | Standard Article, Person, Organization JSON-LD in source HTML | Special AI-only schema or JS-injected schema |
 | Sitemap.xml accessible | Valid XML, all blog URLs included | Missing or returns 404 |
 | No Cloudflare challenge on bot UA | 200 status code | 403 or challenge page |

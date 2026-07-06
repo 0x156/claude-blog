@@ -23,7 +23,7 @@
 ## Answer-First Formatting (Strong AI Citation Improvement)
 
 The most impactful single optimization. Every H2 section must open with a
-40-60 word paragraph that:
+approximately 50-word TL;DR paragraph that:
 
 1. Contains at least one specific statistic with source attribution
 2. Directly answers the heading's implicit question
@@ -34,7 +34,7 @@ The most impactful single optimization. Every H2 section must open with a
 ## How Does X Impact Y in 2026?
 
 [Stat] ([Source](url), year). [Direct answer in 1-2 more sentences, explaining
-the implication for the reader. Keep this opening paragraph to 40-60 words total.]
+the implication for the reader. Keep this opening paragraph about 50 words total.]
 ```
 
 ### Why It Works
@@ -44,8 +44,9 @@ explain.
 
 44.2% of all LLM citations come from the first 30% of text (Growth Memo,
 Feb 2026). Use declarative "X is Y because Z" sentence structures for maximum
-AI extractability. Target 40-60 words per answer paragraph - this is the optimal
-length for paragraph featured snippet capture.
+AI extractability. In 2026, target a roughly 50-word TL;DR under each H2, then
+build a self-contained 130-170 word answer passage with named entities, dates,
+and source attribution.
 
 ## Title Optimization
 
@@ -133,7 +134,7 @@ No more than 3 consecutive sentences within 5 words of each other's length.
 | Paragraph length | 40-80 words | >100 words | 150 words (200 = Yoast red) | Yoast, NNGroup |
 | Sentences per paragraph | 2-3 | >3 | 4 max | NNGroup scanning research |
 | Mobile paragraph max | 60 words / 2-3 visual lines | - | - | WCAG, Baymard |
-| Extractable chunks | 50-150 words | - | - | GEO citation research |
+| Extractable chunks | 130-170 words | - | - | GEO citation research |
 
 ### Key Principle
 Start each paragraph with the most important sentence. This enables both

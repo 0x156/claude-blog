@@ -142,11 +142,13 @@ When research returns five posts all citing the same upstream source (e.g. five 
 For every load-bearing claim, mark it explicitly:
 
 ```
-**Claim**: AI Overviews now appear on 47% of informational queries.
-**Upstream**: [BrightEdge 2025 AI Search Report](https://...)
-**Echo sources** (paraphrase the upstream): [Search Engine Land](url), [SEJ](url), [Ahrefs blog](url)
-**Independent corroboration**: [Semrush 2025 study](url) reports 51% with different methodology.
-**Cluster health**: 2 (BrightEdge + Semrush as independent uppers)
+**Claim**: AI Overview coverage is methodology-dependent: about 20% of searches
+in Ahrefs data cited by SparkToro, with an unconfirmed BrightEdge upper estimate
+around 48%.
+**Upstream**: [SparkToro 2026 zero-click study](https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/)
+**Echo sources** (paraphrase the upstream): [SEO trade article](url), [agency recap](url)
+**Independent corroboration**: [Semrush AI Overviews study](url) reports about 15.7% in November 2025 after recalibration.
+**Cluster health**: 2 defensible sources (Ahrefs/SparkToro + Semrush), with BrightEdge quarantined as an unconfirmed upper estimate.
 ```
 
 This format makes the difference between echo and corroboration explicit. The writer can then decide whether to lead with the original or note the independent confirmation.
@@ -177,12 +179,12 @@ For time-sensitive topics, require at least 2 sources published within the last 
 
 | Source | Date | Within floor? |
 |---|---|---|
-| BrightEdge 2025 AI Search Report | 2026-04-12 | Yes (30d) |
-| Semrush 2025 study | 2026-03-28 | Yes (30d) |
-| Search Engine Land article | 2026-04-19 | Yes (30d) |
-| Older Ahrefs blog | 2025-09-10 | NO (historical context only) |
+| SparkToro 2026 zero-click study | 2026-06-09 | Yes (30d) |
+| Google Search Status Dashboard | 2026-06-30 | Yes (30d) |
+| Google FAQPage structured-data doc | 2026-05-07 | Yes (90d) |
+| Semrush AI Overviews study | 2025-11 | NO (historical context only) |
 
-Floor satisfied: 3 sources within 30d (need >=2). PASS.
+Floor satisfied: 2 sources within 30d (need >=2). PASS.
 ```
 
 If the floor is not satisfied, the research output is incomplete. The agent should either find more recent sources or explicitly reclassify the topic as evergreen.
