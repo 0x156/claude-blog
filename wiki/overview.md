@@ -9,9 +9,9 @@ domain: "Blog Content Brain"
 confidence: verified
 related:
   - "[[Start Here]]"
-  - "[[Index]]"
-  - "[[Hot]]"
-  - "[[Dashboard]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
+  - "[[dashboard|Dashboard]]"
   - "[[Dual Optimization]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[AI Citation Mechanics]]"
@@ -33,9 +33,9 @@ The brain is advisory and read-only. It does not mutate external systems and doe
 ## Start
 
 - [[Start Here]]
-- [[Hot]]
-- [[Index]]
-- [[Dashboard]]
+- [[hot|Hot]]
+- [[index|Index]]
+- [[dashboard|Dashboard]]
 
 ## Primary hubs
 

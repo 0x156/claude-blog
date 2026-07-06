@@ -8,11 +8,11 @@ tags: [meta, onboarding, active]
 domain: "Blog Content Brain"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[CONVENTIONS]]"
   - "[[Tag Taxonomy]]"
-  - "[[Dashboard]]"
+  - "[[dashboard|Dashboard]]"
   - "[[Dual Optimization]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[Research Pack Index]]"
@@ -39,7 +39,7 @@ It is advisory and read-only toward CMS, Google Search Console, GA4, publishing 
 3. Open [[index]] for top-level navigation.
 4. Open [[CONVENTIONS]] before writing or editing notes.
 5. Open [[Tag Taxonomy]] before adding tags.
-6. Open [[Dashboard]] for status and coverage.
+6. Open [[dashboard|Dashboard]] for status and coverage.
 7. Open the relevant theme hub, usually [[Dual Optimization]] or [[6-Pillar Dual Optimization]] first.
 8. Use [[Research Pack Index]] when a claim needs a source route.
 
@@ -58,17 +58,17 @@ It is advisory and read-only toward CMS, Google Search Console, GA4, publishing 
 
 ## Related
 
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[CONVENTIONS]]
 - [[Tag Taxonomy]]
-- [[Dashboard]]
+- [[dashboard|Dashboard]]
 - [[Dual Optimization]]
 - [[6-Pillar Dual Optimization]]
 - [[Research Pack Index]]
 
 ## Next actions
 
-- Read [[Hot]] before each working session.
+- Read [[hot|Hot]] before each working session.
 - Append durable changes to [[log]].
 - Keep current claims cited through real ledger URLs.

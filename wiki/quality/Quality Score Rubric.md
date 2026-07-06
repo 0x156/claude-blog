@@ -9,8 +9,8 @@ domain: "Blog Quality"
 confidence: advisory
 related:
   - "[[Blog Quality Score]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Content Quality Subscore]]"
   - "[[SEO Intent Subscore]]"
   - "[[E-E-A-T Trust Subscore]]"
@@ -148,8 +148,8 @@ Keep the note advisory in V1 and route implementation to a human owner.
 
 ## Related Links
 - [[Blog Quality Score]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Content Quality Subscore]]
 - [[SEO Intent Subscore]]
 - [[E-E-A-T Trust Subscore]]

@@ -17,5 +17,13 @@
   ],
   "skills": [
     "./SKILL.md"
+  ],
+  "allowed-tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash",
+    "Write",
+    "Edit"
   ]
 }

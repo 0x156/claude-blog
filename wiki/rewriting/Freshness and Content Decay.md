@@ -8,8 +8,8 @@ tags: [rewriting, freshness, content-decay, active]
 domain: "Blog Rewriting"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[Google Algorithm Update Ledger]]"
   - "[[E-E-A-T for Blog Content]]"

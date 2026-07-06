@@ -9,8 +9,8 @@ domain: "Blog Rewriting"
 confidence: advisory
 related:
   - "[[Freshness and Content Decay]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Content Decay Detection]]"
   - "[[Refresh Versus Rewrite Decision]]"
   - "[[Intent Drift Audit]]"
@@ -129,8 +129,8 @@ Use it with [[Freshness and Content Decay]] when the working unit is a published
 
 ## Related
 - [[Freshness and Content Decay]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Dual Optimization]]
 - [[Google Algorithm Update Ledger]]
 - [[E-E-A-T for Blog Content]]

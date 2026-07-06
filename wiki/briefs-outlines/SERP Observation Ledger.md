@@ -9,8 +9,8 @@ domain: "Blog Briefs"
 confidence: advisory
 related:
   - "[[SERP-Informed Briefs and Outlines]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[SERP Brief Input Contract]]"
   - "[[Search Intent Classification]]"
   - "[[Reader Job Statement]]"
@@ -147,8 +147,8 @@ Keep the note advisory in V1 and route implementation to a human owner.
 
 ## Related Links
 - [[SERP-Informed Briefs and Outlines]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[SERP Brief Input Contract]]
 - [[Search Intent Classification]]
 - [[Reader Job Statement]]

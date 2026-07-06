@@ -8,8 +8,8 @@ tags: [personas, voice-style, active]
 domain: "Blog Voice"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[E-E-A-T for Blog Content]]"
   - "[[SERP-Informed Briefs and Outlines]]"

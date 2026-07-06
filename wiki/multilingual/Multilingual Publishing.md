@@ -8,8 +8,8 @@ tags: [multilingual, localization, active]
 domain: "Multilingual Blog Publishing"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[Freshness and Content Decay]]"
   - "[[E-E-A-T for Blog Content]]"

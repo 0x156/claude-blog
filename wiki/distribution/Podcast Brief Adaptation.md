@@ -9,8 +9,8 @@ domain: "Blog Distribution"
 confidence: advisory
 related:
   - "[[Distribution and Repurposing]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Repurposing Source Fidelity]]"
   - "[[Email Newsletter Adaptation]]"
   - "[[Social Thread Adaptation]]"
@@ -149,8 +149,8 @@ Keep the note advisory in V1 and route implementation to a human owner.
 
 ## Related Links
 - [[Distribution and Repurposing]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Repurposing Source Fidelity]]
 - [[Email Newsletter Adaptation]]
 - [[Social Thread Adaptation]]

@@ -8,11 +8,11 @@ tags: [meta, conventions, evergreen]
 domain: "Blog Content Brain"
 confidence: verified
 related:
-  - "[[Index]]"
+  - "[[index|Index]]"
   - "[[Start Here]]"
-  - "[[Hot]]"
+  - "[[hot|Hot]]"
   - "[[Tag Taxonomy]]"
-  - "[[Dashboard]]"
+  - "[[dashboard|Dashboard]]"
   - "[[Research Pack Index]]"
   - "[[Google Algorithm Update Ledger]]"
   - "[[Blog Quality Score]]"
@@ -54,8 +54,8 @@ Authoring rules for every note in Claude Blog Brain.
 
 ## Operating rules
 
-- Read [[Start Here]], [[Hot]], and [[Index]] before writing.
-- Overwrite [[Hot]] in place.
+- Read [[Start Here]], [[hot|Hot]], and [[index|Index]] before writing.
+- Overwrite [[hot|Hot]] in place.
 - Append to [[log]].
 - Preserve source evidence in the ledger instead of relying on prose-only notes.
 - The brain is read-only toward external systems.
@@ -72,11 +72,11 @@ Authoring rules for every note in Claude Blog Brain.
 
 ## Related
 
-- [[Index]]
+- [[index|Index]]
 - [[Start Here]]
-- [[Hot]]
+- [[hot|Hot]]
 - [[Tag Taxonomy]]
-- [[Dashboard]]
+- [[dashboard|Dashboard]]
 - [[Research Pack Index]]
 - [[Google Algorithm Update Ledger]]
 - [[Blog Quality Score]]

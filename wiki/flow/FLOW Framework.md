@@ -8,8 +8,8 @@ tags: [flow, active]
 domain: "Blog Workflow"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[SERP-Informed Briefs and Outlines]]"

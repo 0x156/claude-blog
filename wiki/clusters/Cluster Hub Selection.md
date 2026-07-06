@@ -9,8 +9,8 @@ domain: "Blog Topic Architecture"
 confidence: advisory
 related:
   - "[[Semantic Topic Clusters]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Spoke Note Inventory]]"
   - "[[Entity Extraction Workflow]]"
   - "[[Intent Coverage Matrix]]"
@@ -148,8 +148,8 @@ Keep the note advisory in V1 and route implementation to a human owner.
 
 ## Related Links
 - [[Semantic Topic Clusters]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Spoke Note Inventory]]
 - [[Entity Extraction Workflow]]
 - [[Intent Coverage Matrix]]

@@ -9,8 +9,8 @@ domain: "Blog Workflow"
 confidence: advisory
 related:
   - "[[FLOW Framework]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[FLOW Source Intake]]"
   - "[[FLOW Brief Stage]]"
   - "[[FLOW Review Stage]]"
@@ -148,8 +148,8 @@ Keep the note advisory in V1 and route implementation to a human owner.
 
 ## Related Links
 - [[FLOW Framework]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[FLOW Source Intake]]
 - [[FLOW Brief Stage]]
 - [[FLOW Review Stage]]

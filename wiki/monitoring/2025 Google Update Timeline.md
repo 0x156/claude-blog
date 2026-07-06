@@ -9,8 +9,8 @@ domain: "Google Update Monitoring"
 confidence: verified
 related:
   - "[[Google Algorithm Update Ledger]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Research Pack Index]]"
   - "[[Google Data Integrations]]"
   - "[[2026 Google Update Timeline]]"
@@ -165,8 +165,8 @@ Third-party volatility can explain what to inspect, but it does not promote an e
 
 ## Related
 - [[Google Algorithm Update Ledger]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Research Pack Index]]
 - [[Google Data Integrations]]
 - [[2026 Google Update Timeline]]
@@ -196,7 +196,7 @@ Third-party volatility can explain what to inspect, but it does not promote an e
 
 ## Maintenance Notes
 - Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
-- Keep backlink health with [[Google Algorithm Update Ledger]], [[Index]], and sibling spokes in this folder.
+- Keep backlink health with [[Google Algorithm Update Ledger]], [[index|Index]], and sibling spokes in this folder.
 - Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
 - Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.
 - Do not record secrets, tokens, private exports, or private client details in this note.

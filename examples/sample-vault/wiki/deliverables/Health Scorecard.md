@@ -1,17 +1,22 @@
 ---
 type: "deliverable"
 title: "Health Scorecard"
-created: "2026-05-16"
-updated: "2026-05-16"
-status: "active"
+created: "2026-07-06"
+updated: "2026-07-06"
+status: "draft"
 ---
 
 # Health Scorecard
 
-| Area | Status | Evidence | Confidence |
-|---|---|---|---:|
-| Source provenance | Needs source intake | [[Source Manifest Guide]] | low |
-| Research freshness | Needs refresh | [[Research Refresh Workflow]] | low |
-| Reporting readiness | Draft | [[Weekly Report]] | low |
+## Source Coverage
 
-Related: [[Action Roadmap]] | [[Weekly Report]]
+| Source | Hash | Retrieved |
+|---|---|---:|
+| `.raw/sources/sample-source.md` | `9927f31d6196` | 2026-07-06 |
+
+## Current Read
+
+This is a source-cited scaffold. Domain-specific conclusions remain blocked
+until current trustworthy research is captured in `references/`.
+
+Related: [[Action Roadmap]] | [[Weekly Report]] | [[Source Manifest Guide]]

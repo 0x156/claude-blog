@@ -8,8 +8,8 @@ tags: [clusters, semantic-clusters, active]
 domain: "Blog Topic Architecture"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[SERP-Informed Briefs and Outlines]]"
   - "[[AI Citation Mechanics]]"

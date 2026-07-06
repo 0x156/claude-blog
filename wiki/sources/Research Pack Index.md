@@ -8,8 +8,8 @@ tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[CONVENTIONS]]"
   - "[[Google Algorithm Update Ledger]]"
   - "[[Dual Optimization]]"
@@ -110,3 +110,7 @@ This note does not replace the ledger. The ledger remains the evidence record.
 - Fill [[Claim To Source Mapping]] before detailed spoke notes.
 - Fill [[Evidence Gap Register]] before market-ready review.
 - Link every source refresh back to [[Google Algorithm Update Ledger]] or [[log]].
+
+## Latest research pack
+
+- [[research-pack-2026-07-06|Research Pack 2026-07-06]] - 115 dated primary and official sources.

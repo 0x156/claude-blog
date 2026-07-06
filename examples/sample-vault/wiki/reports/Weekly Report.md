@@ -1,21 +1,22 @@
 ---
 type: "report"
 title: "Weekly Report"
-created: "2026-05-16"
-updated: "2026-05-16"
-status: "active"
+created: "2026-07-06"
+updated: "2026-07-06"
+status: "draft"
 ---
 
 # Weekly Report
 
 ## Summary
 
-This report is a scaffold until source intake and research refresh are complete.
+Claude Blog Brain is ready for source review. It has 1 raw source(s) in
+the manifest.
 
 ## Evidence
 
-- [[Source Manifest Guide]]
 - [[Health Scorecard]]
 - [[Action Roadmap]]
+- [[Source Manifest Guide]]
 
 Related: [[Reporting Workflow]] | [[Approval Queue]]

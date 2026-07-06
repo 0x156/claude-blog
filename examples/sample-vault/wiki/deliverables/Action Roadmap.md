@@ -1,17 +1,21 @@
 ---
 type: "deliverable"
 title: "Action Roadmap"
-created: "2026-05-16"
-updated: "2026-05-16"
-status: "active"
+created: "2026-07-06"
+updated: "2026-07-06"
+status: "draft"
 ---
 
 # Action Roadmap
 
-## Next 30 Days
+## Immediate Actions
 
-- Complete source intake and research refresh.
-- Replace scaffold assumptions with sourced domain notes.
-- Run release lint and package scans.
+1. Complete source intake.
+2. Refresh official/current requirements.
+3. Replace scaffold claims with sourced domain notes.
 
-Related: [[Health Scorecard]] | [[Approval Queue]] | [[Synthesis Workflow]]
+## Approval Gate
+
+Every action requires source, confidence, owner, approval status, and rollback.
+
+Related: [[Approval Queue]] | [[Health Scorecard]] | [[Best Practices Kernel]]

@@ -8,9 +8,9 @@ tags: [meta, tag-taxonomy, evergreen]
 domain: "Blog Content Brain"
 confidence: verified
 related:
-  - "[[Index]]"
+  - "[[index|Index]]"
   - "[[CONVENTIONS]]"
-  - "[[Dashboard]]"
+  - "[[dashboard|Dashboard]]"
   - "[[Dual Optimization]]"
   - "[[AI Citation Mechanics]]"
   - "[[Blog Schema Stack]]"
@@ -95,9 +95,9 @@ Controlled kebab-case tag vocabulary for the blog domain.
 
 ## Related
 
-- [[Index]]
+- [[index|Index]]
 - [[CONVENTIONS]]
-- [[Dashboard]]
+- [[dashboard|Dashboard]]
 - [[Dual Optimization]]
 - [[AI Citation Mechanics]]
 - [[Blog Schema Stack]]

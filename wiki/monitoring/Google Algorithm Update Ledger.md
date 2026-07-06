@@ -8,8 +8,8 @@ tags: [monitoring, google-updates, active]
 domain: "Google Update Monitoring"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Freshness and Content Decay]]"
   - "[[E-E-A-T for Blog Content]]"
   - "[[Blog Schema Stack]]"

@@ -9,8 +9,8 @@ domain: "Blog Trust"
 confidence: verified
 related:
   - "[[E-E-A-T for Blog Content]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Reviewer And Expert Review Rules]]"
   - "[[Experience Evidence Checklist]]"
   - "[[Source Quality Ladder]]"
@@ -129,8 +129,8 @@ Use it with [[E-E-A-T for Blog Content]] when the working unit is a author, page
 
 ## Related
 - [[E-E-A-T for Blog Content]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Dual Optimization]]
 - [[6-Pillar Dual Optimization]]
 - [[Freshness and Content Decay]]

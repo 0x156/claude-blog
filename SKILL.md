@@ -72,3 +72,7 @@ market-ready` passes. A scaffold is not a finished brain.
 ## Research Refresh
 
 monthly for Google algorithm updates and Search Central policy; before every release for E-E-A-T framing, schema deprecations, and GEO/AEO citation claims; on-changelog for the claude-blog skill
+
+## Community
+
+Discuss and get support in the AI Marketing Hub Pro community: https://www.skool.com/ai-marketing-hub-pro

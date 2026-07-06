@@ -8,8 +8,8 @@ tags: [quality, scorecard, active]
 domain: "Blog Quality"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[E-E-A-T for Blog Content]]"

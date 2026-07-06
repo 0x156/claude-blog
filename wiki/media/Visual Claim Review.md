@@ -9,8 +9,8 @@ domain: "Blog Media"
 confidence: advisory
 related:
   - "[[Images Audio and Charts]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Research Pack Index]]"
   - "[[Blog Schema Stack]]"
   - "[[Image Selection Rules]]"
@@ -121,8 +121,8 @@ The output should be short enough to apply during a brief or audit, but complete
 
 ## Related
 - [[Images Audio and Charts]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Research Pack Index]]
 - [[Blog Schema Stack]]
 - [[Image Selection Rules]]
@@ -149,7 +149,7 @@ The output should be short enough to apply during a brief or audit, but complete
 
 ## Maintenance Notes
 - Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
-- Keep backlink health with [[Images Audio and Charts]], [[Index]], and sibling spokes in this folder.
+- Keep backlink health with [[Images Audio and Charts]], [[index|Index]], and sibling spokes in this folder.
 - Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
 - Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.
 - Do not record secrets, tokens, private exports, or private client details in this note.

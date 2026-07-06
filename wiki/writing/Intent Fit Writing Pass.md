@@ -9,8 +9,8 @@ domain: "Blog Writing"
 confidence: advisory
 related:
   - "[[6-Pillar Dual Optimization]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Information Gain Checklist]]"
   - "[[Experience Signal Placement]]"
   - "[[Answer First Section Pattern]]"
@@ -129,8 +129,8 @@ Use it with [[6-Pillar Dual Optimization]] when the working unit is a draft sect
 
 ## Related
 - [[6-Pillar Dual Optimization]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Dual Optimization]]
 - [[SERP-Informed Briefs and Outlines]]
 - [[E-E-A-T for Blog Content]]

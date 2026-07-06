@@ -8,8 +8,8 @@ tags: [geo-aeo, ai-citation, active]
 domain: "GEO and AEO"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[SERP-Informed Briefs and Outlines]]"

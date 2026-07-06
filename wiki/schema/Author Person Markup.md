@@ -9,8 +9,8 @@ domain: "Blog Structured Data"
 confidence: verified
 related:
   - "[[Blog Schema Stack]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Article Schema Baseline]]"
   - "[[BlogPosting Versus Article]]"
   - "[[Organization Entity Graph]]"
@@ -130,8 +130,8 @@ Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity g
 
 ## Related
 - [[Blog Schema Stack]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Dual Optimization]]
 - [[AI Citation Mechanics]]
 - [[E-E-A-T for Blog Content]]

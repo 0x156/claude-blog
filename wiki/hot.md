@@ -8,9 +8,9 @@ tags: [meta, hot, active]
 domain: "Blog Content Brain"
 confidence: verified
 related:
-  - "[[Index]]"
+  - "[[index|Index]]"
   - "[[Start Here]]"
-  - "[[Dashboard]]"
+  - "[[dashboard|Dashboard]]"
   - "[[AI Citation Mechanics]]"
   - "[[Blog Schema Stack]]"
   - "[[E-E-A-T for Blog Content]]"
@@ -51,9 +51,9 @@ Working cache for Claude Blog Brain. Keep this note under 500 words and overwrit
 
 ## Related
 
-- [[Index]]
+- [[index|Index]]
 - [[Start Here]]
-- [[Dashboard]]
+- [[dashboard|Dashboard]]
 - [[AI Citation Mechanics]]
 - [[Blog Schema Stack]]
 - [[E-E-A-T for Blog Content]]

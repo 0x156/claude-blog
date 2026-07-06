@@ -1,8 +1,8 @@
 ---
 type: "decision"
 title: "Approval Queue"
-created: "2026-05-16"
-updated: "2026-05-16"
+created: "2026-07-06"
+updated: "2026-07-06"
 status: "active"
 ---
 

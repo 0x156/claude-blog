@@ -8,8 +8,8 @@ tags: [eeat, active]
 domain: "Blog Trust"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[Blog Quality Score]]"

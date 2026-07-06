@@ -1,8 +1,8 @@
 ---
 type: "note"
 title: "{{title}}"
-created: "2026-05-16"
-updated: "2026-05-16"
+created: "2026-07-06"
+updated: "2026-07-06"
 status: "draft"
 ---
 
@@ -18,4 +18,4 @@ Write the current sourced truth here.
 
 ## Timeline
 
-- 2026-05-16 - Note created.
+- 2026-07-06 - Note created.

@@ -9,8 +9,8 @@ domain: "GEO and AEO"
 confidence: advisory
 related:
   - "[[AI Citation Mechanics]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Passage Citability Checklist]]"
   - "[[AI Overview Citation Review]]"
   - "[[AI Mode Citation Review]]"
@@ -131,8 +131,8 @@ Use it with [[AI Citation Mechanics]] when the working unit is a answer passage,
 
 ## Related
 - [[AI Citation Mechanics]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[Dual Optimization]]
 - [[6-Pillar Dual Optimization]]
 - [[SERP-Informed Briefs and Outlines]]

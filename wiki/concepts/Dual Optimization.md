@@ -8,8 +8,8 @@ tags: [dual-optimization, active]
 domain: "Blog Content Optimization"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[AI Citation Mechanics]]"
   - "[[E-E-A-T for Blog Content]]"

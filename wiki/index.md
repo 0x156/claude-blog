@@ -9,9 +9,9 @@ domain: "Blog Content Brain"
 confidence: verified
 related:
   - "[[Start Here]]"
-  - "[[Hot]]"
+  - "[[hot|Hot]]"
   - "[[CONVENTIONS]]"
-  - "[[Dashboard]]"
+  - "[[dashboard|Dashboard]]"
   - "[[Dual Optimization]]"
   - "[[AI Citation Mechanics]]"
   - "[[Blog Schema Stack]]"
@@ -28,15 +28,15 @@ source_urls:
 
 Navigation map for the Claude Blog Brain root wiki.
 
-Start at [[Start Here]], scan [[Hot]], then open the theme hub closest to the work.
+Start at [[Start Here]], scan [[hot|Hot]], then open the theme hub closest to the work.
 
 ## Core meta
 
 - [[Start Here]]
-- [[Hot]]
+- [[hot|Hot]]
 - [[CONVENTIONS]]
 - [[Tag Taxonomy]]
-- [[Dashboard]]
+- [[dashboard|Dashboard]]
 - [[overview]]
 - [[index]]
 - [[log]]
@@ -63,9 +63,9 @@ Start at [[Start Here]], scan [[Hot]], then open the theme hub closest to the wo
 
 ## Working memory
 
-- [[Hot]] is the under 500 word working cache and is overwritten in place.
+- [[hot|Hot]] is the under 500 word working cache and is overwritten in place.
 - [[log]] is append-only and records durable changes.
-- [[Dashboard]] tracks this foundation slice and known structural gaps.
+- [[dashboard|Dashboard]] tracks this foundation slice and known structural gaps.
 - [[CONVENTIONS]] controls frontmatter, tags, citation posture, and read-only boundaries.
 
 ## Source routes
@@ -78,9 +78,9 @@ Start at [[Start Here]], scan [[Hot]], then open the theme hub closest to the wo
 ## Related
 
 - [[Start Here]]
-- [[Hot]]
+- [[hot|Hot]]
 - [[CONVENTIONS]]
-- [[Dashboard]]
+- [[dashboard|Dashboard]]
 - [[Dual Optimization]]
 - [[AI Citation Mechanics]]
 - [[Blog Schema Stack]]

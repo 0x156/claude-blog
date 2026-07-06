@@ -9,8 +9,8 @@ domain: "Blog Content Optimization"
 confidence: advisory
 related:
   - "[[Dual Optimization]]"
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Search Visibility Versus Citation Exposure]]"
   - "[[Zero Click Planning Baseline]]"
   - "[[AI Mode Query Share Context]]"
@@ -129,8 +129,8 @@ Use it with [[Dual Optimization]] when the working unit is a blog program, artic
 
 ## Related
 - [[Dual Optimization]]
-- [[Index]]
-- [[Hot]]
+- [[index|Index]]
+- [[hot|Hot]]
 - [[6-Pillar Dual Optimization]]
 - [[AI Citation Mechanics]]
 - [[E-E-A-T for Blog Content]]

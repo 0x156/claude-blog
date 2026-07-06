@@ -88,3 +88,7 @@ python scripts/package_release.py --version 1.0.0 --release-type market-ready
 Release packaging scans for secrets, local paths, symlinks, untracked drift,
 and unsafe ZIP entries before writing `dist/RELEASE_MANIFEST.json` and
 `dist/SHA256SUMS`. Market-ready packaging also runs `scripts/audit_brain.py`.
+
+## Community
+
+Discuss and get support in the AI Marketing Hub Pro community: https://www.skool.com/ai-marketing-hub-pro

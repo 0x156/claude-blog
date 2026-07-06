@@ -8,8 +8,8 @@ tags: [data-integrations, gsc, ga4, active]
 domain: "Blog Data"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[Freshness and Content Decay]]"
   - "[[AI Citation Mechanics]]"

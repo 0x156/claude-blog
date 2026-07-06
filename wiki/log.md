@@ -8,9 +8,9 @@ tags: [log, meta, active]
 domain: "Blog Content Brain"
 confidence: verified
 related:
-  - "[[Hot]]"
-  - "[[Index]]"
-  - "[[Dashboard]]"
+  - "[[hot|Hot]]"
+  - "[[index|Index]]"
+  - "[[dashboard|Dashboard]]"
   - "[[Start Here]]"
   - "[[CONVENTIONS]]"
   - "[[Dual Optimization]]"
@@ -34,9 +34,9 @@ Append-only history for the Claude Blog Brain wiki.
 
 ## Related
 
-- [[Hot]]
-- [[Index]]
-- [[Dashboard]]
+- [[hot|Hot]]
+- [[index|Index]]
+- [[dashboard|Dashboard]]
 - [[Start Here]]
 - [[CONVENTIONS]]
 - [[Dual Optimization]]

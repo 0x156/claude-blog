@@ -8,8 +8,8 @@ tags: [schema, blog-schema, active]
 domain: "Blog Structured Data"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[AI Citation Mechanics]]"
   - "[[E-E-A-T for Blog Content]]"

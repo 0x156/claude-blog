@@ -8,8 +8,8 @@ tags: [media, images, audio, charts, active]
 domain: "Blog Media"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[Blog Schema Stack]]"
   - "[[Distribution and Repurposing]]"

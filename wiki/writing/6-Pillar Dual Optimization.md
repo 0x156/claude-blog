@@ -8,8 +8,8 @@ tags: [writing, six-pillar, active]
 domain: "Blog Writing"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[SERP-Informed Briefs and Outlines]]"
   - "[[E-E-A-T for Blog Content]]"

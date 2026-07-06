@@ -8,8 +8,8 @@ tags: [briefs-outlines, serp-briefs, active]
 domain: "Blog Briefs"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[6-Pillar Dual Optimization]]"
   - "[[Semantic Topic Clusters]]"

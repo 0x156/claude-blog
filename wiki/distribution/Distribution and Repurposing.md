@@ -8,8 +8,8 @@ tags: [distribution, repurposing, active]
 domain: "Blog Distribution"
 confidence: verified
 related:
-  - "[[Index]]"
-  - "[[Hot]]"
+  - "[[index|Index]]"
+  - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
   - "[[Images Audio and Charts]]"
   - "[[Voice and Style]]"
