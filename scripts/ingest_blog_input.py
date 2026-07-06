@@ -18,6 +18,13 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
+try:
+    from jsonschema import Draft7Validator as JsonSchemaDraft7Validator
+    from jsonschema import FormatChecker as JsonSchemaFormatChecker
+except ImportError:  # pragma: no cover - exercised when optional dependency is absent.
+    JsonSchemaDraft7Validator = None  # type: ignore[assignment]
+    JsonSchemaFormatChecker = None  # type: ignore[assignment]
+
 
 REPO = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = REPO / "schemas" / "blog-post-input.schema.json"
@@ -125,8 +132,133 @@ def read_json(path: str | Path) -> dict[str, Any]:
     return clean_structure(data)
 
 
-def validate_input(data: dict[str, Any]) -> None:
+def load_input_schema() -> dict[str, Any]:
+    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    if not isinstance(schema, dict):
+        raise ValidationError(["blog post input schema root must be an object"])
+    return schema
+
+
+def validate_against_schema(data: dict[str, Any]) -> list[str]:
+    schema = load_input_schema()
+    if JsonSchemaDraft7Validator is not None:
+        format_checker = JsonSchemaFormatChecker() if JsonSchemaFormatChecker is not None else None
+        validator = JsonSchemaDraft7Validator(schema, format_checker=format_checker)
+        return dedupe_errors(
+            [format_schema_error(error) for error in sorted(validator.iter_errors(data), key=schema_error_sort_key)]
+        )
+    return manual_schema_errors(data, schema)
+
+
+def schema_error_sort_key(error: Any) -> tuple[str, str]:
+    path = ".".join(str(part) for part in error.absolute_path)
+    return (path, str(error.message))
+
+
+def format_schema_error(error: Any) -> str:
+    path = ".".join(str(part) for part in error.absolute_path)
+    if error.validator == "required" and isinstance(error.instance, dict):
+        missing = sorted(set(error.validator_value) - set(error.instance))
+        if len(missing) == 1:
+            key = f"{path}.{missing[0]}" if path else missing[0]
+            return f"missing required key: {key}"
+    if error.validator == "anyOf" and not path:
+        return "one of body_markdown or body_html is required"
+    prefix = f"{path}: " if path else ""
+    return prefix + str(error.message)
+
+
+def manual_schema_errors(data: dict[str, Any], schema: dict[str, Any]) -> list[str]:
     errors: list[str] = []
+    properties = schema.get("properties", {})
+    for key in schema.get("required", []):
+        if key not in data:
+            errors.append(f"missing required key: {key}")
+    unexpected = sorted(set(data) - set(properties))
+    if unexpected:
+        errors.append("unexpected keys: " + ", ".join(unexpected))
+    if "body_markdown" not in data and "body_html" not in data:
+        errors.append("one of body_markdown or body_html is required")
+
+    check_string_fields(data, ("title", "url", "body_markdown", "body_html", "target_keyword", "locale", "platform", "published_at", "modified_at"), errors)
+    if "frontmatter" in data:
+        if not isinstance(data["frontmatter"], dict):
+            errors.append("frontmatter must be an object")
+        else:
+            check_string_fields(data["frontmatter"], ("description", "author", "date", "dateModified", "category", "coverImage"), errors, "frontmatter")
+            if "tags" in data["frontmatter"] and not is_string_list(data["frontmatter"]["tags"]):
+                errors.append("frontmatter.tags must be an array of strings")
+    if "secondary_keywords" in data and not is_string_list(data["secondary_keywords"]):
+        errors.append("secondary_keywords must be an array of strings")
+    if "author" in data:
+        manual_author_schema_errors(data["author"], errors)
+    if "sources" in data:
+        manual_sources_schema_errors(data["sources"], errors)
+    if "audit_findings" in data:
+        manual_audit_finding_schema_errors(data["audit_findings"], errors)
+    return dedupe_errors(errors)
+
+
+def check_string_fields(data: dict[str, Any], fields: tuple[str, ...], errors: list[str], prefix: str = "") -> None:
+    for key in fields:
+        if key in data and not isinstance(data[key], str):
+            path = f"{prefix}.{key}" if prefix else key
+            errors.append(f"{path} must be a string")
+
+
+def manual_author_schema_errors(author: Any, errors: list[str]) -> None:
+    if not isinstance(author, dict):
+        errors.append("author must be an object")
+        return
+    check_string_fields(author, ("name", "url", "bio"), errors, "author")
+    if "sameAs" in author and not is_string_list(author["sameAs"]):
+        errors.append("author.sameAs must be an array of strings")
+
+
+def manual_sources_schema_errors(sources: Any, errors: list[str]) -> None:
+    if not isinstance(sources, list):
+        errors.append("sources must be an array")
+        return
+    for index, source in enumerate(sources, start=1):
+        if not isinstance(source, dict):
+            errors.append(f"sources #{index} must be an object")
+            continue
+        for key in ("url", "title", "retrieved"):
+            if key not in source:
+                errors.append(f"sources #{index} missing {key}")
+        check_string_fields(source, ("url", "title", "publisher", "published", "retrieved", "confidence"), errors, f"sources #{index}")
+        if "supports_claims" in source and not is_string_list(source["supports_claims"]):
+            errors.append(f"sources #{index} supports_claims must be an array of strings")
+
+
+def manual_audit_finding_schema_errors(findings: Any, errors: list[str]) -> None:
+    if not isinstance(findings, list):
+        errors.append("audit_findings must be an array")
+        return
+    for index, finding in enumerate(findings, start=1):
+        if not isinstance(finding, dict):
+            errors.append(f"audit_findings #{index} must be an object")
+            continue
+        for key in ("id", "category", "severity", "summary"):
+            if key not in finding:
+                errors.append(f"audit_findings #{index} missing {key}")
+        check_string_fields(finding, ("id", "category", "severity", "summary", "recommendation", "source"), errors, f"audit_findings #{index}")
+        if finding.get("severity") not in {"critical", "high", "medium", "low", None}:
+            errors.append(f"audit_findings #{index} severity is invalid")
+
+
+def dedupe_errors(errors: list[str]) -> list[str]:
+    seen: set[str] = set()
+    deduped: list[str] = []
+    for error in errors:
+        if error not in seen:
+            deduped.append(error)
+            seen.add(error)
+    return deduped
+
+
+def validate_input(data: dict[str, Any]) -> None:
+    errors: list[str] = validate_against_schema(data)
     for key in REQUIRED_KEYS:
         if key not in data:
             errors.append(f"missing required key: {key}")
@@ -161,7 +293,7 @@ def validate_input(data: dict[str, Any]) -> None:
     if "audit_findings" in data:
         validate_audit_findings(data["audit_findings"], errors)
     if errors:
-        raise ValidationError(errors)
+        raise ValidationError(dedupe_errors(errors))
 
 
 def validate_author(author: Any, errors: list[str]) -> None:
@@ -343,7 +475,7 @@ def normalize_blog_input(data: dict[str, Any], *, source_name: str, raw_bytes: b
     author = data.get("author", {}) or {}
     sources = data.get("sources", []) or []
     audit_findings = normalize_audit_findings(data.get("audit_findings", []) or [])
-    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    schema = load_input_schema()
     input_bytes = raw_bytes if raw_bytes is not None else json.dumps(data, sort_keys=True).encode("utf-8")
     raw_lower = raw_body.lower()
     title = data["title"].strip()

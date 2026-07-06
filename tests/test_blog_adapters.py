@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from ingest_blog_input import ValidationError, load_blog_input  # noqa: E402
 from render_blog_report import render_markdown  # noqa: E402
-from synthesize_blog_plan import synthesize  # noqa: E402
+from synthesize_blog_plan import load_ingested, synthesize  # noqa: E402
 
 
 FIXTURE = ROOT / "tests" / "fixtures" / "sample-blog-post.json"
@@ -74,3 +74,41 @@ def test_blog_adapter_invalid_input_error(tmp_path: Path) -> None:
     assert "missing required key: title" in message
     assert "one of body_markdown or body_html is required" in message
     assert "url must be an absolute URI" in message
+
+
+def test_blog_adapter_rejects_wrong_typed_dates(tmp_path: Path) -> None:
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    payload["published_at"] = 20260610
+    bad_input = tmp_path / "bad-date-blog-post.json"
+    bad_input.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValidationError) as excinfo:
+        load_blog_input(bad_input)
+
+    assert "published_at must be a string" in str(excinfo.value)
+
+
+def test_blog_synthesis_rejects_missing_nested_fields(tmp_path: Path) -> None:
+    record = load_blog_input(FIXTURE)
+    del record["input"]["title"]
+    bad_record = tmp_path / "bad-ingested.json"
+    bad_record.write_text(json.dumps(record), encoding="utf-8")
+
+    with pytest.raises(ValidationError) as excinfo:
+        load_ingested(bad_record)
+
+    assert "ingested record missing key: input.title" in str(excinfo.value)
+
+
+def test_unknown_audit_source_is_operator_supplied_uncited(tmp_path: Path) -> None:
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    payload["audit_findings"][0]["source"] = "operator-note"
+    bad_source_input = tmp_path / "operator-source-blog-post.json"
+    bad_source_input.write_text(json.dumps(payload), encoding="utf-8")
+
+    plan = synthesize(load_blog_input(bad_source_input))
+    recommendation = next(item for item in plan["prioritized_recommendations"] if item["id"] == "audit-geo-source-context")
+
+    assert recommendation["source_ids"] == []
+    assert recommendation["recommendation"].startswith("operator-supplied (unverified):")
+    assert "operator-note" not in {source["id"] for source in plan["source_citations"]}

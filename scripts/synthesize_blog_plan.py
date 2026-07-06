@@ -40,13 +40,6 @@ AUDIT_CATEGORY_MAP = {
 }
 AUDIT_PENALTY = {"critical": 28, "high": 18, "medium": 10, "low": 4}
 PRIORITY_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3}
-DEFAULT_CATEGORY_SOURCE = {
-    "content": ["g-helpful-content"],
-    "seo": ["g-helpful-content"],
-    "eeat": ["g-helpful-content", "g-qrg-full"],
-    "technical": ["g-mobile-first"],
-    "ai_citation": ["g-ai-features", "ziptie-aio-source-selection"],
-}
 
 
 class SourceError(ValueError):
@@ -121,7 +114,198 @@ def load_ingested(path: str | Path) -> dict[str, Any]:
         raise ValidationError(["ingested record missing keys: " + ", ".join(missing)])
     if data.get("schema") != "claude-blog-brain.ingested-blog-post.v1":
         raise ValidationError(["ingested record schema is not supported"])
-    return clean_structure(data)
+    cleaned = clean_structure(data)
+    validate_ingested_record(cleaned)
+    return cleaned
+
+
+def validate_ingested_record(record: dict[str, Any]) -> None:
+    errors: list[str] = []
+    if record.get("schema") != "claude-blog-brain.ingested-blog-post.v1":
+        errors.append("ingested record schema is not supported")
+    require_string(record, "adapter", errors, required=True)
+    input_data = require_object(record, "input", errors)
+    provenance = require_object(record, "provenance", errors)
+    require_object(record, "frontmatter", errors)
+    require_object(record, "author", errors)
+    dates = require_object(record, "dates", errors)
+    content = require_object(record, "content", errors)
+    signals = require_object(record, "signals", errors)
+    require_list(record, "sources", errors)
+    audit_findings = require_list(record, "audit_findings", errors)
+
+    if input_data is not None:
+        for key in ("title", "url", "target_keyword", "locale"):
+            require_string(input_data, key, errors, required=True, prefix="input")
+        require_string(input_data, "platform", errors, prefix="input")
+        require_string_list(input_data, "secondary_keywords", errors, prefix="input")
+    if provenance is not None:
+        for key in ("input_name", "input_sha256", "body_sha256", "schema_path", "schema_id", "body_format", "source_url"):
+            require_string(provenance, key, errors, required=True, prefix="provenance")
+        require_int(provenance, "source_count", errors, required=True, prefix="provenance")
+        require_int(provenance, "audit_finding_count", errors, required=True, prefix="provenance")
+        if provenance.get("body_format") not in {"markdown", "html", None}:
+            errors.append("provenance.body_format must be markdown or html")
+    if dates is not None:
+        require_string(dates, "published_at", errors, required=True, prefix="dates")
+        require_string(dates, "modified_at", errors, required=True, prefix="dates")
+    if content is not None:
+        for key in ("body_text", "intro"):
+            require_string(content, key, errors, required=True, prefix="content")
+        require_int(content, "word_count", errors, required=True, prefix="content")
+        headings = require_list(content, "headings", errors, prefix="content")
+        sections = require_list(content, "sections", errors, prefix="content")
+        require_string_list(content, "links", errors, prefix="content")
+        validate_headings(headings, errors)
+        validate_sections(sections, errors)
+    if signals is not None:
+        for key in (
+            "has_meta_description",
+            "has_author",
+            "has_author_bio",
+            "has_dates",
+            "has_modified_date",
+            "has_direct_intro_answer",
+            "has_article_schema",
+            "has_faq_schema",
+            "has_canonical_tag",
+            "has_noindex",
+            "has_first_hand_evidence",
+        ):
+            require_bool(signals, key, errors, required=True, prefix="signals")
+        require_int(signals, "meta_description_length", errors, required=True, prefix="signals")
+    validate_audit_findings(audit_findings, errors)
+    if errors:
+        raise ValidationError(dedupe_errors(errors))
+
+
+def require_object(data: dict[str, Any], key: str, errors: list[str]) -> dict[str, Any] | None:
+    if key not in data:
+        errors.append(f"ingested record missing key: {key}")
+        return None
+    if not isinstance(data[key], dict):
+        errors.append(f"{key} must be an object")
+        return None
+    return data[key]
+
+
+def require_list(data: dict[str, Any], key: str, errors: list[str], prefix: str = "") -> list[Any] | None:
+    path = f"{prefix}.{key}" if prefix else key
+    if key not in data:
+        errors.append(f"ingested record missing key: {path}")
+        return None
+    if not isinstance(data[key], list):
+        errors.append(f"{path} must be a list")
+        return None
+    return data[key]
+
+
+def require_string(
+    data: dict[str, Any],
+    key: str,
+    errors: list[str],
+    *,
+    required: bool = False,
+    prefix: str = "",
+) -> None:
+    path = f"{prefix}.{key}" if prefix else key
+    if key not in data:
+        if required:
+            errors.append(f"ingested record missing key: {path}")
+        return
+    if not isinstance(data[key], str):
+        errors.append(f"{path} must be a string")
+
+
+def require_string_list(data: dict[str, Any], key: str, errors: list[str], prefix: str = "") -> None:
+    path = f"{prefix}.{key}" if prefix else key
+    if key not in data:
+        errors.append(f"ingested record missing key: {path}")
+        return
+    if not isinstance(data[key], list) or not all(isinstance(item, str) for item in data[key]):
+        errors.append(f"{path} must be a list of strings")
+
+
+def require_int(
+    data: dict[str, Any],
+    key: str,
+    errors: list[str],
+    *,
+    required: bool = False,
+    prefix: str = "",
+) -> None:
+    path = f"{prefix}.{key}" if prefix else key
+    if key not in data:
+        if required:
+            errors.append(f"ingested record missing key: {path}")
+        return
+    if not isinstance(data[key], int) or isinstance(data[key], bool):
+        errors.append(f"{path} must be an integer")
+
+
+def require_bool(
+    data: dict[str, Any],
+    key: str,
+    errors: list[str],
+    *,
+    required: bool = False,
+    prefix: str = "",
+) -> None:
+    path = f"{prefix}.{key}" if prefix else key
+    if key not in data:
+        if required:
+            errors.append(f"ingested record missing key: {path}")
+        return
+    if not isinstance(data[key], bool):
+        errors.append(f"{path} must be a boolean")
+
+
+def validate_headings(headings: list[Any] | None, errors: list[str]) -> None:
+    if headings is None:
+        return
+    for index, heading in enumerate(headings, start=1):
+        if not isinstance(heading, dict):
+            errors.append(f"content.headings #{index} must be an object")
+            continue
+        require_int(heading, "level", errors, required=True, prefix=f"content.headings #{index}")
+        require_string(heading, "text", errors, required=True, prefix=f"content.headings #{index}")
+
+
+def validate_sections(sections: list[Any] | None, errors: list[str]) -> None:
+    if sections is None:
+        return
+    for index, section in enumerate(sections, start=1):
+        if not isinstance(section, dict):
+            errors.append(f"content.sections #{index} must be an object")
+            continue
+        require_string(section, "heading", errors, required=True, prefix=f"content.sections #{index}")
+        require_string(section, "opening", errors, required=True, prefix=f"content.sections #{index}")
+        require_int(section, "word_count", errors, required=True, prefix=f"content.sections #{index}")
+
+
+def validate_audit_findings(findings: list[Any] | None, errors: list[str]) -> None:
+    if findings is None:
+        return
+    for index, finding in enumerate(findings, start=1):
+        if not isinstance(finding, dict):
+            errors.append(f"audit_findings #{index} must be an object")
+            continue
+        for key in ("id", "category", "severity", "summary"):
+            require_string(finding, key, errors, required=True, prefix=f"audit_findings #{index}")
+        for key in ("recommendation", "source"):
+            require_string(finding, key, errors, prefix=f"audit_findings #{index}")
+        if finding.get("severity") not in {"critical", "high", "medium", "low", None}:
+            errors.append(f"audit_findings #{index} severity is invalid")
+
+
+def dedupe_errors(errors: list[str]) -> list[str]:
+    seen: set[str] = set()
+    deduped: list[str] = []
+    for error in errors:
+        if error not in seen:
+            deduped.append(error)
+            seen.add(error)
+    return deduped
 
 
 def load_source_index(path: str | Path = DEFAULT_LEDGER) -> dict[str, dict[str, Any]]:
@@ -133,6 +317,8 @@ def load_source_index(path: str | Path = DEFAULT_LEDGER) -> dict[str, dict[str, 
 
 
 def synthesize(record: dict[str, Any], *, ledger_path: str | Path = DEFAULT_LEDGER) -> dict[str, Any]:
+    record = clean_structure(record)
+    validate_ingested_record(record)
     source_index = load_source_index(ledger_path)
     quality = build_quality_read(record, source_index)
     geo = build_geo_readiness(record)
@@ -428,8 +614,10 @@ def apply_audit_findings(
     for finding in record.get("audit_findings", []):
         category = AUDIT_CATEGORY_MAP.get(finding.get("category", ""), "content")
         severity = finding.get("severity", "low")
-        source_ids = audit_source_ids(finding, category, source_index)
+        source_ids = audit_source_ids(finding, source_index)
         recommendation = finding.get("recommendation") or "Resolve the supplied audit finding before publication."
+        if not source_ids:
+            recommendation = mark_operator_supplied(recommendation)
         builders[category].add(
             finding=f"Input audit finding {finding.get('id')}: {finding.get('summary')}",
             recommendation=recommendation,
@@ -442,13 +630,19 @@ def apply_audit_findings(
 
 def audit_source_ids(
     finding: dict[str, Any],
-    category: str,
     source_index: dict[str, dict[str, Any]],
 ) -> list[str]:
     source = finding.get("source", "")
     if isinstance(source, str) and source in source_index:
         return [source]
-    return DEFAULT_CATEGORY_SOURCE.get(category, ["g-helpful-content"])
+    return []
+
+
+def mark_operator_supplied(recommendation: str) -> str:
+    marker = "operator-supplied (unverified)"
+    if recommendation.lower().startswith(marker):
+        return recommendation
+    return f"{marker}: {recommendation}"
 
 
 def compute_geo_metrics(record: dict[str, Any]) -> dict[str, Any]:

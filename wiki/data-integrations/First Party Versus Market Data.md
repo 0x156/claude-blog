@@ -100,24 +100,24 @@ The output should be short enough to apply during a brief or audit, but complete
 - The note stays inside the assigned folder and does not mutate references, data, scripts, or external platforms.
 
 ## Risk Controls
-- Stale source risk: a Search Central, QRG, schema, or AI feature change can invalidate current wording.
-- Overclaim risk: market studies can describe averages, not guaranteed results for a specific site.
-- Scope risk: a workflow note can drift into implementation if credential, CMS, or API mutation steps are added.
-- Evidence risk: single-source or practitioner-only claims need advisory confidence until stronger evidence is captured.
-- Locale risk: translated content can lose legal, cultural, or source meaning without qualified review.
-- Media risk: visuals can imply facts that the text and sources do not support.
-- Metric risk: GSC, GA4, URL Inspection, and AI feature reports answer different questions and should not be merged casually.
-- Monitoring risk: unconfirmed volatility should stay quarantined until a Google-owned URL confirms it.
+- Evidence currency risk: First Party Versus Market Data decisions can go stale when a source, date, or requirement changes.
+- Claim scope risk: keep First Party Versus Market Data advice tied to the source coverage named in this note.
+- Operational boundary risk: do not turn First Party Versus Market Data into CMS, analytics, Search Console, API, or publishing mutation steps.
+- Proof gap risk: when the note lacks direct evidence, record the gap instead of upgrading confidence.
+- Audience fit risk: adjust First Party Versus Market Data guidance for topic sensitivity, locale, and review ownership before use.
+- Media and data risk: verify charts, visuals, metrics, and examples before they carry this note's claims.
+- Metric interpretation risk: separate first-party exports, market studies, and API signals in First Party Versus Market Data outputs.
+- Monitoring risk: quarantine unconfirmed volatility until a dated source in the ledger supports it.
 
 ## Output Shape
-- A one-paragraph decision summary for the editor or auditor.
-- A dated source list using URLs that are present in the source ledger.
-- A confidence label that distinguishes verified evidence from advisory interpretation.
-- A rollback or refresh condition for time-sensitive guidance.
-- A list of blocked claims that need more evidence before publication.
-- A handoff note for writers, editors, reviewers, or data owners.
-- A graph link to the parent hub and at least several sibling spokes.
-- A clear statement when no action is recommended because the evidence is incomplete.
+- A First Party Versus Market Data decision summary for the editor or auditor.
+- The source IDs or URLs that directly support the active recommendation.
+- A confidence label that matches the evidence strength for this note.
+- A rollback or refresh condition tied to the source or workflow affected.
+- A blocked-claims list for First Party Versus Market Data gaps that need more evidence.
+- A handoff note naming the writer, editor, reviewer, or data owner next action.
+- Links back to the parent hub and sibling notes that keep the graph navigable.
+- A no-action statement when First Party Versus Market Data evidence is incomplete or outside this brain.
 
 ## Related
 - [[Google Data Integrations]]

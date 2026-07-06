@@ -38,7 +38,7 @@ source_urls:
 ## Summary
 Internal Link Matrix is the spoke for assign hub to spoke, spoke to hub, and sibling links with descriptive anchors.
 Use it when [[Semantic Topic Clusters]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a internal link matrix.
+The durable output is an internal link matrix.
 The success condition is that links help readers move from broad context to precise support and back.
 Keep the note advisory in V1 and route implementation to a human owner.
 

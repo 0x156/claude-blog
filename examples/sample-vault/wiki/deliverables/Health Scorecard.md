@@ -1,8 +1,8 @@
 ---
 type: "deliverable"
 title: "Health Scorecard"
-created: "2026-07-06"
-updated: "2026-07-06"
+created: "2026-07-07"
+updated: "2026-07-07"
 status: "draft"
 ---
 
@@ -12,7 +12,7 @@ status: "draft"
 
 | Source | Hash | Retrieved |
 |---|---|---:|
-| `.raw/sources/sample-source.md` | `9927f31d6196` | 2026-07-06 |
+| `.raw/sources/sample-source.md` | `9927f31d6196` | 2026-07-07 |
 
 ## Current Read
 

@@ -1,8 +1,8 @@
 ---
 type: "source"
 title: "Source Manifest Guide"
-created: "2026-07-06"
-updated: "2026-07-06"
+created: "2026-07-07"
+updated: "2026-07-07"
 status: "active"
 ---
 

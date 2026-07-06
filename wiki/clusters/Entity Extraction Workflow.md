@@ -38,7 +38,7 @@ source_urls:
 ## Summary
 Entity Extraction Workflow is the spoke for extract entities, salience, source names, and topic relationships before clustering.
 Use it when [[Semantic Topic Clusters]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a entity extraction worksheet.
+The durable output is an entity extraction worksheet.
 The success condition is that cluster decisions reflect entities and reader language rather than only keyword strings.
 Keep the note advisory in V1 and route implementation to a human owner.
 

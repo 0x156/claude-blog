@@ -38,7 +38,7 @@ source_urls:
 ## Summary
 AI Citation Readiness Subscore is the spoke for score answer-first passages, entity clarity, citations, preview controls, and no special AI file myths.
 Use it when [[Blog Quality Score]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a AI citation readiness subscore.
+The durable output is an AI citation readiness subscore.
 The success condition is that citation readiness is measured without promising inclusion.
 Keep the note advisory in V1 and route implementation to a human owner.
 

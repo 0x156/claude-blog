@@ -39,7 +39,7 @@ source_urls:
 ## Summary
 AI Referral Reporting is the spoke for separate AI referral traffic, AI feature impressions, and AI citation observations.
 Use it when [[Distribution and Repurposing]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a AI referral report.
+The durable output is an AI referral report.
 The success condition is that AI performance reporting uses available first-party data and visible caveats.
 Keep the note advisory in V1 and route implementation to a human owner.
 

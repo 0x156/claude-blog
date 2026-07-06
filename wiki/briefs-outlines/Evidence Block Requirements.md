@@ -37,7 +37,7 @@ source_urls:
 ## Summary
 Evidence Block Requirements is the spoke for define which claims need sources, dates, calculations, expert review, or caveats.
 Use it when [[SERP-Informed Briefs and Outlines]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a evidence block checklist.
+The durable output is an evidence block checklist.
 The success condition is that current and risky claims carry dated trustworthy sources before drafting.
 Keep the note advisory in V1 and route implementation to a human owner.
 
