@@ -450,18 +450,6 @@ MIT License. See [`LICENSE`](LICENSE).
 - **[Claude Ads](https://github.com/AgriciDaniel/claude-ads)** and **[Claude SEO](https://github.com/AgriciDaniel/claude-seo)**: sibling Claude Code skills.
 - **[AI Marketing Hub](https://www.skool.com/ai-marketing-hub)**: free community. Pro tier at [`ai-marketing-hub-pro`](https://www.skool.com/ai-marketing-hub-pro) hosts this skill's private mirror.
 
-## Star History
-
-<a href="https://star-history.com/#agricidaniel/claude-blog&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=agricidaniel/claude-blog&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=agricidaniel/claude-blog&type=Date" />
-    <img alt="Star history chart for agricidaniel/claude-blog on GitHub" src="https://api.star-history.com/svg?repos=agricidaniel/claude-blog&type=Date" />
-  </picture>
-</a>
-
-A star on the [public repo](https://github.com/AgriciDaniel/claude-blog) helps other content teams find the project.
-
 ## Author
 
 Built by [Daniel Agrici](https://agricidaniel.com/about), AI Workflow Architect, with Claude Code.
