@@ -1,4 +1,4 @@
-# claude-blog v1.7.1: Demo Runbook
+# claude-blog v1.11.0: Demo Runbook
 
 End-to-end demo flow that exercises every wired integration: YouTube
 embedding (blog-google), keyword research (DataForSEO MCP), AI image
@@ -21,7 +21,7 @@ populated by sourcing the gitignored `.env.local`. Restart Claude Code
 after sourcing so the MCP subprocess inherits the values.
 
 ```bash
-cd /home/agricidaniel/Desktop/claude-blog
+cd ~/claude-blog
 source .env.local
 echo "GOOGLE_AI_API_KEY length: ${#GOOGLE_AI_API_KEY}"     # should print 39
 echo "DATAFORSEO_USERNAME set:  ${DATAFORSEO_USERNAME:+yes}"  # should print yes
@@ -44,7 +44,7 @@ every program you launch from that shell.
 | GA4 organic traffic | `blog-google ga4_report` | Needs `ga4_property_id` in google-api.json |
 | nanobanana image gen (Creative Director) | `/banana` skill, `/blog image` | MCP wired, restart needed |
 | DataForSEO live SERP, keywords, backlinks, AI visibility | `seo-dataforseo` skill (in claude-seo) | MCP wired, restart needed |
-| Inline SVG charts (dark-mode) | `/blog chart` (internal) + `/svg-chart` skill | Pure Python, works now |
+| Inline SVG charts (dark-mode) | `blog-chart` internal capability + `/svg-chart` skill | Pure Python, works now |
 | Animated SVGs (SMIL) | `/svg-animate` skill | Pure SVG, works now |
 | Topic-cluster execution | `/blog cluster` | Hub-and-spoke pattern |
 | Multilingual publishing | `/blog multilingual --languages de,fr,es` | Spawns translator agent |
@@ -63,7 +63,7 @@ python3 skills/blog-google/scripts/google_auth.py --tier --json
 # 3. Plugin validate
 claude plugin validate .
 
-# 4. Full test suite (52/52 passing post-audit)
+# 4. Full test suite (242 tests)
 python -m pytest tests/ -q
 
 # 5. Sample local SVG chart
@@ -97,7 +97,7 @@ Each step is one slash command. Estimated total time: 8-12 min.
 
 5. /blog write "AI search citations" --brief
    -> Writes the full post. During the write, it will:
-      - call /blog chart to generate SVG charts inline
+      - invoke the internal blog-chart capability to generate SVG charts inline
       - call /blog image (nanobanana) to generate the cover + hero
       - embed YouTube videos via srcdoc lazy-load (~5KB)
       - inject FAQ schema + JSON-LD
@@ -144,7 +144,8 @@ Gemini,15
 Copilot,10
 ```
 
-Or use the inline-blog version: `/blog chart bar` with the same data.
+Within `/blog write` or `/blog rewrite`, the same data can be rendered by the
+internal `blog-chart` capability.
 
 ### B3. "Animated SVG explaining a concept"
 

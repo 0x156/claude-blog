@@ -61,6 +61,7 @@ firebase-debug.log
 # Generated output
 output/
 demo-output/
+.raw/
 
 # Working documents
 definitive-resesarch-blueprint-for-claude-blog.md

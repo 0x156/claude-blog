@@ -4,7 +4,8 @@
 
 This repository contains **Claude Blog**, a Tier 4 Claude Code skill for blog content
 creation, optimization, and management. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 32 sub-skills, 5 specialized
+3-layer architecture (directive, orchestration, execution). 32 skill directories
+(1 orchestrator + 31 sub-skills), 30 user-facing `/blog` commands, 5 specialized
 subagents, 12 content templates, and 22 reference docs are dual-optimized for Google rankings
 (2026 core and spam update timeline, E-E-A-T) and AI citations (GEO/AEO). Includes FLOW framework
 integration, semantic topic-cluster planning + execution, multilingual publishing (Pro Hub
@@ -39,9 +40,9 @@ claude-blog/
   scripts/content_decay.py           # GSC content-decay detector: 20%+ QoQ decline (v1.10.0)
   scripts/quality_gate.py            # Pre-commit gate: block posts scoring < 70 (v1.10.0)
   scripts/style_learn.py             # Author voice-profile learner from sample posts (v1.10.0)
-  skills/                            # 32 sub-skills (blog/ is the orchestrator)
+  skills/                            # 32 skill directories (1 orchestrator + 31 sub-skills)
     blog/SKILL.md                   # Main orchestrator, routing, scoring
-      references/                   # 21 on-demand knowledge files (5 in v1.8.0, 1 in v1.9.0)
+      references/                   # 22 on-demand knowledge files (5 in v1.8.0, 1 in v1.9.0)
       templates/                    # 12 content templates
       scripts/                     # Python analysis scripts
     blog-write/SKILL.md            # Write new articles from scratch
@@ -93,13 +94,17 @@ claude-blog/
       SKILL.md
     blog-locale-audit/             # Multilingual content QA (v1.7.0)
       SKILL.md
+    blog-brand/SKILL.md            # BRAND.md + VOICE.md context files (v1.8.0)
+    blog-discourse/SKILL.md        # Last-30-days discourse research (v1.8.0)
+    blog-style/SKILL.md            # Author voice-profile learner (v1.10.0)
+    blog-decay/SKILL.md            # GSC content-decay detector (v1.10.0)
   agents/                            # 5 specialized subagents
     blog-researcher.md              # Statistics and source research
     blog-writer.md                  # Content generation
     blog-seo.md                     # SEO validation
     blog-reviewer.md                # Quality scoring (no Bash, post v1.7.0 hardening)
     blog-translator.md              # Multilingual translation (no Bash, v1.7.0)
-  tests/                             # pytest suite (217 tests) incl. test_blog_delivery_contract.py + test_security_guardrails.py
+  tests/                             # pytest suite (242 tests) incl. test_blog_delivery_contract.py + test_security_guardrails.py
 ```
 
 ## Commands
@@ -107,7 +112,7 @@ claude-blog/
 | Command | Purpose |
 |---------|---------|
 | `/blog write` | Write new articles optimized for rankings + AI citations |
-| `/blog rewrite` | Optimize existing posts with sourced statistics |
+| `/blog rewrite` | Optimize existing posts with sourced statistics; `/blog update` aliases here |
 | `/blog analyze` | 5-category 100-point scoring with AI detection |
 | `/blog brief` | Detailed content briefs with competitive analysis |
 | `/blog outline` | SERP-informed outlines with heading hierarchy |
@@ -115,7 +120,6 @@ claude-blog/
 | `/blog strategy` | Blog positioning and content planning |
 | `/blog seo-check` | Post-writing SEO validation checklist |
 | `/blog schema` | JSON-LD schema markup generation |
-| `/blog chart` | Inline SVG data visualization charts |
 | `/blog repurpose` | Multi-platform content repurposing |
 | `/blog geo` | AI citation optimization audit |
 | `/blog image` | AI image generation and editing via Gemini |
@@ -137,7 +141,9 @@ claude-blog/
 | `/blog discourse` | API-free last-30-days discourse research; produces DISCOURSE.md (v1.8.0) |
 | `/blog style` | Learn author voice profile from existing posts (v1.10.0) |
 | `/blog decay` | Detect content decay from GSC exports (v1.10.0) |
-| `/blog update` | Freshness update (alias to rewrite) |
+
+Internal capability: `blog-chart` generates inline SVG charts for `/blog write`
+and `/blog rewrite`; it is not a top-level user command.
 
 ## Development Rules
 

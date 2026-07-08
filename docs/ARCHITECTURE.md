@@ -28,11 +28,11 @@ data flow, scoring methodology, file conventions, and extension points.
               |                                            |
               v                                            v
 +----------------------------+            +---------------------------+
-|     31 Sub-Skills          |            |    On-Demand References   |
-|  skills/blog-*/SKILL.md   |            |  skills/blog/references/*.md     |
-|                            |            |  skills/blog/templates/*.md      |
+|   32 Skill Directories     |            |    On-Demand References   |
+|  1 orchestrator + 31       |            |  skills/blog/references/*.md     |
+|  sub-skills                |            |  skills/blog/templates/*.md      |
 |  write    rewrite          |            |                           |
-|  analyze  brief            |            |  21 references loaded     |
+|  analyze  brief            |            |  22 references loaded     |
 |  calendar strategy         |            |  on demand (RAG pattern)  |
 |  outline  seo-check        |            |  12 content templates     |
 |  schema   repurpose        |            +---------------------------+
@@ -45,19 +45,26 @@ data flow, scoring methodology, file conventions, and extension points.
 |  multilingual translate    |
 |  localize locale-audit     |
 |  brand    discourse        |
+|  style    decay            |
 |  chart (internal)          |
 +------+----------+----------+
        |          |
        v          v
 +------------------+  +------------------------+
-|  5 Subagents     |  |  13 root-level Scripts  |
+|  5 Subagents     |  |  14 root-level Scripts  |
 |  agents/*.md     |  |  scripts/*.py          |
 |                  |  |                        |
 |  blog-researcher |  |  analyze_blog          |
 |  blog-writer     |  |  blog_preflight (1.9)  |
 |  blog-seo        |  |  blog_render (1.9)     |
-|  blog-reviewer   |  |  generate_hero (1.9)   |
-|  blog-translator |  |  cognitive_load        |
+|  blog-reviewer   |  |  blog_hygiene (1.11)   |
+|  blog-translator |  |  ai_citation_score     |
+|                  |  |  content_decay         |
+|                  |  |  quality_gate          |
+|                  |  |  style_learn           |
+|                  |  |                        |
+|                  |  |  generate_hero (1.9)   |
+|                  |  |  cognitive_load        |
 +------------------+  |  discourse_research    |
                       |  load_untrusted_root   |
                       |  lint_prose            |
@@ -84,7 +91,7 @@ The entry point for all `/blog` commands. Responsibilities:
 The orchestrator is a Claude Code skill with YAML frontmatter defining its
 name, description, trigger phrases, and allowed tools.
 
-### 2. Sub-Skills (30 total: 29 user-invokable + 1 internal blog-chart)
+### 2. Skill Directories (32 total: 1 orchestrator + 31 sub-skills; 30 user-facing commands)
 
 **Location**: `skills/blog-*/SKILL.md` (and `skills/blog/SKILL.md` for the orchestrator)
 
@@ -126,6 +133,8 @@ Each sub-skill is a standalone Claude Code skill with its own:
 | blog-locale-audit | Multilingual content QA (completeness, hreflang, parity, freshness) | v1.7.0 |
 | blog-brand | Generate BRAND.md + VOICE.md context auto-loaded by all sub-skills | v1.8.0 |
 | blog-discourse | API-free last-30-days discourse research (Reddit, X, YouTube, etc.) | v1.8.0 |
+| blog-style | Learn author voice profiles from existing posts | v1.10.0 |
+| blog-decay | Detect GSC content decay and prioritize refresh candidates | v1.10.0 |
 
 ### 3. Subagents (5)
 
@@ -148,7 +157,7 @@ and `agents/blog-translator.md`).
 Agents are defined as markdown files with YAML frontmatter specifying their
 name, description, and available tools.
 
-### 4. Reference Files (21)
+### 4. Reference Files (22)
 
 **Location**: `skills/blog/references/*.md`
 
@@ -178,7 +187,7 @@ Structural templates for different content types. Each template defines
 section structure, word count targets, and format-specific guidance.
 See [TEMPLATES.md](TEMPLATES.md) for the full reference.
 
-### 6. Root-Level Python Scripts (9)
+### 6. Root-Level Python Scripts (14)
 
 **Location**: `scripts/*.py`
 
@@ -188,13 +197,18 @@ docstring, JSON output, and stdlib-only or narrowly-pinned dependencies.
 | Script | Purpose | Introduced |
 |---|---|---|
 | `analyze_blog.py` | 5-category 100-point quality scoring; batch mode; JSON/markdown/table output | v1.0.0 |
+| `ai_citation_score.py` | AI citation probability 0-100 per post | v1.10.0 |
+| `blog_hygiene.py` | Optional deterministic hygiene: lazy-load images and auto-TOC | v1.11.0 |
 | `blog_preflight.py` | Runs 5-gate Blog Delivery Contract (Gates 1, 2, 3, 5; reads Gate 4 output) | v1.9.0 |
 | `blog_render.py` | md -> html -> pdf renderer; XSS-safe JSON-LD via `</`->`<\/`; O_NOFOLLOW symlink refusal; frontmatter validation | v1.9.0 |
 | `cognitive_load.py` | Per-section concept-density analyzer (entities, numerics, jargon, forward refs, clause depth) | v1.8.0 |
+| `content_decay.py` | GSC content-decay detector: 20%+ QoQ decline | v1.10.0 |
 | `discourse_research.py` | Discourse-brief synthesis from SERP JSON; depth-bounded parsing; path-traversal guards | v1.8.0 |
 | `generate_hero.py` | Hero image ladder: Banana MCP -> Gemini API -> Unsplash/Pexels/Pixabay -> Openverse | v1.9.0 |
 | `load_untrusted_root.py` | Code-enforced BRAND/VOICE/DISCOURSE fencing with CSPRNG nonces; O_NOFOLLOW + size cap | v1.8.3 |
 | `lint_prose.py` | Fence-aware prose-hygiene linter (no em-dash, en-dash, ` -- `); CI-enforced | v1.8.4 |
+| `quality_gate.py` | Pre-commit gate: block posts scoring < 70 | v1.10.0 |
+| `style_learn.py` | Author voice-profile learner from sample posts | v1.10.0 |
 | `sync_flow.py` | Pulls FLOW reference prompts from upstream; sandboxed; stdlib-only | v1.7.0 |
 
 ---
@@ -478,7 +492,9 @@ After installation, `claude-blog` occupies this structure inside `~/.claude/`:
 │   ├── blog-localize/SKILL.md          # v1.7.0
 │   ├── blog-locale-audit/SKILL.md      # v1.7.0
 │   ├── blog-brand/SKILL.md             # v1.8.0
-│   └── blog-discourse/SKILL.md         # v1.8.0
+│   ├── blog-discourse/SKILL.md         # v1.8.0
+│   ├── blog-style/SKILL.md             # v1.10.0
+│   └── blog-decay/SKILL.md             # v1.10.0
 └── agents/
     ├── blog-researcher.md
     ├── blog-writer.md
@@ -487,20 +503,21 @@ After installation, `claude-blog` occupies this structure inside `~/.claude/`:
     └── blog-translator.md              # v1.7.0
 ```
 
-**Component counts (v1.9.0)**: 1 orchestrator + 31 sub-skills = 32 skill dirs
-total, 5 agents (blog-researcher, blog-writer, blog-seo, blog-reviewer,
+**Component counts (v1.11.0)**: 32 skill directories (1 orchestrator + 31
+sub-skills); 30 user-facing commands, 5 agents (blog-researcher, blog-writer, blog-seo, blog-reviewer,
 blog-translator), 22 references in `skills/blog/references/` (plus per-sub-skill
 references and 30 synced FLOW prompts under `skills/blog-flow/references/`),
-12 content templates, 13 root-level scripts (`scripts/analyze_blog.py`,
-`blog_preflight.py`, `blog_render.py`, `cognitive_load.py`,
+12 content templates, 14 root-level scripts (`scripts/analyze_blog.py`,
+`ai_citation_score.py`, `blog_hygiene.py`, `blog_preflight.py`,
+`blog_render.py`, `cognitive_load.py`, `content_decay.py`,
 `discourse_research.py`, `generate_hero.py`, `load_untrusted_root.py`,
-`lint_prose.py`, `sync_flow.py`) plus per-sub-skill scripts under
+`lint_prose.py`, `quality_gate.py`, `style_learn.py`, `sync_flow.py`) plus per-sub-skill scripts under
 `blog-google/`, `blog-notebooklm/`, `blog-audio/`, `blog-image/`.
 v1.8.0+ adds three project-root context files (BRAND.md / VOICE.md /
 DISCOURSE.md, auto-loaded via `scripts/load_untrusted_root.py` with
 CSPRNG nonce fencing). v1.8.4+ enforces prose hygiene and version
 coherence via CI (see `scripts/lint_prose.py`, `tests/test_version_coherence.py`).
 v1.9.0 adds the 5-gate Blog Delivery Contract (see
-`skills/blog/references/blog-delivery-contract.md`) and 206-test pytest
+`skills/blog/references/blog-delivery-contract.md`) and 242-test pytest
 suite including mutation-test-verified XSS, symlink, and frontmatter
 regression coverage.

@@ -152,7 +152,9 @@ If you prefer not to run the installer, copy files to these paths manually.
 │   ├── blog-localize/SKILL.md         # v1.7.0
 │   ├── blog-locale-audit/SKILL.md     # v1.7.0
 │   ├── blog-brand/SKILL.md            # v1.8.0
-│   └── blog-discourse/SKILL.md        # v1.8.0
+│   ├── blog-discourse/SKILL.md        # v1.8.0
+│   ├── blog-style/SKILL.md            # v1.10.0
+│   └── blog-decay/SKILL.md            # v1.10.0
 └── agents/
     ├── blog-researcher.md
     ├── blog-writer.md
@@ -242,13 +244,13 @@ After installation, verify everything is in place:
 # Main skill
 ls ~/.claude/skills/blog/SKILL.md
 
-# Sub-skills (should list 29 directories: 28 user-facing slash commands + 1 internal blog-chart)
+# Blog-* directories should list 31; total is 32 skill directories (1 orchestrator + 31 sub-skills); 30 user-facing commands
 ls ~/.claude/skills/blog-*/SKILL.md | wc -l
 
 # Agents (should list 5: blog-researcher, blog-writer, blog-seo, blog-reviewer, blog-translator)
 ls ~/.claude/agents/blog-*.md | wc -l
 
-# References (should list 21 .md files)
+# References (should list 22 .md files)
 ls ~/.claude/skills/blog/references/*.md | wc -l
 
 # Python script
@@ -326,23 +328,22 @@ chmod +x uninstall.sh
 
 This removes:
 
-- `~/.claude/skills/blog/` (main skill, references, templates, scripts)
-- `~/.claude/skills/blog-*/` (all 31 sub-skills: write, rewrite, analyze, brief, calendar, strategy, outline, seo-check, schema, repurpose, geo, audit, chart [internal], image, cannibalization, factcheck, persona, taxonomy, notebooklm, audio, google, cluster, flow, multilingual, translate, localize, locale-audit, brand, discourse, style, decay)
-- `~/.claude/scripts/` (13 root-level scripts: analyze_blog, blog_preflight, blog_render, cognitive_load, discourse_research, generate_hero, load_untrusted_root, lint_prose, sync_flow, ai_citation_score, content_decay, quality_gate, style_learn)
+- `~/.claude/skills/blog/` and `~/.claude/skills/blog-*/` (32 skill directories: 1 orchestrator + 31 sub-skills; 30 user-facing commands; `blog-chart` is internal-only)
+- `~/.claude/scripts/` (14 root-level scripts: ai_citation_score, analyze_blog, blog_hygiene, blog_preflight, blog_render, cognitive_load, content_decay, discourse_research, generate_hero, lint_prose, load_untrusted_root, quality_gate, style_learn, sync_flow)
 - `~/.claude/agents/blog-*.md` (all 5 agents: blog-researcher, blog-writer, blog-seo, blog-reviewer, blog-translator)
 
 ### Manual Uninstall
 
 ```bash
-# Main skill + all sub-skills (auto-discovers blog-* via glob)
+# Main skill + all blog-* skill directories (auto-discovers blog-* via glob)
 rm -rf ~/.claude/skills/blog
 rm -rf ~/.claude/skills/blog-*
 
 # All 5 agents
 rm -f ~/.claude/agents/blog-{researcher,writer,seo,reviewer,translator}.md
 
-# All 13 root-level scripts (only if no other plugin uses ~/.claude/scripts/)
-rm -f ~/.claude/scripts/{analyze_blog,blog_preflight,blog_render,cognitive_load,discourse_research,generate_hero,load_untrusted_root,lint_prose,sync_flow}.py
+# All 14 root-level scripts (only if no other plugin uses ~/.claude/scripts/)
+rm -f ~/.claude/scripts/{ai_citation_score,analyze_blog,blog_hygiene,blog_preflight,blog_render,cognitive_load,content_decay,discourse_research,generate_hero,lint_prose,load_untrusted_root,quality_gate,style_learn,sync_flow}.py
 ```
 
 ### Clean Up Python Dependencies (Optional)
