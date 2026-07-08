@@ -4,6 +4,8 @@ title: "Approval Queue"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [decisions, active]
 ---
 
 # Approval Queue

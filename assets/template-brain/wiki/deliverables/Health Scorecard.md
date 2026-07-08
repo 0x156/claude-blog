@@ -4,6 +4,8 @@ title: "Health Scorecard"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [deliverables, active]
 ---
 
 # Health Scorecard

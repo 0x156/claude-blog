@@ -3,7 +3,7 @@ type: spoke
 title: "2025 Google Update Timeline"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [monitoring, google-updates, active]
 domain: "Google Update Monitoring"
 confidence: verified
@@ -23,15 +23,7 @@ related:
 source_urls:
   - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
   - "https://developers.google.com/search/updates/ranking"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/essentials/spam-policies"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
   - "https://services.google.com/fh/files/misc/hsw-sqrg.pdf"
   - "https://blog.google/products/search/ai-mode-search/"
   - "https://blog.google/products/search/google-search-ai-mode-update/"
@@ -49,18 +41,11 @@ The expected user is an editor, SEO lead, content strategist, reviewer, or opera
 The output should be short enough to apply during a brief or audit, but complete enough to survive source review.
 
 ## Evidence Anchors
-- The local update ledger contains 34 Google-owned update entries through the 2026-06-30 Merchant Center product videos entry.
-- No Google-owned ranking, spam, schema, QRG, or AI search update is recorded from 2026-07-01 through 2026-07-06.
-- FAQ rich results retired for all sites effective 2026-05-07, which makes Article or BlogPosting the blog schema priority.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt for Search, AI Overviews, or AI Mode.
-- QRG status remains tied to the 2025-09-11 version as of 2026-07-06.
-- As of 2026-07-06, SparkToro reports 68.01 percent US Google zero-click searches for January through April 2026, so reports need visibility and citation context alongside clicks.
-- Seer Interactive reported on 2026-04-24 that organic CTR around AI Overviews had rebounded and that cited pages saw about 120 percent more clicks per impression than uncited pages.
-- Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
-- Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
-- The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+- This note is historical. Use [[2026 Google Update Timeline]] and [[hot|Hot]] for current 2026 anchors.
+- The 2025 set contains 9 confirmed entries in the local update ledger.
+- 2025 confirmed ranking entries are March 2025 Core Update, June 2025 Core Update, and December 2025 Core Update.
+- 2025 product and documentation entries include AI Mode launch, AI Mode general rollout, AI Mode expansion, Search result simplification, and QRG revisions.
+- Historical entries are monitoring anchors only; they do not prove traffic impact for any page without first-party data.
 
 ## Required Inputs
 - Confirmed Google-owned source URL or explicit unverified status.
@@ -180,15 +165,7 @@ Third-party volatility can explain what to inspect, but it does not promote an e
 ## Source URLs
 - https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history
 - https://developers.google.com/search/updates/ranking
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage
-- https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
 - https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
-- https://developers.google.com/search/docs/essentials/spam-policies
-- https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports
-- https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/
-- https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update
-- https://blog.google/products-and-platforms/products/search/search-io-2026/
-- https://ziptie.dev/blog/google-ai-overviews-source-selection/
 - https://services.google.com/fh/files/misc/hsw-sqrg.pdf
 - https://blog.google/products/search/ai-mode-search/
 - https://blog.google/products/search/google-search-ai-mode-update/

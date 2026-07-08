@@ -4,6 +4,8 @@ title: "Gaps Hub"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [type-hub, gaps, active]
 ---
 
 # Gaps Hub

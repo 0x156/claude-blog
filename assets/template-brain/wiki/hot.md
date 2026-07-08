@@ -4,6 +4,8 @@ title: "Hot"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [meta, hot, active]
 ---
 
 # Hot

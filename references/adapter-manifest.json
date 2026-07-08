@@ -1,11 +1,14 @@
 {
   "version": 1,
-  "status": "domain-adapted",
+  "status": "researched",
   "domain": "blog content creation, optimization, and management dual-optimized for Google rankings (E-E-A-T, the 2026 core updates) and AI citations (GEO/AEO), spanning writing, rewriting and freshness, SERP-informed briefs and outlines, editorial calendars and strategy, semantic topic clusters, schema and internal linking, multilingual publishing, the FLOW framework, factchecking, personas, distribution, and the blog delivery contract, grounded in the claude-blog skill",
-  "generic_only": false,
-  "last_verified": "2026-07-06",
+  "generic_only": true,
+  "last_verified": "2026-07-08",
+  "release_note": "The adapter interface is planned and paths are reserved, but this manifest does not declare domain-adapted maturity until implementation, safety, fixture, citation, and deterministic test gates are release-verified.",
   "raw_input_types": [
-    "blog-post input JSON using schemas/blog-post-input.schema.json"
+    "planned blog-post input JSON using schemas/blog-post-input.schema.json",
+    "planned Markdown blog post with YAML frontmatter",
+    "planned HTML blog post with canonical URL and extracted metadata"
   ],
   "rules": {
     "domain_adapted_requires": [
@@ -13,55 +16,86 @@
       "one domain-specific synthesis module",
       "one report renderer",
       "one fixture per supported input type",
-      "tests for importer, synthesis, rendering, malformed input, and deterministic output"
+      "tests for valid input, malformed input, rendering, credentials boundary, deterministic output, and citation coverage",
+      "URL, local path, HTML sanitization, symlink, SSRF, and secret-handling gates"
     ]
   },
   "input_schemas": [
     {
       "name": "blog-post-input",
       "path": "schemas/blog-post-input.schema.json",
-      "status": "implemented",
-      "planned": false
+      "status": "planned",
+      "planned": true
     }
   ],
   "importers": [
     {
       "name": "ingest_blog_input",
       "path": "scripts/ingest_blog_input.py",
-      "status": "domain-adapted",
-      "planned": false
+      "status": "planned",
+      "planned": true
     }
   ],
   "synthesis_modules": [
     {
       "name": "synthesize_blog_plan",
       "path": "scripts/synthesize_blog_plan.py",
-      "status": "domain-adapted",
-      "planned": false
+      "status": "planned",
+      "planned": true
     }
   ],
   "report_renderers": [
     {
       "name": "render_blog_report",
       "path": "scripts/render_blog_report.py",
-      "status": "domain-adapted",
-      "planned": false
+      "status": "planned",
+      "planned": true
     }
   ],
   "fixtures": [
     {
       "name": "sample-blog-post",
       "path": "tests/fixtures/sample-blog-post.json",
-      "status": "implemented",
-      "planned": false
+      "status": "planned",
+      "planned": true
     }
   ],
   "tests": [
     {
-      "name": "test_blog_adapters",
+      "name": "valid_input",
       "path": "tests/test_blog_adapters.py",
-      "status": "implemented",
-      "planned": false
+      "status": "planned",
+      "planned": true
+    },
+    {
+      "name": "malformed_input",
+      "path": "tests/test_blog_adapters.py",
+      "status": "planned",
+      "planned": true
+    },
+    {
+      "name": "rendering",
+      "path": "tests/test_blog_adapters.py",
+      "status": "planned",
+      "planned": true
+    },
+    {
+      "name": "credentials_boundary",
+      "path": "tests/test_blog_adapters.py",
+      "status": "planned",
+      "planned": true
+    },
+    {
+      "name": "deterministic_output",
+      "path": "tests/test_blog_adapters.py",
+      "status": "planned",
+      "planned": true
+    },
+    {
+      "name": "citation_coverage",
+      "path": "tests/test_blog_adapters.py",
+      "status": "planned",
+      "planned": true
     }
   ]
 }

@@ -4,6 +4,8 @@ title: "Research Refresh Workflow"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Source Evidence"
+tags: [flows, sources, active]
 ---
 
 # Research Refresh Workflow

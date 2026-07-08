@@ -3,7 +3,7 @@ type: spoke
 title: "Evidence Gap Register"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
@@ -54,8 +54,20 @@ The output should be short enough to apply during a brief or audit, but complete
 - Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
 - Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
 - The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+- Google AI optimization guide has current page date 2026-06-29; the 2026-06-15 documentation update added the llms.txt clarification.
+- Passage extraction heuristics are practitioner evidence and should stay in GEO-specific notes.
+
+## Open Gaps
+
+| Gap ID | Gap | Owner | Due | Affected notes | Severity | Blocking rule |
+|---|---|---|---:|---|---|---|
+| GAP-2026-07-08-01 | Source ledger needs separate `published`, `last_updated`, `retrieved`, `event_date`, and `date_precision` for Google docs that were machine-filled with generic dates. | source steward | 2026-07-15 | [[Research Pack 2026-07-06]], [[Claim To Source Mapping]], [[Google Algorithm Update Ledger]] | blocker | Blocks market-ready citation integrity. |
+| GAP-2026-07-08-02 | July 2026 Google Search documentation updates are not represented in `references/source-ledger.json`. | source steward | 2026-07-15 | [[2026 Google Update Timeline]], [[Current Requirements Digest]], [[Evidence Gap Register]] | high | Blocks "current through today" claims. |
+| GAP-2026-07-08-03 | Adapter truth conflicts outside owned paths: README says scaffolded, product spec says researched, adapter manifest says domain-adapted, adapter plan reportedly says not built. | release owner | 2026-07-15 | [[dashboard]], [[Research Release Gate Notes]] | blocker | Blocks market-ready or domain-adapted language. |
+| GAP-2026-07-08-04 | Raw provenance remains template-only outside owned paths, while wiki notes cite source pools. | release owner | 2026-07-22 | [[Research Pack Index]], [[Source Ledger Reading Guide]] | high | Blocks immutable evidence claims. |
+| GAP-2026-07-08-05 | Search Console generative AI report Help Center pages need ledger entries for subset availability, dimensions, UI export behavior, and zero export placeholders. | data steward | 2026-07-15 | [[Google Data Integrations]], [[Metric Export Schema]], [[Generative AI Performance Reporting]] | high | Blocks API-equivalent export claims. |
+| GAP-2026-07-08-06 | Gemini image generation, Nano Banana, SynthID, and Imagen 4 deprecation sources need machine-ledger entries. | media steward | 2026-07-22 | [[Generated Media Disclosure Notes]], [[Images Audio and Charts]] | medium | Blocks model-specific media guidance from being verified. |
+| GAP-2026-07-08-07 | Relationship map generator lives outside owned paths and still hard-codes a generic SVG. | vault maintainer | 2026-07-22 | [[dashboard]], [[overview]] | medium | Blocks data-aware graph image claims. |
 
 ## Required Inputs
 - Source ID, title, URL, source type, section, retrieved date, and refresh due date.

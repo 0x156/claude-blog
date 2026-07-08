@@ -46,6 +46,7 @@ ALLOWED_KEYS = {
     "audit_findings",
 }
 LOCALE_RE = re.compile(r"^[a-z]{2,3}(-[A-Z]{2})?$")
+ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}(?:[T ]\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})?)?$")
 WORD_RE = re.compile(r"[A-Za-z0-9]+(?:'[A-Za-z0-9]+)?")
 MARKDOWN_HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
 HTML_HEADING_RE = re.compile(r"<h([1-6])[^>]*>(.*?)</h\1>", re.IGNORECASE | re.DOTALL)
@@ -181,11 +182,13 @@ def manual_schema_errors(data: dict[str, Any], schema: dict[str, Any]) -> list[s
         errors.append("one of body_markdown or body_html is required")
 
     check_string_fields(data, ("title", "url", "body_markdown", "body_html", "target_keyword", "locale", "platform", "published_at", "modified_at"), errors)
+    check_iso_date_fields(data, ("published_at", "modified_at"), errors)
     if "frontmatter" in data:
         if not isinstance(data["frontmatter"], dict):
             errors.append("frontmatter must be an object")
         else:
             check_string_fields(data["frontmatter"], ("description", "author", "date", "dateModified", "category", "coverImage"), errors, "frontmatter")
+            check_iso_date_fields(data["frontmatter"], ("date", "dateModified"), errors, "frontmatter")
             if "tags" in data["frontmatter"] and not is_string_list(data["frontmatter"]["tags"]):
                 errors.append("frontmatter.tags must be an array of strings")
     if "secondary_keywords" in data and not is_string_list(data["secondary_keywords"]):
@@ -204,6 +207,13 @@ def check_string_fields(data: dict[str, Any], fields: tuple[str, ...], errors: l
         if key in data and not isinstance(data[key], str):
             path = f"{prefix}.{key}" if prefix else key
             errors.append(f"{path} must be a string")
+
+
+def check_iso_date_fields(data: dict[str, Any], fields: tuple[str, ...], errors: list[str], prefix: str = "") -> None:
+    for key in fields:
+        if key in data and isinstance(data[key], str) and data[key] and not is_iso_date_or_datetime(data[key]):
+            path = f"{prefix}.{key}" if prefix else key
+            errors.append(f"{path} must be an ISO date or date-time")
 
 
 def manual_author_schema_errors(author: Any, errors: list[str]) -> None:
@@ -227,6 +237,7 @@ def manual_sources_schema_errors(sources: Any, errors: list[str]) -> None:
             if key not in source:
                 errors.append(f"sources #{index} missing {key}")
         check_string_fields(source, ("url", "title", "publisher", "published", "retrieved", "confidence"), errors, f"sources #{index}")
+        check_iso_date_fields(source, ("published", "retrieved"), errors, f"sources #{index}")
         if "supports_claims" in source and not is_string_list(source["supports_claims"]):
             errors.append(f"sources #{index} supports_claims must be an array of strings")
 
@@ -282,6 +293,8 @@ def validate_input(data: dict[str, Any]) -> None:
         errors.append("body_html must be a nonempty string when present")
     if "frontmatter" in data and not isinstance(data["frontmatter"], dict):
         errors.append("frontmatter must be an object")
+    if isinstance(data.get("frontmatter"), dict):
+        check_iso_date_fields(data["frontmatter"], ("date", "dateModified"), errors, "frontmatter")
     if "secondary_keywords" in data and not is_string_list(data["secondary_keywords"]):
         errors.append("secondary_keywords must be an array of strings")
     if "platform" in data and not isinstance(data["platform"], str):
@@ -292,6 +305,7 @@ def validate_input(data: dict[str, Any]) -> None:
         validate_sources(data["sources"], errors)
     if "audit_findings" in data:
         validate_audit_findings(data["audit_findings"], errors)
+    check_iso_date_fields(data, ("published_at", "modified_at"), errors)
     if errors:
         raise ValidationError(dedupe_errors(errors))
 
@@ -328,6 +342,7 @@ def validate_sources(sources: Any, errors: list[str]) -> None:
                 errors.append(f"sources #{index} missing {key}")
         if is_nonempty_string(source.get("url")) and not is_uri(source["url"]):
             errors.append(f"sources #{index} url must be an absolute URI")
+        check_iso_date_fields(source, ("published", "retrieved"), errors, f"sources #{index}")
         if "supports_claims" in source and not is_string_list(source["supports_claims"]):
             errors.append(f"sources #{index} supports_claims must be an array of strings")
 
@@ -358,6 +373,10 @@ def is_string_list(value: Any) -> bool:
 def is_uri(value: str) -> bool:
     parsed = urlparse(value)
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
+def is_iso_date_or_datetime(value: str) -> bool:
+    return bool(ISO_DATE_RE.match(value))
 
 
 def html_to_text(value: str) -> str:

@@ -4,6 +4,8 @@ title: "Weekly Report"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [reports, active]
 ---
 
 # Weekly Report

@@ -4,6 +4,8 @@ title: "Sources Hub"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Source Evidence"
+tags: [type-hub, sources, active]
 ---
 
 # Sources Hub

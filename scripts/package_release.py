@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Build release ZIP artifacts after source, path, and secret scans."""
 from __future__ import annotations
 
 import argparse
@@ -20,7 +21,7 @@ SKIP_SUFFIXES = {".pyc", ".pyo", ".log"}
 FORBIDDEN_ENTRY_NAMES = {".env", ".env.local", ".env.production", ".DS_Store", "Thumbs.db", "workspace.json"}
 MAX_SCAN_BYTES = 25 * 1024 * 1024
 FORBIDDEN_TEXT_PATTERNS = {
-    "local home path": re.compile(rb"/home/[A-Za-z0-9_.-]+"),
+    "local home path": re.compile(rb"(?:/home|/var/home|/Users)/[A-Za-z0-9_.-]+|[A-Za-z]:\\Users\\[A-Za-z0-9_.-]+", re.I),
     "private key": re.compile(rb"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
     "openai api key": re.compile(rb"sk-[A-Za-z0-9_-]{20,}"),
     "anthropic api key": re.compile(rb"sk-ant-[A-Za-z0-9_-]{20,}"),
@@ -36,10 +37,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--version", required=True)
     parser.add_argument("--dist-dir", default="dist")
     parser.add_argument("--release-type", default="scaffold", choices=["scaffold", "demo", "market-ready"])
+    parser.add_argument("--allow-outside-dist", action="store_true", help="Allow --dist-dir outside the repo for isolated tests.")
+    parser.add_argument("--json", action="store_true", help="Print the release manifest JSON after writing artifacts.")
     args = parser.parse_args(argv)
     version = normalize_version(args.version)
     dist = (REPO / args.dist_dir).resolve()
-    if dist != REPO and not dist.is_relative_to(REPO):
+    if dist != REPO and not dist.is_relative_to(REPO) and not args.allow_outside_dist:
         raise SystemExit(f"ERROR: --dist-dir must resolve inside the repo: {dist}")
     dist.mkdir(parents=True, exist_ok=True)
     if args.release_type == "market-ready":
@@ -66,7 +69,10 @@ def main(argv: list[str] | None = None) -> int:
     sums = dist / "SHA256SUMS"
     write_sha256s(sums, [*(a["path"] for a in artifacts), manifest_path])
     validate_sha256s(sums)
-    print(f"Release package built in {dist}")
+    if args.json:
+        print(json.dumps(manifest, indent=2, sort_keys=True))
+    else:
+        print(f"Release package built in {dist}")
     return 0
 
 

@@ -4,6 +4,8 @@ title: "Best Practices Kernel"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [concepts, active]
 ---
 
 # Best Practices Kernel

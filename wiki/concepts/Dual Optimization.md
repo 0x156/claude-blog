@@ -3,7 +3,7 @@ type: hub
 title: "Dual Optimization"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [dual-optimization, active]
 domain: "Blog Content Optimization"
 confidence: verified
@@ -39,7 +39,16 @@ This hub is the root concept note for the foundation.
 - The same SparkToro substrate records AI Mode at about 0.34 percent of US query volume.
 - Seer, 2026-04-24, reports AIO-present organic CTR recovering from about 1.3 percent in December 2025 to about 2.4 percent in February 2026.
 - Seer also reports cited pages at about 120 percent more clicks per impression than not cited when an AI Overview is present.
-- Google Search Central, 2026-06-15, says generative AI optimization uses SEO foundations rather than special AI files or special AI markup.
+- Google Search Central AI optimization guide, last updated 2026-06-29, says generative AI optimization uses SEO foundations rather than special AI files or special AI markup.
+
+## Claim Source Table
+
+| Claim | Source ID | URL | Retrieved | Confidence |
+|---|---|---|---:|---|
+| US Google zero-click searches were 68.01 percent for January through April 2026 in SparkToro's analysis. | `sparktoro-zero-click-2026` | https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/ | 2026-07-06 | advisory market context |
+| AI Mode query share was about 0.34 percent in the substrate. | `sparktoro-zero-click-2026` | https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/ | 2026-07-06 | advisory market context |
+| AIO-present organic CTR rebounded in Seer's February 2026 data. | `seer-aio-impact-ctr-2026` | https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update | 2026-07-06 | advisory market context |
+| Google generative AI Search optimization uses SEO foundations rather than special AI files or markup. | `g-ai-opt-guide` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | 2026-07-08 | verified for Google Search |
 
 ## Scope
 
@@ -96,7 +105,7 @@ This hub is the root concept note for the foundation.
 
 - SparkToro, 2026-06-09, retrieved 2026-07-06.
 - Seer, 2026-04-24, retrieved 2026-07-06.
-- Google AI optimization guide, updated 2026-06-15, retrieved 2026-07-06.
+- Google AI optimization guide, last updated 2026-06-29, retrieved 2026-07-08.
 - Google AI features documentation, retrieved 2026-07-06.
 
 ## Next actions

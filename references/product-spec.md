@@ -45,6 +45,22 @@ The brain is grounded in the claude-blog skill. The served workflows include `/b
 
 The first domain input contract is `schemas/blog-post-input.schema.json`. It accepts a blog post or audit target with title, URL, Markdown body or HTML body, frontmatter, target keyword, locale, and optional evidence blocks. The adapter plan names the intended importer, synthesis module, renderer, fixtures, and tests, but code adapters are not built in this slice.
 
+Release-counted adapters must enforce these gates before reading, fetching, or
+rendering input:
+
+- URL intake allows only `https` and `http`, blocks private, loopback, link-local,
+  multicast, localhost, onion, file, data, and credential-bearing URLs, and
+  resolves DNS before fetch to prevent SSRF through redirects or rebinding.
+- Local input paths are vault-relative, normalized, non-absolute, cannot contain
+  `..`, and cannot traverse symlinks outside the allowed raw-source lane.
+- HTML input is parsed with a sanitizer that removes scripts, event handlers,
+  remote executable embeds, unsafe URL schemes, and style injection before any
+  report rendering.
+- Rendered reports must not expose local absolute paths, credentials, tokens,
+  cookies, private draft URLs, or raw private client content.
+- Missing source dates, missing retrieval dates, unsupported statistics, and
+  unverified audit findings remain advisory until tied to source-ledger IDs.
+
 ## Promise
 
 Turn volatile blog SEO, content quality, and AI citation requirements into a persistent, source-cited operating brain that can support claude-blog planning, drafting, auditing, and delivery decisions.
@@ -57,5 +73,5 @@ Turn volatile blog SEO, content quality, and AI citation requirements into a per
 - No mutation of a CMS, GSC, GA4, GBP, ad platform, or publishing platform. V1 is advisory and read-only.
 - No recommendation without a dated source, confidence level, and rollback note.
 - No deprecated advice presented as current, including HowTo rich results, FAQ rich results, and FID.
-- No fabricated statistics, unsourced market claims, or AI-detectable filler presented as fact.
+- No fabricated statistics, unsourced market claims, or generic, unsupported, or low-quality generated filler presented as fact.
 - No treatment of third-party SEO tools as access to Google's internal ranking systems.

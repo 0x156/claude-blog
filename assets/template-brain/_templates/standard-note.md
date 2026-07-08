@@ -4,6 +4,8 @@ title: "{{title}}"
 created: "{{date}}"
 updated: "{{date}}"
 status: "draft"
+domain: "{{domain}}"
+tags: [seed]
 ---
 
 # {{title}}

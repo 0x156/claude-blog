@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -17,6 +18,11 @@ from synthesize_blog_plan import load_ingested, synthesize  # noqa: E402
 
 
 FIXTURE = ROOT / "tests" / "fixtures" / "sample-blog-post.json"
+PY = sys.executable
+
+
+def run_cli(args: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(args, cwd=ROOT, text=True, capture_output=True, check=False)
 
 
 def test_blog_adapter_happy_path() -> None:
@@ -76,6 +82,31 @@ def test_blog_adapter_invalid_input_error(tmp_path: Path) -> None:
     assert "url must be an absolute URI" in message
 
 
+def test_blog_adapter_rejects_invalid_iso_dates(tmp_path: Path) -> None:
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    payload["published_at"] = "June 10, 2026"
+    bad_input = tmp_path / "bad-iso-date-blog-post.json"
+    bad_input.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValidationError) as excinfo:
+        load_blog_input(bad_input)
+
+    assert "published_at" in str(excinfo.value)
+    assert "ISO date or date-time" in str(excinfo.value)
+
+
+def test_blog_adapter_rejects_non_http_url(tmp_path: Path) -> None:
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    payload["url"] = "ftp://example.org/post"
+    bad_input = tmp_path / "bad-url-blog-post.json"
+    bad_input.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValidationError) as excinfo:
+        load_blog_input(bad_input)
+
+    assert "url must be an absolute URI" in str(excinfo.value) or "does not match" in str(excinfo.value)
+
+
 def test_blog_adapter_rejects_wrong_typed_dates(tmp_path: Path) -> None:
     payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
     payload["published_at"] = 20260610
@@ -112,3 +143,48 @@ def test_unknown_audit_source_is_operator_supplied_uncited(tmp_path: Path) -> No
     assert recommendation["source_ids"] == []
     assert recommendation["recommendation"].startswith("operator-supplied (unverified):")
     assert "operator-note" not in {source["id"] for source in plan["source_citations"]}
+
+
+def test_blog_adapter_script_clis_write_outputs(tmp_path: Path) -> None:
+    ingested = tmp_path / "ingested.json"
+    plan = tmp_path / "plan.json"
+    report = tmp_path / "report.md"
+
+    ingest_proc = run_cli([PY, "scripts/ingest_blog_input.py", str(FIXTURE), "-o", str(ingested)])
+    assert ingest_proc.returncode == 0, ingest_proc.stderr
+    assert json.loads(ingested.read_text(encoding="utf-8"))["schema"] == "claude-blog-brain.ingested-blog-post.v1"
+
+    synth_proc = run_cli([PY, "scripts/synthesize_blog_plan.py", str(ingested), "-o", str(plan)])
+    assert synth_proc.returncode == 0, synth_proc.stderr
+    assert json.loads(plan.read_text(encoding="utf-8"))["schema"] == "claude-blog-brain.blog-optimization-plan.v1"
+
+    render_proc = run_cli([PY, "scripts/render_blog_report.py", str(plan), "-o", str(report), "--json-errors"])
+    assert render_proc.returncode == 0, render_proc.stderr
+    assert "## Prioritized Recommendations" in report.read_text(encoding="utf-8")
+
+
+def test_blog_adapter_cli_json_error_envelope(tmp_path: Path) -> None:
+    bad_input = tmp_path / "bad.json"
+    bad_input.write_text('{"url":"ftp://example.org"}', encoding="utf-8")
+
+    proc = run_cli([PY, "scripts/ingest_blog_input.py", str(bad_input)])
+    assert proc.returncode == 2
+    payload = json.loads(proc.stdout)
+    assert payload["ok"] is False
+    assert payload["errors"]
+
+    bad_plan = tmp_path / "bad-plan.json"
+    bad_plan.write_text("{}", encoding="utf-8")
+    render_proc = run_cli([PY, "scripts/render_blog_report.py", str(bad_plan), "--json-errors"])
+    assert render_proc.returncode == 2
+    render_payload = json.loads(render_proc.stdout)
+    assert render_payload["ok"] is False
+
+
+def test_installed_cli_blog_pipeline(tmp_path: Path) -> None:
+    out_dir = tmp_path / "pipeline"
+    proc = run_cli([PY, "-m", "claude_blog_brain", "blog-pipeline", "--input", str(FIXTURE), "--out-dir", str(out_dir)])
+    assert proc.returncode == 0, proc.stderr
+    assert (out_dir / "ingested-blog-post.json").exists()
+    assert (out_dir / "blog-optimization-plan.json").exists()
+    assert (out_dir / "blog-optimization-report.md").exists()

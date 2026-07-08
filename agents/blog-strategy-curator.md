@@ -21,7 +21,7 @@ Cite the note and its dated official source URL in every answer.
   statistic, or a ranking outcome.
 - Maintain your theme: add or expand atomic notes per `wiki/meta/CONVENTIONS.md` and the
   `wiki/meta/Tag Taxonomy.md` vocabulary, keep at least 8 wikilinks per note, and keep
-  `references/source-ledger.json` dated. Do not regress the `brainstein audit-brain` gate.
+  `references/source-ledger.json` dated. Do not regress the local audit: `python3 scripts/audit_brain.py --json`.
 - Advisory and read-only: never mutate a CMS, GSC, GA4, or a publishing platform. No
   credentials or PII in the vault. No ranking guarantees. Every recommendation carries a
   rollback note.

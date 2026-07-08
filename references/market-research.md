@@ -1,8 +1,8 @@
 # Market Research
 
 Status: researched. Evidence is captured in `references/source-ledger.json`.
-Last verified: 2026-07-06.
-Refresh due: 2026-08-06.
+Last verified: 2026-07-08.
+Refresh due: 2026-08-08.
 
 ## Buyer
 
@@ -11,67 +11,67 @@ The buyer is a content team, blogger, SEO content strategist, or operator alread
 ## Search Behavior Shift
 
 Claim: Google remains the dominant search surface, but the click path is thinner.
-Source: StatCounter search engine market share, retrieved 2026-07-06.
-Source: SparkToro zero click study, 2026-06-09, retrieved 2026-07-06.
-Confidence: EVIDENCE-BASED.
+Source: StatCounter search engine market share, retrieved 2026-07-08.
+Source: SparkToro zero click study, 2026-06-08, retrieved 2026-07-08.
+Confidence: medium. Evidence tier: PRACTITIONER for dynamic market-share and clickstream studies.
 Market implication: blog programs need to measure brand exposure, citation visibility, and assisted demand in addition to organic clicks.
 
 Claim: zero click behavior is now a planning assumption, not an edge case.
-Source: SparkToro, 2026-06-09, retrieved 2026-07-06.
-Confidence: EVIDENCE-BASED.
+Source: SparkToro, 2026-06-08, retrieved 2026-07-08.
+Confidence: medium. Evidence tier: PRACTITIONER.
 Market implication: briefs need answer-first sections, source blocks, and conversion paths for readers who arrive after seeing the answer elsewhere.
 
 ## AI Overviews And AI Mode
 
 Claim: AI Overviews changed click economics, but the 2026 data shows recovery rather than permanent collapse.
-Source: Seer Interactive 2026 AIO CTR update, 2026-04-24, retrieved 2026-07-06.
-Confidence: EVIDENCE-BASED.
+Source: Seer Interactive 2026 AIO CTR update, 2026-04-24, retrieved 2026-07-08.
+Confidence: medium. Evidence tier: PRACTITIONER.
 Market implication: customers want citation readiness audits that distinguish ranking, being cited, and post-click conversion.
 
 Claim: AI Mode crossed 1B plus monthly users while remaining a small slice of query volume in the substrate.
-Source: Google I/O Search update, 2026-05-19, retrieved 2026-07-06.
-Source: SparkToro, 2026-06-09, retrieved 2026-07-06.
-Confidence: EVIDENCE-BASED for Google user count, PRACTITIONER for behavior share.
+Source: Google I/O Search update, 2026-05-19, retrieved 2026-07-08.
+Source: SparkToro, 2026-06-08, retrieved 2026-07-08.
+Confidence: high for Google user count, medium for behavior share. Evidence tier: EVIDENCE-BASED for Google, PRACTITIONER for SparkToro.
 Market implication: AI Mode should be represented in strategy and reporting, but it should not displace core Google, AI Overview, and content quality work.
 
 Claim: Search Console began reporting generative AI performance surfaces in June 2026.
-Source: Google Search Central, Search Generative AI performance reports, 2026-06-03, retrieved 2026-07-06.
-Confidence: EVIDENCE-BASED.
+Source: Google Search Central, Search Generative AI performance reports, 2026-06-03, retrieved 2026-07-08.
+Confidence: high. Evidence tier: EVIDENCE-BASED.
 Market implication: the brain should prepare reports for AI Overview and AI Mode impressions when a client has access to the data.
 
 ## GEO And AEO Demand
 
 Claim: citation visibility is becoming a separate deliverable from classic SEO ranking.
-Source: Ahrefs AI Overviews vs AI Mode, 2025-12-15, retrieved 2026-07-06.
-Source: seoClarity ChatGPT cited pages analysis, retrieved 2026-07-06.
-Confidence: high.
+Source: Ahrefs AI Overviews vs AI Mode, 2025-12-15, retrieved 2026-07-08.
+Source: seoClarity ChatGPT cited pages analysis, retrieved 2026-07-08.
+Confidence: medium. Evidence tier: PRACTITIONER; methodology is vendor or practitioner analysis, not first-party client data.
 Market implication: content teams need URL level and passage level guidance, not only keyword rankings.
 
 Claim: Google does not require special AI files, special AI schema, or llms.txt for Search AI features.
-Source: Google AI optimization guide, updated 2026-06-15, retrieved 2026-07-06.
-Confidence: EVIDENCE-BASED.
-Market implication: the product should protect buyers from low-value GEO theater and keep recommendations grounded in content quality, crawlability, and structured entity clarity.
+Source: Google AI optimization guide, updated 2026-06-15, retrieved 2026-07-08.
+Confidence: high. Evidence tier: EVIDENCE-BASED.
+Market implication: the product should protect buyers from unsupported GEO tactics and keep recommendations grounded in content quality, crawlability, and structured entity clarity.
 
 Claim: AI referral traffic is small but fast growing.
-Source: Similarweb gen AI stats, 2026-05-28, retrieved 2026-07-06.
-Confidence: EVIDENCE-BASED for growth, CONTESTED for absolute share.
+Source: Similarweb gen AI stats, 2026-05-28, retrieved 2026-07-08.
+Confidence: medium for growth, low for absolute share. Evidence tier: PRACTITIONER, with contested absolute-share interpretation.
 Market implication: reports should separate growth rate from total traffic share and avoid invented attribution percentages.
 
 ## Competitive Tooling Landscape
 
 Claim: Google Search Console remains the first-party truth source for Search performance, while third-party SEO tools cannot access Google's internal ranking data.
-Source: Google guidance on third-party SEO tools, services, and advice, 2026-06-05, retrieved 2026-07-06.
-Confidence: EVIDENCE-BASED.
+Source: Google guidance on third-party SEO tools, services, and advice, 2026-06-05, retrieved 2026-07-08.
+Confidence: high. Evidence tier: EVIDENCE-BASED.
 Market implication: this brain should ingest and cite third-party data as supporting evidence, not as ground truth.
 
 Claim: operational buyers already use a mix of Google APIs, PageSpeed Insights, CrUX, GA4, keyword APIs, crawlers, and SERP providers.
-Sources: Search Console API, PageSpeed Insights API, CrUX API, GA4 Data API, Google Ads Keyword Planning API, DataForSEO API, Ahrefs API, Firecrawl docs, all retrieved 2026-07-06.
-Confidence: high.
+Sources: Search Console API, PageSpeed Insights API, CrUX API, GA4 Data API, Google Ads Keyword Planning API, DataForSEO API, Ahrefs API, Firecrawl docs, all retrieved 2026-07-08.
+Confidence: high for official and vendor API capability docs.
 Market implication: the adapter plan should support blog post input first, then add optional connectors for GSC, PSI, CrUX, GA4, SERP, and crawl data.
 
 Claim: schema tooling remains fragmented between Google eligibility tests, Schema.org vocabulary, and JSON-LD validation.
-Sources: Google structured data introduction, Google Search Gallery, Schema.org, W3C JSON-LD 1.1, retrieved 2026-07-06.
-Confidence: high.
+Sources: Google structured data introduction, Google Search Gallery, Schema.org, W3C JSON-LD 1.1, retrieved 2026-07-08.
+Confidence: high. Evidence tier: EVIDENCE-BASED.
 Market implication: the brain should provide schema recommendations as eligibility and understanding signals, never guaranteed rich results.
 
 ## Buying Trigger

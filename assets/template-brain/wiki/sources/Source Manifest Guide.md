@@ -4,6 +4,8 @@ title: "Source Manifest Guide"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Source Evidence"
+tags: [sources, evidence, active]
 ---
 
 # Source Manifest Guide

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+"""Run an isolated end-to-end smoke test for the scaffold and CLI scripts."""
 from __future__ import annotations
 
+import argparse
 import os
 import subprocess
 import sys
@@ -10,6 +12,9 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 PY = sys.executable
+sys.path.insert(0, str(REPO / "scripts"))
+
+from package_release import scan_bytes  # noqa: E402
 
 
 def run(args: list[str], *, env: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
@@ -30,8 +35,22 @@ def run_cmd(args: list[str], *, env: dict[str, str] | None = None) -> subprocess
     return proc
 
 
-def main() -> int:
+def assert_release_local_path_scan() -> None:
+    for sample in (b"/home/alice/project", b"/var/home/alice/project", b"/Users/alice/project", b"C:\\Users\\alice\\project"):
+        try:
+            scan_bytes(sample, "fixture.txt", ".txt")
+        except SystemExit as exc:
+            assert "local home path" in str(exc)
+        else:
+            raise AssertionError(f"local path was not rejected: {sample!r}")
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Run isolated Claude Blog Brain pipeline checks.")
+    parser.add_argument("--skip-release", action="store_true", help="Skip package_release checks in dirty worktrees.")
+    args = parser.parse_args(argv)
     run(["-m", "compileall", "scripts", "claude_blog_brain", "tests"])
+    assert_release_local_path_scan()
     run(["scripts/lint_vault.py", "--vault", "assets/template-brain", "--template"])
     with tempfile.TemporaryDirectory(prefix="claude-blog-brain-test-") as tmp:
         out_dir = Path(tmp) / "vaults"
@@ -43,13 +62,23 @@ def main() -> int:
         run(["scripts/render_brain_report.py", "--vault", str(vault), "--html-only"])
         run(["scripts/lint_vault.py", "--vault", str(vault)])
         assert (vault / "weekly-report.html").exists()
-    run(["scripts/build_demo_vault.py"])
-    run(["scripts/audit_brain.py", "--json", "--report-only"])
-    blocked = subprocess.run([PY, "scripts/package_release.py", "--version", "0.1.0", "--release-type", "market-ready"], cwd=REPO, text=True, capture_output=True, check=False)
-    assert blocked.returncode != 0
-    assert "market-ready release blocked" in blocked.stderr
-    run(["scripts/package_release.py", "--version", "0.1.0"])
-    assert (REPO / "dist" / "RELEASE_MANIFEST.json").exists()
+        demo = Path(tmp) / "demo-vault"
+        run(["scripts/build_demo_vault.py", "--out", str(demo), "--json"])
+        assert (demo / "CODEX.md").exists()
+    run(["scripts/audit_brain.py", "--json", "--report-only", "--no-exec"])
+    if not args.skip_release:
+        with tempfile.TemporaryDirectory(prefix="claude-blog-brain-dist-") as tmp:
+            blocked = subprocess.run(
+                [PY, "scripts/package_release.py", "--version", "0.1.0", "--release-type", "market-ready", "--dist-dir", tmp, "--allow-outside-dist"],
+                cwd=REPO,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            assert blocked.returncode != 0
+            assert "market-ready release blocked" in blocked.stderr
+            run(["scripts/package_release.py", "--version", "0.1.0", "--dist-dir", tmp, "--allow-outside-dist"])
+            assert (Path(tmp) / "RELEASE_MANIFEST.json").exists()
     with tempfile.TemporaryDirectory(prefix="claude-blog-brain-install-") as tmp:
         env = {"CLAUDE_BLOG_BRAIN_INSTALL_HOME": tmp}
         run_cmd(["bash", "install.sh", "--target", "all"], env=env)

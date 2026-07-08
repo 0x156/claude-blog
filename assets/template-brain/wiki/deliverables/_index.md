@@ -4,6 +4,8 @@ title: "Deliverables Hub"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [type-hub, deliverables, active]
 ---
 
 # Deliverables Hub

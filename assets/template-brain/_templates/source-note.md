@@ -4,6 +4,8 @@ title: "{{title}}"
 created: "{{date}}"
 updated: "{{date}}"
 status: "draft"
+domain: "Source Evidence"
+tags: [sources, seed]
 ---
 
 # {{title}}

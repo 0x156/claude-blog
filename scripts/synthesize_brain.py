@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Synthesize starter deliverables from a vault raw-source manifest."""
 from __future__ import annotations
 
 import argparse
@@ -11,6 +12,7 @@ from pathlib import Path
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Synthesize source-cited starter deliverables.")
     parser.add_argument("--vault", required=True)
+    parser.add_argument("--json", action="store_true", help="Print a JSON result envelope.")
     args = parser.parse_args(argv)
     vault = Path(args.vault).expanduser().resolve()
     manifest_path = vault / ".raw" / ".manifest.json"
@@ -23,9 +25,11 @@ def main(argv: list[str] | None = None) -> int:
     write(vault / "wiki" / "deliverables" / "Health Scorecard.md", f"""---
 type: "deliverable"
 title: "Health Scorecard"
+domain: "claude-blog-brain"
 created: "{date.today().isoformat()}"
 updated: "{date.today().isoformat()}"
 status: "draft"
+tags: ["deliverable"]
 ---
 
 # Health Scorecard
@@ -46,9 +50,11 @@ Related: [[Action Roadmap]] | [[Weekly Report]] | [[Source Manifest Guide]]
     write(vault / "wiki" / "deliverables" / "Action Roadmap.md", f"""---
 type: "deliverable"
 title: "Action Roadmap"
+domain: "claude-blog-brain"
 created: "{date.today().isoformat()}"
 updated: "{date.today().isoformat()}"
 status: "draft"
+tags: ["deliverable"]
 ---
 
 # Action Roadmap
@@ -68,9 +74,11 @@ Related: [[Approval Queue]] | [[Health Scorecard]] | [[Best Practices Kernel]]
     write(vault / "wiki" / "reports" / "Weekly Report.md", f"""---
 type: "report"
 title: "Weekly Report"
+domain: "claude-blog-brain"
 created: "{date.today().isoformat()}"
 updated: "{date.today().isoformat()}"
 status: "draft"
+tags: ["report"]
 ---
 
 # Weekly Report
@@ -89,7 +97,11 @@ the manifest.
 Related: [[Reporting Workflow]] | [[Approval Queue]]
 """)
     append_log(vault, "Synthesized source-cited starter deliverables.")
-    print("Synthesis complete")
+    payload = {"ok": True, "vault": str(vault), "sources": len(sources)}
+    if args.json:
+        print(json.dumps(payload, indent=2, sort_keys=True))
+    else:
+        print("Synthesis complete")
     return 0
 
 

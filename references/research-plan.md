@@ -1,6 +1,8 @@
 # Claude Blog Brain Research Plan
 
-Status: required before researched or market-ready maturity.
+Status: active refresh plan for future research gaps. Current sourced evidence
+lives in `references/source-ledger.json`; this plan is not a maturity
+declaration.
 
 ## Source Targets
 
@@ -29,11 +31,13 @@ Status: required before researched or market-ready maturity.
 ## Safety Questions
 
 - Stale Google algorithm, E-E-A-T, or schema-deprecation requirements presented as current
-- Fabricated, unsourced, or AI-slop statistics written into published content
+- Fabricated, unsourced, or low-quality generated statistics written into published content
 - Private client content, draft URLs, or credentials leaking into raw inputs or reports
 - Overconfident content recommendations from thin or single-source inputs
 - Generated reports leaking local filesystem paths
 
 ## Completion Gate
 
-Replace this plan with dated source evidence before calling this brain researched.
+Do not use this plan as evidence. Promote a claim only after dated source
+evidence is recorded in `references/source-ledger.json` and high-impact claims
+are reviewed in `references/claim-ledger.md`.

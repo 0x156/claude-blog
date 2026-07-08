@@ -423,31 +423,32 @@ def apply_content_checks(record: dict[str, Any], builder: CategoryBuilder) -> No
 
 
 def apply_seo_checks(record: dict[str, Any], builder: CategoryBuilder) -> None:
-    target = record["input"]["target_keyword"].lower()
+    target = record["input"]["target_keyword"]
+    secondary = record["input"].get("secondary_keywords", [])
     title = record["input"]["title"].lower()
     body = record["content"].get("body_text", "").lower()
     heading_text = " ".join(heading.get("text", "") for heading in record["content"].get("headings", [])).lower()
-    if target not in title:
+    if not has_intent_coverage(target, title, secondary):
         builder.add(
-            finding="The target keyword is absent from the title.",
+            finding="The title does not clearly cover the target query intent or close entity variants.",
             recommendation="Align the title with the primary query while keeping it useful for readers.",
             source_ids=["g-helpful-content"],
             penalty=18,
             priority="high",
             rec_id="seo-title-query-alignment",
         )
-    if target not in body:
+    if not has_intent_coverage(target, body, secondary):
         builder.add(
-            finding="The target keyword is absent from the body copy.",
-            recommendation="Use the target query naturally in the opening, one section heading, and relevant explanatory copy.",
+            finding="The body copy does not clearly cover the target query intent or close entity variants.",
+            recommendation="Use the query intent, named entities, and natural variants in the opening and relevant explanatory copy.",
             source_ids=["g-helpful-content"],
             penalty=18,
             priority="high",
             rec_id="seo-body-query-alignment",
         )
-    if target not in heading_text:
+    if not has_intent_coverage(target, heading_text, secondary):
         builder.add(
-            finding="No heading includes the target query.",
+            finding="No heading clearly reflects the target query intent or a close variant.",
             recommendation="Add one reader-useful heading that reflects the target query or a close intent variant.",
             source_ids=["g-helpful-content"],
             penalty=10,
@@ -645,6 +646,26 @@ def mark_operator_supplied(recommendation: str) -> str:
     return f"{marker}: {recommendation}"
 
 
+def has_intent_coverage(target: str, text: str, secondary_terms: list[str]) -> bool:
+    normalized = text.lower()
+    target_terms = meaningful_terms(target)
+    if not target_terms:
+        return True
+    target_hits = sum(1 for term in target_terms if term in normalized)
+    if target_hits / len(target_terms) >= 0.6:
+        return True
+    for term in secondary_terms:
+        terms = meaningful_terms(term)
+        if terms and sum(1 for item in terms if item in normalized) / len(terms) >= 0.75:
+            return True
+    return False
+
+
+def meaningful_terms(value: str) -> list[str]:
+    stopwords = {"a", "an", "and", "are", "as", "for", "how", "in", "of", "on", "or", "the", "to", "with"}
+    return [term for term in re.findall(r"[a-z0-9]+", value.lower()) if len(term) > 2 and term not in stopwords]
+
+
 def compute_geo_metrics(record: dict[str, Any]) -> dict[str, Any]:
     sections = record["content"].get("sections", [])
     extractable = [section for section in sections if is_extractable_opening(section.get("opening", ""))]
@@ -725,7 +746,7 @@ def build_geo_readiness(record: dict[str, Any]) -> dict[str, Any]:
         },
         {
             "priority": "medium",
-            "tactic": "Treat citation inclusion as a visibility goal because the ledger records a click advantage when pages are cited in AI Overviews.",
+            "tactic": "Treat citation inclusion as a visibility hypothesis because one cited study reports an observed association between AI Overview citation and higher clicks per impression; do not present it as causal or guaranteed.",
             "source_ids": ["seer-aio-impact-ctr-2026"],
         },
         {

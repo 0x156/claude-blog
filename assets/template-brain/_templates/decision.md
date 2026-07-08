@@ -3,7 +3,9 @@ type: "decision"
 title: "{{title}}"
 created: "{{date}}"
 updated: "{{date}}"
-status: "proposed"
+status: "draft"
+domain: "{{domain}}"
+tags: [decisions, seed]
 ---
 
 # {{title}}

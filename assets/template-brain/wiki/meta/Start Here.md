@@ -4,6 +4,8 @@ title: "Start Here"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [meta, onboarding, active]
 ---
 
 # Start Here

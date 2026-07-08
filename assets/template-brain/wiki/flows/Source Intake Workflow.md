@@ -4,6 +4,8 @@ title: "Source Intake Workflow"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Source Evidence"
+tags: [flows, sources, active]
 ---
 
 # Source Intake Workflow

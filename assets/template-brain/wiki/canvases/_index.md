@@ -4,6 +4,8 @@ title: "Canvases Hub"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [type-hub, active]
 ---
 
 # Canvases Hub

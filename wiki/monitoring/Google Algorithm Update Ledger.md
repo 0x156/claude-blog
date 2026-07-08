@@ -3,7 +3,7 @@ type: hub
 title: "Google Algorithm Update Ledger"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [monitoring, google-updates, active]
 domain: "Google Update Monitoring"
 confidence: verified
@@ -19,8 +19,12 @@ related:
 source_urls:
   - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
   - "https://developers.google.com/search/updates/ranking"
+  - "https://developers.google.com/search/updates"
   - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+  - "https://developers.google.com/search/docs/appearance/preferred-sources"
+  - "https://developers.google.com/search/docs/crawling-indexing/amp"
+  - "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing"
   - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
 ---
 
@@ -34,11 +38,13 @@ This hub mirrors the source discipline from `data/google-updates.json` without e
 
 ## Current fact anchors
 
-- The verified local update ledger contains 34 Google-owned update entries through the 2026-06-30 Merchant Center product videos entry.
-- The substrate records no Google-owned ranking, spam, schema, QRG, or AI search update from 2026-07-01 through 2026-07-06.
+- The verified local update ledger contains 34 Google-owned update entries through the 2026-06-30 Merchant Center product videos entry, but that data file is stale for July 2026 Search documentation updates.
+- Google Search documentation updates add 2026-07-01 AMP guidance changes and 2026-07-07 merchant listing structured-data guidance changes.
+- The Search Status Dashboard records no confirmed Google-owned ranking incident after the 2026-06-24 spam update as of 2026-07-08.
 - FAQ rich results retired for all sites effective 2026-05-07.
-- Google AI optimization guidance was updated 2026-06-15 and says Google Search does not use llms.txt.
-- QRG status remains tied to the 2025-09-11 version, with no newer revision recorded as of 2026-07-06.
+- Google AI optimization guidance has current page date 2026-06-29; the llms.txt clarification was added 2026-06-15 and says Google Search does not use llms.txt.
+- Preferred Sources availability for AI Mode and AI Overviews is confirmed by Google Search documentation dated 2026-05-27.
+- QRG status remains tied to the 2025-09-11 version, with no newer revision recorded as of 2026-07-08.
 
 ## Scope
 
@@ -96,10 +102,14 @@ This hub mirrors the source discipline from `data/google-updates.json` without e
 
 ## Sources
 
-- Google Search Status Dashboard, retrieved 2026-07-06.
+- Google Search Status Dashboard, retrieved 2026-07-08.
+- Google Search documentation updates, retrieved 2026-07-08.
 - Google ranking update history, dated 2026-05-21 in the ledger.
 - Google FAQPage documentation, effective 2026-05-07 for retirement.
-- Google AI optimization guide, updated 2026-06-15.
+- Google AI optimization guide, last updated 2026-06-29, with llms.txt clarification dated 2026-06-15 in Search docs updates.
+- Google Preferred Sources documentation, last updated 2026-05-27.
+- Google AMP documentation, last updated 2026-07-01.
+- Google Merchant listing structured data, last updated 2026-07-07.
 - Search Quality Rater Guidelines, 2025-09-11.
 
 ## Next actions

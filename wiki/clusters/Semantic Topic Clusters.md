@@ -3,7 +3,7 @@ type: hub
 title: "Semantic Topic Clusters"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [clusters, semantic-clusters, active]
 domain: "Blog Topic Architecture"
 confidence: verified
@@ -34,7 +34,8 @@ This hub defines the skeleton for cluster planning without filling the later spo
 ## Current fact anchors
 
 - Google helpful content guidance, retrieved 2026-07-06, supports coverage that gives original value instead of thin aggregation.
-- Google Cloud Natural Language API documentation, retrieved 2026-07-06, is a source route for entity, salience, and Knowledge Graph mid extraction.
+- Google Cloud Natural Language API documentation, retrieved 2026-07-06, is an optional entity extraction tool route for entity and salience analysis.
+- Cloud Natural Language output is not evidence of Google's ranking systems and must not be treated as a Knowledge Graph or ranking proxy.
 - Google Ads Keyword Planning API documentation, retrieved 2026-07-06, is a source route for keyword ideas and volume.
 - Search Console Search Analytics API documentation, retrieved 2026-07-06, is a first-party route for clicks, impressions, CTR, and position by query and page dimensions.
 - Topic clusters should support readers and internal navigation, not manufacture doorway-like thin pages.
@@ -78,6 +79,7 @@ This hub defines the skeleton for cluster planning without filling the later spo
 ## Source posture
 
 - Use Google APIs as data sources, not as promises of ranking outcomes.
+- Use entity extraction as editorial clustering support only; validate clusters against reader tasks, SERP evidence, and first-party Search Console data.
 - Cite source dates when current Search behavior is discussed.
 - Treat third-party topical authority claims as advisory unless locally validated.
 - Do not create thin pages only to complete a cluster map.

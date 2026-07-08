@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
+"""Audit Claude Blog Brain maturity, source integrity, and release gates."""
 from __future__ import annotations
 
 import argparse
 import json
 import re
+import subprocess
+import sys
+import tempfile
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -93,6 +97,8 @@ MATURITY_SCORE_CAP = {
     "market-ready": 100,
 }
 MATURITY_ORDER = ["scaffolded", "researched", "domain-adapted", "demo-verified", "market-ready"]
+CONFIDENCE_VALUES = {"high", "medium", "low"}
+EXEC_TIMEOUT_SECONDS = 180
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -100,9 +106,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--require", choices=MATURITY_ORDER)
     parser.add_argument("--report-only", action="store_true")
+    parser.add_argument("--verify", action="store_true", help="Run executable verification commands.")
+    parser.add_argument("--no-exec", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
 
-    result = audit_repo()
+    run_verification = (args.verify or args.require == "market-ready") and not args.no_exec
+    result = audit_repo(run_verification=run_verification)
     if args.json:
         print(json.dumps(result, indent=2, sort_keys=True))
     else:
@@ -116,17 +125,23 @@ def main(argv: list[str] | None = None) -> int:
     if args.require and MATURITY_ORDER.index(result["status"]) < MATURITY_ORDER.index(args.require):
         print(f"ERROR: required maturity {args.require}, got {result['status']}", file=__import__("sys").stderr)
         return 1
-    if args.report_only:
+    if args.require and result["critical_failures"]:
+        print("ERROR: critical failures block required maturity", file=sys.stderr)
+        return 1
+    if args.report_only or not args.require:
         return 0
-    return 1 if result["critical_failures"] else 0
+    return 0
 
 
-def audit_repo() -> dict[str, Any]:
+def audit_repo(*, run_verification: bool = False) -> dict[str, Any]:
     categories: dict[str, dict[str, Any]] = {}
     critical: list[str] = []
     warnings: list[str] = []
 
     add_category(categories, "product_clarity", *check_product_clarity())
+    maturity_ok, maturity_score, maturity_notes, maturity_critical = check_maturity_declarations()
+    add_category(categories, "maturity_consistency", maturity_ok, maturity_score, maturity_notes)
+    critical.extend(maturity_critical)
     add_category(categories, "source_pack", *check_source_pack())
     research_ok, research_score, research_notes, research_critical = check_research()
     add_category(categories, "current_research", research_ok, research_score, research_notes)
@@ -137,8 +152,11 @@ def audit_repo() -> dict[str, Any]:
     citation_ok, citation_score, citation_notes, citation_critical = check_citations()
     add_category(categories, "source_citation", citation_ok, citation_score, citation_notes)
     critical.extend(citation_critical)
-    add_category(categories, "demo_determinism", *check_paths(["examples/sample-vault/CODEX.md", "examples/sample-vault/.raw/.manifest.json", "examples/sample-vault/wiki/hot.md", "examples/sample-vault/wiki/reports/Weekly Report.md"]))
-    add_category(categories, "tests", *check_paths(["tests/test_pipeline.py", ".github/workflows/ci.yml"]))
+    add_category(categories, "demo_determinism", *check_demo_contract())
+    add_category(categories, "tests", *check_tests_contract())
+    verification_ok, verification_score, verification_notes, verification_critical = check_release_verification(run_verification=run_verification)
+    add_category(categories, "release_verification", verification_ok, verification_score, verification_notes)
+    critical.extend(verification_critical)
     add_category(categories, "packaging", *check_packaging())
     add_category(categories, "installability", *check_paths(["install.sh", "uninstall.sh", "pyproject.toml"]))
     add_category(categories, "docs", *check_paths(["README.md", "docs/OPERATOR_KIT.md", "docs/PRODUCT_BOUNDARIES.md", "RELEASE_CHECKLIST.md"]))
@@ -155,6 +173,7 @@ def audit_repo() -> dict[str, Any]:
         "status": status,
         "score": score,
         "market_ready": status == "market-ready",
+        "verification_executed": run_verification,
         "critical_failures": critical,
         "warnings": warnings,
         "categories": categories,
@@ -170,6 +189,57 @@ def check_product_clarity() -> tuple[bool, int, list[str]]:
     required = ["buyer", "outputs", "boundaries", "quick start", "maturity"]
     notes = [f"missing {term} language" for term in required if term not in text]
     return not notes, 100 - 15 * len(notes), notes
+
+
+def check_maturity_declarations() -> tuple[bool, int, list[str], list[str]]:
+    docs = {
+        "README.md": read(REPO / "README.md"),
+        "docs/PRODUCT_BOUNDARIES.md": read(REPO / "docs" / "PRODUCT_BOUNDARIES.md"),
+        "references/product-spec.md": read(REPO / "references" / "product-spec.md"),
+        "references/adapter-plan.md": read(REPO / "references" / "adapter-plan.md"),
+    }
+    manifest, errors = load_json_object(REPO / "references" / "adapter-manifest.json")
+    notes: list[str] = []
+    critical: list[str] = []
+    declared = {
+        name: declared_maturity(text)
+        for name, text in docs.items()
+        if declared_maturity(text)
+    }
+    if manifest:
+        status = clean_string(manifest.get("status"))
+        if status:
+            declared["references/adapter-manifest.json"] = status
+    if errors:
+        critical.extend(f"invalid adapter-manifest.json: {error}" for error in errors)
+    if len(set(declared.values())) > 1:
+        detail = ", ".join(f"{name}={value}" for name, value in sorted(declared.items()))
+        critical.append("maturity declarations disagree: " + detail)
+    if "not market-ready" in "\n".join(docs.values()).lower():
+        notes.append("repository docs explicitly say the brain is not market-ready")
+    product_spec = docs["references/product-spec.md"].lower()
+    adapter_plan = docs["references/adapter-plan.md"].lower()
+    if "code adapters are not built" in product_spec and manifest.get("generic_only") is False:
+        critical.append("product-spec says code adapters are not built while adapter-manifest claims implemented domain adapters")
+    if "generic_only` set to true" in adapter_plan and manifest.get("generic_only") is False:
+        critical.append("adapter-plan says manifest should stay generic_only=true while adapter-manifest sets false")
+    if "not market-ready" in "\n".join(docs.values()).lower() and manifest.get("status") == "market-ready":
+        critical.append("manifest claims market-ready while docs say not market-ready")
+    return not critical, max(0, 100 - 22 * len(critical) - 5 * len(notes)), notes, critical
+
+
+def declared_maturity(text: str) -> str:
+    lower = text.lower()
+    patterns = [
+        r"current maturity:\s*([a-z-]+)",
+        r"status:\s*([a-z-]+)",
+        r"starts as `([a-z-]+)`",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, lower)
+        if match and match.group(1) in MATURITY_ORDER:
+            return match.group(1)
+    return ""
 
 
 def check_source_pack() -> tuple[bool, int, list[str]]:
@@ -221,38 +291,75 @@ def check_source_ledger(*, requires_fresh: bool) -> tuple[bool, int, list[str], 
         return False, 35, notes, critical
 
     official_count = 0
+    invalid_confidence: dict[str, int] = {}
+    legacy_date_count = 0
+    month_only_dates: list[str] = []
+    faq_ai_claims: list[str] = []
+    redirected_faq_urls: list[str] = []
+    llms_without_caveat: list[str] = []
     for index, source in enumerate(sources, start=1):
         label = f"source-ledger source #{index}"
         if not isinstance(source, dict):
             critical.append(f"{label} must be an object")
             continue
+        source_id = clean_string(source.get("id")) or label
         source_type = clean_string(source.get("source_type")).lower()
         retrieved = parse_iso_date(clean_string(source.get("retrieved")))
         refresh_due = parse_iso_date(clean_string(source.get("refresh_due")))
+        published = clean_string(source.get("published"))
+        confidence = clean_string(source.get("confidence"))
+        url = clean_string(source.get("url"))
         claims = source.get("claims")
         if not clean_string(source.get("title")):
-            critical.append(f"{label} missing title")
-        if not is_valid_source_url(clean_string(source.get("url"))):
-            critical.append(f"{label} has invalid or placeholder URL")
+            critical.append(f"{source_id} missing title")
+        if not is_valid_source_url(url):
+            critical.append(f"{source_id} has invalid or placeholder URL")
         if source_type in PRIMARY_SOURCE_TYPES:
             official_count += 1
         elif source_type not in {"market", "practitioner", "supporting", "fixture"}:
-            critical.append(f"{label} has unsupported source_type")
+            critical.append(f"{source_id} has unsupported source_type")
         if retrieved is None:
-            critical.append(f"{label} missing valid retrieved date")
+            critical.append(f"{source_id} missing valid retrieved date")
         elif retrieved > date.today():
-            critical.append(f"{label} has future retrieved date")
-        if not isinstance(claims, list) or not any(clean_string(claim) for claim in claims):
-            critical.append(f"{label} must list sourced claims")
+            critical.append(f"{source_id} has future retrieved date")
+        claim_items = claims if isinstance(claims, list) else []
+        if not claim_items or not any(clean_string(claim) for claim in claim_items):
+            critical.append(f"{source_id} must list sourced claims")
+        if confidence not in CONFIDENCE_VALUES:
+            invalid_confidence[confidence or "<missing>"] = invalid_confidence.get(confidence or "<missing>", 0) + 1
+        if "date" in source:
+            legacy_date_count += 1
+        if re.fullmatch(r"\d{4}-\d{2}", published) and clean_string(source.get("date_precision")) != "month":
+            month_only_dates.append(source_id)
+        claim_text = " ".join(clean_string(claim) for claim in claim_items)
+        if "faq" in url.lower() and "developers.google.com/search/docs/appearance/structured-data/faqpage" in url:
+            redirected_faq_urls.append(source_id)
+        if re.search(r"faqpage.*ai|ai.*/?llm.*citation|ai-citation", claim_text, re.I):
+            faq_ai_claims.append(source_id)
+        if source_id.lower().startswith("llms") and "google" not in claim_text.lower():
+            llms_without_caveat.append(source_id)
         if requires_fresh:
             if refresh_due is None:
-                critical.append(f"{label} missing valid refresh_due date")
+                critical.append(f"{source_id} missing valid refresh_due date")
             elif refresh_due < date.today():
-                critical.append(f"{label} refresh_due is stale")
+                critical.append(f"{source_id} refresh_due is stale")
 
     minimum_official = 2 if requires_fresh else 1
     if official_count < minimum_official:
         critical.append(f"source-ledger needs at least {minimum_official} official/primary sources")
+    if invalid_confidence:
+        detail = ", ".join(f"{value}={count}" for value, count in sorted(invalid_confidence.items()))
+        critical.append("source-ledger confidence values must use one enum high|medium|low; found " + detail)
+    if legacy_date_count:
+        notes.append(f"source-ledger has {legacy_date_count} legacy date fields; split published, last_updated, retrieved, and date_precision")
+    if month_only_dates:
+        critical.append("source-ledger month-only published dates need date_precision=month: " + ", ".join(month_only_dates[:5]))
+    if redirected_faq_urls:
+        critical.append("FAQPage documentation URLs now redirect to Search updates: " + ", ".join(redirected_faq_urls[:5]))
+    if faq_ai_claims:
+        critical.append("FAQPage AI citation claims conflict with Google AI guidance: " + ", ".join(sorted(set(faq_ai_claims))[:5]))
+    if llms_without_caveat:
+        notes.append("llms.txt source entries need a Google Search caveat: " + ", ".join(llms_without_caveat[:5]))
     return not critical, max(0, 100 - 18 * len(critical) - 8 * len(notes)), notes, critical
 
 
@@ -305,6 +412,90 @@ def check_citations() -> tuple[bool, int, list[str], list[str]]:
     return not critical, max(0, 100 - 15 * len(critical)), notes, critical
 
 
+def check_demo_contract() -> tuple[bool, int, list[str]]:
+    required = ["examples/sample-vault/CODEX.md", "examples/sample-vault/.raw/.manifest.json", "examples/sample-vault/wiki/hot.md", "examples/sample-vault/wiki/reports/Weekly Report.md"]
+    ok, score, notes = check_paths(required)
+    script = read(REPO / "scripts" / "build_demo_vault.py")
+    for term in ["--force", "TemporaryDirectory", "clean target", "--json"]:
+        if term not in script:
+            notes.append(f"build_demo_vault.py missing {term} safeguard")
+            score -= 15
+    return ok and not notes, max(0, score), notes
+
+
+def check_tests_contract() -> tuple[bool, int, list[str]]:
+    required = ["tests/test_pipeline.py", "tests/test_blog_adapters.py", ".github/workflows/ci.yml"]
+    ok, score, notes = check_paths(required)
+    adapter_tests = read(REPO / "tests" / "test_blog_adapters.py")
+    pipeline_tests = read(REPO / "tests" / "test_pipeline.py")
+    for term in ["subprocess", "ingest_blog_input.py", "synthesize_blog_plan.py", "render_blog_report.py"]:
+        if term not in adapter_tests:
+            notes.append(f"adapter tests do not exercise {term}")
+            score -= 12
+    for term in ["TemporaryDirectory", "--skip-release"]:
+        if term not in pipeline_tests:
+            notes.append(f"pipeline test missing isolated {term} support")
+            score -= 12
+    return ok and not notes, max(0, score), notes
+
+
+def check_release_verification(*, run_verification: bool) -> tuple[bool, int, list[str], list[str]]:
+    if not run_verification:
+        return False, 55, ["executable release verification not run; use --verify or --require market-ready"], []
+    notes: list[str] = []
+    critical: list[str] = []
+    commands: list[tuple[str, list[str]]] = [
+        ("compileall", [sys.executable, "-m", "compileall", "scripts", "claude_blog_brain", "tests"]),
+        ("adapter tests", [sys.executable, "-m", "pytest", "tests/test_blog_adapters.py"]),
+        ("pipeline", [sys.executable, "tests/test_pipeline.py", "--skip-release"]),
+        ("audit self-check", [sys.executable, "scripts/audit_brain.py", "--json", "--report-only", "--no-exec"]),
+    ]
+    with tempfile.TemporaryDirectory(prefix="claude-blog-brain-release-") as tmp:
+        commands.append(
+            (
+                "package release",
+                [
+                    sys.executable,
+                    "scripts/package_release.py",
+                    "--version",
+                    "0.1.0",
+                    "--dist-dir",
+                    tmp,
+                    "--allow-outside-dist",
+                ],
+            )
+        )
+        for label, command in commands:
+            proc = run_command(command)
+            if proc.returncode:
+                detail = first_nonempty_line(proc.stderr) or first_nonempty_line(proc.stdout) or f"exit {proc.returncode}"
+                critical.append(f"verification command failed ({label}): {detail}")
+            else:
+                notes.append(f"verification command passed: {label}")
+    return not critical, max(0, 100 - 22 * len(critical)), notes, critical
+
+
+def run_command(command: list[str]) -> subprocess.CompletedProcess[str]:
+    try:
+        return subprocess.run(
+            command,
+            cwd=REPO,
+            text=True,
+            capture_output=True,
+            timeout=EXEC_TIMEOUT_SECONDS,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as exc:
+        return subprocess.CompletedProcess(command, 124, exc.stdout or "", exc.stderr or "command timed out")
+
+
+def first_nonempty_line(value: str | None) -> str:
+    for line in (value or "").splitlines():
+        if line.strip():
+            return line.strip()
+    return ""
+
+
 def check_packaging() -> tuple[bool, int, list[str]]:
     path = REPO / "scripts" / "package_release.py"
     if not path.exists():
@@ -320,13 +511,15 @@ def check_paths(paths: list[str]) -> tuple[bool, int, list[str]]:
 
 
 def determine_status(categories: dict[str, dict[str, Any]], score: int, critical: list[str]) -> str:
+    if not categories["maturity_consistency"]["ok"]:
+        return "scaffolded"
     if not categories["current_research"]["ok"]:
         return "scaffolded"
     if not categories["domain_adapters"]["ok"]:
         return "researched"
     if not categories["demo_determinism"]["ok"] or not categories["tests"]["ok"]:
         return "domain-adapted"
-    if critical or score < 90 or any(not categories[name]["ok"] for name in ["packaging", "installability", "docs", "source_citation", "obsidian_vault_quality"]):
+    if critical or score < 90 or any(not categories[name]["ok"] for name in ["packaging", "installability", "docs", "source_citation", "obsidian_vault_quality", "release_verification"]):
         return "demo-verified"
     return "market-ready"
 

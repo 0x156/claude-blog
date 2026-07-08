@@ -167,12 +167,16 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Render a blog optimization plan as Markdown.", add_help=False)
     parser.add_argument("input")
     parser.add_argument("-o", dest="output")
+    parser.add_argument("--json-errors", action="store_true")
     parser.add_argument("-h", action="help")
     args = parser.parse_args(argv)
     try:
         write_markdown(render_markdown(load_plan(args.input)), args.output)
     except (OSError, ValueError, json.JSONDecodeError) as exc:
-        print(clean_output_text(f"error: {exc}"), file=sys.stderr)
+        if args.json_errors:
+            print(json.dumps({"ok": False, "errors": [clean_output_text(str(exc))]}, indent=2, sort_keys=True))
+        else:
+            print(clean_output_text(f"error: {exc}"), file=sys.stderr)
         return 2
     return 0
 

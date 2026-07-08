@@ -2,15 +2,15 @@
 
 ## Source
 
-FAQPage structured data, Google Search Central.
-URL: https://developers.google.com/search/docs/appearance/structured-data/faqpage
+FAQ rich result deprecation, Google Search Central documentation updates.
+URL: https://developers.google.com/search/updates#deprecating-the-faq-rich-result-feature
 Effective date in ledger: 2026-05-07.
-Retrieved: 2026-07-06.
-Confidence: EVIDENCE-BASED.
+Retrieved: 2026-07-08.
+Confidence: high. Evidence tier: EVIDENCE-BASED.
 
 ## Core Thesis
 
-FAQ rich results are retired for all sites as of 2026-05-07. FAQPage markup is not a current visual rich result tactic for blogs, even if visible Q and A content can still help readers and AI extraction.
+FAQ rich results are retired for all sites as of 2026-05-07. FAQPage markup is not a current visual rich result tactic for blogs, even if visible Q and A content can still help readers.
 
 ## Blog Application
 

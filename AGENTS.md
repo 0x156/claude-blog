@@ -31,7 +31,11 @@ runtimes that load project-level `AGENTS.md` instructions.
 
 ```bash
 python -m compileall scripts claude_blog_brain tests
-python tests/test_pipeline.py
+python tests/test_pipeline.py --skip-release
+python scripts/lint_vault.py
 python scripts/audit_brain.py --json
 python scripts/package_release.py --version 0.1.0
 ```
+
+The first four commands are read-only verification. The package command writes
+release artifacts and belongs to release preparation, not routine inspection.

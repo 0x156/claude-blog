@@ -20,7 +20,7 @@ workflows:
   - "Approval queue for content recommendations with rollback notes"
   - "Auto brain fill and update from the Google algorithm-update ledger"
 raw_sources:
-  - "claude-blog skill v1.10.0 SKILL.md, 30 sub-skills, 5 agents, 21 references, 12 templates, and analysis scripts; Google Search Central docs; web.dev CWV; FLOW framework bibliography; GEO/AEO studies; content-marketing and copywriting research"
+  - "claude-blog skill v1.10.0 SKILL.md, 32 sub-skills, 5 agents, 21 references, 12 templates, and analysis scripts; Google Search Central docs; web.dev CWV; FLOW framework bibliography; GEO/AEO studies; content-marketing and copywriting research"
 enrichment_sources:
   - "Official Google Search Central, web.dev, and Schema.org documentation"
   - "Primary-source-verified Google algorithm-update ledger (data/google-updates.json)"
@@ -43,10 +43,10 @@ refusal_rules:
   - "No mutation of a CMS, GSC, GA4, or publishing platform; the brain is advisory and read-only"
   - "No recommendation without a dated source, confidence level, and rollback note"
   - "No deprecated advice (HowTo schema, retired FAQ rich results, FID) presented as current"
-  - "No fabricated or unsourced statistics and no AI-detectable filler presented as fact"
+  - "No fabricated or unsourced statistics and no unsupported generic filler presented as fact"
 safety_risks:
   - "Stale Google algorithm, E-E-A-T, or schema-deprecation requirements presented as current"
-  - "Fabricated, unsourced, or AI-slop statistics written into published content"
+  - "Fabricated, unsourced, or unverifiable statistics written into published content"
   - "Private client content, draft URLs, or credentials leaking into raw inputs or reports"
   - "Overconfident content recommendations from thin or single-source inputs"
   - "Generated reports leaking local filesystem paths"
@@ -59,7 +59,7 @@ playbook_steps:
   - "Approval queue and next-action review"
 audit_focus:
   - "Stale Google algorithm, E-E-A-T, or schema-deprecation requirements"
-  - "Fabricated or unsourced statistics and AI-detectable phrasing in content"
+  - "Fabricated or unsourced statistics and unsupported generic phrasing in content"
   - "Private client content, draft URLs, or credentials in raw inputs"
   - "Overconfident recommendations from incomplete inputs"
 next_action_signals:

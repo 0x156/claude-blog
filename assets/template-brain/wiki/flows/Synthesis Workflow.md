@@ -4,6 +4,8 @@ title: "Synthesis Workflow"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [flows, active]
 ---
 
 # Synthesis Workflow

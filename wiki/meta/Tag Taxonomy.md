@@ -3,7 +3,7 @@ type: meta
 title: "Tag Taxonomy"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [meta, tag-taxonomy, evergreen]
 domain: "Blog Content Brain"
 confidence: verified
@@ -39,6 +39,8 @@ Controlled kebab-case tag vocabulary for the blog domain.
 - dashboard
 - overview
 - log
+- type-hub
+- evidence
 
 ## Status tags
 
@@ -84,6 +86,15 @@ Controlled kebab-case tag vocabulary for the blog domain.
 - sources
 - research-pack
 - read-only
+- entities
+- platforms
+- accounts
+- decisions
+- deliverables
+- questions
+- gaps
+- experiments
+- flows
 
 ## Rules
 
@@ -91,6 +102,7 @@ Controlled kebab-case tag vocabulary for the blog domain.
 - Add one theme tag plus one status tag when possible.
 - Add source or workflow tags when they improve navigation.
 - New tags must be added here before use.
+- Linter enforcement for this taxonomy belongs in `scripts/lint_vault.py`, which is outside the current owned edit paths.
 - Use [[CONVENTIONS]] for frontmatter requirements.
 
 ## Related

@@ -3,7 +3,7 @@ type: spoke
 title: "Claim To Source Mapping"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
@@ -54,8 +54,23 @@ The output should be short enough to apply during a brief or audit, but complete
 - Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
 - Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
 - The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+- Google AI optimization guide has current page date 2026-06-29; the 2026-06-15 documentation update added the llms.txt clarification.
+- Passage extraction heuristics are mapped as practitioner evidence, not official requirements.
+
+## Active Claim Map
+
+| Claim | Note path | Source ID | URL | Retrieved | Confidence | Refresh trigger |
+|---|---|---|---|---:|---|---|
+| FAQ rich results retired for all sites effective 2026-05-07. | `wiki/schema/Structured Data Deprecation Register.md` | `g-update-2026-05-07-faq-rich-results-retired` | https://developers.google.com/search/docs/appearance/structured-data/faqpage | 2026-07-06 | verified | Google Search docs update or Search Console anomaly note changes FAQ status. |
+| FAQ docs removal is a separate 2026-06-15 documentation event, not the retirement date. | `wiki/sources/research-pack-2026-07-06.md` | pending `g-search-docs-updates` ledger entry | https://developers.google.com/search/updates | 2026-07-08 | verified, pending ledger repair | Source ledger gains separate event fields. |
+| Google Search does not use llms.txt for Search, AI Overviews, or AI Mode. | `wiki/geo-aeo/AI Citation Mechanics.md` | `g-ai-opt-guide` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | 2026-07-08 | verified | AI optimization guide or Search docs updates change llms.txt language. |
+| The AI optimization guide page date is 2026-06-29; 2026-06-15 is the llms.txt clarification event. | `wiki/geo-aeo/AI Citation Mechanics.md` | `g-ai-opt-guide` plus pending docs-update entry | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | 2026-07-08 | verified, pending ledger repair | Source ledger stores `last_updated` and `event_date` separately. |
+| Preferred Sources availability includes AI Mode and AI Overviews as of 2026-05-27. | `wiki/monitoring/2026 Google Update Timeline.md` | pending `g-preferred-sources` ledger entry | https://developers.google.com/search/docs/appearance/preferred-sources | 2026-07-08 | verified, pending ledger repair | Preferred Sources docs feature availability changes. |
+| Search Status Dashboard has no confirmed ranking incident after the 2026-06-24 spam update as of 2026-07-08. | `wiki/monitoring/Google Algorithm Update Ledger.md` | `g-status-dashboard` | https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history | 2026-07-08 | verified | Status dashboard adds a new ranking incident. |
+| July 1 AMP docs removed outdated AMP viewer, AMP Cache, and signed exchange references. | `wiki/monitoring/2026 Google Update Timeline.md` | pending `g-amp-docs` ledger entry | https://developers.google.com/search/docs/crawling-indexing/amp | 2026-07-08 | verified, pending ledger repair | AMP docs page date changes after 2026-07-01. |
+| July 7 merchant listing docs added `Product.category` and sale-price effective-date guidance. | `wiki/monitoring/2026 Google Update Timeline.md` | pending `g-merchant-listing` ledger entry | https://developers.google.com/search/docs/appearance/structured-data/merchant-listing | 2026-07-08 | verified, pending ledger repair | Merchant listing docs page date changes after 2026-07-07. |
+| Search Console generative AI reports are subset-only and include impressions by pages, countries, devices, and dates. | `wiki/data-integrations/Google Data Integrations.md` | `g-genai-reports` plus pending Help Center entry | https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports | 2026-07-08 | verified, pending ledger repair | Search Console Help docs add API export or new dimensions. |
+| Passage length and source-proximity tactics are practitioner heuristics, not official Google standards. | `wiki/geo-aeo/Passage Citability Checklist.md` | `ziptie-aio-source-selection` | https://ziptie.dev/blog/google-ai-overviews-source-selection/ | 2026-07-06 | practitioner | Practitioner source changes or Google publishes contrary guidance. |
 
 ## Required Inputs
 - Source ID, title, URL, source type, section, retrieved date, and refresh due date.

@@ -4,6 +4,8 @@ title: "Entities Hub"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [type-hub, entities, active]
 ---
 
 # Entities Hub

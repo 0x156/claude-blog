@@ -3,7 +3,7 @@ type: meta
 title: "Index"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [meta, index, active]
 domain: "Blog Content Brain"
 confidence: verified
@@ -28,7 +28,7 @@ source_urls:
 
 Navigation map for the Claude Blog Brain root wiki.
 
-Start at [[Start Here]], scan [[hot|Hot]], then open the theme hub closest to the work.
+Start at [[Start Here]], scan [[hot|Hot]], then open the theme or type hub closest to the work.
 
 ## Core meta
 
@@ -60,6 +60,20 @@ Start at [[Start Here]], scan [[hot|Hot]], then open the theme hub closest to th
 - [[Images Audio and Charts]]
 - [[Google Algorithm Update Ledger]]
 - [[Research Pack Index]]
+
+## Type hubs
+
+Root wiki note count after this remediation pass: 239.
+
+- [[entities/_index|Entities]]: 2 notes
+- [[platforms/_index|Platforms]]: 2 notes
+- [[accounts/_index|Accounts]]: 1 note
+- [[decisions/_index|Decisions]]: 2 notes
+- [[deliverables/_index|Deliverables]]: 1 note
+- [[questions/_index|Questions]]: 1 note
+- [[gaps/_index|Gaps]]: 1 note
+- [[experiments/_index|Experiments]]: 1 note
+- [[flows/_index|Flows]]: 2 notes
 
 ## Working memory
 

@@ -3,7 +3,7 @@ type: spoke
 title: "Current Requirements Digest"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
@@ -54,8 +54,20 @@ The output should be short enough to apply during a brief or audit, but complete
 - Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
 - Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
 - The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+- Google AI optimization guide has current page date 2026-06-29; the 2026-06-15 documentation update added the llms.txt clarification.
+- Passage extraction heuristics are practitioner evidence and not current requirements.
+
+## Requirements Table
+
+| Requirement ID | Requirement | Affected workflows | Source ID | Current as of | Confidence | Refresh trigger |
+|---|---|---|---|---:|---|---|
+| REQ-GOOGLE-AI-001 | Use normal SEO foundations for Google generative AI features; do not require special AI files, AI-only schema, Markdown conversion, or forced chunking. | [[AI Citation Mechanics]], [[Passage Citability Checklist]], [[6-Pillar Dual Optimization]] | `g-ai-opt-guide` | 2026-07-08 | verified | AI optimization guide changes. |
+| REQ-GOOGLE-AI-002 | Treat llms.txt as unused by Google Search; it may exist for non-Google systems but is not a Google visibility lever. | [[llms.txt Caveat Note]], [[AI Citation Mechanics]] | `g-ai-opt-guide` | 2026-07-08 | verified | Search docs update changes llms.txt language. |
+| REQ-SCHEMA-001 | Do not sell FAQPage as a current Google visual rich result tactic after 2026-05-07. | [[Blog Schema Stack]], [[Structured Data Deprecation Register]] | `g-update-2026-05-07-faq-rich-results-retired` | 2026-07-08 | verified | FAQPage docs or Search Console anomalies change status. |
+| REQ-SCHEMA-002 | Merchant listing Product markup now has July 7 guidance for `Product.category` and sale-price effective dates. | [[Product Mentions In Blog Schema]], [[Schema Deprecation Watch]] | pending `g-merchant-listing` | 2026-07-08 | verified, pending ledger repair | Merchant listing docs update again. |
+| REQ-AMP-001 | AMP pages no longer require old AMP viewer, AMP Cache, or signed exchange maintenance language in current advice. | [[Google Algorithm Update Ledger]], [[Monthly Source Refresh]] | pending `g-amp-docs` | 2026-07-08 | verified, pending ledger repair | AMP docs update again. |
+| REQ-DATA-001 | Search Console generative AI reports are subset-only; dimensions include pages, countries, devices, and dates, with UI export behavior documented in Help. | [[Google Data Integrations]], [[Metric Export Schema]] | `g-genai-reports` plus pending Help Center entry | 2026-07-08 | verified, pending ledger repair | Help docs add API export, metrics, or dimensions. |
+| REQ-SOURCES-001 | Current claims need source ID, URL, retrieval date, confidence, and refresh trigger before release use. | [[Claim To Source Mapping]], [[Evidence Gap Register]] | local convention | 2026-07-08 | advisory | Linter or audit contract changes. |
 
 ## Required Inputs
 - Source ID, title, URL, source type, section, retrieved date, and refresh due date.

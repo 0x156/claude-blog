@@ -3,7 +3,7 @@ type: spoke
 title: "2026 Google Update Timeline"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [monitoring, google-updates, active]
 domain: "Google Update Monitoring"
 confidence: verified
@@ -23,8 +23,11 @@ related:
 source_urls:
   - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
   - "https://developers.google.com/search/updates/ranking"
+  - "https://developers.google.com/search/updates"
   - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+  - "https://developers.google.com/search/docs/appearance/preferred-sources"
+  - "https://developers.google.com/search/docs/crawling-indexing/amp"
   - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/essentials/spam-policies"
   - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
@@ -42,7 +45,7 @@ source_urls:
 # 2026 Google Update Timeline
 
 ## Summary
-This spoke summarizes confirmed 2026 Google updates from the local Google-owned update ledger through 2026-07-06.
+This spoke summarizes confirmed 2026 Google-owned ranking incidents and Search documentation updates checked through 2026-07-08.
 It belongs to [[Google Algorithm Update Ledger]] and supports confirmed Google updates, volatility quarantine, update response, and dated source refresh.
 Primary working inputs: 2026 update entries, Google-owned URLs, notes, blog implications.
 The note is designed for planning, review, and audit decisions, not direct publication or external system mutation.
@@ -50,18 +53,20 @@ The expected user is an editor, SEO lead, content strategist, reviewer, or opera
 The output should be short enough to apply during a brief or audit, but complete enough to survive source review.
 
 ## Evidence Anchors
-- The local update ledger contains 34 Google-owned update entries through the 2026-06-30 Merchant Center product videos entry.
-- No Google-owned ranking, spam, schema, QRG, or AI search update is recorded from 2026-07-01 through 2026-07-06.
+- The local update ledger contains 34 Google-owned update entries through the 2026-06-30 Merchant Center product videos entry, but it is stale for July 2026 documentation updates.
+- The Search Status Dashboard records no confirmed Google-owned ranking incident after the 2026-06-24 spam update as of 2026-07-08.
+- Google Search documentation updates add 2026-07-01 AMP guidance changes and 2026-07-07 merchant listing structured-data changes.
 - FAQ rich results retired for all sites effective 2026-05-07, which makes Article or BlogPosting the blog schema priority.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt for Search, AI Overviews, or AI Mode.
-- QRG status remains tied to the 2025-09-11 version as of 2026-07-06.
+- Google AI optimization guide page date is 2026-06-29; the 2026-06-15 Search documentation update added the llms.txt clarification.
+- Preferred Sources availability for AI Mode and AI Overviews is confirmed by Google Search documentation dated 2026-05-27.
+- QRG status remains tied to the 2025-09-11 version as of 2026-07-08.
 - As of 2026-07-06, SparkToro reports 68.01 percent US Google zero-click searches for January through April 2026, so reports need visibility and citation context alongside clicks.
 - Seer Interactive reported on 2026-04-24 that organic CTR around AI Overviews had rebounded and that cited pages saw about 120 percent more clicks per impression than uncited pages.
 - Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
 - Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
 - The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+- Google AI optimization guidance has current page date 2026-06-29; the 2026-06-15 documentation change specifically clarified that Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
+- Passage extraction heuristics belong in [[Passage Citability Checklist]] and remain practitioner-derived, not Google update requirements.
 
 ## Required Inputs
 - Confirmed Google-owned source URL or explicit unverified status.
@@ -74,7 +79,7 @@ The output should be short enough to apply during a brief or audit, but complete
 - Quarantine note for third-party volatility until Google confirms it.
 
 ## Workflow
-- Define the decision this note supports: summarizes confirmed 2026 Google updates from the local Google-owned update ledger through 2026-07-06.
+- Define the decision this note supports: summarizes confirmed 2026 Google updates checked through 2026-07-08.
 - Open [[Google Algorithm Update Ledger]] and confirm the hub rule that applies before using this spoke.
 - Classify the event as core, spam, schema, QRG, product, AI search, guidance, tooling, or policy.
 - Wait for a Google-owned source before changing durable guidance from volatility reports.
@@ -91,8 +96,8 @@ The output should be short enough to apply during a brief or audit, but complete
 - Route multilingual and persona decisions through human review when local facts, legal terms, or YMYL sensitivity appear.
 - Keep all external system changes outside this note and write only the recommendation, rationale, and rollback condition.
 
-This timeline is drawn from data/google-updates.json, last verified 2026-07-06, and includes only Google-owned source URLs for 2026.
-The 2026 set contains 16 confirmed entries in the local update ledger.
+This timeline uses data/google-updates.json, last verified 2026-07-06, plus a 2026-07-08 manual check of Google-owned Search documentation and the Search Status Dashboard.
+The local data file contains 16 confirmed 2026 entries; this wiki timeline adds three Google-owned documentation entries that are not yet in the data file.
 Each entry should be used as a monitoring anchor, not as proof that a specific page won or lost traffic without first-party data.
 Third-party volatility can explain what to inspect, but it does not promote an event into this timeline.
 
@@ -114,7 +119,7 @@ Third-party volatility can explain what to inspect, but it does not promote an e
   Note: Scaled content abuse now explicitly names 'using generative AI tools to generate many pages without adding value' (and automated transformations like translating). Expired-domain and site-reputation abuse remain.
 - 2026-05-15: New Generative AI optimization guide [product].
   Source: https://developers.google.com/search/blog/2026/05/a-new-resource-for-optimizing
-  Note: New 'Generative AI fundamentals / ai-optimization-guide' doc (updated 2026-06-15): gen-AI optimization IS SEO; you do NOT need new AI files/markup/Markdown/chunking/AI-rewrites. Google Search ignores llms.txt.
+  Note: New 'Generative AI fundamentals / ai-optimization-guide' doc. The page is currently dated 2026-06-29, and the 2026-06-15 docs update clarified that Google Search ignores llms.txt.
 - 2026-05-19: Google I/O 2026: Gemini 3.5 Flash powers AI Mode [product].
   Source: https://blog.google/products-and-platforms/products/search/search-io-2026/
   Note: Gemini 3.5 Flash becomes the default model in AI Mode globally. AI Mode surpassed 1B+ monthly users. New intelligent Search box; Information Agents, generative UI, and agentic checkout rolling out summer 2026.
@@ -124,6 +129,9 @@ Third-party volatility can explain what to inspect, but it does not promote an e
 - 2026-05-21: May 2026 Core Update [core].
   Source: https://developers.google.com/search/updates/ranking
   Note: Up to 2-week rollout. Second core update of 2026. Global, all languages. Google: 'a regular update designed to better surface relevant, satisfying content from all types of sites.'
+- 2026-05-27: Preferred Sources available in AI Mode and AI Overviews [search-feature].
+  Source: https://developers.google.com/search/docs/appearance/preferred-sources
+  Note: Google updated Preferred Sources feature availability to include AI Overviews and AI Mode. Route publisher distribution and citation planning through [[AI Citation Mechanics]] and [[Distribution and Repurposing]]; do not treat this as a citation guarantee.
 - 2026-06-02: May 2026 Core Update complete [core].
   Source: https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history
   Note: May 2026 core update (started 2026-05-21) completed 2026-06-02.
@@ -145,13 +153,20 @@ Third-party volatility can explain what to inspect, but it does not promote an e
 - 2026-06-30: Merchant Center product videos serving-eligible [ecommerce].
   Source: https://support.google.com/merchants/answer/16989427
   Note: video_link attribute becomes eligible to serve on 2026-06-30.
+- 2026-07-01: AMP documentation update [documentation].
+  Source: https://developers.google.com/search/docs/crawling-indexing/amp
+  Note: Google simplified AMP documentation by removing outdated AMP viewer, AMP Cache, and signed exchange references. AMP content continues to rank like other web pages.
+- 2026-07-07: Merchant listing structured data category and sale duration guidance [schema].
+  Source: https://developers.google.com/search/docs/appearance/structured-data/merchant-listing
+  Note: Google added `Product.category` guidance for Text and CategoryCode values and added sale-price effective-date guidance using `validFrom`, `validThrough`, and `priceValidUntil`.
 
 ## Blog Implications
 - February Discover, March spam, March core, May core, and June spam updates create separate review tracks by surface and policy.
 - FAQ rich results retired on 2026-05-07, so blog schema should prioritize Article or BlogPosting with visible reader value.
 - The 2026-06-15 AI optimization guidance says Google Search does not use llms.txt, so do not add it as a Google visibility requirement.
 - Generative AI performance reports announced 2026-06-03 make first-party AI feature impressions available for some properties.
-- No confirmed Google-owned update appears from 2026-07-01 through 2026-07-06 in the local substrate.
+- No confirmed Google-owned ranking incident appears after 2026-06-24 in the Search Status Dashboard as of 2026-07-08.
+- July 2026 documentation changes affect AMP maintenance language and ecommerce schema guidance; they do not create a new confirmed ranking rollout by themselves.
 
 ## Review Checks
 - The note names exact dates when guidance can become stale.
@@ -202,8 +217,11 @@ Third-party volatility can explain what to inspect, but it does not promote an e
 ## Source URLs
 - https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history
 - https://developers.google.com/search/updates/ranking
+- https://developers.google.com/search/updates
 - https://developers.google.com/search/docs/appearance/structured-data/faqpage
 - https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
+- https://developers.google.com/search/docs/appearance/preferred-sources
+- https://developers.google.com/search/docs/crawling-indexing/amp
 - https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
 - https://developers.google.com/search/docs/essentials/spam-policies
 - https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports
@@ -218,7 +236,7 @@ Third-party volatility can explain what to inspect, but it does not promote an e
 - https://support.google.com/merchants/answer/16989427
 
 ## Maintenance Notes
-- Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
+- Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-08.
 - Keep backlink health with [[Google Algorithm Update Ledger]], [[index|Index]], and sibling spokes in this folder.
 - Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
 - Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.

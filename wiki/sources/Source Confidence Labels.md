@@ -3,7 +3,7 @@ type: spoke
 title: "Source Confidence Labels"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-08
 tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
@@ -54,8 +54,28 @@ The output should be short enough to apply during a brief or audit, but complete
 - Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
 - Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
 - The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+- Google AI optimization guide has current page date 2026-06-29; the 2026-06-15 documentation update added the llms.txt clarification.
+- Passage extraction heuristics are practitioner evidence unless an official source confirms them.
+
+## Allowed Labels
+
+| Label | Use when | Downgrade when | Example |
+|---|---|---|---|
+| verified | An official, primary, standards, government, regulator, API, or first-party source directly supports the exact claim and date. | The claim generalizes beyond the source, the source is stale, or the ledger lacks date precision. | FAQ rich result retirement effective 2026-05-07 from Google FAQPage docs. |
+| evidence-based | Multiple trustworthy sources or one strong primary source supports an observed pattern, but the claim is not an official requirement. | The evidence is property-specific, market-average only, or not reproducible. | INP replacing FID as a Core Web Vital. |
+| practitioner | A practitioner source describes a workflow, heuristic, or observed tactic without official confirmation. | It is presented as a ranking factor, guarantee, or durable rule. | Passage source-proximity guidance from ZipTie. |
+| advisory | The note combines official facts with market studies, practitioner heuristics, or local operating judgment. | Any important claim lacks a source ID, URL, retrieval date, or refresh trigger. | AI citation readiness checklist. |
+| contested | Trustworthy sources disagree or evidence is mixed across methods, sample sets, or periods. | A second source resolves the conflict or first-party data confirms one reading. | AIO CTR effects across different market studies. |
+| gap | The claim is missing, stale, source-mismatched, or outside the source coverage. | A dated trustworthy source is recorded in the claim map. | July 2026 docs updates missing from the machine ledger. |
+
+## Downgrade Rules
+
+- A note with any practitioner-only operational claim cannot be `confidence: verified` unless verified facts and practitioner advice are split.
+- Market-study statistics stay advisory until first-party property data confirms the local pattern.
+- Official Google documentation supports Google Search claims only; it does not prove behavior for ChatGPT, Perplexity, Copilot, or non-Google assistants.
+- A source URL without retrieval date and source ID cannot support a release-gate claim.
+- A source with a redirect, 404, or stale page date becomes `gap` until refreshed.
+- Confidence follows the weakest source needed for the recommendation, not the strongest source in the note.
 
 ## Required Inputs
 - Source ID, title, URL, source type, section, retrieved date, and refresh due date.

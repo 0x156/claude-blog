@@ -4,6 +4,8 @@ title: "Reporting Workflow"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [flows, reports, active]
 ---
 
 # Reporting Workflow

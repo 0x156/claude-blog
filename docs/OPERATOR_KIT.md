@@ -32,7 +32,8 @@ domain-specific release. If the sources are not refreshed, keep the product in
 generic scaffold status.
 
 Research evidence must be written into `references/source-ledger.json` with
-source URL, source type, retrieved date, refresh due date, confidence, and claim
+source URL, source type, published or last-updated date, retrieved date, date
+precision, refresh due date, confidence, evidence tier, limitations, and claim
 coverage. Markdown research notes alone do not satisfy market-ready release.
 
 ## Adapter Rule

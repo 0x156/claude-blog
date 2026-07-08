@@ -1,10 +1,13 @@
 # Claude Blog Brain Adapter Plan
 
-Status: researched plan. Domain code adapters are not built in this slice.
+Status: researched plan. Domain code adapters are not release-declared in this slice.
 
 ## Current Adapter Honesty
 
-`references/adapter-manifest.json` keeps `generic_only` set to true. That is intentional. The source research pack is real, but the importer, synthesis module, renderer, fixtures, and tests named below are planned interfaces, not completed adapters.
+`references/adapter-manifest.json` keeps `generic_only` set to true. That is
+intentional. The source research pack is real, but the importer, synthesis
+module, renderer, fixtures, and tests named below remain planned release
+interfaces until safety, citation, fixture, and deterministic test gates pass.
 
 ## Raw Input Types
 
@@ -22,40 +25,32 @@ Status: researched plan. Domain code adapters are not built in this slice.
 - Path: `schemas/blog-post-input.schema.json`.
 - Scope: title, URL, Markdown or HTML body, frontmatter, target keyword, locale, author, dates, source block, and optional audit findings.
 
-## Planned Importers
+## Planned Importer
 
-- `ingest_blog_post`, planned path `scripts/ingest_blog_post.py`.
-- `ingest_blog_audit`, planned path `scripts/ingest_blog_audit.py`.
-- `ingest_google_update_ledger`, planned path `scripts/ingest_google_update_ledger.py`.
-- `ingest_claude_blog_reference_pack`, planned path `scripts/ingest_claude_blog_reference_pack.py`.
+- `ingest_blog_input`, planned path `scripts/ingest_blog_input.py`.
 
-## Planned Synthesis Modules
+## Planned Synthesis Module
 
-- `synthesize_blog_research_pack`, planned path `claude_blog_brain/blog_research.py`.
-- `synthesize_blog_quality_plan`, planned path `claude_blog_brain/blog_quality.py`.
-- `synthesize_geo_citation_plan`, planned path `claude_blog_brain/blog_geo.py`.
-- `synthesize_topic_cluster_plan`, planned path `claude_blog_brain/blog_clusters.py`.
+- `synthesize_blog_plan`, planned path `scripts/synthesize_blog_plan.py`.
 
-## Planned Renderers
+## Planned Renderer
 
-- `render_blog_brief`, planned path `scripts/render_blog_brief.py`.
-- `render_blog_audit_report`, planned path `scripts/render_blog_audit_report.py`.
-- `render_geo_readiness_register`, planned path `scripts/render_geo_readiness_register.py`.
+- `render_blog_report`, planned path `scripts/render_blog_report.py`.
 
 ## Planned Fixtures
 
 - `sample-blog-post`, planned path `tests/fixtures/sample-blog-post.json`.
-- `sample-blog-audit`, planned path `tests/fixtures/sample-blog-audit.json`.
-- `sample-google-updates`, planned path `tests/fixtures/sample-google-updates.json`.
-- `sample-claude-blog-reference-pack`, planned path `tests/fixtures/sample-claude-blog-reference-pack.json`.
+- Later fixtures may cover blog audits, Google update ledgers, and claude-blog
+  reference packs after the first input type is release-verified.
 
 ## Planned Tests
 
-- `test_blog_post_input_schema`, planned path `tests/test_blog_post_input_schema.py`.
-- `test_blog_importers`, planned path `tests/test_blog_importers.py`.
-- `test_blog_synthesis`, planned path `tests/test_blog_synthesis.py`.
-- `test_blog_renderers`, planned path `tests/test_blog_renderers.py`.
-- `test_blog_adapter_malformed_input`, planned path `tests/test_blog_adapter_malformed_input.py`.
+- `valid_input`, planned path `tests/test_blog_adapters.py`.
+- `malformed_input`, planned path `tests/test_blog_adapters.py`.
+- `rendering`, planned path `tests/test_blog_adapters.py`.
+- `credentials_boundary`, planned path `tests/test_blog_adapters.py`.
+- `deterministic_output`, planned path `tests/test_blog_adapters.py`.
+- `citation_coverage`, planned path `tests/test_blog_adapters.py`.
 
 ## Safety Requirements
 
@@ -64,7 +59,18 @@ Status: researched plan. Domain code adapters are not built in this slice.
 - Cite every recommendation to `references/source-ledger.json`.
 - Keep advice read-only unless a future release defines approval, mutation, and rollback.
 - Treat missing source dates, deprecated schema advice, fabricated statistics, and unsupported GEO promises as blocking defects.
+- Reject non-HTTP(S) URLs, localhost, private IP ranges, link-local IPs,
+  credential-bearing URLs, and redirect chains that resolve into blocked ranges.
+- Normalize local paths as vault-relative paths, reject absolute paths and `..`,
+  and never follow symlinks outside the allowed raw-source lane.
+- Sanitize HTML before extraction or report rendering by removing scripts, event
+  handlers, unsafe URL schemes, remote executable embeds, and style injection.
+- Scrub rendered outputs for local absolute paths, secrets, cookies, private draft
+  URLs, and raw private client content.
 
 ## Completion Gate
 
-Domain-adapted maturity requires one implemented importer, one implemented synthesis module, one implemented report renderer, one fixture per supported input type, and tests for valid input, malformed input, rendering, missing credentials, and citation coverage.
+Domain-adapted maturity requires one implemented importer, one implemented
+synthesis module, one implemented report renderer, one fixture per supported
+input type, and tests for valid input, malformed input, rendering, credentials
+boundary, deterministic output, and citation coverage.

@@ -1,10 +1,10 @@
 ---
 type: spoke
 title: "Passage Citability Checklist"
-status: evergreen
+status: active
 created: 2026-07-06
-updated: 2026-07-06
-tags: [geo-aeo, ai-citation, evergreen]
+updated: 2026-07-08
+tags: [geo-aeo, ai-citation, active]
 domain: "GEO and AEO"
 confidence: advisory
 related:
@@ -23,6 +23,7 @@ related:
 source_urls:
   - "https://developers.google.com/search/docs/appearance/ai-features"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+  - "https://developers.google.com/search/updates"
   - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
   - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
   - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
@@ -45,11 +46,12 @@ Use it with [[AI Citation Mechanics]] when the working unit is a answer passage,
 
 ## Current Evidence Anchors
 - Google AI features documentation retrieved 2026-07-06 describes AI Overviews and AI Mode as Search surfaces with standard crawling and preview controls.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt for Search, AI Overviews, or AI Mode.
+- Google AI optimization guide has current page date 2026-06-29; the Search documentation update on 2026-06-15 added the llms.txt clarification.
+- Google Search does not use llms.txt for Search, AI Overviews, or AI Mode.
 - Google I/O Search update dated 2026-05-19 reported AI Mode surpassed 1B plus monthly users.
 - SparkToro, 2026-06-09, records AI Mode near 0.34 percent of US query volume in the substrate.
 - Seer, 2026-04-24, reports cited pages at about 120 percent more clicks per impression than pages not cited when AI Overviews are present.
-- ZipTie, 2026-03-25, is practitioner guidance for self-contained answer passages and visible source attribution.
+- ZipTie, 2026-03-25, is practitioner guidance for self-contained answer passages and visible source attribution, not an official Google requirement.
 - Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
 - Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
 
@@ -64,6 +66,7 @@ Use it with [[AI Citation Mechanics]] when the working unit is a answer passage,
 - Record confidence as advisory when evidence comes from practitioner observation.
 - Keep the recommendation tied to a reader outcome and a measurable review path.
 - Do not present advisory workflow guidance as if it were an official ranking factor.
+- Refresh trigger: review this checklist when Google changes the AI optimization guide, AI features documentation, Search Console generative AI reporting docs, or the practitioner source used for passage heuristics.
 
 ## Review Sequence
 1. Open [[AI Citation Mechanics]] and confirm the parent workflow still applies.

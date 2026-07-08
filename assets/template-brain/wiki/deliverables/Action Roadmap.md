@@ -4,6 +4,8 @@ title: "Action Roadmap"
 created: "{{date}}"
 updated: "{{date}}"
 status: "active"
+domain: "Blog Content Brain"
+tags: [deliverables, active]
 ---
 
 # Action Roadmap
