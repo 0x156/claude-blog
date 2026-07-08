@@ -9,15 +9,9 @@
     .word { font-family:'Poppins','Product Sans','Nunito','Inter',system-ui,sans-serif; font-weight:800; }
     .ui   { font-family:'Inter',system-ui,-apple-system,'Helvetica Neue',sans-serif; }
     .box1,.box2,.box3,.spark { transform-box:fill-box; transform-origin:center; }
-    .box1 { animation: floatA 5.6s ease-in-out infinite; }
-    .box2 { animation: floatB 6.8s ease-in-out -2.2s infinite; }
-    .box3 { animation: floatC 7.6s ease-in-out -3.7s infinite; }
     .spark { animation: twinkle 3.4s ease-in-out infinite; }
     .sun   { animation: sunset 12s ease-in-out infinite; }
     .skydim  { animation: skydim 12s ease-in-out infinite; }
-    @keyframes floatA { 0%,100%{transform:translate(0,0)}   50%{transform:translate(-2px,-6px)} }
-    @keyframes floatB { 0%,100%{transform:translate(0,0)}   50%{transform:translate(2px,-5px)} }
-    @keyframes floatC { 0%,100%{transform:translate(0,0)}   50%{transform:translate(0,-7px)} }
     @keyframes twinkle{ 0%,100%{transform:scale(1);opacity:.85} 50%{transform:scale(1.18);opacity:1} }
     @keyframes sunset { 0%{transform:translate(7px,86px)} 50%{transform:translate(0,-18px)} 100%{transform:translate(-7px,86px)} }
     @keyframes skydim { 0%{opacity:.06} 50%{opacity:0} 100%{opacity:.06} }
