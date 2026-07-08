@@ -32,11 +32,7 @@ The core promise is simple: the user is never the first reviewer. A 5-gate Blog 
 **Blog:** [See how claude-blog works](https://agricidaniel.com/blog/claude-code-blog-writer)
 
 <p align="center">
-  <a href="https://youtu.be/7Q4GaSgUFHo"><img src="https://img.youtube.com/vi/7Q4GaSgUFHo/maxresdefault.jpg" alt="Watch the Claude Blog v1.9.1 walkthrough on YouTube" width="640"></a>
-</p>
-
-<p align="center">
-  <strong><a href="https://youtu.be/7Q4GaSgUFHo">Watch the 12:48 v1.9.1 walkthrough on YouTube</a></strong>, including a live 5-gate Blog Delivery Contract run and the <a href="https://claude-blog.md/blog/chatgpt-codex-vs-claude-code-2026">Codex vs Claude sample blog</a>.
+  <strong><a href="https://youtu.be/7Q4GaSgUFHo">Watch video on YouTube</a></strong>
 </p>
 
 ## Demo
@@ -456,11 +452,11 @@ MIT License. See [`LICENSE`](LICENSE).
 
 ## Star History
 
-<a href="https://star-history.com/#AgriciDaniel/claude-blog&Date">
+<a href="https://star-history.com/#agricidaniel/claude-blog&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=AgriciDaniel/claude-blog&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=AgriciDaniel/claude-blog&type=Date" />
-    <img alt="Star history of AgriciDaniel/claude-blog on GitHub" src="https://api.star-history.com/svg?repos=AgriciDaniel/claude-blog&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=agricidaniel/claude-blog&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=agricidaniel/claude-blog&type=Date" />
+    <img alt="Star history chart for agricidaniel/claude-blog on GitHub" src="https://api.star-history.com/svg?repos=agricidaniel/claude-blog&type=Date" />
   </picture>
 </a>
 
