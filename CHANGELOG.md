@@ -11,12 +11,45 @@ _No unreleased changes._
 
 ## [1.11.0] - 2026-07-08
 
-### Audit remediation
-- Defaulted Unix and Windows installers to the private `AI-Marketing-Hub/claude-blog` mirror, added `CLAUDE_BLOG_REF` support for pinned tag or commit installs, and kept `CLAUDE_BLOG_REPO` / `CLAUDE_BLOG_URL` overrides for forks.
-- Made skill payload copies recursive and allowlisted so nested FLOW prompts, Google report templates, per-skill references, scripts, assets, and templates install together.
-- Added a Unix install manifest and narrowed Unix uninstall to package-owned paths. Shared Google credentials under `~/.config/claude-seo` are now left intact.
-- Refreshed README, CLAUDE.md, marketplace metadata, issue templates, and CI release checks for v1.11.0, 217 tests, current commands, and the 2026 Google ranking update timeline.
-- Strengthened CI skill validation for frontmatter field allowlists, `allowed-tools` rejection, line and token caps, and user-invokable argument hints.
+Full-repo audit remediation plus a knowledge and currency refresh. A multi-agent audit surfaced 672 findings across every sub-skill, agent, script, reference, and template; the high-value fixes ship here. This release also rebuilds the README on a new visual system and closes several community-reported issues.
+
+### Security
+- SSRF hardening across every URL-fetching path: `generate_hero.py` (no-redirect fetch, private, loopback, link-local, and reserved-IP refusal, response-size cap, API-key redaction in logs), `blog_preflight.py` Gate 5 (DNS and IP validation, exact-host allowlist instead of substring matching), `nlp_analyze.py`, and the URL-reading sub-skills.
+- XSS-safe rendering: `blog_render.py` sanitizes raw HTML and escapes attributes quote-safely, blocks `javascript:`, `data:`, and `file:` URLs, and route-blocks external fetches during PDF and screenshot rendering. Audio embeds, `google_report.py`, and video-embed markup now escape untrusted fields.
+- Path-traversal and symlink confinement on script file writes (slug sanitization, realpath containment, symlink refusal) across renderers, analyzers, and output helpers.
+- Delivery contract hardened: the review nonce moved out of the draft folder, broken images and links now block instead of warn, first failure halts, and the repair iteration counter only counts real repair attempts. The `bypass: true` frontmatter escape hatch was removed.
+- Agent least-privilege: removed `WebFetch` from `blog-seo` and aligned researcher, writer, and translator to Task, not Bash, delegation.
+
+### 2026 currency
+- Reframed FAQPage guidance to Google's current AI-optimization stance (no special markup required for AI features) and removed unsupported FAQPage AI-citation claims.
+- Corrected the "E-E-A-T applies to all competitive queries" overclaim, the Google-Extended crawler mislabeling, and stale rich-result deprecation timelines.
+- Updated model references to GA Gemini image IDs (`gemini-3.1-flash-image`, `gemini-3.1-flash-lite-image`, `gemini-3-pro-image`) and Gemini 3.1 TTS, corrected token caps and cost estimates, aligned the nano-banana MCP tool schema, and bumped Google Ads API version guidance.
+
+### Quality and consistency
+- Standardized scoring on one 30/25/15/15/15 rubric (Content, SEO, E-E-A-T, Technical, AI Citation) across write, rewrite, analyze, audit, templates, and tests.
+- Fixed dozens of broken `references/` and `templates/` paths in sub-skill instructions.
+- Added the two missing helper scripts referenced by sub-skills: `discourse_research.py` and `sync_flow.py`.
+- Added a deterministic chart CLI at `skills/blog-chart/scripts/generate_chart_svg.py` (escaped, accessible, reduced-motion aware).
+- Added `scripts/blog_hygiene.py`: optional, judgment-free post-render hygiene (lazy-load images, auto Table of Contents on long posts). Non-blocking and dry-run by default.
+
+### Community-reported fixes
+- Trimmed the plugin description under the 500-character registry cap so organization installs no longer fail, and added `tests/test_plugin_manifest.py` as a guard.
+- `blog_preflight.py` no longer crashes in Gate 1 when the optional `google` package is absent (`_has_module` now catches `ModuleNotFoundError`).
+- Reworked the Windows install to download then run (`irm ... -OutFile install.ps1; pwsh -File ./install.ps1`) instead of piping to the shell. Safer, and it avoids a heuristic antivirus false positive. Added an "Antivirus false positives" section to `SECURITY.md`.
+
+### Packaging and installers
+- Defaulted installers to the `AI-Marketing-Hub/claude-blog` mirror with `CLAUDE_BLOG_REF` pinned-install support and `CLAUDE_BLOG_REPO` and `CLAUDE_BLOG_URL` overrides for forks.
+- Recursive, allowlisted skill payload copies so nested FLOW prompts, Google report templates, and per-skill references, scripts, assets, and templates install together.
+- Unix install manifest and package-scoped uninstall that leaves shared `~/.config/claude-seo` credentials intact.
+- Stronger CI skill validation for frontmatter allowlists, `allowed-tools` rejection, and line and token caps.
+
+### Documentation and visuals
+- Rebuilt the README on a new self-contained SVG visual system (cover, architecture, 5-gate delivery contract, sub-skill map, FLOW), keeping the animated command and write demos. Retired the diagram regenerator and pruned superseded variants.
+- Reconciled component counts across docs to ground truth: 32 skill directories (1 orchestrator plus 31 sub-skills), 30 user-facing commands, 5 agents, 14 root scripts, 22 references, 12 templates, and 242 tests.
+- Fixed a home-path username leak in `docs/DEMO.md`, gitignored `.raw/`, and corrected SKILL.md to COMMANDS.md command coherence.
+
+### Tests
+- Suite grew to 242 tests (from 217), adding SSRF, XSS, and path-traversal exploit fixtures, plugin-manifest and hygiene coverage, and command and version coherence guards. All green, prose lint clean, plugin validation passing.
 
 ## [1.10.0] - 2026-07-06
 
