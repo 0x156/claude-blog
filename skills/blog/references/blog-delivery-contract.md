@@ -46,6 +46,10 @@ Every delivered blog ships with four artifacts in `<draft-folder>/`:
 
 Implementation lives in `scripts/blog_render.py`. Failure to produce any of the four artifacts blocks delivery.
 
+### Optional hygiene pass (non-blocking)
+
+After rendering and before Gate 3, you may run `python3 scripts/blog_hygiene.py --md <slug>.md --html <slug>.html --apply` to auto-apply judgment-free fixes: add `loading="lazy"` to images that lack it and insert a Table of Contents on posts over 2000 words. It is optional, never blocks delivery, and reports any images missing alt text (which a human must fill in). It does not replace any gate.
+
 ## Gate 3: Visual Verification
 
 Renders the `.html` in headless `patchright` at three viewport widths and checks for visual defects. This is the "review before present" step.

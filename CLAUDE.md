@@ -28,6 +28,7 @@ claude-blog/
   scripts/analyze_blog.py            # 5-category quality scoring (stdlib)
   scripts/blog_preflight.py          # 5-gate delivery contract runner (v1.9.0)
   scripts/blog_render.py             # md -> html -> pdf renderer; XSS-safe JSON-LD (v1.9.0)
+  scripts/blog_hygiene.py            # Optional deterministic hygiene: lazy-load imgs + auto-TOC (v1.11.0)
   scripts/cognitive_load.py          # Per-section concept-density analyzer (v1.8.0)
   scripts/discourse_research.py      # Discourse brief synthesis from SERP JSON (v1.8.0)
   scripts/generate_hero.py           # Hero image ladder: Banana -> Gemini -> stock -> Openverse (v1.9.0)

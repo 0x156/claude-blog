@@ -218,6 +218,28 @@ intent, not negligence.
 - GitHub Actions are SHA-pinned (mutable tag risk closed).
 - OAuth flow uses CSRF state token validation.
 
+## Antivirus false positives
+
+Some antivirus engines (reported: Kaspersky for Mac, engine 26.0.0.150) may quarantine
+`install.ps1` and even `docs/INSTALLATION.md` with a heuristic verdict such as
+`HEUR:Trojan.PowerShell.Generic`. This is a **false positive**, not malware:
+
+- A Markdown documentation file cannot be a PowerShell trojan. The scanner is matching the
+  text of the documented `iex (irm ...)` install one-liner, not any behavior.
+- `HEUR:...Generic` is a generic-pattern heuristic, not a signature match to a known sample.
+  Download-and-execute PowerShell one-liners are a well-known source of these false positives.
+- `install.ps1` is auditable and unobfuscated: it copies files into `~/.claude/`, validates
+  paths, and uses no `eval`, `base64`, or hidden remote execution beyond the documented flow.
+
+**What we changed:** the documented Windows install now downloads the script to a file and runs
+it (`irm ... -OutFile install.ps1; pwsh -File ./install.ps1`) instead of piping straight into
+the shell. This is both safer (you can inspect the script before running it) and avoids the
+heuristic that fires on `iex (irm ...)`.
+
+**If your scanner still flags it:** you can safely review `install.ps1` in this repository, then
+allowlist it, or use the Git-clone install flow instead. Maintainers periodically submit the
+files to Kaspersky for reclassification. Tracking: issue #33.
+
 ## Audit History
 
 Public audit notes for this project:

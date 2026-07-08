@@ -2,8 +2,9 @@
 # claude-blog installer for Windows
 # Installs the blog skill ecosystem to ~/.claude/skills/ and ~/.claude/agents/
 #
-# One-command install:
-#   iex (irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1)
+# Install (download first, then run so you can inspect it):
+#   irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 -OutFile install.ps1
+#   pwsh -File ./install.ps1
 
 $ErrorActionPreference = "Stop"
 

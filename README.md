@@ -149,7 +149,8 @@ curl -fsSL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/i
 
 ```powershell
 $env:CLAUDE_BLOG_REF = "v1.11.0"
-irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 -OutFile install.ps1
+pwsh -File ./install.ps1
 ```
 
 > Piping `curl` or `irm` to a shell gives the script execution authority on your machine. The clone-then-checkout-tag flow is safer because you can inspect what runs. Both flows authenticate against the private repo using your existing `gh auth` / GitHub credentials.

@@ -19,7 +19,7 @@ main() {
         "blog-write"
     )
     local helper_scripts=(
-        "analyze_blog.py" "blog_preflight.py" "blog_render.py" "cognitive_load.py"
+        "analyze_blog.py" "blog_preflight.py" "blog_render.py" "blog_hygiene.py" "cognitive_load.py"
         "discourse_research.py" "generate_hero.py" "load_untrusted_root.py"
         "lint_prose.py" "sync_flow.py"
         "ai_citation_score.py" "content_decay.py" "quality_gate.py" "style_learn.py"
