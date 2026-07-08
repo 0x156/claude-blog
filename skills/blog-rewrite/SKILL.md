@@ -24,10 +24,10 @@ and AI citation platforms. Preserves the author's voice while applying the
 6 pillars of optimization.
 
 **Key references:**
-- `references/quality-scoring.md` - 5-category scoring (Content 30, SEO 25, E-E-A-T 15, Technical 15, AI Citation 15)
-- `references/eeat-signals.md` - Experience, expertise, authority, trust markers
-- `references/internal-linking.md` - Linking strategy and anchor text rules
-- `references/visual-media.md` - Image sourcing and chart styling
+- `skills/blog/references/quality-scoring.md` - 5-category scoring (Content 30, SEO 25, E-E-A-T 15, Technical 15, AI Citation 15)
+- `skills/blog/references/eeat-signals.md` - Experience, expertise, authority, trust markers
+- `skills/blog/references/internal-linking.md` - Linking strategy and anchor text rules
+- `skills/blog/references/visual-media.md` - Image sourcing and chart styling
 - `skills/blog/references/synthesis-contract.md` - 6 LAWs for re-citation hygiene during rewrite (v1.8.0; cross-skill ref lives in the orchestrator's references dir)
 - `skills/blog/references/research-quality.md` - cross-source clustering for replacement-statistic research (v1.8.0)
 
@@ -40,7 +40,7 @@ For 21 evidence-led optimization prompts (AI-detector test, CTR audit, schema, P
 ### Phase 1: Audit (Read-Only)
 
 1. **Read the blog post** - Detect format (MDX, markdown, HTML)
-2. **Run the quality checklist** against `references/quality-scoring.md`:
+2. **Run the quality checklist** against `skills/blog/references/quality-scoring.md`:
    - Count fabricated vs sourced statistics
    - Check answer-first formatting (H2 -> stat in first sentence?)
    - Count images and charts (type diversity?)
@@ -88,7 +88,7 @@ For 21 evidence-led optimization prompts (AI-detector test, CTR audit, schema, P
      why the labels diverged in v1.8.1.
 4. **Video embed check**:
    - Count existing YouTube embeds in the post
-   - If 0 embeds, flag: "No video embeds. YouTube has the strongest AI visibility correlation (0.737)"
+   - If 0 embeds, flag: "No video embeds. Consider adding relevant high-quality YouTube embeds when they add useful context."
    - If present, check: lazy loading? aria-labels? noscript fallback? VideoObject schema?
 5. **Cannibalization check**:
    - Identify the post's primary keyword from title, H1, and first paragraph
@@ -114,10 +114,10 @@ Wait for user approval before proceeding.
    - Search: `[topic] study 2025 2026 data statistics`
    - Target tier 1-3 sources only
 3. **Find images** if post has fewer than 3:
-   - Pixabay: `site:pixabay.com [topic keywords]`
-   - Unsplash: `site:unsplash.com [topic keywords]`
-   - Verify each URL returns HTTP 200
-   - If nanobanana-mcp is configured, offer AI generation for missing/insufficient images via `blog-image`
+   - Prefer original screenshots, product visuals, diagrams, or data graphics when available
+   - For stock, use official provider APIs such as Openverse, Unsplash, Pexels, or Pixabay so license, creator, source URL, and download URL are captured
+   - Download approved assets locally, store attribution, and reject `javascript:`, `data:`, and `file:` URLs
+   - If `blog-image` is available, offer AI generation for missing or insufficient images and record the selected model ID
 4. **Plan charts** if post has fewer than 2:
    - Identify data suitable for visualization
    - Select diverse chart types
@@ -131,7 +131,7 @@ When the post needs more visual elements, invoke the `blog-chart` sub-skill:
 3. Embed the returned SVG directly within a `<figure>` wrapper
 4. Target 2-4 charts per 2,000-word post
 
-See `references/visual-media.md` for chart type selection and styling rules.
+See `skills/blog/references/visual-media.md` for chart type selection and styling rules.
 
 ### Phase 4: Content Rewrite
 
@@ -150,7 +150,7 @@ Apply changes in this order:
 - Add `coverImage` + `coverImageAlt` + `ogImage` if missing
   - Search Pixabay/Unsplash/Pexels for wide hero image (1200x630)
   - Or generate custom SVG cover via `blog-chart` (text-on-gradient with key stat)
-  - Or generate custom AI image via `blog-image` sub-skill (if nanobanana-mcp configured)
+  - Or generate custom AI image via `blog-image` sub-skill when available; record the model ID
 - Verify tags/categories are appropriate
 
 #### 4c. Apply Answer-First Formatting
@@ -176,12 +176,12 @@ Every H2 section MUST open with a 40-60 word paragraph containing:
 #### 4g. Add Visual Elements
 - Embed new images after H2 headings, spaced evenly
 - Embed charts within relevant sections
-- If nanobanana-mcp configured: generate custom images for sections lacking good stock matches (invoke `blog-image` sub-skill via Task)
+- If `blog-image` is available: generate custom images for sections lacking good stock matches, prefer the current image model registry, and record the model ID
 - Adapt embed format to detected platform (MDX vs markdown vs HTML)
 
 #### 4h. Add Video Embeds
 If the post lacks YouTube video embeds:
-- Search 2-3 relevant videos using quality criteria from `references/video-embeds.md`
+- Search 2-3 relevant videos using quality criteria from `skills/blog/references/video-embeds.md`
 - Embed using platform-appropriate format (srcdoc lazy loading)
 - Place: 1 after introduction, 1-2 in mid-article sections
 - Include noscript fallback for AI crawlers
@@ -189,7 +189,7 @@ If the post lacks YouTube video embeds:
 #### 4i. Add/Improve FAQ
 - If the query set warrants it and no FAQ exists, add one (3-5 questions)
 - If FAQ exists, ensure answers are 40-60 words with verified statistics
-- FAQPage is an entity/AI-citation signal only, not a Google rich result after 2026-05-07. Do not make it a core gate; prioritize Article/BlogPosting + Person + Organization + BreadcrumbList.
+- FAQPage is optional entity markup only. Google FAQ rich results have been limited primarily to well-known, authoritative government and health sites since the 2023 guidance, so do not make FAQPage a core Google rich-result gate.
 
 #### 4j. Reduce Self-Promotion
 - Max 1 brand mention (author bio context only)
@@ -212,11 +212,11 @@ for AI systems to extract and cite in their responses.
 ```
 
 Capsules map to the "AI Citation Readiness" category (15 points) in
-`references/quality-scoring.md`.
+`skills/blog/references/quality-scoring.md`.
 
 #### 4l. Anti-AI-Detection Patterns
 Apply these transformations to reduce AI-detectable writing patterns:
-- **Eliminate em dashes** - Replace every em dash (-) with a comma, hyphen (-),
+- **Eliminate em dashes** - Replace every U+2014 character with a comma, hyphen,
   colon, or period. Split sentences if needed. Em dashes are an AI writing tell.
 - **Replace flagged phrases** - Swap every detected AI phrase (from the scan in
   Phase 1 step 3) with a natural alternative. Examples:
@@ -356,10 +356,10 @@ Before presenting the rewritten draft, run the 5-gate delivery contract per `ski
 
 Steps:
 
-1. **Hero check**: if the existing post already has a hero image referenced and still on disk, keep it. If the rewrite changed the topic substantially OR the hero is missing, regenerate via `python scripts/generate_hero.py --topic "<new title>" --tags "<tags>" --out <folder>`.
-2. **Re-render**: run `python scripts/blog_render.py --md <slug>.md --out-dir <folder>` to refresh the `.html` and `.pdf` from the updated `.md`.
+1. **Hero check**: if the existing post already has a hero image referenced and still on disk, keep it. If the rewrite changed the topic substantially OR the hero is missing, regenerate via `python3 scripts/generate_hero.py --topic "<new title>" --tags "<tags>" --out <folder>`.
+2. **Re-render**: run `python3 scripts/blog_render.py --md <slug>.md --out-dir <folder>` to refresh the `.html` and `.pdf` from the updated `.md`.
 3. **Reviewer dispatch**: dispatch the `blog-reviewer` agent against the rendered `.html`. Threshold: score 90/100 or higher AND zero P0 issues.
-4. **Preflight**: run `python scripts/blog_preflight.py --draft <folder> --strict`. Exit 0 = ship; exit 1 = block.
+4. **Preflight**: run `python3 scripts/blog_preflight.py --draft <folder> --strict`. Exit 0 = ship; exit 1 = block.
 5. **Iterate on failure**: maximum 3 iterations. After the 3rd failure, STOP and present the diagnostic from `<folder>/preflight-report.json`.
 
 Rewrites have a higher implicit threshold because the existing draft was presumably already published. Re-presenting something worse than the original is not acceptable. If the rewritten score is lower than the original score, that itself is a P0 condition.

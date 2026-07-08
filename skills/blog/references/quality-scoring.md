@@ -7,10 +7,10 @@ Score each blog post against this checklist. Used by `/blog analyze`.
 | Check | Points | Pass Criteria |
 |-------|--------|---------------|
 | Depth/comprehensiveness | 7 | Covers topic thoroughly, no major gaps |
-| Readability (Flesch 60-70) | 7 | Flesch 60-70 ideal, 55-75 acceptable; Grade 7-8; Gunning Fog 7-8 |
+| Readability | 7 | Match the audience; default Flesch 60-70, 55-75 acceptable; technical/YMYL topics may justify denser prose |
 | Originality/unique value markers | 5 | Original data, case studies, first-hand experience |
 | Sentence & paragraph structure | 4 | Avg sentence 15-20 words, ≤25% over 20; paragraphs 40-80 words; H2 every 200-300 words |
-| Engagement elements | 4 | TL;DR box, callouts, varied content blocks |
+| Engagement elements | 4 | Summary box near the top, callouts, varied content blocks |
 | Grammar/anti-pattern | 3 | Passive voice ≤10%, AI trigger words ≤5/1K, transition words 20-30%, clean prose |
 
 ## SEO Optimization (25 points)
@@ -22,19 +22,19 @@ Score each blog post against this checklist. Used by `/blog analyze`.
 | Keyword placement/density | 4 | Natural integration (0.5-2%), no stuffing, present in first 100 words |
 | Internal linking (3-10 contextual) | 4 | Descriptive anchor text, bidirectional, related content |
 | URL structure | 3 | Short, keyword-rich, no stop words, lowercase |
-| Meta description (150-160 chars, stat) | 3 | Fact-dense, includes one statistic, ends with value prop |
+| Meta description (150-160 chars) | 3 | Fact-dense, clear value prop; include a sourced statistic only when central to the page |
 | External linking (tier 1-3) | 2 | 3-8 outbound links to authoritative sources |
 
 ## E-E-A-T Signals (15 points)
 
 | Check | Points | Pass Criteria |
 |-------|--------|---------------|
-| Author attribution (named, with bio) | 4 | Real name, credentials, E-E-A-T bio - not a sales pitch |
+| Author attribution (accountable, with bio) | 4 | Named author/editor preferred; organization attribution acceptable with clear editorial ownership |
 | Source citations (tier 1-3, inline format) | 4 | `([Source](url), year)` format, 8+ unique stats, zero fabricated |
 | Trust indicators (contact, about, transparency) | 4 | Site has contact page, about page, editorial policy |
 | Experience signals (first-person markers) | 3 | "When we tested...", "In our experience...", original photos/data |
 
-**Source citations gating rule:** Sources must follow the FLOW evidence triple: year anchor in prose, inline citation with publisher and title, AND URL with retrieval date in the source block. Sources without retrieval dates do not pass this criterion. Reference: `flow-alignment.md`.
+**Source citations gating rule:** Sources must follow the FLOW evidence triple: year anchor in prose, inline citation with publisher and title, AND URL with retrieval date in compact retrieval notes, footnotes, or a bibliography. Sources without retrieval dates do not pass this criterion. Reference: `flow-alignment.md`.
 
 ## Technical Elements (15 points)
 
@@ -52,7 +52,7 @@ Score each blog post against this checklist. Used by `/blog analyze`.
 | Check | Points | Pass Criteria |
 |-------|--------|---------------|
 | Passage-level citability (120-180 word passages) | 4 | About 50-word direct-answer sentence followed by self-contained passage with stat + source |
-| Q&A formatted sections | 3 | 40-60% of H2s as questions, visible FAQ section when template calls for it |
+| Q&A formatted sections | 3 | 60-70% of H2s as questions, visible FAQ section when template calls for it |
 | Entity clarity | 3 | Unambiguous topic entity, consistent terminology |
 | Content structure for extraction | 3 | Answer-first, tables with `<thead>`, comparison formats |
 | AI crawler accessibility | 2 | SSR/SSG, no JS-gated content, robots.txt allows AI bots |
@@ -80,7 +80,7 @@ When reporting issues, classify by priority:
 - No source attribution on claims
 - Missing author attribution
 - Content behind JavaScript (invisible to AI crawlers)
-- Missing TL;DR box
+- Missing summary box near the top
 
 ### High Priority
 - Missing answer-first formatting on H2 sections
@@ -110,7 +110,7 @@ When reporting issues, classify by priority:
 
 ### Low Priority
 - Paragraph length slightly above 80 words (but under 150)
-- Question-format H2 ratio outside 40-60%
+- Question-format H2 ratio outside 60-70%
 - Missing chart type diversity
 - Images without alt text
 - Missing external links to tier 1-3 sources
@@ -123,9 +123,9 @@ These can be detected programmatically:
 ### Content Quality
 1. Word count per paragraph (split on double newlines, flag > 150, critical > 200)
 2. Sentence count per paragraph (flag > 3 sentences)
-3. Flesch-Kincaid score (target 60-70, acceptable 55-75)
+3. Flesch-Kincaid score (default target 60-70, acceptable 55-75; adjust for audience)
 4. Heading frequency (flag gaps > 300 words between H2s)
-5. TL;DR box presence (search for "TL;DR" in first 500 characters)
+5. Summary box presence in first 500 characters (accept "TL;DR", "Key Takeaways", "Summary", or "Quick Answer")
 6. Average sentence length (target 15-20, flag > 22)
 7. Sentences over 20 words (flag if > 25% of total)
 8. Passive voice percentage (flag > 10%, high priority > 15%)
@@ -158,7 +158,7 @@ These can be detected programmatically:
 
 ### AI Citation Readiness
 29. Opening citable passage after each H2 (target 120-180 words after about 50-word answer sentence)
-30. Question-format heading ratio (target 40-60% of H2s)
+30. Question-format heading ratio (target 60-70% of H2s)
 31. Visible Q&A presence when template calls for FAQ
 32. Table presence with `<thead>` (for AI extraction)
 33. robots.txt AI bot allowance (site-level check)

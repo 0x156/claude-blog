@@ -17,7 +17,7 @@ argument-hint: "[generate|edit|setup] [description-or-path]"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "1.10.0"
+  version: "1.11.0"
   mcp-package: "@ycse/nanobanana-mcp"
 ---
 
@@ -46,7 +46,7 @@ Match the image type to blog use case:
 | OG/Social Card | `16:9` | 1K | Editorial / Infographic | Frontmatter `ogImage` |
 | Inline Illustration | `16:9` or `4:3` | 1K | Varies by topic | After H2, before body |
 | Inline Product Shot | `4:3` or `1:1` | 1K | Product | Within product sections |
-| Section Divider | `8:1` or `4:1` | 1K | Abstract / Landscape | Between major sections |
+| Section Divider | `21:9` then crop | 1K | Abstract / Landscape | Between major sections |
 
 **Sizing requirements:**
 - Blog hero/cover: 1200x630 (OG-compatible) or 1920x1080
@@ -57,7 +57,7 @@ Match the image type to blog use case:
 
 Before generating, check if nanobanana-mcp tools are available:
 
-1. Try calling `get_image_history` (lightweight, no side effects)
+1. Try calling `get_image_history` with `conversation_id: "default"` (lightweight, no side effects)
 2. If it succeeds: MCP is available, proceed with generation
 3. If it fails: MCP not configured - inform the user:
    - "Image generation requires the nanobanana-mcp server. Run `/blog image setup` to configure it."
@@ -122,30 +122,30 @@ A [art style] [format] of [subject with character detail], featuring
 
 ### Step 4: Set Aspect Ratio
 
-Call `set_aspect_ratio` BEFORE generating:
+Call `set_aspect_ratio` BEFORE generating. Use `conversation_id: "default"`.
 
 | Blog Use Case | Ratio |
 |---------------|-------|
 | Hero / Cover / OG | `16:9` |
 | Product shot / Square | `4:3` or `1:1` |
-| Section divider | `8:1` or `4:1` |
+| Section divider | `21:9`, then crop wider in post-processing if needed |
 | Vertical (stories) | `9:16` |
 
 ### Step 5: Generate via MCP
 
 | MCP Tool | When |
 |----------|------|
-| `set_aspect_ratio` | Always call first if ratio differs from 1:1 |
+| `set_aspect_ratio` | Always call first, even for 1:1 |
 | `gemini_generate_image` | New image from crafted prompt |
 | `gemini_edit_image` | Modify existing image |
 | `gemini_chat` | Iterative refinement / multi-turn sessions |
-| `get_image_history` | Review generated images |
+| `get_image_history` | Review generated images with `conversation_id: "default"` |
 | `clear_conversation` | Reset session context |
 
-**Model selection** (use `set_model` MCP tool if switching):
-- **NB2 Flash** (`gemini-3.1-flash-image`, default): Best for most blog images - fast, 14 ratios, 4K, $0.067/img
-- **NB Pro** (`gemini-3-pro-image`): Use for hero images with text overlays (94% text accuracy) or highest quality - $0.134/img
-- **Original** (`gemini-2.5-flash-image`): Budget option at $0.039/img - 5 ratios, 1K max
+**Model selection** with the pinned MCP package:
+- `flash` (default): MCP alias for `gemini-3.1-flash-image`, best for most blog images
+- `pro`: MCP alias for `gemini-3-pro-image`, use for final hero images or text-heavy assets
+- `gemini-3.1-flash-lite-image`: use only through direct API or a newer MCP that explicitly supports the stable ID
 
 Load `references/mcp-tools.md` for parameter details.
 Load `references/gemini-models.md` for model specs, pricing, and rate limits.
@@ -161,7 +161,7 @@ magick input.png -resize 1200x630^ -gravity center -extent 1200x630 hero.png
 # Convert to WebP for web optimization
 magick input.png -quality 85 output.webp
 
-# Convert to AVIF (smallest, modern)
+# Convert to AVIF when target browsers support it
 magick input.png -quality 80 output.avif
 
 # Crop to exact OG dimensions
@@ -246,16 +246,20 @@ Bad: `SEO AI marketing blog optimization image`
 For `/blog image setup`:
 
 1. Run `python3 scripts/setup_image_mcp.py` (interactive)
-   - Or: `python3 scripts/setup_image_mcp.py --key YOUR_KEY` (non-interactive)
+   - Prefer: `GOOGLE_AI_API_KEY=... python3 scripts/setup_image_mcp.py`
+   - Or: `python3 scripts/setup_image_mcp.py --key-file /path/to/key.txt`
+   - Avoid `--key` unless necessary because command arguments can enter shell history and process lists
    - Default writes to `~/.claude/settings.json` (user-private, mode 0600)
    - `--project` flag opts into project `.mcp.json` (env-expansion only,
      refuses to write a literal key into a tracked file)
 2. Verify: `python3 scripts/validate_image_setup.py`
 3. Requires:
    - Node.js 18+ (npx)
-   - Google AI API key (free at https://aistudio.google.com/apikey)
-4. The script pins the package to `@ycse/nanobanana-mcp@1.1.1`. Update the
-   pin in `setup_image_mcp.py` (constant `PINNED_PACKAGE`) when bumping.
+   - Google AI API key, free to create at https://aistudio.google.com/apikey
+   - A billing-enabled project may be required for image models
+4. The script pins the package to `@ycse/nanobanana-mcp@1.1.1`, whose model
+   selector accepts MCP aliases such as `flash` and `pro`. Update setup,
+   validation, and this documentation together when bumping the package.
 
 ## Safety Filter Auto-Rephrase
 
@@ -288,7 +292,7 @@ preserve what works while fixing what doesn't.
 |-------|-----------|
 | MCP not configured | Run `/blog image setup` |
 | API key invalid | New key at https://aistudio.google.com/apikey |
-| Rate limited (429) | Wait 60s, retry. Free tier: ~5-15 RPM / ~20-500 RPD (varies by model and billing) |
+| Rate limited (429) | Wait 60s, retry. Check live limits at https://ai.google.dev/gemini-api/docs/rate-limits |
 | `IMAGE_SAFETY` | Auto-rephrase (see above) - Layer 2 filter, non-configurable |
 | `PROHIBITED_CONTENT` | Content policy violation - topic is blocked. Non-retryable. |
 | `SAFETY` | Rephrase prompt - Layer 1 filter |

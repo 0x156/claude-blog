@@ -21,7 +21,7 @@ Score every research output against these five dimensions before passing to `blo
 | Specificity | 25 | Named entities, exact numbers, dates beat general phrasing. "$47B Q3 2025 revenue" beats "tens of billions in revenue." Specific subreddit names, X handles, GitHub repos beat "the community says." |
 | Coverage | 20 | At least two independent sources per load-bearing claim. At least two perspectives represented (proponent + critic, vendor + customer, expert + practitioner). Single-source dependency on a load-bearing claim is a failure. |
 | Actionability | 15 | The reader can do something concrete with this. "Use X library, version Y, this way" beats "consider modern frameworks." Includes commands, configs, decision criteria, or a clear yes/no. |
-| Format compliance | 10 | Citations inline as `[name](url)` per `synthesis-contract.md`. No trailing Sources block when inline citations are present. No invented titles. No em-dashes. No raw-cluster dumps. |
+| Format compliance | 10 | Research synthesis uses citations inline as `[name](url)` per `synthesis-contract.md`. No duplicate trailing Sources block when inline citations are present. Publishable drafts may include compact retrieval notes required by FLOW. No invented titles. No em-dashes. No raw-cluster dumps. |
 
 ### Scoring procedure
 
@@ -181,7 +181,7 @@ For time-sensitive topics, require at least 2 sources published within the last 
 |---|---|---|
 | SparkToro 2026 zero-click study | 2026-06-09 | Yes (30d) |
 | Google Search Status Dashboard | 2026-06-30 | Yes (30d) |
-| Google FAQPage structured-data doc | 2026-05-07 | Yes (90d) |
+| Google FAQ and HowTo rich-result changes | 2023-08-08 | Historical policy baseline |
 | Semrush AI Overviews study | 2025-11 | NO (historical context only) |
 
 Floor satisfied: 2 sources within 30d (need >=2). PASS.

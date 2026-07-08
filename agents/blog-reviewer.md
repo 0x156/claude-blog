@@ -176,21 +176,29 @@ When reviewing citations, verify against this tier system:
 2. [Second priority]
 3. [Third priority]
 
-Nonce: [paste the 32-hex value from <draft>/.review-nonce here verbatim]
+Nonce: [paste the 32-hex nonce provided by the orchestrator here verbatim]
 BLOCKING: true|false (one-line reason)
 ```
 
 ## Nonce-bound provenance (v1.9.1)
 
-Before dispatching this agent, the orchestrator runs `blog_preflight.py --init-review-nonce --draft <dir>` which writes a fresh CSPRNG nonce to `<draft>/.review-nonce`. The agent MUST include a `Nonce: <32-hex>` line in `review.md` that matches the file. Gate 4 reads `.review-nonce` and verifies the match; mismatch or absence rejects the review.
+Before dispatching this agent, the orchestrator runs `blog_preflight.py --init-review-nonce --draft <dir>`. The script stores verifier state outside the draft folder and prints a fresh CSPRNG nonce. The orchestrator passes that nonce in the task prompt. The agent MUST include a `Nonce: <32-hex>` line in `review.md` that matches the provided value. Gate 4 verifies the external state; mismatch or absence rejects the review.
 
 This binds `review.md` to the agent invocation. Without it, any process with write access to the draft folder could satisfy Gate 4 by hand-writing `BLOCKING: false`.
 
-To find the nonce, the agent must read `<draft>/.review-nonce` (the orchestrator passes the draft folder as part of the agent prompt) and emit the value verbatim, lowercase, in the `Nonce:` line of the scorecard.
+Do not read a nonce from the draft folder. Use only the nonce supplied by the orchestrator, lowercase, in the `Nonce:` line of the scorecard.
 
 ## Blocking Decision (v1.9.0)
 
 The scorecard MUST end with a `BLOCKING: true|false (reason)` line. This line is machine-readable by `scripts/blog_preflight.py` Gate 4 and drives the iteration loop in the orchestrator.
+
+Gate 4 also parses these lines independently, so they must appear exactly:
+
+- `### Overall Score: [N]/100 - [Rating]`
+- `- Burstiness score: [N] - [Natural/Borderline/Flagged]`
+- `- AI phrases found: [N] - [list or none]`
+- `- Vocabulary diversity (TTR): [N] - [Rich/Normal/Low]`
+- A clear `no P0` or `zero P0` statement when no P0 issue exists
 
 Set `BLOCKING: true` if ANY of the following hold:
 
@@ -217,3 +225,6 @@ The reviewer is now a **blocking** gate, not advisory. The user does not see the
 - Be honest: do not inflate scores. A 75 that deserves a 75 is more helpful than a generous 85
 - Score content you cannot check (page speed, mobile) as N/A and note it
 - Count exact statistics, images, charts, headings; do not estimate
+- Score page speed and mobile as full credit only when Gate 3 evidence exists.
+  If evidence is unavailable, mark N/A and reweight the Technical Elements
+  denominator before reporting the 15-point category score

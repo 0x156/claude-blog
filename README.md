@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/License-MIT-green" alt="License: MIT">
   <img src="https://img.shields.io/badge/Python-3.11%2B-blue" alt="Python 3.11+">
   <img src="https://img.shields.io/badge/Sub--Skills-30-orange" alt="Sub-Skills">
-  <img src="https://img.shields.io/badge/Tests-206%20passing-brightgreen" alt="Tests: 206 passing">
+  <img src="https://img.shields.io/badge/Tests-217%20passing-brightgreen" alt="Tests: 217 passing">
 </p>
 
 <p align="center">
@@ -26,21 +26,21 @@
 > **Two versions of this skill.** Choose the one that fits how you work:
 >
 > - 🌐 **Public open-source**: [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog). MIT-licensed, public releases, open to anyone. Use this if you want the stable, downloadable, no-membership-required version.
-> - 🔒 **Community private mirror** (this repo): [`AI-Marketing-Hub/claude-blog`](https://github.com/AI-Marketing-Hub/claude-blog). Early access to in-development work (v1.9.0+ Blog Delivery Contract, hero ladder, mutation-tested regression coverage), and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
+> - 🔒 **Community private mirror** (this repo): [`AI-Marketing-Hub/claude-blog`](https://github.com/AI-Marketing-Hub/claude-blog). Early access to in-development work, including v1.11.0 audit remediation, the Blog Delivery Contract, hero ladder, mutation-tested regression coverage, and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
 >
 > The badges above track the **public** repo (`AgriciDaniel/claude-blog`) since the private mirror is not visible to shields.io. The publishing workflow (private dev, review, public release) is documented in [`docs/PUBLISHING.md`](docs/PUBLISHING.md).
 
 > **Blog:** [See how claude-blog works](https://agricidaniel.com/blog/claude-code-blog-writer)
 
-**claude-blog is a Claude Code skill suite that writes, optimizes, and audits blog content at scale.** Every article is dual-optimized for Google rankings (December 2025 Core Update, E-E-A-T) and AI citation platforms (ChatGPT, Perplexity, AI Overviews). A v1.9.0 5-gate Delivery Contract scores every draft against a 100-point rubric and blocks anything below 90 from reaching you.
+**claude-blog is a Claude Code skill suite that writes, optimizes, and audits blog content at scale.** Every article is dual-optimized for Google rankings ([2026 core and spam update timeline](https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history), E-E-A-T) and AI citation platforms (ChatGPT, Perplexity, AI Overviews). A v1.9.0 5-gate Delivery Contract scores every draft against a 100-point rubric and blocks anything below 90 from reaching you.
 
 ## Key takeaways
 
-- **What it is**: a full-lifecycle blog engine: 32 sub-skills, 5 agents, 12 content templates, 21 on-demand references, 13 root-level Python scripts, 206 passing tests.
+- **What it is**: a full-lifecycle blog engine: 32 sub-skills, 5 agents, 12 content templates, 21 on-demand references, 13 root-level Python scripts, 217 passing tests.
 - **Who it is for**: solo bloggers, marketing teams, agencies, and Claude Code skill builders who want production-grade content output, not one-shot drafts.
 - **Core promise**: every draft passes a 5-gate delivery contract (Capability, Format, Visual, Content Review, Asset Integrity) or the writer iterates up to 3 times before escalating to you.
 - **What makes it different**: it eats its own dogfood. Version-coherence is CI-enforced across 14 surfaces, prose-hygiene runs on every PR, three mutation-tested regression suites lock the v1.9.0 fixes, and `blog-reviewer` is a BLOCKING gate, not advisory.
-- **Today**: v1.9.0, released 2026-05-18. Works on Next.js MDX, Astro, Hugo, Jekyll, WordPress, Ghost, 11ty, Gatsby, and static HTML.
+- **Today**: v1.11.0, released 2026-07-08. Works on Next.js MDX, Astro, Hugo, Jekyll, WordPress, Ghost, 11ty, Gatsby, and static HTML.
 
 ## Who is claude-blog for?
 
@@ -50,7 +50,7 @@ claude-blog serves three audiences with one engine:
 
 **Marketing teams and agencies** managing many posts across topics, languages, and platforms. The skill ships topic-cluster planning (`/blog cluster`), multilingual one-command publishing (`/blog multilingual`), cannibalization detection (`/blog cannibalization`), and persona-driven voice profiles (`/blog persona`) so the same engine produces consistent content across the team.
 
-**Claude Code skill builders** who want a production-grade reference for skill architecture, agent dispatch, delivery contracts, and CI gating. The repo demonstrates the Agent Skills open standard at Tier 4 complexity with 206 tests, version-coherence enforcement, installer-sync regression tests, and the v1.9.0 5-gate contract pattern. Read the source for inspiration; fork the patterns into your own skills.
+**Claude Code skill builders** who want a production-grade reference for skill architecture, agent dispatch, delivery contracts, and CI gating. The repo demonstrates the Agent Skills open standard at Tier 4 complexity with 217 tests, version-coherence enforcement, installer-sync regression tests, and the v1.9.0 5-gate contract pattern. Read the source for inspiration; fork the patterns into your own skills.
 
 ## What does claude-blog produce?
 
@@ -135,19 +135,20 @@ Alongside the `.md`, the contract also produces: rendered `.html` (XSS-safe JSON
 ```bash
 git clone https://github.com/AI-Marketing-Hub/claude-blog.git
 cd claude-blog
-git checkout v1.9.0          # pin to a release tag (latest as of 2026-05-18)
+git checkout v1.11.0         # pin to a release tag (latest as of 2026-07-08)
 chmod +x install.sh && ./install.sh
 ```
 
 **One-Command Install (Unix/macOS):**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | CLAUDE_BLOG_REF=v1.11.0 bash
 ```
 
 **One-Command Install (Windows PowerShell):**
 
 ```powershell
+$env:CLAUDE_BLOG_REF = "v1.11.0"
 irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 | iex
 ```
 
@@ -158,11 +159,11 @@ irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.
 ```bash
 # Download, verify SHA-256, then run if the hash matches.
 curl -fsSL -o install.sh https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh
-echo "029388e448dd29bed259b130c2be42e2f6a16d4d5b6801a61bfb4f49b621fc04  install.sh" | sha256sum -c
-bash install.sh
+echo "6356a4ec5d2123b32c8316a6d85ef97e489715194319ae27201816d84e996028  install.sh" | sha256sum -c
+CLAUDE_BLOG_REF=v1.11.0 bash install.sh
 ```
 
-The SHA-256 above is for the current `install.sh` at HEAD on `main`. Verify against [the canonical file](https://github.com/AI-Marketing-Hub/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `6d03f353e5d844c4fe5c7c0b2500bd1e2aad02468cd544013bab876735cebf98`. Hashes are updated in this README on every installer change.
+The SHA-256 above is for the current `install.sh` at HEAD on `main`; `CLAUDE_BLOG_REF` pins the repository clone performed by the installer. Verify against [the canonical file](https://github.com/AI-Marketing-Hub/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `b3516a6a5c0ec709b156e2a90626d4eb6a7066fdf8499714306f56b6738b58be`. Hashes are updated in this README on every installer change.
 
 Restart Claude Code after installation to activate.
 
@@ -208,8 +209,10 @@ Restart Claude Code after installation to activate.
 | `/blog flow [find\|optimize\|win\|prompts\|sync]` | FLOW framework prompts (evidence-led, 30 blog-applicable) |
 | `/blog brand [init\|show\|update]` | Generate BRAND.md + VOICE.md context auto-loaded by all sub-skills |
 | `/blog discourse <topic>` | API-free last-30-days discourse research; produces DISCOURSE.md |
+| `/blog style learn <paths>` | Learn an author voice profile from existing posts |
+| `/blog decay <current-gsc> <previous-gsc>` | Detect content decay from GSC exports |
 
-> **32 sub-skill directories total**: 31 user-invokable (30 distinct slash commands + `/blog update` aliased to rewrite) + 1 internal-only (`blog-chart`, invoked by blog-write/blog-rewrite for inline SVG charts). `blog-image` is user-invokable AND callable internally.
+> **32 sub-skill directories total**: 31 user-invokable command groups + 1 internal-only (`blog-chart`, invoked by blog-write/blog-rewrite for inline SVG charts). `blog-image` is user-invokable AND callable internally.
 
 ## How does claude-blog compare?
 
@@ -263,7 +266,7 @@ Tag and category sync supporting WordPress REST, Shopify GraphQL, Ghost, Strapi,
 
 ### Dual optimization
 Every article targets both Google rankings and AI citation platforms:
-- **Google**: December 2025 Core Update compliance, E-E-A-T signals, schema markup, internal linking, Core Web Vitals awareness via blog-google.
+- **Google**: 2026 core and spam update awareness, E-E-A-T signals, schema markup, internal linking, Core Web Vitals awareness via blog-google.
 - **AI Citations**: Answer-first formatting, citation capsules, passage-level citability (120-180 word blocks), FAQ schema, entity clarity.
 
 ### Visual media
@@ -343,8 +346,8 @@ claude-blog ships as one orchestrator plus 31 sub-skills, 5 agents, 21 reference
 | Specialized agents | 5 | `agents/blog-*.md` |
 | On-demand references | 21 | `skills/blog/references/*.md` |
 | Content templates | 12 | `skills/blog/templates/*.md` |
-| Root-level Python scripts | 9 | `scripts/*.py` |
-| Tests | 206 | `tests/test_*.py` |
+| Root-level Python scripts | 13 | `scripts/*.py` |
+| Tests | 217 | `tests/test_*.py` |
 
 Full directory tree, data flow diagrams, scoring methodology, and extension points: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -356,7 +359,7 @@ Full directory tree, data flow diagrams, scoring methodology, and extension poin
 
 ### Quality gates (CI-enforced on every PR)
 
-1. **pytest**: 206 tests across security, behavioral, regression, and delivery-contract suites.
+1. **pytest**: 217 tests across security, behavioral, regression, and delivery-contract suites.
 2. **Plugin validation**: `claude plugin validate .` plus hand-rolled JSON/regex checks.
 3. **Stale-path lint**: catches drift in `references/` and `templates/` cross-references.
 4. **Prose hygiene**: `scripts/lint_prose.py` (fence-aware, backtick-aware) enforces the CONTRIBUTING.md no-em-dash, no-en-dash, no-` -- ` rule.
@@ -365,7 +368,7 @@ Full directory tree, data flow diagrams, scoring methodology, and extension poin
 
 Run locally before pushing:
 ```bash
-python -m pytest tests/
+python3 -m pytest tests/
 python3 scripts/lint_prose.py
 claude plugin validate .
 ```
@@ -402,16 +405,13 @@ The installer ships only Python scripts and markdown files, never executes remot
 ## Roadmap
 
 <p align="center">
-  <img src="assets/diagrams/05-roadmap-A.svg" alt="claude-blog wave roadmap on a horizontal timeline: v1.6.0 foundation (Mar 2026), v1.7.0 FLOW framework (Apr 2026), v1.8.0 impeccable methodology (May 2026), v1.9.0 delivery contract (current, May 2026), v2.0.0 multi-CMS publishing (Q3 2026), v3.0.0 blog-as-code (Q1 2027)" width="100%">
+  <img src="assets/diagrams/05-roadmap-A.svg" alt="claude-blog wave roadmap on a horizontal timeline: v1.6.0 foundation (Mar 2026), v1.7.0 FLOW framework (Apr 2026), v1.8.0 methodology (May 2026), v1.9.0 delivery contract (May 2026), v1.11.0 audit remediation (current, Jul 2026), v2.0.0 multi-CMS publishing (Q3 2026), v3.0.0 blog-as-code (Q1 2027)" width="100%">
 </p>
 
-**v1.9.1 (next)**
-- Shared `_count_body_words(html)` function between `blog_render` and `blog_preflight` to close the v1.9.0 audit residual.
-- `generate_hero.py` exit-code semantics: non-zero on no-image-gen-path (currently returns JSON error with exit 0).
-- Iteration-loop coverage test verifying the orchestrator escalates after 3 reviewer BLOCKS, not 4.
-- Sweep remaining docs (CONTRIBUTORS, NOTICE, SECURITY, PRIVACY, TEMPLATES, TROUBLESHOOTING, MCP-INTEGRATION, DEMO) for any residual v1.x stratum drift.
+**v1.11.0 (current)**
+- Private-mirror installer defaults, pinned-ref support, recursive skill payload copy, manifest-backed Unix uninstall, and docs/count remediation.
 
-**v1.10 (vision)**
+**v1.12.0 (next)**
 - Live SERP-informed outline refinement via DataForSEO mid-write.
 - Eval harness measuring blog quality across configurations (BRAND.md presence, persona variant, multilingual mode).
 - Code-enforced iteration counter (currently orchestrator-instruction; promote to script-level).
@@ -471,7 +471,7 @@ If you use claude-blog in research or production, please cite the project:
   title        = {claude-blog: AI Blog Writing and SEO Optimization Skill for Claude Code},
   year         = {2026},
   url          = {https://github.com/AgriciDaniel/claude-blog},
-  version      = {1.9.0},
+  version      = {1.11.0},
   license      = {MIT}
 }
 ```
@@ -487,7 +487,7 @@ GitHub also surfaces the structured [`CITATION.cff`](CITATION.cff) file via "Cit
 
 Contributions welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for guidelines. Before opening a PR:
 
-1. Run `python -m pytest tests/` (all 206 must pass).
+1. Run `python3 -m pytest tests/` (all 217 must pass).
 2. Run `python3 scripts/lint_prose.py --root .` (zero violations).
 3. Run `claude plugin validate .` (must pass).
 4. Bump versions coherently if you touch user-visible counts or behavior (see [`docs/PUBLISHING.md`](docs/PUBLISHING.md)).

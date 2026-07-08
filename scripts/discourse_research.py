@@ -29,11 +29,11 @@ Input JSON schema:
     ]
 
 Usage:
-    python discourse_research.py --input results.json --topic "topic" \\
+    python3 discourse_research.py --input results.json --topic "topic" \\
         --days 30 --output DISCOURSE.md
-    python discourse_research.py --input results.json --topic "topic" \\
+    python3 discourse_research.py --input results.json --topic "topic" \\
         --format json     # prints JSON brief to stdout, no file output
-    python discourse_research.py --input - --topic "topic" --days 90   # stdin
+    python3 discourse_research.py --input - --topic "topic" --days 90   # stdin
 
 Output JSON schema:
     {
@@ -103,9 +103,9 @@ STOPWORDS = {
 }
 
 EM_DASH_REPLACEMENTS = {
-    "—": " - ",   # unicode em-dash
-    "–": " - ",   # unicode en-dash
-    " -- ": " - ",  # ASCII double-hyphen (LAW 3); space-flanked only
+    "\u2014": " - ",   # unicode em-dash
+    "\u2013": " - ",   # unicode en-dash
+    "\x20--\x20": " - ",  # ASCII double-hyphen (LAW 3); space-flanked only
 }
 
 
@@ -180,13 +180,16 @@ def _read_safely(path: Path, max_bytes: int, label: str) -> str:
             )
         with os.fdopen(fd, "r", encoding="utf-8") as f:
             fd = -1  # ownership transferred to file object
-            return f.read(max_bytes + 1)
+            data = f.read(max_bytes + 1)
     finally:
         if fd != -1:
             try:
                 os.close(fd)
             except OSError:
                 pass
+    if len(data.encode("utf-8")) > max_bytes:
+        raise ValueError(f"{label} exceeds size cap after read ({max_bytes}): {path}")
+    return data
 
 
 def _validate_input_path(path: Path, max_bytes: int, label: str) -> Path:
@@ -394,8 +397,10 @@ def score_item(item: dict[str, Any], today: dt.date, window_days: int) -> float:
     date = parse_date(item.get("date"))
     if date is None:
         recency_score = RECENCY_WEIGHT * 0.5
+    elif date > today:
+        recency_score = 0.0
     else:
-        age_days = max(0, (today - date).days)
+        age_days = (today - date).days
         if age_days > window_days * 3:
             recency_score = 0.0
         else:
@@ -560,7 +565,9 @@ _SPECIFICS_KEYWORD_RE = re.compile(
 
 def _is_recent(item: dict[str, Any], today: dt.date, window_days: int) -> bool:
     d = parse_date(item.get("date"))
-    return d is not None and (today - d).days <= window_days
+    if d is None or d > today:
+        return False
+    return (today - d).days <= window_days
 
 
 def classify_clusters(
@@ -638,6 +645,19 @@ def _safe_link_text(text: str) -> str:
     return collapsed.replace("\\", "\\\\").replace("]", r"\]").replace("[", r"\[")
 
 
+def _safe_markdown_text(text: str) -> str:
+    """Escape Markdown control characters in user-supplied headings and lists."""
+    cleaned = strip_em_dashes(" ".join(str(text).split()))
+    return (
+        cleaned.replace("\\", "\\\\")
+        .replace("[", r"\[")
+        .replace("]", r"\]")
+        .replace("|", r"\|")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+    )
+
+
 def _safe_link_url(url: str) -> str | None:
     """Validate a URL for safe markdown-link rendering.
     Returns the url if it is http/https; None otherwise (FIND-019).
@@ -702,7 +722,7 @@ def render_cluster_paragraph(cluster: dict[str, Any]) -> str:
 def _render_header(topic: str, generated: dt.date, window_days: int,
                    item_count: int, platforms_used: int) -> list[str]:
     return [
-        f"# Discourse Brief: {topic}",
+        f"# Discourse Brief: {_safe_markdown_text(topic)}",
         "",
         f"> Generated {generated.isoformat()} via /blog discourse. "
         f"Window: last {window_days} days. "
@@ -716,7 +736,7 @@ def _render_decomposition(decomposition: list[str] | None) -> list[str]:
         return []
     lines = ["## Decomposition", ""]
     for i, q in enumerate(decomposition, 1):
-        lines.append(f"{i}. {q}")
+        lines.append(f"{i}. {_safe_markdown_text(q)}")
     lines.append("")
     return lines
 
@@ -863,6 +883,10 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    if args.days < 1:
+        print("Error: --days must be at least 1", file=sys.stderr)
+        return 2
+
     try:
         items = load_results(args.input)
     except FileNotFoundError as e:
@@ -881,9 +905,10 @@ def main() -> int:
             decomp_path = _validate_input_path(
                 Path(args.decomposition), MAX_DECOMP_BYTES, "Decomposition file"
             )
+            decomp_text = _read_safely(decomp_path, MAX_DECOMP_BYTES, "Decomposition file")
             decomposition = [
                 line.strip()
-                for line in decomp_path.read_text(encoding="utf-8").splitlines()
+                for line in decomp_text.splitlines()
                 if line.strip()
             ]
         except (FileNotFoundError, ValueError) as e:

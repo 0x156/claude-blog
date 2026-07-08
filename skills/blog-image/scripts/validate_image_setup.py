@@ -12,22 +12,31 @@ Checks:
 
 Usage:
     python3 validate_image_setup.py
+    python3 validate_image_setup.py --json
 """
 
+import argparse
 import json
+import os
+import re
 import shutil
 import sys
+import tempfile
 from pathlib import Path
 
 MCP_NAME = "nanobanana-mcp"
 OUTPUT_DIR = Path.home() / "Documents" / "nanobanana_generated"
 GLOBAL_SETTINGS_PATH = Path.home() / ".claude" / "settings.json"
-DEFAULT_NANOBANANA_MODEL = "gemini-3.1-flash-image"
-SUPPORTED_GA_MODELS = {
-    "gemini-3.1-flash-image": "Nano Banana 2 default",
-    "gemini-3-pro-image": "Nano Banana Pro high quality",
-    "gemini-3.1-flash-lite-image": "Nano Banana Lite low latency",
-    "gemini-2.5-flash-image": "Nano Banana Original stable fallback",
+DEFAULT_NANOBANANA_MODEL = "flash"
+SUPPORTED_MCP_MODEL_ALIASES = {
+    "flash": "MCP alias for gemini-3.1-flash-image",
+    "pro": "MCP alias for gemini-3-pro-image",
+}
+DIRECT_API_MODELS = {
+    "gemini-3.1-flash-image": "Nano Banana 2 direct API ID",
+    "gemini-3-pro-image": "Nano Banana Pro direct API ID",
+    "gemini-3.1-flash-lite-image": "Nano Banana Lite direct API ID",
+    "gemini-2.5-flash-image": "Nano Banana Original direct API ID",
 }
 DEPRECATED_MODEL_REPLACEMENTS = {
     "gemini-3.1-flash-image-preview": (
@@ -57,6 +66,7 @@ DEPRECATED_MODEL_REPLACEMENTS = {
         "use gemini-3.1-flash-image"
     ),
 }
+PLACEHOLDER_RE = re.compile(r"^\$\{([A-Za-z_][A-Za-z0-9_]*)\}$")
 
 
 def find_project_mcp_json() -> Path:
@@ -82,17 +92,20 @@ def find_project_mcp_json() -> Path:
     return None
 
 
-def check(label: str, passed: bool, detail: str = "") -> bool:
+def check(label: str, passed: bool, detail: str = "", results: list = None, quiet: bool = False) -> bool:
     status = "PASS" if passed else "FAIL"
     msg = f"  [{status}] {label}"
     if detail:
         msg += f" - {detail}"
-    print(msg)
+    if results is not None:
+        results.append({"label": label, "passed": passed, "detail": detail})
+    if not quiet:
+        print(msg)
     return passed
 
 
 def _supported_model_list() -> str:
-    return ", ".join(sorted(SUPPORTED_GA_MODELS))
+    return ", ".join(sorted(SUPPORTED_MCP_MODEL_ALIASES))
 
 
 def validate_nanobanana_model(model: str) -> tuple:
@@ -100,8 +113,13 @@ def validate_nanobanana_model(model: str) -> tuple:
     model = (model or "").strip()
     if not model:
         return True, f"(not set - package will use default {DEFAULT_NANOBANANA_MODEL})"
-    if model in SUPPORTED_GA_MODELS:
-        return True, f"{model} ({SUPPORTED_GA_MODELS[model]})"
+    if model in SUPPORTED_MCP_MODEL_ALIASES:
+        return True, f"{model} ({SUPPORTED_MCP_MODEL_ALIASES[model]})"
+    if model in DIRECT_API_MODELS:
+        return False, (
+            f"{model} ({DIRECT_API_MODELS[model]}; pinned @ycse/nanobanana-mcp@1.1.1 "
+            "expects aliases flash or pro)"
+        )
     if model in DEPRECATED_MODEL_REPLACEMENTS:
         return False, f"{model} (WARNING: {DEPRECATED_MODEL_REPLACEMENTS[model]})"
     if "-preview" in model:
@@ -113,7 +131,7 @@ def validate_nanobanana_model(model: str) -> tuple:
 
 
 def find_mcp_config() -> tuple:
-    """Find MCP config in project or global settings. Returns (config_dict, path_label)."""
+    """Find MCP config. Returns (config_dict, path_label, error)."""
     # Try project .mcp.json first
     project_path = find_project_mcp_json()
     if project_path and project_path.exists():
@@ -121,9 +139,14 @@ def find_mcp_config() -> tuple:
             with open(project_path) as f:
                 config = json.load(f)
             if MCP_NAME in config.get("mcpServers", {}):
-                return config, f"project .mcp.json ({project_path})"
-        except (json.JSONDecodeError, OSError):
-            pass
+                return config, f"project .mcp.json ({project_path})", None
+        except json.JSONDecodeError as exc:
+            return None, None, (
+                f"Invalid JSON in project .mcp.json ({project_path}): "
+                f"line {exc.lineno}, column {exc.colno}"
+            )
+        except OSError as exc:
+            return None, None, f"Cannot read project .mcp.json ({project_path}): {exc}"
 
     # Fallback to global settings
     if GLOBAL_SETTINGS_PATH.exists():
@@ -131,36 +154,59 @@ def find_mcp_config() -> tuple:
             with open(GLOBAL_SETTINGS_PATH) as f:
                 config = json.load(f)
             if MCP_NAME in config.get("mcpServers", {}):
-                return config, f"global settings ({GLOBAL_SETTINGS_PATH})"
-        except (json.JSONDecodeError, OSError):
-            pass
+                return config, f"global settings ({GLOBAL_SETTINGS_PATH})", None
+        except json.JSONDecodeError as exc:
+            return None, None, (
+                f"Invalid JSON in global settings ({GLOBAL_SETTINGS_PATH}): "
+                f"line {exc.lineno}, column {exc.colno}"
+            )
+        except OSError as exc:
+            return None, None, f"Cannot read global settings ({GLOBAL_SETTINGS_PATH}): {exc}"
 
-    return None, None
+    return None, None, None
 
 
 def main() -> int:
-    print("claude-blog - Image Generation Setup Validation")
-    print("=" * 48)
+    parser = argparse.ArgumentParser(description="Validate nanobanana-mcp setup")
+    parser.add_argument("--json", action="store_true", help="Output structured JSON")
+    args = parser.parse_args()
+    quiet = args.json
+    checks = []
+
+    if not quiet:
+        print("claude-blog - Image Generation Setup Validation")
+        print("=" * 48)
     results = []
 
     # 1-2. Find and load config
-    config, config_label = find_mcp_config()
+    config, config_label, config_error = find_mcp_config()
+
+    if config_error:
+        results.append(check("MCP config parseable", False, config_error, checks, quiet))
+        if args.json:
+            print(json.dumps({"status": "error", "checks": checks}, indent=2))
+        return 1
 
     if config is None:
         results.append(check(
             "MCP config found",
             False,
             "Not found in project .mcp.json or global settings.json",
+            checks,
+            quiet,
         ))
-        print(f"\nRun: python3 scripts/setup_image_mcp.py --key YOUR_KEY")
+        if args.json:
+            print(json.dumps({"status": "error", "checks": checks}, indent=2))
+        else:
+            print(f"\nRun: python3 scripts/setup_image_mcp.py")
         return 1
 
-    results.append(check("MCP config found", True, config_label))
+    results.append(check("MCP config found", True, config_label, checks, quiet))
 
     # 3. MCP entry exists
     servers = config.get("mcpServers", {})
     has_mcp = MCP_NAME in servers
-    results.append(check(f"MCP server '{MCP_NAME}' configured", has_mcp))
+    results.append(check(f"MCP server '{MCP_NAME}' configured", has_mcp, results=checks, quiet=quiet))
 
     if has_mcp:
         mcp = servers[MCP_NAME]
@@ -170,6 +216,8 @@ def main() -> int:
             "Command is 'npx'",
             mcp.get("command") == "npx",
             mcp.get("command", "(missing)"),
+            checks,
+            quiet,
         ))
 
         # 5. Package is correct (accepts pinned versions like @ycse/nanobanana-mcp@1.1.1)
@@ -189,19 +237,24 @@ def main() -> int:
             "Package is @ycse/nanobanana-mcp",
             has_pkg,
             pkg_detail,
+            checks,
+            quiet,
         ))
 
         # 6. API key present
         env = mcp.get("env", {})
         key = env.get("GOOGLE_AI_API_KEY", "")
-        # Accept env var placeholders as configured, but warn about ${} syntax
-        key_set = bool(key) and key != ""
-        is_placeholder = key.startswith("${") and key.endswith("}")
-        if is_placeholder:
+        key_set = bool(key)
+        placeholder_match = PLACEHOLDER_RE.match(key or "")
+        if placeholder_match:
+            var_name = placeholder_match.group(1)
+            resolved = bool(os.environ.get(var_name))
             results.append(check(
                 "GOOGLE_AI_API_KEY is set",
-                True,
-                f"{key} (env var placeholder - ensure this variable is exported in your shell)",
+                resolved,
+                f"{key} resolves from environment" if resolved else f"{var_name} is not exported",
+                checks,
+                quiet,
             ))
         else:
             # Closes audit VULN-032: length-only display, no prefix/suffix leak.
@@ -210,6 +263,8 @@ def main() -> int:
                 "GOOGLE_AI_API_KEY is set",
                 key_set,
                 display,
+                checks,
+                quiet,
             ))
 
         # 7. Model configured (optional - package has a supported GA default)
@@ -219,6 +274,8 @@ def main() -> int:
             "NANOBANANA_MODEL is supported",
             model_ok,
             model_detail,
+            checks,
+            quiet,
         ))
 
     # 8. Node.js/npx available
@@ -227,21 +284,45 @@ def main() -> int:
         "npx is available in PATH",
         has_npx,
         shutil.which("npx") or "not found - install Node.js 18+",
+        checks,
+        quiet,
     ))
 
     # 9. Output directory
     if OUTPUT_DIR.exists():
-        results.append(check("Output directory exists", True, str(OUTPUT_DIR)))
-    else:
         try:
-            OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-            results.append(check("Output directory created", True, str(OUTPUT_DIR)))
+            with tempfile.NamedTemporaryFile(
+                dir=OUTPUT_DIR,
+                prefix=".validate-",
+                suffix=".tmp",
+                delete=True,
+            ):
+                pass
+            results.append(check("Output directory writable", True, str(OUTPUT_DIR), checks, quiet))
         except OSError as e:
-            results.append(check("Output directory writable", False, str(e)))
+            results.append(check("Output directory writable", False, str(e), checks, quiet))
+    else:
+        parent_ok = OUTPUT_DIR.parent.exists() and os.access(OUTPUT_DIR.parent, os.W_OK)
+        results.append(check(
+            "Output directory parent writable",
+            parent_ok,
+            f"{OUTPUT_DIR} will be created by generation" if parent_ok else str(OUTPUT_DIR.parent),
+            checks,
+            quiet,
+        ))
 
     # Summary
     passed = sum(1 for r in results if r)
     total = len(results)
+    if args.json:
+        print(json.dumps({
+            "status": "success" if passed == total else "error",
+            "passed": passed,
+            "total": total,
+            "checks": checks,
+        }, indent=2))
+        return 0 if passed == total else 1
+
     print(f"\n{'=' * 48}")
     print(f"Results: {passed}/{total} checks passed")
 
@@ -250,7 +331,7 @@ def main() -> int:
         return 0
     else:
         print("Status: Some checks failed. Fix the issues above.")
-        print("Setup: python3 scripts/setup_image_mcp.py --key YOUR_KEY")
+        print("Setup: python3 scripts/setup_image_mcp.py")
         return 1
 
 

@@ -7,12 +7,12 @@ technical elements, and AI citation readiness. Returns structured JSON, markdown
 reports, or compact tables.
 
 Usage:
-    python analyze_blog.py <file>                          # Default JSON output
-    python analyze_blog.py <file> --format markdown        # Markdown report
-    python analyze_blog.py <file> --format table           # Compact table
-    python analyze_blog.py <directory> --batch --sort score # Batch with sorting
-    python analyze_blog.py <file> --category seo           # Single category detail
-    python analyze_blog.py <file> --fix                    # Output specific fixes
+    python3 analyze_blog.py <file>                          # Default JSON output
+    python3 analyze_blog.py <file> --format markdown        # Markdown report
+    python3 analyze_blog.py <file> --format table           # Compact table
+    python3 analyze_blog.py <directory> --batch --sort score # Batch with sorting
+    python3 analyze_blog.py <file> --category seo           # Single category detail
+    python3 analyze_blog.py <file> --fix                    # Output specific fixes
 
 Scoring:
     Content Quality       30 pts   Depth, readability, originality, structure, engagement, grammar
@@ -33,10 +33,15 @@ Optional dependencies (graceful degradation):
 """
 
 import argparse
+import errno
 import json
 import math
+import os
 import re
+import stat
 import sys
+import tempfile
+import urllib.parse
 from pathlib import Path
 from typing import Any
 
@@ -84,7 +89,7 @@ AI_PHRASES = [
     "empower", "state-of-the-art",
 ]
 
-# AI trigger words (single words that spiked >50% post-ChatGPT)
+# Configurable editorial terms to flag for manual review.
 AI_TRIGGER_WORDS = [
     "delve", "tapestry", "multifaceted", "testament", "pivotal", "robust",
     "cutting-edge", "furthermore", "indeed", "moreover", "utilize", "leverage",
@@ -123,6 +128,8 @@ CONTENT_TYPE_BENCHMARKS: dict[str, tuple[int, int]] = {
 # Source tier classification
 # ---------------------------------------------------------------------------
 
+MAX_INPUT_BYTES = 10 * 1024 * 1024
+
 TIER1_DOMAINS = [
     'nature.com', 'science.org', 'gov', 'edu', 'who.int', 'nih.gov',
     'cdc.gov', 'bls.gov', 'census.gov', 'europa.eu', 'un.org',
@@ -134,6 +141,68 @@ TIER2_DOMAINS = [
     'washingtonpost.com', 'economist.com', 'forbes.com', 'hbr.org',
     'mckinsey.com', 'gartner.com', 'statista.com', 'pew', 'gallup.com',
 ]
+
+
+def _read_safely(path: Path, max_bytes: int = MAX_INPUT_BYTES) -> str:
+    """Read a regular non-symlink file with a size cap."""
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    elif path.is_symlink():
+        raise ValueError(f"refusing to follow symlink: {path}")
+    try:
+        fd = os.open(str(path), flags)
+    except OSError as exc:
+        if exc.errno == errno.ELOOP:
+            raise ValueError(f"refusing to follow symlink: {path}") from exc
+        raise
+    try:
+        st = os.fstat(fd)
+        if not stat.S_ISREG(st.st_mode):
+            raise ValueError(f"not a regular file: {path}")
+        if st.st_size > max_bytes:
+            raise ValueError(f"input exceeds size cap ({st.st_size} > {max_bytes}): {path}")
+        data = os.read(fd, max_bytes + 1)
+    finally:
+        os.close(fd)
+    if len(data) > max_bytes:
+        raise ValueError(f"input exceeds size cap after read ({max_bytes}): {path}")
+    return data.decode("utf-8")
+
+
+def _safe_write_text(path: str | Path, text: str) -> None:
+    """Write output atomically and refuse symlink targets."""
+    out = Path(path)
+    if out.exists() and out.is_symlink():
+        raise ValueError(f"output path is a symlink: {out}")
+    if not out.parent.exists():
+        raise ValueError(f"output directory does not exist: {out.parent}")
+    fd, tmp = tempfile.mkstemp(dir=str(out.parent), prefix=f".{out.name}.", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(text)
+        os.replace(tmp, out)
+    except Exception:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
+
+
+def _hostname(url: str) -> str:
+    try:
+        parsed = urllib.parse.urlparse(url)
+    except ValueError:
+        return ""
+    return (parsed.hostname or "").lower().rstrip(".")
+
+
+def _host_matches_domain(host: str, domain: str) -> bool:
+    domain = domain.lower().rstrip(".")
+    if domain in {"gov", "edu"}:
+        return host == domain or host.endswith(f".{domain}")
+    return host == domain or host.endswith(f".{domain}")
 
 # ---------------------------------------------------------------------------
 # Frontmatter extraction (kept from original)
@@ -329,12 +398,14 @@ def analyze_charts(content: str) -> dict[str, Any]:
 
 def _classify_source_tier(url: str) -> int:
     """Classify a URL into tier 1, 2, or 3."""
-    url_lower = url.lower()
+    host = _hostname(url)
+    if not host:
+        return 3
     for domain in TIER1_DOMAINS:
-        if domain in url_lower:
+        if _host_matches_domain(host, domain):
             return 1
     for domain in TIER2_DOMAINS:
-        if domain in url_lower:
+        if _host_matches_domain(host, domain):
             return 2
     return 3
 
@@ -798,8 +869,11 @@ def analyze_ai_citation_readiness(content: str, headings_info: dict[str, Any],
     table_count = len(re.findall(r'^\|.+\|$', content, re.MULTILINE))
     list_count = len(re.findall(r'^[\s]*[-*+]\s', content, re.MULTILINE))
 
-    # AI crawler accessibility
-    has_robots_meta = bool(re.search(r'(?i)robots|noai|noindex', content))
+    # AI crawler accessibility: inspect actual meta / robots directives only.
+    has_robots_meta = bool(re.search(
+        r'(?is)<meta[^>]+name=["\']robots["\'][^>]+content=["\'][^"\']*(?:noindex|noai)[^"\']*["\']',
+        content,
+    ))
 
     return {
         'citable_passages': citable_passages,
@@ -1467,7 +1541,10 @@ def analyze_file(file_path: str) -> dict[str, Any]:
     if not path.exists():
         return {'error': f'File not found: {file_path}'}
 
-    content = path.read_text(encoding='utf-8')
+    try:
+        content = _read_safely(path)
+    except (OSError, UnicodeDecodeError, ValueError) as exc:
+        return {'error': f'Could not analyze {file_path}: {exc}'}
     frontmatter = extract_frontmatter(content)
     body = strip_frontmatter(content)
 
@@ -1784,7 +1861,7 @@ def main(args: argparse.Namespace) -> None:
         else:
             output = json.dumps(batch_result, indent=2)
             if args.output:
-                Path(args.output).write_text(output)
+                _safe_write_text(args.output, output)
                 print(f'Report saved to {args.output}', file=sys.stderr)
             else:
                 print(output)
@@ -1815,7 +1892,7 @@ def main(args: argparse.Namespace) -> None:
     if fmt == 'markdown':
         output = _format_markdown(result)
         if args.output:
-            Path(args.output).write_text(output)
+            _safe_write_text(args.output, output)
             print(f'Report saved to {args.output}', file=sys.stderr)
         else:
             print(output)
@@ -1824,7 +1901,7 @@ def main(args: argparse.Namespace) -> None:
     else:
         output = json.dumps(result, indent=2)
         if args.output:
-            Path(args.output).write_text(output)
+            _safe_write_text(args.output, output)
             print(f'Report saved to {args.output}', file=sys.stderr)
         else:
             print(output)
@@ -1838,12 +1915,12 @@ if __name__ == '__main__':
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python analyze_blog.py post.md                          Default JSON output
-  python analyze_blog.py post.md --format markdown        Markdown report
-  python analyze_blog.py post.md --format table           Compact table
-  python analyze_blog.py ./posts --batch --sort score     Batch analysis
-  python analyze_blog.py post.md --category seo           Single category detail
-  python analyze_blog.py post.md --fix                    Prioritized fix list
+  python3 analyze_blog.py post.md                          Default JSON output
+  python3 analyze_blog.py post.md --format markdown        Markdown report
+  python3 analyze_blog.py post.md --format table           Compact table
+  python3 analyze_blog.py ./posts --batch --sort score     Batch analysis
+  python3 analyze_blog.py post.md --category seo           Single category detail
+  python3 analyze_blog.py post.md --fix                    Prioritized fix list
 
 Scoring Categories (100 points):
   Content Quality        30 pts   Depth, readability, originality, structure

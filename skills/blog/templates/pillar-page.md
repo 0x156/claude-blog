@@ -65,7 +65,7 @@ Auto-generated from H2 headings. Use anchor links for jump navigation. This impr
 - [Core Section 4](#core-section-4)
 - [Core Section 5](#core-section-5)
 - [Core Section 6](#core-section-6)
-- [Advanced: [Expert-Level Sub-topic]](#advanced-section)
+- [Advanced: [Expert-Level Sub-topic]](#advanced-expert-level-sub-topic)
 - [Tools & Resources](#tools-resources)
 - [Getting Started](#getting-started)
 - [FAQ](#faq)

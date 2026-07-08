@@ -12,7 +12,7 @@
 - [VideoObject Schema](#videoobject-schema)
 - [Speakable Schema](#speakable-schema)
 - [Stable @id Patterns](#stable-id-patterns)
-- [Deprecated Schema Types: NEVER Use](#deprecated-schema-types----never-use)
+- [Schema Types: Use Only When Eligible](#schema-types-use-only-when-eligible)
 - [ProfilePage Schema (Author Pages)](#profilepage-schema-author-pages)
 - [JSON-LD @graph Pattern](#json-ld-graph-pattern)
 - [Schema Validation Checklist](#schema-validation-checklist)
@@ -20,16 +20,17 @@
 ## Why Schema Matters
 
 Article schema with author Person, publisher Organization, and BreadcrumbList
-is the priority schema family for blog content in 2026. FAQ and HowTo no
-longer earn Google rich result real estate, so standard article entities carry
-more of the SEO and AI-citation load. Complete schema graphs may increase AI
-citation likelihood, but exact lifts are directional and unverified. Schema
-must appear in HTML source: not injected via JavaScript: because most AI
-crawlers do not execute JS.
+is the priority schema family for blog content in 2026. FAQ and HowTo rich
+results are no longer broadly available for general blog content, so standard
+article entities carry more of the SEO and AI-citation load. Complete schema
+graphs may increase AI citation likelihood, but exact lifts are directional and
+unverified. Schema must appear in HTML source, not injected via JavaScript,
+because most AI crawlers do not execute JS.
 
-Still rich-result-eligible for blog content in 2026: Article, BreadcrumbList,
-Video, Product, Review, and Event. FAQPage and HowTo no longer earn visual
-Google rich results.
+Still rich-result-eligible for eligible blog content in 2026: Article,
+BreadcrumbList, Video, Product, Review, and Event. FAQPage and HowTo remain
+valid schema.org types, but general blogs should not expect FAQ or HowTo visual
+rich results.
 
 ---
 
@@ -71,6 +72,7 @@ and `@type` are required by the JSON-LD spec itself.
 
 ```json
 {
+  "@context": "https://schema.org",
   "@type": "Article",
   "@id": "https://example.com/blog/technical-seo-guide#article",
   "headline": "Complete Guide to Technical SEO in 2026",
@@ -259,11 +261,10 @@ Each breadcrumb item requires `@type`, `position`, `name`, and `item` (URL).
 
 ## FAQPage Schema
 
-**Important**: Google retired FAQ rich results for all sites on 2026-05-07,
-superseding the August 2023 government and health limit. **No FAQ rich results
-will appear in Google Search**. The markup produces no visual search enhancement.
-Search Console FAQ filters retire around June 2026, and Rich Results Test/API
-support ends around August 2026.
+**Important**: Google reduced FAQ rich-result visibility in August 2023,
+primarily showing it only for well-known, authoritative government and health
+sites. General blogs should not expect FAQ rich results. This is rich-result
+eligibility guidance, not a statement that FAQPage schema is invalid.
 
 However, the markup can remain as optional entity support: LLMs parse your
 page's **visible FAQ text**, and Q&A-formatted content can improve
@@ -287,6 +288,7 @@ FAQPage
 
 ```json
 {
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {
@@ -416,9 +418,9 @@ AI visibility correlation (0.737). Each embedded video gets its own VideoObject.
 
 ## Speakable Schema
 
-Optimizes content for voice search and voice assistants (Google Assistant,
-Siri, Alexa). Identifies which sections of a page are most suitable for
-text-to-speech playback.
+Speakable support is limited and should not be a default schema recommendation
+for normal blog pages. Use it only when the target surface explicitly supports
+Speakable markup and the selected text is visible on the page.
 
 ### Implementation Options
 
@@ -506,22 +508,23 @@ Instead of embedding a full Person object in every BlogPosting, reference the
 
 ---
 
-## Deprecated Schema Types: NEVER Use
+## Schema Types: Use Only When Eligible
 
-These types have been deprecated by Google. Using them does not cause penalties
-but wastes implementation effort and may trigger rich result validation warnings.
-FAQPage is different: the rich result is retired, but the markup can remain for
-AI/LLM entity support.
+These entries separate Google rich-result eligibility from schema.org validity.
+Using unsupported rich-result markup does not cause penalties, but it can waste
+implementation effort and may trigger validation warnings. FAQPage is different:
+the markup can remain for visible Q&A entity support even when a general blog is
+not eligible for FAQ rich results.
 
 | Type | Deprecated | Date | Notes |
 |------|------------|------|-------|
-| HowTo | Yes | 2025 | Rich results removed entirely and stay gone in 2026 |
-| SpecialAnnouncement | Yes | July 2025 | COVID-era, no longer processed |
-| ClaimReview | Yes | June 2025 | Google structured data simplification; no longer generates rich results |
-| Practice Problem | Yes |: | Educational, no longer generates rich results |
-| Dataset | Yes |: | For general search; still works in Google Dataset Search |
-| Sitelinks Search Box | Yes |: | Google generates these algorithmically now |
-| Q&A | Yes | January 2026 | Replaced by community forum features |
+| HowTo | Rich result not broadly available | 2023 | Use visible step content plus Article schema for general blogs |
+| SpecialAnnouncement | Watch item | Unknown | Use only when a primary Google source confirms support for the target page |
+| ClaimReview | Rich-result simplification | 2025 | Use only for eligible fact-check content with clear methodology |
+| Practice Problem | Watch item | Unknown | Use only for eligible education pages |
+| Dataset | Valid schema, specialized surface | Unknown | Use for actual datasets; do not mark ordinary articles as Dataset |
+| Sitelinks Search Box | Not recommended for blogs | Unknown | Google generally generates sitelinks algorithmically |
+| Q&A | Valid for community Q&A where appropriate | Unknown | Do not use for editorial FAQ pages; use FAQPage for visible editorial Q&A |
 
 ### What to Use Instead
 
@@ -708,12 +711,12 @@ multiple schema types.
 | dateModified matches actual update | Within 24 hours of last edit | Stale or fabricated |
 | Author @id matches author page | Same URI used everywhere | Inconsistent references |
 | Image URLs are absolute | Start with `https://` | Relative paths |
-| No deprecated types used | None from deprecated list | HowTo, Q&A, etc. |
+| Eligibility checked for optional types | Type is valid for the visible content and target surface | Ineligible rich-result markup used as a default |
 | Complete schema graph per page | Article/BlogPosting + Person + Organization + BreadcrumbList minimum | Missing priority entity baseline |
-| Validates in Google Rich Results Test | No errors | Errors present |
+| Validates in the right tool | Schema.org Validator for schema validity; Rich Results Test only for eligible Google rich-result types | Errors present |
 
 ### Validation Tools
 
-- **Google Rich Results Test**: https://search.google.com/test/rich-results
 - **Schema.org Validator**: https://validator.schema.org
+- **Google Rich Results Test**: https://search.google.com/test/rich-results for eligible Google rich-result types
 - **JSON-LD Playground**: https://json-ld.org/playground/

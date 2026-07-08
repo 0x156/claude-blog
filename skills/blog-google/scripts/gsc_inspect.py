@@ -28,11 +28,11 @@ except ImportError:
     sys.exit(1)
 
 try:
-    from google_auth import get_oauth_credentials, load_config
+    from google_auth import get_oauth_credentials, load_config, execute_with_retries
 except ImportError:
     import os
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from google_auth import get_oauth_credentials, load_config
+    from google_auth import get_oauth_credentials, load_config, execute_with_retries
 
 GSC_SCOPES = ["https://www.googleapis.com/auth/webmasters.readonly"]
 
@@ -57,6 +57,7 @@ def inspect_url(
     inspection_url: str,
     site_url: str,
     language_code: str = "en",
+    service=None,
 ) -> dict:
     """
     Inspect a single URL via the GSC URL Inspection API.
@@ -82,7 +83,7 @@ def inspect_url(
         "error": None,
     }
 
-    service = _build_inspection_service()
+    service = service or _build_inspection_service()
     if not service:
         result["error"] = "Could not build GSC service. Check service account credentials."
         return result
@@ -94,7 +95,7 @@ def inspect_url(
     }
 
     try:
-        response = service.urlInspection().index().inspect(body=body).execute()
+        response = execute_with_retries(service.urlInspection().index().inspect(body=body))
     except Exception as e:
         error_str = str(e)
         if "403" in error_str:
@@ -208,6 +209,11 @@ def batch_inspect(
         )
         urls = urls[:DAILY_LIMIT]
 
+    service = _build_inspection_service()
+    if not service:
+        result["error"] = "Could not build GSC service. Check service account credentials."
+        return result
+
     for i, url in enumerate(urls):
         url = url.strip()
         if not url:
@@ -215,7 +221,7 @@ def batch_inspect(
 
         print(f"Inspecting [{i + 1}/{len(urls)}]: {url}", file=sys.stderr)
 
-        inspection = inspect_url(url, site_url, language_code)
+        inspection = inspect_url(url, site_url, language_code, service=service)
         result["results"].append(inspection)
 
         verdict = inspection.get("verdict", "")

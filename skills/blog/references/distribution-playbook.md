@@ -1,9 +1,10 @@
 # Content Distribution Strategy: Playbook for AI Visibility
 
-88-92% of AI citations come from off-site signals, not on-page optimization
-alone (Seer Interactive, 2025). This playbook covers channel-by-channel
-distribution tactics to maximize both traditional search rankings and AI
-citation rates.
+Vendor-reported datasets suggest many AI citations come from off-site signals,
+not on-page optimization alone. Treat the often-cited 88-92% range as directional
+guidance, not a universal benchmark. This playbook covers channel-by-channel
+distribution tactics to support traditional search visibility and AI citation
+readiness.
 
 **Budget allocation**: 40% owned content / 60% earned media and distribution.
 Most companies allocate 90/10: this is wrong for AI search SEO. Treat the
@@ -26,12 +27,14 @@ factor in whether AI systems cite your content.
 
 ## Reddit (Highest Growth Channel for AI Visibility)
 
-**Platform change (June 2023):** Reddit's API became paid ($0.24/1,000 calls). Free API
-access is gone. All Reddit strategy must rely on **organic participation only** - no
-programmatic posting, scraping, or API-driven automation without a paid plan.
+**Platform change (June 2023):** Reddit restricted high-volume and commercial API
+access. Limited compliant API use may still be available, but content strategy
+should rely on organic participation, not programmatic posting, scraping, or
+automation.
 
 ### Why Reddit Matters for AI
-- Reddit visibility in AI citations grew 450% (1.30% to 7.15%)
+- Reddit visibility in AI citations grew in vendor-reported datasets; verify the
+  source, date, and methodology before quoting exact percentages
 - Google's $60M annual API deal surfaces Reddit content in AI training
 - 7,085 of 10,000 keyphrases show "Discussions and Forums" SERP features
 - 2.2-21% of AI Overview citations by query type come from Reddit
@@ -42,7 +45,8 @@ programmatic posting, scraping, or API-driven automation without a paid plan.
 1. **Find active communities** (target 5-10 subreddits in your niche):
    - Search Reddit directly: `site:reddit.com [your niche] subreddit`
    - Check subreddit sidebar for rules, posting guidelines, and related subs
-   - Use `redditlist.com` or `subredditstats.com` for activity metrics
+   - Use Reddit search, subreddit sidebars, mod posts, and native community stats
+     for activity signals
    - Look for subs with 10K-500K members (sweet spot for engagement vs noise)
 
 2. **Evaluate each subreddit before participating**:
@@ -105,10 +109,11 @@ adds value, your blog post becomes the authoritative source.
 
 ---
 
-## YouTube (Strongest AI Visibility Correlation)
+## YouTube (Strong AI Visibility Correlation)
 
 ### Why YouTube Matters for AI
-- 0.737 correlation with AI visibility (strongest signal in Ahrefs 75,000-brand study)
+- 0.737 correlation with AI visibility in an Ahrefs 75,000-brand study; this is
+  correlation, not proof of causation
 - Citations in AI Overviews up 414% (Q1 2025, NP Digital)
 - How-to video citations up 651%
 - Visual demo citations up 592%
@@ -145,9 +150,10 @@ transcript for perfect accuracy:
 3. Upload via YouTube Studio > Subtitles > Add Language > Upload File
 4. Verify accuracy and keyword presence
 
-**Why transcripts matter**: AI systems index video transcripts. Keywords in
-your transcript directly influence AI citation likelihood. An accurate
-transcript with proper keyword usage is a ranking signal.
+**Why transcripts matter**: accurate transcripts help YouTube and retrieval
+systems understand the video, improve accessibility, and make quotations easier
+to extract. Do not claim transcript keywords are a direct ranking signal unless
+a current primary source is loaded.
 
 ### Thumbnail Best Practices
 
@@ -192,21 +198,20 @@ Resources mentioned:
 
 ### YouTube Shorts Note
 
-**Algorithm change (late 2025):** YouTube Shorts' recommendation engine was fully decoupled
-from long-form video. Shorts no longer directly boost long-form channel authority or
-subscriber counts. Treat Shorts as a **separate discovery surface** with its own metrics -
-do not rely on Shorts to cross-promote your long-form content or blog. Use Shorts for
-top-of-funnel awareness only.
+Treat YouTube Shorts as a separate discovery surface with its own metrics unless
+current channel analytics prove it is driving long-form viewers or blog clicks.
+Use Shorts for top-of-funnel awareness, but do not assume it will boost
+long-form authority.
 
 ---
 
 ## LinkedIn
 
-**Algorithm change (360Brew, late 2024-2025):** LinkedIn replaced its recommendation
-algorithm with an AI system called 360Brew. Impact: views down ~50%, engagement down ~25%
-industry-wide. External links are penalized ~60% in reach. **Native content strongly
-outperforms link posts** - text posts, native documents (carousels), and native video
-dramatically outreach posts with external URLs.
+LinkedIn distribution favors native content in many creator reports. Without a
+current primary LinkedIn engineering source, do not cite named internal algorithm
+systems or exact reach penalties. Practical guidance: publish native text,
+documents, and video, then place external links in a comment or follow-up when
+that fits the audience.
 
 ### Content Adaptation
 Adapt blog posts for LinkedIn as shorter articles (800-1,200 words).
@@ -346,7 +351,7 @@ and early traffic signals that benefit both traditional and AI search.
 | `How [Strategy] Delivers [Outcome]` | "How Answer-First Formatting Drives More AI Citations" |
 | `[Number] [Things] That [Outcome]` | "5 Off-Site Signals That Drive AI Citations (Data Inside)" |
 | `The [Adjective] Truth About [Topic]` | "The Uncomfortable Truth About SEO in 2026" |
-| `We Analyzed [N] [Things]. Here's What We Found` | "We Analyzed 75,000 Brands. Here's What Drives AI Visibility" |
+| `We Analyzed [N] [Things]: [Specific Finding]` | "We Analyzed 75,000 Brands: What Drives AI Visibility" |
 
 ### Excerpt Structure (150-200 Words)
 
@@ -436,7 +441,8 @@ sources. You cannot create a Wikipedia page for self-promotion.
 **Pathway to Wikipedia presence**:
 1. Get covered by 3-5 independent reliable sources (news outlets, industry publications)
 2. Ensure coverage is substantive (not just mentions)
-3. Create a Wikidata entry for your organization (lower notability bar)
+3. Create or request a Wikidata item only if the entity meets Wikidata notability
+   policy; disclose conflicts of interest and avoid promotional edits
 4. If notable, an independent editor may create a Wikipedia article
 5. Never edit your own Wikipedia page: this violates Wikipedia policy
 
@@ -522,8 +528,9 @@ Create custom segments to track AI-referred visitors:
 | ChatGPT | source contains "chatgpt" OR "chat.openai" |
 | Perplexity | source contains "perplexity" |
 | Claude | source contains "claude" OR "anthropic" |
-| Google AI | medium equals "organic" AND landing page in AI Overview set |
+| Google Search AI | Use Search Console generative-AI reports for Search AI visibility; GA4 cannot reliably isolate AI Overview traffic |
 | Bing Copilot | source contains "bing" AND referrer contains "copilot" |
 
-AI referral traffic currently represents ~1.08% of all web traffic but
-grew 527% from January to May 2025 (Similarweb). Track the trend monthly.
+Historical Similarweb reporting from January to May 2025 showed rapid AI referral
+growth from a small base. Do not cite a fixed total-web share for July 2026
+without refreshing the source. Track the trend monthly.

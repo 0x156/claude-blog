@@ -8,7 +8,7 @@ This contract is the v1.9.0 answer to a failure pattern from the v1.8.x cycle: s
 
 | Gate | What it enforces | Failure mode | Implementation |
 |---|---|---|---|
-| 1. Capability Discovery | Required tools + agents are available before write begins | Block if no image-gen path; block if reviewer agent missing | `scripts/blog_preflight.py --gate 1` |
+| 1. Capability Discovery | Required tools + agents are available before write begins | Block if no valid local hero and no permitted image path; block if reviewer agent missing | `scripts/blog_preflight.py --gate 1` |
 | 2. Format Completeness | `.md` + `.html` + `.pdf` + `hero.png` all present | Block on any missing artifact | `scripts/blog_render.py` produces all three |
 | 3. Visual Verification | Rendered HTML has no SVG overflow, no console errors, valid JSON-LD | Block on any defect; preserve screenshots | `scripts/blog_preflight.py --gate 3` via `patchright` |
 | 4. Content Review | `blog-reviewer` scores ≥ 90/100 AND zero P0 issues | Block + iterate | `agents/blog-reviewer.md` (now blocking) |
@@ -31,7 +31,7 @@ Runs once at the start of `/blog write` or `/blog rewrite`. Enumerates the proje
 
 ### Failure modes
 
-- **No image-gen path at all** (no Banana MCP + no Gemini key + no stock API key + Openverse unreachable): BLOCK with explicit setup instructions.
+- **No hero path at all** (no valid local `hero.png` or `.jpg`, no Banana MCP, no Gemini key, no stock API key, and Openverse unreachable): BLOCK with explicit setup instructions.
 - **Reviewer agent missing**: BLOCK. Cannot enforce Gate 4 without it.
 - **Capability declared but unused**: WARN (informational, not blocking). Example: `dataforseo-mcp` is loaded but the post topic doesn't need keyword research.
 
@@ -64,9 +64,9 @@ Renders the `.html` in headless `patchright` at three viewport widths and checks
 4. **Console errors**: capture browser console output during render. Assert zero errors.
 5. **JSON-LD validation**: parse the `<script type="application/ld+json">` block. Assert valid JSON. Assert `@type: BlogPosting` with required fields (`headline`, `image`, `datePublished`, `author`).
 
-### Graceful degradation
+### Renderer requirement
 
-If `patchright` is not installed, Gate 3 emits a loud warning and proceeds without blocking. The user may be on a constrained machine. CI and `tests/test_blog_delivery_contract.py` require it, so the project as a whole always has Gate 3 coverage even when individual sessions don't.
+Strict delivery requires `patchright` or an equivalent renderer. If no renderer is available, Gate 3 blocks and marks the draft non-shippable. Operators may use `--no-strict` for an intermediate local preview, but the output must not be presented as passed.
 
 ## Gate 4: Content Review (BLOCKING)
 
@@ -92,9 +92,11 @@ Reviewer report saved to `<draft-folder>/review.md`. Shown to the user on succes
 
 ## Gate 5: Asset Existence + Link Integrity
 
-- Every `<img src="...">` resolves. Local paths must exist on disk. Absolute URLs must return HTTP 200 via HEAD request (small allowlist for `localhost`, `127.0.0.1`, and known-good placeholder domains during local development).
-- `og:image` URL resolves. Same rule; this is the load-bearing social-preview asset.
-- Every `<a href="https://...">` returns 200, or is in the per-project `external-links.allowed` config.
+- Every `<img src="...">` resolves. Local paths must stay under the draft root after `resolve()`, refuse symlinks, and use slug-sanitized filenames. Absolute URLs must use `http` or `https` only; reject `javascript:`, `data:`, `file:`, protocol-relative URLs, credentials in URLs, and invalid hosts.
+- External URL checks must resolve DNS before connecting and reject loopback, private, link-local, multicast, reserved, unspecified, and cloud-metadata IP ranges. Do not follow redirects automatically; if redirects are allowed, validate every redirect target with the same checks. Use 5s timeouts, response-size caps, and no request bodies.
+- Validate links with `HEAD` first, then fall back to `GET` with a small range request when servers block `HEAD`. Accept valid 2xx or 3xx responses, and allow documented 403 or 405 cases only through the per-project `external-links.allowed` config.
+- `og:image` URL resolves with the same SSRF, redirect, size, and timeout rules; this is the load-bearing social-preview asset.
+- Every `<a href="https://...">` resolves under the same policy, or is in the per-project `external-links.allowed` config.
 - Every `<code>filename.ext</code>` mention either references a real file in the project (verified via `Path.exists()`) or is wrapped in a "hypothetical example" marker.
 - `<link rel="canonical">` is set and well-formed.
 - JSON-LD `wordCount` matches actual `<article>` word count within ±5%. Catches the "I claimed 1,715 words but the body is 1,400" honesty defect.
@@ -104,9 +106,9 @@ Reviewer report saved to `<draft-folder>/review.md`. Shown to the user on succes
 Tried in order. First success wins. Skip steps for capabilities not available per Gate 1's `capabilities.json`.
 
 1. **Banana MCP** (`nanobanana-mcp` loaded as a tool, not just declared in `.mcp.json`): call its `generate_image` tool with an optimized six-component prompt (Subject + Action + Context + Composition + Lighting + Style) targeting 1200×630.
-2. **Direct Gemini API** (`GOOGLE_AI_API_KEY` present, MCP not loaded): call the `google-genai` SDK with the current image-preview model (`gemini-3.1-flash-image-preview` or successor). This is the fallback that would have prevented the rankenstein draft's hand-rolled-chart failure.
-3. **Premium stock APIs** (`UNSPLASH_ACCESS_KEY`, `PEXELS_API_KEY`, or `PIXABAY_API_KEY` present): search using post title + top tags as query. Filter for 16:9 aspect ratio, license in {cc0, by, by-sa}, no-face heuristic. Rank by relevance × source authority (Unsplash 1.0, Pexels 0.9, Wikimedia 0.8, Pixabay 0.7).
-4. **Openverse public API** (no key required): `GET https://api.openverse.engineering/v1/images/?q=<query>&aspect_ratio=wide&license=cc0,by`. Pick the top relevance match. Always download to `hero.<ext>` plus `hero-credit.txt` for CC attribution.
+2. **Direct Gemini API** (`GOOGLE_AI_API_KEY` present, MCP not loaded): call the `google-genai` SDK with `gemini-3.1-flash-image` by default. Fallback, in order, to `gemini-3.1-flash-lite-image` and `gemini-3-pro-image`. See `https://ai.google.dev/gemini-api/docs/image-generation`.
+3. **Premium stock APIs** (`UNSPLASH_ACCESS_KEY`, `PEXELS_API_KEY`, or `PIXABAY_API_KEY` present): search via the official API using post title + top tags as query. Do not scrape or construct raw CDN URLs. Capture each source's license metadata and attribution requirements, download the asset locally, and write `hero-credit.txt`. Unsplash, Pexels, and Pixabay use their own licenses; do not treat them as CC sources.
+4. **Openverse public API** (no key required): `GET https://api.openverse.org/v1/images/?q=<query>&aspect_ratio=wide&license=cc0,by`. Pick the top relevance match with complete attribution. Always download to `hero.<ext>` plus `hero-credit.txt` for CC attribution.
 5. **Block with clear error**: "Hero image required but no generation path available. Configure Banana MCP, set GOOGLE_AI_API_KEY, set UNSPLASH/PEXELS/PIXABAY key, or place a 1200×630 hero.png in the draft folder manually."
 
 Implementation: `scripts/generate_hero.py`. Always writes `hero-credit.txt` next to `hero.<ext>` for attribution compliance, even when generation paths 1-2 (AI-generated, no attribution needed) are used. The file then contains "AI-generated; no attribution required."
@@ -130,7 +132,7 @@ The orchestrator holds the loop counter. Sub-skills never loop themselves; that 
 
 ## Bypass Mechanism
 
-Strict mode is the default. Users can override via the `--no-strict` flag on `scripts/blog_preflight.py` or the `bypass: true` field in the draft frontmatter. Both routes log the bypass loudly:
+Strict mode is the default. Users can override only via an explicit operator-controlled `--no-strict` flag on `scripts/blog_preflight.py` or signed/trusted project config. Draft frontmatter is untrusted content and must never disable delivery gates. Any bypass logs loudly:
 
 ```
 WARNING: Delivery contract bypassed. Failed gates: [Gate 3, Gate 5].

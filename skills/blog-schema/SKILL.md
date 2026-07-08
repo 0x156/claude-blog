@@ -35,14 +35,14 @@ Read the blog post and extract all schema-relevant data:
 
 ### Step 2: Generate BlogPosting Schema
 
-Complete BlogPosting with all required and recommended properties:
+Complete BlogPosting with recommended properties when applicable:
 
 ```json
 {
   "@type": "BlogPosting",
   "@id": "{siteUrl}/blog/{slug}#article",
-  "headline": "Post title (max 110 chars)",
-  "description": "Meta description (150-160 chars)",
+  "headline": "Concise post title",
+  "description": "Concise page-specific meta description",
   "datePublished": "YYYY-MM-DD",
   "dateModified": "YYYY-MM-DD",
   "author": { "@id": "{siteUrl}/author/{author-slug}#person" },
@@ -57,9 +57,12 @@ Complete BlogPosting with all required and recommended properties:
 }
 ```
 
-Required properties: @type, headline, datePublished, author, publisher, image.
-Recommended properties: description, dateModified, mainEntityOfPage, wordCount,
-articleBody (excerpt).
+Google's Article structured data docs do not define required Article
+properties. Include `headline`, `datePublished`, `author`, `publisher`, and
+`image` when applicable, validate with the Rich Results Test, and treat missing
+fields as warnings unless the target surface requires them. Recommended
+properties: description, dateModified, mainEntityOfPage, wordCount, articleBody
+(excerpt).
 
 ### Step 3: Generate Person Schema
 
@@ -108,9 +111,9 @@ Blog's parent organization entity:
 }
 ```
 
-Logo requirements: must be a valid image URL. Google recommends logos be
-112x112px minimum, 600px wide maximum. Rectangular logos preferred for
-BlogPosting publishers.
+Logo requirements: use a valid crawlable image URL and follow the active
+Organization and Article documentation for the target surface. Do not invent
+hard logo dimensions unless the project or current docs require them.
 
 ### Step 5: Generate BreadcrumbList
 
@@ -169,7 +172,8 @@ Extract Q&A pairs from the blog post's FAQ section:
 
 Important note: Google retired FAQ rich results for all sites on 2026-05-07.
 FAQPage is not a Google rich result path. Only emit FAQPage when visible FAQ
-content exists, and treat it as an entity clarity and AI-citation signal. The
+content exists, with at least one valid `Question` and matching visible answer.
+Treat it as entity clarity markup, not a Google rich-result promise. The
 Article/BlogPosting schema remains the priority for blog search eligibility.
 
 ### Step 7: Generate VideoObject (if videos present)
@@ -222,31 +226,30 @@ Image requirements:
 
 ### Step 8: Validate & Warn
 
-Check for deprecated schema types and apply validation rules:
+Check per-surface support before recommending schema types:
 
-**NEVER use these deprecated types:**
-- **HowTo** - Deprecated August 2023 (Google no longer shows rich results)
-- **SpecialAnnouncement** - Deprecated July 2025
-- **Practice Problem** - Deprecated (education markup)
-- **Dataset** - Deprecated for general use
-- **Sitelinks Search Box** - Deprecated
-- **Q&A** - Deprecated January 2026 (distinct from FAQPage)
+| Type | Google rich-result status | Valid entity/context use |
+|------|---------------------------|--------------------------|
+| HowTo | Not a current Google rich-result tactic | Valid schema.org type when the page genuinely contains how-to content |
+| Dataset | Not for generic blog rich results | Valid for dataset pages and Dataset Search eligibility |
+| QAPage | Not the same as FAQPage | Valid when the page contains one question with user-submitted answers |
+| SpecialAnnouncement, PracticeProblem, Sitelinks Search Box | Do not recommend for general blog posts | Use only when current official docs and page content match |
 
 **Validation checks:**
 1. All @id references resolve to entities within the @graph
 2. dateModified is equal to or after datePublished
-3. headline does not exceed 110 characters
-4. description is between 50-160 characters
+3. headline is concise. Warn when it may truncate or becomes unclear
+4. description is concise, page-specific, and not duplicated across posts
 5. All URLs are absolute (not relative)
 6. Image dimensions are positive integers
 7. BreadcrumbList positions are sequential starting from 1
-8. If FAQPage is emitted, it has at least 2 questions
+8. If FAQPage is emitted, visible Q&A content exists and includes at least 1 valid `Question`
 
-**AI citation optimization note:** Stacking relevant schema can help entity
-disambiguation, but claims that 3+ schema types directly raise AI citation
-likelihood are directional and unverified. Prioritize Article/BlogPosting,
-Person, Organization, and BreadcrumbList. Add ImageObject or VideoObject when
-assets exist, and add FAQPage only when visible FAQ content exists.
+**AI citation optimization note:** Relevant schema helps entity clarity and
+rich-result eligibility where supported, but structured data is not required for
+Google generative AI search visibility. Prioritize Article/BlogPosting, Person,
+Organization, and BreadcrumbList. Add ImageObject or VideoObject when assets
+exist, and add FAQPage only when visible FAQ content exists.
 
 ### Step 9: Output
 

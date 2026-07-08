@@ -47,7 +47,7 @@ sources.
 
 ### Step 0.45: Topic Pre-Flight (v1.8.0)
 
-Before any search, run the four keyword-trap checks from `skills/blog/references/research-quality.md`. If the topic matches one of the four classes (Class 1 demographic shopping, Class 2 numeric trap, Class 3 overly-literal phrase, Class 4 generic single-noun), reframe or surface a clarifying question BEFORE running searches.
+Before any search, run the four keyword-trap checks from `skills/blog/references/research-quality.md`. If the topic matches one of the four classes (Class 1 demographic shopping, Class 2 numeric trap, Class 3 overly-literal phrase, Class 4 generic single-noun), return a clarification request to the orchestrator BEFORE running searches.
 
 Skipping this pre-flight on a trap topic is the named failure mode of wasted research effort. One turn of reframe is worth 5 minutes of doomed searches.
 
@@ -112,16 +112,19 @@ When multiple retrieved sources cite the same upstream source (e.g. five article
 
 After finding each candidate image URL:
 
-1. Verify it's a direct image file URL (ends in .jpg, .jpeg, .png, .webp, or is a CDN URL)
+1. Verify it is a direct image file URL. It must return an image `Content-Type`,
+   have usable dimensions, and must not be an HTML page
    - Pixabay page URLs (`pixabay.com/photos/...`) are NOT image URLs
    - Unsplash photo pages (`unsplash.com/photos/...`) are NOT image URLs
 2. If you have a page URL, extract the direct image URL:
    - WebFetch the page and look for the `og:image` meta tag: this is the most reliable source
    - Pixabay CDN pattern: `https://cdn.pixabay.com/photo/YYYY/MM/DD/HH/MM/filename.jpg`
    - Unsplash CDN pattern: `https://images.unsplash.com/photo-<id>?w=1200&h=630&fit=crop&q=80`
-3. Verify the URL resolves: `curl -sI "<url>" | head -1`
-   - Must return HTTP 200 (or 301/302: follow redirect and use final URL)
-   - If 403/404: discard and find replacement
+3. Do not run shell commands for URL checks. Mark direct image URLs as
+   candidate URLs, then ask the orchestrator to run `scripts/blog_preflight.py`
+   Gate 5 or another safe URL validator with SSRF protection
+   - Must return HTTP 200 with an image content type
+   - If 403/404 or non-image content: discard and find replacement
 4. Mark each image as Verified (HTTP 200) or Unverified in your output table
 5. Never include more than 1 Unverified image in a research packet
 
@@ -141,18 +144,10 @@ If the user has NotebookLM notebooks relevant to the blog topic, use them for
 source-grounded research context. This is optional and should never block the
 research workflow.
 
-1. Check if `blog-notebooklm` is configured:
-   ```bash
-   python3 skills/blog-notebooklm/scripts/run.py auth_manager.py status
-   ```
-2. If authenticated, check for relevant notebooks:
-   ```bash
-   python3 skills/blog-notebooklm/scripts/run.py notebook_manager.py search --query "[topic]"
-   ```
-3. If a matching notebook exists, query it:
-   ```bash
-   python3 skills/blog-notebooklm/scripts/run.py ask_question.py --question "[research question]" --notebook-id [id] --json
-   ```
+1. Ask the orchestrator to check whether `blog-notebooklm` is configured.
+2. If authenticated, ask the orchestrator to search for relevant notebooks.
+3. If a matching notebook exists, ask the orchestrator to query it and return
+   the JSON response.
 4. Parse the JSON response and pass through the underlying source title, public
    source URL, publication date or retrieval date, and document type for each
    finding. Do not import the NotebookLM answer itself as the source.
@@ -256,12 +251,9 @@ Verification process:
 
 When researching for blog posts, find 2-3 relevant YouTube videos for embedding:
 
-1. Use blog-google if available:
-   ```bash
-   python3 skills/blog-google/scripts/run.py youtube_search search "[primary keyword]" --json
-   ```
-2. If blog-google unavailable, use WebSearch: `site:youtube.com [topic] [year] -shorts`
-3. Apply quality criteria (from `references/video-embeds.md`):
+1. Ask the orchestrator to use blog-google if available.
+2. If blog-google is unavailable, use WebSearch: `site:youtube.com [topic] [year] -shorts`
+3. Apply quality criteria (from `skills/blog/references/video-embeds.md`):
    - Minimum 1,000 views, published within last 3 years
    - Title or description contains the topic keyword
    - From a channel with > 1,000 subscribers

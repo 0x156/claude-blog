@@ -232,7 +232,8 @@ def batch_notify(
             time.sleep(delay)
 
     remaining = DAILY_QUOTA - result["summary"]["success"]
-    result["estimated_remaining_quota"] = max(0, remaining)
+    result["estimated_remaining_batch_quota"] = max(0, remaining)
+    result["quota_note"] = "Batch-local estimate only. Prior same-day usage is not persisted."
 
     return result
 

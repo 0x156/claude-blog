@@ -14,7 +14,7 @@ argument-hint: "[ask|discover|library|setup|status|cleanup] [question-or-url]"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "1.10.0"
+  version: "1.11.0"
   source: "https://github.com/PleasePrompto/notebooklm-skill"
 ---
 
@@ -61,8 +61,7 @@ URL as the bibliography entry for public content.
 python3 scripts/run.py auth_manager.py status
 python3 scripts/run.py ask_question.py --question "..."
 
-# WRONG -- fails without venv:
-python3 scripts/auth_manager.py status
+# Do not call files under scripts/ directly. The wrapper owns venv setup.
 ```
 
 The `run.py` wrapper automatically creates `.venv`, installs dependencies,
@@ -110,7 +109,7 @@ Run auth check (see gate pattern above). If not authenticated, guide to setup.
 
 ### Step 2: Resolve Notebook
 Determine which notebook to query:
-- If `--notebook-url` provided: use directly
+- If `--notebook-url` provided: validate it is a NotebookLM notebook URL, then use it
 - If `--notebook-id` provided: look up in library
 - If neither: use active notebook from library
 - If no active notebook: show library and ask user to select
@@ -222,9 +221,9 @@ Never block blog-write or blog-rewrite because NotebookLM is unavailable.
 ## Data Storage
 
 All data stored inside the skill directory:
-- `scripts/data/library.json`: Notebook metadata and library
-- `scripts/data/auth_info.json`: Authentication status
-- `scripts/data/browser_state/`: Chrome profile with cookies
+- `data/library.json`: Notebook metadata and library
+- `data/auth_info.json`: Authentication status
+- `data/browser_state/`: Chrome profile with cookies
 
 **Security:** All data directories are gitignored. Never commit auth or browser state.
 

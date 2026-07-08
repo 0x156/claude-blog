@@ -126,7 +126,7 @@ Invoke `scripts/discourse_research.py` to:
 Run:
 
 ```bash
-python scripts/discourse_research.py \
+python3 scripts/discourse_research.py \
   --input "$RESULTS_JSON" \
   --topic "<original topic>" \
   --days 30 \

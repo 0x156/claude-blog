@@ -5,8 +5,8 @@ description: >
   Generates BRAND.md (audience, positioning, do/don't editorial rules, taboo
   phrases, competitor differentiation) and VOICE.md (existing persona JSON
   re-expressed as readable prose), both written to the project root. When
-  present, all blog sub-skills auto-load these files before writing or
-  reviewing. Pairs with blog-persona, which manages the structured persona
+  present, the blog orchestrator auto-loads these files for write, rewrite,
+  brief, outline, calendar, and strategy workflows. Pairs with blog-persona, which manages the structured persona
   JSON. Use when user says "blog brand", "create brand context", "brand
   voice doc", "BRAND.md", "VOICE.md", "establish editorial brand",
   "brand guidelines for blog".
@@ -17,7 +17,7 @@ license: MIT
 
 # Blog Brand: Durable Editorial Context
 
-Generates two project-root files that every blog sub-skill auto-loads when present:
+Generates two project-root files that the blog orchestrator auto-loads for supported writing and planning commands when present:
 
 - `BRAND.md`: who the audience is, what the brand stands for, what to never say
 - `VOICE.md`: how the brand sounds, structurally and lexically

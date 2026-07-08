@@ -1,7 +1,7 @@
 # AI Search SEO: Citation Strategies
 
 Use GEO and AEO as legacy labels for AI citation readiness. For Google, the
-2026-05-15 gen-AI optimization guidance is explicit: optimization for AI
+Google Search Central AI features guidance is explicit: optimization for AI
 Overviews and AI Mode is SEO, not a separate discipline.
 
 ## Core AI Search SEO Research
@@ -91,7 +91,8 @@ freshness-dependent platform. Content older than 1 week sees sharp citation drop
 - 76.4% of ChatGPT's most-cited pages updated within 30 days (Ahrefs, ~17M citations)
 - URLs cited in AI results are 25.7% fresher than traditional search
 - Content < 3 months old is 3x more likely to get cited
-- **Action**: Update critical content quarterly with at least 30% changes
+- **Action**: Update critical content when facts, screenshots, pricing, methods,
+  source availability, or SERP intent have materially changed
 
 ## Off-Site Signals (Dominate AI Visibility)
 
@@ -146,12 +147,11 @@ Treat this as directional, not a universal law.
 | ClaudeBot | No |
 | PerplexityBot | No |
 | Googlebot | Yes |
-| Google-Extended | Yes |
 
 **Critical**: Content behind JavaScript is invisible to ChatGPT, Claude, Perplexity.
 Use SSR, SSG, or ISR. Test by disabling JS and reloading.
 
-### Google's Official Gen-AI Guidance (2026-05-15)
+### Google's Official Gen-AI Guidance
 
 Google's stance holds: optimization for AI Overviews and AI Mode is SEO. There
 is no special schema for gen-AI features, and Google does not need llms.txt.
@@ -168,12 +168,12 @@ entities, helpful content, clear source attribution, and fast server responses.
 
 ### Performance Requirements for AI Retrieval
 - Server response time under 200ms TTFB (Kevin Indig pipeline)
-- Maximum 600ms TTFB before AI crawlers time out and skip the page
-- Crawlers implement 3-5 second hard timeouts (Getpassionfruit)
+- TTFB above 600ms may reduce crawl or extraction reliability
+- Some crawlers and retrieval systems use short practical timeouts; verify per crawler
 - Core Web Vitals are a constraint, not a growth lever - good CWV doesn't reliably
   outperform, but severe LCP failure creates disadvantage (Search Engine Land, 107,352 pages)
 - Top 10 domains capture 46% of all ChatGPT citations per topic (Growth Memo, Mar 2026)
-- Slow pages are excluded from AI citation candidate pools entirely
+- Slow pages may miss crawl, fetch, or extraction opportunities
 - Vercel analysis of 500+ million GPTBot fetches found zero evidence of JS execution
 
 ### robots.txt for AI Visibility
@@ -221,7 +221,8 @@ Google Knowledge Graph: 800B facts about 8B entities.
 
 Entity building timeline (3-6 months):
 1. Create entity map with Wikidata Q-IDs
-2. Establish Wikipedia/Wikidata presence
+2. Establish Wikipedia/Wikidata presence only when the entity meets independent
+   notability requirements; disclose conflicts of interest and follow platform policy
 3. Build entity consistency across all platforms (exact same name)
 4. Practice "controlled co-occurrence" via third-party mentions
 5. Earn external citations from recognized publications
@@ -258,8 +259,8 @@ Princeton GEO paper (KDD 2024) findings on readability-related tactics:
 ### Schema & Structure for AI Citation
 - Comparison tables with proper HTML (`<thead>`, `<tbody>`) = **47% higher**
   AI citation rates (attributed to SEL; primary source unlocatable - treat as directional)
-- SearchVIU confirmed ChatGPT, Claude, Perplexity, and Gemini all process
-  Schema Markup during citation selection
+- Structured data helps machine understanding, but do not claim all major AI
+  platforms use schema during citation selection without current primary evidence
 
 ### Platform-Specific Citation Behaviors
 | Platform | Key Behavior | Readability Preference |

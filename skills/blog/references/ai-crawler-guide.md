@@ -3,7 +3,7 @@
 ## Contents
 
 - [robots.txt Template for AI Crawlers](#robotstxt-template-for-ai-crawlers)
-- [Cloudflare AI Crawl Control: CRITICAL](#cloudflare-ai-crawl-control----critical)
+- [Cloudflare AI Crawl Control: CRITICAL](#cloudflare-ai-crawl-control-critical)
 - [Google Gen-AI Guidance](#google-gen-ai-guidance)
 - [llms.txt Implementation](#llmstxt-implementation)
 - [Server-Side Rendering Requirements](#server-side-rendering-requirements)
@@ -15,9 +15,9 @@
 
 ## robots.txt Template for AI Crawlers
 
-Allow all known AI crawlers explicitly. Most AI crawlers default to respecting
-robots.txt, so an absent rule may mean blocked depending on the platform's
-default behavior.
+Allow documented AI crawlers explicitly when you want access. For compliant
+crawlers, an absent `Disallow` usually means allowed; explicit `Allow` rules are
+optional documentation and help teams audit intent.
 
 ```
 # ===========================================
@@ -34,7 +34,7 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
-# Anthropic (three-bot framework)
+# Anthropic documented crawler families
 User-agent: ClaudeBot
 Allow: /
 
@@ -48,7 +48,9 @@ Allow: /
 # User-agent: Claude-Web
 # User-agent: anthropic-ai
 
-# Google AI (training & AI Overviews)
+# Google AI product token (Gemini/Vertex training and non-Search grounding controls)
+# Google Search AI features use Googlebot plus preview controls:
+# https://developers.google.com/search/docs/appearance/ai-features
 User-agent: Google-Extended
 Allow: /
 
@@ -120,21 +122,23 @@ Sitemap: https://example.com/sitemap.xml
 
 ### Crawler Identification Reference
 
-Each provider now operates a **three-bot framework**: training bot, search/indexing bot, and
-retrieval bot. Blocking the search/indexing bot means your content won't appear in that AI
-platform's answers. Retrieval bots (user-triggered) may not fully respect robots.txt.
+Providers expose different crawler classes. Some split training, search indexing,
+and user-triggered retrieval; others publish only one bot or a product token.
+Blocking a documented search/indexing bot can reduce visibility in that platform's
+answers. User-triggered retrieval may not fully respect robots.txt.
+OpenAI bot details: https://platform.openai.com/docs/bots.
 
 | Crawler | Operator | Type | Respects robots.txt |
 |---------|----------|------|---------------------|
 | GPTBot | OpenAI | Training | Yes |
 | OAI-SearchBot | OpenAI | Search indexing | Yes |
-| ChatGPT-User | OpenAI | User retrieval | Yes |
+| ChatGPT-User | OpenAI | User-triggered retrieval | Not guaranteed |
 | ClaudeBot | Anthropic | Training | Yes |
 | Claude-SearchBot | Anthropic | Search indexing | Yes |
 | Claude-User | Anthropic | User retrieval | Yes |
 | ~~Claude-Web~~ | Anthropic | Deprecated | - |
 | ~~anthropic-ai~~ | Anthropic | Deprecated | - |
-| Google-Extended | Google | AI/Gemini training | Yes |
+| Google-Extended | Google | Gemini/Vertex training and some non-Search grounding controls; not Search AI inclusion | Yes |
 | Google-Agent | Google | Project Mariner agentic (2026) | Yes |
 | PerplexityBot | Perplexity | Search indexing | Yes |
 | Perplexity-User | Perplexity | User retrieval | Partial |
@@ -151,8 +155,9 @@ platform's answers. Retrieval bots (user-triggered) may not fully respect robots
 ### robots.txt Strategy by Bot Type
 
 Treat each bot category differently based on your goals:
-- **Training bots** (GPTBot, ClaudeBot, CCBot): Your choice. Blocking has no direct search
-  visibility impact, but affects whether your content influences future model training.
+- **Training/product tokens** (GPTBot, ClaudeBot, CCBot, Google-Extended): Your
+  choice. Blocking affects training or non-Search product use as documented by
+  each provider, but Google-Extended does not control Google Search AI inclusion.
 - **Search/indexing bots** (OAI-SearchBot, Claude-SearchBot, PerplexityBot): **Allow these.**
   Blocking means your content won't appear in ChatGPT, Claude, or Perplexity answers.
 - **Retrieval bots** (ChatGPT-User, Perplexity-User): May not fully respect robots.txt. These
@@ -176,8 +181,8 @@ having correct robots.txt configuration.
 
 ### What Cloudflare Blocks by Default
 
-| Crawler | Default Status (New Domains) |
-|---------|------------------------------|
+| Crawler or token | Default Status (New Domains) |
+|------------------|------------------------------|
 | GPTBot | Blocked |
 | ClaudeBot | Blocked |
 | PerplexityBot | Blocked |
@@ -204,11 +209,12 @@ If you get a 403 or an HTML page with "Cloudflare" in it, the crawler is blocked
 
 ## Google Gen-AI Guidance
 
-Google's 2026-05-15 gen-AI optimization guidance says optimization for AI
-Overviews and AI Mode is SEO. Google does not require special schema or
-llms.txt for AI features. Use crawlable HTML, standard Article schema with
-author Person and publisher Organization, clear source attribution, strong
-E-E-A-T, and fast server responses.
+Google Search Central's AI features guidance says optimization for AI Overviews
+and AI Mode is normal SEO: https://developers.google.com/search/docs/appearance/ai-features.
+Google does not require special AI schema or llms.txt for Search AI features.
+Use crawlable HTML, standard Article schema with author Person and publisher
+Organization, clear source attribution, helpful trustworthy content, and fast
+server responses.
 
 ---
 
@@ -218,9 +224,9 @@ The `llms.txt` standard (proposed by llmstxt.org, Sep 2024) provides a machine-r
 summary of your site for LLMs. Place at site root: `https://example.com/llms.txt`.
 
 **Important caveat:** Google's current stance is no llms.txt needed for AI
-Overviews or AI Mode (Google gen-AI optimization guide, 2026-05-15). No major AI
-platform has confirmed relying on it. Treat it as an optional site inventory for
-non-Google tools, not a ranking, indexing, or citation requirement.
+Overviews or AI Mode per Google Search Central's AI features guidance. No major
+AI platform has confirmed relying on it. Treat it as an optional site inventory
+for non-Google tools, not a ranking, indexing, or citation requirement.
 
 ### Specification
 
@@ -273,8 +279,10 @@ non-Google tools, not a ranking, indexing, or citation requirement.
 
 ## Server-Side Rendering Requirements
 
-AI crawlers do NOT execute JavaScript. Content rendered only via client-side
-JavaScript is invisible to all AI systems except Googlebot and AppleBot.
+Standard non-Google AI crawlers generally should be assumed not to execute
+JavaScript unless their documentation says otherwise. Content rendered only via
+client-side JavaScript is risky for AI visibility; render important blog content
+into initial HTML and verify per crawler.
 
 ### Rendering Strategy Ranking
 
@@ -303,7 +311,7 @@ JavaScript is invisible to all AI systems except Googlebot and AppleBot.
 | CCBot | No | No |
 | **Googlebot** | **Yes** | **Yes** |
 | **AppleBot** | **Yes** | **Yes** |
-| **ChatGPT Operator** (agentic) | **Yes** | **Yes** |
+| **OpenAI agentic browsing surfaces** | **Yes** | **Yes** |
 | **Google-Agent** (agentic) | **Yes** | **Yes** |
 
 ### Vercel Findings
@@ -314,8 +322,8 @@ Vue mounting, or any client-side framework is completely invisible.
 
 ### Exception: Agentic Tools
 
-Standard AI crawlers do not execute JavaScript. However, **agentic tools** are different:
-- **ChatGPT Operator** (OpenAI): Full JS rendering with computer vision capabilities.
+Standard AI crawlers generally do not execute JavaScript. However, **agentic tools** are different:
+- **OpenAI agentic browsing surfaces**: Full JS rendering may be available depending on product mode.
 - **Google-Agent / Project Mariner** (Google, 2026): Operates through Chrome with full rendering.
 
 These are user-directed agents, not automated crawlers. They can see JS-rendered content,
@@ -344,8 +352,8 @@ citations users notice (Nieman Lab, 2026-05).
 
 ## Performance Requirements
 
-AI retrieval systems have strict latency budgets. Slow sites are excluded from
-candidate answer pools before content quality is even evaluated.
+AI retrieval systems have practical latency budgets. Slow sites may reduce crawl,
+fetch, and extraction reliability before content quality is evaluated.
 
 **Note:** The thresholds below are industry best practices and observations from SEO tooling
 (Discovered Labs, Prerender.io, Kevin Indig). They are NOT officially published specifications
@@ -353,11 +361,11 @@ from OpenAI, Anthropic, or Perplexity. Treat as directional targets, not guarant
 
 ### Thresholds
 
-| Metric | Target | Hard Limit | Consequence |
-|--------|--------|------------|-------------|
-| TTFB (Time to First Byte) | < 200ms | < 600ms | Excluded from candidate pools |
-| Full page load (HTML) | < 500ms | < 1,000ms | Reduced crawl frequency |
-| Response size (HTML) | < 200KB | < 500KB | Partial content extraction |
+| Metric | Target | Risk threshold | Consequence |
+|--------|--------|----------------|-------------|
+| TTFB (Time to First Byte) | < 200ms | > 600ms | May reduce crawl or extraction reliability |
+| Full page load (HTML) | < 500ms | > 1,000ms | May reduce crawl frequency |
+| Response size (HTML) | < 200KB | > 500KB | May cause partial content extraction |
 
 ### Optimization Priorities
 
@@ -410,10 +418,21 @@ grep -c "your-expected-heading-text" /tmp/gptbot-view.html
 | Indicator | What It Means |
 |-----------|---------------|
 | Empty `<div id="root"></div>` | React CSR: content loads via JS only |
-| Empty `<div id="__next"></div>` without SSR | Next.js without getServerSideProps/getStaticProps |
+| Empty `<div id="__next"></div>` without SSR/RSC/static output | Next.js App Router or Pages Router shipping content client-side only |
 | `<noscript>` contains the content | Content explicitly hidden from non-JS clients |
 | `<script>` tags contain all content as JSON | Data fetched client-side, not in HTML |
 | HTML under 5KB for a full blog post | Content not rendered server-side |
+
+### Next.js App Router Guidance
+
+- Prefer static rendering for blog routes. Use Server Components for article
+  content and `generateStaticParams()` for known slugs.
+- Use ISR for large blogs when content changes after build. Keep the article body
+  in server-rendered HTML.
+- Use dynamic rendering only when the page genuinely depends on request-time data.
+  Do not move the article body behind client-only data fetching.
+- `generateMetadata()` should emit canonical, Open Graph, and Article metadata
+  server-side.
 
 ---
 
@@ -443,7 +462,7 @@ to serve these crawlers are losing compounding visibility.
 | Cloudflare AI settings reviewed | AI crawlers explicitly allowed in dashboard | Default block left in place |
 | llms.txt treated as optional | Not required for Google AI visibility | Treating a missing file as a blocker |
 | Content in HTML source | `curl` returns full content | Empty divs, JS-only rendering |
-| TTFB under 200ms | Measured from CDN edge | Over 600ms = excluded |
+| TTFB under 200ms | Measured from CDN edge | Over 600ms increases crawl or extraction risk |
 | Schema in HTML source | Standard Article, Person, Organization JSON-LD in source HTML | Special AI-only schema or JS-injected schema |
 | Sitemap.xml accessible | Valid XML, all blog URLs included | Missing or returns 404 |
 | No Cloudflare challenge on bot UA | 200 status code | 403 or challenge page |

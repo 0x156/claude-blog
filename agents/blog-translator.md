@@ -47,8 +47,8 @@ into N languages, spawn N agents.
 The orchestrator provides:
 
 - **`source_file`**, absolute path to the source blog post.
-- **`target_lang`**, ISO 639-1 code (e.g. `de`, `fr`, `pt-BR`).
-- **`source_lang`**, ISO 639-1 code, autodetected if missing.
+- **`target_lang`**, BCP 47 tag with ISO 639-1 base code (e.g. `de`, `fr`, `pt-BR`).
+- **`source_lang`**, BCP 47 tag with ISO 639-1 base code, autodetected if missing.
 - **`keyword_map`**, optional, decisions about which terms stay in the
   source language (loanwords) and which get a localized equivalent.
 - **`cultural_profile_ref`**, optional path to the matching profile in
@@ -74,9 +74,11 @@ Read the source file. Extract:
 - Internal-link zone anchor text (translate the anchor, not the marker).
 
 Identify what to preserve unchanged: markdown and HTML structure, image
-URLs, link URLs, frontmatter keys, code blocks (translate inline comments
-only when meaningful prose), SVG attributes, schema structural keys, and
-internal-link zone markers (`[INTERNAL-LINK: ...]`).
+URLs, external link URLs, frontmatter keys, code blocks (translate inline
+comments only when meaningful prose), SVG attributes, schema structural keys,
+and internal-link zone markers (`[INTERNAL-LINK: ...]`). For internal links,
+translate anchor text and map URLs to localized equivalents when the target
+locale has a matching page.
 
 ### Step 2: Keyword Localization
 
@@ -110,13 +112,16 @@ For each translated post, set frontmatter independently:
 title: "[Localized title with local keyword, 50-60 chars]"
 description: "[Localized description with stat, 150-160 chars]"
 slug: "[localized-slug-in-target-language]"
-lang: "[ISO 639-1 code]"
-translatedFrom: "[source ISO 639-1 code]"
+lang: "[BCP 47 target tag]"
+translatedFrom: "[BCP 47 source tag]"
 translatedDate: "YYYY-MM-DD"
 ```
 
 If the source has schema JSON-LD, update `inLanguage` and add
 `translationOfWork` pointing back to the source URL.
+Add reciprocal `hreflang` metadata when the output format supports it, including
+the source language, target language, and `x-default` when a default canonical
+exists.
 
 ### Step 5: Quality Self-Check
 

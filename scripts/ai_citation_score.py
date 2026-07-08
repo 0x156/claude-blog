@@ -3,10 +3,10 @@
 AI Citation Probability Scoring.
 
 Usage:
-    python ai_citation_score.py FILE
-    python ai_citation_score.py FILE with format json or markdown
-    python ai_citation_score.py FILE with engine all, ai_overview, perplexity, or chatgpt
-    python ai_citation_score.py DIR in batch mode
+    python3 ai_citation_score.py FILE
+    python3 ai_citation_score.py FILE with format json or markdown
+    python3 ai_citation_score.py FILE with engine all, ai_overview, perplexity, or chatgpt
+    python3 ai_citation_score.py DIR in batch mode
 
 Scoring model:
     Each engine receives a 0-100 probability score from signals produced by
@@ -458,7 +458,7 @@ def score_analysis(analysis: dict[str, Any], engine: str = "all") -> dict[str, A
     all_results = _engine_results(analysis)
     selected_engines = ALL_ENGINES if engine == "all" else (engine,)
     visible_results = {name: all_results[name] for name in selected_engines}
-    overall = _overall_score(all_results)
+    overall = _overall_score(all_results) if engine == "all" else visible_results[engine]["score"]
 
     return {
         "file": analysis.get("file", ""),
@@ -533,7 +533,7 @@ def _format_markdown(result: dict[str, Any]) -> str:
 
 def _write_or_print(output: str, output_path: str | None) -> None:
     if output_path:
-        Path(output_path).write_text(output, encoding="utf-8")
+        analyze_blog._safe_write_text(output_path, output)
         print(f"Wrote report to {output_path}", file=sys.stderr)
     else:
         print(output)

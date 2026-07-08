@@ -10,16 +10,20 @@ Optional live export path:
     python3 skills/blog-google/scripts/run.py gsc_query --property sc-domain:example.com --dimensions page --json
 
 Usage:
-    python content_decay.py current.json previous.json
-    python content_decay.py current.json previous.json --threshold 0.20 --metric clicks
+    python3 content_decay.py current.json previous.json
+    python3 content_decay.py current.json previous.json --threshold 0.20 --metric clicks
 """
 
 from __future__ import annotations
 
 import argparse
+import errno
 import json
 import math
+import os
+import stat
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -28,6 +32,8 @@ SEVERITY_RANK = {
     "high": 2,
     "warning": 1,
 }
+MAX_EXPORT_BYTES = 25 * 1024 * 1024
+MAX_EXPORT_ROWS = 100_000
 
 
 class ContentDecayError(ValueError):
@@ -54,6 +60,33 @@ def _as_number(value: Any, *, metric: str, page: str) -> float:
     return max(number, 0.0)
 
 
+def _read_safely(path: Path, max_bytes: int) -> str:
+    """Read a regular non-symlink file with pre and post size caps."""
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    elif path.is_symlink():
+        raise ContentDecayError(f"Refusing to follow symlink: {path}")
+    try:
+        fd = os.open(str(path), flags)
+    except OSError as exc:
+        if exc.errno == errno.ELOOP:
+            raise ContentDecayError(f"Refusing to follow symlink: {path}") from exc
+        raise ContentDecayError(f"Could not read {path}: {exc}") from exc
+    try:
+        st = os.fstat(fd)
+        if not stat.S_ISREG(st.st_mode):
+            raise ContentDecayError(f"{path} is not a regular file.")
+        if st.st_size > max_bytes:
+            raise ContentDecayError(f"{path} exceeds size cap ({st.st_size} > {max_bytes}).")
+        data = os.read(fd, max_bytes + 1)
+    finally:
+        os.close(fd)
+    if len(data) > max_bytes:
+        raise ContentDecayError(f"{path} exceeds size cap after read ({max_bytes}).")
+    return data.decode("utf-8")
+
+
 def _row_page(row: dict[str, Any]) -> str | None:
     """Extract a page URL from common GSC row shapes."""
     for key in ("page", "url", "URL", "landingPage", "landing_page"):
@@ -75,10 +108,7 @@ def _row_page(row: dict[str, Any]) -> str | None:
 def load_export(path: str | Path) -> list[dict[str, Any]]:
     """Load a GSC export from a JSON file and return its row list."""
     export_path = Path(path)
-    try:
-        raw = export_path.read_text(encoding="utf-8")
-    except OSError as exc:
-        raise ContentDecayError(f"Could not read {export_path}: {exc}") from exc
+    raw = _read_safely(export_path, MAX_EXPORT_BYTES)
 
     if not raw.strip():
         raise ContentDecayError(f"{export_path} is empty.")
@@ -103,6 +133,8 @@ def load_export(path: str | Path) -> list[dict[str, Any]]:
 
     if not rows:
         raise ContentDecayError(f"{export_path} contains no rows.")
+    if len(rows) > MAX_EXPORT_ROWS:
+        raise ContentDecayError(f"{export_path} row count exceeds cap ({len(rows)} > {MAX_EXPORT_ROWS}).")
 
     if not all(isinstance(row, dict) for row in rows):
         raise ContentDecayError(f"{export_path} rows must be JSON objects.")
@@ -351,7 +383,22 @@ def format_markdown(report: dict[str, Any]) -> str:
 def write_output(text: str, output_path: str | None) -> None:
     """Write text to a path or stdout."""
     if output_path:
-        Path(output_path).write_text(text, encoding="utf-8")
+        out = Path(output_path)
+        if out.exists() and out.is_symlink():
+            raise ContentDecayError(f"Output path is a symlink: {out}")
+        if not out.parent.exists():
+            raise ContentDecayError(f"Output directory does not exist: {out.parent}")
+        fd, tmp = tempfile.mkstemp(dir=str(out.parent), prefix=f".{out.name}.", suffix=".tmp")
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                f.write(text)
+            os.replace(tmp, out)
+        except Exception:
+            try:
+                os.unlink(tmp)
+            except OSError:
+                pass
+            raise
     else:
         print(text, end="")
 
@@ -407,7 +454,11 @@ def main(argv: list[str] | None = None) -> int:
         output = format_markdown(report)
     else:
         output = json.dumps(report, indent=2, allow_nan=False) + "\n"
-    write_output(output, args.output)
+    try:
+        write_output(output, args.output)
+    except ContentDecayError as exc:
+        print(json.dumps({"error": str(exc)}, indent=2, allow_nan=False))
+        return 1
     return 0
 
 

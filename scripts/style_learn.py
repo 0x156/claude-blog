@@ -2,7 +2,7 @@
 """Learn an author voice profile from existing blog posts.
 
 Usage:
-    python style_learn.py <files-or-dir...> [--min 5] [--output PATH] [--format json|markdown]
+    python3 style_learn.py <files-or-dir...> [--min 5] [--output PATH] [--format json|markdown]
 
 The profiler reuses scripts/analyze_blog.py for per-post style signals, then
 aggregates them into a deterministic JSON profile or a VOICE.md-ready markdown
@@ -26,6 +26,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 import analyze_blog  # noqa: E402
 
 SUPPORTED_EXTENSIONS = {".md", ".mdx", ".markdown", ".txt"}
+MAX_SAMPLE_BYTES = 2 * 1024 * 1024
 
 STOPWORDS = {
     "a",
@@ -179,12 +180,16 @@ def collect_post_paths(inputs: Sequence[str | Path]) -> tuple[list[Path], list[s
     for item in inputs:
         path = Path(item)
         if path.is_dir():
-            found.extend(
-                p
-                for p in sorted(path.rglob("*"), key=lambda p: str(p))
-                if p.is_file() and p.suffix.lower() in SUPPORTED_EXTENSIONS
-            )
+            for p in sorted(path.rglob("*"), key=lambda p: str(p)):
+                if p.is_symlink():
+                    warnings.append(f"Skipped symlinked sample: {p}")
+                    continue
+                if p.is_file() and p.suffix.lower() in SUPPORTED_EXTENSIONS:
+                    found.append(p)
         elif path.is_file():
+            if path.is_symlink():
+                warnings.append(f"Skipped symlinked sample: {path}")
+                continue
             if path.suffix.lower() in SUPPORTED_EXTENSIONS:
                 found.append(path)
             else:
@@ -382,7 +387,7 @@ def derive_tone_descriptors(metrics: dict[str, Any]) -> list[str]:
 
 def analyze_sample(path: Path) -> dict[str, Any]:
     """Analyze one sample post with the shared analyzer functions."""
-    content = path.read_text(encoding="utf-8")
+    content = analyze_blog._read_safely(path, MAX_SAMPLE_BYTES)
     body = analyze_blog.strip_frontmatter(content)
     plain_text = strip_to_plain_text(content)
 
@@ -430,7 +435,12 @@ def learn_style(inputs: Sequence[str | Path], min_posts: int = 5) -> dict[str, A
             f"Only {len(paths)} sample post(s) supplied. Recommended minimum is {min_posts}."
         )
 
-    samples = [analyze_sample(path) for path in paths]
+    samples: list[dict[str, Any]] = []
+    for path in paths:
+        try:
+            samples.append(analyze_sample(path))
+        except (OSError, UnicodeDecodeError, ValueError) as exc:
+            warnings.append(f"Skipped unreadable sample {path}: {exc}")
     sentence_values = [value for sample in samples for value in sample["sentence_lengths"]]
     paragraph_values = [value for sample in samples for value in sample["paragraph_lengths"]]
     all_word_tokens = [token for sample in samples for token in sample["word_tokens"]]
@@ -622,7 +632,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Warning: {warning}", file=sys.stderr)
 
     if args.output:
-        Path(args.output).write_text(rendered, encoding="utf-8")
+        analyze_blog._safe_write_text(args.output, rendered)
     else:
         print(rendered, end="")
 

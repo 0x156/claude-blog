@@ -27,19 +27,19 @@ Do NOT use this template for:
 ## Title Format
 
 ```
-[Study Title]: We Analyzed [N] [Things] - Here's What We Found
+[Study Title]: We Analyzed [N] [Things] - Key Findings
 ```
 
 **Examples:**
-- "AI Code Review Study: We Analyzed 10,000 Pull Requests - Here's What We Found"
-- "Blog SEO Benchmark: We Analyzed 500 Technical Blogs - Here's What We Found"
-- "Developer Tooling Survey: We Asked 2,000 Engineers - Here's What We Found"
+- "AI Code Review Study: 10,000 Pull Request Findings"
+- "Blog SEO Benchmark: Lessons From 500 Technical Blogs"
+- "Developer Tooling Survey: What 2,000 Engineers Reported"
 
 **Title Rules:**
 - Include the specific sample size (N) - this is your credibility signal
 - Name what was analyzed (pull requests, blogs, engineers, etc.)
 - "We Analyzed/Studied/Surveyed" establishes original research
-- "Here's What We Found" signals actionable insights
+- Use a specific finding-led promise instead of generic reveal phrasing
 - Keep under 70 characters for SERP display when possible
 
 **Alternative Title Formats:**
@@ -145,7 +145,7 @@ Do NOT use this template for:
 
 - Year anchor in prose: write "In 2026, ..." or "As of Q1 2026, ..." BEFORE the number, not in a parenthetical.
 - Inline citation: name the publisher AND the document or report title.
-- Source block at the bottom: include the full URL plus `retrieved YYYY-MM-DD` for every cited source.
+- References and retrieval notes: include the full URL plus `retrieved YYYY-MM-DD` for every cited source without duplicating inline citations as a raw source dump.
 
 Drop unverifiable stats. Replace contradicted stats with verified alternatives. Reference: `skills/blog/references/flow-alignment.md`.
 

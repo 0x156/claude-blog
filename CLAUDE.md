@@ -5,8 +5,8 @@
 This repository contains **Claude Blog**, a Tier 4 Claude Code skill for blog content
 creation, optimization, and management. It follows the Agent Skills open standard and the
 3-layer architecture (directive, orchestration, execution). 32 sub-skills, 5 specialized
-subagents, 12 content templates, and 21 reference docs are dual-optimized for Google rankings
-(December 2025 Core Update, E-E-A-T) and AI citations (GEO/AEO). Includes FLOW framework
+subagents, 12 content templates, and 22 reference docs are dual-optimized for Google rankings
+(2026 core and spam update timeline, E-E-A-T) and AI citations (GEO/AEO). Includes FLOW framework
 integration, semantic topic-cluster planning + execution, multilingual publishing (Pro Hub
 Challenge v1.7.0), BRAND.md/VOICE.md/DISCOURSE.md project-root context auto-load (v1.8.0,
 fenced via `scripts/load_untrusted_root.py` with CSPRNG nonces, v1.8.3+), CI-enforced
@@ -21,7 +21,7 @@ claude-blog/
   CLAUDE.md                          # Project instructions (this file)
   CONTRIBUTORS.md                    # Pro Hub Challenge attribution and integration decisions
   CHANGELOG.md                       # Keep a Changelog format
-  .claude-plugin/plugin.json         # Plugin manifest (v1.10.0)
+  .claude-plugin/plugin.json         # Plugin manifest (v1.11.0)
   .claude-plugin/marketplace.json    # Marketplace catalog for distribution
   .mcp.example.json                  # MCP config example (tracked; .mcp.json is gitignored)
   pyproject.toml                     # Python packaging (3.11+)
@@ -98,7 +98,7 @@ claude-blog/
     blog-seo.md                     # SEO validation
     blog-reviewer.md                # Quality scoring (no Bash, post v1.7.0 hardening)
     blog-translator.md              # Multilingual translation (no Bash, v1.7.0)
-  tests/                             # pytest suite (206 tests) incl. test_blog_delivery_contract.py + test_security_guardrails.py
+  tests/                             # pytest suite (217 tests) incl. test_blog_delivery_contract.py + test_security_guardrails.py
 ```
 
 ## Commands
@@ -134,6 +134,8 @@ claude-blog/
 | `/blog flow` | FLOW framework prompts: find, optimize, win, prompts index, sync (v1.7.0) |
 | `/blog brand` | Generate BRAND.md + VOICE.md context auto-loaded by all sub-skills (v1.8.0) |
 | `/blog discourse` | API-free last-30-days discourse research; produces DISCOURSE.md (v1.8.0) |
+| `/blog style` | Learn author voice profile from existing posts (v1.10.0) |
+| `/blog decay` | Detect content decay from GSC exports (v1.10.0) |
 | `/blog update` | Freshness update (alias to rewrite) |
 
 ## Development Rules
@@ -145,7 +147,7 @@ claude-blog/
 - Follow kebab-case naming for all skill directories
 - Agents invoked via Task tool, never via Bash
 - Python 3.11+ required; dependencies in pyproject.toml
-- Test with `python -m pytest tests/` after changes
+- Test with `python3 -m pytest tests/` after changes
 - Run `claude plugin validate .` before pushing plugin changes
 - Run `python3 scripts/lint_prose.py` locally to catch forbidden prose chars before CI does (v1.8.4+)
 - Project-root file loading (BRAND.md/VOICE.md/DISCOURSE.md): use `scripts/load_untrusted_root.py` via Bash; never hand-roll a fence (v1.8.3+)
@@ -158,13 +160,13 @@ Submit at: claude.ai/settings/plugins/submit or platform.claude.com/plugins/subm
 
 ### Self-Hosted Marketplace
 ```
-/plugin marketplace add AgriciDaniel/claude-blog
-/plugin install claude-blog@AgriciDaniel-claude-blog
+/plugin marketplace add AI-Marketing-Hub/claude-blog
+/plugin install claude-blog@ai-marketing-hub-claude-blog
 ```
 
 ### Standalone Install (no marketplace)
 ```bash
-curl -sL https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | CLAUDE_BLOG_REF=v1.11.0 bash
 ```
 
 ## Release Blog Post

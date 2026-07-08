@@ -152,7 +152,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getPostBySlug(params.slug)
+  const { slug } = await params
+  const post = getPostBySlug(slug)
   return {
     title: post.title,
     description: post.description,
@@ -341,7 +342,9 @@ Hugo processes images from `static/images/` or page bundles (`content/blog/post-
 
 ### Chart / SVG Embedding via Shortcodes
 
-Create a custom shortcode for inline SVG:
+Create a custom shortcode for trusted, sanitized inline SVG only. Do not pass
+user-derived or generated text through `safeHTML` unless it has been sanitized
+with a strict SVG allowlist.
 
 ```html
 <!-- layouts/shortcodes/chart.html -->
@@ -362,8 +365,8 @@ Usage in markdown:
 
 ### Goldmark Renderer Config (Required for SVG)
 
-Hugo's default Goldmark renderer escapes raw HTML. Enable unsafe rendering
-for inline SVG:
+Hugo's default Goldmark renderer escapes raw HTML. Enable unsafe rendering only
+for trusted authored SVG/HTML after sanitization:
 
 ```toml
 # hugo.toml
@@ -371,8 +374,10 @@ for inline SVG:
   unsafe = true
 ```
 
-Without this setting, all `<svg>`, `<figure>`, and other HTML tags in
-markdown files will be stripped from the output.
+Without this setting, all `<svg>`, `<figure>`, and other HTML tags in markdown
+files will be stripped from the output. If authors or external systems can
+provide markup, prefer a shortcode that sanitizes SVG and rejects scripts,
+event-handler attributes, foreignObject, external resources, and unsafe URLs.
 
 ### Custom Archetypes
 ```markdown
@@ -600,8 +605,8 @@ with at least one statistic.
 ## Ghost
 
 ### Content Formats
-Ghost stores content internally as Mobiledoc (JSON) but accepts HTML input
-for custom cards and the API.
+Modern Ghost stores editor content in Lexical JSON and accepts HTML input for
+HTML cards and Admin API publishing.
 
 ### Ghost Admin API (Programmatic Publishing)
 ```javascript
@@ -698,7 +703,8 @@ taxonomies:
 ```
 
 ### Key Configuration Notes
-- Ghost handles structured data (JSON-LD) automatically
+- Ghost themes often output structured data automatically, but custom and
+  headless themes must validate rendered JSON-LD in the final HTML
 - Default output is server-rendered HTML: AI crawlers can access content
 - Newsletters: Ghost has built-in email sending for subscriber lists
 - Membership: tiers and paid content built-in
@@ -898,6 +904,9 @@ query BlogPostBySlug($slug: String!) {
 ### createPages API for Dynamic Routes
 ```javascript
 // gatsby-node.js
+const path = require('path')
+const blogPostTemplate = path.resolve('./src/templates/blog-post.tsx')
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const result = await graphql(`

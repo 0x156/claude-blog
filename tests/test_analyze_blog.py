@@ -177,6 +177,12 @@ class TestAnalyzeCitations:
         result = analyze_blog.analyze_citations(content)
         assert result["total_statistics"] == 0
 
+    def test_tier_classification_uses_hostname_not_substring(self):
+        attacker = "https://attacker.example/post?source=nih.gov"
+        trusted = "https://www.nih.gov/research"
+        assert analyze_blog._classify_source_tier(attacker) == 3
+        assert analyze_blog._classify_source_tier(trusted) == 1
+
 
 # ---------------------------------------------------------------------------
 # FAQ analysis

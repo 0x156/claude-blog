@@ -67,18 +67,19 @@ Recommended voice combinations for two-speaker podcast/dialogue format:
 
 ## Model Support
 
-Google's Gemini TTS supported-model list changes. As of 2026-07-07, the
-official Gemini API TTS guide lists these preview-capable models:
+Google's Gemini TTS supported-model list changes. As of 2026-07-08, use the
+current Gemini 3.1 Flash TTS model for new work and keep 2.5 aliases only for
+compatibility:
 
 | Model | ID | Single speaker | Multispeaker | Note |
 |-------|----|----------------|--------------|------|
-| Gemini 3.1 Flash TTS Preview | `gemini-3.1-flash-tts-preview` | Yes | Yes | Streaming supported on 3.1 TTS |
-| Gemini 2.5 Flash Preview TTS | `gemini-2.5-flash-preview-tts` | Yes | Yes | Local `flash` alias currently maps here |
-| Gemini 2.5 Pro Preview TTS | `gemini-2.5-pro-preview-tts` | Yes | Yes | Local `pro` alias currently maps here |
+| Gemini 3.1 Flash TTS | `gemini-3.1-flash-tts` | Yes | Yes | Local `flash` and `flash31` aliases map here |
+| Gemini 2.5 Flash Preview TTS | `gemini-2.5-flash-preview-tts` | Yes | Yes | Local `legacy-flash25` alias |
+| Gemini 2.5 Pro Preview TTS | `gemini-2.5-pro-preview-tts` | Yes | Yes | Local `pro` and `legacy-pro25` aliases |
 
 **Default:** Flash for summary/full modes, Pro for dialogue mode. The local
-wrapper accepts `flash` and `pro`; verify `scripts/generate_audio.py` before
-using a newly listed model ID.
+wrapper accepts the aliases listed above; verify `scripts/generate_audio.py`
+before using a newly listed model ID.
 
 ## Language Notes
 
@@ -90,12 +91,21 @@ using a newly listed model ID.
 
 ## Style Control
 
-Gemini TTS does not support SSML. Control style via natural language in the text:
+Gemini TTS does not support SSML. Control style via natural language in the text
+and, on 3.1 TTS, supported audio tags:
 
-Instead of markup, write the text in the desired style:
+Natural language controls:
 - For emphasis: use naturally emphatic phrasing
 - For pauses: use punctuation (periods, ellipses, commas)
 - For pace: shorter sentences = faster pace, longer = slower
 - For tone: word choice drives delivery (urgent words = urgent delivery)
+
+Audio tag examples for 3.1 TTS:
+- `[whispers]` for quiet delivery
+- `[laughs]` for a light laugh
+- `[sighs]` for a sigh
+
+Keep tags sparse and test the output, because unsupported tags may be spoken
+literally by older models.
 
 The TTS model interprets natural language prosody cues automatically.

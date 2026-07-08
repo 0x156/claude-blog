@@ -10,14 +10,14 @@
 - [Trust Indicators](#trust-indicators)
 - [September 2025 QRG Key Principle](#september-2025-qrg-key-principle)
 - [E-E-A-T Scoring Rubric](#e-e-a-t-scoring-rubric)
-- [E-E-A-T Applies to ALL Competitive Queries Since December 2025](#e-e-a-t-applies-to-all-competitive-queries-since-december-2025)
+- [E-E-A-T Framing by Topic Risk](#e-e-a-t-framing-by-topic-risk)
 - [E-E-A-T Signals by Content Type](#e-e-a-t-signals-by-content-type)
 
 ## Named Author Attribution
 
-Every blog post requires a named human author. Anonymous or generic attribution
-destroys trust signals and triggers quality demotion in both traditional search
-and AI systems.
+A named accountable author or editor is strongly preferred for every blog post.
+Organization attribution is acceptable when the organization is the accountable
+publisher and the page also exposes clear editorial ownership.
 
 ### Never Use
 
@@ -29,10 +29,10 @@ and AI systems.
 | "Editor" | Not an author signal |
 | No byline | Worst case: page appears authorless |
 
-### Required
+### Preferred
 
 - Full real name (first + last)
-- Consistent name slug across the site (e.g., `/author/sarah-chen`)
+- Crawlable author or profile page with a stable URL
 - Same name used on social profiles linked via `sameAs`
 - One author per post (co-authors acceptable with both named)
 
@@ -77,7 +77,8 @@ and AI systems.
 
 ## Author Page Requirements
 
-Every named author must have a dedicated author page at `/author/{name-slug}`.
+Every named author should have a crawlable author or profile page. The URL path
+can follow the site's existing information architecture.
 
 ### Page Must Include
 
@@ -221,7 +222,7 @@ Trust encompasses and validates all other signals.
 |--------|----------|----------------|
 | Contact page | Critical | Real email, phone, or contact form |
 | About page | Critical | Company/author info, mission, team |
-| Privacy policy | Critical | Required by law in most jurisdictions |
+| Privacy policy | Critical | Required depending on jurisdiction, tracking, and data collection |
 | Terms of service | High | Legal framework for content use |
 | Editorial policy | High | How content is created, reviewed, updated |
 | Physical address | High (local) | Required for LocalBusiness, helpful for all |
@@ -240,7 +241,7 @@ Trust encompasses and validates all other signals.
 | Expert review | "Reviewed by [Expert Name], [credentials]" |
 | Date transparency | Publish date AND last updated date visible |
 
-**Trustworthiness requires the FLOW evidence triple.** Experience and authority signals only land when the underlying claims are verifiable: year anchor in prose, inline citation with publisher and title, URL with retrieval date in the source block. See `flow-alignment.md`.
+**Trustworthiness requires the FLOW evidence triple.** Experience and authority signals only land when the underlying claims are verifiable: year anchor in prose, inline citation with publisher and title, URL with retrieval date in compact retrieval notes, footnotes, or a bibliography. See `flow-alignment.md`.
 
 ---
 
@@ -265,8 +266,11 @@ Trust is the foundation; the other three factors build on it.
 
 ## E-E-A-T Scoring Rubric
 
-| Factor | Weight | Key Signals |
-|--------|--------|-------------|
+These are internal scoring weights for the claude-blog quality rubric. Google
+does not publish numeric E-E-A-T weights.
+
+| Factor | Internal Weight | Key Signals |
+|--------|-----------------|-------------|
 | Experience | 20% | First-hand knowledge, original content, case studies, personal testing, process documentation |
 | Expertise | 25% | Credentials, technical depth, accuracy, comprehensiveness, professional background |
 | Authoritativeness | 25% | Industry recognition, external citations, backlinks, reputation, speaking/publication history |
@@ -284,22 +288,25 @@ Trust Assessment → If Low → Cap at "Low E-E-A-T"
 
 ---
 
-## E-E-A-T Applies to ALL Competitive Queries Since December 2025
+## E-E-A-T Framing by Topic Risk
 
-The December 2025 core update expanded E-E-A-T evaluation beyond YMYL topics
-to all competitive queries. This means:
+Helpful, trustworthy content matters broadly, but evidence expectations scale
+with topic risk and likely user harm. YMYL topics still carry the highest
+scrutiny.
 
-- **Before December 2025**: E-E-A-T scrutiny primarily for health, finance, legal,
-  safety topics (Your Money or Your Life).
-- **After December 2025**: Any query where multiple pages compete for ranking now
-  undergoes E-E-A-T evaluation. This includes technology, marketing, entertainment,
-  hobby, and general informational content.
+- **Highest risk**: health, finance, legal, safety, elections, civics, and other
+  YMYL topics need strong credentials, sourcing, review, and harm-prevention
+  language.
+- **Medium risk**: technical, business, and product guidance needs first-hand
+  testing, transparent methodology, and current sources.
+- **Lower risk**: hobby and entertainment topics still benefit from experience
+  signals, but they do not need the same proof burden as health or finance.
 
 ### Practical Impact
 
-A blog post about "best mechanical keyboards" now faces the same E-E-A-T
-scrutiny as a post about "best health insurance plans." Author credentials,
-first-hand testing, original photography, and trust signals all matter.
+A blog post about "best mechanical keyboards" should show first-hand testing and
+transparent recommendations. A post about "best health insurance plans" needs a
+much higher bar for credentials, review, sourcing, and legal or financial caveats.
 
 ---
 

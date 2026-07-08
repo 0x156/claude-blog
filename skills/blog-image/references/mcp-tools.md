@@ -28,15 +28,15 @@ Edit an existing image with text instructions.
 **Parameters:**
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `imagePath` | string | Yes | Path to the image file to edit |
-| `prompt` | string | Yes | Edit instructions |
+| `image_path` | string | Yes | Path to the image file to edit |
+| `edit_prompt` | string | Yes | Edit instructions |
 
 **Returns:** Modified image data + file path
 
 **Example:**
 ```
 User: "Remove the background from ~/Documents/photo.png"
-→ Claude calls gemini_edit_image with path and instruction
+→ Claude calls `gemini_edit_image({"image_path":"~/Documents/photo.png","edit_prompt":"..."})`
 ```
 
 ### gemini_chat
@@ -57,9 +57,14 @@ Configure the aspect ratio for subsequent image generations.
 **Parameters:**
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `ratio` | string | Yes | Aspect ratio (e.g., "16:9", "1:1", "9:16") |
+| `aspect_ratio` | string | Yes | Aspect ratio (e.g., "16:9", "1:1", "9:16") |
+| `conversation_id` | string | Yes | Use `"default"` unless continuing another session |
 
-**Supported ratios:** 1:1, 16:9, 9:16, 4:3, 3:4, 2:3, 3:2, 4:5, 5:4, 1:4, 4:1, 1:8, 8:1, 21:9
+**Example:** `set_aspect_ratio({"aspect_ratio":"16:9","conversation_id":"default"})`
+
+**Pinned package supported ratios:** 1:1, 16:9, 9:16, 4:3, 3:4, 2:3, 3:2, 4:5, 5:4, 21:9
+
+Extreme ratios such as 8:1, 4:1, 1:8, and 1:4 require a newer MCP package or direct API support. For section dividers, generate at 21:9 and crop during post-processing.
 
 ### set_model
 Switch the active Gemini model.
@@ -67,17 +72,21 @@ Switch the active Gemini model.
 **Parameters:**
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `model` | string | Yes | Model identifier |
+| `model` | string | Yes | MCP model alias |
 
-**Available models:**
-- `gemini-3.1-flash-image` (default, recommended, Nano Banana 2)
-- `gemini-3-pro-image` (high-quality, Nano Banana Pro)
-- `gemini-2.5-flash-image` (stable fallback, Nano Banana Original)
+**Available aliases in pinned package:**
+- `flash`: maps to Nano Banana Flash
+- `pro`: maps to Nano Banana Pro
+
+Stable Google API IDs such as `gemini-3.1-flash-image`, `gemini-3.1-flash-lite-image`, and `gemini-3-pro-image` are direct API IDs. Do not pass them to `set_model` unless the installed MCP package explicitly supports them.
 
 ### get_image_history
 Retrieve list of images generated in the current session.
 
-**Parameters:** None
+**Parameters:**
+| Param | Type | Required | Description |
+|-------|------|----------|-------------|
+| `conversation_id` | string | Yes | Use `"default"` unless reviewing another session |
 
 **Returns:** Array of image entries with paths and prompts
 
@@ -93,7 +102,7 @@ Reset session context and conversation history.
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `GOOGLE_AI_API_KEY` | Yes | API key from https://aistudio.google.com/apikey |
-| `NANOBANANA_MODEL` | No | Override default model (default: `gemini-3.1-flash-image`) |
+| `NANOBANANA_MODEL` | No | Override default MCP alias (default: `flash`) |
 
 ## Output Directory
 All generated images are saved to: `~/Documents/nanobanana_generated/`
@@ -108,9 +117,9 @@ Some newer Gemini API features depend on the MCP package version of `@ycse/nanob
 |---------|-----------|-------------|
 | `imageSize` (resolution control) | Available | Depends on package version |
 | Thinking level (`thinkingConfig`) | Available | Depends on package version |
-| Search grounding (`googleSearch`) | Available | Depends on package version |
+| Search grounding (`googleSearch`) | Available through direct API | Not exposed by the pinned package |
 | Image-only output (`responseModalities: ["IMAGE"]`) | Available | Depends on package version |
 | Multi-image input (up to 14 refs) | Available | Via `gemini_chat` with image paths |
-| All 14 aspect ratios | Available | Via `set_aspect_ratio` |
+| All 14 aspect ratios | Available through direct API | Pinned package exposes 10 ratios |
 
 If a feature is not yet supported by the MCP package, you can still use it via direct API calls with `curl` or the Google AI SDK.

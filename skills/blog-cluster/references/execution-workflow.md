@@ -126,9 +126,8 @@ pass that resolves placeholders in previously written posts:
 2. Search for `[INTERNAL-LINK: <anchor> -> <expected-filename.md>]` markers
    that match the just-written filename.
 3. Replace each match with a real markdown link: `[<anchor>](<filename.md>)`.
-4. If no marker exists but a topically relevant insertion point is obvious
-   (the post discusses the new post's topic), insert one natural link inside
-   an existing paragraph. Never add standalone link lines.
+4. If no planned marker exists, do not edit automatically. Emit a proposed
+   diff for user approval instead.
 
 ### Insertion rules
 
@@ -139,28 +138,28 @@ pass that resolves placeholders in previously written posts:
 
 ## Optional hero image generation
 
-If `nanobanana-mcp` is configured (check via `blog-image`'s `get_image_history`
-call), generate a 16:9 hero image per post:
+If `blog-image` is available, generate a 16:9 hero image per post:
 
 1. Build a topic-aware prompt from the post's title and primary keyword.
 2. Call `/blog image generate` via the Task tool.
-3. Save to `cluster-<slug>/images/<post-slug>-hero.png`.
-4. Add `coverImage: "images/<post-slug>-hero.png"` to the post frontmatter.
-5. Insert `![<descriptive alt>](images/<post-slug>-hero.png)` near the top of the body.
+3. Delegate provider selection to `blog-image`, prefer current Gemini image models when available, and record the selected model ID.
+4. Save to `cluster-<slug>/images/<post-slug>-hero.png`.
+5. Add `coverImage: "images/<post-slug>-hero.png"` to the post frontmatter.
+6. Insert `![<descriptive alt>](images/<post-slug>-hero.png)` near the top of the body.
 
-If the MCP is unavailable, log one warning at the start of execution and
+If image generation is unavailable, log one warning at the start of execution and
 proceed without images. Do not retry per post. Do not block.
 
 ## Failure handling
 
 | Scenario | Behavior |
 |----------|----------|
-| `blog-write` returns an error or times out | Log the failure with reason. Mark this post as `failed` in the scorecard. Continue with the next post in the queue. Never abort the cluster. |
-| `blog-write` returns content below the word-count floor | Log a warning. Keep the post. Mark as `under_target` in the scorecard. |
-| `blog-write` fails the answer-first or sources quality gate | Log the gate that failed. Keep the file as `<slug>.draft.md`. Recommend manual `/blog rewrite`. |
+| `blog-write` returns an error or times out | Log the failure with reason. Mark this post as `failed` in the scorecard. Stop the batch unless the user explicitly resumes. |
+| `blog-write` returns content below the word-count floor | Log the warning, save as `<slug>.draft.md`, mark as `under_target`, and stop the batch for manual review. |
+| `blog-write` fails the answer-first or sources quality gate | Log the gate that failed, keep the file as `<slug>.draft.md`, mark remaining posts as skipped, and stop the batch. |
 | Image generation fails | Continue without an image. Note the skipped post in the scorecard. |
 | User cancels mid-execution | Save progress. On next `/blog cluster execute`, scan the directory for already-written files and resume from the next unwritten post. Note the resume in the scorecard. |
-| Filesystem write fails | Abort the current post, log the OS error, attempt the next post. Do not retry the failed post automatically. |
+| Filesystem write fails | Abort execution, log the OS error, mark remaining posts as skipped, and do not retry automatically. |
 
 ## Per-post status log
 
@@ -205,7 +204,7 @@ skipped), produce `cluster-<slug>/cluster-scorecard.md`:
 ```
 cohesion = round(
   0.40 * link_reciprocity_pct      # 0..100, % of cluster links that are bidirectional
-  + 0.25 * incoming_coverage_pct   # 0..100, % of posts with at least 3 incoming links
+  + 0.25 * incoming_coverage_pct   # 0..100, % of posts with at least 2 incoming links
   + 0.20 * intent_diversity_pct    # 0..100, distinct intents / max possible
   + 0.15 * template_diversity_pct  # 0..100, distinct templates / total posts
 )

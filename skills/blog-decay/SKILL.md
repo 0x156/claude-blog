@@ -44,13 +44,16 @@ python3 skills/blog-google/scripts/run.py gsc_query --property sc-domain:example
 python3 scripts/content_decay.py gsc-current.json gsc-previous.json --format markdown
 ```
 
-Use adjacent periods of similar length. For quarter-over-quarter checks, compare
-the last completed quarter with the quarter before it.
+Use adjacent periods of similar length for short-term checks. For seasonality,
+also run a year-over-year comparison using the same date length, filters, search
+type, device, country, and property. When possible, inspect up to 16 months of
+GSC history before diagnosing a traffic drop.
 
 ## Decay Model
 
-The default metric is `clicks`. Use `--metric impressions` when discovery loss
-matters more than traffic loss.
+The default metric is `clicks`. Also review impressions, CTR, average position,
+query and page pairs, device, country, and search appearance deltas before
+choosing an action.
 
 Severity:
 
@@ -60,12 +63,16 @@ Severity:
 | 40% to 59.9% | high |
 | 60% or more | critical |
 
-Dropped pages are previous-period pages missing from the current export. They
-are surfaced as full decline items with `dropped_out: true`.
+Dropped pages are previous-period pages missing from the current export only
+after confirming identical filters, sufficient row limits, matching dimensions,
+and URL inspection. Otherwise mark them as `needs_validation`, not
+`dropped_out`.
 
 ## Recommended Actions
 
-Use the action as the first triage path:
+Use the action as the first triage path only after checking indexation,
+canonical status, query loss, internal links, backlinks, seasonality, and
+business value:
 
 | Action | Use when |
 | --- | --- |

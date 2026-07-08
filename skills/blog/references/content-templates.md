@@ -26,14 +26,14 @@ optimization elements get forgotten, and writing takes longer.
 
 | Benefit | Impact | How |
 |---------|--------|-----|
-| Consistent structure | 15-20% higher quality scores | Every post follows a proven section pattern |
-| Faster writing | 40% reduction in drafting time | Writer focuses on content, not structure |
+| Consistent structure | Internal quality benchmark | Every post follows a proven section pattern |
+| Faster writing | Internal workflow benchmark | Writer focuses on content, not structure |
 | Complete optimization | All scoring elements included | Answer-first, visible Q&A, visuals, citations built into skeleton |
 | Predictable output | Scoring 75+ without additional passes | Template alignment maps directly to scoring categories |
 | Reduced revision cycles | Fewer review rounds needed | Structure issues caught at outline stage, not in review |
 
 A well-followed template naturally produces content that scores 75+ on the
-quality scoring checklist (see `references/quality-scoring.md`). Templates
+quality scoring checklist (see `skills/blog/references/quality-scoring.md`). Templates
 do not constrain creativity: they ensure the structural foundations are
 in place so the writer can focus on delivering unique value.
 
@@ -108,7 +108,7 @@ Every template, regardless of content type, follows this outer structure:
 [... 4-8 H2 sections depending on template ...]
 
 ## Frequently Asked Questions
-[FAQ]: 3-5 questions with 40-60 word stat-rich answers
+[FAQ]: 3-5 questions with 40-60 word answers; include sourced stats only when they genuinely improve the answer
 
 ## Conclusion (100-150 words)
 - Key takeaways (bulleted, 3-5 items)
@@ -263,9 +263,9 @@ Conclusion (learning path + next steps)
 **Internal linking**: Heavy. Every subtopic H2 should link to a supporting
 blog post. This is the hub of a topic cluster.
 
-**AI citation strength**: Highest. Long-form content (2,000+ words) gets
-3x more AI citations (Onely). Pillar pages with 3,000-4,000 words are the
-most-cited content type.
+**AI citation strength**: Highest when the page covers a topic comprehensively
+and provides source-backed passages. Treat vendor claims about long-form AI
+citation lift as directional unless the cited study is loaded and verified.
 
 ---
 
@@ -293,9 +293,8 @@ Conclusion (final rating + recommendation)
 Screenshots from actual testing (critical for E-E-A-T).
 
 **Critical requirement**: First-hand testing data. Product reviews without
-genuine hands-on experience remain exposed to May 2026 core quality reassessment
-and 2026 spam enforcement. Treat the reported 71% affiliate-site loss figure as
-third-party, methodology-limited context.
+genuine hands-on experience are exposed to quality and spam enforcement risk.
+Treat third-party affiliate visibility-loss figures as methodology-limited context.
 
 ---
 
@@ -307,7 +306,7 @@ contrarian takes backed by data. Builds authority and attracts backlinks.
 **Structure**:
 ```
 Introduction (trend stat that sets the stage)
-H2: The Current Landscape [ANSWER-FIRST] [VISUAL: trend-line] [STAT]
+H2: What Changed in [Topic] [ANSWER-FIRST] [VISUAL: trend-line] [STAT]
 H2: What's Changing [ANSWER-FIRST] [STAT]
 H2: Why This Matters [ANSWER-FIRST] [IMAGE]
 H2: What I've Seen [INFO-GAIN: personal-experience]
@@ -432,21 +431,23 @@ that answer many related questions about a topic.
 ```
 Introduction (topic scope + common questions stat)
 H2: [Category 1] Questions
-  H3: Question 1? [ANSWER-FIRST] [STAT]
-  H3: Question 2? [ANSWER-FIRST] [STAT]
+  H3: Question 1? [ANSWER-FIRST] [STAT when useful]
+  H3: Question 2? [ANSWER-FIRST] [STAT when useful]
 H2: [Category 2] Questions
-  H3: Question 3? [ANSWER-FIRST] [STAT]
-  H3: Question 4? [ANSWER-FIRST] [STAT]
+  H3: Question 3? [ANSWER-FIRST] [STAT when useful]
+  H3: Question 4? [ANSWER-FIRST] [STAT when useful]
 H2: [Category 3] Questions [VISUAL: summary-chart]
-  H3: Question 5? [ANSWER-FIRST] [STAT]
-  H3: Question 6? [ANSWER-FIRST] [STAT]
+  H3: Question 5? [ANSWER-FIRST] [STAT when useful]
+  H3: Question 6? [ANSWER-FIRST] [STAT when useful]
 Conclusion (additional resources + [INTERNAL-LINK])
 ```
 
 **Visual plan**: 1-2 summary charts. Lighter on visuals because the Q&A
 structure itself provides the value.
 
-**Special requirements**: Every answer must contain a specific statistic.
+**Special requirements**: Every factual claim must be verifiable. Use sourced
+statistics when they clarify the answer; do not force numbers into qualitative
+answers.
 FAQPage schema is optional entity markup for visible Q&A. It does not generate
 Google rich results or known SERP features; use it only to clarify question and
 answer entities for AI citation support.
@@ -500,16 +501,14 @@ Here is how template features map to scoring categories:
 
 | Template Feature | Scoring Category | Points at Stake |
 |-----------------|------------------|-----------------|
-| Section structure & heading hierarchy | Schema & Structure | 10 pts |
-| `[ANSWER-FIRST]` markers | Answer-First Formatting | 20 pts |
-| `[VISUAL]` and `[IMAGE]` markers | Visual Elements | 15 pts |
-| `[FAQ]` zone | Schema & Structure | 4 pts |
-| `[INFO-GAIN]` markers | Content Quality | 25 pts |
-| `[STAT]` markers and citation guidance | Statistics & Citations | 20 pts |
-| Freshness fields in frontmatter | Freshness & Trust | 10 pts |
+| Section structure, originality, readability, engagement | Content Quality | 30 pts |
+| Heading hierarchy, title, meta, keyword use, internal links | SEO Optimization | 25 pts |
+| `[INFO-GAIN]`, author signals, citations, trust markers | E-E-A-T Signals | 15 pts |
+| `[VISUAL]`, `[IMAGE]`, schema, performance, OG metadata | Technical Elements | 15 pts |
+| `[ANSWER-FIRST]`, Q&A passages, entity clarity, crawlability | AI Citation Readiness | 15 pts |
 
-A content piece that follows its template structure will cover all 100 points
-of the scoring rubric. The template ensures nothing is forgotten.
+A content piece that follows its template structure has coverage for the 100-point
+rubric. Final scoring still depends on evidence quality, originality, and execution.
 
 ---
 
@@ -517,7 +516,8 @@ of the scoring rubric. The template ensures nothing is forgotten.
 
 ### Modifying an Existing Template
 
-Templates are editable markdown files in `~/.claude/skills/templates/`.
+Templates are editable markdown files in the installed skill at
+`~/.claude/skills/blog/templates/` or in this repo at `skills/blog/templates/`.
 Changes take effect immediately: no restart needed.
 
 1. Open the template file you want to modify
@@ -528,8 +528,8 @@ Changes take effect immediately: no restart needed.
 
 1. Copy an existing template as a starting point:
    ```bash
-   cp ~/.claude/skills/templates/how-to-guide.md \
-      ~/.claude/skills/templates/my-custom-type.md
+   cp skills/blog/templates/how-to-guide.md \
+      skills/blog/templates/my-custom-type.md
    ```
 
 2. Define the section structure for your content type:
@@ -564,8 +564,8 @@ Changes take effect immediately: no restart needed.
 
 ## FAQ Section Guidelines (All Templates)
 
-Every template includes an FAQ section. The FAQ is a scoring element (4 points)
-and may aid AI citation as an entity signal. It is not a Google rich result.
+Every template includes a visible Q&A section. It supports engagement and may aid
+AI citation as an entity signal. It is not a Google rich result.
 
 ### FAQ Requirements
 
@@ -574,7 +574,7 @@ and may aid AI citation as an entity signal. It is not a Google rich result.
 | Minimum questions | 3 (standard templates), 5-8 (pillar-page, faq-knowledge) |
 | Maximum questions | 8 (diminishing returns beyond this) |
 | Answer length | 40-60 words each |
-| Statistics | Every answer must contain at least one specific statistic |
+| Statistics | Include only when factual, relevant, and sourced |
 | Source attribution | Every statistic must cite a named source |
 | Schema | Generate FAQPage only when FAQ content is visible; never present it as a Google rich result; keep Article + Person + Organization + BreadcrumbList as the 2026 priority |
 

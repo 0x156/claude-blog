@@ -24,6 +24,7 @@ when every ladder step is exhausted with no successful generation.
 from __future__ import annotations
 
 import argparse
+import base64
 import ipaddress
 import json
 import os
@@ -43,7 +44,7 @@ OPENVERSE_API = "https://api.openverse.engineering/v1/images/"
 UNSPLASH_API = "https://api.unsplash.com/search/photos"
 PEXELS_API = "https://api.pexels.com/v1/search"
 PIXABAY_API = "https://pixabay.com/api/"
-USER_AGENT = "claude-blog/1.9.0 (+https://github.com/AgriciDaniel/claude-blog)"
+USER_AGENT = "claude-blog/1.9.2 (+https://github.com/AgriciDaniel/claude-blog)"
 HTTP_TIMEOUT = 20
 
 # VULN-801 SSRF guard (v1.9.1):
@@ -52,6 +53,11 @@ HTTP_TIMEOUT = 20
 # (AWS IMDS, RFC1918, loopback) and have us publish the bytes as og:image.
 ALLOWED_SCHEMES = frozenset({"http", "https"})
 MAX_IMAGE_BYTES = 25 * 1024 * 1024  # 25 MB; legit heroes are well under this.
+GEMINI_IMAGE_MODELS = (
+    "gemini-3.1-flash-image",
+    "gemini-3.1-flash-lite-image",
+    "gemini-3-pro-image",
+)
 
 
 def _is_private_address(host: str) -> bool:
@@ -105,8 +111,6 @@ def _validate_url(url: str) -> bool:
     host = parsed.hostname
     if not host:
         return False
-    # Test seam: tests monkeypatch socket.gethostbyname to inject blocked
-    # addresses; honor that result first.
     try:
         addr_str = socket.gethostbyname(host)
     except socket.gaierror:
@@ -126,7 +130,7 @@ def _validate_url(url: str) -> bool:
         or addr.is_unspecified
     ):
         return False
-    return True
+    return not _is_private_address(host)
 
 
 class _NoRedirectHandler(urllib.request.HTTPRedirectHandler):
@@ -146,8 +150,36 @@ class _NoRedirectHandler(urllib.request.HTTPRedirectHandler):
 _NO_REDIRECT_OPENER = urllib.request.build_opener(_NoRedirectHandler())
 
 
+def _url_for_log(url: str) -> str:
+    """Redact query and fragment data before logging URLs."""
+    parsed = urllib.parse.urlparse(url)
+    redacted = parsed._replace(query="[redacted]" if parsed.query else "", fragment="")
+    return urllib.parse.urlunparse(redacted)[:120]
+
+
+def _is_supported_image(data: bytes) -> bool:
+    """Accept only JPEG, PNG, or WebP byte signatures."""
+    return (
+        data.startswith(b"\xff\xd8\xff")
+        or data.startswith(b"\x89PNG\r\n\x1a\n")
+        or (len(data) >= 12 and data[:4] == b"RIFF" and data[8:12] == b"WEBP")
+    )
+
+
+def _image_ext(data: bytes, fallback: str = ".jpg") -> str:
+    if data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return ".png"
+    if len(data) >= 12 and data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return ".webp"
+    if data.startswith(b"\xff\xd8\xff"):
+        return ".jpg"
+    return fallback
+
+
 def _atomic_write_bytes(path: Path, data: bytes) -> None:
     """Atomic write via mkstemp + os.replace. Mirrors load_untrusted_root.py."""
+    if path.exists() and path.is_symlink():
+        raise ValueError(f"refusing to overwrite symlink: {path}")
     fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=f".{path.name}.", suffix=".tmp")
     try:
         with os.fdopen(fd, "wb") as f:
@@ -188,7 +220,11 @@ def _http_get(url: str, headers: Optional[dict] = None, timeout: int = HTTP_TIME
         return None
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
+        with _NO_REDIRECT_OPENER.open(req, timeout=timeout) as resp:
+            status = getattr(resp, "status", 200)
+            if 300 <= int(status) < 400:
+                print(f"[http] redirect refused: {_url_for_log(url)}", file=sys.stderr)
+                return None
             # Read at most MAX_IMAGE_BYTES + 1 to detect oversize.
             data = resp.read(MAX_IMAGE_BYTES + 1)
             if len(data) > MAX_IMAGE_BYTES:
@@ -199,8 +235,18 @@ def _http_get(url: str, headers: Optional[dict] = None, timeout: int = HTTP_TIME
                 return None
             return data
     except Exception as e:
-        print(f"[http] {url[:80]}: {e}", file=sys.stderr)
+        print(f"[http] {_url_for_log(url)}: {e}", file=sys.stderr)
         return None
+
+
+def _download_image(url: str) -> Optional[bytes]:
+    data = _http_get(url)
+    if data is None:
+        return None
+    if not _is_supported_image(data):
+        print(f"[http] response is not a supported image: {_url_for_log(url)}", file=sys.stderr)
+        return None
+    return data
 
 
 def _http_get_json(url: str, headers: Optional[dict] = None) -> Optional[dict]:
@@ -230,31 +276,31 @@ def _try_gemini(topic: str, tags: list[str], out_dir: Path, width: int, height: 
     img_bytes: Optional[bytes] = None
     used_model = model
 
-    # Try Gemini image-capable GA models first (via generate_content).
-    for try_model in dict.fromkeys((model, "gemini-3.1-flash-image", "gemini-2.5-flash-image")):
+    # Try Gemini image-capable GA models via the Interactions API.
+    for try_model in dict.fromkeys((model, *GEMINI_IMAGE_MODELS)):
         if not try_model:
             continue
         try:
-            response = client.models.generate_content(model=try_model, contents=prompt)
-            cands = getattr(response, "candidates", None) or []
-            for cand in cands:
-                content = getattr(cand, "content", None)
-                if not content:
-                    continue
-                for part in getattr(content, "parts", []) or []:
-                    inline = getattr(part, "inline_data", None)
-                    if inline and getattr(inline, "data", None):
-                        img_bytes = inline.data
-                        used_model = try_model
-                        break
-                if img_bytes:
-                    break
+            interaction = client.interactions.create(
+                model=try_model,
+                input=prompt,
+                response_format={
+                    "type": "image",
+                    "mime_type": "image/png",
+                    "aspect_ratio": "16:9",
+                },
+            )
+            output_image = getattr(interaction, "output_image", None)
+            if output_image and getattr(output_image, "data", None):
+                raw_data = output_image.data
+                img_bytes = base64.b64decode(raw_data) if isinstance(raw_data, str) else raw_data
+                used_model = try_model
             if img_bytes:
                 break
         except Exception as e:
-            print(f"[gemini] {try_model} generate_content failed: {e}", file=sys.stderr)
+            print(f"[gemini] {try_model} interactions.create failed: {e}", file=sys.stderr)
 
-    if not img_bytes:
+    if not img_bytes or not _is_supported_image(img_bytes):
         return None
 
     hero_path = out_dir / f"{OUTPUT_FILE_PREFIX}.png"
@@ -280,10 +326,10 @@ def _try_unsplash(query: str, out_dir: Path) -> Optional[dict]:
     img_url = item.get("urls", {}).get("regular")
     if not img_url:
         return None
-    img_bytes = _http_get(img_url)
+    img_bytes = _download_image(img_url)
     if not img_bytes:
         return None
-    hero_path = out_dir / f"{OUTPUT_FILE_PREFIX}.jpg"
+    hero_path = out_dir / f"{OUTPUT_FILE_PREFIX}{_image_ext(img_bytes)}"
     _atomic_write_bytes(hero_path, img_bytes)
     user = item.get("user", {})
     credit = (
@@ -307,10 +353,10 @@ def _try_pexels(query: str, out_dir: Path) -> Optional[dict]:
     img_url = item.get("src", {}).get("large2x") or item.get("src", {}).get("large")
     if not img_url:
         return None
-    img_bytes = _http_get(img_url)
+    img_bytes = _download_image(img_url)
     if not img_bytes:
         return None
-    hero_path = out_dir / f"{OUTPUT_FILE_PREFIX}.jpg"
+    hero_path = out_dir / f"{OUTPUT_FILE_PREFIX}{_image_ext(img_bytes)}"
     _atomic_write_bytes(hero_path, img_bytes)
     credit = (
         f'Photo by {item.get("photographer", "Pexels contributor")} on Pexels\n'
@@ -336,10 +382,10 @@ def _try_pixabay(query: str, out_dir: Path) -> Optional[dict]:
     img_url = item.get("largeImageURL") or item.get("webformatURL")
     if not img_url:
         return None
-    img_bytes = _http_get(img_url)
+    img_bytes = _download_image(img_url)
     if not img_bytes:
         return None
-    hero_path = out_dir / f"{OUTPUT_FILE_PREFIX}.jpg"
+    hero_path = out_dir / f"{OUTPUT_FILE_PREFIX}{_image_ext(img_bytes)}"
     _atomic_write_bytes(hero_path, img_bytes)
     credit = (
         f'Image by {item.get("user", "Pixabay contributor")} on Pixabay\n'
@@ -376,13 +422,11 @@ def _try_openverse(topic: str, tags: list[str], out_dir: Path) -> Optional[dict]
     img_url = item.get("url") or item.get("thumbnail")
     if not img_url:
         return None
-    img_bytes = _http_get(img_url)
+    img_bytes = _download_image(img_url)
     if not img_bytes:
         return None
 
-    ext = ".jpg"
-    if img_url.lower().endswith(".png"):
-        ext = ".png"
+    ext = _image_ext(img_bytes)
     hero_path = out_dir / f"{OUTPUT_FILE_PREFIX}{ext}"
     _atomic_write_bytes(hero_path, img_bytes)
 
@@ -409,7 +453,15 @@ def main() -> int:
     parser.add_argument("--json", action="store_true", help="Emit JSON result to stdout")
     args = parser.parse_args()
 
-    out_dir = Path(args.out).resolve()
+    raw_out_dir = Path(args.out)
+    if raw_out_dir.exists() and raw_out_dir.is_symlink():
+        msg = f"ERROR: refusing symlink output directory {raw_out_dir}"
+        if args.json:
+            print(json.dumps({"error": "out-dir-symlink", "message": msg}))
+        else:
+            print(msg, file=sys.stderr)
+        return 1
+    out_dir = raw_out_dir.resolve()
     try:
         out_dir.mkdir(parents=True, exist_ok=True)
     except OSError as e:

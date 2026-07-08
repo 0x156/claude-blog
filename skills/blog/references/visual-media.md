@@ -14,10 +14,10 @@ Every blog post should have a cover image for social sharing and blog listings.
 
 ### Option 1: Photo Cover (Pixabay/Unsplash/Pexels)
 
-Search for a wide, high-quality image relevant to the topic:
-1. Pixabay: `site:pixabay.com [topic] wide banner`
-2. Unsplash: `site:unsplash.com [topic] wide`
-3. Pexels: `site:pexels.com [topic] wide banner`
+Search for a wide, high-quality image relevant to the topic through official
+APIs when keys are available, or through Openverse for CC assets. Download the
+chosen asset locally, store attribution/license metadata, and do not hotlink raw
+CDN URLs.
 
 **Sizing requirements:**
 | Use Case | Dimensions | Aspect Ratio |
@@ -26,16 +26,18 @@ Search for a wide, high-quality image relevant to the topic:
 | Open Graph (OG) | 1200x630 | 1.91:1 (required) |
 | Twitter card | 1200x628 | ~1.91:1 |
 
-Unsplash resize: `?w=1200&h=630&fit=crop&q=80`
-Pixabay/Pexels: use original if wide enough, or crop.
+Resize/crop locally to the target dimensions and keep `hero-credit.txt` or
+equivalent attribution next to the downloaded asset.
 
-### Option 2: Generated SVG Cover (via blog-chart)
+### Option 2: Generated Chart Cover (via blog-chart)
 
 For branded or data-driven covers, generate via `blog-chart`:
 - Text-on-gradient with title and key statistic
 - Dark-mode compatible (use `currentColor` where possible)
 - Include blog name/author subtle branding
 - ViewBox: `0 0 1200 630` for OG compatibility
+- Render the final social image to PNG or WebP at 1200x630. Do not use raw SVG
+  as `og:image`; many social parsers do not reliably render SVG previews.
 
 ### Option 3: AI-Generated Cover (via blog-image)
 
@@ -43,7 +45,8 @@ For custom, topic-specific covers when stock photos don't match:
 1. Requires nanobanana-mcp configured (see `/blog image setup`)
 2. Uses 6-component Reasoning Brief for optimized Gemini prompts
 3. Supports 14 aspect ratios (16:9 for hero, 1.91:1 for OG)
-4. Up to 4K resolution via Gemini 3.1 Flash
+4. Use current Gemini image models: `gemini-3.1-flash-image`,
+   `gemini-3.1-flash-lite-image`, or `gemini-3-pro-image`
 5. Post-processing: auto-resize to 1200x630, convert to WebP/AVIF
 
 Best for: Abstract topics, branded imagery, niche subjects with poor stock results.
@@ -54,9 +57,9 @@ Best for: Abstract topics, branded imagery, niche subjects with poor stock resul
 ---
 title: "..."
 description: "..."
-coverImage: "https://cdn.pixabay.com/photo/.../cover.jpg"
+coverImage: "/images/blog/topic-cover.jpg"
 coverImageAlt: "Descriptive sentence about the cover image"
-ogImage: "https://cdn.pixabay.com/photo/.../cover.jpg"  # Same as cover or custom OG
+ogImage: "/images/blog/topic-og.jpg"  # Same as cover or custom OG
 date: "YYYY-MM-DD"
 ---
 ```
@@ -118,24 +121,25 @@ date: "YYYY-MM-DD"
 | Alt text | Required on ALL images - full descriptive sentence |
 | Placement | After H2 headings, before body text |
 | Distribution | Spread evenly - never cluster images |
-| Count | 3-5 images per 2,000-word post |
+| Count | Intent-based density within the page-weight budget |
 | Relevance | Must relate to adjacent content |
 | Format | AVIF preferred, WebP fallback, JPEG last resort |
 
 ### Image Density by Content Type
 
-Optimal image frequency varies by post format (THM SEO Agency data):
+Use one density model: add visuals where they clarify, prove, or summarize the
+adjacent section, while keeping total image payload under the page budget.
 
-| Content Type | Image Density | Example (2,000-word post) |
-|-------------|---------------|---------------------------|
-| Listicles | 1 image per 133 words | ~15 images |
-| How-to guides | 1 image per 179 words | ~11 images |
-| Long-form analysis | 1 image per 200-250 words | ~8-10 images |
-| Case studies | 1 image per 307 words | ~6-7 images |
+| Content Type | Typical Density | Example (2,000-word post) |
+|-------------|-----------------|---------------------------|
+| Standard article | 1 visual per 400-600 words | 3-5 visuals |
+| How-to or tutorial | 1 visual per major step | 5-8 visuals |
+| Listicle or product roundup | 1 visual per item only when useful | 5-10 visuals |
+| Case study or data post | charts/screenshots for proof points | 4-7 visuals |
 
-Articles with an image every 75-100 words get 2x more social shares (BuzzSumo).
-Balance density against page weight - use optimized formats (AVIF/WebP) to keep
-total image payload under 500KB.
+Avoid mechanical image-every-75-100-word targets. Use optimized formats
+(AVIF/WebP) and responsive sizes; if the post exceeds the page-weight budget,
+reduce decorative media before cutting proof screenshots or charts.
 
 ### SVG Impact on Engagement
 
@@ -416,10 +420,10 @@ The sub-skill returns complete SVG wrapped in a `<figure>`. Verify before embedd
 ## YouTube Video Embeds
 
 YouTube videos are part of the visual media mix alongside images, charts, and
-AI-generated images. YouTube has the strongest AI visibility correlation (0.737)
-of any signal (Ahrefs 75K brands).
+AI-generated images. Vendor studies report a strong correlation with AI
+visibility, but treat that as directional and use videos only when relevant.
 
-See `references/video-embeds.md` for:
+See `video-embeds.md` for:
 - Embed patterns (srcdoc lazy loading for MDX, HTML, Markdown, Hugo)
 - Video quality criteria and scoring (min 50/100)
 - Placement strategy (2-3 per post, 500+ words apart)

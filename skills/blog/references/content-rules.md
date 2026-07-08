@@ -13,7 +13,7 @@
 - [Anti-Pattern Detection](#anti-pattern-detection)
 - [Content Length Guidelines](#content-length-guidelines)
 - [Citation Statistics Rules (AI Search SEO)](#citation-statistics-rules-ai-search-seo)
-- [Information Gain: The Key Differentiator](#information-gain----the-key-differentiator)
+- [Information Gain: The Key Differentiator](#information-gain-the-key-differentiator)
 - [Meta Description Formula](#meta-description-formula)
 - [Citation Format](#citation-format)
 - [Citation Tiers](#citation-tiers)
@@ -53,9 +53,9 @@ source attribution.
 
 | Parameter | Target | Impact |
 |-----------|--------|--------|
-| Character length | 40-60 characters | 8.9% higher CTR (Backlinko) |
-| Sentiment | Positive framing | +4.1% CTR vs neutral titles |
-| Brackets/parentheses | Include when relevant | ~40% more clicks (HubSpot) |
+| Character length | 40-60 characters | Directional vendor benchmark, verify fit |
+| Sentiment | Positive framing | Directional vendor benchmark, verify fit |
+| Brackets/parentheses | Include when relevant | Directional vendor benchmark, verify fit |
 | Power words | 1-2 per title | "Definitive," "Essential," "Data-Backed" |
 | Keyword placement | Front-loaded | Primary keyword in first 3 words when possible |
 
@@ -71,7 +71,7 @@ Every post must open with a summary box immediately after the title/intro:
 
 - **Length**: 40-60 words total across all bullet points (standalone summary)
 - **Purpose**: AI extraction target - LLMs frequently cite these verbatim
-- **Content**: 3-5 bullet points covering core findings with one key statistic
+- **Content**: 3-5 bullet points covering core findings; include a sourced key statistic only when central
 - **Format**: Visually distinct block (callout, bordered box, or blockquote)
 - **Rule**: Must be comprehensible without reading the rest of the article
 
@@ -89,7 +89,8 @@ Format: 3-5 bullet points (not a prose paragraph):
 > - [Third actionable takeaway]
 ```
 
-For backward compatibility, blog-analyze accepts both "TL;DR" and "Key Takeaways".
+For backward compatibility, blog-analyze accepts "TL;DR", "Key Takeaways",
+"Summary", and "Quick Answer".
 
 ## Heading Hierarchy
 
@@ -102,7 +103,7 @@ For backward compatibility, blog-analyze accepts both "TL;DR" and "Key Takeaways
 - Include primary keyword naturally in 2-3 headings
 
 ### Question-Format Headings
-Convert 40-60% of H2s to questions:
+Convert 60-70% of H2s to questions:
 - "The Future of X" → "What Does X Look Like in 2026?"
 - "Strategies for Y" → "How Do You Achieve Y in 2026?"
 - Keep 2-3 statement headings for variety
@@ -116,9 +117,9 @@ show these in People Also Ask. Users scan headings as questions they want answer
 | Parameter | Target | Flag At | Source |
 |-----------|--------|---------|--------|
 | Average sentence length | 15-20 words | >22 words | Yoast, Siteimprove |
-| Max sentence length | 25 words | >20 words | Yoast flags >20 |
+| Max sentence length | 25 words | Warning >20 words; fail >25 words | Yoast flags >20 |
 | Sentences over 20 words | ≤25% | >25% | Yoast threshold |
-| Sentence length variance | StdDev ≥5 words | <5 StdDev | Wikipedia AI guidelines |
+| Sentence length variance | StdDev ≥5 words | <5 StdDev | Internal anti-monotony heuristic |
 | AI search average | 15-18 words | - | AI search SEO research synthesis |
 
 ### Sentence Rhythm
@@ -195,11 +196,10 @@ where prose works better - lists are for scannable parallel items, not for
 every piece of information.
 
 ### Visual Impact
-Content with visuals gets 94% more views (MDG Advertising, c. 2014 via Jeff Bullas; stat is
-10+ years old) and 150% more social engagement. More recent: Semrush 2026 found blogs with
-7+ images per post receive 116% more organic traffic.
-NNGroup: visitors read only ~20% of words on a page - visuals anchor scanning
-patterns and guide the eye to key information.
+Older visual-content studies reported large engagement lifts, but those figures
+are historical context rather than active 2026 targets. Use visuals when they
+clarify, prove, or summarize information. NNGroup scanning research supports
+using visuals to anchor key information for readers.
 
 ### Visual Rhythm (Mandatory Pacing)
 Insert a visual element (image, chart, or callout) every 300-500 words.
@@ -223,9 +223,9 @@ crucial, foster, illuminate, underscore, embark, endeavor, facilitate,
 paramount, nuanced, intricate, meticulous, realm
 
 ### Em Dashes (Zero Tolerance)
-NEVER use em dashes (-) in blog content. Em dashes are a strong AI writing
-signal. Replace with commas, hyphens (-), colons, or periods. Split sentences
-if an em dash was used to join two independent clauses.
+NEVER use the em dash character, U+2014, in blog content. Replace it with
+commas, hyphens, colons, or periods. Split sentences when a long dash was used
+to join two independent clauses.
 
 ### Passive Voice (≤10% of sentences)
 Yoast threshold. Clusters of passive voice signal automated content.
@@ -282,15 +282,15 @@ fabrication risks in quality scoring.
 
 - Year anchor in prose: "In 2026, [Source] found..." (NOT: "...found ... (Source, 2026).")
 - Inline citation: publisher AND title, e.g. "Ahrefs, AI Overviews CTR update".
-- Source block: full URL plus `retrieved YYYY-MM-DD` for every cited source.
+- Retrieval notes, footnotes, or bibliography: full URL plus `retrieved YYYY-MM-DD` for every cited source.
 
 Drop unverifiable stats. Replace contradicted stats with verified alternatives. See `flow-alignment.md`.
 
 ## Information Gain: The Key Differentiator
 
-Google's Information Gain patent (US11354342B2, 2022) rewards content with
-novel data points beyond what top-ranking results cover. AI synthesizes
-consensus but cannot create new data. Optimize by:
+Google's Information Gain patent (US11354342B2, 2022) suggests a retrieval
+concept for valuing novel information, but patents do not prove current ranking
+use. Treat information gain as an editorial differentiation principle:
 
 1. **Original research**: Surveys, proprietary data, experiments (+25.1% top-10, Stratabeat)
 2. **Personal perspective**: Opinions AI cannot replicate
@@ -300,12 +300,12 @@ consensus but cannot create new data. Optimize by:
 
 ## Meta Description Formula
 
-Pattern: "[Key statistic]. Here's how [strategy] delivers [outcome] in 2026."
+Pattern: "[Specific value proposition]. Here's how [strategy] delivers [outcome] in 2026."
 
 Rules:
 - 150-160 characters (desktop ~920px); mobile shows only ~120 characters (~680px)
 - Front-load key information in the first 120 characters for full mobile visibility
-- Include one specific statistic
+- Include a specific statistic only when it is central and sourced
 - No keyword stuffing
 - End with value proposition or call to action
 - Fact-dense, not vague
@@ -326,7 +326,7 @@ Study: Name the paper, institution, and year. Quote: Use quotation marks with sp
 
 ## Self-Promotion Rules
 
-- Maximum 1 brand mention per post (author bio context only)
+- Keep brand mentions intent-specific: strict for informational posts, more flexible for product reviews, case studies, and branded BOFU pages
 - Remove "At [Company], we..." patterns and promotional links
 - Author section should demonstrate E-E-A-T credentials, not sell
 

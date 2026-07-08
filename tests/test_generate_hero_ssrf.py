@@ -35,6 +35,16 @@ def hero_module():
     return mod
 
 
+def _patch_dns(monkeypatch, hero_module, addr: str = "8.8.8.8") -> None:
+    monkeypatch.setattr(hero_module.socket, "gethostbyname", lambda host: addr)
+    family = socket.AF_INET6 if ":" in addr else socket.AF_INET
+    monkeypatch.setattr(
+        hero_module.socket,
+        "getaddrinfo",
+        lambda host, port, proto=0: [(family, socket.SOCK_STREAM, proto, "", (addr, port))],
+    )
+
+
 def test_non_http_scheme_is_refused(hero_module):
     for url in (
         "file:///etc/passwd",
@@ -58,7 +68,7 @@ def test_private_ipv4_is_refused(hero_module, monkeypatch):
         ("http://loopback.test/", "127.0.0.1"),
     ]
     for url, addr in blocked:
-        monkeypatch.setattr(socket, "gethostbyname", lambda host, _addr=addr: _addr)
+        monkeypatch.setattr(hero_module.socket, "gethostbyname", lambda host, _addr=addr: _addr)
         result = hero_module._http_get(url)
         assert result is None, f"expected None for {url!r} -> {addr}"
 
@@ -67,7 +77,7 @@ def test_private_ipv6_is_refused(hero_module, monkeypatch):
     """ULA fc00::/7, link-local fe80::/10, loopback ::1 must be refused."""
     blocked_v6 = ["::1", "fe80::1", "fc00::1"]
     for addr in blocked_v6:
-        monkeypatch.setattr(socket, "gethostbyname", lambda host, _addr=addr: _addr)
+        monkeypatch.setattr(hero_module.socket, "gethostbyname", lambda host, _addr=addr: _addr)
         assert hero_module._http_get(f"http://test/") is None, (
             f"expected None for IPv6 {addr}"
         )
@@ -76,7 +86,7 @@ def test_private_ipv6_is_refused(hero_module, monkeypatch):
 def test_oversize_response_is_refused(hero_module, monkeypatch):
     """Responses larger than MAX_IMAGE_BYTES return None, not partial bytes."""
     # Verify guard rejects public IP first by mocking resolution to a public IP
-    monkeypatch.setattr(socket, "gethostbyname", lambda host: "8.8.8.8")
+    _patch_dns(monkeypatch, hero_module)
 
     class FakeResp:
         def __init__(self, size):
@@ -89,17 +99,13 @@ def test_oversize_response_is_refused(hero_module, monkeypatch):
         def __exit__(self, *a): return False
 
     cap = hero_module.MAX_IMAGE_BYTES
-    monkeypatch.setattr(
-        hero_module.urllib.request,
-        "urlopen",
-        lambda req, timeout=None: FakeResp(cap + 1),
-    )
+    monkeypatch.setattr(hero_module._NO_REDIRECT_OPENER, "open", lambda req, timeout=None: FakeResp(cap + 1))
     assert hero_module._http_get("http://images.unsplash.com/x") is None
 
 
 def test_size_at_cap_is_accepted(hero_module, monkeypatch):
     """A response exactly at MAX_IMAGE_BYTES still succeeds."""
-    monkeypatch.setattr(socket, "gethostbyname", lambda host: "8.8.8.8")
+    _patch_dns(monkeypatch, hero_module)
     cap = hero_module.MAX_IMAGE_BYTES
 
     class FakeResp:
@@ -110,11 +116,7 @@ def test_size_at_cap_is_accepted(hero_module, monkeypatch):
         def __enter__(self): return self
         def __exit__(self, *a): return False
 
-    monkeypatch.setattr(
-        hero_module.urllib.request,
-        "urlopen",
-        lambda req, timeout=None: FakeResp(),
-    )
+    monkeypatch.setattr(hero_module._NO_REDIRECT_OPENER, "open", lambda req, timeout=None: FakeResp())
     out = hero_module._http_get("http://images.unsplash.com/x")
     assert out is not None
     assert len(out) == cap
@@ -122,7 +124,7 @@ def test_size_at_cap_is_accepted(hero_module, monkeypatch):
 
 def test_public_ip_with_normal_response_passes(hero_module, monkeypatch):
     """Sanity check: a legitimate stock-image CDN call (mocked) must succeed."""
-    monkeypatch.setattr(socket, "gethostbyname", lambda host: "151.101.0.81")
+    _patch_dns(monkeypatch, hero_module, "151.101.0.81")
 
     class FakeResp:
         def read(self, n=None):
@@ -133,11 +135,7 @@ def test_public_ip_with_normal_response_passes(hero_module, monkeypatch):
         def __enter__(self): return self
         def __exit__(self, *a): return False
 
-    monkeypatch.setattr(
-        hero_module.urllib.request,
-        "urlopen",
-        lambda req, timeout=None: FakeResp(),
-    )
+    monkeypatch.setattr(hero_module._NO_REDIRECT_OPENER, "open", lambda req, timeout=None: FakeResp())
     out = hero_module._http_get("https://images.pexels.com/photos/x.jpg")
     assert out is not None
     assert out.startswith(b"\xff\xd8\xff")
@@ -147,7 +145,7 @@ def test_dns_failure_is_refused(hero_module, monkeypatch):
     """Unresolvable hostname returns None, not an exception."""
     def _fail(host):
         raise socket.gaierror("not found")
-    monkeypatch.setattr(socket, "gethostbyname", _fail)
+    monkeypatch.setattr(hero_module.socket, "gethostbyname", _fail)
     assert hero_module._http_get("http://nonexistent.invalid/") is None
 
 
@@ -165,3 +163,32 @@ def test_allowed_schemes_constant_exists(hero_module):
     assert hero_module.ALLOWED_SCHEMES == frozenset({"http", "https"}), (
         "ALLOWED_SCHEMES must be exactly {http, https}"
     )
+
+
+def test_redirect_response_is_refused(hero_module, monkeypatch):
+    _patch_dns(monkeypatch, hero_module)
+
+    class RedirectResp:
+        status = 302
+        def read(self, n=None):
+            return b""
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    monkeypatch.setattr(hero_module._NO_REDIRECT_OPENER, "open", lambda req, timeout=None: RedirectResp())
+    assert hero_module._http_get("https://images.example/redirect") is None
+
+
+def test_http_get_does_not_use_default_urlopen(hero_module, monkeypatch):
+    _patch_dns(monkeypatch, hero_module)
+
+    class FakeResp:
+        status = 200
+        def read(self, n=None):
+            return b"\xff\xd8\xff\xe0ok"
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    monkeypatch.setattr(hero_module.urllib.request, "urlopen", lambda *a, **k: (_ for _ in ()).throw(AssertionError("urlopen used")))
+    monkeypatch.setattr(hero_module._NO_REDIRECT_OPENER, "open", lambda req, timeout=None: FakeResp())
+    assert hero_module._http_get("https://images.example/photo.jpg") == b"\xff\xd8\xff\xe0ok"

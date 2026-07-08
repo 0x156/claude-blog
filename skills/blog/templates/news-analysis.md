@@ -248,25 +248,26 @@ Do NOT use this template for:
 
 **FAQ Rules:**
 - Use questions people are actually searching for right now
-- Answers must be self-contained and extractable for Featured Snippets
+- Answers must be self-contained and extractable for search snippets and AI citations
 - Keep answers to 40-60 words for snippet optimization
 - Only 3 questions - speed over comprehensiveness for this template
 
 ---
 
-### Sources
+### References and Retrieval Notes
 
 ```markdown
-## Sources
+## References and Retrieval Notes
 
-- [Source 1 title]([URL]) - [Organization], [Date]
-- [Source 2 title]([URL]) - [Organization], [Date]
-- [Source 3 title]([URL]) - [Organization], [Date]
-- [Source 4 title]([URL]) - [Organization], [Date]
+- [Source 1 title]([URL]) - [Organization], [Date], retrieved YYYY-MM-DD
+- [Source 2 title]([URL]) - [Organization], [Date], retrieved YYYY-MM-DD
+- [Source 3 title]([URL]) - [Organization], [Date], retrieved YYYY-MM-DD
+- [Source 4 title]([URL]) - [Organization], [Date], retrieved YYYY-MM-DD
 ```
 
 **Rules:**
-- Every factual claim in the article must have a source listed here
+- Every factual claim in the article must have an inline citation
+- Retrieval notes provide provenance and must not duplicate inline citations as a raw source dump
 - Use primary sources (official announcements, press releases) over secondary coverage
 - Include the date of each source
 - Aim for 4-8 sources minimum

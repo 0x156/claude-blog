@@ -68,7 +68,7 @@
 
 **Example:**
 > **What you'll need:**
-> - Node.js v20+ installed ([how to install](/link))
+> - Current active LTS version of Node.js installed ([how to install](/link))
 > - A GitHub account with repo access
 > - Basic familiarity with the terminal
 > - **Time:** ~45 minutes

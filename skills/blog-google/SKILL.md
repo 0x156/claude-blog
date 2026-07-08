@@ -15,7 +15,7 @@ argument-hint: "[setup|pagespeed|crux|crux-history|gsc|inspect|index|ga4|nlp|you
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "1.10.0"
+  version: "1.11.0"
   category: blog
 ---
 
@@ -43,7 +43,8 @@ python3 skills/blog-google/scripts/run.py google_auth --check --json
   "default_property": "sc-domain:example.com",
   "ga4_property_id": "properties/123456789",
   "ads_developer_token": "...",
-  "ads_customer_id": "123-456-7890"
+  "ads_customer_id": "123-456-7890",
+  "ads_login_customer_id": "123-456-7890"
 }
 ```
 
@@ -210,7 +211,7 @@ For volume lookup: `python3 skills/blog-google/scripts/run.py keyword_planner vo
 
 ### `/blog google report <type>`
 
-Generate a professional PDF/HTML report with charts.
+Generate a PDF/HTML report with charts and tables.
 
 **Script:** `python3 skills/blog-google/scripts/run.py google_report --type <type> --data <json> --domain <domain> --format pdf`
 
@@ -222,7 +223,7 @@ Generate a professional PDF/HTML report with charts.
 | `full` | All data combined | Comprehensive Google SEO report |
 
 **Note:** PDF generation requires system libraries: `sudo apt install libpango1.0-dev libcairo2-dev`.
-Falls back to HTML if weasyprint is unavailable.
+Falls back to HTML if WeasyPrint is unavailable or PDF rendering fails.
 
 ---
 

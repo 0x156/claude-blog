@@ -107,17 +107,18 @@ After the introduction, generate a Key Takeaways box:
 
 ## Information Gain Markers
 
-When writing, embed original value using these markers:
-- `[ORIGINAL DATA]`: Proprietary surveys, experiments, case study metrics
-- `[PERSONAL EXPERIENCE]`: First-hand observations, lessons learned, process documentation
-- `[UNIQUE INSIGHT]`: Analysis others haven't made, contrarian perspectives backed by data
+When writing, embed original value using HTML comment markers so they cannot
+ship visibly in rendered content:
+- `<!-- ORIGINAL DATA: ... -->`: Proprietary surveys, experiments, case study metrics
+- `<!-- PERSONAL EXPERIENCE: ... -->`: First-hand observations, lessons learned, process documentation
+- `<!-- UNIQUE INSIGHT: ... -->`: Analysis others haven't made, contrarian perspectives backed by data
 
 At least 2-3 information gain markers should appear per post.
 
 ## Citation Capsule Generation
 
 For each H2 section, generate a "citation capsule":
-- 40-60 word self-contained passage
+- 120-180 word self-contained passage
 - Contains: specific claim + data point + source attribution
 - Written so an AI system could quote it directly
 
@@ -134,11 +135,12 @@ Mark zones where internal links should be placed:
 
 To avoid AI-detectable writing:
 - Vary sentence length deliberately (mix 8-word and 25-word sentences)
-- Inject rhetorical questions every 200-300 words
+- Use rhetorical questions only where they clarify the reader's next decision
 - Use contractions naturally ("it's", "we've", "don't")
 - Include hedging language: "in our experience", "we've found that"
-- NEVER use em dashes (-). Replace with commas, hyphens (-), colons, or periods.
-  Transform "X - Y" patterns to "X, Y" or "X - Y" or split into two sentences.
+- NEVER use the U+2014 em dash character. Replace it with commas, colons,
+  periods, parentheses, or a plain hyphen when a hyphen is grammatically correct.
+  Transform "X - Y" patterns to "X, Y" or split into two sentences.
 - NEVER use: "in today's digital landscape", "it's important to note",
   "dive into", "game-changer", "navigate the landscape", "revolutionize",
   "seamlessly", "cutting-edge", "harness the power of", "leverage" (as verb)

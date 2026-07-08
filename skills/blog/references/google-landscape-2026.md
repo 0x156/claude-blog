@@ -5,8 +5,9 @@
 Latest confirmed core update: May 2026 Core Update, 2026-05-21 to
 2026-06-02. March 2026 Core ran 2026-03-27 to 2026-04-08. The
 December 2025 Core Update ran 2025-12-11 to 2025-12-29 and remains
-important because since then E-E-A-T applies to all competitive queries,
-not just YMYL.
+important context for quality analysis. E-E-A-T is quality-rater language, not
+a single confirmed ranking factor; evidence expectations apply broadly and are
+highest for YMYL topics.
 
 ### Authenticity Signals Google Evaluates
 
@@ -34,8 +35,8 @@ Core update visibility patterns to preserve in 2026:
 - Sites with original testing, case studies, and first-hand experience gained visibility
 - 71% of affiliate sites without original testing lost rankings (ALM Corp analysis of 847
   sites across 23 industries; methodology not independently verified)
-- Since December 2025, E-E-A-T applies to ALL competitive queries: this is the biggest shift
-  since E-A-T was introduced
+- Helpful, trustworthy content matters broadly; YMYL topics carry the highest
+  evidence and harm-prevention expectations
 - Winners share a common trait: unique data or perspectives AI cannot replicate
 - Losers overwhelmingly produced "consensus content" - rewritten summaries of existing
   top results with no original contribution
@@ -64,7 +65,7 @@ policy, QRG, or AI search change was announced in that window.
 
 | Update | Dates | Blog Impact |
 |--------|-------|-------------|
-| December 2025 Core Update | 2025-12-11 to 2025-12-29 | Established the all competitive query E-E-A-T framing |
+| December 2025 Core Update | 2025-12-11 to 2025-12-29 | Quality reassessment; reinforce helpful, trustworthy, differentiated content |
 | Discover Update | 2026-02-05 | Monitor Discover traffic separately from core ranking volatility |
 | March 2026 Spam Update | 2026-03-24 | Spam enforcement; keep scaled and low-value AI pages out of the index |
 | March 2026 Core Update | 2026-03-27 to 2026-04-08 | Core quality reassessment; original experience and trust signals mattered most |
@@ -76,11 +77,12 @@ not as a Google-confirmed event.
 
 ## E-E-A-T Framework Since December 2025
 
-**Critical**: Since the December 2025 core update, E-E-A-T applies to ALL competitive queries,
-not just YMYL.
+Google's helpful-content guidance uses E-E-A-T as quality-rater language. It is
+not a published numeric ranking factor. Use it as an internal quality lens, with
+the highest scrutiny for YMYL and other high-harm topics.
 
-| Factor | Weight | Key Signals |
-|--------|--------|-------------|
+| Factor | Internal review emphasis | Key Signals |
+|--------|--------------------------|-------------|
 | Experience | 20% | First-hand knowledge, original content, case studies |
 | Expertise | 25% | Credentials, depth, technical accuracy |
 | Authoritativeness | 25% | Industry recognition, citations, reputation |
@@ -95,9 +97,10 @@ Health, finance, legal, news, elections, democratic processes, groups of people.
 
 ## Hidden Gems Ranking System
 
-Now fully integrated into core ranking (not Helpful Content System).
-Identifies content from forums, social media, niche blogs where people share
-"first-hand knowledge and personal insights."
+Experience-based niche content is handled by Google's core ranking systems, not
+a separate "Hidden Gems" system to optimize for directly. The practical takeaway
+is to publish first-hand knowledge and personal insights where they genuinely
+answer the query.
 
 - 70.85% of keyphrases with product reviews show "Discussions and Forums" SERP feature
   (Jul 2024 re-analysis; original Feb 2024 figure was 77%, now outdated)
@@ -121,19 +124,19 @@ Identifies content from forums, social media, niche blogs where people share
 Still rich-result-eligible for blog content in 2026: Article, BreadcrumbList,
 Video, Product, Review, and Event.
 
-FAQPage markup is AI/LLM citation support only. Google retired FAQ rich results
-for all sites on 2026-05-07, superseding the August 2023 government and health
-limit. FAQPage is not penalized, but it earns no visual Google rich result.
-Search Console FAQ filters retire around June 2026, and Rich Results Test/API
-support ends around August 2026.
+FAQPage markup is optional entity support for visible Q&A. Google reduced FAQ
+rich-result visibility in August 2023, primarily showing it only for well-known,
+authoritative government and health sites. Existing FAQPage markup is valid and
+does not cause Search problems, but general blogs should not expect FAQ rich
+results.
 
-### Deprecated (Never Recommend)
-- HowTo rich results (removed in 2025; stay gone in 2026)
-- SpecialAnnouncement (July 2025)
-- ClaimReview (June 2025, Google structured data simplification)
-- Practice Problem (Jan 2026, confirmed via Google Search Console changelog)
-- Dataset for general search, Sitelinks Search Box, Q&A (Jan 2026 per secondary sources;
-  primary Google documentation not directly confirmed for these three)
+### Rich-Result Eligibility Notes
+- HowTo and FAQ rich results are no longer broadly available for general blog
+  content after Google's 2023 simplification.
+- Some rich-result reports and enhancements have been simplified over time, but
+  schema.org validity is separate from Google rich-result eligibility.
+- Treat Dataset, Q&A, and Sitelinks Search Box changes as watch items unless a
+  primary Google source is loaded for the specific page type.
 
 ### Critical Technical Note
 Schema must appear in HTML source, not injected via JavaScript.
@@ -163,7 +166,8 @@ Most AI crawlers cannot execute JS. 72% of first-page results use schema markup.
 - About 12.6 links per answer
 - 97% of answers carry at least one citation
 - About 92-94% zero-click behavior
-- Gemini 3.5 Flash default model
+- Model name omitted here; verify current Google AI Mode implementation before
+  naming a Gemini model in user-facing content.
 
 ## Market Context
 
@@ -221,9 +225,9 @@ AMP (Accelerated Mobile Pages) is effectively dead:
 ## Readability & Engagement Signals
 
 Google does NOT use readability as a direct ranking factor. John Mueller has
-stated this explicitly. However, readability drives the engagement signals
-Google DOES measure - bounce rate, time on page, scroll depth, and return
-visits.
+stated this explicitly. Readability still affects user satisfaction and task
+completion, but do not assert analytics metrics such as bounce rate, time on
+page, scroll depth, or return visits as direct ranking inputs.
 
 ### Core Update Quality Patterns in 2026
 Raptive analysis (published Feb 2026, high reliability) found:
@@ -235,10 +239,10 @@ Raptive analysis (published Feb 2026, high reliability) found:
 - **INP >300ms** = 31% more traffic loss (ALM Corp, not Raptive)
 - Thin content, template-based pages, and generic AI aggregation were penalized
 
-### E-E-A-T Expansion
-E-E-A-T now applies to virtually ALL content categories, not just YMYL. Since
-the December 2025 Core Update, E-E-A-T evaluation applies to ALL competitive
-queries: the biggest scope expansion since E-A-T was introduced.
+### E-E-A-T Framing
+Helpful, trustworthy content matters across topics. Evidence expectations scale
+with topic risk, user harm, and YMYL sensitivity; do not claim a dated expansion
+of E-E-A-T to every competitive query unless a primary Google source is loaded.
 
 ### Quality Rater Guidelines Updates
 - **January 2025 QRG**: Added "Filler" section penalizing pages that bury useful
@@ -249,8 +253,9 @@ queries: the biggest scope expansion since E-A-T was introduced.
   language, no unique insights, regurgitated facts.
 
 ### Hidden Gems Ranking System
-Hidden Gems is its own ranking system (Brad Kellett confirmation), separate from
-core ranking. It surfaces experience-based niche content from forums, social media,
-and small blogs. 70.85% of keyphrases with product reviews now show "Discussions and
-Forums" SERP features (Jul 2024 re-analysis, Detailed.com). Domain authority influence is diminishing - depth,
-originality, and strong intent alignment matter more.
+Experience-based niche content is part of core ranking systems. It surfaces
+useful first-hand content from forums, social media, and small blogs when that
+content best satisfies the query. 70.85% of keyphrases with product reviews now
+show "Discussions and Forums" SERP features (Jul 2024 re-analysis, Detailed.com).
+Depth, originality, and strong intent alignment matter more than optimizing for a
+separate Hidden Gems system.

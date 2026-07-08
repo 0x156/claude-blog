@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes._
 
+## [1.11.0] - 2026-07-08
+
+### Audit remediation
+- Defaulted Unix and Windows installers to the private `AI-Marketing-Hub/claude-blog` mirror, added `CLAUDE_BLOG_REF` support for pinned tag or commit installs, and kept `CLAUDE_BLOG_REPO` / `CLAUDE_BLOG_URL` overrides for forks.
+- Made skill payload copies recursive and allowlisted so nested FLOW prompts, Google report templates, per-skill references, scripts, assets, and templates install together.
+- Added a Unix install manifest and narrowed Unix uninstall to package-owned paths. Shared Google credentials under `~/.config/claude-seo` are now left intact.
+- Refreshed README, CLAUDE.md, marketplace metadata, issue templates, and CI release checks for v1.11.0, 217 tests, current commands, and the 2026 Google ranking update timeline.
+- Strengthened CI skill validation for frontmatter field allowlists, `allowed-tools` rejection, line and token caps, and user-invokable argument hints.
+
 ## [1.10.0] - 2026-07-06
 
 ### Knowledge refresh
@@ -22,7 +31,7 @@ _No unreleased changes._
 
 ### Changed
 - Applied 13 Dependabot dependency bumps (pyproject dev deps, blog-google, blog-audio, and blog-notebooklm requirements, CI action SHAs).
-- Component counts refreshed across docs: 32 sub-skills, 13 root scripts, 206 tests.
+- Component counts refreshed across docs: 32 sub-skills, 13 root scripts, 217 tests.
 
 ## [1.9.1] - 2026-05-18
 
@@ -204,7 +213,7 @@ Code quality (LOW findings closed)
   v1.8.5 fence tracking used `startswith("```")` which closed
   prematurely on inner ``` lines.
 - `.github/workflows/ci.yml`: `version-coherence` job heredoc replaced
-  with `python -m pytest tests/test_version_coherence.py -v`. Local
+  with `python3 -m pytest tests/test_version_coherence.py -v`. Local
   pytest and CI now share a single source of truth (7TH-AUDIT-012).
 
 CI guards (HIGH finding closed)
@@ -1247,15 +1256,14 @@ This release closes all of them across 10 focused commits.
 - Independent code-reviewer agent caught 5 issues post-commit (build-system
   missing, bare-filename crash, PS 5.1 incompatibility, weak test, missing
   ValueError handler) -> hotfix commit applied.
-- Codex GPT-5.5 high-reasoning council used 4 times for plan validation;
-  each returned APPROVE-WITH-CHANGES with substantive corrections that
+- External plan validation was used 4 times, with substantive corrections that
   materially improved the plan.
 
 ### Open follow-ups (not release-blocking)
 - `blog-write/SKILL.md` Phase 5 extraction: currently 535 lines, ideal
   is < 500. Extract Phase 5 to a reference file in next iteration.
-- `sentence-transformers` upper bound `<5.0.0` is one major behind current
-  5.4.1; re-evaluate when next minor lands.
+- Re-evaluate the `sentence-transformers` upper bound periodically as the
+  5.x line stabilizes.
 - E-E-A-T overlap consolidation across `eeat-signals.md`, `geo-optimization.md`,
   `quality-scoring.md` (architectural).
 

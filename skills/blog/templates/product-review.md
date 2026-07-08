@@ -255,6 +255,11 @@ List 2-3 alternatives, each with:
 - [ ] All [FAQ] answers are concise (40-80 words) and lead with a direct answer
 - [ ] TL;DR Verdict Box is complete with score, summary, best-for, pricing
 - [ ] Testing methodology is specific enough to establish credibility
+- [ ] Product or Review JSON-LD is used only when the page has visible review
+      content for an eligible reviewed item
+- [ ] `reviewRating` matches the visible score and the rating scale is explained
+- [ ] Affiliate, sponsorship, free-trial, or gifted-access disclosures appear
+      before commercial links
 - [ ] At least one honest, meaningful con is included (not just nitpicking)
 - [ ] Pricing information is current and accurate
 - [ ] Alternatives section includes products you have actual knowledge of

@@ -20,7 +20,10 @@ Do NOT use this template for:
 - Original data studies (use data-research)
 - Topics with fewer than 10 meaningful questions (too thin for this format)
 
-**SEO Note:** This template is specifically optimized for FAQPage structured data (schema.org). Every Q&A pair should be a self-contained, extractable passage that can appear as a Featured Snippet or AI citation without any surrounding context.
+**SEO Note:** This template is optimized for visible, self-contained Q&A passages.
+Visible Q&A can support extraction for snippets and AI citations, but FAQPage
+schema does not cause Featured Snippets and should be secondary to Article,
+Person, Organization, and BreadcrumbList schema.
 
 ---
 
@@ -43,7 +46,7 @@ Do NOT use this template for:
 
 **Alternative Title Formats:**
 - "[Topic] FAQ: [N] Questions Answered ([Year])"
-- "Everything You Need to Know About [Topic] ([Year])"
+- "[Topic] for [Audience]: [N] Common Questions Answered ([Year])"
 - "[Topic] Explained: [N] Common Questions Answered"
 
 ---
@@ -61,7 +64,7 @@ Do NOT use this template for:
 
 [ANSWER-FIRST] [Topic] is [one-sentence definition or description]. [Why it matters in 1 sentence].
 
-[STAT: data point about the topic's relevance - adoption rate, search volume, market size, or frequency of these questions]
+[STAT when useful: data point about the topic's relevance - adoption rate, search volume, market size, or frequency of these questions]
 
 This FAQ covers the [N] most common questions about [topic], organized into [N] categories:
 
@@ -79,7 +82,7 @@ This FAQ covers the [N] most common questions about [topic], organized into [N] 
 - The introduction should be skimmable - readers will jump to their question
 - Include a table of contents via the category list
 - State when the page was last updated (trust signal)
-- Include a stat to establish the topic's relevance
+- Include a stat to establish the topic's relevance when one is available and sourced
 
 ---
 
@@ -332,7 +335,9 @@ Didn't find what you're looking for? [Contact method - e.g., "Leave a comment be
 
 ## Structured Data Notes
 
-This template requires FAQPage schema markup. When generating the final HTML:
+FAQPage schema is optional entity markup for visible Q&A. Article or BlogPosting,
+Person, Organization, and BreadcrumbList remain the baseline. When FAQPage is
+used, generate valid JSON-LD from the visible questions:
 
 ```json
 {
@@ -352,10 +357,11 @@ This template requires FAQPage schema markup. When generating the final HTML:
 ```
 
 **Rules:**
-- Every H2 question must be included in the schema
+- If FAQPage is generated, include every visible H2 question in the schema
 - Use the [ANSWER-FIRST] text as the answer in the schema
-- Limit schema to 10 questions maximum (Google's practical limit for display)
-- Test with Google's Rich Results Test before publishing
+- Schema may include all visible FAQ questions when JSON size remains reasonable
+- Test FAQPage with Schema.org Validator and validate entity consistency. Use
+  Google's Rich Results Test only for page types eligible for Google rich results.
 
 ---
 
@@ -364,7 +370,7 @@ This template requires FAQPage schema markup. When generating the final HTML:
 Before publishing, verify:
 
 - [ ] Title includes topic name, "Frequently Asked Questions," and year
-- [ ] Introduction includes a stat about the topic's relevance
+- [ ] Introduction includes a stat about the topic's relevance when available and sourced
 - [ ] Questions are organized into 3-4 logical categories
 - [ ] Every question is phrased exactly as users would search it
 - [ ] Every answer opens with [ANSWER-FIRST] (direct answer in first sentence)
@@ -377,6 +383,6 @@ Before publishing, verify:
 - [ ] At least 1 [VISUAL] marker (comparison table or diagram)
 - [ ] Related Resources section has 3-5 links
 - [ ] "Still Have Questions?" section with clear contact/community path
-- [ ] FAQPage structured data schema prepared for all questions
+- [ ] FAQPage structured data is optional and generated only from visible Q&A
 - [ ] No answer references another answer (each must stand alone)
-- [ ] All answers pass the "would this make sense as a Google Featured Snippet?" test
+- [ ] All answers are clear enough to stand alone in search snippets or AI citations

@@ -3,14 +3,19 @@
 Blog Audio Generator - Gemini TTS
 Converts prepared text to speech using Google's Gemini TTS models.
 
+The SDK calls below use the generate_content compatibility path. Prefer the
+Interactions API for new Gemini 3.1 TTS features when the installed SDK
+supports it.
+
 Usage:
-    python scripts/run.py generate_audio.py --text "Hello world" --voice Charon --json
-    python scripts/run.py generate_audio.py --text-file article.txt --voice Puck --voice2 Kore --json
-    python scripts/run.py generate_audio.py --text "Test" --dry-run --json
+    python3 scripts/run.py generate_audio.py --text "Hello world" --voice Charon --json
+    python3 scripts/run.py generate_audio.py --text-file article.txt --voice Puck --voice2 Kore --json
+    python3 scripts/run.py generate_audio.py --text "Test" --dry-run --json
 """
 
 import argparse
 import base64
+import html
 import json
 import os
 import shutil
@@ -37,8 +42,11 @@ VOICES = {
 }
 
 MODELS = {
-    "flash": "gemini-2.5-flash-preview-tts",
+    "flash": "gemini-3.1-flash-tts",
+    "flash31": "gemini-3.1-flash-tts",
+    "legacy-flash25": "gemini-2.5-flash-preview-tts",
     "pro": "gemini-2.5-pro-preview-tts",
+    "legacy-pro25": "gemini-2.5-pro-preview-tts",
 }
 
 # Audio constants (Gemini TTS output format)
@@ -46,9 +54,24 @@ SAMPLE_RATE = 24000  # 24kHz
 SAMPLE_WIDTH = 2     # 16-bit (2 bytes per sample)
 CHANNELS = 1         # Mono
 
-# Cost per 1M tokens (output)
-COST_PER_1M_OUTPUT = {"flash": 10.0, "pro": 20.0}
-COST_PER_1M_INPUT = {"flash": 0.50, "pro": 1.0}
+# Cost per 1M tokens. Audio output tokens are billed at 25 tokens per second.
+COST_PER_1M_OUTPUT = {
+    "flash": 20.0,
+    "flash31": 20.0,
+    "legacy-flash25": 10.0,
+    "pro": 20.0,
+    "legacy-pro25": 20.0,
+}
+COST_PER_1M_INPUT = {
+    "flash": 1.0,
+    "flash31": 1.0,
+    "legacy-flash25": 0.50,
+    "pro": 1.0,
+    "legacy-pro25": 1.0,
+}
+AUDIO_TOKENS_PER_SECOND = 25
+MAX_INPUT_TOKENS = 8192
+CHUNK_TARGET_TOKENS = 7800
 
 
 def estimate_cost(text: str, model: str) -> dict:
@@ -60,7 +83,7 @@ def estimate_cost(text: str, model: str) -> dict:
     duration_minutes = word_count / 150
     duration_seconds = duration_minutes * 60
     # Rough output token estimate based on audio duration
-    output_tokens = duration_seconds * 200  # ~200 tokens per second of audio
+    output_tokens = duration_seconds * AUDIO_TOKENS_PER_SECOND
 
     input_cost = (input_tokens / 1_000_000) * COST_PER_1M_INPUT[model]
     output_cost = (output_tokens / 1_000_000) * COST_PER_1M_OUTPUT[model]
@@ -72,7 +95,51 @@ def estimate_cost(text: str, model: str) -> dict:
         "duration_seconds_est": int(duration_seconds),
         "duration_human_est": f"{int(duration_minutes)}:{int(duration_seconds % 60):02d}",
         "cost_estimate": f"${total_cost:.3f}",
+        "chunk_count_est": len(split_text_for_tts(text)),
     }
+
+
+def estimate_input_tokens(text: str) -> int:
+    """Estimate Gemini input tokens from text length."""
+    return max(1, int(len(text) / 4))
+
+
+def split_text_for_tts(text: str, max_tokens: int = CHUNK_TARGET_TOKENS) -> list[str]:
+    """Split long text into TTS-safe chunks without cutting words."""
+    if estimate_input_tokens(text) <= max_tokens:
+        return [text]
+
+    max_chars = max_tokens * 4
+    chunks = []
+    current = []
+    current_len = 0
+
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+    for paragraph in paragraphs:
+        if len(paragraph) > max_chars:
+            words = paragraph.split()
+            for word in words:
+                word_len = len(word) + 1
+                if current and current_len + word_len > max_chars:
+                    chunks.append(" ".join(current).strip())
+                    current = []
+                    current_len = 0
+                current.append(word)
+                current_len += word_len
+            continue
+
+        add_len = len(paragraph) + 2
+        if current and current_len + add_len > max_chars:
+            chunks.append("\n\n".join(current).strip())
+            current = []
+            current_len = 0
+        current.append(paragraph)
+        current_len += add_len
+
+    if current:
+        separator = "\n\n" if any("\n" in item for item in current) else " "
+        chunks.append(separator.join(current).strip())
+    return [chunk for chunk in chunks if chunk]
 
 
 def pcm_to_wav(pcm_data: bytes, output_path: str):
@@ -128,7 +195,7 @@ def extract_audio_data(response) -> bytes:
 
 
 def generate_single_speaker(client, text: str, voice: str, model: str) -> bytes:
-    """Generate audio with a single voice."""
+    """Generate audio with a single voice via the compatibility API."""
     from google.genai import types
 
     response = client.models.generate_content(
@@ -149,7 +216,7 @@ def generate_single_speaker(client, text: str, voice: str, model: str) -> bytes:
 
 
 def generate_multi_speaker(client, text: str, voice1: str, voice2: str, model: str) -> bytes:
-    """Generate audio with two speakers (dialogue mode)."""
+    """Generate audio with two speakers via the compatibility API."""
     from google.genai import types
 
     response = client.models.generate_content(
@@ -182,6 +249,20 @@ def generate_multi_speaker(client, text: str, voice1: str, voice2: str, model: s
         ),
     )
     return extract_audio_data(response)
+
+
+def generate_audio_chunks(client, text: str, voice1: str, voice2: str, model: str) -> tuple[bytes, int]:
+    """Generate one or more TTS chunks and stitch the raw PCM bytes."""
+    chunks = split_text_for_tts(text)
+    audio_parts = []
+    for chunk in chunks:
+        if estimate_input_tokens(chunk) > MAX_INPUT_TOKENS:
+            raise ValueError("Prepared text chunk exceeds the 8,192 token TTS input limit")
+        if voice2:
+            audio_parts.append(generate_multi_speaker(client, chunk, voice1, voice2, model))
+        else:
+            audio_parts.append(generate_single_speaker(client, chunk, voice1, model))
+    return b"".join(audio_parts), len(chunks)
 
 
 def output_result(data: dict, as_json: bool):
@@ -220,7 +301,7 @@ def main():
 
     parser.add_argument("--voice", default="Charon", help="Primary voice (default: Charon)")
     parser.add_argument("--voice2", help="Second voice for dialogue mode")
-    parser.add_argument("--model", choices=["flash", "pro"], default="flash", help="TTS model")
+    parser.add_argument("--model", choices=sorted(MODELS), default="flash", help="TTS model")
     parser.add_argument("--output", help="Output file path (default: auto-generated)")
     parser.add_argument("--json", action="store_true", help="Output structured JSON")
     parser.add_argument("--dry-run", action="store_true", help="Estimate cost without generating")
@@ -260,6 +341,7 @@ def main():
             "voice2": args.voice2,
             "text_length": len(text),
             "word_count": len(text.split()),
+            "input_tokens_est": estimate_input_tokens(text),
             **est,
         }
         output_result(result, args.json)
@@ -280,10 +362,9 @@ def main():
         if not args.json:
             print(f"Generating audio ({args.model} model, voice: {args.voice})...")
 
-        if args.voice2:
-            pcm_data = generate_multi_speaker(client, text, args.voice, args.voice2, args.model)
-        else:
-            pcm_data = generate_single_speaker(client, text, args.voice, args.model)
+        pcm_data, chunk_count = generate_audio_chunks(
+            client, text, args.voice, args.voice2, args.model
+        )
 
     except Exception as e:
         result = {"status": "error", "error": f"Gemini TTS API error: {str(e)}"}
@@ -327,7 +408,7 @@ def main():
         final_format = "wav"
 
     # Build embed HTML
-    rel_path = Path(final_path).name
+    rel_path = html.escape(Path(final_path).name, quote=True)
     mime = "audio/mpeg" if final_format == "mp3" else "audio/wav"
     embed_html = (
         f'<audio controls preload="metadata">'
@@ -347,6 +428,8 @@ def main():
         "voice": args.voice,
         "voice2": args.voice2,
         "model": args.model,
+        "model_id": MODELS[args.model],
+        "chunk_count": chunk_count,
         "embed_html": embed_html,
         "cost_estimate": est["cost_estimate"],
         "timestamp": datetime.now(timezone.utc).isoformat(),

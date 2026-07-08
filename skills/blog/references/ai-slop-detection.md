@@ -65,7 +65,7 @@ These are the patterns LLMs default to **after** the obvious vocabulary is repla
 
 1. **Question-cadence H2s.** Every section heading is phrased as a question. Real long-form mixes question, statement, and noun-phrase headings. Flag if > 70% of H2 headings end with a question mark.
 
-2. **The Heres opener.** A paragraph opens with the word "Here" ("Here's why...", "Here are five..."). Once is fine. Three or more in a 1,500-word post is an AI fingerprint.
+2. **The Here opener.** A paragraph opens with the word "Here" ("Here's why...", "Here are five..."). Once is fine. Three or more in a 1,500-word post is an AI fingerprint.
 
 3. **Three-clause sentence rhythm.** Most sentences in a paragraph follow the structure `[clause], [clause], [clause].` The cadence is metronomic. Flag if > 50% of sentences in any 200-word window match this shape.
 
@@ -144,7 +144,7 @@ Overall: [PASS only if both passes clean]
 
 ## Why this matters for ranking + AI citations
 
-- **Google core updates through May 2026**: reward content that demonstrates "experience" and original perspective. Second-order patterns are exactly what makes "AI consensus content," the kind being demoted.
+- **Editorial quality risk**: content that lacks experience and original perspective is easier to classify as interchangeable consensus content. Second-order patterns are a warning sign, even when no specific Google update is cited.
 - **AI citations**: ChatGPT and Perplexity reward citable, distinctive passages. Second-order tics produce interchangeable prose that no AI surface has reason to prefer over the source it was trained on.
 
 The two-tier check is the editorial parallel to impeccable's "design slop" methodology: vocabulary-clean is necessary but not sufficient; structural distinctiveness is what separates citeable content from indexable filler.

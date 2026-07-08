@@ -1,6 +1,6 @@
 # Gemini Image Generation Models - Nano Banana
 
-> Last updated: 2026-07-07
+> Last updated: 2026-07-08
 > Aligned with Google's July 2026 model availability state. Prices are approximate.
 
 ## Available Models
@@ -15,10 +15,27 @@
 | **Max Resolution** | Up to 4096×4096 (4K tier) |
 | **Features** | Google Search grounding (web + image), thinking levels, image-only output, extreme aspect ratios, 512px drafts |
 | **Rate Limits (Free)** | ~5-15 RPM / ~20-500 RPD, varies by billing and region |
-| **Output Tokens** | ~1,290 output tokens per image |
+| **Output Tokens** | 1K: 1,120, 2K: 1,680, 4K: 2,520 |
 | **Cost (1K)** | ~$0.067/image |
-| **Arena Rank** | #1 on Artificial Analysis Image Arena |
 | **Best For** | Most blog images, rapid iteration, batch generation |
+
+### gemini-3.1-flash-lite-image (Low Latency)
+| Property | Value |
+|----------|-------|
+| **Model ID** | `gemini-3.1-flash-lite-image` |
+| **Tier** | Nano Banana Lite |
+| **Speed** | Lowest latency image model |
+| **Aspect Ratios** | Standard 14-ratio set in the direct API |
+| **Max Resolution** | 1K optimized |
+| **Features** | Image generation and editing for high-volume workflows |
+| **Rate Limits** | Check current project limits in AI Studio |
+| **Output Tokens** | 1K: 1,120 |
+| **Cost (1K)** | ~$0.0336/image |
+| **Best For** | Low-latency drafts, lightweight edits, high-volume 1K work |
+
+**MCP caveat:** The pinned `@ycse/nanobanana-mcp@1.1.1` package may not accept
+this stable model ID. Use direct API or upgrade the MCP package before selecting
+Lite from Claude Code.
 
 ### gemini-3-pro-image (Highest Quality - Text + Detail)
 | Property | Value |
@@ -28,10 +45,10 @@
 | **Speed** | Slower - uses reasoning before generating (generates interim images internally) |
 | **Aspect Ratios** | All 14 ratios |
 | **Max Resolution** | Up to 4096×4096 (4K tier) |
-| **Features** | 94% text accuracy (quoted text), 14 reference images, C2PA Content Credentials |
+| **Features** | Strong text rendering with quoted text, 14 reference images, C2PA Content Credentials |
 | **Rate Limits (Free)** | ~5-10 RPM / ~20-100 RPD |
-| **Output Tokens** | Higher (reasoning + generation) |
-| **Cost (1K)** | ~$0.134/image (2× Flash) |
+| **Output Tokens** | 1K/2K: 1,120, 4K: 2,000 |
+| **Cost (1K/2K)** | ~$0.134/image |
 | **Best For** | Hero images with text overlays, highest quality final assets, branded content |
 
 **Note:** The preview image ID `gemini-3-pro-image-preview` shut down on 2026-06-25. Use `gemini-3-pro-image`.
@@ -42,7 +59,7 @@
 | **Model ID** | `gemini-2.5-flash-image` |
 | **Tier** | Nano Banana Original (stable) |
 | **Speed** | Fast |
-| **Aspect Ratios** | 1:1, 16:9, 9:16, 4:3, 3:4 (5 only) |
+| **Aspect Ratios** | Standard ratios vary by API surface, verify in current docs |
 | **Max Resolution** | Up to 1024×1024 (1K tier) |
 | **Rate Limits (Free)** | ~10-15 RPM / ~500 RPD (stable - more generous than preview models) |
 | **Cost (1K)** | ~$0.039/image |
@@ -83,8 +100,9 @@
 |---------------|-------------------|-----|
 | Quick draft / iteration | NB2 Flash (512px) | Fastest, cheapest, good enough for review |
 | Standard blog images | NB2 Flash (1K-2K) | Best speed/quality ratio |
-| Hero images with text | NB Pro | 94% text accuracy, reasoning mode |
+| Hero images with text | NB Pro | Strong text rendering and reasoning mode |
 | Final hero / OG at 4K | NB2 Flash or Pro (4K) | Both support 4K output |
+| High-volume 1K drafts | NB Lite | Lowest latency and lowest 1K image price |
 | Budget batch generation | Original (2.5 Flash) | $0.039/img, proven quality |
 
 ## Aspect Ratios
@@ -93,20 +111,20 @@ All 14 supported ratios. Availability varies by model:
 
 | Ratio | Orientation | Blog Use Cases | NB2 Flash | Pro | Original |
 |-------|-------------|---------------|:---------:|:---:|:--------:|
-| `1:1` | Square | Social posts, thumbnails | ✅ | ✅ | ✅ |
-| `16:9` | Landscape | Blog headers, OG images | ✅ | ✅ | ✅ |
-| `9:16` | Portrait | Stories, Reels, mobile | ✅ | ✅ | ✅ |
-| `4:3` | Landscape | Product shots, inline | ✅ | ✅ | ✅ |
-| `3:4` | Portrait | Book covers, portrait | ✅ | ✅ | ✅ |
-| `2:3` | Portrait | Pinterest pins, posters | ✅ | ✅ | ❌ |
-| `3:2` | Landscape | DSLR standard, prints | ✅ | ✅ | ❌ |
-| `4:5` | Portrait | Instagram portrait | ✅ | ✅ | ❌ |
-| `5:4` | Landscape | Large format | ✅ | ✅ | ❌ |
-| `1:4` | Tall strip | Vertical banners | ✅ | ✅ | ❌ |
-| `4:1` | Wide strip | Section dividers, headers | ✅ | ✅ | ❌ |
-| `1:8` | Extreme tall | Narrow strips | ✅ | ✅ | ❌ |
-| `8:1` | Extreme wide | Ultra-wide banners | ✅ | ✅ | ❌ |
-| `21:9` | Ultra-wide | Cinematic headers | ✅ | ✅ | ❌ |
+| `1:1` | Square | Social posts, thumbnails | ✅ | ✅ | Verify |
+| `16:9` | Landscape | Blog headers, OG images | ✅ | ✅ | Verify |
+| `9:16` | Portrait | Stories, Reels, mobile | ✅ | ✅ | Verify |
+| `4:3` | Landscape | Product shots, inline | ✅ | ✅ | Verify |
+| `3:4` | Portrait | Book covers, portrait | ✅ | ✅ | Verify |
+| `2:3` | Portrait | Pinterest pins, posters | ✅ | ✅ | Verify |
+| `3:2` | Landscape | DSLR standard, prints | ✅ | ✅ | Verify |
+| `4:5` | Portrait | Instagram portrait | ✅ | ✅ | Verify |
+| `5:4` | Landscape | Large format | ✅ | ✅ | Verify |
+| `1:4` | Tall strip | Vertical banners | ✅ | ✅ | Verify |
+| `4:1` | Wide strip | Section dividers, headers | ✅ | ✅ | Verify |
+| `1:8` | Extreme tall | Narrow strips | ✅ | ✅ | Verify |
+| `8:1` | Extreme wide | Ultra-wide banners | ✅ | ✅ | Verify |
+| `21:9` | Ultra-wide | Cinematic headers | ✅ | ✅ | Verify |
 
 ## Resolution Tiers
 
@@ -124,7 +142,8 @@ All 14 supported ratios. Availability varies by model:
 
 ## Rate Limits
 
-Google cut free-tier limits by ~92% in December 2025. Current structure:
+Rate limits vary by model, billing tier, region, and project. Check the live
+limits table before promising throughput: https://ai.google.dev/gemini-api/docs/rate-limits
 
 | Tier | RPM | RPD | How to Get |
 |------|-----|-----|-----------|
@@ -132,17 +151,19 @@ Google cut free-tier limits by ~92% in December 2025. Current structure:
 | Tier 1 (Pay-as-you-go) | 150-300 | 1,500-10,000 | Enable billing on Google Cloud project |
 | Tier 2 ($250+ spend) | 1,000+ | Unlimited | Cumulative $250+ API spend |
 
-**Important:** The old NB2 and Pro preview image IDs are shut down. Free tier for image generation may require billing to be enabled - some users report 0 IPM (images per minute) without billing.
+**Important:** The old NB2 and Pro preview image IDs are shut down. Free tier
+availability for image generation may require billing to be enabled.
 
-## Pricing (March 2026)
+## Pricing (checked 2026-07-08)
 
 | Model | Resolution | Cost per Image | Notes |
 |-------|-----------|---------------|-------|
+| NB Lite | 1K | ~$0.0336 | Direct API, 1K optimized |
 | NB2 Flash | 1K | ~$0.067 | Standard |
-| NB2 Flash | 2K | ~$0.134 | 2× standard |
-| NB2 Flash | 4K | ~$0.268 | 4× standard |
-| Pro | 1K | ~$0.134 | 2× Flash |
-| Pro | 4K | ~$0.536 | Premium quality |
+| NB2 Flash | 2K | ~$0.101 | Higher resolution |
+| NB2 Flash | 4K | ~$0.151 | Highest Flash tier |
+| Pro | 1K/2K | ~$0.134 | Premium quality |
+| Pro | 4K | ~$0.24 | Premium 4K |
 | Original (2.5) | 1K | ~$0.039 | Budget option |
 | Imagen 4 Fast | - | $0.02 | Deprecated, shutdown 2026-08-17 |
 | Imagen 4 Standard | - | $0.04 | Deprecated, shutdown 2026-08-17 |
@@ -150,6 +171,8 @@ Google cut free-tier limits by ~92% in December 2025. Current structure:
 | Batch API | Any | 50% discount | Asynchronous, higher latency |
 
 **Cost optimization:** Use 512px for drafts (cheapest), 1K for standard blog images, reserve 2K-4K for hero images and final assets.
+
+Pricing source: https://ai.google.dev/gemini-api/docs/pricing
 
 ## Multi-Image Input
 
@@ -194,16 +217,16 @@ Server-side analysis of the **generated image itself**. Cannot be disabled throu
 | Step | Target | Tool |
 |------|--------|------|
 | Generate | 2K resolution | Gemini API |
-| Convert | WebP (25-30% smaller than JPEG, 97% browser support) | ImageMagick or Sharp |
-| Fallback | AVIF (50% smaller than WebP, 90% support) with JPEG fallback | ImageMagick |
+| Convert | WebP or AVIF, check current browser baseline before relying on either format alone | ImageMagick or Sharp |
+| Fallback | JPEG or PNG fallback for channels with unknown support | ImageMagick |
 | Hero size | 1920x1080 (16:9) or 1200x630 (OG) | Resize |
 | Inline size | < 200KB compressed | Quality adjustment |
 | Hero size | < 500KB compressed | Quality adjustment |
-| Metadata | Strip EXIF, keep SynthID + C2PA | ImageMagick -strip |
+| Metadata | Remove private EXIF only after verifying SynthID and C2PA behavior | `c2patool`, ImageMagick |
 
 ## Key Limitations
 - No native transparent backgrounds (workaround: prompt green background, then chromakey removal)
-- Text rendering quality varies - keep text under 25 characters for best results (Pro achieves 94% accuracy with quoted text)
+- Text rendering quality varies - keep text under 25 characters for best results
 - Safety filters may block benign prompts - use auto-rephrase workflow
 - Session context resets between Claude Code conversations
 - `imageSize` and thinking level depend on MCP package version support

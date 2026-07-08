@@ -4,7 +4,7 @@ description: >
   Generate dark-mode-compatible inline SVG data visualization charts for blog
   posts. Supports horizontal bar, grouped bar, donut, line, lollipop, area,
   and radar charts with automatic platform detection (HTML vs JSX/MDX).
-  Enforces chart type diversity, accessible markup (role=img, aria-label),
+  Enforces chart type diversity, accessible markup (role=img, aria-labelledby),
   source attribution, and transparent backgrounds. Use whenever the user
   mentions data visualization, charts, graphs, comparison tables that need
   to be visualized, or wants to embed inline SVG visualizations in a blog
@@ -22,7 +22,13 @@ Generates dark-mode-compatible inline SVG charts for blog posts. Invoked
 internally by `blog-write` and `blog-rewrite` when chart-worthy data is
 identified. Not a standalone user-facing command.
 
-**Styling source of truth:** `references/visual-media.md`
+**Styling source of truth:** `skills/blog/references/visual-media.md`
+
+For supported chart types, prefer the deterministic CLI:
+
+```bash
+python3 skills/blog-chart/scripts/generate_chart_svg.py --input chart.json --output chart.html --json
+```
 
 ## Input Format
 
@@ -39,8 +45,8 @@ Chart Request:
 
 ## Chart Type Selection
 
-Select based on the data pattern. Diversity is mandatory - never repeat a
-type within one post.
+Select based on the data pattern. Prefer chart type diversity, but repeat a
+type when comparability or reader comprehension clearly benefits.
 
 | Data Pattern | Best Chart Type |
 |-------------|-----------------|
@@ -61,10 +67,14 @@ Text elements:     fill="currentColor"
 Grid lines:        stroke="currentColor" opacity="0.08"
 Axis lines:        stroke="currentColor" opacity="0.3"
 Background:        transparent (no fill on root SVG)
-Subtitle text:     fill="currentColor" opacity="0.45"
-Source text:        fill="currentColor" opacity="0.35"
+Subtitle text:     fill="var(--chart-muted, currentColor)"
+Source text:        fill="var(--chart-muted, currentColor)"
 Label text:        fill="currentColor" opacity="0.8"
 ```
+
+Set `--chart-muted` to an accessible text token in the host theme. If no token
+exists, use `#4b5563` on light backgrounds and `#d1d5db` on dark backgrounds.
+Do not rely on low-opacity source or subtitle text for visible attribution.
 
 ### Color Palette
 
@@ -79,6 +89,9 @@ For text inside approved colored elements: use `fill="#111827"` with
 `fontWeight="800"`. Only use white text after checking the contrast ratio is
 at least 4.5:1 against that specific fill color.
 
+Do not rely on color alone. Add direct labels, patterns, line dashes, marker
+shapes, or legend text so colorblind readers can distinguish series.
+
 ## Standard SVG Shell (HTML)
 
 ```xml
@@ -86,14 +99,14 @@ at least 4.5:1 against that specific fill color.
   viewBox="0 0 560 380"
   style="max-width: 100%; height: auto; font-family: 'Inter', system-ui, sans-serif"
   role="img"
-  aria-label="Chart description with key data point"
+  aria-labelledby="chart-title chart-desc"
 >
-  <title>Chart Title</title>
-  <desc>Description for screen readers with all key data points and source</desc>
+  <title id="chart-title">Chart Title</title>
+  <desc id="chart-desc">Description for screen readers with all key data points and source</desc>
 
   <!-- Chart content -->
 
-  <text x="280" y="372" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.35">
+  <text x="280" y="372" text-anchor="middle" font-size="10" fill="var(--chart-muted, currentColor)">
     Source: Source Name (Year)
   </text>
 </svg>
@@ -106,14 +119,14 @@ at least 4.5:1 against that specific fill color.
   viewBox="0 0 560 380"
   style={{maxWidth: '100%', height: 'auto', fontFamily: "'Inter', system-ui, sans-serif"}}
   role="img"
-  aria-label="Chart description"
+  aria-labelledby="chart-title chart-desc"
 >
-  <title>Chart Title</title>
-  <desc>Description for screen readers</desc>
+  <title id="chart-title">Chart Title</title>
+  <desc id="chart-desc">Description for screen readers</desc>
 
   {/* Chart content */}
 
-  <text x="280" y="372" textAnchor="middle" fontSize="10" fill="currentColor" opacity="0.35">
+  <text x="280" y="372" textAnchor="middle" fontSize="10" fill="var(--chart-muted, currentColor)">
     Source: Source Name (Year)
   </text>
 </svg>
@@ -207,6 +220,15 @@ Best for: multi-dimensional scoring (5-7 axes).
 5. Connect data points with filled polygon: `fill="color" opacity="0.2" stroke="color"`
 6. Label each axis at the outer edge
 
+## Label Rules
+
+- Wrap long labels at word boundaries into `<tspan>` lines.
+- Truncate only when wrapping would collide with data marks, and keep the full
+  label in `<desc>` or adjacent prose.
+- Use stable chart dimensions with a responsive `max-width: 100%; height: auto`
+  style, or choose a justified wider viewBox for dense labels.
+- Check mobile widths so axis labels, legends, and value labels do not overlap.
+
 ## Output Format
 
 Wrap every chart in a `<figure>` element:
@@ -214,28 +236,30 @@ Wrap every chart in a `<figure>` element:
 **HTML:**
 ```html
 <figure>
-  <svg viewBox="0 0 560 380" style="max-width: 100%; height: auto; font-family: 'Inter', system-ui, sans-serif" role="img" aria-label="[description]">
-    <title>[Chart Title]</title>
-    <desc>[Full description with data points for screen readers]</desc>
+  <svg viewBox="0 0 560 380" style="max-width: 100%; height: auto; font-family: 'Inter', system-ui, sans-serif" role="img" aria-labelledby="chart-title chart-desc">
+    <title id="chart-title">[Chart Title]</title>
+    <desc id="chart-desc">[Full description with data points for screen readers]</desc>
     <!-- chart content -->
-    <text x="280" y="372" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.35">
+    <text x="280" y="372" text-anchor="middle" font-size="10" fill="var(--chart-muted, currentColor)">
       Source: [Source Name] ([Year])
     </text>
   </svg>
+  <figcaption>Source: <a href="[Source URL]">[Source Name]</a>, [publication date].</figcaption>
 </figure>
 ```
 
 **MDX:**
 ```mdx
 <figure className="chart-container" style={{margin: '2.5rem 0', textAlign: 'center', padding: '1.5rem', borderRadius: '12px'}}>
-  <svg viewBox="0 0 560 380" style={{maxWidth: '100%', height: 'auto', fontFamily: "'Inter', system-ui, sans-serif"}} role="img" aria-label="[description]">
-    <title>[Chart Title]</title>
-    <desc>[Full description]</desc>
+  <svg viewBox="0 0 560 380" style={{maxWidth: '100%', height: 'auto', fontFamily: "'Inter', system-ui, sans-serif"}} role="img" aria-labelledby="chart-title chart-desc">
+    <title id="chart-title">[Chart Title]</title>
+    <desc id="chart-desc">[Full description]</desc>
     {/* chart content with camelCase attributes */}
-    <text x="280" y="372" textAnchor="middle" fontSize="10" fill="currentColor" opacity="0.35">
+    <text x="280" y="372" textAnchor="middle" fontSize="10" fill="var(--chart-muted, currentColor)">
       Source: [Source Name] ([Year])
     </text>
   </svg>
+  <figcaption>Source: <a href="[Source URL]">[Source Name]</a>, [publication date].</figcaption>
 </figure>
 ```
 
@@ -243,11 +267,12 @@ Wrap every chart in a `<figure>` element:
 
 - [ ] No hardcoded text colors except contrast-checked labels inside colored elements
 - [ ] No white/light backgrounds (transparent or none)
-- [ ] Source attribution text present at bottom
-- [ ] `role="img"` and `aria-label` present on `<svg>`
-- [ ] `<title>` and `<desc>` present inside `<svg>`
-- [ ] Chart type not already used in this post
+- [ ] Source attribution text present at bottom and semantic `<figcaption>` present
+- [ ] `role="img"` and `aria-labelledby` present on `<svg>`
+- [ ] `<title id>` and `<desc id>` present inside `<svg>`
+- [ ] Chart type choice supports comprehension and comparability
 - [ ] If MDX: all attributes camelCased (no hyphens in attribute names)
 - [ ] Data values match the source data exactly
 - [ ] Color palette uses only approved colors
 - [ ] ViewBox is `0 0 560 380` (standard) or justified alternative
+- [ ] Labels, shapes, patterns, or line styles provide redundancy beyond color

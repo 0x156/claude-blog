@@ -163,7 +163,7 @@
 1. **Scope** (1 sentence): How many options you started with.
 2. **Evaluation criteria** (bulleted list): 3-5 specific criteria with brief explanations.
 3. **Testing methodology** (1-2 sentences): What you actually did to test (not just "we researched").
-4. **Disclosure** (1 sentence): Any affiliations, sponsorships, or biases the reader should know about.
+4. **Disclosure** (1 sentence): Any affiliate links, sponsorships, free access, or biases the reader should know about. Repeat a short disclosure before the first outbound product link when commercial links appear.
 
 [INFO-GAIN: testing process] Describe your actual testing methodology: what did you build, measure, or try with each item?
 

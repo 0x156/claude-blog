@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """Run the Blog Delivery Contract preflight gates against a draft folder.
 
-Implements Gates 1, 2, 3, and 5 of the v1.9.0 Blog Delivery Contract.
-Gate 4 (Content Review) is dispatched by the orchestrator as the
-blog-reviewer agent; this script only verifies that the agent's output
-exists and that its BLOCKING decision is `false`.
+Implements Gates 1 through 5 of the Blog Delivery Contract, including
+machine verification of the Gate 4 reviewer scorecard.
 
 Output:
   <draft>/preflight-report.json: machine-readable gate results
@@ -20,18 +18,23 @@ Usage:
   --json      Emit the report JSON to stdout in addition to the file.
 
 Exit codes: 0 = all gates passed; 1 = at least one gate blocked
-(when --strict). Warnings never block.
+(when --strict); 2 = repair iteration cap exceeded. Warnings never block.
 """
 
 from __future__ import annotations
 
 import argparse
+import datetime as dt
+import hashlib
+import ipaddress
 import importlib.util
 import json
 import os
 import re
 import shutil
+import socket
 import sys
+import tempfile
 import urllib.parse
 import urllib.request
 from html.parser import HTMLParser
@@ -47,9 +50,12 @@ VIEWPORTS = [
     {"name": "tablet", "width": 768, "height": 1024},
     {"name": "desktop", "width": 1280, "height": 800},
 ]
+CONTRACT_VERSION = "1.9.2"
 HEAD_TIMEOUT = 10
-USER_AGENT = "claude-blog/1.9.0 preflight (+https://github.com/AgriciDaniel/claude-blog)"
-URL_ALLOWLIST = ("localhost", "127.0.0.1", "example.com", "example.org")
+USER_AGENT = f"claude-blog/{CONTRACT_VERSION} preflight (+https://github.com/AgriciDaniel/claude-blog)"
+URL_ALLOWLIST = ("example.com", "example.org")
+URL_ALLOWLIST_FILE = "preflight-allowlist.json"
+ALLOWED_HTTP_SCHEMES = frozenset({"http", "https"})
 
 # VULN-802 code-enforced iteration counter (v1.9.1).
 # The contract documents "up to 3 retries before escalating." v1.9.0
@@ -60,52 +66,91 @@ ITERATION_COUNTER_FILE = ".iteration-count"
 MAX_ITERATIONS = 3
 EXIT_ITERATION_CAP = 2
 
-# VULN-803 nonce-bound review.md provenance (v1.9.1).
-# Before v1.9.1, Gate 4 trusted any writer of <draft>/review.md. A malicious
-# sub-skill or prompt-injected sibling agent could satisfy the gate by
-# writing one line. v1.9.1 binds the review to a CSPRNG nonce written by
-# the orchestrator before agent dispatch; the agent must echo the nonce
-# back in review.md. Backwards-compat: drafts initialised before v1.9.1
-# (no nonce file) pass with a deprecation warning until v1.10.0.
-REVIEW_NONCE_FILE = ".review-nonce"
+# VULN-803 nonce-bound review.md provenance.
+# Gate 4 used to trust any writer of <draft>/review.md. The verifier state is
+# now outside the draft folder, keyed by the resolved draft path, so an agent
+# with draft read/write cannot copy the nonce from the draft into a forged
+# review. The orchestrator prints the nonce into the reviewer prompt.
+REVIEW_STATE_ENV = "CLAUDE_BLOG_REVIEW_STATE_DIR"
+REVIEW_STATE_DIR = Path.home() / ".cache" / "claude-blog" / "review-nonces"
 NONCE_PATTERN = re.compile(r"^Nonce:\s*([0-9a-f]{32})\s*$", re.MULTILINE | re.IGNORECASE)
+BLOCKING_PATTERN = re.compile(r"^BLOCKING:\s*(true|false)\s*(?:\((.*?)\))?\s*$", re.IGNORECASE)
 
 
-def _init_review_nonce(draft: Path) -> str:
-    """Generate a CSPRNG nonce and write it to <draft>/.review-nonce.
+def _review_state_path(draft: Path) -> Path:
+    """Return the external verifier-state path for a draft."""
+    state_root = Path(os.environ.get(REVIEW_STATE_ENV, str(REVIEW_STATE_DIR))).expanduser()
+    digest = hashlib.sha256(str(draft.resolve()).encode("utf-8")).hexdigest()
+    return state_root / f"{digest}.json"
 
-    Returns the nonce hex string. Overwrites any prior nonce so each
-    review attempt has fresh provenance.
-    """
-    import secrets
-    nonce = secrets.token_hex(16)
-    nonce_path = draft / REVIEW_NONCE_FILE
-    import tempfile
-    fd, tmp = tempfile.mkstemp(
-        dir=str(nonce_path.parent), prefix=f".{nonce_path.name}.", suffix=".tmp"
-    )
+
+def _atomic_write_json(path: Path, data: dict[str, Any]) -> None:
+    """Atomic JSON write with restrictive parent permissions."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        os.chmod(path.parent, 0o700)
+    except OSError:
+        pass
+    fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=f".{path.name}.", suffix=".tmp")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
-            f.write(f"{nonce}\n")
-        os.replace(tmp, str(nonce_path))
+            json.dump(data, f, sort_keys=True)
+            f.write("\n")
+        os.replace(tmp, path)
+        try:
+            os.chmod(path, 0o600)
+        except OSError:
+            pass
     except Exception:
         try:
             os.unlink(tmp)
         except OSError:
             pass
         raise
+
+
+def _read_expected_review_nonce(draft: Path) -> tuple[str | None, str | None]:
+    """Read the nonce from external verifier state."""
+    path = _review_state_path(draft)
+    try:
+        raw = path.read_text(encoding="utf-8")
+        data = json.loads(raw)
+    except FileNotFoundError:
+        return None, f"review verifier state missing at {path}; run --init-review-nonce before dispatching blog-reviewer"
+    except (OSError, json.JSONDecodeError) as e:
+        return None, f"review verifier state unreadable at {path}: {e}"
+    nonce = str(data.get("nonce", "")).strip().lower()
+    if not re.fullmatch(r"[0-9a-f]{32}", nonce):
+        return None, f"review verifier state at {path} does not contain a valid 32-hex nonce"
+    return nonce, None
+
+
+def _init_review_nonce(draft: Path) -> str:
+    """Generate a CSPRNG nonce and store verifier state outside the draft."""
+    import secrets
+    nonce = secrets.token_hex(16)
+    _atomic_write_json(
+        _review_state_path(draft),
+        {
+            "draft": str(draft.resolve()),
+            "nonce": nonce,
+            "created_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+            "version": CONTRACT_VERSION,
+        },
+    )
     return nonce
 
 
-def _iteration_check(draft: Path, reset: bool = False) -> int:
-    """Read/increment the per-draft iteration counter; refuse past cap.
+def _iteration_check(draft: Path, reset: bool = False, increment: bool = False) -> int:
+    """Read or increment the per-draft repair counter; refuse past cap.
 
     Behavior:
-      * reset=True: counter is set to 1 (this run counts as iteration 1).
-      * reset=False, counter absent or corrupt: counter is set to 1.
-      * reset=False, counter at MAX_ITERATIONS: emit stderr message and
+      * reset=True: counter is set to 0.
+      * increment=False: no counter mutation after any reset.
+      * increment=True, counter absent or corrupt: counter is set to 1.
+      * increment=True, counter at MAX_ITERATIONS: emit stderr message and
         return EXIT_ITERATION_CAP. Caller should sys.exit(2).
-      * Otherwise: counter += 1; return 0.
+      * Otherwise with increment=True: counter += 1; return 0.
 
     Fail-soft on corrupt counter file: a non-integer value resets to 1
     rather than refusing to run (an attacker who can write to the draft
@@ -113,7 +158,8 @@ def _iteration_check(draft: Path, reset: bool = False) -> int:
     """
     counter_path = draft / ITERATION_COUNTER_FILE
     if reset:
-        _atomic_write_counter(counter_path, 1)
+        _atomic_write_counter(counter_path, 0)
+    if not increment:
         return 0
     try:
         raw = counter_path.read_text(encoding="utf-8").strip()
@@ -159,37 +205,155 @@ def _gate_result(gate: int, name: str, passed: bool, violations: Optional[list] 
 
 
 def _has_module(name: str) -> bool:
-    return importlib.util.find_spec(name) is not None
+    try:
+        return importlib.util.find_spec(name) is not None
+    except ModuleNotFoundError:
+        return False
 
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parent.parent
 
 
-def _detect_loaded_mcp() -> list[str]:
-    """Best-effort detection. The MCP transport state is not introspectable
-    from a subprocess; we report what's declared in .mcp.json. The
-    orchestrator's tool availability is the real authority."""
-    mcp_path = _project_root() / ".mcp.json"
-    if not mcp_path.is_file():
+def _parse_tool_names(raw: str | None) -> list[str]:
+    """Parse live tool names passed by the orchestrator."""
+    if not raw:
         return []
     try:
-        cfg = json.loads(mcp_path.read_text(encoding="utf-8"))
-        return list((cfg.get("mcpServers") or {}).keys())
-    except Exception:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError:
         return []
+    if isinstance(parsed, list):
+        return [str(item) for item in parsed]
+    if isinstance(parsed, dict):
+        tools = parsed.get("tools") or parsed.get("available_tools") or parsed.get("mcp")
+        if isinstance(tools, list):
+            return [str(item) for item in tools]
+    return []
 
 
-def gate_1_capability_discovery(draft_dir: Path) -> dict:
+def _select_artifact_stem(draft_dir: Path, slug: str | None = None) -> tuple[str | None, dict[str, list[Path]], list[str]]:
+    """Select one slug-matched .md/.html/.pdf artifact set."""
+    mds = [p for p in draft_dir.glob("*.md") if p.name != "review.md"]
+    htmls = list(draft_dir.glob("*.html"))
+    pdfs = list(draft_dir.glob("*.pdf"))
+    groups = {"md": mds, "html": htmls, "pdf": pdfs}
+    violations: list[str] = []
+
+    if slug:
+        stem = slug
+        selected = {kind: [p for p in paths if p.stem == stem] for kind, paths in groups.items()}
+    else:
+        common = set(p.stem for p in mds) & set(p.stem for p in htmls) & set(p.stem for p in pdfs)
+        if len(common) != 1:
+            if not common:
+                violations.append("no slug-matched .md/.html/.pdf artifact set found")
+            else:
+                violations.append(f"multiple slug-matched artifact sets found: {sorted(common)}; pass --slug")
+            stem = None
+            selected = groups
+        else:
+            stem = next(iter(common))
+            selected = {kind: [p for p in paths if p.stem == stem] for kind, paths in groups.items()}
+
+    if stem is not None:
+        for kind, paths in selected.items():
+            if len(paths) != 1:
+                violations.append(f"expected exactly one {stem}.{kind}, found {len(paths)}")
+    return stem, selected, violations
+
+
+def _safe_local_path(root: Path, ref: str) -> tuple[Path | None, str | None]:
+    """Resolve a local URL/path under root, refusing absolute paths and symlinks."""
+    parsed = urllib.parse.urlparse(ref)
+    if parsed.scheme or parsed.netloc:
+        return None, f"not a local path: {ref}"
+    raw_path = urllib.parse.unquote(parsed.path)
+    if not raw_path or raw_path.startswith("/"):
+        return None, f"local path must be relative to draft: {ref}"
+    candidate = root / raw_path
+    if candidate.is_symlink():
+        return None, f"local path is a symlink: {ref}"
+    try:
+        resolved = candidate.resolve(strict=False)
+        resolved.relative_to(root.resolve())
+    except ValueError:
+        return None, f"local path escapes draft folder: {ref}"
+    return resolved, None
+
+
+def _load_unreachable_allowlist(draft_dir: Path) -> set[str]:
+    """Load exact host allowlist for links that should not be probed."""
+    hosts = set(URL_ALLOWLIST)
+    cfg_path = draft_dir / URL_ALLOWLIST_FILE
+    if not cfg_path.is_file() or cfg_path.is_symlink():
+        return hosts
+    try:
+        data = json.loads(cfg_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return hosts
+    raw_hosts = data.get("unreachable_hosts") or data.get("hosts") or []
+    if isinstance(raw_hosts, list):
+        for host in raw_hosts:
+            parsed = urllib.parse.urlparse(str(host))
+            name = (parsed.hostname or str(host)).strip().lower().rstrip(".")
+            if re.fullmatch(r"[a-z0-9.-]+", name):
+                hosts.add(name)
+    return hosts
+
+
+def _is_allowed_unreachable(url: str, allowed_hosts: set[str]) -> bool:
+    parsed = urllib.parse.urlparse(url)
+    host = (parsed.hostname or "").lower().rstrip(".")
+    return host in allowed_hosts
+
+
+def _safe_http_url(url: str) -> tuple[bool, str | None]:
+    """Validate URL scheme and every resolved address before fetch."""
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme not in ALLOWED_HTTP_SCHEMES:
+        return False, "URL scheme must be http or https"
+    host = parsed.hostname
+    if not host:
+        return False, "URL host missing"
+    try:
+        infos = socket.getaddrinfo(host, parsed.port or (443 if parsed.scheme == "https" else 80), proto=socket.IPPROTO_TCP)
+    except socket.gaierror as e:
+        return False, f"DNS resolution failed: {e}"
+    except OSError as e:
+        return False, f"DNS resolution failed: {e}"
+    if not infos:
+        return False, "DNS resolution returned no addresses"
+    for info in infos:
+        addr_text = info[4][0]
+        try:
+            addr = ipaddress.ip_address(addr_text)
+        except ValueError:
+            return False, f"invalid resolved address: {addr_text}"
+        if not addr.is_global or addr.is_loopback or addr.is_link_local or addr.is_multicast or addr.is_unspecified:
+            return False, f"resolved address is not public: {addr}"
+    return True, None
+
+
+def _well_formed_http_url(url: str) -> tuple[bool, str | None]:
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme not in ALLOWED_HTTP_SCHEMES:
+        return False, "URL scheme must be http or https"
+    if not parsed.hostname:
+        return False, "URL host missing"
+    return True, None
+
+
+def gate_1_capability_discovery(draft_dir: Path, live_tools: list[str] | None = None) -> dict:
     """Enumerate available capabilities; write capabilities.json."""
     root = _project_root()
+    live_tools = live_tools or []
     env_keys = {
         "GOOGLE_AI_API_KEY": bool(os.environ.get("GOOGLE_AI_API_KEY")),
         "UNSPLASH_ACCESS_KEY": bool(os.environ.get("UNSPLASH_ACCESS_KEY")),
         "PEXELS_API_KEY": bool(os.environ.get("PEXELS_API_KEY")),
         "PIXABAY_API_KEY": bool(os.environ.get("PIXABAY_API_KEY")),
     }
-    mcp_declared = _detect_loaded_mcp()
     py_deps = {
         "patchright": _has_module("patchright"),
         "playwright": _has_module("playwright"),
@@ -207,7 +371,7 @@ def gate_1_capability_discovery(draft_dir: Path) -> dict:
     scripts = {s: (root / s).is_file() for s in REQUIRED_SCRIPTS}
 
     configured_image_paths = (
-        "nanobanana-mcp" in mcp_declared
+        any("nanobanana" in tool.lower() or "banana" in tool.lower() for tool in live_tools)
         or env_keys["GOOGLE_AI_API_KEY"]
         or env_keys["UNSPLASH_ACCESS_KEY"]
         or env_keys["PEXELS_API_KEY"]
@@ -217,11 +381,12 @@ def gate_1_capability_discovery(draft_dir: Path) -> dict:
     # probe its reachability here (network HEAD at gate-1 time is too slow
     # and flaky); we report it as best-effort and let generate_hero.py
     # surface a runtime failure if Openverse is unreachable when invoked.
-    image_gen_available = configured_image_paths  # explicit configured paths
     openverse_assumed_available = True            # best-effort fallback
+    image_gen_available = configured_image_paths or openverse_assumed_available
 
     capabilities = {
-        "mcp_declared": mcp_declared,
+        "live_tools": live_tools,
+        "live_tools_source": "orchestrator" if live_tools else "not-provided",
         "env_keys_present": env_keys,
         "python_deps": py_deps,
         "project_root_files": project_files,
@@ -236,17 +401,10 @@ def gate_1_capability_discovery(draft_dir: Path) -> dict:
     warnings = []
     if not agents.get("blog-reviewer", False):
         violations.append("blog-reviewer agent missing; cannot enforce Gate 4")
+    if not live_tools:
+        warnings.append("live tool availability not provided; MCP image tools cannot be verified from declarations")
     if not image_gen_available:
-        # No configured image path. Openverse is the best-effort fallback but
-        # is not probed for reachability here (D1 from v1.9.0 hostile review:
-        # do not short-circuit gate-1 with `or True`). Warn loudly so the
-        # operator knows the contract will degrade to Openverse-only.
-        warnings.append(
-            "no configured image-gen path (Banana MCP / GOOGLE_AI_API_KEY / "
-            "UNSPLASH_ACCESS_KEY / PEXELS_API_KEY / PIXABAY_API_KEY). "
-            "generate_hero.py will fall through to Openverse (no key required) "
-            "and fail at runtime if Openverse is unreachable."
-        )
+        violations.append("no image-gen path available: no live Banana MCP, API key, stock key, or Openverse fallback")
     if not py_deps["patchright"] and not py_deps["playwright"]:
         warnings.append("neither patchright nor playwright installed; Gate 3 will warn-and-pass")
     if not py_deps["weasyprint"] and not py_deps["patchright"] and not py_deps["playwright"]:
@@ -255,21 +413,22 @@ def gate_1_capability_discovery(draft_dir: Path) -> dict:
     return _gate_result(1, "Capability Discovery", not violations, violations, warnings, capabilities=capabilities)
 
 
-def gate_2_format_completeness(draft_dir: Path) -> dict:
+def gate_2_format_completeness(draft_dir: Path, slug: str | None = None) -> dict:
     """Verify .md, .html, .pdf, hero.<ext> all exist."""
-    mds = list(draft_dir.glob("*.md"))
-    htmls = list(draft_dir.glob("*.html"))
-    pdfs = list(draft_dir.glob("*.pdf"))
+    stem, selected, artifact_violations = _select_artifact_stem(draft_dir, slug)
+    mds = selected["md"]
+    htmls = selected["html"]
+    pdfs = selected["pdf"]
     heroes = list(draft_dir.glob("hero.*"))
     review = draft_dir / "review.md"
 
-    violations = []
+    violations = list(artifact_violations)
     if not mds:
-        violations.append("no .md source found")
+        violations.append("no slug-matched .md source found")
     if not htmls:
-        violations.append("no .html artifact found (run scripts/blog_render.py)")
+        violations.append("no slug-matched .html artifact found (run scripts/blog_render.py)")
     if not pdfs:
-        violations.append("no .pdf artifact found (run scripts/blog_render.py)")
+        violations.append("no slug-matched .pdf artifact found (run scripts/blog_render.py)")
     hero_files = [h for h in heroes if h.name != "hero-credit.txt" and h.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}]
     if not hero_files:
         violations.append("no hero.<png|jpg|jpeg|webp> found (run scripts/generate_hero.py)")
@@ -277,6 +436,7 @@ def gate_2_format_completeness(draft_dir: Path) -> dict:
     return _gate_result(
         2, "Format Completeness", not violations, violations, [],
         artifacts={
+            "slug": stem,
             "md": [str(p.name) for p in mds],
             "html": [str(p.name) for p in htmls],
             "pdf": [str(p.name) for p in pdfs],
@@ -286,7 +446,7 @@ def gate_2_format_completeness(draft_dir: Path) -> dict:
     )
 
 
-def gate_3_visual_verification(draft_dir: Path) -> dict:
+def gate_3_visual_verification(draft_dir: Path, slug: str | None = None) -> dict:
     """Render the .html via patchright (or playwright); screenshot at 3
     widths; check SVG bboxes, dark mode, console errors, JSON-LD."""
     sync_playwright = None
@@ -306,9 +466,12 @@ def gate_3_visual_verification(draft_dir: Path) -> dict:
             ["neither patchright nor playwright installed; skipping visual checks. Run pip install -e .[presentation] to enable."],
         )
 
-    htmls = list(draft_dir.glob("*.html"))
+    _stem, selected, artifact_violations = _select_artifact_stem(draft_dir, slug)
+    htmls = selected["html"]
     if not htmls:
         return _gate_result(3, "Visual Verification", False, ["no .html artifact to verify"])
+    if artifact_violations:
+        return _gate_result(3, "Visual Verification", False, artifact_violations)
 
     html_path = htmls[0]
     preview_dir = draft_dir / "preview"
@@ -321,16 +484,16 @@ def gate_3_visual_verification(draft_dir: Path) -> dict:
     bbox_check_js = """
 () => {
   const overflows = [];
-  const svgs = document.querySelectorAll('svg');
-  svgs.forEach((svg, i) => {
-    const svgBox = svg.getBoundingClientRect();
-    const desc = svg.querySelectorAll('text, path, rect, image, circle, line');
+  const boxes = document.querySelectorAll('svg, figure');
+  boxes.forEach((box, i) => {
+    const svgBox = box.getBoundingClientRect();
+    const desc = box.querySelectorAll('text, path, rect, image, circle, line, img, figcaption');
     desc.forEach((child) => {
       const r = child.getBoundingClientRect();
       const margin = 2;
       if (r.left < svgBox.left - margin || r.right > svgBox.right + margin ||
           r.top < svgBox.top - margin || r.bottom > svgBox.bottom + margin) {
-        overflows.push({svgIndex: i, tag: child.tagName, content: (child.textContent||'').slice(0,40),
+        overflows.push({containerIndex: i, container: box.tagName, tag: child.tagName, content: (child.textContent||'').slice(0,40),
           childBox:{l:r.left,r:r.right,t:r.top,b:r.bottom},
           svgBox:{l:svgBox.left,r:svgBox.right,t:svgBox.top,b:svgBox.bottom}});
       }
@@ -341,7 +504,12 @@ def gate_3_visual_verification(draft_dir: Path) -> dict:
   let jsonLdValid = false, jsonLdType = null, jsonLdMissingFields = [];
   if (jsonLd) {
     try {
-      const obj = JSON.parse(jsonLd.textContent);
+      const raw = JSON.parse(jsonLd.textContent);
+      const nodes = Array.isArray(raw) ? raw : (raw['@graph'] || [raw]);
+      const obj = nodes.find((node) => {
+        const type = node && node['@type'];
+        return type === 'BlogPosting' || (Array.isArray(type) && type.includes('BlogPosting'));
+      }) || {};
       jsonLdValid = true;
       jsonLdType = obj['@type'];
       const required = ['headline','image','datePublished','author'];
@@ -357,10 +525,26 @@ def gate_3_visual_verification(draft_dir: Path) -> dict:
             browser = p.chromium.launch()
             for vp in VIEWPORTS:
                 context = browser.new_context(viewport={"width": vp["width"], "height": vp["height"]})
+                root_resolved = draft_dir.resolve()
+                def route_guard(route):
+                    req_url = route.request.url
+                    parsed = urllib.parse.urlparse(req_url)
+                    if parsed.scheme in ("http", "https"):
+                        route.abort()
+                        return
+                    if parsed.scheme == "file":
+                        try:
+                            req_path = Path(urllib.request.url2pathname(parsed.path)).resolve()
+                            req_path.relative_to(root_resolved)
+                        except ValueError:
+                            route.abort()
+                            return
+                    route.continue_()
                 page = context.new_page()
+                page.route("**/*", route_guard)
                 console_errors: list[str] = []
                 page.on("console", lambda msg: console_errors.append(msg.text) if msg.type == "error" else None)
-                page.goto(f"file://{html_path.resolve()}", wait_until="networkidle", timeout=30_000)
+                page.goto(html_path.resolve().as_uri(), wait_until="networkidle", timeout=30_000)
                 page.screenshot(path=str(preview_dir / f"{vp['name']}-{vp['width']}.png"), full_page=True)
                 result = page.evaluate(bbox_check_js)
                 per_viewport[vp["name"]] = {"result": result, "console_errors": console_errors}
@@ -379,7 +563,23 @@ def gate_3_visual_verification(draft_dir: Path) -> dict:
             # Dark mode pass at desktop width
             context = browser.new_context(viewport={"width": 1280, "height": 800}, color_scheme="dark")
             page = context.new_page()
-            page.goto(f"file://{html_path.resolve()}", wait_until="networkidle", timeout=30_000)
+            root_resolved = draft_dir.resolve()
+            def dark_route_guard(route):
+                req_url = route.request.url
+                parsed = urllib.parse.urlparse(req_url)
+                if parsed.scheme in ("http", "https"):
+                    route.abort()
+                    return
+                if parsed.scheme == "file":
+                    try:
+                        req_path = Path(urllib.request.url2pathname(parsed.path)).resolve()
+                        req_path.relative_to(root_resolved)
+                    except ValueError:
+                        route.abort()
+                        return
+                route.continue_()
+            page.route("**/*", dark_route_guard)
+            page.goto(html_path.resolve().as_uri(), wait_until="networkidle", timeout=30_000)
             dark_bg = page.evaluate("() => getComputedStyle(document.body).backgroundColor")
             light_bg = per_viewport["desktop"]["result"]["bg"]
             page.screenshot(path=str(preview_dir / "desktop-1280-dark.png"), full_page=True)
@@ -400,6 +600,7 @@ class _MetaParser(HTMLParser):
         self.imgs: list[str] = []
         self.links: list[str] = []
         self.codes: list[str] = []
+        self.ids: set[str] = set()
         self.og_image: Optional[str] = None
         self.canonical: Optional[str] = None
         self.json_ld_blocks: list[str] = []
@@ -412,6 +613,10 @@ class _MetaParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         d = dict(attrs)
+        if d.get("id"):
+            self.ids.add(d["id"])
+        if d.get("name"):
+            self.ids.add(d["name"])
         if tag == "img" and d.get("src"):
             self.imgs.append(d["src"])
         elif tag == "a" and d.get("href"):
@@ -476,11 +681,9 @@ _PREFLIGHT_NO_REDIRECT_OPENER = urllib.request.build_opener(_PreflightNoRedirect
 
 
 def _http_head(url: str) -> int:
-    """HEAD request that refuses to follow redirects (VULN-804)."""
-    # VULN-002 (v1.9.1): explicit scheme check inside _http_head as
-    # defense-in-depth. The upstream call site is supposed to filter
-    # already, but matching the policy here closes the gap.
-    if not url.startswith(("http://", "https://")):
+    """HEAD request with SSRF guards and no redirect following."""
+    ok, _reason = _safe_http_url(url)
+    if not ok:
         return 0
     try:
         req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": USER_AGENT})
@@ -490,17 +693,38 @@ def _http_head(url: str) -> int:
         return 0
 
 
-def _is_allowed_unreachable(url: str) -> bool:
-    parsed = urllib.parse.urlparse(url)
-    return any(part in parsed.netloc for part in URL_ALLOWLIST)
+def _jsonld_nodes(value: Any) -> list[dict[str, Any]]:
+    """Flatten JSON-LD arrays and @graph containers."""
+    nodes: list[dict[str, Any]] = []
+    if isinstance(value, list):
+        for item in value:
+            nodes.extend(_jsonld_nodes(item))
+    elif isinstance(value, dict):
+        graph = value.get("@graph")
+        if isinstance(graph, list):
+            nodes.extend(_jsonld_nodes(graph))
+        nodes.append(value)
+    return nodes
 
 
-def gate_5_asset_link_integrity(draft_dir: Path) -> dict:
+def _is_blogposting_node(node: dict[str, Any]) -> bool:
+    node_type = node.get("@type")
+    if node_type == "BlogPosting":
+        return True
+    if isinstance(node_type, list) and "BlogPosting" in node_type:
+        return True
+    return False
+
+
+def gate_5_asset_link_integrity(draft_dir: Path, slug: str | None = None) -> dict:
     """Verify all <img> resolve, all <a> return 200, schema validates,
     word count within +/-5%."""
-    htmls = list(draft_dir.glob("*.html"))
+    _stem, selected, artifact_violations = _select_artifact_stem(draft_dir, slug)
+    htmls = selected["html"]
     if not htmls:
         return _gate_result(5, "Asset + Link Integrity", False, ["no .html artifact to verify"])
+    if artifact_violations:
+        return _gate_result(5, "Asset + Link Integrity", False, artifact_violations)
 
     html_path = htmls[0]
     raw = html_path.read_text(encoding="utf-8")
@@ -509,18 +733,28 @@ def gate_5_asset_link_integrity(draft_dir: Path) -> dict:
 
     violations = []
     warnings = []
+    allowed_hosts = _load_unreachable_allowlist(draft_dir)
 
     # img src resolution
     for src in parser.imgs:
         if src.startswith("http://") or src.startswith("https://"):
-            if _is_allowed_unreachable(src):
+            if _is_allowed_unreachable(src, allowed_hosts):
+                continue
+            ok, reason = _safe_http_url(src)
+            if not ok:
+                violations.append(f"img src refused by URL safety policy: {src} ({reason})")
                 continue
             if _http_head(src) != 200:
-                warnings.append(f"img src returned non-200: {src}")
+                violations.append(f"img src returned non-200: {src}")
         else:
-            local = (draft_dir / src).resolve()
+            local, local_error = _safe_local_path(draft_dir, src)
+            if local_error:
+                violations.append(f"img src invalid local path: {src} ({local_error})")
+                continue
             if not local.exists():
                 violations.append(f"img src not on disk: {src}")
+            elif local.is_symlink():
+                violations.append(f"img src is a symlink: {src}")
 
     # og:image specifically must resolve to a local hero.<ext> when canonical points to a host
     if parser.og_image:
@@ -532,7 +766,11 @@ def gate_5_asset_link_integrity(draft_dir: Path) -> dict:
 
     # canonical present
     if not parser.canonical:
-        warnings.append("no <link rel=canonical> in document")
+        violations.append("no <link rel=canonical> in document")
+    else:
+        ok, reason = _well_formed_http_url(parser.canonical)
+        if not ok:
+            violations.append(f"canonical URL invalid or unsafe: {parser.canonical} ({reason})")
 
     # External links: explicit http/https allowlist. Other schemes (file://,
     # gopher://, ftp://, javascript:) are flagged as violations rather than
@@ -540,36 +778,60 @@ def gate_5_asset_link_integrity(draft_dir: Path) -> dict:
     # without a scheme are left to Gate 5's img-src check above.
     for href in parser.links:
         if href.startswith(("http://", "https://")):
-            if _is_allowed_unreachable(href):
+            if _is_allowed_unreachable(href, allowed_hosts):
+                continue
+            ok, reason = _safe_http_url(href)
+            if not ok:
+                violations.append(f"link refused by URL safety policy: {href} ({reason})")
                 continue
             status = _http_head(href)
-            if status == 0 or status >= 400:
-                warnings.append(f"link returned {status}: {href}")
+            if status != 200:
+                violations.append(f"link returned {status}: {href}")
             continue
         if "://" in href or href.startswith(("javascript:", "data:", "vbscript:")):
             violations.append(
                 f"non-http(s) URL scheme is not allowed in published links: {href}"
             )
+            continue
+        if href.startswith("#"):
+            target = urllib.parse.unquote(href[1:])
+            if target and target not in parser.ids:
+                violations.append(f"anchor link target missing: {href}")
+            continue
+        if href:
+            local_href, local_error = _safe_local_path(draft_dir, href)
+            if local_error:
+                violations.append(f"local link invalid path: {href} ({local_error})")
+                continue
+            if not local_href.exists():
+                violations.append(f"local link not on disk: {href}")
 
     # JSON-LD validation
     json_ld_ok = False
     declared_word_count: Optional[int] = None
     if parser.json_ld_blocks:
         try:
-            obj = json.loads("".join(parser.json_ld_blocks))
+            raw_jsonld = json.loads("".join(parser.json_ld_blocks))
+            nodes = _jsonld_nodes(raw_jsonld)
+            obj = next((node for node in nodes if _is_blogposting_node(node)), None)
+            if obj is None:
+                violations.append("JSON-LD missing BlogPosting node")
+                obj = {}
             json_ld_ok = True
             required = ("headline", "image", "datePublished", "author")
             missing = [k for k in required if not obj.get(k)]
             if missing:
                 violations.append(f"JSON-LD missing required fields: {missing}")
             declared_word_count = obj.get("wordCount")
+            if not isinstance(declared_word_count, int):
+                violations.append("JSON-LD wordCount must be an integer")
         except json.JSONDecodeError as e:
             violations.append(f"JSON-LD invalid: {e}")
     else:
         violations.append("no JSON-LD <script> block present")
 
     # word count match
-    if declared_word_count is not None:
+    if isinstance(declared_word_count, int):
         actual = parser.article_text_chars
         if actual > 0:
             diff_pct = abs(declared_word_count - actual) / actual * 100
@@ -586,16 +848,8 @@ def gate_5_asset_link_integrity(draft_dir: Path) -> dict:
 
 def gate_4_content_review(draft_dir: Path) -> dict:
     """Check that the blog-reviewer agent has run and emitted review.md
-    with `BLOCKING: false` AND a matching Nonce (v1.9.1).
-
-    Nonce-bound provenance (VULN-803, v1.9.1):
-      * If <draft>/.review-nonce exists, review.md MUST contain a line
-        `Nonce: <matching-32-hex>` (case-insensitive, anchored to line).
-        Missing or mismatched -> gate fails with explicit violation.
-      * If <draft>/.review-nonce is absent, the gate emits a deprecation
-        warning and falls back to v1.9.0 behavior (BLOCKING line only).
-        This preserves backwards compatibility for drafts created before
-        v1.9.1. v1.10.0 will make the nonce mandatory.
+    with `BLOCKING: false`, a matching Nonce, and machine-checkable
+    reviewer metrics.
     """
     review = draft_dir / "review.md"
     if not review.is_file():
@@ -605,69 +859,88 @@ def gate_4_content_review(draft_dir: Path) -> dict:
         )
     text = review.read_text(encoding="utf-8")
 
-    # Nonce check (v1.9.1)
-    nonce_warnings: list[str] = []
-    nonce_path = draft_dir / REVIEW_NONCE_FILE
-    if nonce_path.is_file():
-        try:
-            expected_nonce = nonce_path.read_text(encoding="utf-8").strip().lower()
-        except OSError as e:
-            return _gate_result(
-                4, "Content Review", False,
-                [f"failed to read {REVIEW_NONCE_FILE}: {e}"],
-            )
-        if not re.fullmatch(r"[0-9a-f]{32}", expected_nonce):
-            return _gate_result(
-                4, "Content Review", False,
-                [f"{REVIEW_NONCE_FILE} contents are not a 32-hex nonce"],
-            )
-        nonce_match = NONCE_PATTERN.search(text)
-        if not nonce_match:
-            return _gate_result(
-                4, "Content Review", False,
-                [
-                    "review.md is missing the `Nonce: <hex>` line required for v1.9.1+ "
-                    "provenance. The orchestrator must include the nonce from "
-                    f"{REVIEW_NONCE_FILE} in the blog-reviewer agent's output."
-                ],
-            )
-        actual_nonce = nonce_match.group(1).lower()
-        if actual_nonce != expected_nonce:
-            return _gate_result(
-                4, "Content Review", False,
-                [
-                    "review.md Nonce does not match "
-                    f"{REVIEW_NONCE_FILE}; provenance check failed (potential "
-                    "review.md forgery)."
-                ],
-            )
-    else:
-        nonce_warnings.append(
-            f"{REVIEW_NONCE_FILE} not found; falling back to v1.9.0 BLOCKING-only "
-            "gate (deprecation: v1.10.0 will make the nonce mandatory). Run "
-            "`blog_preflight.py --init-review-nonce --draft <dir>` before dispatching "
-            "the blog-reviewer agent."
-        )
-
-    m = re.search(r"^BLOCKING:\s*(true|false)\s*(?:\((.*?)\))?\s*$", text, re.IGNORECASE | re.MULTILINE)
-    if not m:
+    expected_nonce, nonce_error = _read_expected_review_nonce(draft_dir)
+    if nonce_error or expected_nonce is None:
+        return _gate_result(4, "Content Review", False, [nonce_error or "review verifier state missing"])
+    nonce_match = NONCE_PATTERN.search(text)
+    if not nonce_match:
         return _gate_result(
             4, "Content Review", False,
-            ["review.md present but no `BLOCKING: true|false` line found at end of scorecard"],
-            nonce_warnings,
+            [
+                "review.md is missing the `Nonce: <hex>` line required for provenance. "
+                "The orchestrator must pass the nonce printed by --init-review-nonce "
+                "to the blog-reviewer agent."
+            ],
         )
-    blocking = m.group(1).lower() == "true"
-    reason = (m.group(2) or "").strip()
+    actual_nonce = nonce_match.group(1).lower()
+    if actual_nonce != expected_nonce:
+        return _gate_result(
+            4, "Content Review", False,
+            ["review.md Nonce does not match external verifier state; provenance check failed"],
+        )
+
+    non_empty = [line.strip() for line in text.splitlines() if line.strip()]
+    if not non_empty:
+        return _gate_result(4, "Content Review", False, ["review.md is empty"])
+    final_match = BLOCKING_PATTERN.fullmatch(non_empty[-1])
+    all_decisions = [BLOCKING_PATTERN.fullmatch(line) for line in non_empty]
+    all_decisions = [m for m in all_decisions if m is not None]
+    if not final_match:
+        return _gate_result(
+            4, "Content Review", False,
+            ["review.md last non-empty line must be `BLOCKING: true|false (reason)`"],
+        )
+    if {m.group(1).lower() for m in all_decisions} == {"true", "false"}:
+        return _gate_result(
+            4, "Content Review", False,
+            ["review.md contains conflicting BLOCKING decisions"],
+        )
+
+    blocking = final_match.group(1).lower() == "true"
+    reason = (final_match.group(2) or "").strip()
     if blocking:
         return _gate_result(
             4, "Content Review", False,
             [f"reviewer blocked: {reason or 'see review.md'}"],
-            nonce_warnings,
             blocking=True, reason=reason,
         )
+    metric_violations: list[str] = []
+    score_match = re.search(r"Overall Score:\s*(\d{1,3})\s*/\s*100", text, re.IGNORECASE)
+    if not score_match:
+        metric_violations.append("review.md missing machine-readable Overall Score: N/100")
+        score = None
+    else:
+        score = int(score_match.group(1))
+        if score < 90:
+            metric_violations.append(f"review overall score {score}/100 is below 90")
+
+    burst_match = re.search(r"Burstiness score:\s*([0-9.]+)\s*-\s*(Natural|Borderline|Flagged)", text, re.IGNORECASE)
+    if not burst_match:
+        metric_violations.append("review.md missing Burstiness score line")
+    elif burst_match.group(2).lower() == "flagged" or float(burst_match.group(1)) < 0.3:
+        metric_violations.append(f"review burstiness is blocking: {burst_match.group(1)}")
+
+    phrases_match = re.search(r"AI phrases found:\s*(\d+)", text, re.IGNORECASE)
+    if not phrases_match:
+        metric_violations.append("review.md missing AI phrases found line")
+    elif int(phrases_match.group(1)) > 3:
+        metric_violations.append(f"review has more than 3 AI phrases: {phrases_match.group(1)}")
+
+    ttr_match = re.search(r"Vocabulary diversity \(TTR\):\s*([0-9.]+)\s*-\s*(Rich|Normal|Low)", text, re.IGNORECASE)
+    if not ttr_match:
+        metric_violations.append("review.md missing Vocabulary diversity (TTR) line")
+    elif ttr_match.group(2).lower() == "low" or float(ttr_match.group(1)) < 0.4:
+        metric_violations.append(f"review TTR is blocking: {ttr_match.group(1)}")
+
+    if re.search(r"\bP0\b", text, re.IGNORECASE) and not re.search(r"\b(no|zero)\s+P0\b", text, re.IGNORECASE):
+        metric_violations.append("review mentions P0 without a no/zero P0 clearance")
+
+    if metric_violations:
+        return _gate_result(4, "Content Review", False, metric_violations, blocking=False, reason=reason, score=score)
+
     return _gate_result(
-        4, "Content Review", True, [], nonce_warnings,
-        blocking=False, reason=reason,
+        4, "Content Review", True, [],
+        blocking=False, reason=reason, score=score,
     )
 
 
@@ -675,9 +948,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--draft", required=True, help="Draft folder containing the .md/.html/.pdf/hero artifacts")
     parser.add_argument("--gate", type=int, choices=[1, 2, 3, 4, 5], help="Run only this gate (default: all)")
+    parser.add_argument("--slug", help="Require all source/rendered artifacts to match this stem")
     parser.add_argument("--strict", dest="strict", action="store_true", default=True)
     parser.add_argument("--no-strict", dest="strict", action="store_false")
     parser.add_argument("--json", action="store_true", help="Emit report JSON to stdout")
+    parser.add_argument("--tools-json", help="JSON list/object of live tool names supplied by the orchestrator")
+    parser.add_argument("--diagnostics-all", action="store_true", help="Run later gates after a failure for diagnostics")
+    parser.add_argument("--repair-attempt", action="store_true", help="Increment the repair iteration counter for orchestrator repair loops")
     parser.add_argument(
         "--reset-iterations",
         action="store_true",
@@ -687,10 +964,10 @@ def main() -> int:
         "--init-review-nonce",
         action="store_true",
         help=(
-            "Generate a fresh CSPRNG nonce and write it to <draft>/.review-nonce, "
-            "then exit. The orchestrator runs this before dispatching the "
-            "blog-reviewer agent; Gate 4 verifies the agent's review.md contains "
-            "the matching nonce (VULN-803, v1.9.1)."
+            "Generate a fresh CSPRNG nonce, store verifier state outside the "
+            "draft folder, then exit. The "
+            "orchestrator passes the printed nonce to blog-reviewer; Gate 4 "
+            "verifies review.md contains the matching nonce."
         ),
     )
     args = parser.parse_args()
@@ -705,17 +982,22 @@ def main() -> int:
         print(nonce)
         return 0
 
-    # VULN-802 (v1.9.1): code-enforced iteration cap. Refuse past MAX_ITERATIONS.
-    iteration_exit = _iteration_check(draft, reset=args.reset_iterations)
+    # Count only orchestrator repair attempts, not every preflight or single-gate run.
+    iteration_exit = _iteration_check(
+        draft,
+        reset=args.reset_iterations,
+        increment=args.repair_attempt,
+    )
     if iteration_exit != 0:
         return iteration_exit
 
+    live_tools = _parse_tool_names(args.tools_json or os.environ.get("CLAUDE_BLOG_TOOLS_JSON"))
     gates = [
-        (1, gate_1_capability_discovery),
-        (2, gate_2_format_completeness),
-        (3, gate_3_visual_verification),
+        (1, lambda d: gate_1_capability_discovery(d, live_tools=live_tools)),
+        (2, lambda d: gate_2_format_completeness(d, slug=args.slug)),
+        (3, lambda d: gate_3_visual_verification(d, slug=args.slug)),
         (4, gate_4_content_review),
-        (5, gate_5_asset_link_integrity),
+        (5, lambda d: gate_5_asset_link_integrity(d, slug=args.slug)),
     ]
     if args.gate:
         gates = [(n, fn) for (n, fn) in gates if n == args.gate]
@@ -727,6 +1009,8 @@ def main() -> int:
         results.append(r)
         if not r["passed"]:
             blocked = True
+            if not args.gate and not args.diagnostics_all:
+                break
 
     report = {
         "draft": str(draft),

@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from auth_manager import AuthManager
 from notebook_manager import NotebookLibrary
-from config import QUERY_INPUT_SELECTORS, RESPONSE_SELECTORS
+from config import QUERY_INPUT_SELECTORS, RESPONSE_SELECTORS, validate_notebook_url
 from browser_utils import BrowserFactory, StealthUtils
 
 
@@ -55,7 +55,7 @@ def ask_notebooklm(question: str, notebook_url: str, headless: bool = True) -> s
     auth = AuthManager()
 
     if not auth.is_authenticated():
-        print("⚠️ Not authenticated. Run: python auth_manager.py setup")
+        print("⚠️ Not authenticated. Run: python3 scripts/run.py auth_manager.py setup")
         return None
 
     print(f"💬 Asking: {question}")
@@ -85,6 +85,7 @@ def ask_notebooklm(question: str, notebook_url: str, headless: bool = True) -> s
         # Wait for query input (MCP approach)
         print("  ⏳ Waiting for query input...")
         query_element = None
+        matched_selector = None
 
         for selector in QUERY_INPUT_SELECTORS:
             try:
@@ -95,6 +96,7 @@ def ask_notebooklm(question: str, notebook_url: str, headless: bool = True) -> s
                 )
                 if query_element:
                     print(f"  ✓ Found input: {selector}")
+                    matched_selector = selector
                     break
             except Exception:
                 continue
@@ -106,8 +108,7 @@ def ask_notebooklm(question: str, notebook_url: str, headless: bool = True) -> s
         # Type question (human-like, fast)
         print("  ⏳ Typing question...")
         
-        # Use primary selector for typing
-        input_selector = QUERY_INPUT_SELECTORS[0]
+        input_selector = matched_selector or QUERY_INPUT_SELECTORS[0]
         StealthUtils.human_type(page, input_selector, question)
 
         # Submit
@@ -245,11 +246,27 @@ def main():
                     mark = " [ACTIVE]" if nb.get('id') == library.active_notebook_id else ""
                     print(f"  {nb['id']}: {nb['name']}{mark}")
                 print("\nSpecify with --notebook-id or set active:")
-                print("python scripts/run.py notebook_manager.py activate --id ID")
+                print("python3 scripts/run.py notebook_manager.py activate --id ID")
             else:
                 print("❌ No notebooks in library. Add one first:")
-                print("python scripts/run.py notebook_manager.py add --url URL --name NAME --description DESC --topics TOPICS")
+                print("python3 scripts/run.py notebook_manager.py add --url URL --name NAME --description DESC --topics TOPICS")
             return 1
+
+    try:
+        notebook_url = validate_notebook_url(notebook_url)
+    except ValueError as e:
+        if args.json:
+            print(json.dumps({
+                "status": "error",
+                "error": str(e),
+                "question": args.question,
+                "notebook_id": args.notebook_id or "",
+                "notebook_url": notebook_url or "",
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            }, indent=2))
+        else:
+            print(f"❌ Invalid notebook URL: {e}", file=sys.stderr)
+        return 1
 
     # Ask the question
     answer = ask_notebooklm(

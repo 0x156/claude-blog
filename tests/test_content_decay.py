@@ -97,6 +97,18 @@ def test_load_export_rejects_non_finite_json(tmp_path: Path):
         content_decay.load_export(export)
 
 
+def test_load_export_refuses_symlink(tmp_path: Path):
+    real = tmp_path / "real.json"
+    real.write_text('[{"page": "https://example.com", "clicks": 1, "impressions": 1}]', encoding="utf-8")
+    link = tmp_path / "current.json"
+    try:
+        link.symlink_to(real)
+    except OSError:
+        pytest.skip("symlinks not supported on this filesystem")
+    with pytest.raises(content_decay.ContentDecayError, match="symlink"):
+        content_decay.load_export(link)
+
+
 def test_analyze_decay_rejects_non_finite_metric_value():
     current_rows = [
         {"page": "https://example.com/nan", "clicks": float("nan"), "impressions": 10}

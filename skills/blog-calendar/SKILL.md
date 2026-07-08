@@ -68,7 +68,7 @@ Classify each post by staleness using these thresholds:
 | Medium-traffic posts | >90 days since update | >180 days |
 | Low-traffic posts | >180 days since update | >365 days |
 
-Reference: practitioner AI-citation SEO research has found roughly 76% of top AI citations coming from content updated within 30 days in some datasets. Treat this as a directional signal, not a universal rule.
+Reference: some practitioner AI-citation SEO datasets report a freshness skew toward recently updated content. Treat this as a directional signal, not a universal rule, unless the dataset, method, and date are available.
 
 Output a decay report:
 
@@ -101,9 +101,9 @@ Plan update cycles:
 
 Research seasonal opportunities:
 1. **Industry events**: Conferences, product launches, algorithm updates
-2. **Seasonal trends**: Use WebSearch to check Google Trends for the niche
+2. **Seasonal trends**: Use Google Trends UI, API, or exported data when available; if relying on WebSearch only, mark trend timing as unverified
 3. **Annual reports**: When do major studies release new data?
-4. **Algorithm updates**: Validate the current Google update timeline. As of 2026-07-07, 2026 includes the Feb Discover update, Mar core update, Mar spam update, May core update, and Jun spam update.
+4. **Algorithm updates**: Validate the current Google update timeline against the Google Search Status Dashboard before scheduling update content. Do not rely on a static list.
 
 #### Seasonal Trends Integration
 
@@ -122,7 +122,8 @@ Research seasonal opportunities:
 
 #### Content Mix Formula
 
-Apply the recommended content mix ratio:
+Start from this planning heuristic, then adjust for decay risk, authority gaps,
+team capacity, and available source material:
 **60% new content / 30% freshness updates / 10% repurposed content**
 
 | Cadence | Monthly Posts | New | Refreshes | Repurposed |
@@ -146,7 +147,7 @@ For each new post entry, recommend a content template from these 12 available:
 `product-review`, `thought-leadership`, `roundup`, `tutorial`,
 `news-analysis`, `data-research`, `faq-knowledge`
 
-Reference: `references/content-templates.md` for full template details.
+Reference: `skills/blog/references/content-templates.md` for full template details.
 
 #### Monthly Calendar Format
 
@@ -265,7 +266,7 @@ Channel timing rules:
 - **YouTube**: Plan companion video for pillar posts only (resource-intensive)
 - **Twitter/X**: Same day as publish (thread key takeaways)
 
-Reference: `references/distribution-playbook.md` for detailed channel tactics.
+Reference: `skills/blog/references/distribution-playbook.md` for detailed channel tactics.
 
 ### Step 5.7: Freshness Automation
 
@@ -289,10 +290,15 @@ Automation recommendations:
 
 ### Step 6: Save & Next Steps
 
-Save the calendar and suggest:
-1. Start with `/blog brief <first-topic>` to create the first content brief
-2. Use `/blog write` to generate articles from briefs
-3. Use `/blog rewrite` for freshness updates on existing content
-4. Re-run `/blog calendar` next month/quarter for the next plan
-5. Review the Content Decay Report weekly and address Critical items first
-6. Track Topic Cluster Progress monthly to ensure clusters reach completion
+Save to `calendars/[yyyy-mm]-editorial-calendar.md` unless the user specifies
+another path. Create `calendars/` if it does not exist.
+
+Suggested workflow:
+1. Run `/blog strategy` when positioning or pillars are unclear
+2. Run `/blog cluster plan <seed-keyword>` for cluster-heavy calendars
+3. Use `/blog brief <first-topic>` or `/blog outline <first-topic>` for the first scheduled item
+4. Use `/blog write` to generate articles from approved briefs or outlines
+5. Use `/blog rewrite` for freshness updates on existing content
+6. Re-run `/blog calendar` next month/quarter for the next plan
+7. Review the Content Decay Report weekly and address Critical items first
+8. Track Topic Cluster Progress monthly to ensure clusters reach completion

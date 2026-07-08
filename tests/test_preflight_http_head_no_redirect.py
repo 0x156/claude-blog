@@ -8,6 +8,7 @@ no-redirect opener in this fix refuses on the first hop.
 from __future__ import annotations
 
 import importlib.util
+import socket
 import sys
 from pathlib import Path
 
@@ -67,3 +68,21 @@ def test_no_redirect_handler_returns_none_on_30x(preflight_module):
     ):
         result = getattr(handler, method)(None, None, code, "msg", {})
         assert result is None, f"expected None from {method}, got {result!r}"
+
+
+def test_http_head_refuses_private_resolved_ip(preflight_module, monkeypatch):
+    called = False
+
+    def fake_getaddrinfo(host, port, proto=0):
+        return [(socket.AF_INET, socket.SOCK_STREAM, proto, "", ("169.254.169.254", port))]
+
+    def fake_open(*args, **kwargs):
+        nonlocal called
+        called = True
+        raise AssertionError("network opener must not be called for private IP")
+
+    monkeypatch.setattr(preflight_module.socket, "getaddrinfo", fake_getaddrinfo)
+    monkeypatch.setattr(preflight_module._PREFLIGHT_NO_REDIRECT_OPENER, "open", fake_open)
+
+    assert preflight_module._http_head("http://metadata.example/latest") == 0
+    assert called is False

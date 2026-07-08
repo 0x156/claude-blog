@@ -2,16 +2,18 @@
 
 ## Why YouTube Embeds Matter
 
-Video is the strongest signal for AI visibility. Key data points:
+Video can improve engagement and extraction when it is relevant, current, and
+high quality. Treat vendor correlation studies as directional, not as ranking
+requirements. Key data points:
 
 - **0.737 correlation** with AI visibility, the strongest single signal (Ahrefs 75K-brand study)
 - Video citations in AI Overviews up **414%** year-over-year (NP Digital Q1 2025, 10K+ AIO analysis)
 - How-to video citations up **651%**, visual demo citations up **592%** (NP Digital)
 - YouTube is cited **200x more** than any other video platform by AI systems
-- Pages with embedded video have **53x higher chance** of front-page ranking (Forrester)
 
-Embedding relevant YouTube videos is not optional. It is a top-tier ranking and
-AI citation signal that every blog post should leverage when suitable videos exist.
+Strongly prefer relevant YouTube embeds when a suitable video exists. Skip video
+when available videos are stale, low quality, off-topic, or would distract from
+the article.
 
 ---
 
@@ -62,23 +64,29 @@ AI citation signal that every blog post should leverage when suitable videos exi
 
 ## Embed Code Patterns
 
-### MDX / Next.js (camelCase, srcdoc lazy loading)
+Before rendering any embed, validate `VIDEO_ID` against YouTube's ID pattern and
+escape title, channel, and description fields with `html.escape(value, quote=True)`.
+Reject untrusted `javascript:`, `data:`, and `file:` URLs.
+
+### MDX / Next.js (camelCase, srcDoc lazy loading)
 
 ```jsx
 <figure className="video-embed" style={{margin: '2.5rem 0', textAlign: 'center'}}>
   <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%', borderRadius: '12px'}}>
     <iframe
-      srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='https://www.youtube.com/embed/VIDEO_ID?autoplay=1'><img src='https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg' alt='VIDEO_TITLE'><span>&#x25BA;</span></a>"
+      srcDoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='https://www.youtube.com/embed/VIDEO_ID?autoplay=1'><img src='https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg' alt='VIDEO_TITLE_ESC'><span>&#x25BA;</span></a>"
       style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none'}}
       loading="lazy"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      sandbox="allow-scripts allow-same-origin allow-presentation"
+      referrerPolicy="strict-origin-when-cross-origin"
       allowFullScreen
-      title="VIDEO_TITLE"
-      aria-label="YouTube video: VIDEO_TITLE"
+      title="VIDEO_TITLE_ESC"
+      aria-label="YouTube video: VIDEO_TITLE_ESC"
     />
   </div>
   <noscript>
-    <p><strong>Video:</strong> <a href="https://www.youtube.com/watch?v=VIDEO_ID">VIDEO_TITLE</a> by CHANNEL_NAME. DESCRIPTION_EXCERPT</p>
+    <p><strong>Video:</strong> <a href="https://www.youtube.com/watch?v=VIDEO_ID">VIDEO_TITLE_ESC</a> by CHANNEL_NAME_ESC. DESCRIPTION_EXCERPT_ESC</p>
   </noscript>
 </figure>
 ```
@@ -89,17 +97,19 @@ AI citation signal that every blog post should leverage when suitable videos exi
 <figure class="video-embed" style="margin: 2.5rem 0; text-align: center;">
   <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 12px;">
     <iframe
-      srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='https://www.youtube.com/embed/VIDEO_ID?autoplay=1'><img src='https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg' alt='VIDEO_TITLE'><span>&#x25BA;</span></a>"
+      srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='https://www.youtube.com/embed/VIDEO_ID?autoplay=1'><img src='https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg' alt='VIDEO_TITLE_ESC'><span>&#x25BA;</span></a>"
       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
       loading="lazy"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      sandbox="allow-scripts allow-same-origin allow-presentation"
+      referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen
-      title="VIDEO_TITLE"
-      aria-label="YouTube video: VIDEO_TITLE">
+      title="VIDEO_TITLE_ESC"
+      aria-label="YouTube video: VIDEO_TITLE_ESC">
     </iframe>
   </div>
   <noscript>
-    <p><strong>Video:</strong> <a href="https://www.youtube.com/watch?v=VIDEO_ID">VIDEO_TITLE</a> by CHANNEL_NAME. DESCRIPTION_EXCERPT</p>
+    <p><strong>Video:</strong> <a href="https://www.youtube.com/watch?v=VIDEO_ID">VIDEO_TITLE_ESC</a> by CHANNEL_NAME_ESC. DESCRIPTION_EXCERPT_ESC</p>
   </noscript>
 </figure>
 ```
@@ -148,20 +158,21 @@ Add a VideoObject to the page `@graph` for each embedded video. Use the stable
   "interactionStatistic": {
     "@type": "InteractionCounter",
     "interactionType": { "@type": "WatchAction" },
-    "userInteractionCount": VIEW_COUNT
+    "userInteractionCount": 0
   }
 }
 ```
 
-Replace `{index}` with 1, 2, or 3 matching embed order. Include `duration` in
-ISO 8601 format (e.g., `PT12M30S` for 12 minutes 30 seconds).
+Replace `{index}` with 1, 2, or 3 matching embed order. Replace
+`userInteractionCount` with the numeric view count when available. Include
+`duration` in ISO 8601 format (e.g., `PT12M30S` for 12 minutes 30 seconds).
 
 ---
 
 ## Noscript Fallback for AI Crawlers
 
-AI crawlers (GPTBot, PerplexityBot, ClaudeBot, Google-Extended) do not execute
-JavaScript, so YouTube iframes are invisible to them. The `<noscript>` block
+Standard crawlers such as GPTBot, PerplexityBot, and ClaudeBot should be assumed
+not to execute JavaScript, so YouTube iframes may be invisible to them. The `<noscript>` block
 provides a text fallback containing:
 
 - Video title as anchor text linking to YouTube
@@ -177,7 +188,7 @@ rendering the embed. Every video embed must include a noscript fallback.
 
 | Scenario | Behavior |
 |----------|----------|
-| No GOOGLE_API_KEY available | Use WebSearch `site:youtube.com [topic] [year]` to find videos |
+| No GOOGLE_AI_API_KEY available | Use WebSearch `site:youtube.com [topic] [year]` to find videos |
 | No suitable videos found | Skip silently, continue blog generation without video |
 | API rate limit exceeded | Use cached/previously found videos, or skip |
 | Video removed after embedding | Noscript text provides graceful fallback with title and link |

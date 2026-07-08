@@ -98,3 +98,6 @@ definitive-resesarch-blueprint-for-claude-blog.md
 
 # Session-scoped audit evidence at repo root (regenerated per audit cycle)
 /audit-results.md
+
+# Local Claude Code settings (never commit)
+.claude/settings.local.json

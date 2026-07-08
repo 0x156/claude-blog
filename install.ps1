@@ -3,12 +3,37 @@
 # Installs the blog skill ecosystem to ~/.claude/skills/ and ~/.claude/agents/
 #
 # One-command install:
-#   iex (irm https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1)
+#   iex (irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1)
 
 $ErrorActionPreference = "Stop"
 
 function Write-Color($Color, $Text) {
     Write-Host $Text -ForegroundColor $Color
+}
+
+function Copy-Tree($Source, $Destination) {
+    if (-not (Test-Path -LiteralPath $Source)) {
+        return
+    }
+    New-Item -ItemType Directory -Force -Path $Destination | Out-Null
+    $sourceRoot = (Resolve-Path -LiteralPath $Source).Path.TrimEnd('\', '/')
+    Get-ChildItem -LiteralPath $Source -Recurse -File | Where-Object {
+        $_.FullName -notmatch '[\\/]+__pycache__[\\/]+' -and $_.Name -notlike '*.pyc'
+    } | ForEach-Object {
+        $relative = $_.FullName.Substring($sourceRoot.Length).TrimStart('\', '/')
+        $target = Join-Path $Destination $relative
+        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $target) | Out-Null
+        Copy-Item -LiteralPath $_.FullName -Destination $target -Force
+    }
+}
+
+function Count-Files($Path) {
+    if (-not (Test-Path -LiteralPath $Path)) {
+        return 0
+    }
+    return @(Get-ChildItem -LiteralPath $Path -Recurse -File | Where-Object {
+        $_.FullName -notmatch '[\\/]+__pycache__[\\/]+' -and $_.Name -notlike '*.pyc'
+    }).Count
 }
 
 function Main {
@@ -29,10 +54,22 @@ function Main {
     if ($MyInvocation.MyCommand.Path -and (Test-Path (Join-Path (Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "skills") "blog"))) {
         $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
     } else {
-        Write-Color White "Cloning claude-blog..."
+        $Repo = if ($env:CLAUDE_BLOG_REPO) { $env:CLAUDE_BLOG_REPO } else { "AI-Marketing-Hub/claude-blog" }
+        $Ref = if ($env:CLAUDE_BLOG_REF) { $env:CLAUDE_BLOG_REF } else { "main" }
+        $Url = if ($env:CLAUDE_BLOG_URL) { $env:CLAUDE_BLOG_URL } else { "https://github.com/$Repo.git" }
+        Write-Color White "Cloning claude-blog from $Repo ($Ref)..."
         $TempDir = Join-Path ([System.IO.Path]::GetTempPath()) "claude-blog-install-$([System.Guid]::NewGuid().ToString('N').Substring(0,8))"
-        git clone --depth 1 https://github.com/AgriciDaniel/claude-blog.git $TempDir 2>$null
+        git clone --depth 1 --branch $Ref $Url $TempDir 2>$null
+        if ($LASTEXITCODE -ne 0) {
+            git clone $Url $TempDir 2>$null
+            git -C $TempDir checkout --detach $Ref *> $null
+        }
         $ScriptDir = $TempDir
+        $CheckedOut = git -C $ScriptDir rev-parse --short HEAD
+        Write-Color Green "  + checked out $CheckedOut"
+        if ($Ref -eq "main") {
+            Write-Color Yellow "  Tip: set CLAUDE_BLOG_REF to a tag or commit SHA for a pinned install."
+        }
     }
 
     # Check prerequisites
@@ -59,47 +96,34 @@ function Main {
 
     # Copy references
     Write-Color White "Installing reference files..."
-    Copy-Item (Join-Path (Join-Path (Join-Path (Join-Path $ScriptDir "skills") "blog") "references") "*.md") (Join-Path (Join-Path $SkillDir "blog") "references") -Force
+    Copy-Tree (Join-Path (Join-Path (Join-Path $ScriptDir "skills") "blog") "references") (Join-Path (Join-Path $SkillDir "blog") "references")
 
     # Copy templates
     if (Test-Path (Join-Path (Join-Path (Join-Path $ScriptDir "skills") "blog") "templates")) {
         Write-Color White "Installing content templates..."
-        Copy-Item (Join-Path (Join-Path (Join-Path (Join-Path $ScriptDir "skills") "blog") "templates") "*.md") (Join-Path (Join-Path $SkillDir "blog") "templates") -Force
+        Copy-Tree (Join-Path (Join-Path (Join-Path $ScriptDir "skills") "blog") "templates") (Join-Path (Join-Path $SkillDir "blog") "templates")
     }
 
     # Copy sub-skills (auto-discovers all skill directories)
     Write-Color White "Installing sub-skills..."
-    Get-ChildItem -Directory (Join-Path $ScriptDir "skills") | ForEach-Object {
-        $skillName = $_.Name
-        if ($skillName -eq "blog") { return }
+    $SubSkillCount = 0
+    $SkillEntries = @(Get-ChildItem -Directory (Join-Path $ScriptDir "skills"))
+    foreach ($SkillEntry in $SkillEntries) {
+        $skillName = $SkillEntry.Name
+        if ($skillName -eq "blog") { continue }
         $skillDst = Join-Path $SkillDir $skillName
         New-Item -ItemType Directory -Force -Path $skillDst | Out-Null
 
         # Copy SKILL.md
-        $src = Join-Path $_.FullName "SKILL.md"
+        $src = Join-Path $SkillEntry.FullName "SKILL.md"
         if (Test-Path $src) {
             Copy-Item $src (Join-Path $skillDst "SKILL.md") -Force
             Write-Color Green "  + $skillName"
+            $SubSkillCount++
         }
 
-        # Copy references/ if present
-        $refSrc = Join-Path $_.FullName "references"
-        if (Test-Path $refSrc) {
-            $refDst = Join-Path $skillDst "references"
-            New-Item -ItemType Directory -Force -Path $refDst | Out-Null
-            Get-ChildItem -File $refSrc | ForEach-Object {
-                Copy-Item $_.FullName (Join-Path $refDst $_.Name) -Force
-            }
-        }
-
-        # Copy scripts/ if present
-        $scriptSrc = Join-Path $_.FullName "scripts"
-        if (Test-Path $scriptSrc) {
-            $scriptDst = Join-Path $skillDst "scripts"
-            New-Item -ItemType Directory -Force -Path $scriptDst | Out-Null
-            Get-ChildItem -File $scriptSrc | ForEach-Object {
-                Copy-Item $_.FullName (Join-Path $scriptDst $_.Name) -Force
-            }
+        foreach ($payloadDir in @("references", "scripts", "assets", "templates")) {
+            Copy-Tree (Join-Path $SkillEntry.FullName $payloadDir) (Join-Path $skillDst $payloadDir)
         }
     }
 
@@ -108,9 +132,12 @@ function Main {
 
     # Copy agents
     Write-Color White "Installing agents..."
-    Get-ChildItem -File (Join-Path (Join-Path $ScriptDir "agents") "*.md") | ForEach-Object {
-        Copy-Item $_.FullName (Join-Path $AgentDir $_.Name) -Force
-        Write-Color Green "  + $($_.BaseName)"
+    $AgentCount = 0
+    $AgentFiles = @(Get-ChildItem -File (Join-Path (Join-Path $ScriptDir "agents") "*.md"))
+    foreach ($AgentFile in $AgentFiles) {
+        Copy-Item $AgentFile.FullName (Join-Path $AgentDir $AgentFile.Name) -Force
+        Write-Color Green "  + $($AgentFile.BaseName)"
+        $AgentCount++
     }
 
     # Copy scripts (v1.8.6: ALL root-level scripts, not just analyze_blog.py).
@@ -122,12 +149,15 @@ function Main {
     if (-not (Test-Path $ClaudeScriptsDir)) {
         New-Item -ItemType Directory -Force -Path $ClaudeScriptsDir | Out-Null
     }
-    Get-ChildItem -File (Join-Path (Join-Path $ScriptDir "scripts") "*.py") | ForEach-Object {
-        Copy-Item $_.FullName (Join-Path $ClaudeScriptsDir $_.Name) -Force
-        if ($_.Name -eq "analyze_blog.py") {
-            Copy-Item $_.FullName (Join-Path (Join-Path (Join-Path $SkillDir "blog") "scripts") $_.Name) -Force
+    $RootScriptCount = 0
+    $RootScripts = @(Get-ChildItem -File (Join-Path (Join-Path $ScriptDir "scripts") "*.py"))
+    foreach ($RootScript in $RootScripts) {
+        Copy-Item $RootScript.FullName (Join-Path $ClaudeScriptsDir $RootScript.Name) -Force
+        if ($RootScript.Name -eq "analyze_blog.py") {
+            Copy-Item $RootScript.FullName (Join-Path (Join-Path (Join-Path $SkillDir "blog") "scripts") $RootScript.Name) -Force
         }
-        Write-Color Green "  + scripts/$($_.Name)"
+        Write-Color Green "  + scripts/$($RootScript.Name)"
+        $RootScriptCount++
     }
 
     # Install Python dependencies (closes audit VULN-507/804: capture stderr
@@ -171,12 +201,10 @@ function Main {
 "@
 
     Write-Color White "Installed:"
-    Write-Color Green "  Main skill:   blog/ (orchestrator + 20 references + 12 templates)"
-    Write-Color Green "  Sub-skills:   30 (29 user-invokable + 1 internal blog-chart)"
-    Write-Color Green "  Agents:       5 specialists"
-    Write-Color Green "  Scripts:      9 root-level (analyze_blog, blog_preflight, blog_render,"
-    Write-Color Green "                cognitive_load, discourse_research, generate_hero,"
-    Write-Color Green "                load_untrusted_root, lint_prose, sync_flow) + per-skill scripts"
+    Write-Color Green "  Main skill:   blog/ (orchestrator + $(Count-Files (Join-Path (Join-Path $SkillDir "blog") "references")) references + $(Count-Files (Join-Path (Join-Path $SkillDir "blog") "templates")) templates)"
+    Write-Color Green "  Sub-skills:   $SubSkillCount installed"
+    Write-Color Green "  Agents:       $AgentCount specialists"
+    Write-Color Green "  Scripts:      $RootScriptCount root-level + per-skill scripts"
     Write-Color White ""
     Write-Color White "Commands available:"
     Write-Color Cyan  "  /blog write <topic>        Write a new blog post"
@@ -198,6 +226,8 @@ function Main {
     Write-Color Cyan  "  /blog taxonomy             Tag/category CMS management"
     Write-Color Cyan  "  /blog notebooklm <query>   Query NotebookLM for research"
     Write-Color Cyan  "  /blog audio <file>         Generate audio narration via Gemini TTS"
+    Write-Color Cyan  "  /blog style learn <paths>  Learn author voice profile"
+    Write-Color Cyan  "  /blog decay <current>      Detect GSC content decay"
     Write-Color White ""
     Write-Color White "Optional: AI Features (same API key for both)"
     Write-Color Cyan  "  /blog image setup             Configure Gemini image generation"

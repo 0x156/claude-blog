@@ -52,7 +52,7 @@ for Lighthouse lab scores.
 
 Same request format as CrUX API. Returns up to **40 weekly collection periods** (~10 months)
 as timeseries arrays (`p75s[]`, `densities[]`). Default is 25; configurable via
-`collectionPeriodCount` parameter (range: 1-40).
+`collectionPeriodCount` parameter (range: 1-40). Use `crux_history.py --periods N`.
 
 - Updated **Mondays** ~04:00 UTC.
 - Each period = 28-day rolling average ending on a Sunday.
@@ -96,7 +96,7 @@ Current as of March 2026. INP replaced FID on March 12, 2024.
 | `dimensionFilterGroups` | object[] | Filter groups with `dimension`, `operator`, `expression` |
 | `rowLimit` | int | 1-25000 (default: 1000) |
 | `startRow` | int | Pagination offset (default: 0) |
-| `dataState` | string | `final` (default), `all`, `hourly_all` (April 2025, requires `HOUR` dimension) |
+| `dataState` | string | `final` (default), `all`, `hourly_all` (April 2025, requires `hour` dimension) |
 
 ### Filter Operators
 `contains`, `equals`, `notContains`, `notEquals`, `includingRegex`, `excludingRegex`
@@ -104,7 +104,7 @@ Current as of March 2026. INP replaced FID on March 12, 2024.
 ### Response Fields
 Each row: `keys[]`, `clicks`, `impressions`, `ctr`, `position`.
 
-- Data lag by `dataState`: `final` = ~2-3 days; `all` = shorter lag; `hourly_all` = few hours (April 2025). Retention: ~16 months.
+- Data lag by `dataState`: `final` = ~2-3 days; `all` = shorter lag; `hourly_all` = few hours (April 2025). Retention: ~16 months. Use `gsc_query.py --data-state hourly_all --dimensions date,hour,...`.
 - Country codes are **ISO 3166-1 alpha-3** (e.g., `USA`, `GBR`).
 
 ---
@@ -202,8 +202,8 @@ Gold-standard source for keyword search volume. Methods: **GenerateKeywordIdeas*
 from seeds), **GenerateKeywordHistoricalMetrics** (volume for specific keywords), and
 **GenerateKeywordForecastMetrics** (future projections). Returns volume, competition, CPC bids.
 
-**Current API version:** v23.1 (released Feb 25, 2026). Monthly release cadence since Jan 2026.
-Any version below v20 is sunset. Update versioned endpoint paths accordingly.
+**Current API version guidance:** Google Ads API release notes list v24.2 dated 2026-06-24. Check the official release notes before changing versioned client or REST paths:
+https://developers.google.com/google-ads/api/docs/release-notes
 
 - Without active ad spend, volumes are **bucketed ranges** ("1K-10K") not exact numbers
 - `competition` measures **advertiser competition**, not organic difficulty

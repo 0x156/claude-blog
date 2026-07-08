@@ -3,9 +3,9 @@ name: blog-geo
 description: >
   AI citation readiness audit as part of SEO, covering classic Google search
   and AI search surfaces together. Use whenever the user wants their content
-  to rank or be cited in ChatGPT, Perplexity, Claude, Gemini, or Google
-  AI Overviews. AI citation optimization audit scoring blog posts for
-  ChatGPT, Perplexity, and Google AI Overview citability. Evaluates
+  to rank or be cited in ChatGPT, Perplexity, Claude, Gemini, Copilot,
+  You.com, Google AI Overviews, or Google AI Mode. AI citation optimization
+  audit scoring blog posts for major answer surfaces. Evaluates
   passage-level citability, Q&A formatting, entity clarity, structured
   data, and AI crawler accessibility. Generates citation capsules and a
   0-100 AI Citation Readiness score. Use when user says "geo", "ai
@@ -18,10 +18,10 @@ license: MIT
 
 # Blog GEO: AI Citation Optimization Audit
 
-Scores blog posts for AI citation readiness across ChatGPT, Perplexity, and
-Google AI Overviews as one SEO workflow, not a separate discipline. Generates
-citation capsules and a 0-100 AI Citation Readiness score with platform-specific
-recommendations.
+Scores blog posts for AI citation readiness across ChatGPT, Perplexity, Claude,
+Gemini, Copilot, You.com, Google AI Overviews, and Google AI Mode as one SEO
+workflow, not a separate discipline. Generates citation capsules and a 0-100 AI
+Citation Readiness score with platform-specific recommendations.
 
 Google's 2026-05-15 guidance frames generative-AI optimization as SEO: no
 special markup, llms.txt requirement, or separate GEO/AEO playbook is required
@@ -33,17 +33,18 @@ This skill covers FLOW surface 3 (AI assistant citations: ChatGPT, Perplexity, C
 
 For directly relevant AI-citation prompts (AI-supporting-pages-rewrite-prompt, ai-detector-test, ChatGPT discovery, visibility prompts), see `/blog flow optimize`.
 
-## Key Research Data
+## Evidence Discipline
 
-Reference these benchmarks throughout the audit:
+Use numeric AI-citation benchmarks only when the report includes a source block
+with URL, publisher, methodology, sample size, engine or version, query class,
+retrieval date, and expiry date. If any field is missing, label the benchmark as
+directional or remove the number. Default heuristics:
 
-- Only 11% of domains cited by both ChatGPT and Perplexity (Digital Bloom, domain-level)
-- 80% of LLM citations don't rank in Google's top 100 (Ahrefs)
-- Brands 6.5x more likely cited through third-party sources (AirOps)
-- Self-contained 130-170 word answer passages are a practitioner heuristic
-- Comparison tables with `<thead>` achieve 47% higher AI citation rates (directional)
-- Content freshness: 76.4% of top citations updated within 30 days (Ahrefs, ~17M citations)
-- AI Overviews coverage is methodology-dependent: cite a range, not a fixed point
+- Self-contained 120-180 word answer passages are a practitioner heuristic.
+- Comparison tables with semantic headers may improve extractability, but do not
+  cite an uplift without a dated source block.
+- AI Overviews coverage is methodology-dependent: cite a dated range, not a
+  fixed point.
 
 ## Audit Process
 
@@ -119,7 +120,7 @@ Check for AI-extractable content patterns:
 | Check | Criteria |
 |-------|----------|
 | TL;DR box | 40-60 word standalone summary present at top |
-| Comparison tables | Tables with proper HTML `<thead>` (47% higher citation rate) |
+| Comparison tables | Tables with semantic headers such as `<thead>` or clear column labels |
 | Ordered lists | Numbered lists for processes and step-by-step instructions |
 | Definition formatting | Key terms formatted with clear definition patterns |
 | Citation capsules | 40-60 word definitive statements in each major section |
@@ -137,14 +138,18 @@ Check technical requirements for AI crawler indexing:
 | Check | Criteria |
 |-------|----------|
 | Static HTML | Content rendered in static HTML, not behind JavaScript |
-| robots.txt | Allows AI crawlers: GPTBot, ChatGPT-User, ClaudeBot, PerplexityBot |
+| Google visibility | Normal crawlability and indexability for Googlebot. No special GEO/AEO file or markup is required for Google AI features |
+| Non-Google AI crawlers | If the site wants visibility in non-Google answer engines, check robots.txt treatment for GPTBot, ChatGPT-User, ClaudeBot, PerplexityBot, and related documented crawlers |
 | Schema in HTML | Schema markup in static HTML, not JS-injected |
 | Page size | Reasonable page size within AI crawler limits |
 
 **Scoring:**
-- 2 pts: All criteria met
-- 1 pt: Most criteria met but one issue
-- 0 pts: Multiple issues blocking AI crawlers
+- 2 pts: Google crawlability/indexability is clean, and selected non-Google
+  crawler policies match the site's stated goals
+- 1 pt: Google is indexable but one selected non-Google crawler or rendering
+  check needs review
+- 0 pts: Google crawling/indexing is blocked or multiple selected crawlers are
+  unintentionally blocked
 
 ### Step 7: Platform-Specific Analysis
 
@@ -157,16 +162,26 @@ Evaluate the post for each AI platform's citation preferences:
 - Domain authority influences citation likelihood
 
 #### Perplexity
-- Favors Reddit sources (6.6% of all citations)
-- Rapid content decay: 2-3 day citation window
-- Freshness is the most critical factor
-- Community-validated content preferred
+- Often favors fresh, source-dense, community-validated content. Verify with
+  current logs or tooling before claiming a citation window.
 
 #### Google AI Overviews
-- Favors Google properties (23% of citations)
-- High Domain Rating strongly correlated with citation
-- Coverage varies by methodology, roughly 15.69% to 48-60% in recent studies
-- Prefers content that already ranks well organically
+- Follow Google's normal SEO guidance: make content helpful, crawlable,
+  indexable, and eligible for snippets. No special GEO/AEO markup or llms.txt is
+  required for Google visibility.
+- Prefers content that already ranks well organically, but verify any numeric
+  claims with dated source blocks.
+
+#### Google AI Mode
+- Treat separately from AI Overviews in reports. Emphasize normal Search
+  eligibility, clear page purpose, accessible text, and consistency between
+  visible content and structured data.
+
+#### Claude, Gemini, Copilot, and You.com
+- Evaluate content clarity, source accessibility, freshness, and whether robots
+  policy intentionally allows or blocks each crawler where documented.
+- Use engine-specific recommendations only when current docs, logs, or test
+  results are available.
 
 For each platform, provide:
 - Current citability rating (High / Medium / Low)
@@ -245,6 +260,12 @@ Output the following report:
 #### Google AI Overviews
 - [specific recommendations]
 
+#### Google AI Mode
+- [specific recommendations]
+
+#### Claude / Gemini / Copilot / You.com
+- [specific recommendations]
+
 ### Generated Citation Capsules
 
 #### [H2 Section 1]
@@ -268,13 +289,15 @@ Run `/blog analyze <file>` for full content quality scoring.
 
 If blog-google credentials include Tier 1 (GSC) and the post has a published URL:
 
-1. Query GSC: `python3 skills/blog-google/scripts/run.py gsc_query --property <property> --filter-page <url> --json`
+1. Query GSC by page and query dimensions, then filter rows to the URL:
+   `python3 skills/blog-google/scripts/run.py gsc_query --property <property> --dimensions query,page --json`
 2. Add to platform-specific analysis:
    - Current impressions, clicks, CTR, average position
    - Search queries driving traffic to this URL
 3. Check indexation: `python3 skills/blog-google/scripts/run.py gsc_inspect <url> --json`
 4. Report indexation status, canonical selection, mobile usability.
-5. Falls back silently if not configured.
+5. If skipped, report `SKIPPED: credentials unavailable` or
+   `SKIPPED: unpublished URL`.
 
 ### Optional: AI Citation Probability Score
 
