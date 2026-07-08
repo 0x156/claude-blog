@@ -97,9 +97,7 @@ def gather_targets(root: Path) -> list[Path]:
         if d.is_dir():
             targets.extend(d.rglob("*.md"))
             targets.extend(d.rglob("*.py"))
-    for name in ("README.md", "SECURITY.md", "CONTRIBUTING.md", "CHANGELOG.md",
-                 "CLAUDE.md", "CONTRIBUTORS.md", "PRIVACY.md", "TODO.md",
-                 "NOTICE"):
+    for name in ("README.md", "CHANGELOG.md", "CLAUDE.md", "NOTICE"):
         p = root / name
         if p.exists() and p.is_file():
             targets.append(p)

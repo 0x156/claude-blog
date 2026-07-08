@@ -32,7 +32,7 @@ irm https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1 
 pwsh -File ./install.ps1
 ```
 
-> Downloading the script and running it as a file (rather than piping it straight into the shell) lets you inspect it first and avoids a heuristic antivirus false positive some scanners raise on `iex (irm ...)` one-liners. See [SECURITY.md](../SECURITY.md#antivirus-false-positives).
+> Downloading the script and running it as a file (rather than piping it straight into the shell) lets you inspect it first and avoids a heuristic antivirus false positive some scanners raise on `iex (irm ...)` one-liners. See [SECURITY.md](../.github/SECURITY.md#antivirus-false-positives).
 
 Both installers automatically copy all skills, agents, references, templates,
 and scripts to the correct Claude Code configuration directories.

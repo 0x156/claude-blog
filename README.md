@@ -246,7 +246,7 @@ Scoring bands: Exceptional (90-100), Strong (80-89), Acceptable (70-79), Below S
 | `research-quality.md` | Source-tier, freshness, and synthesis quality checks |
 | `synthesis-contract.md` | Research synthesis LAWs for citation-safe output |
 
-Adapted attribution lives in [`CONTRIBUTORS.md`](CONTRIBUTORS.md).
+Adapted attribution lives in [`CONTRIBUTORS.md`](docs/CONTRIBUTORS.md).
 
 ## Brain Provenance
 
@@ -395,7 +395,7 @@ See [How To Cite](#how-to-cite) or [`CITATION.cff`](CITATION.cff). GitHub also s
 
 ### Is claude-blog secure to install?
 
-The recommended flow downloads the installer as a file so you can inspect it before execution. v1.11.0 uses pinned refs, allowlisted recursive payload copies, manifest-backed uninstall, prose lint, version coherence checks, and installer regression tests. See [`SECURITY.md`](SECURITY.md).
+The recommended flow downloads the installer as a file so you can inspect it before execution. v1.11.0 uses pinned refs, allowlisted recursive payload copies, manifest-backed uninstall, prose lint, version coherence checks, and installer regression tests. See [`SECURITY.md`](.github/SECURITY.md).
 
 ## Documentation Index
 
@@ -427,12 +427,12 @@ GitHub also surfaces the structured [`CITATION.cff`](CITATION.cff) file via "Cit
 
 ## Security & Code of Conduct
 
-- **Security policy and threat model**: [`SECURITY.md`](SECURITY.md). To report a vulnerability privately, follow the disclosure procedure there.
-- **Code of Conduct**: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md). Contributor Covenant.
+- **Security policy and threat model**: [`SECURITY.md`](.github/SECURITY.md). To report a vulnerability privately, follow the disclosure procedure there.
+- **Code of Conduct**: [`CODE_OF_CONDUCT.md`](.github/CODE_OF_CONDUCT.md). Contributor Covenant.
 
 ## Contributing
 
-Contributions are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for guidelines. Before opening a PR:
+Contributions are welcome. See [`CONTRIBUTING.md`](.github/CONTRIBUTING.md) for guidelines. Before opening a PR:
 
 1. Run `python3 -m pytest tests/` and confirm the 242-test suite passes.
 2. Run `python3 scripts/lint_prose.py` and confirm zero violations.

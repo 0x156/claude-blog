@@ -9,7 +9,7 @@ generation (banana / blog-image via nanobanana-mcp), inline SVG charts
 > credentials pattern that closes audit VULN-001/003. `.mcp.json` and
 > `.env.local` are both `chmod 0600` and gitignored. Per-skill
 > credentials live in `~/.config/claude-seo/google-api.json` (also
-> mode 0600). See [SECURITY.md](../SECURITY.md) for the full hardening
+> mode 0600). See [SECURITY.md](../.github/SECURITY.md) for the full hardening
 > checklist.
 
 ---

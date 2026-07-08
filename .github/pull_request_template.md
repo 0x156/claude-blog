@@ -31,4 +31,4 @@
 - [ ] Trust boundaries documented in SECURITY.md if new untrusted-data surfaces introduced
 
 ## Contributor reference
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for development setup, code style, and PR guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, code style, and PR guidelines.

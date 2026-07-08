@@ -433,7 +433,7 @@ def test_orchestrator_has_untrusted_data_contract() -> None:
 
 def test_security_md_documents_t12() -> None:
     """SECURITY.md must include the T12 trust boundary (project-root auto-load)."""
-    sec = (ROOT / "SECURITY.md").read_text(encoding="utf-8")
+    sec = (ROOT / ".github" / "SECURITY.md").read_text(encoding="utf-8")
     assert "T12" in sec, "SECURITY.md missing T12 trust boundary"
     assert "BRAND.md" in sec and "DISCOURSE.md" in sec, (
         "SECURITY.md T12 section missing references to BRAND.md / DISCOURSE.md"

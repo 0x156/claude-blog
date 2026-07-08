@@ -611,4 +611,4 @@ Validate both content quality and technical readiness for AI crawlers:
 | Contentful / Sanity CMS | Future | Low |
 
 Community contributions for MCP server implementations are welcome.
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](../.github/CONTRIBUTING.md) for guidelines.

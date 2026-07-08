@@ -20,7 +20,7 @@ prose hygiene via `scripts/lint_prose.py` (v1.8.4+), and the 5-gate Blog Deliver
 ```
 claude-blog/
   CLAUDE.md                          # Project instructions (this file)
-  CONTRIBUTORS.md                    # Pro Hub Challenge attribution and integration decisions
+  docs/CONTRIBUTORS.md               # Pro Hub Challenge attribution and integration decisions
   CHANGELOG.md                       # Keep a Changelog format
   .claude-plugin/plugin.json         # Plugin manifest (v1.11.0)
   .claude-plugin/marketplace.json    # Marketplace catalog for distribution
