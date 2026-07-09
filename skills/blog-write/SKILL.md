@@ -432,7 +432,7 @@ In February 2026, Seer Interactive's AI Overview CTR tracker reported a 2.4% org
 #### 5m. FAQ Section
 Add 3-5 FAQ items with 40-60 word answers when user questions warrant it. Each answer must contain a verified statistic when a relevant source-backed number exists.
 
-FAQPage is optional entity markup only. Google FAQ rich results have been limited primarily to well-known, authoritative government and health sites since the 2023 guidance, so do not make FAQ schema a core Google rich-result output or citation lever. Prioritize Article/BlogPosting + Person + Organization + BreadcrumbList; emit FAQPage only when the platform already supports it and the questions genuinely help users.
+FAQPage is optional entity markup only. Google FAQ rich results were fully retired for all sites on 2026-05-07, so do not make FAQ schema a core Google rich-result output or citation lever. Prioritize Article/BlogPosting + Person + Organization + BreadcrumbList; emit FAQPage only when the platform already supports it and the questions genuinely help users.
 
 For MDX with an optional FAQSchema component:
 ```mdx

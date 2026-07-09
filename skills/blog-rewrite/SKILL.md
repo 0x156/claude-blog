@@ -189,7 +189,7 @@ If the post lacks YouTube video embeds:
 #### 4i. Add/Improve FAQ
 - If the query set warrants it and no FAQ exists, add one (3-5 questions)
 - If FAQ exists, ensure answers are 40-60 words with verified statistics
-- FAQPage is optional entity markup only. Google FAQ rich results have been limited primarily to well-known, authoritative government and health sites since the 2023 guidance, so do not make FAQPage a core Google rich-result gate.
+- FAQPage is optional entity markup only. Google FAQ rich results were fully retired for all sites on 2026-05-07, so do not make FAQPage a core Google rich-result gate.
 
 #### 4j. Reduce Self-Promotion
 - Max 1 brand mention (author bio context only)

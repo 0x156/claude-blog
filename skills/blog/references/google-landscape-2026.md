@@ -126,13 +126,17 @@ Video, Product, Review, and Event.
 
 FAQPage markup is optional entity support for visible Q&A. Google reduced FAQ
 rich-result visibility in August 2023, primarily showing it only for well-known,
-authoritative government and health sites. Existing FAQPage markup is valid and
-does not cause Search problems, but general blogs should not expect FAQ rich
-results.
+authoritative government and health sites. That restriction is superseded: FAQ
+rich results fully retired for all sites starting 2026-05-07, including
+government and health sites. Google added the deprecation notice on 2026-05-08
+and removed the FAQ rich-result documentation on 2026-06-15, with the FAQPage
+structured-data doc URL redirecting to the updates page. Existing FAQPage markup
+remains schema.org-valid and does not cause Search problems, but no site gets
+FAQ rich results now.
 
 ### Rich-Result Eligibility Notes
-- HowTo and FAQ rich results are no longer broadly available for general blog
-  content after Google's 2023 simplification.
+- FAQ rich results were fully retired for all sites starting 2026-05-07. HowTo
+  was fully deprecated as of 2023-09-13.
 - Some rich-result reports and enhancements have been simplified over time, but
   schema.org validity is separate from Google rich-result eligibility.
 - Treat Dataset, Q&A, and Sitelinks Search Box changes as watch items unless a
