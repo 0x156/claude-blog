@@ -52,10 +52,24 @@ Do not infer AI Overview inclusion from a chatbot referral. Do not treat Search 
 | Citation observations | Query, assistant, answer date, cited URL, screenshot path | `g-ai-features`, [[AI Citation Mechanics]] | High if screenshots are used in sales claims | Advisory until repeated observations appear |
 | Click scarcity context | Market study summary without property forecast | `sparktoro-zero-click-2026`, [[Zero Click Planning Baseline]] | Low unless used as a forecast | Context only |
 | AI optimization caveat | Confirmation that no special Google AI file is required | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | High if a required-task claim appears | Must be corrected before delivery |
+| Derivative asset influence | Newsletter, thread, video, or community launch date | [[Channel Asset Inventory]] | Medium if an off-site asset is credited for search movement | Label as coincident distribution |
+| Observation freshness | Screenshot date, query wording, assistant, and locale | `g-ai-features`, [[AI Citation Mechanics]] | High if reused after the answer changes | Recollect before reporting |
 
 ## Severity, Evidence, Recommendation, Owner, And Due Date
 
 Each finding gets one owner and a confidence label. Severity describes decision risk, not volume. A severe issue is a report that would cause a stakeholder to believe Google, ChatGPT, or another assistant confirmed a claim that the evidence does not support. Recommendations should name the next human action: rerun the GA4 segment, request GSC access, collect dated citation observations, or remove an inflated claim from a channel recap.
+
+### Example: Splitting A Mixed AI Visibility Week
+
+A post gets assistant referrals in GA4, a Search Console generative AI impression line, and one dated screenshot from an AI answer. The report keeps GA4 sessions under referral traffic with `g-ga4-data`, keeps Google AI impressions under `g-genai-reports`, and treats the screenshot as an observation bounded by `g-ai-features`. The recommendation is "continue tracking and preserve source clarity," not "the video caused AI Overview traffic."
+
+### Breakpoints Unique To This Report
+
+This report fails when newsletter UTMs are grouped with chatbot referrers, when a screenshot lacks query and date, or when a missing Search Console AI report is described as zero visibility. A second failure is claiming that a market click-scarcity source proves the site's AI referral ceiling; keep that context inside [[Zero Click Planning Baseline]] with `sparktoro-zero-click-2026`.
+
+### Audit Deliverable Handoff
+
+[[Full Site Blog Audit Report]] consumes the confirmed AI visibility summary. It needs canonical URL, reporting window, GA4 referral export, available GSC AI report state, citation-observation log, and unresolved evidence gaps; it expects a page-level advisory finding with confidence, owner, and rollback trigger.
 
 ## AI Referral Reporting Delivery Procedure
 

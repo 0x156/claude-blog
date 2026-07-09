@@ -42,6 +42,8 @@ The 2026 record separates three lanes: ranking updates, spam enforcement, and Se
 | May core update | Record second 2026 core update and completion boundary | `g-update-2026-05-21-may-2026-core-update`, `g-update-2026-06-02-may-2026-core-update-complete` | CONFIRMED | SEO lead | Compare page groups after the rollout window closes. |
 | Generative AI performance reports | Track measurement availability without assuming all sites have access | `g-update-2026-06-03-search-console-search-generative-ai-performance-reports`, `g-genai-reports` | CONFIRMED | Data owner | Add report-availability checks to [[Google Data Integrations]]. |
 | June spam update | Confirm latest spam rollout before any spam-response work | `g-update-2026-06-24-june-2026-spam-update`, `g-status-dashboard` | CONFIRMED | Spam reviewer | Open [[Spam Update Response Playbook]] only for plausible policy risk. |
+| Third-party tool boundary | Verify vendor ranking claims before they enter recommendations | `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | CONFIRMED guidance | Reviewer | Send unsupported tool claims to [[Unverified Volatility Quarantine]]. |
+| Product structured-data July note | Keep product documentation changes out of ranking-incident rows | `g-search-docs-updates-2026-07-07-product-structured-data`, `g-merchant-listing-sd` | CONFIRMED docs | Schema reviewer | Route eligible product cases to [[Schema Deprecation Watch]]. |
 
 ## Current Status Through 2026-07-09
 
@@ -53,6 +55,24 @@ As of the 2026-07-09 ledger check, the latest confirmed ranking incident in this
 2. Use the event-specific `g-update-*` ID for the row that explains what changed.
 3. Attach a route: core, spam, schema, AI search, data reporting, or quarantine.
 4. Revisit the entry during monthly refresh and after any dashboard change.
+
+## Current-Cycle Triage Example
+
+A June 27 page-group drop arrives one day after the June spam rollout completed.
+This timeline cites `g-update-2026-06-24-june-2026-spam-update` for timing only.
+The same review checks `g-spam-policies` before opening any spam route.
+If the pages are original articles with no policy pattern, the route stays no-action.
+If low-value generated variants exist, the case moves to [[Spam Update Response Playbook]].
+The deliverable consumer is [[Content Decay Triage Register]].
+It receives event ID, completion date, route, and local-evidence requirement.
+It should output refresh, monitor, escalate, or no-action with a rollback trigger.
+
+## 2026 Timeline Edge Cases
+
+- Assuming every property has generative-AI reports overreads `g-genai-reports`, which records rollout availability.
+- Treating the June spam update as link-specific conflicts with `g-update-2026-06-24-june-2026-spam-update`.
+- Calling `g-search-docs-updates-2026-07-07-product-structured-data` a ranking update puts schema maintenance in the wrong lane.
+- Using vendor-tool certainty after `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` should trigger quarantine.
 
 ## Related
 

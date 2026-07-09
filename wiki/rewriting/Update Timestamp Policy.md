@@ -36,6 +36,8 @@ Escalate date changes for legal, financial, medical, or other trust-sensitive co
 | Cite official update context only from official sources | `g-ranking-history`; `g-status-dashboard` | Articles referencing Google rollouts | Use dated event wording, avoid causality claims | Monitoring owner reviews |
 | Treat specific spam-update references as dated records | `g-update-2024-06-20-june-2024-spam-update` | Historical update notes or spam-policy context | State the event date and source limit | SEO strategist reviews |
 | Do not change dates for unconfirmed volatility | `g-status-dashboard` | Traffic dips without confirmed event | Keep date unchanged and route to monitoring | Program owner can defer |
+| Preserve date after typography-only work | `g-helpful-content` | Copyedits, formatting, internal housekeeping | No visible freshness signal | Editor records no-date-change |
+| Update schema dates only from visible facts | `g-intro-sd` | Article or BlogPosting handoff | Date values must match page evidence | Technical SEO reviews |
 
 ## Timestamp Audit And Reversal
 
@@ -44,9 +46,32 @@ Escalate date changes for legal, financial, medical, or other trust-sensitive co
 3. Choose no date change when the work was only formatting, typo repair, or internal workflow cleanup.
 4. Add a rollback cue: revert the visible date if QA finds the change was cosmetic or unsupported.
 
+## Date Choice Example
+
+Before: an editor wants a new updated date after typo fixes.
+`g-helpful-content` supports trust, not cosmetic freshness.
+Decision: keep the visible dates unchanged.
+Later, an AI guidance claim is replaced using `g-ai-opt-guide`.
+That source change can justify a reviewed date if QA confirms scope.
+Schema date fields still need visible-page support under `g-intro-sd`.
+
+## Timestamp Abuse Cases
+
+- Traffic decline alone does not justify a visible date change.
+- Competitor freshness pressure is not evidence under `g-helpful-content`.
+- Update names need official dates from `g-ranking-history`.
+- Schema dates must not invent facts absent from the article.
+
+## Schema Contract Wiring
+
+[[Schema Generation Output Contract]] consumes the approved date decision.
+Inputs provided: published date, modified date, reviewed date, and no-change reason.
+It expects schema date values or warnings when page facts are missing.
+Visible-content checks use `g-intro-sd`; trust checks use `g-helpful-content`.
+
 ## Timestamp Source IDs
 
-`g-helpful-content`; `g-ranking-history`; `g-status-dashboard`; `g-update-2024-06-20-june-2024-spam-update`.
+`g-helpful-content`; `g-ranking-history`; `g-status-dashboard`; `g-update-2024-06-20-june-2024-spam-update`; `g-intro-sd`; `g-ai-opt-guide`.
 
 ## Related
 

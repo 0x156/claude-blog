@@ -53,10 +53,18 @@ A request packet needs the business question, required source, date range, dimen
 | Page experience context | Public URL PSI result or owner-supplied export | Private staging test without approval | Performance caveat | `g-psi` |
 | Engagement review | GA4 aggregate landing-page report | Raw user-level or event-payload export | Engagement packet | `g-ga4-data` |
 | Cross-source comparison | Canonical URL and date windows documented | Mixed windows and unrecorded filters | Advisory joined table | All listed IDs |
+| Export refresh | Owner supplies a new dated file with same filters | Agent reuses stale rows silently | Superseded packet plus review note | `g-gsc-api`, `g-ga4-data` |
+| Staging performance check | Owner provides redacted host alias and approval | Private URL copied into vault | Approved alias caveat | `g-psi` |
 
 ## Decisions This Note Must Record
 
 Record who supplied the export, which fields were removed, which fields remain, and which recommendation depends on the evidence. If the request would require write-capable access, convert it into a recommendation with owner approval and rollback outside V1.
+
+## Access Packet Example
+
+For a site audit, the request asks the owner for GSC query rows, a URL Inspection summary, PSI evidence for public URLs, and aggregate GA4 landing-page data. Each request names the business decision and source ID before export: `g-gsc-api`, `g-urlinspect`, `g-psi`, or `g-ga4-data`.
+
+If the owner offers direct account login instead, the answer is a blocked-path note and a request for sanitized export. [[Full Site Blog Audit Report]] consumes the sanitized packet, removed-field list, source ID, confidence label, and missing-data wording.
 
 ## Source IDs
 

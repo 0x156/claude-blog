@@ -26,6 +26,7 @@ source_urls:
   - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
   - "https://developers.google.com/analytics/devguides/reporting/data/v1"
   - "https://developers.google.com/search/docs/appearance/google-images"
+  - "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
 ---
 
 # Channel Asset Inventory
@@ -52,10 +53,24 @@ Allowed adaptations include changing the hook, shortening evidence, replacing a 
 | AI claim hygiene | No Google AI-only file requirement inserted | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Confirmed after copy review | SEO reviewer | Remove unsupported setup tasks |
 | Visual provenance | Thumbnail, chart, or screenshot origin and alt text | `g-google-images`, [[Images Audio and Charts]] | Pending until asset file exists | Media owner | Record license or source path |
 | Measurement route | Metric, tool, and date window | `g-ga4-data`, [[Distribution Measurement Plan]] | Blocked without access | Analytics owner | Attach report link or gap note |
+| Disclosure state | Relationship, sponsorship, generated asset, or source cue | `g-qualify-links`, [[Canonical Attribution Rules]] | Open until channel copy shows it | Distribution lead | Add visible disclosure text |
+| Retirement reason | Asset removed, replaced, merged, or superseded | [[Distribution Measurement Plan]] | Confirmed after owner note | Channel owner | Keep row for reporting history |
 
 ## Asset, Channel, Source Link, Owner, Status, And Measurement
 
 An inventory row should be boring enough to audit. The status values are planned, drafted, reviewed, shipped, measured, and retired. Measurement belongs in the row only after the metric definition is known; otherwise the row records an evidence gap rather than a speculative target. If a derivative asset is deleted, keep the row and mark the reason so later reporting does not treat missing data as a performance change.
+
+### Example: One Article, Three Assets
+
+A canonical post becomes a newsletter, a social thread, and a short video. The inventory creates three rows, repeats the same canonical URL, assigns separate owners, and records different measurement routes with `g-ga4-data` only where property evidence exists. The video row cannot move to shipped until thumbnail provenance and source-card approval are present under `g-google-images` and [[Repurposing Source Fidelity]].
+
+### Inventory-Specific Failure Patterns
+
+This sheet breaks when two owners create the same asset row, when a deleted post is removed from the inventory, or when the metric field still says unknown after launch. It also breaks when a screenshot is logged as a visual asset without a source path, license note, or alt-text plan tied to `g-google-images`.
+
+### Repurposing Matrix Feed
+
+[[Repurposing Asset Matrix]] consumes the inventory row after channel selection. It needs asset format, canonical source, owner, source-fidelity status, disclosure state, measurement route, and retirement reason; it expects one auditable channel row that can be approved, blocked, measured, or retired.
 
 ## Channel Asset Inventory Fidelity Checks
 
@@ -67,4 +82,4 @@ An inventory row should be boring enough to audit. The status values are planned
 
 ## Source IDs Wired
 
-This note cites `g-helpful-content`, `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, `sparktoro-zero-click-2026`, `g-ga4-data`, and `g-google-images`.
+This note cites `g-helpful-content`, `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, `sparktoro-zero-click-2026`, `g-ga4-data`, `g-google-images`, and `g-qualify-links`.

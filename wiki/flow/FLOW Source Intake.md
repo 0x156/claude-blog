@@ -34,6 +34,9 @@ Every intake packet records source ID, title, URL, source type, publication or u
 | Google Search guidance | Official source URL and section | `g-helpful-content` or `g-ai-features` | Record allowed operational use | SEO lead | [[FLOW Brief Stage]] |
 | Update-specific caveat | Current update or changelog item | Dated ledger source ID | Attach timeline context | Factchecker | [[2026 Google Update Timeline]] |
 | Market study context | Study method and geography | `sparktoro-zero-click-2026` | Label AS-REPORTED and advisory | Strategy owner | [[AI Citation Mechanics]] |
+| AI file or special markup claim | Exact requested tactic | `g-ai-opt-guide` or blocked source gap | Keep or reject the tactic boundary | GEO owner | [[FLOW Confidence Tags]] |
+| FAQPage rich-result claim | Requested schema wording | `g-faqpage-sd` | Record retired-rich-result caveat | Schema owner | [[FLOW Factcheck Stage]] |
+| First-party export summary | Redacted GSC or GA4 file | `g-gsc-api` or `g-ga4-data` | Capture fields, date range, and limits | Data owner | [[Google API Evidence Matrix]] |
 
 ## Claim Boundary Checks
 
@@ -42,3 +45,37 @@ Ask what the source proves, what it does not prove, and whether the recommendati
 ## Handoff To Brief Stage
 
 The packet exits to [[FLOW Brief Stage]] with accepted source IDs, blocked claims, open refresh needs, and confidence labels. The brief owner should be able to draft without reopening the ledger for every sentence.
+
+## Example: Intake For An AI Search Claim
+
+Incoming claim: "Google needs an AI-specific file before it can cite the page."
+
+The intake owner splits the claim into a Google requirement claim and a
+non-Google assistant behavior claim.
+
+The Google side cites `g-ai-opt-guide` and
+`g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`.
+
+The non-Google side stays blocked unless the operator supplies a dated source
+that belongs in the ledger.
+
+The packet sent to [[FLOW Brief Stage]] contains one verified correction, one
+blocked claim, and one instruction to avoid guarantee language.
+
+## Intake Errors That Poison Later Stages
+
+- A source is captured by URL, but the supported claim is never written.
+- A living document is treated as static without a refresh date.
+- Market geography is missing, so the brief misuses the study later.
+- First-party exports are summarized without date range or dimensions.
+
+## Consumed By Research Deliverables
+
+[[Factcheck Claim Register]] consumes source ID, exact claim text, source date,
+evidence tier, confidence, limitation, and refresh need.
+
+[[Content Brief Output Contract]] consumes the accepted source pack, blocked
+claims, and caveats before outline or draft work begins.
+
+The deliverables expect source packets that are narrow enough to verify without
+reinterpreting the source from scratch.

@@ -35,6 +35,9 @@ The source set is intentionally practical. `g-google-images` and `g-video` gover
 | Chart claim is provable | Dataset and method note | Blocker | Data reviewer | Complete [[Chart Source Requirements]]. |
 | Structured data matches visible content | JSON-LD draft and page preview | Blocker when markup is present | Technical SEO | Reconcile through [[Blog Schema Stack]]. |
 | AI or crawler claim is bounded | Source ID and note link | Advisory or blocker by claim strength | GEO reviewer | Route to [[AI Citation Mechanics]] or remove. |
+| Generated media is disclosed | Prompt log, edit note, replacement decision | Blocker when asset may mislead | Editor | Complete [[Generated Media Disclosure Notes]]. |
+| Video package is aligned | Player, thumbnail, title, transcript | Blocker when VideoObject exists | Video owner | Complete [[VideoObject Checklist]]. |
+| Discovery URL is stable | Canonical URL and media file path | Major for indexable media | Technical SEO | Check [[Image Sitemap Notes]]. |
 
 ## Media QA For Blog Posts Handoff Rules
 
@@ -47,6 +50,31 @@ The source set is intentionally practical. `g-google-images` and `g-video` gover
 ## Media QA For Blog Posts Source IDs
 
 Use `g-google-images`, `g-video`, `g-ai-opt-guide`, `schema-full`, and `g-intro-sd` for the QA gate. The extra structured-data source makes this note broader than individual alt or accessibility checks and prevents one generic bundle from standing in for final QA.
+
+## Launch Gate Walkthrough
+
+A post reaches QA with a generated hero, one chart, and a product demo video.
+The hero passes only after disclosure and alt status are recorded.
+The chart blocks publication because the source packet lacks retrieval date.
+The video blocks schema handoff until thumbnail and transcript match.
+`g-intro-sd` applies when JSON-LD describes visible media.
+`g-ai-opt-guide` removes a note claiming special AI-media treatment.
+After fixes, QA records three pass states and one removed asset.
+
+## QA Failure Patterns
+
+- A late image swap reopens alt, rights, and OG crop checks.
+- A reused schema block can describe media from an older post.
+- A CDN path change can break sitemap and schema image URLs.
+- A chart source correction changes both caption and audio variant.
+- A decorative image with unknown rights is removed, not deferred.
+
+## Validation Deliverable Wire
+
+[[SEO Check Validation Checklist]] consumes the final media QA row set.
+Inputs are image list, schema draft, preview metadata, and blocker status.
+Expected output is final pass, fix, or blocked before publication.
+`g-google-images` covers image checks; `g-video` covers video checks.
 
 ## Media QA For Blog Posts Completion Rule
 

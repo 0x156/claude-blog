@@ -30,6 +30,8 @@ FLOW Draft Stage creates the article, section, or rewrite text from an approved 
 | Extractable answer block | Existing draft or source warning | `ziptie-aio-source-selection` as practitioner evidence | Keep the answer self-contained under a clear heading | SEO reviewer | [[AI Citation Mechanics]] |
 | Market context paragraph | Approved planning note | Brief source packet only | Describe the planning environment with method caveat | Strategy editor | [[AI Citation Mechanics]] |
 | Source-bound examples | Source packet, customer-neutral examples | Accepted source IDs only | Explain without inventing proof | Writer | [[FLOW Factcheck Stage]] |
+| Schema-aware wording | Schema note from the brief | `g-intro-sd` | Keep markup suggestions tied to visible page content | Technical reviewer | [[Schema Generation Output Contract]] |
+| Trust-sensitive explanation | Byline, reviewer, or YMYL flag | `g-qrg-full` as evaluator framing | Make ownership and limits visible | Managing editor | [[FLOW Review Stage]] |
 
 ## Claim Preservation Rules
 
@@ -42,3 +44,35 @@ Use [[Voice and Style]] for phrasing, but do not let voice edits soften limitati
 ## Handoff To Review
 
 The draft exits with a claim map, source IDs used, open questions, and any lines the writer intentionally left advisory. [[FLOW Review Stage]] checks usefulness and structure; [[FLOW Factcheck Stage]] checks current claims and citations.
+
+## Example: Keeping A Draft Inside Its Brief
+
+Brief promise: "Explain whether a small publisher should add an AI-specific file."
+
+Allowed source: `g-ai-opt-guide` for Google AI Search guidance.
+
+Before: the draft adds "every AI assistant checks this file" without a ledger ID.
+
+After: the draft says Google does not require a special file for AI features and
+leaves non-Google behavior out unless a separate source packet is approved.
+
+The writer also adds a visible caveat near the answer block so [[FLOW Factcheck Stage]]
+can check the sentence against `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`.
+
+## Draft Drift Patterns
+
+- A helpful anecdote becomes a factual proof claim without source support.
+- A voice edit removes the limitation that made a market claim safe.
+- A schema note becomes JSON-LD that describes facts missing from the page.
+- An answer block optimized for extraction stops answering the original reader task.
+
+## Consumed By Article Delivery
+
+[[Blog Write Article Contract]] consumes the approved brief, draft sections,
+claim map, source IDs, AI caveats, schema notes, and internal-link obligations.
+
+The contract expects a draft package with answer-first copy, evidence-backed
+claims, optional citation-ready passages, media needs, and unresolved blockers.
+
+The deliverable returns acceptance, revision, or blocked status before layout or
+publication handoff.

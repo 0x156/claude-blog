@@ -47,6 +47,21 @@ Seer's 2026 analysis is useful because it distinguishes AIO-present CTR from cit
 | User behavior contrast | Click differences when summaries appear | `pew-ai` | AS-REPORTED | "Pew's panel found lower link clicking with summaries." |
 | Downside scenario | Position-one CTR decline in Ahrefs data | `ahrefs-aio` | AS-REPORTED | "Ahrefs gives a bearish scenario for top rankings." |
 | Eligibility boundary | How Google explains AI feature participation | `g-ai-features` | CONFIRMED | "Google documents crawling and preview controls, not inclusion promises." |
+| Property AI reporting | Search Console AI Overview or AI Mode impressions, when exposed | `g-genai-reports` | PREFERRED WHEN AVAILABLE | "Property reporting now outranks broad study context." |
+| Study conflict | Seer, Pew, and Ahrefs describe different samples and measures | `seer-aio-impact-ctr-2026`, `pew-ai`, `ahrefs-aio` | CONTESTED | "The studies disagree, so this report keeps the range caveated." |
+
+## Interpreting A Cited Page With Lower Visits
+
+A software article is cited in an AIO check, but organic sessions drop in the same month. The report should call the citation an exposure signal under `g-ai-features`, then keep traffic interpretation separate because `seer-aio-impact-ctr-2026` is an association rather than causal proof. If a Search Console AI report exists, `g-genai-reports` moves the analysis from market context to property evidence.
+
+[[Blog Analyzer Score Report]] consumes this note when an AI citation finding appears beside click data. It needs query, page, date range, citation state, and source IDs; it outputs a caveated CTR interpretation, not a score bonus.
+
+## CTR Reading Traps
+
+- A cited page with fewer visits is not a failed GEO edit unless the click lane also has property evidence (`g-genai-reports`).
+- A position-one downturn from `ahrefs-aio` should be presented as a downside scenario, not a universal correction factor.
+- A Pew user-behavior result from `pew-ai` cannot replace page-level Search Console data when the property report exists.
+- A Google eligibility statement from `g-ai-features` explains participation controls, not an expected click rate.
 
 ## Decision Rules For Reports
 

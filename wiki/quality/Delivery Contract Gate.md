@@ -42,6 +42,8 @@ Required inputs are the scored object, owner, score summary, open blockers, sour
 | Risk flags | YMYL, AI, schema, market-data caveats | Specialist reviewer | High-risk items have an explicit decision. | Assigned specialist |
 | Handoff status | Ready, revise, blocked, monitor | Gate owner | Status matches unresolved evidence. | Delivery owner |
 | Rollback trigger | Trigger, metric, date, responsible person | Operator | Reversal or review path is written before implementation. | Implementation owner |
+| Missing data note | Absent GSC, AI report, crawl, or CWV source | Gate owner | Missing evidence is explicit, not inferred as pass. | Delivery owner |
+| Vendor claim screen | Tool promise, source ID, confidence label | SEO reviewer | No vendor certainty conflicts with Google guidance. | SEO owner |
 
 ## Field, Validator, Evidence, Owner, And Blocker State
 
@@ -54,3 +56,30 @@ Every accepted packet needs a named person for evidence and a separate person fo
 3. Attach the confidence label and rollback note.
 4. Send ready packets to the human delivery owner.
 5. Send blocked packets back to the spoke that owns the failure.
+
+## Gate Decision Example
+
+A draft has 91 points and one AI-reporting claim.
+The packet includes GSC export evidence from `g-gsc-api`.
+It lacks generative AI reporting evidence from `g-genai-reports`.
+Decision: monitor, not ready.
+The score remains visible, but the status changes.
+The owner adds a missing-data note.
+The recommendation avoids vendor certainty using `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice`.
+
+## Gate-Specific Breaks
+
+- A ready label appears before the rollback owner exists.
+- GSC evidence is assumed because the client has Search Console.
+- AI Overview reporting is claimed without `g-genai-reports`.
+- A vendor tool verdict outranks Google source boundaries.
+- A blocked source gap is hidden as a stylistic edit.
+
+## Consuming Deliverables
+
+[[Blog Write Article Contract]] consumes the final gate state.
+Inputs provided: score summary, blockers, risk flags, rollback trigger.
+Expected output: release, revise, or blocked article package.
+[[Blog Analyzer Score Report]] consumes gate language.
+It expects action-list status and owner fields.
+The gate sends unresolved source gaps back to [[Quality Review Evidence Log]].

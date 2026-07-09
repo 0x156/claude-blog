@@ -50,6 +50,8 @@ Required inputs are property label, date window, search type, dimension list, fi
 | Normalize dimensions | Analyst | Query groups, page canonical map, device and country splits | Clean table for [[Metric Export Schema]] | Same day |
 | Cross-check gaps | Reviewer | URL Inspection need, GA4 need, AI report availability | Handoff list to sibling notes | Before recommendations |
 | Label confidence | Reviewer | Filters, date range, row completeness | `verified`, `sample`, `stale`, or `missing` | Report draft |
+| Compare windows | SEO analyst | Current and previous `g-gsc-api` rows with identical filters | Decay signal or no-change note | Before rewrite queue |
+| Package caveats | Reviewer | Redactions, row caps, omitted `g-gsc-api` or `g-genai-reports` dimensions | Disclosure text for report | Final evidence pass |
 
 ## Operating Loop
 
@@ -59,6 +61,12 @@ Required inputs are property label, date window, search type, dimension list, fi
 4. Preserve filters and date windows in the metric packet.
 5. Compare against GA4 only after canonical URL and date alignment.
 6. Re-run the query when a new export window, source-ledger refresh, or content update changes the evidence base.
+
+## Query Pull Scenario
+
+A refresh review asks whether a tutorial lost non-brand demand or only shifted devices. The plan requests page plus query rows, country, device, search type, and two matched date windows from `g-gsc-api`, then sends URL variants to canonical checks before charting.
+
+If queries are redacted, the packet can still carry grouped demand but cannot quote examples. [[Content Decay Triage Register]] consumes the matched-window output, including filters, grouping rule, confidence label, and disclosure text.
 
 ## Source IDs
 

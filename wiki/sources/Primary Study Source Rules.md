@@ -48,6 +48,8 @@ Claims touching YMYL topics, legal obligations, medical outcomes, financial deci
 | Check feature support before recommending schema tactics. | `g-search-gallery` | BlogPosting, Article, FAQ, HowTo, Product, and other markup advice. | A standards-only claim needs a separate source outside this note. | Schema reviewer plus source steward. |
 | Do not use third-party update chatter as official rollout evidence. | `g-ranking-history` | Core, spam, ranking incident, and volatility notes. | A Google Search Central post names the event. | Monitoring owner. |
 | Downgrade any single-source study used for client-facing decisions. | `references/claim-ledger.md` verdict rules. | Benchmarks, agency tests, tool reports, and surveys. | The client supplies first-party data that directly supports the local claim. | Reviewer signs the advisory label. |
+| Keep AI Overview and AI Mode studies separated. | `ahrefs-aio-vs-aimode`; `g-ai-opt-guide` | Citation-surface comparison and Google AI Search boundaries. | Official Google guidance overrides practitioner interpretation. | GEO reviewer plus source steward. |
+| Quote market-share datasets with their filter context. | `statcounter` | Search-engine share, geography, platform, and month. | First-party referral data answers the property question. | Analyst plus source reviewer. |
 
 ## Review And Rollback
 
@@ -55,6 +57,18 @@ Claims touching YMYL topics, legal obligations, medical outcomes, financial deci
 2. Compare the claim against the official source family that governs the topic.
 3. Assign `AS-REPORTED`, `SINGLE-SOURCE`, `CONTESTED`, or `FOLKLORE` when the study is not direct official evidence.
 4. Add a rollback note that names the source date, study window, and condition that would retire the claim.
+
+## Study Use Case: Zero-Click Context
+
+A strategy deck wants a zero-click statistic beside a blog roadmap.
+Use `sparktoro-zero-click-2026` only as dated market context.
+Do not convert it into a forecast for the client's article inventory.
+If GSC exports exist, `g-gsc-api` becomes the local evidence route.
+Failure modes include missing geography, panel window, and query class.
+Another failure is mixing market studies with Google requirements.
+[[Blog Strategy Architecture Blueprint]] consumes the study decision.
+Inputs provided: study ID, period, caveat, and local-data override rule.
+Expected output: strategy context or a blocked forecast claim.
 
 ## Related
 

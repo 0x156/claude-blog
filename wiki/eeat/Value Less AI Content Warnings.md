@@ -40,6 +40,9 @@ The warning must decide whether the page is ready, needs substantial rewrite, sh
 | AI output without human judgment | Accountability record and reviewer note | g-helpful-content, g-update-2025-01-23-qrg-update-jan-2025 | Missing owner blocks trust approval | Managing editor | Open [[AI Assisted Content Accountability]] |
 | Unsupported certainty | Claim list and source map | g-helpful-content, g-qrg-full | Strong claims need strong proof | Research editor | Replace claim or source through [[Source Quality Ladder]] |
 | Sensitive topic handled generically | YMYL check and review requirement | g-update-2025-09-11-qrg-update-sept-2025, g-qrg-full | Consequential advice needs escalation | Reviewer | Send to [[YMYL Escalation Matrix]] |
+| SERP-outline clone | Heading structure and advice sequence mirror competitors | g-helpful-content, g-qrg-full | Common structure hides no information gain | Editor | Rebuild around original reader decision |
+| Scaled localized rewrite | Many location or locale pages differ only by names | g-spam-policies, g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content | Translation or substitution without value is risky | SEO lead | Localize evidence or consolidate |
+| Synthetic example inflation | Examples are plausible but not observed, tested, or sourced | g-qrg-full, g-helpful-content | Example volume masks missing experience | Author | Replace with real evidence or remove |
 
 ## Source IDs, Evidence Limits, And Confidence
 
@@ -52,3 +55,21 @@ Use the QRG update IDs as local ledger records, not as permission to overstate G
 3. Add original evidence, experience, analysis, or limitations where the page currently has filler.
 4. If the page cannot serve a distinct intent, recommend merge or prune instead of another rewrite pass.
 5. Reopen [[E-E-A-T Review Rubric]] only after the low-value warning is cleared.
+
+## Low-Value AI Rewrite Case
+
+A site generates twenty "best CRM for [industry]" pages from one AI prompt. Each page swaps industry names, repeats the same pros and cons, and cites no industry-specific evidence. The warning stays open because helpful-content and spam-policy sources require useful value beyond scaled substitution or generic transformation (source_ids: g-helpful-content, g-spam-policies, g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content). The fix is not another rewrite pass; consolidate overlapping pages or add real industry observations, decision criteria, and limitations before scoring.
+
+## Warning Patterns That Masquerade As Quality
+
+- A long introduction sounds original but only restates top-ranking pages in a different order; compare section jobs, not word count (source_id: g-helpful-content).
+- Localized pages use translated examples without local sources, prices, rules, or reader context; treat them as scaled rewrite candidates (source_id: g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content).
+- AI disclosure is present, but no human judgment changes the recommendation; accountability remains unresolved (source_id: g-update-2025-01-23-qrg-update-jan-2025).
+- A sensitive article uses broad safety language while giving specific actions; escalate before deciding rewrite versus removal (source_ids: g-qrg-full, g-update-2025-09-11-qrg-update-sept-2025).
+- A generated FAQ block answers questions no reader task raised; remove it instead of marking it as helpful depth (source_id: g-helpful-content).
+- A rewritten article adds examples but no source or experience trail; count the examples as unsupported until verified (source_id: g-qrg-full).
+- A template cluster has one strong page and many weak variants; protect the strong page and consolidate variants first (source_id: g-spam-policies).
+
+## Refresh Plan Decision Feed
+
+[[Blog Rewrite Refresh Plan]] consumes this warning when an existing post may need rebuild, merge, prune, or source replacement. Inputs are duplicated-intent evidence, AI-use record, template footprint, missing-originality notes, and recommended disposition. The plan expects a rewrite scope, merge or prune rationale, owner, rollback trigger, and source IDs behind the low-value decision.

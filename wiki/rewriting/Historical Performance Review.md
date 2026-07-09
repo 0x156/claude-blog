@@ -33,6 +33,8 @@ Do not compare a launch week with a mature month, a sale period with a normal pe
 | Page reviewed near an update | Date overlap with official rollout | `g-ranking-history` | Add update context without claiming causation | Monitoring owner | Remove update language if dates do not overlap |
 | Article with old proof points | Source age and usefulness risk | `g-helpful-content` | Send claims to source refresh before rewriting | Editor | Mark no action if sources remain current |
 | Newly published post | Insufficient mature baseline | `g-gsc-api` unavailable or sparse | Hold until a comparable window exists | Program owner | Start review once the period is long enough |
+| Seasonal guide | Same seasonal window across years | `g-gsc-api` page and query rows | Compare matched season before declaring decay | Analyst | Seasonality explains the difference |
+| Migrated or renamed URL | Old path and new path split history | `g-canonical` plus GSC page views | Rebuild history before action choice | SEO technical owner | Path mapping proves continuity |
 
 ## Review Procedure
 
@@ -41,6 +43,29 @@ Do not compare a launch week with a mature month, a sale period with a normal pe
 3. Check official Google update dates only after the trend is visible in first-party data.
 4. State the weakest assumption in the finding, such as seasonality, migration, or missing country filters.
 5. Hand off to the next rewriting note with a recommended action class and a confidence label.
+
+## Matched-Window Example
+
+Before: an analyst compares launch week against a mature month.
+That finding is unusable because `g-gsc-api` windows are not comparable.
+After: the analyst compares two equivalent seasonal windows.
+Query rows show the same job but fewer impressions.
+The note labels demand softness, not rewrite failure.
+If update dates overlap, `g-ranking-history` adds context only.
+
+## Trend Reading Hazards
+
+- Mixing countries or devices changes the baseline; cite `g-gsc-api` filters.
+- A migration can split history; check URL signals with `g-canonical`.
+- Official rollout overlap is not causality; constrain `g-ranking-history` wording.
+- Old proof points need source review before performance explains anything.
+
+## Decay Register Wiring
+
+[[Content Decay Triage Register]] consumes this note's trend interpretation.
+Inputs provided: baseline period, comparison period, strongest signal, caveat, and owner.
+It expects a status row for refresh, investigate, monitor, or consolidate.
+The register should copy only reproducible fields from `g-gsc-api`.
 
 ## Historical Review Source IDs
 

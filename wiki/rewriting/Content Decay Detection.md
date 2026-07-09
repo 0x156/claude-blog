@@ -33,6 +33,8 @@ Rewrite when the page still owns the reader job but the answer is incomplete. Co
 | Post still ranks but claim dates are old | Evidence age weakens trust | `g-helpful-content` plus source ledger dates | Send claims to [[Stale Claim Register]] | Source steward | Source refresh confirms old claim remains valid |
 | Two URLs split related queries | Competing page and query dimensions | `g-gsc-api`; technical check from `g-canonical` | Move to [[Content Consolidation Rules]] | Content lead | One URL clearly serves a different reader job |
 | Page has no meaningful search history | Thin or unmeasured asset | `g-gsc-api` unavailable or sparse | Defer, annotate data gap, avoid false precision | Program owner | New first-party data appears |
+| Impressions fall while position holds | Demand or query mix changed | `g-gsc-api` query rows by matched window | Check demand and intent before rewriting | Analyst | Next matched window stabilizes |
+| Canonical target changes unexpectedly | URL ownership changed | `g-canonical` plus page export | Pause prose edits and route URL review | SEO technical owner | Preferred URL returns to expected page |
 
 ## Verification Procedure
 
@@ -41,6 +43,29 @@ Rewrite when the page still owns the reader job but the answer is incomplete. Co
 3. Check [[Google Algorithm Update Ledger]] only for confirmed rollout context, not for speculative volatility.
 4. Assign the next note owner so the detection record does not become an all-purpose rewrite checklist.
 5. Record what would disprove the diagnosis during the next measurement pass.
+
+## Detection Walkthrough
+
+Example input: a glossary page loses clicks but keeps impressions.
+Query rows from `g-gsc-api` show demand moved toward checklist language.
+The page still answers its definition job under `g-helpful-content`.
+Diagnosis: intent drift, not full content decay.
+Next step: send the case to [[Intent Drift Audit]].
+Do not cite a confirmed update unless `g-ranking-history` dates overlap.
+
+## Misread Signals
+
+- Average position can mask query churn; inspect queries through `g-gsc-api`.
+- Canonical changes can mimic decay; verify URL signals with `g-canonical`.
+- Old citations are trust risk, not performance proof; use `g-helpful-content`.
+- Official rollout dates explain timing only; use `g-ranking-history` carefully.
+
+## Triage Register Wiring
+
+[[Content Decay Triage Register]] consumes the diagnosis row from this note.
+Inputs provided: URL, signal label, evidence source, owner, and rollback cue.
+It expects status output: refresh brief, investigate, consolidate plan, monitor, or escalate.
+Data fields come from `g-gsc-api`; update annotations come from `g-ranking-history`.
 
 ## Decay Source IDs
 

@@ -52,3 +52,33 @@ Award partial credit only when the evidence is visible in the draft or review fi
 3. Mark every AI-search assertion as confirmed, advisory, or blocked.
 4. Route zero-click or AI-surface assumptions to [[AI Citation Mechanics]].
 5. Record the final 15 point score in [[Quality Review Evidence Log]] with owner and next review date.
+
+## Passage Rewrite Case
+
+Input passage: "AI files help Google pick this guide."
+Review result: blocked under `g-ai-opt-guide`.
+Replacement passage: "Google treats AI feature optimization as normal SEO."
+Attach `g-ai-opt-guide` beside that replacement sentence.
+Then cite `g-ai-features` near preview-control wording.
+If the paragraph uses practitioner passage-shape advice,
+label it advisory with `ziptie-aio-source-selection`.
+Do not attach the Seer AIO study to this sentence.
+That study belongs only in market context.
+Route that context to [[AI Citation Mechanics]].
+
+## Citation-Specific Pitfalls
+
+- A clean answer block can still fail without entity names.
+- A source list after the article is not proximity evidence.
+- Snippet controls can weaken the passage despite strong wording.
+- Practitioner extraction advice cannot become Google policy.
+- Citation-click context is not a traffic forecast.
+
+## Deliverable Wiring
+
+[[GEO Citation Readiness Register]] consumes this score.
+Inputs supplied: passage text, entity, date, claim, source ID.
+Also supply preview-control caveat and confidence label.
+Expected output: register status, owner, review date, rollback trigger.
+[[Blog Analyzer Score Report]] uses the 15 point result.
+It expects blocker, advisory, or pass language.

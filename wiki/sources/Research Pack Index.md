@@ -69,6 +69,16 @@ Use the table above as the first stop for folder-level navigation. Use [[Claim V
 4. Every Google AI Search claim should be able to route to [[AI Citation Mechanics]].
 5. Every schema support claim should be able to route to [[Blog Schema Stack]].
 
+## Routing Example For A Brief Source Pack
+
+A strategist starts a brief for "best CRM onboarding checklist."
+Open this hub, then move to [[Claim Verification Flow]] for claim slots.
+Use `g-helpful-content` for usefulness and `g-ai-opt-guide` for AI caveats.
+The failure mode is treating this hub as the evidence itself.
+[[Content Brief Output Contract]] consumes the selected source route.
+Inputs provided: source-governance note, source ID, and caveat target.
+Expected output: source pack section with unresolved blockers marked.
+
 ## Related
 
 - [[index|Index]]

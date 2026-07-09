@@ -46,6 +46,21 @@ Use [[Zero Click Planning Baseline]] for the market backdrop from `sparktoro-zer
 | Citation upside | Cited versus uncited AIO comparison | `seer-aio-impact-ctr-2026` | Medium, association only | Replace with property AIO data if available |
 | Technical eligibility | Crawlable content and preview controls | `g-ai-opt-guide` | High for Google guidance | Recheck after Google doc updates |
 | Excluded factor | `llms.txt` proposed as ranking input | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | High rejection for Google Search | Keep out unless Google reverses guidance |
+| Observed AI surface data | Property-level AI Overview or AI Mode impressions | `g-genai-reports` | High when the export is available | Replace market proxy before approving a forecast |
+| Surface split | AIO and AI Mode handled as separate exposure lanes | `ahrefs-aio-vs-aimode`, `g-genai-reports` | Medium until property data matures | Build separate assumptions for each surface |
+
+## Forecast Case With A Rejected Uplift
+
+A strategy deck asks for one traffic lift number after adding citation-ready passages. The safer forecast builds three ranges from current clicks, labels AIO upside as advisory from `seer-aio-impact-ctr-2026`, and excludes any `llms.txt` gain because Google rejects that visibility lever in `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`.
+
+[[Blog Strategy Architecture Blueprint]] consumes this note for the measurement phase. It needs baseline clicks, target query groups, citation checks, and source IDs; it expects a scenario table with caveats and a review trigger.
+
+## Forecast Failure Patterns
+
+- A forecast becomes misleading when seasonality is hidden under a zero-click caveat from `sparktoro-zero-click-2026`.
+- A citation count is not a conversion unless analytics records a downstream event, so keep `seer-aio-impact-ctr-2026` advisory.
+- A property with Search Console AI reporting should not keep using market-only assumptions once `g-genai-reports` applies.
+- An AI Mode case cannot borrow AIO behavior when `ahrefs-aio-vs-aimode` warns that overlap may be low.
 
 ## Scenario Build Procedure
 

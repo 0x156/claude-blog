@@ -45,6 +45,23 @@ Google's AI optimization guidance centers the same foundations used for Search (
 | Clear snippet, poor context | Add nuance before the snippet | Preserve concise answer after context | `seer-aio-impact-ctr-2026` | Revise first |
 | Metric-heavy paragraph | Explain why the metric matters | Name source scope and caveat | `sparktoro-zero-click-2026` | Annotate |
 | AI-only tactic proposed | Ask whether readers benefit | Reject undocumented Google shortcut | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Remove or reframe |
+| Repeated answer under every heading | Preserve momentum and section variety | Keep only the answer block that earns reuse | `g-helpful-content`, `g-ai-opt-guide` | Cut duplicates |
+| Quotable but unsupported statistic | Protect trust before extraction | Add source proximity or remove the figure | `g-helpful-content` | Defer until sourced |
+
+## Before And After Passage Choice
+
+Before: "AI Mode changes every B2B journey, so each section needs an AI block."
+
+After: "For this procurement guide, add one sourced comparison summary because Google grounds AI visibility in helpful, crawlable content (`g-ai-opt-guide`), while market click context stays advisory (`sparktoro-zero-click-2026`)."
+
+[[Blog Write Article Contract]] consumes this note inside the AI citation passage row. It needs candidate text, reader job, nearby source IDs, and the extraction reason; it expects a rewrite instruction that preserves article flow.
+
+## Reader-First Extraction Breaks
+
+- A standalone answer fails when the missing caveat changes the claim supported by `g-ai-opt-guide`.
+- A statistic should not become more prominent than its source scope from `sparktoro-zero-click-2026`.
+- A repeated summary line can reduce usefulness even when it looks extractable under `ziptie-aio-source-selection`.
+- An unsupported shortcut should be cut when `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` rejects the premise.
 
 ## Rewrite Procedure For A Candidate Block
 

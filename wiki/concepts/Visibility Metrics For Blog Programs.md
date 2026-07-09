@@ -47,6 +47,21 @@ Use official Google documentation for participation boundaries (`g-ai-opt-guide`
 | Organic click yield | Search Console plus analytics | `sparktoro-zero-click-2026` | Observed clicks with market caveat | Monthly |
 | AIO citation status | Manual or tool-assisted citation checks | `seer-aio-impact-ctr-2026`, `g-ai-features` | Citation exposure, not traffic | Biweekly during tests |
 | AI eligibility blockers | Crawlability, snippets, indexing, preview controls | `g-ai-opt-guide`, `g-ai-features` | Technical eligibility | Before major refreshes |
+| Generative AI impressions | Search Console AI Overview and AI Mode reporting when exposed | `g-genai-reports` | Observed AI Search visibility | Monthly while available |
+| Market context lane | External zero-click or AI referral studies | `sparktoro-zero-click-2026`, `similarweb-gen-ai-stats-2026` | Background context, not property performance | Quarterly planning |
+
+## Dashboard Case For A Cluster
+
+A cluster dashboard reports impressions, clicks, manual citation checks, and assisted conversions. The metric labels stay separate: `g-gsc-api` supports query and page exports, `g-genai-reports` supports AI surface visibility when present, and `seer-aio-impact-ctr-2026` remains market context when property citation data is missing.
+
+[[Blog Strategy Architecture Blueprint]] consumes this note for its measurement phase. It needs article or cluster scope, metric sources, source IDs, and cadence; it expects a dashboard vocabulary that marks observed, sampled, and inferred lanes.
+
+## Dashboard Failure Modes
+
+- Article-level and cluster-level rows should not share one denominator unless the report explains the scope under `g-gsc-api`.
+- A missing AI report should be labeled unavailable rather than inferred from `g-genai-reports`.
+- A market study from `similarweb-gen-ai-stats-2026` should not redraw historical site trends without matching property data.
+- A citation status column should not be called traffic when `g-ai-features` only supports participation boundaries.
 
 ## Program Reporting Procedure
 

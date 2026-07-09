@@ -33,6 +33,9 @@ Send source-validation work to [[Brief Source Pack]], claim approval to [[Eviden
 | Results favor comparison tables | Dated SERP capture via `dfs-api` or manual log | strategist | medium | observe | next brief refresh | New dominant format appears |
 | Low-click planning affects metric choice | `sparktoro-zero-click-2026` | analyst | medium, practitioner | advisory | 2026-08-06 | First-party GSC contradicts market framing |
 | Page-quality gap is visible across competitors | Observation plus [[Evidence Block Requirements]] | editor | medium | action candidate | next outline QA | Better source pack changes the angle |
+| AI Mode citation cluster differs from AI Overview | `g-ai-features` plus repeated capture | SEO lead | medium | observe | 2026-08-09 | Source mix converges or feature vanishes |
+| Current-year titles use old support | Dated SERP capture plus [[Brief Source Pack]] | source steward | medium | refresh candidate | next source review | Updated evidence changes freshness need |
+| Tool result block dominates page one | `dfs-api` and third-party guidance caveat | analyst | medium | caveat | next brief refresh | First-party data or official source conflicts |
 
 ## SERP Observation Ledger Review Loop
 
@@ -42,11 +45,32 @@ Send source-validation work to [[Brief Source Pack]], claim approval to [[Eviden
 4. Add a review date when the observation is volatile or tied to a live feature.
 5. Roll back brief assumptions when the observation disappears, contradicts first-party data, or gains a stronger source.
 
+## Logged Observation Example
+
+Query set: "refresh old blog posts." The observer records comparison pages, current-year titles, an AI feature, and several posts that cite no fresh source for update advice. The ledger does not conclude that date badges rank; it records a freshness pattern and sends the claim question to evidence review. Source IDs: `dfs-api`, `g-ai-features`, `g-helpful-content`.
+
+The outline can use a freshness-check section only after [[Brief Source Pack]] supplies dated guidance and [[Evidence Block Requirements]] approves the claim wording. Source IDs: `g-helpful-content`, `g-ranking-history`.
+
+## Observation Failure Modes
+
+- A signed-in or personalized result is logged without context. Source ID: `dfs-api`.
+- A live SERP feature is treated as durable intent proof. Source ID: `g-ai-features`.
+- A visible competitor claim becomes source evidence. Source ID: `g-helpful-content`.
+- A market caveat is repeated here instead of linking to [[Dual Optimization]]. Source ID: `sparktoro-zero-click-2026`.
+
+## Ledger Output Wiring
+
+[[Content Brief Output Contract]] consumes dated observations as the SERP pattern field. Inputs provided: query, date, locale, device, feature, source type, status, review date, and rollback trigger. Expected output: the brief can explain why a structural choice was made.
+
+[[Competitive Pattern Notes]] consumes the same rows for interpretation. Expected output: each pattern is converted into reader value, evidence request, or do-not-copy warning.
+
 ## Sources
 
 - `dfs-api`
 - `g-ai-features`
-- `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`
+- `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` for observed llms.txt claims
+- `g-helpful-content`
+- `g-ranking-history`
 - `sparktoro-zero-click-2026`
 
 ## Handoff

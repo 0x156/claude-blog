@@ -47,6 +47,8 @@ This cadence does not prove that a source is still correct. It only tells the re
 | `g-ai-opt-guide` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | 2026-06-15 | Google Search AI feature guidance. | Does not cover non-Google assistants. | Monthly and immediately after AI Search docs changes. |
 | `g-search-gallery` | https://developers.google.com/search/docs/appearance/structured-data/search-gallery | 2026-07-01 | Supported Google rich-result types. | Does not validate arbitrary Schema.org markup. | Before schema recommendations and after gallery updates. |
 | `g-ranking-history` | https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history | 2026-06-24 | Confirmed ranking events and rollout state. | Does not explain site-specific performance changes. | Weekly during active rollout, monthly otherwise. |
+| `g-faqpage-sd` | https://developers.google.com/search/updates#deprecating-the-faq-rich-result-feature | 2026-07-09 | FAQ rich-result retirement state. | Does not judge visible Q and A usefulness. | Before schema releases and on Search updates. |
+| `g-genai-reports` | https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports | 2026-07-08 | Search Console generative-AI reporting scope. | Does not guarantee access for every property. | Monthly until rollout stabilizes. |
 
 ## Source ID, URL, Date, Claim Coverage, And Limitation
 
@@ -59,6 +61,18 @@ Refresh work starts from the source ID because that is what body citations and c
 3. If the source changed, update only in-scope wiki notes and record a gap for machine-ledger work.
 4. If the source did not change, record no new claim and leave the existing source ID intact.
 5. Escalate any changed ranking source to [[Google Algorithm Update Ledger]] and any schema source to [[Blog Schema Stack]].
+
+## Cadence Scenario During A Rollout
+
+Google ranking history shows an active update window under `g-ranking-history`.
+Switch that source to weekly checks until completion appears.
+Do not rewrite client decay notes from timing alone.
+Use `g-gsc-api` only when property exports support the local pattern.
+The failure mode is missing a dashboard completion date.
+Another failure is treating monthly cadence as safe during rollout.
+[[Content Decay Triage Register]] consumes the refresh state.
+Inputs provided: source ID, cadence tier, changed date, and escalation owner.
+Expected output: triage annotation or delayed recommendation.
 
 ## Related
 

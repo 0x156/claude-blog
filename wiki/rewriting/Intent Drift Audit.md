@@ -33,6 +33,8 @@ Normal variation means the page attracts adjacent queries while still answering 
 | Old update post | Dated context, not evergreen answer | Timeline or ledger note if the update is historical | `g-ranking-history` | Official date context only |
 | Duplicate explainer | Same task as stronger article | Retained URL selected by consolidation review | `g-canonical`; [[Content Consolidation Rules]] | Technical and editorial review needed |
 | Spoke page with new query family | Narrow job or new spoke candidate | Current page only if the content can own the job | `g-gsc-api`; `g-helpful-content` | Advisory until rewritten or split |
+| Template post attracting pricing queries | Buyer evaluation, not template use | Comparison or pricing guide if approved | `g-gsc-api`; `g-helpful-content` | Decision-stage mismatch |
+| Definition page attracting implementation queries | How-to task beyond glossary depth | New or existing how-to spoke | `g-gsc-api`; internal links | Split candidate until drafted |
 
 ## Drift Audit Procedure
 
@@ -41,6 +43,28 @@ Normal variation means the page attracts adjacent queries while still answering 
 3. Compare the query groups against the title, intro, H2s, internal links, and canonical owner.
 4. Choose one outcome: intent intact, refresh framing, rewrite for new intent, split a spoke, consolidate, or defer.
 5. Record the phrase or query cluster that would trigger a future re-audit.
+
+## Query Reframe Example
+
+Before: a page promises "what is content decay" in the intro.
+Current queries ask for a checklist, shown by `g-gsc-api`.
+The definition still satisfies beginners under `g-helpful-content`.
+Decision: keep the definition page and brief a checklist spoke.
+If another URL already owns checklists, route through `g-canonical`.
+
+## Drift Traps
+
+- Adjacent queries are not drift when the core task still matches.
+- A title tweak cannot fix a page built for the wrong stage.
+- Cluster ownership matters; do not let one URL steal every subtask.
+- Update timing should not explain intent change without `g-ranking-history`.
+
+## Cannibalization Matrix Wiring
+
+[[Cannibalization Resolution Matrix]] consumes this note's intent relationship.
+Inputs provided: query group, reader job, current owner, and split-or-merge cue.
+It expects an action of merge, differentiate, canonicalize, redirect-review, or leave.
+Query evidence uses `g-gsc-api`; owner evidence can require `g-canonical`.
 
 ## Intent Audit Source IDs
 

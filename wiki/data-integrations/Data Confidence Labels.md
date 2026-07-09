@@ -52,6 +52,14 @@ Data Confidence Labels translate metric evidence into five working labels: `veri
 
 The label must say whether the evidence proves performance, only supports diagnosis, or merely records that a data source exists. For example, URL Inspection can confirm the indexed state for an owned URL, but it does not prove that the content deserves to rank. GA4 can show engagement after a visit, but it cannot supply Search query demand. PageSpeed data can support experience diagnosis, but it should not replace content, query, or index evidence.
 
+## Label Assignment Mini Case
+
+A page has current GSC rows, no URL Inspection timestamp, and a GA4 export with channel split. Assign `verified` to the Search Analytics packet (`g-gsc-api`), `missing` to index-state evidence (`g-urlinspect`), and `verified` or `advisory` to GA4 depending on canonical landing-page alignment (`g-ga4-data`).
+
+The report can discuss query movement and engagement, but it cannot call the page indexed until an inspection packet exists. If a PageSpeed lab result is the only technical evidence, keep the performance finding separate from content scoring and cite `g-psi`.
+
+[[Blog Analyzer Score Report]] consumes one label per evidence row. This note provides source ID, covered dates, filters, label reason, and next action; the score report expects those fields beside each major deduction.
+
 ## Operating Procedure
 
 1. Name the claim the data is supposed to support.

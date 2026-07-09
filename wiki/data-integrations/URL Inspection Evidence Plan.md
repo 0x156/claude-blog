@@ -51,6 +51,8 @@ Required inputs are inspected URL, property label, canonical candidate, inspecti
 | Cross-check demand | Analyst | GSC rows for the same canonical page | Search performance context | Avoid ranking-cause language | 
 | Add experience or engagement context | Reviewer | PSI and GA4 packets when available | Advisory caveat | Keep labels separate |
 | Decide report wording | Reviewer | Confidence label and missing fields | Indexing section | Do not prescribe mutation from V1 |
+| Check rich-result state | Technical SEO | URL Inspection rich-result fields under `g-urlinspect` | Structured-data evidence note | Route markup decisions to [[Blog Schema Stack]] |
+| Reinspect after crawl event | Data owner | New timestamped URL Inspection result under `g-urlinspect` | Superseded inspection packet | Preserve old packet as stale context |
 
 ## Operating Loop
 
@@ -59,6 +61,12 @@ Required inputs are inspected URL, property label, canonical candidate, inspecti
 3. Separate "not indexed" from "low quality", "low demand", and "low engagement".
 4. When canonical evidence conflicts with performance rows, pause metric rollups until the canonical map is updated.
 5. Re-inspect after a crawl-relevant event only when the owner supplies a new read-only result.
+
+## Inspection Decision Example
+
+A finished post is ready for publication review, but the inspected URL shows a selected canonical different from the draft target. The report can cite URL-level index and canonical state through `g-urlinspect`; it cannot infer reader usefulness or query demand from that result.
+
+The next step is not an indexing request from this brain. [[SEO Check Validation Checklist]] consumes inspected URL, selected canonical, rich-result state, timestamp, confidence label, and blocked mutation note before marking the canonical gate pass or blocked.
 
 ## Source IDs
 

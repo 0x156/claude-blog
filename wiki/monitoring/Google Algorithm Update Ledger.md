@@ -39,6 +39,8 @@ The hub must not absorb client-specific analytics, broad market CTR benchmarks, 
 | AI-search guidance | `g-ai-opt-guide`, `g-ai-features` | AI search owner | high | active | 2026-08-01 | Google changes AI feature access or special-file guidance. |
 | Schema support watch | `g-search-gallery`, `g-intro-sd` | Schema reviewer | high | active | 2026-08-01 | Search gallery support changes. |
 | QRG status | `g-qrg-full`, `g-update-2025-09-11-qrg-update-sept-2025` | Quality reviewer | high | active | 2026-08-09 | A newer full QRG appears. |
+| Generative-AI reporting | `g-update-2026-06-03-search-console-search-generative-ai-performance-reports`, `g-genai-reports` | Data owner | high | active | 2026-08-06 | Report access or documentation wording changes. |
+| Product schema maintenance | `g-search-docs-updates-2026-07-07-product-structured-data`, `g-merchant-listing-sd` | Schema reviewer | high | active | 2026-08-08 | Product docs change or page lacks commerce context. |
 
 ## Spoke Jobs And Deliverable Boundaries
 
@@ -53,6 +55,24 @@ Use [[2026 Google Update Timeline]], [[2025 Google Update Timeline]], and [[2024
 | CONTESTED | Credible sources conflict or the operational claim overreaches | Keep advisory | Name what remains unresolved. |
 | SINGLE-SOURCE | One source supports the claim and no second source is available | Use only for low-risk guidance | Mark a refresh date before release use. |
 | QUARANTINED | Volatility or rumor lacks Google-owned confirmation | Watch only | Do not rewrite durable guidance. |
+
+## Ledger Dispatch Example
+
+During monthly review, the operator notices Product.category guidance dated 2026-07-07.
+The ledger records `g-search-docs-updates-2026-07-07-product-structured-data`.
+It pairs that source with `g-merchant-listing-sd` for page-context checks.
+No ranking row is created because the source is a structured-data documentation update.
+The route is [[Schema Deprecation Watch]], then [[Schema Generation Output Contract]] if a product blog qualifies.
+The deliverable consumer is [[Full Site Blog Audit Report]].
+It receives update lane, source IDs, confidence, affected audit section, and rollback trigger.
+It should output an audit finding, blocked schema request, or no-action note.
+
+## Ledger-Level Failure Points
+
+- One dashboard URL can support many event IDs, so vague source labels are unsafe.
+- Current status expires when `g-ranking-history` changes, even if no note text looks stale.
+- Market CTR claims belong to [[AI Citation Mechanics]], not this hub's chronology.
+- Product or FAQ schema changes should not be promoted into ranking-impact rows without a ranking source.
 
 ## Related
 

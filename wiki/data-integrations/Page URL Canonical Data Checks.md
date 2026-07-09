@@ -42,6 +42,8 @@ This note allows joins from raw exported URLs to a canonical reporting URL. It d
 | Page experience check | Compare performance for the same URL variant | Web performance owner | PSI tested URL matched to canonical | Advisory if variant differs | `g-psi` |
 | Landing-page engagement | Join GA4 paths to page records | Analytics owner | Normalized landing page path or URL | Sample if query strings remain | `g-ga4-data` |
 | Topic cluster spoke | Roll up metrics by canonical page | SEO lead | Canonical URL plus internal link anchor | Verified after all row variants merge | `g-gsc-api`, `g-ga4-data` |
+| Query-parameter article URL | Remove tracking noise from reporting joins | Analyst | Canonical URL plus stripped parameter list | Sample until owner approves parameter rule | `g-gsc-api`, `g-ga4-data` |
+| Locale path variant | Keep language or market pages distinct | Localization owner | Locale URL and approved canonical target | Blocked if locale path is merged blindly | `g-urlinspect`, `g-gsc-api` |
 
 ## URL Normalization Procedure
 
@@ -54,6 +56,12 @@ This note allows joins from raw exported URLs to a canonical reporting URL. It d
 ## Decisions This Note Must Record
 
 Record the canonical URL, the raw URL variants, the rule used to merge them, and the owner who approved the rule. If a variant cannot be safely merged, keep it as a separate row and label the rollup `sample` through [[Data Confidence Labels]].
+
+## Canonical Join Example
+
+An audit receives `/blog/guide?utm_source=email`, `/blog/guide/`, and a GA4 path `/blog/guide`. The reviewer keeps the raw variants, asks the owner to approve the parameter rule, and joins only after GSC page rows and GA4 landing paths map to the same canonical under `g-gsc-api` and `g-ga4-data`.
+
+If URL Inspection reports a different Google-selected canonical, the rollup stops. [[Cannibalization Resolution Matrix]] consumes the raw variant list, approved canonical, selected-canonical evidence, confidence label, and unresolved merge risk from `g-urlinspect`.
 
 ## Source IDs
 

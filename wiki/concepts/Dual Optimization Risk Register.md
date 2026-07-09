@@ -3,7 +3,7 @@ type: spoke
 title: "Dual Optimization Risk Register"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [dual-optimization, evergreen]
 domain: "Blog Content Optimization"
 confidence: advisory
@@ -29,123 +29,52 @@ source_urls:
 ---
 # Dual Optimization Risk Register
 
-## Summary
-Dual Optimization Risk Register is a planning note for dual optimization.
-It captures policy, measurement, and expectation risks in dual optimization work.
-Use it with [[Dual Optimization]] when the working unit is a blog program, article, or section.
+## Register Purpose
 
-## Operating Question
-- What could make this recommendation misleading, stale, or unsafe?
-- The expected output is a risk entry with owner, source, confidence, and rollback cue.
-- The main risk is hiding uncertainty behind confident optimization language.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This register captures dual-optimization recommendations that could mislead stakeholders, become stale, or move outside the advisory boundary. It records the risk before a brief, audit, or strategy blueprint turns uncertainty into action. Use [[AI Citation Mechanics]] and [[2026 Google Update Timeline]] for broad evidence context instead of storing repeated statistic blocks here.
 
-## Current Evidence Anchors
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026.
-- The same substrate records AI Mode near 0.34 percent of US query volume, so AI Mode work must be proportional.
-- Seer, 2026-04-24, reports AIO organic CTR recovery from about 1.3 percent in December 2025 to about 2.4 percent in February 2026.
-- Seer also reports cited pages at about 120 percent more clicks per impression than pages not cited when an AI Overview is present.
-- Google AI optimization guidance updated 2026-06-15 keeps the foundation on helpful, crawlable, structured content.
-- Search Console generative AI performance reporting began in June 2026 for a subset of properties, so first-party data should replace market averages when present.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Risk Entry Inputs
 
-## Operating Standard
-- Separate visibility, click, citation, and assisted outcome language before any forecast is shared.
-- State whether the recommendation is for classic Search, AI Overview exposure, AI Mode exposure, or reader trust.
-- Use market studies as planning context until Google Search Console or analytics data exists for the property.
-- Avoid promising ranking gains, AIO inclusion, AI Mode citation, or traffic recovery.
-- Keep zero click behavior visible in the brief so success is not reduced to organic clicks.
-- Pair every current market statistic with its publication date and retrieval date.
-- Treat passage-level work as the citation unit and page-level usefulness as the reader unit.
-- Escalate stale, unsourced, or overconfident claims back to [[Research Pack Index]].
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+- Content unit, recommendation text, affected surface, and business decision.
+- Source IDs, evidence tier, owner, review date, and confidence label.
+- Observable rollback cue, such as engagement decline or contradictory property data.
+- Boundary note when a recommendation approaches publishing or platform mutation.
 
-## Review Sequence
-1. Open [[Dual Optimization]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+## Dual Optimization Risk Register Table
 
-## Specific Checks
-- Check that dual optimization risk register is applied to the correct content unit.
-- Check that the decision matches this purpose: captures policy, measurement, and expectation risks in dual optimization work.
-- Check that the output can be inspected as a risk entry with owner, source, confidence, and rollback cue.
-- Check that the risk is addressed directly: hiding uncertainty behind confident optimization language.
-- Identify the search surface before selecting a tactic.
-- Name the business question the metric should answer.
-- Separate market evidence from property evidence.
-- Record what would change the priority call.
-- State whether the recommendation affects planning, drafting, rewriting, or reporting.
-- Keep every forecast as a range unless first-party data supports a tighter number.
-- Explain the reader benefit before the optimization benefit.
-- Connect the decision to a measurable next review.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+| Risk entry | Trigger | Source IDs | Severity | Owner | Rollback or correction |
+|---|---|---|---|---|---|
+| AI inclusion guarantee | Recommendation promises AIO or AI Mode placement | `g-ai-features`, `g-ai-opt-guide` | blocker | GEO owner | Replace promise with eligibility language |
+| Market data overreach | External study used as site forecast | `sparktoro-zero-click-2026`, `seer-aio-impact-ctr-2026` | major | Analyst | Re-run with property evidence or caveat |
+| Unsupported AI file task | `llms.txt` requested for Google visibility | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | blocker | Technical SEO | Remove task from Search plan |
+| Tool authority claim | Vendor score treated as Google ranking access | `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | major | SEO lead | Rephrase as external estimate |
+| Stale update reference | Ranking-update claim lacks confirmed date | `g-ranking-history` | major | Researcher | Route to [[2026 Google Update Timeline]] |
+| Reader harm from snippets | Passage becomes awkward or under-caveated | `g-helpful-content`, `ziptie-aio-source-selection` | major | Editor | Revert to reader-first copy |
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Register Example: Rejecting A Visibility Shortcut
 
-## Failure Modes
-- A report treats citations, impressions, and clicks as interchangeable.
-- A forecast uses a market average without saying whether property data exists.
-- A strategy overweights AI Mode because it is prominent in product news.
-- A brief hides zero click behavior from stakeholders.
-- A recommendation implies that optimization can force AI inclusion.
-- A metric lacks a source date or refresh plan.
-- A passage is made extractable but no longer reads naturally.
-- A planning decision has no rollback cue when evidence changes.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+An audit asks for an `llms.txt` implementation to improve Google AI visibility. The register marks the item blocker, cites `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, and sends the recommendation back as a non-Google experiment rather than a Search deliverable.
 
-## Handoff
-- Attach the metric split to the brief or report.
-- Name which evidence came from market sources and which came from the property.
-- Record the recommendation confidence as verified or advisory.
-- Add the next review date when a market source or Google guidance can change.
-- Send drafting needs to [[6-Pillar Dual Optimization]].
-- Send citation passage needs to [[AI Citation Mechanics]].
-- Send trust gaps to [[E-E-A-T for Blog Content]].
-- Send schema questions to [[Blog Schema Stack]].
-- Use [[Search Visibility Versus Citation Exposure]] when this note needs a sibling follow-up.
-- Use [[Zero Click Planning Baseline]] when the next decision belongs beside this note.
+[[Full Site Blog Audit Report]] consumes this register for its priority queue. It needs risk entry, affected URL or cluster, source IDs, severity, owner, and rollback cue; it expects an action card marked fix, monitor, defer, or remove.
+
+## Register-Specific Edge Cases
+
+- A risk without an owner should stay unapproved because no one can refresh `g-ranking-history` or `g-ai-features`.
+- A market-study risk can be downgraded only when matching property data exists under `g-gsc-api`.
+- A blocked recommendation should not be softened into a minor note when `g-ai-opt-guide` rejects the premise.
+- A reader-harm risk should remain open until the article passes [[Reader Value Versus Extraction Value]] with source proximity intact.
+
+## Review Cadence
+
+1. Reopen high-severity entries after Google AI guidance changes.
+2. Reopen market-data entries when first-party reporting becomes available.
+3. Reopen passage risks after major rewrites or source substitutions.
+4. Move resolved entries into the consuming deliverable with the correction noted.
 
 ## Related
 - [[Dual Optimization]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[6-Pillar Dual Optimization]]
 - [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Blog Schema Stack]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
 - [[Search Visibility Versus Citation Exposure]]
-- [[Zero Click Planning Baseline]]
-- [[AI Overview CTR Interpretation]]
-- [[AI Mode Query Share Context]]
-- [[Citation Readiness Decision Tree]]
 - [[Reader Value Versus Extraction Value]]
 - [[Dual Optimization Briefing Checklist]]
-- [[Classic SEO And GEO Tradeoffs]]
-- [[Visibility Metrics For Blog Programs]]
 - [[Market Average Versus First Party Data]]
-- [[Citation And Click Forecasting]]

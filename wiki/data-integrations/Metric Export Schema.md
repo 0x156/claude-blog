@@ -41,10 +41,21 @@ Use "schema" here as a table contract for evidence, not as a promise of Google r
 | `metric_value` | Yes | Number, rate, label, or null with reason | Keep sampled or missing values labeled | `g-intro-sd` |
 | `date_start` and `date_end` | Yes | ISO dates | Do not mix GA4 and GSC windows without noting it | `w3c-jsonld` |
 | `public_schema_candidate` | No | `none`, `Article`, `BlogPosting`, `BreadcrumbList`, or another supported type | Candidate status does not mean publish approval | `g-search-gallery` |
+| `confidence_label` | Yes | `verified`, `advisory`, `missing`, `stale`, or `sample` | Internal evidence state is not a Schema.org property | `schema-full` |
+| `redaction_note` | Conditional | Removed field categories, not private values | Do not serialize secrets into JSON-LD | `g-intro-sd` |
+| `consumer_deliverable` | Yes | Wikilinked report or matrix name | Routing metadata should not become page markup | `w3c-jsonld` |
 
 ## Unsupported Markup To Avoid
 
 Do not place clicks, impressions, CTR, average position, engagement rate, or private conversion metrics inside public BlogPosting or Article JSON-LD. Do not use the full Schema.org hierarchy as proof that Google Search supports a rich result. Do not turn a metric packet into an `@graph` block on a live page unless [[Blog Schema Stack]] confirms that every property is visible, useful, and supported for the page context.
+
+## Packet Boundary Example
+
+A GSC export row becomes an internal packet with `source_id` set to `g-gsc-api`, `metric_name` set to impressions, and `public_schema_candidate` set to `none`. The Search gallery does not make private performance metrics eligible rich-result fields, so the public schema path stays blocked under `g-search-gallery`.
+
+If the same packet contains a visible article headline, only that visible page fact may travel toward Article or BlogPosting review. [[Schema Generation Output Contract]] consumes the candidate field, visible fact list, unsupported-warning note, and JSON-LD serialization cue from `w3c-jsonld`.
+
+Edge cases that break this note are usually vocabulary leaks: using `schema-full` breadth as Google eligibility, placing metric values in public JSON-LD, or omitting a redaction note because the packet is "internal." Keep those failures blocked through `g-search-gallery` and `g-intro-sd`.
 
 ## Publishing Boundary
 

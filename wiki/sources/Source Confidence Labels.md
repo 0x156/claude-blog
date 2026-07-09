@@ -63,6 +63,18 @@ A confidence label requires all four evidence fields. If a note has a source ID 
 4. Use claim-ledger verdict language for market studies and disputed claims.
 5. Move folklore, missing, or stretched claims to [[Evidence Gap Register]].
 
+## Label Assignment Example
+
+Claim: "Helpful content guidance guarantees ranking recovery after a rewrite."
+Use `g-helpful-content`, then downgrade the claim to gap.
+The source supports review framing, not a recovery guarantee.
+A safe rewrite becomes advisory when paired with page evidence.
+Failure cases include labeling the URL instead of the claim.
+Another failure is letting a high-confidence source bless mixed evidence.
+[[Blog Analyzer Score Report]] consumes the final label.
+Inputs provided: claim text, source ID, downgrade reason, and limitation.
+Expected output: scored finding with confidence and rollback note.
+
 ## Related
 
 - [[Research Pack Index]]

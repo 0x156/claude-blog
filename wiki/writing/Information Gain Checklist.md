@@ -36,6 +36,8 @@ Before using this checklist, gather the target reader job, the outline, competit
 | Useful caveat | Limitation changes reader action | Caveat is generic or absent | `g-helpful-content`, `g-qrg-full` | Blocker for sensitive claims | Reviewer |
 | Extractable substance | Self-contained answer contains real evidence | Passage is concise but empty | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Advisory to major | GEO reviewer |
 | Reader advancement | The reader can decide next step | Post ends with awareness only | `g-helpful-content` | Major | Strategist |
+| Source interpretation | The article explains what evidence changes | Citations are listed without meaning | `g-helpful-content`, `g-qrg-full` | Major | Researcher |
+| Decision contrast | A real tradeoff is resolved for the reader | Options are named but not compared | `g-helpful-content` | Major | Editor |
 
 ## Information Gain Handoff Rules
 
@@ -44,6 +46,32 @@ Before using this checklist, gather the target reader job, the outline, competit
 3. If proof exists but is misplaced, route to [[Experience Signal Placement]].
 4. If the missing value is strategic positioning, return to [[SERP-Informed Briefs and Outlines]].
 5. If the topic is trust-sensitive, require editor approval before the draft enters [[Blog Quality Score]].
+
+### Information-Gain Example
+
+Thin draft: "Use answer-first sections because AI and readers prefer clarity."
+Stronger draft: "Use answer-first sections for policy claims only after the
+source date and exception are visible beside the answer."
+The stronger version adds a decision rule grounded in useful content guidance
+(`g-helpful-content`) and avoids turning passage structure into a guarantee
+(`g-ai-opt-guide`, `ziptie-aio-source-selection`).
+For trust-sensitive advice, require a reviewer note before calling it complete
+(`g-qrg-full`).
+
+### Ways The Checklist Can Be Fooled
+
+- A paragraph is original in wording but not in decision value (`g-helpful-content`).
+- The article adds a case, yet no recommendation changes because of it (`g-qrg-full`).
+- A caveat is accurate but too generic to guide a reader choice (`g-helpful-content`).
+- The draft interprets a source title instead of the source's actual coverage (`g-qrg-full`).
+
+### Deliverable Wiring
+
+[[Content Brief Output Contract]] consumes this checklist before drafting:
+distinct answer, original proof slot, decision contrast, caveat need, and gaps.
+It expects the brief to tell writers what value must be added beyond summary.
+[[Blog Analyzer Score Report]] consumes the final pass as content usefulness
+evidence when deciding whether a draft is publishable (`g-helpful-content`).
 
 ## Source Handling
 

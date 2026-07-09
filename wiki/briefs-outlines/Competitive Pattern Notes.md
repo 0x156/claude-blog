@@ -33,6 +33,9 @@ Do not replicate a competitor outline, invented statistic, visual sequence, or c
 | Reject llms.txt claims | Competitor content promoting llms.txt as a Google Search lever | `g-ai-opt-guide` | Confirmed Google caveat | source steward | Mark as do-not-copy |
 | Frame click expectation | Brief goal where click-through is the only success measure | Metric source from [[Brief Source Pack]] | Practitioner or first-party context | analyst | Add assisted visibility or answer-quality metric |
 | Find information gain | Missing examples, tool steps, pricing caveats, or decision criteria | `g-helpful-content` | Editorial judgment grounded in usefulness | editor | Add unique section or first-party evidence request |
+| Separate tool claims from proof | Competitor uses a proprietary SEO score as authority | `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | Vendor estimate, not Google system access | analyst | Request stronger source or caveat |
+| Detect stale freshness theater | Results show current-year titles with old evidence | `g-helpful-content` plus dated capture | Usefulness gap if dates outrun support | editor | Ask for refreshed source pack |
+| Capture media expectation | Results rely on screenshots, charts, or diagrams | `g-google-images` when image guidance matters | Visual pattern, not ranking proof | media editor | Add useful visual brief only when evidence exists |
 
 ## Gap To Outline Procedure
 
@@ -46,9 +49,31 @@ Do not replicate a competitor outline, invented statistic, visual sequence, or c
 
 SERP observations are volatile. A single live result can justify a brief question, but it cannot prove causation. Treat competitor claims as claims to verify, not source material. When the pattern relates to AI exposure or low-click behavior, link the caveat to [[AI Citation Mechanics]] or [[Dual Optimization]] instead of repeating broad statistics here.
 
+## Pattern Use Case
+
+Query set: "AI citation checklist" returns comparison tables, tool landing pages, and several posts claiming special AI files are required. The observation supports a table-based reader aid, but the tool promises and file claims are marked do-not-copy. Source IDs: `dfs-api`, `g-ai-opt-guide`, `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice`.
+
+The brief response is not "copy the top result layout." It asks for a decision table that separates official Google guidance, practitioner citation-readiness checks, and unsupported tactics. Source IDs: `g-helpful-content`, `ziptie-aio-source-selection`.
+
+## Pattern Interpretation Traps
+
+- Matching H2 order hides the missing reader step. Source ID: `g-helpful-content`.
+- A single logged SERP becomes a permanent content rule. Source ID: `dfs-api`.
+- AI Overview presence is treated as a controllable deliverable. Source ID: `g-ai-opt-guide`.
+- A vendor chart is copied without method limits. Source ID: `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice`.
+
+## Brief Deliverable Routing
+
+[[Content Brief Output Contract]] consumes the pattern sheet as SERP context. Inputs provided: observed format, date, locale, device, rejected competitor claims, and information-gain opportunity. Expected output: a brief section that explains what to emulate, what to avoid, and what original value to add.
+
+[[SERP Outline Output Contract]] consumes only the pattern decisions that affect section jobs. Expected output: headings reflect reader needs, not a cloned competitor sequence.
+
 ## Sources
 
 - `dfs-api`
 - `dfs-labs`
 - `g-helpful-content`
 - `g-ai-opt-guide`
+- `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` for competitor tool claims
+- `g-google-images`
+- `ziptie-aio-source-selection`

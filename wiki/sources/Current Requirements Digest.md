@@ -49,6 +49,8 @@ Use this note as a quick routing surface. It does not replace `references/source
 | Google AI Search guidance | `g-ai-opt-guide` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | last updated 2026-06-15, retrieved 2026-07-08 | Google Search AI features use standard Search foundations rather than special AI-only requirements. | Does not cover non-Google assistants. | On guide update. |
 | Schema support review | `g-search-gallery` | https://developers.google.com/search/docs/appearance/structured-data/search-gallery | last updated 2026-07-01, retrieved 2026-07-08 | Current Google rich-result support should be checked before recommending a visual result tactic. | Does not replace feature-specific docs. | Before schema release. |
 | Update memory | `g-ranking-history` | https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history | last updated 2026-06-24, retrieved 2026-07-09 | Confirmed Google ranking update history and rollout state. | Does not prove site-level impact. | Weekly during rollout, monthly otherwise. |
+| FAQ rich-result posture | `g-faqpage-sd` | https://developers.google.com/search/updates#deprecating-the-faq-rich-result-feature | retrieved 2026-07-09 | FAQ rich results are retired in Google Search. | Does not ban useful visible Q and A content. | Before schema deliverables. |
+| llms.txt posture | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | retrieved 2026-07-06 | Google Search does not use llms.txt for visibility. | Does not cover other consumers. | On AI guide update. |
 
 ## Source ID, URL, Date, Claim Coverage, And Limitation
 
@@ -61,6 +63,18 @@ Each digest row points to a route where the operational details live. If a claim
 3. Update the digest only when the requirement or source route changes.
 4. Send unsupported data, media, API, or platform claims to [[Evidence Gap Register]].
 5. Keep claim wording short enough that [[Claim To Source Mapping]] can audit it row by row.
+
+## Digest Application In A Schema Ticket
+
+A reviewer sees a request to add FAQPage for rich-result visibility.
+The digest routes the claim to `g-faqpage-sd`, not broad schema guidance.
+The same ticket can still keep reader-facing Q and A sections.
+That content choice should cite `g-helpful-content` when usefulness is claimed.
+The main failure is treating a retired feature as current.
+Another failure is using the digest without the date column.
+[[SEO Check Validation Checklist]] consumes this digest during final review.
+Inputs provided: current requirement, source ID, date, and limitation.
+Expected output: pass, fix, or blocked validation state.
 
 ## Related
 

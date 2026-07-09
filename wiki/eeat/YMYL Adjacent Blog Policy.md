@@ -41,6 +41,8 @@ Exceptions require approval when the article contains specific recommendations, 
 | Include limitations before the reader acts | g-helpful-content | Any adjacent topic with uncertainty | None for high-severity claims | Editor and reviewer signoff |
 | Escalate generated advice on sensitive topics | g-update-2025-01-23-qrg-update-jan-2025, g-qrg-full | AI-assisted pages that provide instructions or recommendations | AI used only for internal outlining | [[AI Assisted Content Accountability]] |
 | Escalate political or social decision content | g-update-2025-09-11-qrg-update-sept-2025, g-qrg-full | Civic, public policy, and social issue explainers | Narrow cultural commentary with no instruction | Managing editor approval |
+| Escalate calculators or estimates | g-qrg-full, g-helpful-content | Savings, debt, dosage, eligibility, or risk estimates | Clearly labeled toy example with no decision use | Reviewer plus source owner |
+| Escalate local rule references | g-qrg-full | Tax, legal, benefits, safety, or election rules by location | Historical overview without advice | Jurisdiction-aware reviewer |
 
 ## Rule, Evidence Source, Applies To, And Enforcement
 
@@ -53,3 +55,21 @@ Severity follows the reader's possible harm, not the keyword. A post about "budg
 3. Require the source and reviewer level that the row names.
 4. Add visible limitations and remove unsupported instructions.
 5. If the risk was over-classified, document the reason and downgrade through [[YMYL Escalation Matrix]], not by deleting the note.
+
+## Adjacent Topic Classification Case
+
+A lifestyle post titled "budget meal planning for students" becomes YMYL-adjacent when a section gives diet advice for diabetes and recommends supplement timing. The allowed path is to remove the health instruction, narrow it to non-medical meal-planning context, or require qualified review and stronger sources. The QRG and helpful-content sources support escalating by reader consequence rather than by the soft tone of the headline (source_ids: g-qrg-full, g-helpful-content).
+
+## Adjacent Policy Edge Cases
+
+- "General tips" copy still gives an actionable debt, diet, safety, or legal step; classify by reader action, not disclaimer wording (source_id: g-qrg-full).
+- A calculator outputs a number readers may use for eligibility or risk; require source assumptions and reviewer scope (source_ids: g-qrg-full, g-helpful-content).
+- Local law or public-benefit details are correct in one jurisdiction and wrong in another; send the claim to a jurisdiction-aware reviewer (source_id: g-qrg-full).
+- Political or social explainers avoid explicit advice but frame civic action with selective context; require senior editorial review (source_id: g-update-2025-09-11-qrg-update-sept-2025).
+- An affiliate comparison affects major purchases; combine commercial disclosure with stricter source review (source_id: g-qrg-full).
+- A first-person story gives recovery, investment, or legal takeaways; keep the story but remove generalized instruction (source_id: g-helpful-content).
+- A checklist title sounds harmless while the steps guide risky action; classify by the steps, not the title (source_id: g-qrg-full).
+
+## Brief Contract Risk Input
+
+[[Content Brief Output Contract]] consumes this policy before drafting starts. Inputs are reader decision, highest-risk claim, required source tier, reviewer requirement, excluded claims, and limitation language. The brief expects a draft-risk field, must-avoid list, source-pack requirements, and escalation owner for any YMYL-adjacent topic.

@@ -42,6 +42,9 @@ Bring the draft, author notes, source pack, product or process artifacts, screen
 | Example originality | Examples are produced by the team or clearly attributed | Examples are generic paraphrases of common SERP copy | g-spam-policies, g-qrg-full | High | SEO lead |
 | Limitations | Page says what the experience does not prove | One case is framed as universal | g-helpful-content, g-qrg-full | High | Reviewer |
 | Placement | Evidence appears near the claim it supports | Proof is detached from the section that needs it | nng-editorial-heuristics | Medium | Editor |
+| Environment capture | Tool version, date, settings, sample, or conditions are named | Reader cannot reproduce or contextualize the result | g-helpful-content, nng-editorial-heuristics | Medium | Author |
+| Negative result | Failed attempt or constraint is included when it changes advice | Only successful outcome is shown | g-qrg-full, g-helpful-content | Medium | Reviewer |
+| Privacy-safe artifact | Evidence is anonymized without losing decision value | Proof exposes client, patient, or account data | g-qrg-full, nng-editorial-heuristics | High | Content lead |
 
 ## Placement Rules For Experience Signals
 
@@ -54,3 +57,19 @@ Put experience evidence beside the decision it changes. A screenshot belongs nea
 3. Remove or soften claims that cannot be supported.
 4. Escalate expertise-sensitive claims to [[Reviewer And Expert Review Rules]].
 5. Record any missing artifacts as next actions in the content brief or rewrite queue.
+
+## Experience Evidence Example
+
+A "best standing desks for small apartments" draft claims one desk is easiest to assemble, but the original copy only paraphrases manufacturer specs. The author adds a dated assembly note, room-size constraint, photo checklist, and one failed cable-management attempt. The claim becomes narrower: easiest among the tested desks in a tight workspace, not a universal product truth. That narrower wording fits the useful-content and QRG expectation that experience be visible and not overstated (source_ids: g-helpful-content, g-qrg-full).
+
+## Experience Evidence Misfires
+
+- A single client anecdote is framed as a general rule; add a limitation or remove the generalized recommendation (source_id: g-helpful-content).
+- Screenshots prove the process but reveal private account data; redact or replace the artifact before the page is reusable (source_ids: g-qrg-full, nng-editorial-heuristics).
+- The team performed the test, yet evidence is hidden in a project folder; readers need a concise visible trace near the claim (source_id: nng-editorial-heuristics).
+- A stock example looks original because it was rewritten by AI; compare it with source material before counting it as experience (source_ids: g-spam-policies, g-qrg-full).
+- Test conditions change after publication; update the limitation rather than leaving the old evidence unqualified (source_id: g-helpful-content).
+
+## Draft Package Experience Inputs
+
+[[Blog Write Article Contract]] consumes this checklist while assembling claim-backed sections. Inputs are highlighted experience claims, proof artifacts, environment notes, limitations, and privacy-safe media needs. The contract expects revised claim wording, source IDs, visual requests, and blocked sections when experience cannot be shown.

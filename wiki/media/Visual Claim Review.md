@@ -33,6 +33,9 @@ The assigned media sources are `g-google-images`, `g-video`, `g-intro-sd`, and `
 | Product video frame | Product media is eligible or accurate | Product source and merchant context | Keep product scope explicit | Product-video source applies only in scope | Product owner review |
 | Generated visual | Illustration represents a concept, not proof | Tool and input provenance | Disclose illustrative status when material | Do not invent provenance fields | Editorial approval |
 | Thumbnail number | Video supports the stated number | Transcript and source note | Align thumbnail and page copy | [[VideoObject Checklist]] if marked up | Video review |
+| Before-after screenshot | Change occurred between two dated states | Original captures, dates, and method | State dates and avoid causal overreach | Markup only after visible context | Factcheck review |
+| Annotated UI screenshot | Highlight points to a real interface element | Capture date and unedited original | Note annotation if material | Schema describes page content, not overlay alone | Editor review |
+| Cropped comparison image | Crop preserves denominator and unit | Source image plus crop rationale | Caption names what was omitted | No markup for hidden evidence | Data review |
 
 ## Visual Claim Review Review Procedure
 
@@ -45,6 +48,31 @@ The assigned media sources are `g-google-images`, `g-video`, `g-intro-sd`, and `
 ## Visual Claim Review Boundaries
 
 Do not let a visual turn an AS-REPORTED study into a universal fact. Do not use product-video guidance outside product content. Do not add structured data that describes a claim hidden inside an image but absent from the page. Route chart design issues to [[Data Visualization Review]] after evidence passes.
+
+## SERP Screenshot Verdict
+
+A draft shows a search-result screenshot beside a "Google prefers us" caption.
+Before approval, the file lacks query, locale, device, and capture date.
+That asset cannot support a broad ranking claim under `g-helpful-content`.
+The repaired caption says the screenshot shows one observed result instance.
+It records query, locale, device, date, and screenshot owner.
+The article routes broad AI visibility context to [[AI Citation Mechanics]].
+`g-google-images` supports image context, not ranking proof.
+
+## Visual Claim Breakpoints
+
+- A cropped chart can hide a denominator while looking authoritative.
+- A UI annotation can point at a feature not yet available.
+- A generated "customer" scene cannot prove customer usage.
+- A video frame with a number needs transcript or source support.
+- Merchant product-video claims stay scoped to product content only.
+
+## Image Brief Wire
+
+[[Blog Image Brief And Disclosure Checklist]] consumes the visual-claim verdict.
+Inputs are implied claim list, evidence packet, caption action, and owner.
+Expected output is approve, relabel, replace, or block.
+`g-intro-sd` applies when structured data would echo the visual claim.
 
 ## Visual Claim Review Source IDs
 

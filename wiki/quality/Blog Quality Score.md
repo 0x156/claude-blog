@@ -55,3 +55,34 @@ The hub records scores after each spoke has produced evidence. It should not rep
 2. Treat old or missing evidence as a score reducer until [[Quality Review Evidence Log]] is updated.
 3. Refresh living Google and web.dev sources by their ledger due dates.
 4. Mark a score blocked when a recommendation lacks owner, source, confidence, or rollback path.
+
+## Score Assembly Example
+
+A draft about AI-friendly blog structure scores strongly on usefulness.
+The content row cites `g-helpful-content`.
+The trust row cites `g-qrg-full`.
+Technical evidence is unavailable, so the technical score is reduced.
+The AI section claims "llms.txt is required."
+That claim is blocked by `g-ai-opt-guide`.
+Final decision: blocked despite an 82 raw total.
+The blocker travels to [[Delivery Contract Gate]].
+The owner fixes the claim before layout work.
+
+## Hub-Level Misreads
+
+- Averaging away an AI blocker hides source conflict.
+- QRG language cannot become a ranking-factor formula.
+- Missing field data is not the same as passing CWV.
+- A strong score does not approve CMS mutation.
+- Market context cannot replace property evidence.
+
+## Report Wiring
+
+[[Blog Analyzer Score Report]] consumes the assembled score.
+It receives five subscores, total score, blocker override, and lowest confidence.
+It returns release decision, weakest category, evidence rows, and action list.
+[[Full Site Blog Audit Report]] consumes sampled page scores.
+It expects category totals plus page-level recommendation status.
+When property data is absent, cite [[Google Data Integrations]].
+Use `wd-vitals` only for performance terminology.
+Use `g-helpful-content` for reader-value deductions.

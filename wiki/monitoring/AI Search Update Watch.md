@@ -40,6 +40,8 @@ AI guidance can update briefs, measurement plans, and passage-citation reviews. 
 | Reporting availability | Record whether Search Console generative-AI reports are available for a property | `g-update-2026-06-03-search-console-search-generative-ai-performance-reports`, `g-genai-reports` | CONFIRMED with rollout caveat | Data owner | Add a read-only report availability check in [[Google Data Integrations]]. |
 | Spam intersection | Watch for AI-scaled content language in spam policy updates | `g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content`, `g-spam-policies` | CONFIRMED | Spam reviewer | Route low-value scaled pages to [[Spam Update Response Playbook]]. |
 | Ranking-event boundary | A core or spam update is being mistaken for an AI-search change | `g-ranking-history`, `g-status-dashboard`, `g-update-2026-05-21-may-2026-core-update`, `g-update-2026-06-24-june-2026-spam-update` | CONFIRMED non-AI route | Monitoring owner | Send the item to the timeline or playbook instead. |
+| AI Mode launch history | Use launch sources for surface chronology only | `blog-aimode`, `g-update-2025-03-05-ai-mode-experimental-launch` | CONFIRMED product chronology | AI search owner | Keep launch dates out of update-impact causation. |
+| Preview-control review | Check snippet controls before changing AI visibility language | `g-ai-features` | CONFIRMED Search guidance | Technical SEO | Preserve crawl and preview caveats in deliverables. |
 
 ## Small Surface Guardrail
 
@@ -51,6 +53,23 @@ Do not use this note to repeat zero-click or AI Mode share numbers. If a brief n
 2. Decide whether the change affects content guidance, measurement, spam review, or no action.
 3. Add a limitation line before any recommendation leaves monitoring.
 4. Recheck AI guidance during monthly refresh and before release packaging.
+
+## AI Guidance Applied Handoff
+
+A brief requests `/llms.txt`, Markdown chunk files, and FAQPage markup for Google AI visibility.
+The watch cites `g-ai-opt-guide` and blocks the Google-visibility claim.
+If preview controls affect snippets, it cites `g-ai-features` instead.
+If the property has Search Generative AI reporting, cite `g-genai-reports` with availability caveat.
+The consumer is [[GEO Citation Readiness Register]].
+Inputs passed are surface, source ID, blocked claim, approved caveat, and passage owner.
+The register should output passage status, confidence, next review date, and rollback trigger.
+
+## AI Watch Failure Traps
+
+- Treating AI Mode reach from `g-update-2026-05-19-google-i-o-2026-gemini-3-5-flash-powers-ai-mode` as query share confuses product reach with market measurement.
+- Treating `seer-aio-impact-ctr-2026` as Google guidance belongs in [[AI Citation Mechanics]], not this source lane.
+- Using `g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content` to punish every AI-assisted draft skips the policy's added-value test.
+- Reporting generative-AI visibility without checking property access overstates `g-update-2026-06-03-search-console-search-generative-ai-performance-reports`.
 
 ## Related
 

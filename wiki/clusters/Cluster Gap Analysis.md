@@ -29,8 +29,10 @@ If the team lacks GSC data, customer questions, or source evidence, mark a resea
 |---|---|---|---|---|
 | Missing definition spoke | Explains a repeated entity the hub cannot define fully | Reader questions, entity mentions, current source date | `g-helpful-content` | Draft only if it adds examples or source context |
 | Missing comparison spoke | Helps readers choose between methods or tools | SERP overlap, product or workflow distinctions | `g-helpful-content`; `g-gsc-api` | Create when overlap does not cannibalize owner page |
+| Missing troubleshooting spoke | Solves a recurring failure that the hub cannot safely compress | Support tickets, query rows, source-backed fixes | `g-helpful-content`; `g-gsc-api` | Draft when the fix sequence is distinct |
 | Missing update explainer | Interprets a Google documentation change | Dated update, affected pages, rollback point | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Write if the cluster currently gives stale advice |
 | Missing AI-citation support | Clarifies answer passages or source evidence | Existing answer blocks and citation claims | `g-ai-opt-guide`; `sparktoro-zero-click-2026` | Improve existing page first unless the task is distinct |
+| Missing source-method page | Explains how evidence is collected or validated | Source ledger, method notes, reviewer objections | `g-helpful-content`; `g-qrg-full` | Create only when method transparency changes trust |
 
 ## Analysis Procedure
 
@@ -39,6 +41,34 @@ If the team lacks GSC data, customer questions, or source evidence, mark a resea
 3. Check whether an existing page can satisfy the job with a section, table, or refresh.
 4. Attach source IDs and label whether the evidence is official, property data, or practitioner context.
 5. Choose create, refresh, merge, defer, or research-needed.
+
+## Applied Gap Test
+
+A SaaS security cluster has a hub, a comparison page, and implementation tutorials. Source ID: `g-helpful-content`.
+
+Customer questions and GSC rows show repeated interest in audit-log troubleshooting. Source IDs: `g-gsc-api`, `g-helpful-content`.
+
+The existing implementation tutorial names audit logs but does not help readers diagnose missing events. Source ID: `g-helpful-content`.
+
+The gap is publishable when the new page can show a failure sequence, evidence source, and rollback cue. Source ID: `g-helpful-content`.
+
+If the only evidence is another keyword variant, refresh the existing tutorial instead. Source IDs: `g-ads-kw`, `g-helpful-content`.
+
+If the missing source is vendor documentation, mark source-needed before drafting. Source ID: `g-helpful-content`.
+
+## Gap Misfires
+
+- A competitor has a page, but the local cluster lacks source evidence or a distinct reader job. Source ID: `g-helpful-content`.
+- A data gap appears when no property export, user question, or cited source supports the idea. Source ID: `g-gsc-api`.
+- A separate AI page is not justified by Google AI visibility guidance alone. Source ID: `g-ai-opt-guide`.
+- A locale-specific need should be tested as adaptation before it becomes a new spoke. Source ID: `g-localized`.
+- A thin "ultimate guide" can weaken the hub by repeating its scope without examples. Source ID: `g-helpful-content`.
+
+## Execution Feed
+
+[[Semantic Cluster Execution Plan]] consumes approved gaps as candidate spokes with reader job, hub relationship, evidence cells, and risk note. Source IDs: `g-helpful-content`, `g-gsc-api`.
+
+[[Content Brief Output Contract]] expects the approved gap to provide a reader job, source pack, excluded claims, and draft blockers. Source IDs: `g-helpful-content`, `g-qrg-full`.
 
 ## Decision Guardrail
 

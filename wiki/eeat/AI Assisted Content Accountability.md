@@ -42,6 +42,8 @@ The record must name the accountable human, the content unit reviewed, the proof
 | Source provenance | Dated source list mapped to claims | g-helpful-content, nng-editorial-heuristics | Ambiguous source mapping lowers confidence | Research editor | Rebuild the [[Source Quality Ladder]] row for weak claims |
 | Scaled-content risk | Similar-page inventory, template footprint, copied passage check | g-spam-policies, g-qrg-full | Reused generic copy requires escalation | SEO lead | Open [[Value Less AI Content Warnings]] |
 | Review visibility | Reviewer note, date, scope, and limits visible in the workflow | nng-editorial-heuristics, g-qrg-full | Invisible review cannot support trust claims | Reviewer | Add what was checked and what was excluded |
+| Prompt-to-claim trace | Summary of generated sections and changed claims | g-helpful-content, g-spam-policies | Unknown transformation path lowers confidence | Editor | Identify AI-shaped claims before factcheck |
+| Human edit delta | Side-by-side note showing judgment added after generation | g-qrg-full, g-helpful-content | Cosmetic cleanup is not added value | Managing editor | Require experience, analysis, or limitation edits |
 
 ## Source IDs, Evidence, Owner, Confidence, And Next Action
 
@@ -60,3 +62,18 @@ Confidence is `high` only when the human owner, source map, and added-value proo
 4. Ask the named owner to approve the final claim set and record the review scope.
 5. If the page is mostly paraphrase, template fill, or generic aggregation, stop the handoff and route to [[Value Less AI Content Warnings]].
 6. Keep the recommendation advisory: this note never promises rankings, traffic, rich results, or AI citations.
+
+## AI Draft Accountability Case
+
+A generated "CRM onboarding checklist" arrives with plausible steps, no named editor, and no proof that the team has run the workflow. The page cannot be cleared by adding an AI disclosure alone because the helpful-content and QRG lenses ask for useful, accountable, original main content (source_ids: g-helpful-content, g-qrg-full). The editor records the generated sections, adds two field-tested onboarding constraints, maps each software claim to dated sources, and asks the operations lead to approve the final claim set. If the page still reads like a reusable checklist with city or industry substitutions, the scaled-content row stays open under `g-spam-policies`.
+
+## AI Accountability Failure Patterns
+
+- Prompt logs exist, but no one can say which final claims came from the tool; keep confidence below `high` until the claim trace is rebuilt (source_id: g-helpful-content).
+- A reviewer approved tone and grammar only, while the page implies substantive expert review; send the claim scope to [[Reviewer And Expert Review Rules]] (source_id: g-qrg-full).
+- The AI draft is factually sourced but lacks original examples, tests, or limitations; disclosure does not cure low-value main content risk (source_ids: g-spam-policies, g-qrg-full).
+- A copied-source scan passes because the wording changed, yet the structure and conclusions still mirror one source; reopen [[Source Quality Ladder]] before publication advice (source_id: g-spam-policies).
+
+## Write Contract Hook For AI Work
+
+[[Blog Write Article Contract]] consumes this note before the final delivery gate. Inputs provided are generated-section list, accountable owner, added-value proof, claim-source map, and unresolved AI-risk notes. The contract expects author or reviewer notes, blocked claim IDs, and a final handoff status of pass, fix, or blocked, with `g-helpful-content` and `g-spam-policies` attached to any AI-quality decision.

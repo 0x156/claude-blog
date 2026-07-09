@@ -41,6 +41,8 @@ The main 2025 decision is classification. A core update routes to quality review
 | June core update | Use official duration, not volatility screenshots | `g-update-2025-06-30-june-2025-core-update`, `g-ranking-history` | CONFIRMED | Monitoring owner | Queue impact review only for content classes with first-party movement. |
 | September QRG revision | Record AI Overview examples and YMYL expansion as quality context | `g-update-2025-09-11-qrg-update-sept-2025`, `g-qrg-full` | CONFIRMED | Editorial lead | Refresh YMYL-adjacent checks without calling QRG a ranking system. |
 | December core update | Preserve the final 2025 core event boundary | `g-update-2025-12-11-december-2025-core-update`, `g-status-dashboard` | CONFIRMED | SEO lead | Use a post-rollout window before recommending rewrites. |
+| August AI Mode expansion | Preserve the English-first product-surface caveat | `g-update-2025-08-21-ai-mode-expands-to-180-countries` | CONFIRMED product note | AI search owner | Keep locale implications in [[AI Search Update Watch]]. |
+| December core limitation | Block sector-impact language from dashboard chronology alone | `g-update-2025-12-11-december-2025-core-update` | CONFIRMED timing, impact unproven | Reviewer | Require separate evidence before report text names an affected market. |
 
 ## Evidence Boundaries For 2025 Entries
 
@@ -54,6 +56,24 @@ Use `g-update-2026-05-21-may-2026-core-update` and `g-update-2026-06-24-june-202
 2. Attach one official or local ledger source ID to the event and one route note for follow-up.
 3. Reject entries that rely only on third-party volatility unless [[Unverified Volatility Quarantine]] keeps them separate.
 4. Recheck this note during the monthly refresh when `g-ranking-history` or QRG sources change.
+
+## 2025 Bridge-Year Brief Scenario
+
+A strategist asks whether a 2025 AI Mode launch means every brief needs AI-only markup.
+This note answers with two routes, not one recommendation.
+The product chronology uses `g-update-2025-03-05-ai-mode-experimental-launch`.
+The US rollout uses `g-update-2025-05-20-ai-mode-general-rollout-us`.
+Neither source turns a brief into a ranking recovery plan.
+The consumer is [[Content Brief Output Contract]].
+Inputs handed over are surface label, source IDs, confidence, and forbidden claims.
+The brief should output an AI note, not special-file instructions.
+
+## 2025 Failure Patterns To Catch
+
+- Treating `g-update-2025-06-19-structured-data-deprecation` as Schema.org deletion confuses Google feature support with vocabulary existence.
+- Converting `g-update-2025-09-11-qrg-update-sept-2025` into a ranking formula breaks the QRG boundary.
+- Using AI Mode expansion as traffic-share proof ignores the product-surface scope of `g-update-2025-08-21-ai-mode-expands-to-180-countries`.
+- Claiming a December 2025 ecommerce impact from `g-update-2025-12-11-december-2025-core-update` violates that row's limitation.
 
 ## Related
 

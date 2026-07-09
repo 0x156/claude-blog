@@ -43,6 +43,8 @@ The minimum first-party packet is a property label, owner, date range, export da
 | Readers engaged after arrival | GA4 landing page engagement and events | Can compare with internal baselines, not external averages | `verified` or `advisory` | `g-ga4-data` |
 | AI feature visibility exists | Property export from Search Console generative AI reports | Market studies can explain volatility, not site performance | `verified`, `missing`, or `advisory` | `g-genai-reports` |
 | Content strategy priority | Joined first-party packet across page, query, and engagement | Market data may rank background risks after property facts | Mixed label by evidence row | All listed IDs |
+| Brand demand changed | GSC query groups split by approved brand rule | External visibility trends stay background only | `verified` or `sample` | `g-gsc-api` |
+| AI report unavailable | Owner confirmation or missing export note | Market AI research may frame risk, not site visibility | `missing` plus caveat | `g-genai-reports` |
 
 ## Decisions This Note Must Record
 
@@ -59,6 +61,12 @@ The minimum first-party packet is a property label, owner, date range, export da
 3. Reject external averages when they conflict with a clean property trend.
 4. Label missing property data before using market context.
 5. Route AI visibility context to [[AI Citation Mechanics]] and keep this note focused on evidence class.
+
+## Property-First Case
+
+Before: a strategy note used an AI-search market study to justify rewriting a page. After: the audit checks site-specific GSC query movement and GA4 landing-page engagement first (`g-gsc-api`, `g-ga4-data`), then records AI report absence through `g-genai-reports`.
+
+[[Full Site Blog Audit Report]] consumes this separation. This note supplies first-party rows, market-context labels, unavailable dimensions, and blocked claims; the audit expects property findings in tables and trend commentary in a named caveat.
 
 ## Report Wording
 

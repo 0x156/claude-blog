@@ -30,10 +30,48 @@ Human review is required when a sample changes legal meaning, adds urgency, make
 | Cautious | "The source supports this condition." | Caveat after the recommendation | Hiding the limitation in a footnote | `g-qrg-full` | Reviewer |
 | Practical | "Use this when the source packet is complete." | Checklist or table format | Abstract advice with no handoff | `nng-editorial-heuristics` | Strategist |
 | Search-aware | "No special AI-only file is required for Google." | Link to the canonical caveat | Invented AI markup requirement | `g-ai-opt-guide` | SEO lead |
+| Evidence-forward | "The claim is ready when the source ID is named." | Short proof cue before advice | Confident claim with no provenance | `g-helpful-content` | Researcher |
+| Non-imitation | "Match the approved sample's clarity, not a person's identity." | Use measurable cadence notes | Mimic an unapproved individual | `nng-editorial-heuristics` | Brand owner |
+| Limited-confidence | "This is a review finding, not a forecast." | Advisory label beside recommendation | Ranking or recovery certainty | `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | SEO lead |
 
 ### Trait, Example, Allowed Variation, And Blocked Move
 
 Every trait needs a positive and negative sample from the current content system. The inventory should prefer short examples that can be reused in briefs, QA comments, and [[FLOW Framework]] stage prompts.
+
+## Voice Sample Calibration
+
+Sample source: an approved audit paragraph says, "The article can be clearer when the answer appears before the tool caveat."
+
+Captured trait: direct, evidence-forward, and limited-confidence.
+
+Before inventory: "Our system fixes confusing blog posts."
+
+After inventory: "Move the answer above the caveat, then cite the source that controls the recommendation."
+
+The after version keeps the action concrete without promising performance, matching `g-helpful-content` and the tool caveat source.
+
+The blocked move is a service guarantee, so the owner also checks [[Banned Claims And Phrases]].
+
+The usable variation can appear in review comments, brief notes, and [[FLOW Stage Prompt Map]] prompts.
+
+## Inventory Failure Modes
+
+- A trait says "bold" but every approved example is actually cautious and sourced.
+- A brand owner approves a phrase that makes a regulated claim stronger than its source.
+- A legacy campaign tagline is stored as durable voice guidance without a date.
+- Multiple samples come from one ghostwritten page and hide the normal house style.
+- A search-aware trait becomes a promise about AI features, violating `g-ai-opt-guide`.
+- A negative sample is missing, so writers cannot see the boundary.
+
+## Deliverable Wiring
+
+Primary consumer: [[Brand Context Contract]].
+
+Inputs supplied: approved phrases, trait boundaries, sample passages, banned moves, source IDs, and reviewer owner.
+
+Output expected back: accepted brand context fields, proof-library links, and whether the voice rule is durable or campaign-only.
+
+Style consumer: [[Style Learning Voice Profile]] converts approved samples into measurable cadence and vocabulary fields.
 
 ## Brand Voice Inventory Refresh Test
 

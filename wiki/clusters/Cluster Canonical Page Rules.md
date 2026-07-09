@@ -29,8 +29,10 @@ Technical canonical tags, redirects, noindex decisions, and URL removals are out
 |---|---|---|---|
 | One primary page owns one primary intent | `g-helpful-content` | Hub, spoke, or refreshed legacy article | Split when two reader tasks are meaningfully different |
 | Canonical owner must be useful without sibling context | `g-helpful-content` | Broad hubs and high-traffic articles | Escalate weak pages to [[Cluster Gap Analysis]] |
+| Refreshed legacy guide can keep ownership | `g-helpful-content` | Older URL with stronger examples and source record | Newer post becomes a spoke or update note |
 | Do not create AI-only cluster requirements | `g-ai-opt-guide`; `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Any rule that mentions AI Overview or AI Mode | Route the caveat to [[2026 Google Update Timeline]] |
 | Treat click scarcity as planning context | `sparktoro-zero-click-2026` | Forecast notes and prioritization memos | Keep the benchmark in [[AI Citation Mechanics]] rather than repeating the stat here |
+| Locale variant is not automatically duplicate | `g-localized`; `g-canonical` | Localized articles with return-link intent | Send hreflang questions to locale review |
 | Use technical canonical signals only after content ownership is settled | `g-canonical` | Duplicate URLs, redirect candidates, syndicated variants | Require SEO lead approval and a rollback plan |
 
 ## Review And Rollback Path
@@ -40,6 +42,34 @@ Technical canonical tags, redirects, noindex decisions, and URL removals are out
 3. Check that assigning ownership will not erase a useful narrower page.
 4. Add source IDs and state whether the decision is content-only or implementation-ready.
 5. Define the rollback trigger: ranking loss, GSC query split, reviewer rejection, or new Google guidance.
+
+## Ownership Example
+
+A "cloud cost optimization guide" predates a newer "FinOps checklist" post. Source ID: `g-helpful-content`.
+
+The older guide explains the broad cost-management promise, names methods, and routes readers to narrower workflows. Source ID: `g-helpful-content`.
+
+The checklist has fresher tactical value, but it cannot orient a reader across the whole cluster. Source ID: `g-helpful-content`.
+
+The content-only owner stays with the guide, and the checklist receives spoke language plus a hub return link. Source ID: `g-helpful-content`.
+
+No redirect, noindex, or rel canonical change is approved from this note alone. Source ID: `g-canonical`.
+
+If later GSC data shows one query task split across both URLs, the pair moves to [[Cannibalization Review]]. Source ID: `g-gsc-api`.
+
+## Ownership Failure Points
+
+- Picking the highest-click URL can bury the page that best answers the broad promise. Source IDs: `g-gsc-api`, `g-helpful-content`.
+- A category archive with many links still fails if it offers little original guidance. Source ID: `g-helpful-content`.
+- Locale versions need language and regional evidence before consolidation is discussed. Source ID: `g-localized`.
+- A noindex request is an implementation issue, not an editorial ownership shortcut. Source ID: `g-block-indexing`.
+- AI-only files or special markup cannot decide the canonical cluster owner for Google Search. Source ID: `g-ai-opt-guide`.
+
+## Deliverable Use
+
+[[Semantic Cluster Execution Plan]] consumes the nominated owner, competing URLs, conflict notes, and rollback trigger. Source IDs: `g-helpful-content`, `g-canonical`.
+
+[[SEO Check Validation Checklist]] later expects the approved canonical target and evidence state before publication. Source IDs: `g-canonical`, `g-helpful-content`.
 
 ## Boundary Notes
 

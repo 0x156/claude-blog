@@ -34,6 +34,8 @@ Mixed SERPs need a deliberate choice. A comparison article, glossary page, and i
 | [[Evidence Block Requirements]] | Support claim-heavy sections | source steward | Source IDs from source pack | Required for factual sections |
 | [[AI Citation Mechanics]] | Handle AI answer surfaces | SEO lead | `g-ai-features` plus dated observation | Official boundary plus advisory planning |
 | [[Dual Optimization]] | Separate click, visibility, and citation goals | analyst | Property or market evidence with limits | Advisory context |
+| [[Content Template Selection Matrix]] | Select article container | strategist | Approved reader job and intent mix | Template follows reader task |
+| [[SERP Outline Output Contract]] | Turn intent into section jobs | outline owner | Chosen and rejected intents | Ready after split cases close |
 
 ## Classification Procedure
 
@@ -43,12 +45,32 @@ Mixed SERPs need a deliberate choice. A comparison article, glossary page, and i
 4. Mark confidence as high, medium, or low and explain the weakest evidence.
 5. Send low-confidence or split-intent cases back to the brief owner before outline work starts.
 
+## Intent Split Example
+
+Query set: "best CRM blog examples", "CRM content strategy", and "how to write CRM comparison posts." The first query leans compare, the second leans learn, and the third leans implement. One article can cover them only if the reader job is choosing a repeatable comparison format. Source IDs: `g-helpful-content`, `dfs-labs`.
+
+Rejected path: a broad "CRM content strategy guide" would mix learn and implement intents without a clear decision container. Approved path: a comparison-format article with an implementation checklist linked as a follow-up. Source IDs: `nng-editorial-heuristics`, `g-helpful-content`.
+
+## Intent Classification Failure Modes
+
+- Search volume picks the intent when the reader job says otherwise. Source ID: `g-ads-kw`.
+- Navigational or brand variants contaminate an informational brief. Source ID: `g-helpful-content`.
+- AI answer presence is treated as a separate intent label. Source ID: `g-ai-features`.
+- Mixed intent is hidden inside a bloated outline. Source ID: `nng-editorial-heuristics`.
+
+## Intent Deliverable Wiring
+
+[[Content Brief Output Contract]] consumes the classification map. Inputs provided: primary intent, secondary intent, rejected intents, confidence, weakest evidence, and split recommendation. Expected output: the brief chooses one article type and states what it will not cover.
+
+[[SERP Outline Output Contract]] consumes the approved intent decision. Expected output: H2 jobs match the selected intent, while rejected intents become internal links or future briefs.
+
 ## Sources
 
 - `g-helpful-content`
 - `g-ads-kw`
 - `dfs-labs`
 - `g-ai-features`
+- `nng-editorial-heuristics`
 
 ## Handoff
 

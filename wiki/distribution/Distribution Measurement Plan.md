@@ -53,10 +53,24 @@ Defer ranking explanations, AI citation causality, and channel ROI until the evi
 | Search review | Queries, clicks, CTR, and impressions | Search movement summary | SEO owner | `g-gsc-api` | Compare to baseline window |
 | AI feature review | Generative AI impressions or citation observations | AI visibility note | SEO owner | `g-genai-reports`, [[AI Citation Mechanics]] | Keep separate from referrals |
 | Owned action review | Signups, return visits, replies, saves | Audience loop result | Content lead | `g-ga4-data`, [[Owned Audience Loop]] | Select next owned follow-up |
+| Attribution QA | UTM rules, referrer buckets, and canonical URL key | Cleaned metric map | Analytics owner | `g-ga4-data`, [[Canonical Attribution Rules]] | Fix labels before interpretation |
+| Retirement review | Asset result, cost, and evidence quality | Keep, revise, pause, or retire decision | Distribution lead | [[Channel Asset Inventory]] | Update row status and reason |
 
 ## Phase, Owner, Evidence, Output, And Review Date
 
 Every measurement phase gets a review date before the asset is shipped. The default cadence is seven days for fast channels, thirty days for search and owned audience, and immediate correction for any inflated claim. A result can be "not measurable" if the data is missing; that is better than inventing a confidence level.
+
+### Example: Reading A Launch Without Causation
+
+After an email and thread go live, GA4 shows newsletter visits, GSC query clicks stay flat, and one assistant citation screenshot appears. The plan records the newsletter under `g-ga4-data`, leaves search movement neutral under `g-gsc-api`, and places the screenshot in the citation-observation bucket tied to [[AI Citation Mechanics]]. The decision can be "repeat email angle," but not "social caused Google AI visibility."
+
+### Measurement Traps For Distributed Posts
+
+This plan breaks when platform impressions are compared directly with GSC impressions, when a seven-day social window is merged with a thirty-day search window, or when unavailable GSC AI reports are turned into a zero result. It also breaks when private-community replies are counted as traffic without a stated observation method.
+
+### Evidence Matrix Handoff
+
+[[Google API Evidence Matrix]] consumes the measurement plan when property evidence is requested. It needs canonical URL key, date range, requested surface, credential tier, redacted export reference, and missing-data label; it expects accepted evidence rows or a blocked source state.
 
 ## Distribution Measurement Plan Operating Loop
 

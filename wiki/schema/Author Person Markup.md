@@ -35,6 +35,8 @@ Google's general structured-data guidance, source ID `g-intro-sd`, keeps the mar
 | `sameAs` | Public profile controlled by the author or brand | Disambiguation only when confidence is high | Avoid random social handles, syndication pages, or scraper bios | `schema-full` |
 | `jobTitle` or `affiliation` | Visible bio or site policy states the role | Optional context for expertise and organization relation | Role claims need editorial proof, especially in YMYL-adjacent topics | `g-intro-sd` |
 | JSON-LD `@id` | Stable canonical URL or fragment strategy | Connects author across article nodes | Template-generated IDs must not vary per build | `w3c-jsonld` |
+| `image` | Author headshot appears on an approved profile or card | Optional visual disambiguation | Do not use stock avatars as identity evidence | `schema-full` |
+| expertise terms | Bio names the subject area in reader-facing copy | Optional context such as `knowsAbout` only when visible | Keyword lists should not replace credentials or experience | `g-intro-sd` |
 
 ## Profile And Byline Consistency Review
 
@@ -43,9 +45,35 @@ Google's general structured-data guidance, source ID `g-intro-sd`, keeps the mar
 3. Record any mismatch between displayed role, editorial review claim, and schema field.
 4. Send unresolved trust evidence to [[E-E-A-T for Blog Content]] rather than hiding it in markup.
 
+## Identity Repair Scenario
+
+A draft article displayed the byline "M. Chen" while the author page and JSON-LD used "Maya Chen, CPA." The accepted change updated the visible byline to "Maya Chen" before keeping the Person `name`, because markup should reflect what readers can inspect, source ID `g-intro-sd`.
+
+The CPA credential stayed out of Person markup until the author profile showed the credential and editorial owner confirmed it. Schema.org provides vocabulary for Person attributes, but it does not prove the credential by itself, source ID `schema-full`.
+
+The original `sameAs` list included a scraped conference profile. The reviewer kept only the author's controlled LinkedIn profile because unverified profile URLs are weak disambiguation evidence, source ID `schema-full`.
+
+The final handoff used `/authors/maya-chen#person` as the stable `@id`, and the article node referenced that ID instead of generating a per-post author fragment, source ID `w3c-jsonld`.
+
 ## Unsupported Author Shortcuts
 
 Do not use Person markup to claim medical, legal, financial, or professional authority that the page does not show. Do not attach `sameAs` links because an SEO template has a field to fill. Do not treat an author schema warning as proof of ranking loss or recovery. The Search Gallery is the guardrail for supported Search appearances, while this note remains focused on accurate identity.
+
+## Byline-Specific Failure Cases
+
+- Staff aliases need an editorial policy before becoming Person nodes, source ID `g-intro-sd`.
+- Ghostwritten pieces should not expose a hidden author through JSON-LD, source ID `g-intro-sd`.
+- Two authors with the same name need different profile URLs or fragments, source ID `w3c-jsonld`.
+- Locale author pages should not mint separate people for the same contributor, source ID `w3c-jsonld`.
+- Reviewer fields belong only when review participation is visible, source ID `g-intro-sd`.
+
+## Contract Path For Author Fields
+
+[[Schema Generation Output Contract]] uses this note when building the Person block.
+
+Author input supplied: accepted `name`, approved URL, optional `sameAs`, visible role evidence, and rejected identity fields.
+
+Returned output expected: Person JSON-LD, linked Article author reference, and warnings for weak profile evidence.
 
 ## Author Handoff
 

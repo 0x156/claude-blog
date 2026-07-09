@@ -52,10 +52,24 @@ The host may simplify language, use an anecdotal bridge, or reorder examples for
 | Show-note links | Canonical URL plus original sources | Distribution lead | Confirmed after link check | Add to publishing checklist |
 | Trust sensitivity | Expertise, reputation, YMYL, or legal flags | Editorial owner | High if `g-qrg-full` applies | Escalate before recording |
 | AI search boundary | Google AI setup caveat and no citation guarantee | SEO owner | Confirmed from source IDs | Add host warning line |
+| Host question path | Likely objection, follow-up, or clarifying prompt | Producer | Medium until rehearsed | Add cue card |
+| Sponsor or affiliate mention | Link context and separation from editorial claim | Distribution lead | Confirmed with `g-qualify-links` | Keep out of evidence segment |
 
 ## Field, Source ID, Owner, Confidence, And Handoff State
 
 The brief should mark which claims can be said plainly, which need caveats, and which should stay out of the segment. If the audio host wants a stronger claim than the post supports, the producer records that as a revision request instead of improvising. A brief is ready only when source reminders are visible enough for a host to use during recording.
+
+### Example: Handling A Market-Context Question
+
+The host wants to open with "search clicks are gone" after reading the source post. The producer rewrites the prompt to say the episode will discuss click-scarcity planning, sends exact market numbers to [[Zero Click Planning Baseline]] under `sparktoro-zero-click-2026`, and keeps the segment focused on what the article can support. If the episode touches author trust, `g-qrg-full` decides whether review must happen before recording.
+
+### Audio Brief Failure Cases
+
+This adaptation breaks when a host improvises a statistic not present in the source reminder list, when a clip is cut away from its caveat, or when show notes link a sponsor before the canonical post. It also breaks when "AI visibility" becomes a promise instead of the no-guarantee boundary supported by `g-ai-opt-guide`.
+
+### Production Checklist Feed
+
+[[Audio Narration Production Checklist]] consumes the brief before recording or narration. It needs segment thesis, approved script mode, source reminders, pronunciation risks, show-note links, sponsor separation, and trust flags; it expects pass or fail on claim fidelity before audio work starts.
 
 ## Podcast Brief Adaptation Acceptance Procedure
 

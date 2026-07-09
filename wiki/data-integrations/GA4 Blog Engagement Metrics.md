@@ -43,10 +43,20 @@ A GA4 engagement packet is usable when it includes landing page or page path, da
 | Organic traffic grouping | Search-derived visits after analytics attribution | GSC clicks and query dimensions | Query-level performance | `g-ga4-data`, `g-gsc-api` |
 | Page speed correlation | Experience diagnosis when engagement drops | PSI or CrUX URL evidence | Causal ranking effect | `g-psi`, `g-ga4-data` |
 | Indexed page state | Whether engagement should be compared with indexed URLs only | URL Inspection packet | Content quality diagnosis | `g-urlinspect`, `g-ga4-data` |
+| Content interaction event | Whether a defined on-page action occurred | Event definition, privacy review, and owner approval | Reader comprehension or satisfaction | `g-ga4-data` |
+| Returning organic readers | Whether repeat visits came through organic grouping | Channel split and date range | Brand loyalty without segment caveat | `g-ga4-data`, `g-gsc-api` |
 
 ## Interpretation Rules
 
 Low engagement is a triage signal, not a verdict. A page can have low engagement because the answer was immediate, because the query intent was informational, because the tracking setup changed, or because the content failed. Pair GA4 with GSC and the content brief before recommending a rewrite. High engagement also needs caution: it may reflect loyal readers, internal traffic, or a conversion path that is not Search-driven.
+
+## Engagement Join Example
+
+A post shows stronger GA4 engagement after a newsletter push while GSC clicks are flat. The recommendation says the article retained arrivals from that campaign, not that Search demand improved, because engagement reporting comes from `g-ga4-data` and query demand comes from `g-gsc-api`.
+
+If URL variants split the landing page path, the packet pauses before scoring. The canonical join must be resolved through [[Page URL Canonical Data Checks]] before GA4 evidence can feed the analyzer.
+
+[[Blog Analyzer Score Report]] consumes the engagement packet. This note provides normalized landing page, channel split, engagement metric, event definition, date range, and confidence label; the report expects post-click evidence, not query demand.
 
 ## Operating Procedure
 

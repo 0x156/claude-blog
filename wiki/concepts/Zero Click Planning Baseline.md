@@ -47,6 +47,21 @@ Pew's AI-summary click research (`pew-ai`) and Seer's AIO CTR study (`seer-aio-i
 | AI summary check | AIO presence or likely trigger class | Click-risk note | Analyst | `pew-ai`, `seer-aio-impact-ctr-2026` | Route contested CTR claims to [[AI Overview CTR Interpretation]] |
 | Eligibility review | Crawl, index, and preview controls | Technical blocker list | Technical reviewer | `g-ai-features` | Fix blockers before forecasting citation value |
 | Value model | Non-click goals and observed conversions | Measurement lane split | Program owner | First-party data when available | Send dashboard terms to [[Visibility Metrics For Blog Programs]] |
+| Property override | GSC and analytics show the site's own click pattern | Observed baseline update | Analyst | `g-gsc-api`, `g-ga4-data` | Downgrade market context to a caveat |
+| AI Mode proportionality | Product news, query share, and page intent | Priority note for the brief | Strategy lead | `blog-io2026`, `sparktoro-zero-click-2026` | Route AI Mode weighting to [[AI Mode Query Share Context]] |
+
+## Baseline Example For A Stakeholder Brief
+
+A stakeholder expects top rankings to return historical traffic. The baseline says market click scarcity is context from `sparktoro-zero-click-2026`, not a property forecast, then asks for GSC and GA4 evidence under `g-gsc-api` and `g-ga4-data` before any traffic range is approved.
+
+[[Content Brief Output Contract]] consumes this note before outline work. It needs query group, locale, click evidence, non-click goals, and source IDs; it expects a zero-click caveat plus a measurement lane split.
+
+## Baseline-Specific Failure Modes
+
+- A US market panel from `sparktoro-zero-click-2026` should not be used as a global rate without locale review.
+- A branded query can behave differently from generic research demand, so pull query-level evidence through `g-gsc-api`.
+- An AI summary risk note should not become an AIO traffic forecast without `seer-aio-impact-ctr-2026` caveats.
+- A non-click goal needs an owner, or the baseline hides uncertainty instead of making it measurable.
 
 ## Phase, Owner, Evidence, Output, And Review Date
 

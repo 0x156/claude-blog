@@ -34,6 +34,9 @@ Media Accessibility Checklist verifies that a reader can understand the media wi
 | Chart text summary | Blocker for charts | Data reviewer | Units, date range, source, and takeaway are readable | Route to [[Chart Source Requirements]]. |
 | Video support text | Blocker when video carries the main answer | Video owner | Captions, transcript, or summary align with player | Check [[VideoObject Checklist]]. |
 | Schema description | Blocker when markup is present | Technical SEO | Description matches visible content | Review in [[Blog Schema Stack]]. |
+| Audio transcript note | Blocker for standalone narration | Producer | Transcript or article-equivalent text is linked | Repair through [[Audio Summary Rules]]. |
+| Interactive chart fallback | Blocker when controls hide values | Developer | Static table or summary preserves the decision | Add fallback before publish. |
+| Thumbnail text review | Advisory unless thumbnail carries a claim | Video owner | Text is readable and repeated in page copy | Update thumbnail or caption. |
 
 ## Media Accessibility Checklist Handoff Rules
 
@@ -46,6 +49,30 @@ Media Accessibility Checklist verifies that a reader can understand the media wi
 ## Media Accessibility Checklist Limits
 
 This note does not certify WCAG conformance, jurisdiction-specific legal status, or assistive-technology coverage. It is the blog brain's internal pass/fail gate for usable media. Bring legal or platform accessibility sources into [[Research Pack Index]] before making stronger claims.
+
+## Chart Fallback Example
+
+An article uses a color-coded funnel chart to explain lead loss.
+Before review, red and green segments carry the entire conclusion.
+`g-google-images` supports useful image context but not hidden-only meaning.
+The fix adds segment labels, source date, and a short text takeaway.
+The data reviewer adds a fallback table below the chart.
+If schema describes the graphic, `schema-full` stays aligned with visible text.
+
+## Accessibility Edge Cases
+
+- Empty alt fails when the image is the only process explanation.
+- Captions fail when they summarize a different video cut.
+- A transcript must follow the final audio, not the draft script.
+- Schema descriptions cannot compensate for missing visible explanations.
+- Tiny thumbnail text needs page-copy repetition when it carries a claim.
+
+## SEO Checklist Wire
+
+[[SEO Check Validation Checklist]] consumes the media accessibility result.
+Inputs are asset inventory, alt status, transcript status, and chart fallback.
+Expected output is pass, fix, or blocked for images and OG checks.
+`g-video` supports video alignment; `g-ai-opt-guide` keeps text visible.
 
 ## Media Accessibility Checklist Source IDs
 

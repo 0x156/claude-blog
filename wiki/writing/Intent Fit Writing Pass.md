@@ -36,6 +36,8 @@ If the mismatch is caused by a weak topic cluster, use [[Semantic Topic Clusters
 | Trust or expertise block | Prove why advice is credible | [[Experience Signal Placement]] | Byline, method, case, reviewer | `g-qrg-full` | Add visible proof |
 | Citation candidate passage | Provide extractable answer with source | [[Citation Ready Paragraphs]] | H2 or H3 paragraph | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Tighten entity and claim |
 | Next-step link | Continue the reader's task | [[Internal Link Placement Rules]] | Contextual link | `g-helpful-content` | Add or remove link |
+| Example section | Demonstrate the decision in context | [[Information Gain Checklist]] | Case, method, or comparison | `g-helpful-content`, `g-qrg-full` | Keep only task-changing detail |
+| Closing section | Confirm decision and limitation | [[Blog Conclusion Patterns]] | Final paragraph and handoff | `g-helpful-content`, `g-ai-opt-guide` | Remove new claims |
 
 ## Intent Fit Editing Procedure
 
@@ -45,6 +47,30 @@ If the mismatch is caused by a weak topic cluster, use [[Semantic Topic Clusters
 4. Check that AI-facing answer blocks still serve the human task.
 5. Add internal links only where the reader would naturally need the next note.
 6. Send unresolved page-scope conflicts back to the brief owner.
+
+### Intent Repair Case
+
+A post titled "How to write citation-ready paragraphs" spends its first half
+on schema markup and AI-search market context. The repair is not sentence polish.
+Move schema guidance to [[Blog Schema Stack]], keep the paragraph procedure,
+and cite Google AI guidance only where the draft discusses visible Search content
+(`g-ai-opt-guide`). People-first usefulness requires the section order to serve
+the promised writing task before secondary optimization (`g-helpful-content`).
+
+### Intent Fit Breakpoints
+
+- An H2 answers a different audience than the intro promised (`g-helpful-content`).
+- The example solves implementation, while the article promised evaluation (`g-qrg-full`).
+- AI citation language becomes the goal instead of the reader's task (`g-ai-opt-guide`).
+- A next-step link sends readers to a hub before the section resolves (`g-helpful-content`).
+
+### Deliverable Wiring
+
+[[SERP Outline Output Contract]] consumes this pass as the outline validator:
+reader job, article type, H2 labels, internal-link zones, and must-avoid claims.
+It expects every major section to have one job before drafting starts.
+[[Content Brief Output Contract]] consumes unresolved conflicts as draft risks
+when the brief must be revised instead of patched downstream (`g-helpful-content`).
 
 ## Source Handling
 

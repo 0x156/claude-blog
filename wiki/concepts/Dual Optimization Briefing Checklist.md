@@ -3,7 +3,7 @@ type: spoke
 title: "Dual Optimization Briefing Checklist"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [dual-optimization, evergreen]
 domain: "Blog Content Optimization"
 confidence: advisory
@@ -29,123 +29,53 @@ source_urls:
 ---
 # Dual Optimization Briefing Checklist
 
-## Summary
-Dual Optimization Briefing Checklist is a planning note for dual optimization.
-It prepares briefs that serve Search, AI features, and readers in one workflow.
-Use it with [[Dual Optimization]] when the working unit is a blog program, article, or section.
+## Brief Gate Purpose
 
-## Operating Question
-- Has the brief named its reader, query surface, evidence, and measurement plan?
-- The expected output is a briefing gate that can be attached to a content brief.
-- The main risk is sending drafting work forward with missing source or metric assumptions.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This checklist is the pre-draft gate for a dual-optimization brief. It confirms the reader job, search surface, evidence class, and measurement lane before a writer receives the assignment. Use [[AI Citation Mechanics]] for broad statistic context from `sparktoro-zero-click-2026` and `seer-aio-impact-ctr-2026` rather than repeating those figures here.
 
-## Current Evidence Anchors
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026.
-- The same substrate records AI Mode near 0.34 percent of US query volume, so AI Mode work must be proportional.
-- Seer, 2026-04-24, reports AIO organic CTR recovery from about 1.3 percent in December 2025 to about 2.4 percent in February 2026.
-- Seer also reports cited pages at about 120 percent more clicks per impression than pages not cited when an AI Overview is present.
-- Google AI optimization guidance updated 2026-06-15 keeps the foundation on helpful, crawlable, structured content.
-- Search Console generative AI performance reporting began in June 2026 for a subset of properties, so first-party data should replace market averages when present.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Inputs The Gate Must See
 
-## Operating Standard
-- Separate visibility, click, citation, and assisted outcome language before any forecast is shared.
-- State whether the recommendation is for classic Search, AI Overview exposure, AI Mode exposure, or reader trust.
-- Use market studies as planning context until Google Search Console or analytics data exists for the property.
-- Avoid promising ranking gains, AIO inclusion, AI Mode citation, or traffic recovery.
-- Keep zero click behavior visible in the brief so success is not reduced to organic clicks.
-- Pair every current market statistic with its publication date and retrieval date.
-- Treat passage-level work as the citation unit and page-level usefulness as the reader unit.
-- Escalate stale, unsourced, or overconfident claims back to [[Research Pack Index]].
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+- Reader task, target locale, page or cluster scope, and intended deliverable.
+- Search surface label: classic Search, AIO, AI Mode, mixed, or unknown.
+- Source posture using official, first-party, market, or practitioner labels.
+- Metric path, including whether property exports exist under `g-gsc-api`.
 
-## Review Sequence
-1. Open [[Dual Optimization]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+## Briefing Gate Table
 
-## Specific Checks
-- Check that dual optimization briefing checklist is applied to the correct content unit.
-- Check that the decision matches this purpose: prepares briefs that serve Search, AI features, and readers in one workflow.
-- Check that the output can be inspected as a briefing gate that can be attached to a content brief.
-- Check that the risk is addressed directly: sending drafting work forward with missing source or metric assumptions.
-- Identify the search surface before selecting a tactic.
-- Name the business question the metric should answer.
-- Separate market evidence from property evidence.
-- Record what would change the priority call.
-- State whether the recommendation affects planning, drafting, rewriting, or reporting.
-- Keep every forecast as a range unless first-party data supports a tighter number.
-- Explain the reader benefit before the optimization benefit.
-- Connect the decision to a measurable next review.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+| Gate item | Evidence to inspect | Source IDs | Pass output | Blocker cue |
+|---|---|---|---|---|
+| Reader task | Problem, audience, and outcome | `g-helpful-content` | One sentence job statement | Topic is only keyword-led |
+| Surface role | Classic Search, AIO, AI Mode, or mixed | `g-ai-features`, `blog-io2026` | Surface priority label | AI Mode chosen from news alone |
+| Evidence class | Official, property, market, practitioner | `g-ai-opt-guide`, `sparktoro-zero-click-2026` | Confidence label | Market data written as site data |
+| Metric lane | Visibility, clicks, citation, or assisted value | `g-gsc-api`, `g-genai-reports` | Measurement note | Metric unavailable but inferred |
+| Passage need | Candidate answer block and source proximity | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Draft instruction | Extractability harms flow |
+| Refresh cue | Source date and next review event | `g-ranking-history`, `g-ai-features` | Review trigger | Fast-moving claim lacks date |
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Applied Brief Gate
 
-## Failure Modes
-- A report treats citations, impressions, and clicks as interchangeable.
-- A forecast uses a market average without saying whether property data exists.
-- A strategy overweights AI Mode because it is prominent in product news.
-- A brief hides zero click behavior from stakeholders.
-- A recommendation implies that optimization can force AI inclusion.
-- A metric lacks a source date or refresh plan.
-- A passage is made extractable but no longer reads naturally.
-- A planning decision has no rollback cue when evidence changes.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+A brief for "AI writing tools for HR policy teams" should not move to outline if it only says "optimize for AI." The gate asks for a reader task under `g-helpful-content`, official AI boundaries from `g-ai-opt-guide`, and any property query evidence from `g-gsc-api` before drafting.
 
-## Handoff
-- Attach the metric split to the brief or report.
-- Name which evidence came from market sources and which came from the property.
-- Record the recommendation confidence as verified or advisory.
-- Add the next review date when a market source or Google guidance can change.
-- Send drafting needs to [[6-Pillar Dual Optimization]].
-- Send citation passage needs to [[AI Citation Mechanics]].
-- Send trust gaps to [[E-E-A-T for Blog Content]].
-- Send schema questions to [[Blog Schema Stack]].
-- Use [[Search Visibility Versus Citation Exposure]] when this note needs a sibling follow-up.
-- Use [[Zero Click Planning Baseline]] when the next decision belongs beside this note.
+[[Content Brief Output Contract]] consumes this checklist. It needs the filled gate table, approved source IDs, and blocker notes; it expects a pass, revise, or defer decision attached to the brief handoff.
+
+## Checklist-Specific Edge Cases
+
+- A brief can pass Search intent work but still fail the gate if AIO or AI Mode language lacks `g-ai-features`.
+- A market caveat from `sparktoro-zero-click-2026` should not replace property data when `g-gsc-api` exports exist.
+- A passage instruction should be blocked when the source cannot sit near the claim under `ziptie-aio-source-selection`.
+- A current Google-change claim belongs in [[2026 Google Update Timeline]] when `g-ranking-history` is the evidence owner.
+
+## Handoff Rules
+
+1. Send reader-language problems to [[6-Pillar Dual Optimization]].
+2. Send surface and metric splits to [[Search Visibility Versus Citation Exposure]].
+3. Send disputed CTR framing to [[AI Overview CTR Interpretation]].
+4. Send AI Mode weighting to [[AI Mode Query Share Context]].
+5. Send unresolved risk entries to [[Dual Optimization Risk Register]].
 
 ## Related
 - [[Dual Optimization]]
-- [[index|Index]]
-- [[hot|Hot]]
 - [[6-Pillar Dual Optimization]]
 - [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Blog Schema Stack]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
 - [[Search Visibility Versus Citation Exposure]]
-- [[Zero Click Planning Baseline]]
-- [[AI Overview CTR Interpretation]]
 - [[AI Mode Query Share Context]]
-- [[Citation Readiness Decision Tree]]
-- [[Reader Value Versus Extraction Value]]
 - [[Dual Optimization Risk Register]]
-- [[Classic SEO And GEO Tradeoffs]]
-- [[Visibility Metrics For Blog Programs]]
-- [[Market Average Versus First Party Data]]
-- [[Citation And Click Forecasting]]

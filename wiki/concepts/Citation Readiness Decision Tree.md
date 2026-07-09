@@ -47,6 +47,21 @@ The source posture is intentionally narrow. `g-ai-opt-guide` and `g-ai-features`
 | Citation value is plausible | Does the section address a likely answer-surface question? | `seer-aio-impact-ctr-2026` | Ready only with caveat | Strategist marks evidence as as-reported |
 | Click value may be limited | Does the page still need non-click success metrics? | `sparktoro-zero-click-2026` | Add measurement note | Analyst links to [[Zero Click Planning Baseline]] |
 | Reader value is fragile | Would extraction formatting harm flow or trust? | `g-ai-opt-guide` | Revise first or defer | Content lead protects the article experience |
+| Preview controls limit reuse | Are no-snippet or max-snippet rules blocking the answer? | `g-ai-features` | Revise first | Technical SEO checks controls before editing copy |
+| Source proximity is weak | Is the claim separated from its visible source context? | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Revise first | Researcher moves the source closer or defers the passage |
+
+## Passage Triage Case
+
+A paragraph defines "zero-click planning" but buries the source at the article end. The tree returns `revise first`: keep the reader answer, move the cited market context near the claim using `sparktoro-zero-click-2026`, then recheck eligibility against `g-ai-features`.
+
+[[GEO Citation Readiness Register]] consumes the tree result. It needs passage text, reader question, source IDs, preview-control state, and the ready or defer label; it outputs owner, status, next review date, and rollback trigger.
+
+## Branch-Specific Breakpoints
+
+- A source-backed sentence still fails if the reader question is unclear under `g-ai-opt-guide`.
+- A concise answer should be deferred when required caveats would disappear during extraction (`ziptie-aio-source-selection`).
+- A no-snippet page cannot be marked ready until preview controls are reviewed under `g-ai-features`.
+- A market-study passage needs a measurement caveat from `sparktoro-zero-click-2026`, not a traffic promise.
 
 ## Branch Procedure
 

@@ -34,10 +34,45 @@ Full schema implementation belongs to [[Blog Schema Stack]], query export hygien
 | AIO citation value caveat | AIO presence, page citation state, first-party click data when available | `seer-aio-impact-ctr-2026` | AS-REPORTED and non-causal | Analyst | Compare with property data before prioritizing |
 | Click-scarcity framing | Channel mix and search journey assumptions | `sparktoro-zero-click-2026` | AS-REPORTED panel context | Strategist | Route broad planning claims to [[Dual Optimization]] |
 | Surface selection | Whether the task is AIO, AI Mode, or assistant answer review | `g-ai-features` | CONFIRMED for documented Search surfaces | Content lead | Pick the spoke note that matches the surface |
+| Special-file request | Stakeholder asks for an AI-only file or schema shortcut | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | CONFIRMED for Google Search caveat | SEO lead | Route file claims to [[llms.txt Caveat Note]] |
+| Measurement lane choice | Property report access, manual capture, or market context | `g-genai-reports`, `g-ai-features` | Official reporting context plus observation limits | Analyst | Route metric rows to [[Citation Exposure Metrics]] |
 
 ## AI Citation Mechanics Spoke Map
 
 Use [[Passage Citability Checklist]] before a draft is scored, [[AI Overview Citation Review]] when the observed surface is an AIO, and [[AI Mode Citation Review]] when follow-up query behavior is the concern. Use [[AI Feature Preview Controls]] when `nosnippet`, `max-snippet`, or preview policy is part of the decision. Use [[llms.txt Caveat Note]] only when someone proposes llms.txt as a visibility lever.
+
+## Worked Triage Example
+
+A SaaS post owner asks for "AI citation optimization" after seeing an AI Overview screenshot and one ChatGPT answer. The first split is surface, not wording: the AI Overview row uses Google Search feature context from `g-ai-features`, while the ChatGPT observation stays non-Google and can only cite `seoclarity-chatgpt`.
+
+The page has one clear answer paragraph, but the source is four paragraphs below the claim. The hub sends the passage to [[Source Proximity Pattern]] because `ziptie-aio-source-selection` supports visible attribution as practitioner guidance, not because Google publishes a passage-distance rule.
+
+The same owner asks whether to add `llms.txt`. The decision row above sends that request to [[llms.txt Caveat Note]] because `g-ai-opt-guide` and `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` say the file is not a Google Search visibility lever.
+
+If Search Console generative AI reporting exists for the property, the reviewer opens [[Citation Exposure Metrics]] and records the surface label, URL, query, and date range using `g-genai-reports`. If the report is absent, the note records missing data instead of substituting SparkToro or Seer market context.
+
+## Hub-Specific Failure Points
+
+- One market study becomes the forecast for a single page, even though `sparktoro-zero-click-2026` is a panel context source.
+- An AI Mode claim is copied into an AIO recommendation, despite `ahrefs-aio-vs-aimode` treating overlap as a measured study question.
+- A non-Google assistant citation is used as proof of Google Search readiness, which `seoclarity-chatgpt` does not support.
+- A file shortcut is prioritized over source and passage work, contradicting the Google caveat in `g-ai-opt-guide`.
+
+## Deliverable Wiring
+
+[[Full Site Blog Audit Report]] consumes this hub when an audit has an AI citation readiness section. It needs the selected surface, source IDs, evidence label, and caveat wording from this note.
+
+The expected output is a bounded audit finding: "improve passage", "measure first", "caveat market context", or "route to sibling note". Any page-level register row then moves to [[GEO Citation Readiness Register]].
+
+## Hub Decision Fields
+
+Record the surface name before the recommendation, using `g-ai-features` when Google Search features are involved.
+
+Record the weakest source ID, not only the most authoritative one, when market context enters the finding.
+
+Record the sibling note chosen for execution so the audit can prove the claim was narrowed.
+
+Record whether `g-genai-reports` evidence exists, is absent, or was not requested for the property.
 
 ## AI Citation Mechanics Evidence And Refresh Rules
 

@@ -44,6 +44,8 @@ Freeze date range, search type, country, device, page filter, query grouping rul
 | Page filter | Canonical page, folder, or URL contains rule | Verified after canonical mapping | Technical SEO | Route variants to [[Page URL Canonical Data Checks]] | `g-gsc-api`, `g-urlinspect` |
 | Query grouping | Regex, manual list, brand list, topic list | Advisory until reviewed | SEO lead | Store grouping rule with export | `g-gsc-api` |
 | AI report availability | Owner confirms export exists or not | Missing if no property report is supplied | Reviewer | Route to [[Generative AI Performance Reporting]] | `g-genai-reports` |
+| Brand split | Approved brand terms and exclusion rule | Sample until owner reviews ambiguous terms | Strategist | Freeze list before comparison | `g-gsc-api` |
+| Query privacy handling | Redaction rule and retained aggregate fields | Sample when examples are removed | Data owner | Use group summaries only | `g-gsc-api` |
 
 ## Grouping Rules
 
@@ -56,6 +58,12 @@ Brand groups should be explicit, not guessed from a single term. Topic groups sh
 3. Apply canonical URL mapping before page rollups.
 4. Freeze query groups and device or country filters before trend interpretation.
 5. Attach the recipe to the metric packet so a reviewer can reproduce the table.
+
+## Grouping Decision Example
+
+A cluster plan needs demand for "pricing guide" queries without branded support terms. The recipe freezes web search, target country, mobile plus desktop split, canonical page filter, and a reviewed brand exclusion list before pulling `g-gsc-api` rows.
+
+If privacy review removes sample query strings, the cluster still receives aggregate groups but no quoted examples. [[Semantic Cluster Execution Plan]] consumes the query recipe, grouped demand packet, excluded-term rule, confidence label, and AI report availability note from `g-genai-reports`.
 
 ## Source IDs
 

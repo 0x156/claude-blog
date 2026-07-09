@@ -34,6 +34,8 @@ Bring the candidate URL, current owner, GSC page evidence when available, source
 | Stronger URL can absorb the useful material | `g-canonical` and consolidation review identify owner | Medium | SEO technical owner | Fix by recommending merge path |
 | Decline is not solely tied to rumored update | `g-ranking-history` shows no confirmed matching event, or event context is caveated | Medium | Monitoring owner | Fix by removing speculation |
 | Rollback owner is named | Advisory note states who can reverse the decision outside V1 | Blocker | Program owner | Pass when owner and cue are recorded |
+| Unique experience evidence remains | `g-helpful-content` review finds reusable proof | Blocker | Editor | Move to refresh, not prune |
+| Canonical issue is unresolved | `g-canonical` review finds competing owner signals | Blocker | SEO technical owner | Complete consolidation review first |
 
 ## Pruning Handoff Rules
 
@@ -41,6 +43,29 @@ Bring the candidate URL, current owner, GSC page evidence when available, source
 2. Send overlapping pages to [[Content Consolidation Rules]] before prune advice.
 3. Send confirmed historical traffic questions to [[Historical Performance Review]] before prune advice.
 4. Mark "no prune recommendation" when evidence is thin or the page has a retained reader role.
+
+## Prune Review Example
+
+Candidate: an old glossary page with almost no query history.
+`g-gsc-api` supports low search visibility, not low reader value.
+Editorial review finds one original example under `g-helpful-content`.
+Canonical review shows a stronger hub can absorb that example via `g-canonical`.
+Recommendation: consolidate the example, then seek pruning approval.
+Rollback cue: restore the page if the hub loses the reader path.
+
+## Bad Prune Signals
+
+- Zero measured clicks can still mean missing data, per `g-gsc-api`.
+- Old publication date is not enough under `g-helpful-content`.
+- Canonical confusion needs consolidation, not removal, under `g-canonical`.
+- Rumored update damage is not a prune reason; use `g-ranking-history`.
+
+## Audit Report Wiring
+
+[[Full Site Blog Audit Report]] consumes pruning recommendations from this checklist.
+Inputs provided: candidate URL, failed checks, retained value, owner, and rollback cue.
+It expects a page-level action card: keep, improve, merge, prune, or monitor.
+Audit severity should reflect `g-helpful-content` and available `g-gsc-api` evidence.
 
 ## Pruning Source IDs
 

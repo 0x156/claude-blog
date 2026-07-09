@@ -36,6 +36,8 @@ Approval is required before adding links in legal, medical, financial, or other 
 | Avoid link quotas | `g-helpful-content` | All blog drafts | Cluster hub may require a defined navigational link | Strategist documents reason |
 | Use trust-aware anchors | `g-qrg-full` | YMYL-adjacent or expert-heavy sections | Generic anchor may be safer for legal text | Lead editor reviews |
 | Route architecture elsewhere | `g-helpful-content` | Hub and spoke planning | Broken cluster ownership | Send to [[Semantic Topic Clusters]] |
+| Link after proof | `g-helpful-content`, `g-ai-opt-guide` | Claim-bearing answer sections | Source cue must stay before the tangent | Editor checks paragraph flow |
+| Mark stale targets | `g-helpful-content` | Links to old refresh or update posts | Do not send readers to outdated guidance | Owner schedules target review |
 
 ## Internal Link Review And Rollback
 
@@ -45,6 +47,30 @@ Approval is required before adding links in legal, medical, financial, or other 
 4. Check whether the link target is the canonical owner of the deeper topic.
 5. Record exceptions in the review note, not in hidden markup.
 6. Roll back any link that creates a dead wikilink, duplicate anchor, or unsupported endorsement.
+
+### Placement Scenario
+
+In a paragraph explaining why FAQPage markup is not a current rich-result tactic,
+the source cue should appear before any link to a broader schema guide.
+That keeps the claim attached to its evidence and avoids using a link as proof.
+For Google-facing AI advice, links should deepen visible reader context rather
+than act like hidden optimization infrastructure (`g-ai-opt-guide`).
+The reader-first anchor test remains the controlling rule (`g-helpful-content`).
+
+### Link Placement Hazards
+
+- The first paragraph contains three hub links before answering the page promise (`g-helpful-content`).
+- A citation-ready passage sends readers away before the caveat appears (`ziptie-aio-source-selection`).
+- A link target is correct generally but stale for the current claim (`g-helpful-content`).
+- Anchor text implies endorsement or certainty the source does not support (`g-qrg-full`).
+
+### Deliverable Wiring
+
+[[Semantic Cluster Execution Plan]] consumes this note for link briefs:
+source page, target page, anchor reason, reader need, and stale-target flag.
+It expects internal links to support hub and spoke execution without creating
+thin duplicate paths (`g-helpful-content`). [[SEO Check Validation Checklist]]
+consumes the final link list as a prepublication sanity check (`g-helpful-content`).
 
 ## Source Handling
 

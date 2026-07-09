@@ -38,6 +38,8 @@ The exit artifact is a brief with a reader job, answer promise, claim inventory,
 | 3. Separate AI Search guidance | AI or GEO requirement in the request | `g-ai-features`, `ziptie-aio-source-selection` if passage tactics appear | AI caveat block for the brief | [[AI Citation Mechanics]] |
 | 4. Decide market-context use | Zero-click or distribution assumption | `sparktoro-zero-click-2026` with AS-REPORTED scope | Advisory planning note | [[FLOW Report Stage]] |
 | 5. Name draft constraints | Voice, structure, internal links, exclusions | Accepted source and link list | Draft-ready brief packet | [[FLOW Draft Stage]] |
+| 6. Pin evidence to section jobs | Approved source packet and outline needs | Source IDs beside claim slots | Section evidence map | [[SERP Outline Output Contract]] |
+| 7. Quarantine unsupported asks | Stakeholder request or competitor pattern | Missing source ID or blocked verdict | Brief blocker note | [[FLOW Approval Queue]] |
 
 ## Input, Evidence, Action, Owner, And Handoff
 
@@ -46,3 +48,37 @@ The brief owner records who supplied the source packet, who accepts the framing,
 ## FLOW Brief Stage Control Points
 
 Reject the brief if it asks the writer to prove a result the evidence does not support, if it treats panel research as client data, or if it describes a Google AI file as required. Send those items back to [[FLOW Source Intake]] or forward them to [[FLOW Approval Queue]] when a stakeholder must decide whether to keep an advisory assumption.
+
+## Example: Turning Market Context Into A Brief
+
+Request: "Write a post that will recover traffic lost to AI answers."
+
+The brief rewrites that into a reader job: answer the comparison question clearly
+and add an advisory visibility caveat.
+
+The market-context slot may cite `sparktoro-zero-click-2026`, but it cannot
+predict the client's future clicks from the panel source.
+
+The AI note cites `g-ai-opt-guide` and keeps optimization framed as normal
+Search fundamentals rather than a new AI-only checklist.
+
+The draft owner receives a source-backed answer promise, an excluded traffic
+forecast, and one link to [[AI Citation Mechanics]].
+
+## Brief-Specific Breakpoints
+
+- A competitor H2 copied into the brief can create similarity without evidence.
+- A section job that lacks a source ID asks the writer to invent support later.
+- A zero-click caveat in the outline can become a fake property forecast.
+- A brief that accepts every stakeholder keyword usually loses the reader job.
+
+## Consumed By Brief Contracts
+
+[[Content Brief Output Contract]] consumes the reader job, source pack,
+must-use claims, exclusions, and unresolved blockers.
+
+[[SERP Outline Output Contract]] consumes the section evidence map and turns it
+into H2/H3 jobs with source IDs beside claim slots.
+
+The brief expects the deliverables to return either draft-ready acceptance or a
+blocked field with the owner named.

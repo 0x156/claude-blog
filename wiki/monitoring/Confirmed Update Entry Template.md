@@ -37,6 +37,8 @@ The template decides whether an event is eligible for durable guidance. `g-ranki
 | Surface and lane | Core, spam, schema, QRG, AI search, Discover, or reporting | Event-specific `g-update-*` ID | Surface is collapsed into "algorithm update" | Topic owner | Route to the matching spoke note. |
 | Evidence verdict | Claim-ledger verdict or official-source confidence | Any cited source ID | The note upgrades a weak source to confirmed | Reviewer | Downgrade or quarantine the claim. |
 | Action boundary | Read-only recommendation and rollback condition | Relevant playbook note | The entry mutates CMS, GSC, GA4, or schema directly | Operator | Write an advisory next step only. |
+| Completion state | Complete date, active rollout note, or unavailable status | `g-ranking-history`, `g-status-dashboard` | Completion is inferred from traffic movement | Monitoring owner | Mark watch-only until the source resolves. |
+| Source limitation | What the cited source does not prove | Event-specific `g-update-*` ID | Limitation is omitted from a deliverable handoff | Reviewer | Add caveat before routing the entry. |
 
 ## Confirmation Failure Cases
 
@@ -48,6 +50,25 @@ An entry stays out of the confirmed ledger when the only evidence is a rank-trac
 2. Attach the exact source IDs in the entry table, not a generic URL bundle.
 3. Assign one route note and one owner for the next review.
 4. If the source changes, update the entry and record the stale claim as a refresh task.
+
+## Filled Entry Example
+
+Event name: May 2026 Core Update.
+Dates: start 2026-05-21, complete 2026-06-02.
+Source IDs: `g-update-2026-05-21-may-2026-core-update`, `g-update-2026-06-02-may-2026-core-update-complete`.
+Verdict: CONFIRMED for chronology, not for page-level impact.
+Route: [[Core Update Response Playbook]] before any rewrite recommendation.
+Rollback trigger: dashboard date changes or first-party evidence contradicts the planned action.
+The deliverable consumer is [[Factcheck Claim Register]].
+It receives claim wording, source IDs, verdict, confidence, owner, and refresh date.
+It should output verified, stale, blocked, or pending status before the claim leaves monitoring.
+
+## Template-Specific Failure Checks
+
+- A dashboard title without completion state cannot support a post-update window.
+- A vendor volatility name cannot become the event name after `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice`.
+- A source ID that proves chronology does not prove affected pages.
+- A missing rollback trigger makes the entry unusable for delivery contracts.
 
 ## Related
 

@@ -51,10 +51,24 @@ Approval is required when a partner syndicates more than an excerpt, a platform 
 | Qualify paid or user-generated outbound links where relevant | `g-qualify-links` | Sponsored reposts, UGC areas, partner pages | Platform owns the markup | Distribution owner notes control boundary |
 | Do not invent Google AI setup tasks | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | AI citation pitches and recap reports | Non-Google assistants have separate requirements | Claim gets moved to a platform-specific note |
 | Preserve the canonical value proposition, not just the URL | `g-helpful-content`, [[Voice and Style]] | All derivative assets | Localized or persona-specific rewrite | Voice reviewer checks that meaning survives |
+| Approve excerpts before full syndication | `g-canonical`, [[Repurposing Source Fidelity]] | Partner blogs and sponsored recaps | Full duplicate page requested | Technical owner reviews canonical risk |
+| Record channels that strip links | `g-qualify-links`, [[Channel Asset Inventory]] | Closed communities and profile-only platforms | URL cannot appear in body copy | Reviewer stores attribution text |
 
 ## Rule, Evidence Source, Applies To, And Enforcement
 
 The reviewer should evaluate attribution before creative polish. A channel asset can be concise, but it cannot change who made the claim, what the claim was based on, or where the reader can verify it. For off-site assets, enforcement is a checklist item in [[Channel Asset Inventory]]. For on-site duplicates or syndicated pages, enforcement moves to technical canonical review and may require a rollback if Google selects an unintended canonical.
+
+### Example: Partner Recap Request
+
+A partner asks to republish the full article as a "guest insight" on its blog. The attribution rule approves a quoted excerpt, canonical post link, and source caveat, then blocks the full duplicate until technical canonical review uses `g-canonical`. If the placement is paid or user-generated, link treatment is recorded with `g-qualify-links` before the asset leaves review.
+
+### Attribution Edge Cases
+
+The rule goes wrong when a platform keeps the brand name but strips the URL, when a repost preserves the statistic but drops the source date, or when a paid partner owns markup the team cannot edit. Another risk is storing the caveat only in a screenshot; that belongs in [[Channel Asset Inventory]] before publication.
+
+### Matrix Consumption Point
+
+[[Repurposing Asset Matrix]] consumes the attribution decision as link target, exception path, and approval state. It needs canonical URL, channel policy, paid or UGC status, reused-claim list, and no-link explanation; it expects a row that says whether the asset points to the article, the original source, both, or neither.
 
 ## Canonical Attribution Rules Review And Rollback
 

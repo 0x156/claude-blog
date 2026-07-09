@@ -38,6 +38,9 @@ Machine translation can help produce a first pass. Quality approval requires hum
 | Unsupported local examples | Examples, statistics, product claims | The draft may imply local availability or legality | Open [[Localized Source Requirements]] | High |
 | Awkward but accurate prose | Paragraph flow and idioms | Reader trust drops even when facts survive | Native-language edit | Medium |
 | Sensitive advice translated | Legal, financial, health, or safety sections | Local rules may differ materially | Route to [[Regional Legal And YMYL Escalation]] | Blocker |
+| Entity name hallucination | Author bios, product names, institutions | Local authority can be invented by fluent text under `g-helpful-content` | Factcheck named entities before review | Blocker |
+| Measurement conversion drift | Dates, decimals, currency, units | Advice can change meaning after formatting conversion under `g-helpful-content` | Send to [[Translation QA Matrix]] | Major |
+| Schema language mismatch | JSON-LD strings and visible page copy | Structured data can repeat a mistranslation under `schema-full` | Block until [[Multilingual Schema Rules]] passes | Blocker |
 
 ## Escalation Procedure
 
@@ -49,3 +52,32 @@ Machine translation can help produce a first pass. Quality approval requires hum
 ## Source Constraint
 
 Do not cite the source IDs as proof that a specific MT tool is safe or unsafe. They support the quality and internationalization rules this note applies.
+
+## MT Triage Example
+
+A machine-translated finance-adjacent explainer renders a common account term as a local regulated product (`g-multiregional`, `g-helpful-content`).
+The sentence is fluent, but the meaning now implies a market-specific product claim (`g-helpful-content`, `g-multiregional`).
+The triage marks the segment as source fidelity risk, not style cleanup (`g-helpful-content`).
+The editor removes the claim until [[Localized Source Requirements]] can name acceptable evidence (`g-helpful-content`).
+Only after that decision should the draft move into normal translation QA (`g-helpful-content`).
+
+## MT Failure Modes To Separate
+
+- Post-editing can polish grammar while leaving source-market CTAs unchanged (`g-helpful-content`).
+- A glossary may cover body text but miss title tags, alt text, and schema labels (`schema-full`).
+- Date and unit conversions can alter instructions even when the sentence reads naturally (`g-helpful-content`).
+- A locale reviewer should not inherit legal review merely because the draft is machine-assisted (`g-helpful-content`).
+
+## QA Matrix Wiring
+
+Consumer: [[Translation QA Matrix]].
+
+Inputs provided:
+
+- MT disclosure, flagged segment, risk signal, required reviewer, and blocked field.
+- distinction between language defect, evidence defect, schema defect, and sensitivity defect.
+
+Outputs expected:
+
+- pass or fail rows for machine artifacts, numbers and units, schema strings, and source fidelity.
+- release handoff note that sends unresolved local-quality gaps to the right owner.

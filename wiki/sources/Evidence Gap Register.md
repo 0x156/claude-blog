@@ -52,6 +52,8 @@ Use this note when a source is missing, stale, too broad, unsupported by the ass
 | GAP-SRC-003 | A schema recommendation names a rich result not shown in Search Gallery. | `g-search-gallery` | schema reviewer | gap | open | 2026-07-16 | Remove rich-result claim or add current feature documentation. |
 | GAP-SRC-004 | An update impact claim uses official history for timing but not causation. | `g-ranking-history` | monitoring owner | advisory | open | 2026-07-16 | Rephrase as confirmed rollout only, or add first-party impact analysis. |
 | GAP-SRC-005 | A note needs API or generated-media evidence outside this source slice. | none in assigned set | source steward | gap | open | 2026-07-23 | Add proper ledger entries outside this folder or remove the claim. |
+| GAP-SRC-006 | A FAQPage recommendation treats a retired Google feature as current. | `g-faqpage-sd` | schema reviewer | gap | open | 2026-07-16 | Replace the rich-result promise with visible-content guidance. |
+| GAP-SRC-007 | An llms.txt recommendation promises Google AI visibility improvement. | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | GEO steward | contested | open | 2026-07-16 | Split Google Search from other crawler assumptions. |
 
 ## Source, Confidence, Owner, Status, And Due Date
 
@@ -64,6 +66,18 @@ The table's confidence state is a claim state, not a source-quality score. A hig
 3. Assign an owner who can narrow, source, or remove the claim.
 4. Set the next review date close enough to block release drift.
 5. Move the issue to [[Claim To Source Mapping]] only after the claim has source ID, date, coverage, and limitation.
+
+## Gap Closure Example
+
+A draft says FAQPage markup will recover Google FAQ rich results.
+The gap cites `g-faqpage-sd` and blocks that release wording.
+Closure means replacing the promise with a visible-content recommendation.
+If the reviewer cannot narrow it, the claim stays blocked.
+The failure mode is marking a gap closed because the URL is official.
+Official sources still fail when they do not cover the exact sentence.
+[[Factcheck Claim Register]] consumes open and closed gap outcomes.
+Inputs provided: gap ID, source ID, owner, and rollback trigger.
+Expected output: claim status, blocked release note, or approved rewrite.
 
 ## Related
 

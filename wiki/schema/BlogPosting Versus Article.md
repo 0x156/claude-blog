@@ -34,14 +34,42 @@ Google's structured-data guidance, source ID `g-intro-sd`, keeps the choice anch
 | How-to style article with steps | `Article` unless a current supported feature applies | Visible steps, author, dates, page purpose | Search Gallery support check | Procedural content does not automatically justify legacy rich-result language | `g-search-gallery` |
 | Syndicated or partner article | `Article` with careful author and publisher links | Original source, visible byline, canonical policy | Rendered page and canonical note | Do not blur author, publisher, and host site identity | `g-intro-sd` |
 | CMS template cannot vary by format | One consistent site-level article type | Stable `@id`, fields, and visible-content match | JSON-LD parse plus sample pages | Consistency beats per-page guessing when evidence is thin | `w3c-jsonld` |
+| Research report hosted in the blog | `Article` unless the site visibly labels it as a blog post | Report title, authoring body, dates, and section label | Site convention plus vocabulary fit | URL folder alone should not decide the type | `schema-full` |
+| Founder note or opinion column | Site convention decides between `BlogPosting` and `Article` | Byline, series name, and editorial category | Rendered page pattern comparison | Personal tone does not remove baseline fields | `g-intro-sd` |
 
 ## Local Convention Check
 
 Before changing type, inspect three existing posts that already validate. If they all use `BlogPosting`, keep the pattern unless the reviewed page is clearly not a blog post. If the site uses `Article` everywhere, document the convention and focus on field accuracy. Type churn can create noisy diffs without improving the graph.
 
+## Type Decision Example
+
+Page reviewed: `/blog/state-of-b2b-content-2026`. It lived under the blog path but rendered as a downloadable research report with a corporate author, methodology section, and no conversational blog template.
+
+Decision: use `Article`, not `BlogPosting`, because Schema.org type fit follows the content model and site presentation, source ID `schema-full`.
+
+The page still needed the baseline fields from [[Article Schema Baseline]]: headline, visible date, author or publisher, image if available, and stable graph ID. The structured-data choice did not remove Google's visible-content guardrail, source ID `g-intro-sd`.
+
+Search feature language was left out because the type choice alone did not create a supported Google appearance, source ID `g-search-gallery`.
+
 ## Unsupported Type Arguments
 
 Reject arguments that claim one type will rank better without a dated source. Also reject "Schema.org allows it" as proof that Google Search displays it. Vocabulary fit and Search support are separate checks, so the final note should cite the vocabulary source and the Search Gallery source separately.
+
+## Type-Selection Traps
+
+- Blog URL paths can hide non-blog reports, source ID `schema-full`.
+- A redesign can change visible article labels before templates change, source ID `g-intro-sd`.
+- Syndication pages can require publisher and canonical review before type review, source ID `g-intro-sd`.
+- Legacy HowTo language should be checked against current gallery support, source ID `g-search-gallery`.
+- Mixed templates should be sampled across old and new layouts, source ID `w3c-jsonld`.
+
+## Deliverable Hook For Type Choice
+
+[[Schema Generation Output Contract]] consumes the one-line type decision.
+
+Decision input: selected type, rejected alternative, sample URLs checked, and the evidence source IDs.
+
+Expected contract output: Article or BlogPosting JSON-LD plus a warning when the template cannot vary safely.
 
 ## Handoff For Type Selection
 

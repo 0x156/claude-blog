@@ -39,6 +39,8 @@ If terminology changes but the reader job remains stable, localize headings and 
 | es-MX | Local phrase differs from direct Spanish translation | More practical examples before theory | Rewrite intro and headings | Native SEO reviewer | High |
 | fr-CA | Bilingual market may expect both English and French names | Clarify entity aliases | Add alias block and schema name check | Locale editor | Medium |
 | ja-JP | Searcher may prefer vendor comparison before workflow | Reorder proof and examples | New outline required | Market lead | High |
+| de-AT | Same language family hides country-specific examples under `g-multiregional` | Austrian proof may differ from German proof | Keep shared sections, replace local examples | DACH reviewer | Medium |
+| ar-SA | Search-language and page direction both affect review under `g-helpful-content` | Screenshots and support labels need locale confirmation | Add visual review before outline approval | Locale editor | High |
 
 ## Research Procedure
 
@@ -50,3 +52,32 @@ If terminology changes but the reader job remains stable, localize headings and 
 ## Output Standard
 
 The output is a brief addendum, not a keyword dump. It should name the locale, the intent delta, the sections affected, the source IDs used, and the reviewer required before launch.
+
+## Brief Addendum Example
+
+A source article about choosing payroll software is approved for English readers (`g-helpful-content`).
+For `en-GB`, the reader job remains comparison, but proof examples and support terminology need local review (`g-multiregional`, `g-helpful-content`).
+The research addendum keeps the outline order but marks pricing examples as replace (`g-helpful-content`).
+For `es-MX`, sampled SERP notes can show a stronger setup-first expectation (`g-helpful-content`).
+That locale receives a rewritten introduction and a separate source requirement before drafting (`g-helpful-content`).
+
+## Intent Errors This Note Prevents
+
+- A direct keyword translation can miss the local noun readers actually use (`g-helpful-content`).
+- One language can contain several market tasks when country, currency, or support paths differ (`g-multiregional`).
+- Entity aliases may fit headings but still require schema and breadcrumb review (`schema-full`).
+- SERP observations without date and locale should not become proof of stable demand (`g-helpful-content`).
+
+## Brief Contract Wiring
+
+Consumer: [[Content Brief Output Contract]].
+
+Inputs provided:
+
+- target locale, intent delta, affected headings, local terminology, and reviewer requirement.
+- claim slots that need local evidence before the writer receives the assignment.
+
+Outputs expected:
+
+- reader job and SERP pattern fields updated for the target market.
+- evidence-pack notes that separate global source IDs from local source gaps.

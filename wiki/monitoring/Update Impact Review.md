@@ -37,6 +37,8 @@ The review decides whether first-party evidence justifies content, spam, schema,
 | Core-adjacent movement | Page group changes after a confirmed core rollout | `g-update-2024-11-11-november-2024-core-update`, `g-ranking-history` | MIXED until local proof | SEO lead | Run quality and intent review before rewriting. |
 | Query and page comparison | GSC export or API result exists for affected dimensions | `g-gsc-api` | FIRST-PARTY when property export exists | Data owner | Compare pages, queries, countries, devices, and Search type. |
 | No action | Movement is absent, noisy, or outside source scope | Event source plus data note | LOW or no local evidence | Reviewer | Record no-action with next review date. |
+| Control group comparison | Stable pages share topic, template, and reporting dimensions | `g-gsc-api` | FIRST-PARTY when export exists | Data owner | Separate site pattern from isolated page noise. |
+| Generative-AI report check | Search Console AI reports are available for the property | `g-genai-reports` | CONFIRMED source, property access needed | Analyst | Route AI visibility questions to the AI watch lane. |
 
 ## Evidence Window Rules
 
@@ -49,6 +51,25 @@ Use complete rollout windows when possible. For long rollouts, do not call the f
 3. Compare affected page groups against unaffected controls or historical baselines.
 4. Route findings to core, spam, schema, AI-search, content refresh, or no action.
 5. Attach source IDs, data limits, owner, and rollback condition to every recommendation.
+
+## Impact Review Walkthrough
+
+A product blog section drops impressions after the May 2026 core update.
+The review cites `g-update-2026-05-21-may-2026-core-update` for the event.
+It cites `g-update-2026-06-02-may-2026-core-update-complete` for the closed window.
+The analyst pulls pages, queries, country, device, and Search type with `g-gsc-api`.
+Two comparison pages outside the product section stay flat.
+The affected posts also have expired source claims, so rewrite planning is plausible.
+The consumer is [[Blog Rewrite Refresh Plan]].
+It receives URLs, query sets, date windows, source IDs, comparison notes, and caveats.
+It should output scoped refresh tasks, monitor decisions, or no-action rows.
+
+## Impact Review Failure Modes
+
+- A pre/post window that overlaps rollout dates weakens the causal story.
+- Mixing countries or devices can create false decline patterns in `g-gsc-api` exports.
+- Treating `g-ranking-history` as proof of impact skips the first-party evidence step.
+- AI visibility questions need `g-genai-reports` availability before report language changes.
 
 ## Related
 

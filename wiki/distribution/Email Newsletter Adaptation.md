@@ -51,10 +51,24 @@ The adapter may use a subject line, preheader, short source note, "why this matt
 | Source note | Short provenance sentence or source link | [[Repurposing Source Fidelity]] | Factcheck owner | Forward-safe context | Add dated source cue |
 | Canonical return path | Primary link to the post | [[Canonical Attribution Rules]] | Distribution lead | Clicks and assisted sessions | Confirm URL and tracking |
 | Audience loop | Subscribe, reply, save, or follow-up prompt | `niemanlab-subscribed-publications-aio-2026` | Audience owner | Replies, saves, repeat visits | Choose one owned action |
+| Forward-safe claim | One statistic or policy statement likely to leave the inbox | Source ID and caveat visible | Factcheck owner | Forwarded replies | Narrow or remove if context breaks |
+| Segment fit | List segment, interest tag, or suppression rule | Owned list evidence | Audience owner | Unsubscribes and replies | Send only to matched readers |
 
 ## Asset, Channel, Source Link, Owner, Status, And Measurement
 
 The newsletter asset row should name the list, send date, canonical post, source note status, tracking convention, and owner. If the newsletter summarizes a statistic, include the source ID in the draft review notes rather than relying on the original article to carry the burden. Channel measurement belongs to [[Distribution Measurement Plan]] after the send date is known.
+
+### Example: Emailing A Search Guidance Update
+
+A blog post explains that Google Search does not require a special AI-only file. The newsletter lead states the caveat plainly with `g-ai-opt-guide` and `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, then links the canonical article for implementation detail. The CTA asks for reader questions, not a promise that subscribing will influence AI Overview treatment.
+
+### Email-Only Failure Patterns
+
+The adaptation fails when the subject line claims more certainty than the body supports, when the preheader drops the caveat, or when a forwarded email cannot show the source note. It also fails when `niemanlab-subscribed-publications-aio-2026` is treated as a guarantee for this list rather than audience-relationship context.
+
+### Asset Matrix Handoff
+
+[[Repurposing Asset Matrix]] consumes the email summary row. It needs subject, preheader, source note, canonical link, audience segment, send date, and owned action; it expects the channel intent, required caveat, owner, and approval state before scheduling.
 
 ## Email Newsletter Adaptation Fidelity Checks
 

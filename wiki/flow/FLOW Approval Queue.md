@@ -37,6 +37,9 @@ Pure source capture goes to [[FLOW Source Intake]]. Draft wording without implem
 | Remove a proposed Google AI-specific file requirement | `g-ai-opt-guide` | SEO lead | High | Ready to accept | 2026-07-12 | Recommendation again implies a special AI Search file |
 | Validate a schema wording change before handoff | `g-intro-sd` | Technical owner | High | Needs review | 2026-07-14 | Recommendation implies unsupported structured-data eligibility |
 | Use GA4 observations as site-specific planning evidence | `g-ga4-data` | Strategy owner | Medium | Monitor | 2026-08-06 | Analytics access, segment, or date range proves unsuitable |
+| Remove FAQ rich-result positioning from a template note | `g-faqpage-sd` | Schema owner | High | Awaiting approval | 2026-07-18 | Copy again presents FAQPage as a current rich-result tactic |
+| Queue a noindex recommendation for human review | `g-block-indexing` | Technical owner | High | Needs review | 2026-07-19 | Page must remain discoverable for the business case |
+| Approve a rewrite after a confirmed Google update window | `g-ranking-history` | SEO lead | Medium | Monitor | 2026-08-02 | Later evidence shows the update date was not the cause |
 
 ## Source, Confidence, Owner, Status, And Due Date
 
@@ -48,3 +51,36 @@ Each row needs one accountable owner and one confidence label. Use high confiden
 2. Ask the owner to accept, revise, reject, or monitor the item before a live-content handoff.
 3. Send accepted live-change items to [[FLOW Rollback Notes]] and unresolved evidence items back to [[FLOW Source Intake]].
 4. Include only decided or clearly blocked rows in [[FLOW Report Stage]] so the report does not hide pending approvals.
+
+## Example: AI File Recommendation Queued
+
+A draft report says, "Upload an `llms.txt` file to improve Google AI visibility."
+
+Before: the recommendation is written as a required implementation task.
+
+After: the queue item says "remove special-file requirement" and cites `g-ai-opt-guide`.
+
+The owner accepts the correction because Google AI feature guidance does not
+make `llms.txt` a Search, AI Overview, or AI Mode requirement (source_id:
+`g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`).
+
+The accepted output goes to [[FLOW Report Stage]] as a corrected caveat, not as
+a new technical task.
+
+## Queue Mistakes That Matter
+
+- Treating "awaiting approval" as permission to publish bypasses V1 read-only rules.
+- Assigning a team instead of a person leaves rollback ownership unresolved.
+- Using `g-ranking-history` as client-impact proof confuses update timing with site evidence.
+- Filing low-risk copyedits here clogs the register and hides live-change decisions.
+
+## Consumed By Report Deliverables
+
+[[Full Site Blog Audit Report]] consumes decided queue rows as the executive
+decision queue.
+
+Inputs provided: item, source ID, owner, confidence, status, review date, and
+rollback trigger.
+
+Outputs expected: accepted actions become report findings, rejected actions
+become rationale notes, and monitor items keep their next evidence check.

@@ -30,10 +30,46 @@ Escalate when a derivative asset drops a material qualifier, strips the source d
 | Social | Sharper opening, one idea per post | No ranking or citation promise | `g-qrg-full` | Hook cannot outrun evidence | [[Banned Claims And Phrases]] |
 | Community | More conversational and question-led | Caveats stay attached to advice | `g-update-2025-01-23-qrg-update-jan-2025` | Avoid thin copied summaries | [[Persona Evidence Packet]] |
 | AI answer review | More self-contained phrasing | No AI inclusion guarantee | `g-ai-opt-guide` | Route to canonical hub | [[AI Citation Mechanics]] |
+| Short video | Spoken and visual hook | Claim matches article wording | `g-helpful-content` | On-screen text carries the qualifier | [[Repurposing Asset Matrix]] |
+| Podcast prompt | Conversational setup | Host cannot add unsourced anecdotes | `g-qrg-full` | Producer marks speculation clearly | [[Audio Narration Production Checklist]] |
+| Newsletter subject | Concise and timely | No fear or scarcity without evidence | `nng-editorial-heuristics` | Subject line matches body claim | [[Repurposing Asset Matrix]] |
 
 ### Channel, Allowed Shift, Claim Lock, And Review Cue
 
 The adapter should record the source post, channel, changed wording, retained claim, omitted context, and reviewer. If a format cannot carry the caveat, the asset should narrow the claim or stay unpublished.
+
+## Short Hook Conversion Example
+
+Source article claim: "Google documents ordinary Search fundamentals for AI features and does not require a special AI file."
+
+LinkedIn draft: "You do not need a secret AI SEO file."
+
+Review decision: publish only if the post links the official boundary and avoids making a universal platform claim, citing `g-ai-opt-guide`.
+
+Email rewrite: "For Google Search AI features, keep standard crawlable content and skip llms.txt promises."
+
+Video caption: "Google AI guidance follows SEO basics; no special AI markup is required for that surface."
+
+The short-video version keeps the platform scope visible because `g-ai-features` and `g-ai-opt-guide` do not cover every assistant.
+
+## Channel Breakpoints
+
+- A social hook quotes the punchline but drops the source date.
+- A community prompt turns a caveat into a controversy bait question.
+- A podcast host adds personal advice to a YMYL example without review.
+- An email subject says "new rule" when the source is a living guide.
+- A video lower-third shortens a claim until the platform qualifier disappears.
+- A thread splits one caveated claim across posts and leaves the caveat last.
+
+## Matrix Wiring
+
+Primary consumer: [[Repurposing Asset Matrix]].
+
+Inputs supplied: source article URL, channel, original claim, changed wording, carried caveat, omitted context, and reviewer.
+
+Output expected back: approval state, link target, measurement signal, and blocked channel variants.
+
+Audio consumer: [[Audio Narration Production Checklist]] receives podcast prompts and voice constraints before production.
 
 ## Distribution Voice Adaptation Drift Controls
 

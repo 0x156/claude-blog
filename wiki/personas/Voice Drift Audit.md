@@ -30,10 +30,48 @@ Escalate if drift appears across a template, a cluster, a locale, or a distribut
 | Source dilution | Caveats, dates, or source IDs disappear | Any material claim affected | Factchecker | Block until source restored |
 | Voice sameness | Multiple posts repeat the same generic phrasing | Cluster sample shows pattern | Content lead | Rebaseline voice samples |
 | Low-value scaling | Many pages paraphrase without added reader value | Template or batch signal | SEO lead | Check `g-spam-policies` and pause batch |
+| Channel creep | Social or email asset strengthens the article claim | One live asset with material drift | Distribution lead | Recheck [[Distribution Voice Adaptation]] |
+| Locale drift | Localized page changes certainty or institution | Any sensitive sentence affected | Locale owner | Reopen [[Locale Voice Adaptation]] |
+| Metric inflation | Advisory score becomes performance forecast | Any report or CTA affected | Analyst | Route to [[Banned Claims And Phrases]] |
 
 ### Signal, Evidence, Threshold, Owner, And Next Action
 
 The finding should quote or summarize the local problem, identify the controlling note, and name the smallest correction. Do not use drift as a reason to rewrite stable, source-accurate passages just because they are less polished.
+
+## Cluster Sample Audit
+
+Sample: five posts from a schema cluster and three related social assets.
+
+Finding: four posts say "rich-result opportunity" after a source update removed the relevant feature.
+
+Decision: mark source dilution and terminology drift, then pause new derivative assets.
+
+Source basis: `g-spam-policies` covers scaled low-value patterns, while `g-helpful-content` keeps the review focused on reader value.
+
+The audit does not rewrite every sentence; it opens one source-controlled correction path.
+
+If the problem repeats across templates, the owner rebaselines [[Brand Voice Inventory]] before more drafts use the pattern.
+
+If a localized page changed the claim, the finding goes to [[Localization Adaptation Checklist]] with the exact sentence.
+
+## Drift Audit Failure Modes
+
+- The reviewer flags personal taste instead of a source, persona, or risk mismatch.
+- Sampling only published articles misses social assets where the stronger claim appears.
+- Rebaseline happens before the team agrees that current samples are actually obsolete.
+- A low-value batch problem is treated as a single awkward paragraph.
+- Locale drift is hidden because translated pages are not included in the sample.
+- The audit records severity but not the smallest responsible owner.
+
+## Audit Output Wiring
+
+Primary consumer: [[Style Learning Voice Profile]].
+
+Inputs supplied: drift signal, sample set, quoted issue, severity, controlling note, and rebaseline recommendation.
+
+Output expected back: approved sample change, rejected drift claim, or measurable profile update.
+
+Score consumer: [[Blog Analyzer Score Report]] uses material source or persona drift as advisory findings.
 
 ## Voice Drift Audit Rebaseline Check
 

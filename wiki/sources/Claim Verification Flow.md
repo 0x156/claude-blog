@@ -49,6 +49,8 @@ Bring one claim at a time. Do not submit a paragraph, a bundle of bullets, or a 
 | Google AI Search optimization | `g-ai-opt-guide` | Google Search AI guidance and absence of special AI-only requirements. | Google Search only, not all assistants. | [[AI Citation Mechanics]] then [[Claim To Source Mapping]] |
 | Supported rich result | `g-search-gallery` | Whether Google lists the rich-result type. | Feature support is not eligibility or display guarantee. | [[Blog Schema Stack]] |
 | Confirmed update history | `g-ranking-history` | Official ranking-update names and rollout state. | Does not prove local site impact. | [[Google Algorithm Update Ledger]] |
+| FAQ rich-result retirement | `g-faqpage-sd` | Google Search FAQ rich-result retirement state. | Reader-useful Q and A is a separate content choice. | [[Schema Generation Output Contract]] |
+| Google llms.txt claim | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Google Search does not use llms.txt visibility controls. | Non-Google crawlers are outside that evidence. | [[GEO Citation Readiness Register]] |
 
 ## Verdict Terms From Claim Ledger
 
@@ -57,6 +59,18 @@ Use `CONFIRMED` only when the exact claim is directly supported. Use `AS-REPORTE
 ## Escalation And Closeout
 
 The flow closes when the claim has a source ID, URL, date, limitation, confidence label, and owner. If any of those fields are missing, the claim should remain out of release-facing notes and appear in [[Evidence Gap Register]] instead.
+
+## Verification Walkthrough For llms.txt
+
+Draft claim: "Publish llms.txt so Google AI Mode cites us."
+The platform and promised outcome make the sentence too broad.
+Use `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`.
+The safe claim says Google Search does not use that file.
+Failure cases include bundled claims and assistant-wide wording.
+Another failure is accepting a source ID without reading `supports_claims`.
+[[Factcheck Claim Register]] receives the narrowed claim row.
+Inputs provided: claim text, label, source ID, and unresolved platform gaps.
+Expected output: accepted register item or evidence-gap escalation.
 
 ## Related
 

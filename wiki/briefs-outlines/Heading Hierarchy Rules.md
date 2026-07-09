@@ -34,6 +34,9 @@ H3s clarify sub-decisions under a larger section. Answer blocks must be readable
 | llms.txt headings cannot sell Google Search impact | `g-ai-opt-guide` | Technical or GEO sections | Non-Google use case may be noted with caveat | Send to [[Brief Risk Notes]] if disputed |
 | Click-context sections separate visibility from traffic | [[Dual Optimization]] | Measurement or goal sections | First-party GSC data may override market framing | Add metric split before approval |
 | H3s stay subordinate to one H2 question | [[Outline QA Checklist]] | Detailed subsections | Complex tutorials may use deeper levels sparingly | Merge or split drifting subsections |
+| FAQ-style headings serve visible reader questions | `g-faqpage-sd` | Q and A sections | Use only when the page genuinely answers those questions | Do not imply FAQ rich-result value |
+| Dated-update headings name the update source | `g-ranking-history` or [[2026 Google Update Timeline]] | Update, freshness, or volatility sections | Mention only confirmed rollout facts | Route impact claims to evidence review |
+| Evidence-heavy H2s reserve source slots | [[Evidence Block Requirements]] | Statistics, policy, tool, or AI claims | Source slot can be empty only as blocked | Reject fact-heavy headings without proof |
 
 ## Exception Review And Rollback
 
@@ -42,12 +45,33 @@ H3s clarify sub-decisions under a larger section. Answer blocks must be readable
 3. Add the source ID and reviewer approval beside the exception.
 4. Revert the heading if a later source refresh changes the allowed wording.
 
+## Heading Repair Example
+
+Before: "How to get cited in Google AI Mode." This heading promises an outcome the brief cannot control, so it fails the AI-feature wording rule. Source ID: `g-ai-opt-guide`.
+
+After: "What makes an answer passage easier to understand and cite." This keeps the section focused on passage clarity while treating citation-readiness research as practitioner guidance. Source IDs: `ziptie-aio-source-selection`, `g-ai-opt-guide`.
+
+## Hierarchy-Specific Failure Cases
+
+- H2s mirror a competitor's article order instead of the reader's decision path. Source ID: `g-helpful-content`.
+- H3s are keyword variants with no separate subtask. Source ID: `nng-editorial-heuristics`.
+- A FAQ block is added for deprecated rich-result value. Source ID: `g-faqpage-sd`.
+- A current-year heading lacks a dated source or refresh cue. Source ID: `g-ranking-history`.
+
+## Outline Contract Wiring
+
+[[SERP Outline Output Contract]] consumes the approved hierarchy. Inputs provided: H1 promise, H2 job, H3 subtask, answer-block role, source slot, and exception note. Expected output: an outline where every section has a reader task and evidence placement.
+
+[[Blog Write Article Contract]] receives the same hierarchy through [[Brief To Draft Handoff]]. Expected output: the writer preserves section jobs instead of expanding headings into unsourced claims.
+
 ## Sources
 
 - `g-helpful-content`
 - `ziptie-aio-source-selection`
 - `g-ai-opt-guide`
 - `g-faqpage-sd`
+- `g-ranking-history`
+- `nng-editorial-heuristics`
 
 ## Related Routes
 

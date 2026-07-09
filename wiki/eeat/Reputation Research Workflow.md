@@ -40,6 +40,8 @@ The output is a dated reputation note with searched entity names, sources checke
 | 3 | Search results, reviews, professional profiles, citations, and news | Dated notes with source type and retrieval date | Reputation evidence log | [[Trust Signal Inventory]] |
 | 4 | Negative, disputed, or missing evidence | Context and severity, not selective omission | Risk note | [[YMYL Escalation Matrix]] |
 | 5 | Final editorial decision | Confidence label and limit statement | Handoff summary | [[E-E-A-T Review Rubric]] |
+| 6 | Same-name people, brands, products, or domains | Disambiguating URLs, roles, dates, and locations | Identity match note | [[Author Bio Requirements]] |
+| 7 | Sponsored awards, directories, testimonials, or partner pages | Independence check and relationship label | Reputation limitation | [[Editorial Transparency Checklist]] |
 
 ## Input, Evidence, Action, Owner, And Handoff
 
@@ -52,3 +54,22 @@ Assign research ownership to someone other than the article author when reputati
 3. Separate reputation for the entity from expertise for the individual author.
 4. Date every volatile finding and refresh it before a major rewrite or relaunch.
 5. Avoid ranking or traffic claims unless a different ledger source supports them.
+
+## Reputation Research Scenario
+
+A draft cites "Jordan Lee" as an outside expert for a cybersecurity article. Search results show a same-name keynote speaker, a vendor employee, and an unrelated crypto commentator. The workflow records aliases, profile URLs, employer, topic area, and date checked before the author bio can use reputation evidence. The QRG-backed posture is to avoid treating internal or ambiguous claims as independent authority proof (source_id: g-qrg-full). If the only strong evidence is a company profile, the handoff says reputation is unproven for outside authority and returns the claim to [[Source Quality Ladder]].
+
+## Reputation Review Failure Points
+
+- Paid directory badges look independent until the relationship is checked; label them as limited proof, not neutral reputation (source_id: g-qrg-full).
+- Negative coverage is old but material to the exact advice being given; record date and context instead of suppressing it (source_id: g-qrg-full).
+- A brand is reputable for one product line while the article relies on another; split entity reputation from topic expertise (source_id: g-helpful-content).
+- Search results mix a person with a same-name entity, causing false trust transfer; disambiguation must happen before the bio gate closes (source_id: g-qrg-full).
+- A professional profile confirms employment but not claim-specific expertise; send the unsupported part to the bio gate (source_id: g-qrg-full).
+- A customer testimonial supports satisfaction, not editorial independence; keep it out of authority claims (source_id: g-qrg-full).
+- A recent acquisition changes who owns the publisher; refresh brand reputation before a relaunch audit (source_id: g-helpful-content).
+- A reputation claim depends on a source behind login; record access limits before handing it to reports (source_id: nng-editorial-heuristics).
+
+## Brand Contract Evidence Feed
+
+[[Brand Context Contract]] consumes reputation findings when a proof library claims authority, awards, expert status, or customer trust. Inputs provided are entity scope, independent evidence list, relationship labels, negative-context notes, confidence, and refresh date. The contract expects approved proof points, banned overclaims, and source IDs suitable for future briefs.

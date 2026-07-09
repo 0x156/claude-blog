@@ -18,6 +18,7 @@ source_urls:
   - "https://developers.google.com/webmaster-tools/v1/urlInspection.index/inspect"
   - "https://developers.google.com/speed/docs/insights/v5/get-started"
   - "https://developers.google.com/analytics/devguides/reporting/data/v1"
+  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
 ---
 
 # Generative AI Performance Reporting
@@ -47,6 +48,8 @@ The primary audience is the SEO reviewer writing an audit or monitoring memo. Th
 | Medium | AI feature page URL differs from canonical reporting URL | Normalize through [[Page URL Canonical Data Checks]] before comparing | Technical SEO | Before trend charting | `g-urlinspect`, `g-gsc-api` |
 | Low | Page has engagement but no Search feature export | Treat engagement as post-click behavior, not AI visibility | Content strategist | During brief update | `g-ga4-data` |
 | Low | Performance evidence is requested for the same page | Add PSI as experience context, not as citation evidence | Web performance owner | Next audit pass | `g-psi` |
+| Medium | AI feature rows are mixed with standard Search rows | Keep the two evidence packets separate before trend wording | Analyst | Before report charting | `g-genai-reports`, `g-gsc-api` |
+| High | Export omits the queried AI feature dimension | Block query-level AI claims and disclose the missing column | SEO lead | Before client handoff | `g-genai-reports` |
 
 ## Delivery Procedure
 
@@ -56,9 +59,17 @@ The primary audience is the SEO reviewer writing an audit or monitoring memo. Th
 4. Add a separate caveat when only standard Search Analytics is available.
 5. Route broad AI citation claims to [[AI Citation Mechanics]] and cite this note only for the evidence-handling procedure.
 
+## AI Export Reconciliation Example
+
+An owner supplies a page-level generative AI report but no query column. The report may say that property-level AI feature rows were available for the page under `g-genai-reports`, but it must not name query winners from ordinary Search Analytics under `g-gsc-api`.
+
+If the AI row URL uses a parameterized path, canonical mapping is required before joining with engagement. That join can use `g-urlinspect` for URL evidence and `g-ga4-data` only for post-click behavior.
+
+[[GEO Citation Readiness Register]] consumes the reconciled evidence state. This note provides AI export availability, page URL match, missing dimensions, confidence label, and caveat text; the register expects no citation guarantee.
+
 ## Source IDs
 
-- `g-gsc-api`, `g-urlinspect`, `g-psi`, `g-ga4-data`
+- `g-gsc-api`, `g-urlinspect`, `g-psi`, `g-ga4-data`, `g-genai-reports`
 
 ## Related
 

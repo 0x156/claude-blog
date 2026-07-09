@@ -35,6 +35,8 @@ Escalate before recommending consolidation when a URL has external backlinks, re
 | Preserve unique sourced sections before draft merge | `g-helpful-content` | Experience, examples, dated claims | Unsupported or stale evidence | Source steward refreshes first |
 | Route canonical or redirect notes to technical review | `g-canonical` | Duplicate URLs, syndicated variants, protocol or path variants | Editorial overlap without URL duplication | SEO technical owner |
 | Do not blame an unconfirmed update for overlap | `g-ranking-history` | Consolidation triggered after volatility | Confirmed rollout window matches decline | Monitoring owner checks [[Google Algorithm Update Ledger]] |
+| Keep history separate when it answers a dated event | `g-ranking-history` | Old update recap beside evergreen guide | Recap has no distinct reader job | Monitoring owner plus editor |
+| Retain different proof paths when both help readers | `g-helpful-content` | Case study beside how-to article | One page repeats the same evidence | Source steward plus content lead |
 
 ## Consolidation Review And Reversal
 
@@ -43,6 +45,30 @@ Escalate before recommending consolidation when a URL has external backlinks, re
 3. List claims and examples that would be lost if the weaker URL disappeared.
 4. Name the retained URL, the absorbed sections, and the links that need review.
 5. Define rollback as restoring the separated editorial plan if the merge damages the reader path or measurable query coverage.
+
+## Example Merge Decision
+
+Sample pair: `/blog-refresh-checklist/` and `/content-decay-audit/`.
+Both pages answer the same old-post repair task under `g-helpful-content`.
+GSC page rows show the checklist owns most matching queries via `g-gsc-api`.
+The audit post keeps two sourced examples that the checklist lacks.
+Decision: retain the checklist URL and absorb only those examples.
+Canonical notes go to technical review under `g-canonical`.
+Rollback means separating the examples if query coverage narrows.
+
+## Consolidation-Specific Failure Points
+
+- Merging after one noisy week hides intent differences; compare periods with `g-gsc-api`.
+- A canonical note cannot replace reader-fit review; cite `g-canonical` narrowly.
+- Removing a weaker URL can drop unique evidence; test sections with `g-helpful-content`.
+- Update timing is context only; confirm dates through `g-ranking-history`.
+
+## Cannibalization Matrix Wiring
+
+[[Cannibalization Resolution Matrix]] consumes this note's merge recommendation.
+Inputs provided: URL group, retained owner, absorbed sections, and approval path.
+It expects a row outcome: merge, differentiate, canonicalize, redirect-review, or leave separate.
+Measurement cells use `g-gsc-api`; URL-signal cells use `g-canonical`.
 
 ## Source IDs Used
 

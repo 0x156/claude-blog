@@ -53,3 +53,33 @@ Technical points require reproducible evidence. A screenshot, validation result,
 3. Score each row and identify blockers.
 4. Route schema details to [[Blog Schema Stack]].
 5. Send final technical score to [[Quality Score Rubric]].
+
+## Technical Proof Example
+
+A draft requests BlogPosting and FAQPage markup.
+Visible Q and A content exists, but rich-result support is absent.
+Use `g-intro-sd` for visible-content alignment.
+Use `g-search-gallery` for supported Google features.
+Decision: keep Article or BlogPosting.
+Remove the rich-result promise.
+Canonical proof is missing.
+Mark indexability as a gap with `g-canonical`.
+Mobile copy hides source notes.
+Use `g-mobile-first` before awarding parity points.
+
+## Technical Failure Cases
+
+- Schema describes a hidden offer inside an article.
+- Canonical target is assumed from the CMS slug.
+- Mobile accordions drop source context.
+- Lab performance is reported as field performance.
+- Image captions make claims the article never sources.
+
+## Validation Wiring
+
+[[SEO Check Validation Checklist]] consumes this technical review.
+Inputs supplied: canonical evidence, schema note, mobile parity, media list.
+Expected output: pass, fix, or blocked validation row.
+[[Schema Generation Output Contract]] consumes schema-specific gaps.
+It expects visible fields, warnings, unsupported requests, handoff owner.
+[[Google API Evidence Matrix]] consumes performance evidence state.

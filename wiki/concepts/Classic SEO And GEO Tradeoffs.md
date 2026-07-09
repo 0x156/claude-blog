@@ -46,6 +46,21 @@ The evidence does not support treating GEO as a separate ranking shortcut. Googl
 | Keyword-focused heading vs entity-clear heading | Familiar SERP targeting | Clearer answer attribution | `g-ai-opt-guide` | Choose the heading that best names the reader task |
 | New AI-specific file request | None documented for Google Search | Claimed machine readability | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Reject as a Google visibility tactic |
 | Traffic forecast vs zero-click reality | Click-centered planning | Non-click brand and citation value | `sparktoro-zero-click-2026` | Report clicks and exposure separately |
+| FAQ-style block vs rich-result expectation | Reader scanability and direct answers | Misstated structured-data promise | `g-faqpage-sd`, `g-ai-opt-guide` | Use visible Q and A only when it helps the article |
+| Entity-packed lead vs natural introduction | Reader orientation and trust | Faster entity extraction | `g-helpful-content`, `g-ai-opt-guide` | Keep the intro human, then add a sourced summary |
+
+## Tradeoff Case: Moving The Answer Block
+
+An editor wants the first screen to start with a compressed answer paragraph for AI extraction. The blended decision keeps the contextual opening because `g-helpful-content` prioritizes useful reader experience, then adds a sourced answer block after the premise using `g-ai-opt-guide`. No `llms.txt` task is accepted because `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` rejects it for Google visibility.
+
+[[Blog Write Article Contract]] consumes this arbitration when the draft has an AI citation passage row. It needs the reader benefit, SEO concern, extraction goal, source IDs, and rollback cue; it expects an edit decision of SEO-first, GEO-first, blended, or defer.
+
+## Tradeoff-Specific Failure Modes
+
+- A heading can become entity-clear but worse for the reader if it stops naming the actual task (`g-helpful-content`).
+- A FAQ block may help scanning, but `g-faqpage-sd` prevents presenting it as a current rich-result tactic.
+- A forecast paragraph should not import zero-click context from `sparktoro-zero-click-2026` without separating exposure from visits.
+- A schema or AI-file request should be rejected when it depends on unsupported Google visibility claims (`g-ai-opt-guide`).
 
 ## Arbitration Procedure
 

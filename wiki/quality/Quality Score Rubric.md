@@ -51,3 +51,33 @@ Scores of 90 to 100 are release candidates only when no blocker exists. Scores f
 3. Apply blocker overrides before assigning the final label.
 4. Attach the lowest confidence label from the packet.
 5. Send the final score to [[Delivery Contract Gate]].
+
+## Threshold Application Case
+
+Raw score: content 24, SEO 17, trust 16, technical 9, AI 12.
+Total: 78.
+Normal threshold would require named fixes.
+However, schema promises a retired rich result.
+Check the schema claim with `g-intro-sd`.
+Check AI surface wording with `g-ai-features`.
+Decision: blocked until the promise is removed.
+The score remains useful for prioritizing fixes.
+It cannot override the blocker.
+
+## Rubric-Specific Failure Modes
+
+- A low technical row is hidden inside a high total.
+- The weakest confidence label is omitted from the summary.
+- QRG framing becomes a numeric ranking guarantee.
+- Field and lab performance evidence are blended.
+- AI citation readiness is scored as inclusion probability.
+
+## Score Report Wiring
+
+[[Blog Analyzer Score Report]] consumes this rubric.
+Inputs supplied: category scores, total, threshold, blocker override.
+It expects a release decision and weakest-category explanation.
+[[Full Site Blog Audit Report]] consumes the same model.
+It expects sampled page scores plus inventory-level action priority.
+Use `g-helpful-content` for content deductions.
+Use `wd-vitals` for performance language only.

@@ -44,6 +44,8 @@ Use this note before a third-party study becomes client-facing advice. The outpu
 | Schema tactic discovered in a tool | "Validate against Google's current rich-result inventory before recommending." | "This schema type creates a Google rich result." | Search Gallery support check | `g-search-gallery` |
 | AI citation or passage-format experiment | "Treat as a Google AI Search hypothesis unless official docs support it." | "This format guarantees AI Overview or AI Mode citations." | AI optimization guide | `g-ai-opt-guide` |
 | SERP feature inventory from a third-party platform | "Use as observation input, then verify supported feature status." | "The tool output is Google's source of truth." | Search Gallery or ranking history, depending on claim | `g-search-gallery`; `g-ranking-history` |
+| AIO CTR benchmark from an agency study | "Use as AS-REPORTED market context for risk discussion." | "This predicts the client's CTR after publication." | First-party GSC data when available | `seer-aio-impact-ctr-2026`; `g-gsc-api` |
+| Zero-click market context | "Use as market pressure, not page-level performance proof." | "This page will lose clicks at the market average." | Property data and reader-intent review | `sparktoro-zero-click-2026`; `g-helpful-content` |
 
 ## Claims That Need Extra Friction
 
@@ -57,6 +59,18 @@ Do not let a practitioner source carry a claim about a current Google requiremen
 4. Assign the weakest suitable label in [[Source Confidence Labels]].
 5. Send missing source IDs or unsupported leaps to [[Evidence Gap Register]].
 6. Record release-facing claims in [[Claim To Source Mapping]] before publication.
+
+## Caveat Rewrite For An AIO Benchmark
+
+Before: "AIO citation will raise our CTR by the study amount."
+After: "The study is AS-REPORTED market context for citation risk."
+Use `seer-aio-impact-ctr-2026` only with its practitioner caveat.
+Use `g-ai-opt-guide` for Google Search AI guidance boundaries.
+Failure arrives when benchmark windows become local forecasts.
+Another failure is dropping the cited-in-surface distinction.
+[[GEO Citation Readiness Register]] consumes the caveated benchmark.
+Inputs provided: study ID, allowed wording, blocked wording, and caveat.
+Expected output: advisory register item or rejected claim.
 
 ## Related
 

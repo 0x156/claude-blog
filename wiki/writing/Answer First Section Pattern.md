@@ -35,6 +35,8 @@ The pattern touches intent fit by answering the section question immediately. It
 | Condition or caveat | Known exceptions, locale, product type, date | `g-qrg-full` | Prevents overbroad advice | Caveat stays attached to the answer | Add one qualifier if needed |
 | Source sentence | Ledger IDs and claim status | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Shows why the answer is credible | Source is visible near the claim | Add inline source ID |
 | Expansion paragraph | Example, comparison, data, or process detail | `g-helpful-content` | Adds information beyond consensus | Passage remains self-contained | Move generic context below |
+| Exception marker | Boundary that changes the advice | `g-qrg-full` | Stops the answer from overreaching | Exception remains in the same passage | Keep only material limits |
+| Follow-on cue | Next step or deeper explainer | `g-helpful-content` | Reader knows what to do after answer | Link does not split the claim | Place after proof |
 
 ## Answer First Editing Procedure
 
@@ -44,6 +46,32 @@ The pattern touches intent fit by answering the section question immediately. It
 4. Add one caveat only if it changes the reader's action.
 5. Remove preamble that delays the answer without improving trust.
 6. Send unsupported or contested claims to [[Claim To Source Mapping]] before final scoring.
+
+### Mini Rewrite Example
+
+Before: "Internal links are important for SEO, and every article should add them."
+After: "Add an internal link when it answers the reader's next question;
+do not interrupt a sourced answer block only to meet a link quota."
+The revised answer fits people-first usefulness (`g-helpful-content`) and
+keeps AI-facing work inside visible Search content (`g-ai-opt-guide`).
+If the paragraph discusses trust-sensitive advice, add the exception in the
+same paragraph instead of three sections later (`g-qrg-full`).
+
+### Answer-First Misfires
+
+- The first sentence answers the keyword, not the section question (`g-helpful-content`).
+- A caveat appears after examples, so readers act on the broad version (`g-qrg-full`).
+- The writer adds a source ID beside background, not the challenged claim (`g-ai-opt-guide`).
+- A link breaks the extractable paragraph before the evidence cue appears (`ziptie-aio-source-selection`).
+
+### Deliverable Wiring
+
+[[Blog Write Article Contract]] consumes this note for the intro and major H2
+fields: section question, direct answer, material caveat, source ID, and next link.
+The contract expects drafted sections whose opening paragraphs can be reviewed
+without waiting for later background or hidden AI-only instructions (`g-helpful-content`, `g-ai-opt-guide`).
+[[GEO Citation Readiness Register]] can also consume the final answer passage
+as a register item with entity, source proximity, confidence, and rollback trigger (`ziptie-aio-source-selection`).
 
 ## Source Handling
 

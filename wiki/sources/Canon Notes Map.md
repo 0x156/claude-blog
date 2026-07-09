@@ -48,8 +48,10 @@ Use this map when a brief, audit, or rewrite asks which hub owns the source trai
 |---|---|---|---:|---|---|---|
 | [[E-E-A-T for Blog Content]] | `g-helpful-content` | https://developers.google.com/search/docs/fundamentals/creating-helpful-content | last updated 2025-12-10, retrieved 2026-07-09 | People-first content self-review and E-E-A-T framing for Search-facing blog work. | Does not score a page, promise rankings, or replace human editorial review. | Monthly and before release. |
 | [[Blog Schema Stack]] | `g-intro-sd` | https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data | last updated 2025-12-10, retrieved 2026-07-09 | General structured data concepts, JSON-LD preference, and eligibility framing. | Does not say a specific rich result is available for a blog page. | Before schema changes. |
+| [[Blog Schema Stack]] | `g-search-gallery` | https://developers.google.com/search/docs/appearance/structured-data/search-gallery | last updated 2026-07-01, retrieved 2026-07-08 | Current Google-supported rich-result inventory. | Does not validate every Schema.org property or page implementation. | Before rich-result claims. |
 | [[AI Citation Mechanics]] | `g-ai-opt-guide` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | last updated 2026-06-15, retrieved 2026-07-08 | Google Search AI feature guidance and the absence of special AI-only requirements. | Google Search only. It is not evidence for non-Google assistants. | On Google Search documentation change. |
 | [[llms.txt Caveat Note]] | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | last updated 2026-06-15, retrieved 2026-07-06 | Treat llms.txt as unused by Google Search visibility systems. | Does not forbid maintaining the file for other crawlers or tools. | On AI optimization guide update. |
+| [[Google Algorithm Update Ledger]] | `g-ranking-history` | https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history | last updated 2026-06-24, retrieved 2026-07-09 | Official ranking-update names and rollout states. | Does not explain a site's traffic movement. | Weekly during rollouts. |
 
 ## Source ID, URL, Date, Claim Coverage, And Limitation
 
@@ -62,6 +64,19 @@ When a writer chooses a canon note, carry over the source ID and date from the t
 3. Update this map only when the routing decision changes, not when a downstream prose example changes.
 4. Send missing IDs, date conflicts, or overbroad canon claims to [[Evidence Gap Register]].
 5. Keep Google AI Search claims linked to [[AI Citation Mechanics]] and schema claims linked to [[Blog Schema Stack]].
+
+## Canon Route Worked Case
+
+A brief asks whether a SaaS comparison post needs an AI citation section.
+Route usefulness language to [[E-E-A-T for Blog Content]] through `g-helpful-content`.
+Route Google AI wording to [[AI Citation Mechanics]] through `g-ai-opt-guide`.
+Do not let the brief promise assistant citations from a section format.
+That promise exceeds Google Search guidance and becomes a gap.
+Route collisions are the main failure mode here.
+The shared AI guide URL carries different claim roles for two source IDs.
+[[Content Brief Output Contract]] consumes the selected canon route.
+Inputs provided: canon note, source ID, date, and limitation.
+Expected output: approved evidence pack or an evidence-gap ticket.
 
 ## Related
 

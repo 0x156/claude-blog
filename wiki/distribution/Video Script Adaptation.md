@@ -52,10 +52,24 @@ The adapter may use a cold open, b-roll cue, lower-third source label, visual ex
 | Video metadata | Title, description, canonical URL, source links | `g-video`, [[Canonical Attribution Rules]] | Clear description text | Platform description | SEO approval |
 | AI claim segment | No special Google AI file requirement | `g-ai-opt-guide`, update source ID | Avoid jargon-only phrasing | Script body | Claim corrected or accepted |
 | Measurement row | Published URL, date, channel, metric set | [[Distribution Measurement Plan]] | Captions or transcript noted | Inventory row | Ready for review window |
+| Transcript package | Spoken script, source notes, and corrections | `g-video`, [[Repurposing Source Fidelity]] | Text equivalent exists | Article embed or platform | Producer approval |
+| B-roll or screen capture | Owned clip, licensed clip, or dated screenshot | `g-google-images`, [[Channel Asset Inventory]] | Visual is explained in narration | Cutaway segment | Media approval |
 
 ## Asset Requirements, Provenance, Accessibility, Placement, And Review
 
 Every visual asset needs a source or owner. Every evidence card needs enough context to keep a viewer from treating a practitioner benchmark as a universal result. Captions, transcript, description links, and thumbnail notes should be recorded in [[Channel Asset Inventory]]. If the video is embedded back on the article, the owner should coordinate with [[Images Audio and Charts]] before treating it as a page enhancement.
+
+### Example: Removing An Unsupported AI Setup Line
+
+A script draft says, "add llms.txt so Google AI can cite this page." The adaptation replaces that with a source-card note using `g-ai-opt-guide` and `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, keeps the visual explanation about ordinary source clarity, and puts the canonical article in the description. Thumbnail and screen-capture choices stay under `g-google-images`.
+
+### Video Adaptation Failure Cases
+
+This note fails when the thumbnail promises a result the script never proves, when lower-third source labels are too compressed to preserve dates, or when a screen capture lacks provenance in [[Channel Asset Inventory]]. It also fails when an article embed is treated as complete before transcript, caption, and canonical-link fields are ready.
+
+### Platform Formatting Feed
+
+[[Platform Output Formatting Matrix]] consumes the video package when the asset returns to the article. It needs video URL, transcript state, thumbnail alt text, canonical description link, embed location, and schema concern; it expects a platform handoff check before publication.
 
 ## Video Script Adaptation Fidelity Checks
 

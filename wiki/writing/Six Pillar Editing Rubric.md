@@ -37,6 +37,8 @@ Technical structured data belongs to [[Blog Schema Stack]]. Performance data bel
 | Source proximity | 15 points | Claim, source ID, date, and caveat stay near each other | Current claim has no nearby source | `g-helpful-content`, `g-ai-opt-guide` |
 | AI boundary discipline | Blocker control | AI-facing advice stays within documented Google guidance | Draft recommends llms.txt for Google Search visibility | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` |
 | Reader satisfaction | 10 points | Reviewer can state answer, evidence, and next step | Reader needs another search to complete the task | `g-helpful-content` |
+| Caveat timing | Score cap control | Exceptions appear before the reader acts | Material limitation appears only near the end | `g-qrg-full` |
+| Unsupported current claim | Blocker control | Dated Search or AI claim has a source ID | Claim depends on memory or inference | `g-ai-opt-guide`, `g-helpful-content` |
 
 ## Rubric Review Procedure
 
@@ -46,6 +48,31 @@ Technical structured data belongs to [[Blog Schema Stack]]. Performance data bel
 4. Record the weakest evidence source that affected the score.
 5. Send schema, freshness, or analytics defects to their owner notes.
 6. Re-score only the changed sections unless the article promise moved.
+
+### Rubric Scoring Example
+
+A draft scores well on headings and links but claims that llms.txt improves
+Google AI Mode visibility. The rubric blocks the handoff before averaging.
+That blocker follows the 2026-06-15 Google clarification
+(`g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`).
+If the draft rewrites the claim to visible Search content guidance,
+the editor can re-score only AI boundary discipline and source proximity
+(`g-ai-opt-guide`, `g-helpful-content`).
+
+### Rubric Misuse Patterns
+
+- Editors average a blocker into a passing score (`g-helpful-content`).
+- The information-gain score rewards originality without useful proof (`g-helpful-content`).
+- Experience points are granted for author bio text alone (`g-qrg-full`).
+- AI readiness points reward formatting over sourced visible content (`g-ai-opt-guide`).
+
+### Deliverable Wiring
+
+[[Blog Analyzer Score Report]] consumes this rubric as its writing-quality input:
+criterion score, blocker state, weakest source, fix owner, and retest trigger.
+It expects a reportable deduction for each failing pillar, not a generic grade.
+[[Blog Write Article Contract]] consumes the same result as the delivery-gate
+status before a draft moves to layout or publication review (`g-helpful-content`).
 
 ## Source Handling
 

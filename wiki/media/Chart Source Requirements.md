@@ -31,10 +31,31 @@ This note uses `g-helpful-content` for people-first evidence discipline, `nng-ed
 | `nng-editorial-heuristics` | https://www.nngroup.com/articles/ten-usability-heuristics/ | last updated 2020, verified 2026-07-06 | Review usability adapted as editorial ergonomics | Heuristic source, not SEO evidence | Quarterly or methodology change |
 | `g-ai-opt-guide` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | last updated 2026-06-15, verified 2026-07-08 | Google AI features do not need special AI files or markup | Not chart methodology guidance | Monthly while AI docs move |
 | `schema-full` | https://schema.org/docs/full.html | retrieved 2026-07-09, no page date exposed | Vocabulary route for asset description | Standards vocabulary is not Google eligibility | Monthly ledger check |
+| `g-google-images` | https://developers.google.com/search/docs/appearance/google-images | last updated 2026-03-02, verified 2026-07-09 | Image context for chart files, alt text, and sitemaps | Does not prove the underlying values | Monthly or image-doc change |
+| `g-intro-sd` | https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data | last updated 2025-12-10, verified 2026-07-09 | Visible-content guardrail for structured data | Does not create chart eligibility | Monthly ledger check |
 
 ## Claims This Note Must Not Validate Alone
 
 Do not use this note as proof that a market average applies to a client site. Do not treat an SEO tool chart as a Google ranking fact. Do not infer causality from a before-after chart unless the method supports it. Do not cite a screenshot without query, locale, date, and device. Route broad AI visibility or zero-click context to [[AI Citation Mechanics]] instead of repeating a statistic in every chart note.
+
+## Traffic Drop Chart Packet
+
+A draft chart compares organic sessions before and after a content refresh.
+Before approval, it shows two bars but no export date or filters.
+The packet is blocked because `g-helpful-content` requires reliable sourcing discipline.
+The repaired packet names GA4 property, date range, channel filter, and owner.
+It marks the claim as AS-REPORTED when only one export supports it.
+The caption says "sessions in this property," not "Google traffic recovered."
+If the chart becomes an image, `g-google-images` governs alt and context.
+If schema is requested, `g-intro-sd` requires visible page agreement.
+
+## Chart Source Edge Cases
+
+- A GSC export with thresholded rows cannot prove missing-query volume.
+- A vendor index cannot stand in for a client's first-party trend.
+- A screenshot without query, device, locale, and date stays unusable.
+- A percent-change chart needs the denominator, not only the delta.
+- A refreshed article must recheck old chart retrieval dates.
 
 ## Chart Source Requirements Refresh Procedure
 
@@ -47,3 +68,10 @@ Do not use this note as proof that a market average applies to a client site. Do
 ## Chart Source Requirements Handoff
 
 Pass the chart to design only when the table above is complete for the actual data source, not merely for these operating references. Block charts with orphaned percentages, missing axes, untraceable screenshots, or decorative visuals that make the article look evidenced without carrying evidence.
+
+## Specification Wire
+
+[[Blog Chart Specification]] consumes the approved chart packet.
+It needs source ID, retrieval date, owner, filters, caveat, and claim verdict.
+It returns chart type, accessibility approach, placement, and pass-revise-block status.
+`nng-editorial-heuristics` supports review ergonomics, not SEO proof.

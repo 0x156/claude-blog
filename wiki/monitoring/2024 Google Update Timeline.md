@@ -41,6 +41,8 @@ This spoke records the 2024 Google-owned update sequence that matters for blog a
 | November core event | Record the rollout duration and avoid overfitting daily movement | `g-update-2024-11-11-november-2024-core-update`, `g-status-dashboard` | CONFIRMED | SEO lead | Open a delayed impact review only after the rollout window is complete. |
 | Site reputation clarification | Check third-party hosted content before recommending new partner content | `g-update-2024-11-19-site-reputation-abuse-policy-clarified` | CONFIRMED | Editorial governance owner | Quarantine recommendations involving parasite or hosted third-party sections. |
 | December core and spam sequence | Keep the two December lanes separate | `g-update-2024-12-12-december-2024-core-update`, `g-update-2024-12-19-december-2024-spam-update` | CONFIRMED | Monitoring owner | Tag later impact notes with the exact event, not "December update" alone. |
+| May site-reputation enforcement start | Confirm the enforcement phase before reviewing hosted third-party areas | `g-update-2024-05-05-site-reputation-abuse-enforcement-begins` | CONFIRMED | Governance owner | Inspect coupons, affiliate pages, and partner sections as their own lane. |
+| December spam specificity | Do not blend scaled-content checks into December core recommendations | `g-update-2024-12-19-december-2024-spam-update`, `g-spam-policies` | CONFIRMED | Spam reviewer | Open policy screening only when a page pattern matches spam definitions. |
 
 ## Source IDs, Evidence State, And Confidence Notes
 
@@ -54,6 +56,24 @@ The current-cycle seed IDs `g-update-2026-05-21-may-2026-core-update` and `g-upd
 2. Assign the event to one lane: core quality, spam policy, technical metric, or policy clarification.
 3. Link follow-up work to the matching playbook instead of writing tactical advice in the timeline.
 4. If a later source changes an entry, update this note and [[Google Algorithm Update Ledger]] together inside a dated refresh pass.
+
+## 2024 Timeline Applied Audit Case
+
+A legacy review page lost query coverage between 2024-12-16 and 2025-01-10.
+This timeline first splits the December core source from the spam source.
+Use `g-update-2024-12-12-december-2024-core-update` for quality timing.
+Use `g-update-2024-12-19-december-2024-spam-update` only for policy checks.
+If no scaled-content or redirect pattern appears, the spam route stays closed.
+The handoff then sends only timing context to [[Blog Rewrite Refresh Plan]].
+That deliverable receives event ID, source ID, rollout window, and route.
+It should return a scoped refresh, monitor, merge, or no-action decision.
+
+## 2024-Specific Misreads
+
+- Treating INP as a Google ranking update hides that `g-update-2024-03-05-inp-replaces-fid` is a performance vocabulary change.
+- Calling every partner page site-reputation abuse overreaches `g-update-2024-11-19-site-reputation-abuse-policy-clarified` without page-level governance facts.
+- Using "December update" as a label erases the separate core and spam IDs that this table preserves.
+- Backfilling 2026 spam guidance into 2024 rows makes old impact reviews look more certain than the cited source permits.
 
 ## Related
 

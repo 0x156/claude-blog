@@ -33,6 +33,9 @@ VideoObject Checklist decides whether a blog post can safely describe a visible 
 | Description match | Page copy, video title, transcript | Blocker | Editor | Rewrite metadata to match visible content. |
 | Rich-result claim | Search gallery and video docs | Advisory or blocker | Schema reviewer | Remove unsupported feature promises. |
 | AI citation claim | AI optimization guide and [[AI Citation Mechanics]] | Blocker if presented as guarantee | GEO reviewer | Reframe as ordinary SEO visibility context. |
+| Transcript support | Transcript, captions, or summary text | Major to blocker | Video owner | Add support text or narrow the video role. |
+| Availability state | Player status, access setting, canonical page | Blocker | Technical SEO | Publish visible media or remove VideoObject. |
+| Product-video scope | Product section and merchant context | Advisory or blocker | Product owner | Keep merchant claims out of generic posts. |
 
 ## VideoObject Checklist Handoff Rules
 
@@ -45,6 +48,31 @@ VideoObject Checklist decides whether a blog post can safely describe a visible 
 ## VideoObject Checklist Non-Promises
 
 Passing this checklist does not guarantee a video rich result, AI citation, indexing, or merchant eligibility. Product-video material needs a product-specific source route. Audio-only summaries go to [[Audio Summary Rules]], while ordinary video distribution goes to [[Media Repurposing Matrix]].
+
+## Embedded Demo Review
+
+A tutorial article links to a remote demo video and requests VideoObject markup.
+Before review, the page has no visible player, only a text link.
+`g-video` supports video markup context for visible video pages.
+The fix embeds the player, adds transcript notes, and replaces the thumbnail.
+The JSON-LD then describes the same title and visible description.
+`g-search-gallery` is used only to check supported rich-result claims.
+The reviewer removes "AI citation boost" language under `g-ai-opt-guide`.
+
+## VideoObject Failure Cases
+
+- A thumbnail from last quarter can misrepresent the current demo.
+- Replacing a video at the same URL reopens transcript comparison.
+- Private or expired embeds invalidate the visible-media premise.
+- A generated transcript must match the actual spoken content.
+- Product-video guidance is irrelevant when the page lacks product context.
+
+## Schema Contract Wire
+
+[[Schema Generation Output Contract]] consumes the VideoObject readiness verdict.
+Inputs are player URL, thumbnail, title, description, transcript, and page preview.
+Expected output is schema handoff, warning, or remove-markup instruction.
+`schema-full` supplies vocabulary; `g-video` supplies Search-specific video context.
 
 ## VideoObject Checklist Source IDs
 

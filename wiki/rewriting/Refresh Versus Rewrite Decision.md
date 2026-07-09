@@ -34,6 +34,8 @@ Choose refresh when the core article is sound. Choose rewrite when the page need
 | Two pages cover one answer | Split signals or duplicate URL issue | `g-canonical`; `g-gsc-api` | Consolidate, not rewrite | SEO technical owner | Keep separate if intents prove distinct |
 | Decline near confirmed rollout | Official update timing overlaps | `g-ranking-history` | Review cautiously, avoid causal claim | Monitoring owner | Remove update framing if evidence diverges |
 | Page lacks usefulness and replacement value | Failed prune gate | `g-helpful-content`; [[Pruning Advisory Checklist]] | Prune recommendation for approval | Program owner | Restore if a retained reader job is found |
+| Method article with obsolete screenshots | Promise still matches, examples aged | `g-helpful-content` and source review | Refresh media and examples | Editor | Restore old visual if new one misleads |
+| Guide now attracts buyer-comparison queries | Reader job and structure changed | `g-gsc-api`; [[Intent Drift Audit]] | Rewrite around decision support | Content lead | Revert if comparison intent proves temporary |
 
 ## Decision Procedure
 
@@ -42,6 +44,29 @@ Choose refresh when the core article is sound. Choose rewrite when the page need
 3. Check whether the problem is editorial, source-related, technical, or measurement-related.
 4. Assign one primary action and one fallback action.
 5. Write the rollback cue in the same record as the recommendation.
+
+## Decision Example
+
+Input: a guide has current structure but outdated process screenshots.
+`g-helpful-content` supports preserving a useful reader path.
+No canonical conflict appears in `g-canonical` review.
+`g-gsc-api` shows only one query group weakened.
+Decision: refresh screenshots, example steps, and source claims.
+Fallback: rewrite only if [[Intent Drift Audit]] finds a new job.
+
+## Split-Decision Pitfalls
+
+- A source swap is not a rewrite when the page promise still works.
+- A wrong reader job is not fixable through minor freshness edits.
+- Duplicate URL evidence belongs to consolidation under `g-canonical`.
+- Multiple primary actions create unclear rollback responsibility.
+
+## Rewrite Plan Wiring
+
+[[Blog Rewrite Refresh Plan]] consumes the action class from this note.
+Inputs provided: diagnosis link, selected treatment, fallback action, owner, and rollback cue.
+It expects phase outputs for decay triage, source replacement, answer rebuild, and rollback.
+Performance support uses `g-gsc-api`; value support uses `g-helpful-content`.
 
 ## Decision Source IDs
 

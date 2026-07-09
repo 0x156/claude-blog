@@ -44,6 +44,10 @@ This hub should not become a dump for schema advice, AI citation statistics, con
 | Whether expert review is needed | [[Reviewer And Expert Review Rules]] | g-qrg-full | Review scope must be recorded | Managing editor | Escalate sensitive or technical claims |
 | Whether AI-assisted work adds value | [[AI Assisted Content Accountability]] | g-helpful-content, g-spam-policies | Generic synthesis is not enough | SEO lead | Add human judgment or rewrite |
 | Whether YMYL risk changes the gate | [[YMYL Escalation Matrix]] | g-qrg-full, g-helpful-content | Reader harm risk controls severity | Reviewer | Require stricter evidence and limitations |
+| Whether trust signals are visible | [[Trust Signal Inventory]] | g-qrg-full, nng-editorial-heuristics | Reader-facing proof must be inspectable | Editor | Inventory byline, sources, disclosures, and contact path |
+| Whether outside reputation supports authority | [[Reputation Research Workflow]] | g-qrg-full | Self-description is not independent evidence | Research owner | Collect dated third-party context before citing reputation |
+| Whether disclosure is clear enough | [[Editorial Transparency Checklist]] | g-helpful-content, nng-editorial-heuristics | Hidden conflicts or stale updates reduce trust | Managing editor | Add update, limitation, or relationship note |
+| Whether the topic is adjacent to high stakes | [[YMYL Adjacent Blog Policy]] | g-qrg-full, g-helpful-content | "General tips" label does not lower real risk | Reviewer | Tighten sources and review before drafting |
 
 ## Spoke Jobs And Deliverable Boundaries
 
@@ -52,3 +56,20 @@ Each spoke produces a review artifact, not a publishing mutation. The artifact c
 ## E-E-A-T Evidence And Refresh Rules
 
 Refresh this hub when Google changes helpful-content guidance, the QRG date changes, spam policies change, or claim-ledger verdicts affecting E-E-A-T move from `CONFIRMED` to another state. Keep recommendations plain: evidence can support a quality decision, but this brain does not guarantee rankings, traffic, rich results, or AI citations.
+
+## Hub Routing Example
+
+A planned "best budgeting apps for students" article starts as a product comparison but includes debt-management advice and affiliate links. This hub routes author fit to [[Author Bio Requirements]], app-testing proof to [[Experience Evidence Checklist]], money-risk review to [[YMYL Adjacent Blog Policy]], and disclosure language to [[Editorial Transparency Checklist]]. The recommendation stays advisory because helpful-content and QRG evidence can guide trust review, not guarantee search outcomes (source_ids: g-helpful-content, g-qrg-full). If the draft uses AI to expand app blurbs, [[AI Assisted Content Accountability]] checks added value before the article reaches scoring (source_id: g-spam-policies).
+
+## Hub-Level Drift Risks
+
+- Treating this hub as a ranking-factor checklist overstates what the cited Google and QRG sources can prove (source_ids: g-helpful-content, g-qrg-full).
+- Folding schema, Core Web Vitals, or AI-citation metrics into the trust hub blurs ownership and weakens later audit trails (source_id: nng-editorial-heuristics).
+- Using market AI statistics to justify E-E-A-T edits creates a source mismatch; route those claims to [[AI Citation Mechanics]] instead (source_id: g-ai-opt-guide).
+- Keeping an old QRG interpretation after the local update ledger changes leaves downstream trust scores stale (source_id: g-qrg-full).
+- A trust gap without a named owner cannot become a deliverable fix card; assign ownership at the spoke level (source_id: nng-editorial-heuristics).
+- If the page purpose changes during editing, rerun routing before reusing earlier trust decisions (source_id: g-helpful-content).
+
+## Analyzer Routing Contract
+
+[[Blog Analyzer Score Report]] consumes this hub as the routing map for trust findings. Inputs are page purpose, author and reviewer packet, source IDs, AI-use notes, YMYL flags, and visible trust signals. The report expects spoke assignments, blocker labels, owner names, and the source-backed reason each trust issue affects the advisory score.

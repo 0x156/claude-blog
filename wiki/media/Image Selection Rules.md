@@ -33,6 +33,9 @@ Image Selection Rules chooses whether an image earns space in the article. A goo
 | Schema follows visible media | `schema-full` | ImageObject or related vocabulary | Schema reviewer confirms visible content | No markup when the asset adds no useful detail. |
 | AI-only media files are not a Google requirement | `g-ai-opt-guide` | AI citation and GEO claims | GEO reviewer removes hidden-file rationale | Non-Google systems need separate sources. |
 | Google-Extended is not image-selection proof | `g-common-crawlers` | Robots and training opt-out discussions | Technical reviewer keeps crawler policy separate | Legal or policy review can add a new source. |
+| Screenshot must prove a specific state | `g-google-images`, `g-ai-opt-guide` | Product or workflow articles | Capture date and version are recorded | Use diagram when real state is unavailable. |
+| Diagram must clarify relationships | `g-google-images`, `schema-full` | Concept explainers and process posts | Section owner names the relationship | Remove if prose already explains it clearly. |
+| Photo must not imply unverified endorsement | `g-google-images`, `g-common-crawlers` | People, products, venues, and events | Rights and claim boundary are recorded | Route consent questions outside this vault. |
 
 ## Image Selection Rules Selection Procedure
 
@@ -45,6 +48,31 @@ Image Selection Rules chooses whether an image earns space in the article. A goo
 ## Image Selection Rules QA Notes
 
 For product visuals, require the pictured version, date, and claim boundary. For screenshots, capture the interface state instead of recreating it from memory. For charts, open [[Chart Source Requirements]] before approving composition. For generated assets, open [[Generated Media Disclosure Notes]] before distribution.
+
+## Migration Diagram Choice
+
+A technical blog section explains moving from spreadsheet tracking to a CMS queue.
+Before selection, the requester proposes a stock laptop photo.
+The asset is rejected because it does not answer, compare, or prove anything.
+Under `g-google-images`, the chosen image must support image context and usefulness.
+The replacement is a simple flow diagram with three named states.
+Alt text goes to [[Alt Text Standards]] after the relationship is approved.
+Schema review waits because `schema-full` never proves image usefulness alone.
+
+## Selection Errors Seen In Review
+
+- A stock handshaking image can imply endorsement or partnership.
+- A demo screenshot cannot prove production behavior without context.
+- An AI-generated product shot cannot replace a real product-state source.
+- A crawler-control note cannot settle copyright or licensing questions.
+- A hero image is removed when the section works better without it.
+
+## Image Brief Wire
+
+[[Blog Image Brief And Disclosure Checklist]] consumes the image selection result.
+Inputs are article section, asset job, source basis, rights status, and owner.
+Expected output is approve, revise, reject, or send for disclosure review.
+`g-common-crawlers` only explains Google-Extended, not media rights.
 
 ## Image Selection Rules Source IDs
 

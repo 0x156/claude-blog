@@ -50,6 +50,7 @@ The ladder is about source fit. A high-quality source can still be the wrong sou
 |---:|---|---|---|---|---|
 | 1 | `g-ranking-history` | https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history | Confirmed ranking update names, rollout timing, and official incident history. | Diagnosing client traffic loss or proving update impact. | New dashboard incident or monthly monitoring review. |
 | 2 | `g-search-gallery` | https://developers.google.com/search/docs/appearance/structured-data/search-gallery | Current Google-supported rich result types. | General schema validity or Schema.org vocabulary claims. | Search Gallery last-updated date changes. |
+| 2.5 | `g-faqpage-sd` | https://developers.google.com/search/updates#deprecating-the-faq-rich-result-feature | FAQ rich-result retirement for Google Search. | Reviving FAQPage as a current rich-result tactic. | Search updates change. |
 | 3 | `g-ai-opt-guide` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | Google Search AI feature optimization guidance. | Assistant-wide GEO claims or platform-agnostic citation forecasts. | AI optimization guide changes. |
 | 4 | `g-helpful-content` | https://developers.google.com/search/docs/fundamentals/creating-helpful-content | Helpful, reliable, people-first content review and E-E-A-T framing. | A mechanical ranking checklist or page-level score guarantee. | Helpful content page changes or release review. |
 
@@ -66,6 +67,17 @@ Use a separate structured-data implementation source only after `g-search-galler
 3. For AI Search work, check `g-ai-opt-guide`, then route non-Google claims to [[Evidence Gap Register]] unless another source exists.
 4. For content-quality work, check `g-helpful-content` and keep the recommendation probabilistic.
 5. If the highest-priority source does not cover the claim, lower the confidence label in [[Source Confidence Labels]].
+
+## Ladder Choice Scenario
+
+An audit says old FAQ schema should be restored for visibility.
+Start with `g-search-gallery` to test current rich-result support.
+Then use `g-faqpage-sd` for the retired FAQ feature state.
+Do not downgrade to `g-intro-sd` because the page is easier to quote.
+The common failure is source convenience beating claim fit.
+[[Schema Generation Output Contract]] consumes this ladder decision.
+Inputs provided: selected source family and rejected fallback source.
+Expected output: schema rationale, warning, or blocked request.
 
 ## Related
 

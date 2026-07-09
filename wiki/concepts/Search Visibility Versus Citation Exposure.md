@@ -47,6 +47,21 @@ The evidence mix is intentionally split. `g-ai-features` and `g-ai-opt-guide` ex
 | Click yield | Visits produced by search exposure | `sparktoro-zero-click-2026` | Citation exposure | Performance lead |
 | AI citation exposure | Page or passage used in an AI answer surface | `g-ai-features`, `seer-aio-impact-ctr-2026` | Ranking position | GEO reviewer |
 | Assisted value | Downstream behavior after exposure | `seer-aio-impact-ctr-2026` | Direct organic sessions | Growth owner |
+| Generative AI impressions | Search Console AI Overview or AI Mode reporting | `g-genai-reports` | Organic sessions | Analyst |
+| Tool visibility score | Vendor or rank-tracker estimate | `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | Google's internal ranking data | SEO lead |
+
+## Outcome Split In An Audit Finding
+
+A post gains classic ranking visibility, receives an AIO citation check, and still loses organic visits. The finding should show ranking, citation exposure, and click yield as separate lanes because `g-ai-features` documents participation controls, while `sparktoro-zero-click-2026` explains why exposure may not produce visits.
+
+[[Full Site Blog Audit Report]] consumes this note in its AI citation readiness and priority queue sections. It needs rank evidence, click data, citation evidence, and source IDs; it outputs lane-specific findings with owners.
+
+## Separation Errors To Catch
+
+- A citation screenshot is stale evidence unless the review date and surface are recorded under `g-ai-features`.
+- A rank-tracker score should not be treated as Google internal data after `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice`.
+- A branded-search lift is assisted value, not direct organic click yield, unless analytics confirms the path (`g-ga4-data`).
+- AI surface impressions from `g-genai-reports` should not be merged into classic organic sessions.
 
 ## Measurement Routing Procedure
 

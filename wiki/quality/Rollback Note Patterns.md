@@ -39,6 +39,9 @@ The minimum input set is the proposed change, source IDs, reason for the change,
 | AI-file myth removal | Removed claim, replacement wording, affected passages. | `g-ai-opt-guide`. | Confirmed contradiction. | SEO reviewer | Verify no other page repeats the claim. |
 | Zero-click framing change | Market assumption, affected CTA, measurement gap. | `seer-aio-impact-ctr-2026`; [[AI Citation Mechanics]]. | As-reported context. | Strategy owner | Compare with first-party data when available. |
 | Source-caveat correction | Claim, source ID, confidence label, old wording. | Source from [[Quality Review Evidence Log]]. | Depends on claim label. | Research owner | Reopen if source refresh changes verdict. |
+| Canonical consolidation | URL pair, preferred target, query evidence, link map. | `g-canonical`; `g-gsc-api`. | Confirmed signals, property impact unknown. | SEO lead | Reopen if selected canonical changes. |
+| Schema promise removal | Old rich-result claim, replacement warning, validation note. | `g-search-gallery`; `g-intro-sd`. | Confirmed eligibility boundary. | Technical SEO | Recheck after implementation review. |
+| Performance evidence update | Baseline report, changed template, lab or field source. | `wd-vitals`; `g-psi`. | Measurement-specific. | Data owner | Reopen when field data contradicts lab result. |
 
 ## Trigger, Owner, Confidence, And Reversal Note
 
@@ -51,3 +54,30 @@ Rollback notes should be concrete enough that a different reviewer can reverse t
 3. Write the reversal trigger in one sentence.
 4. Assign a human owner and review date.
 5. Store the note with the delivery packet before implementation.
+
+## Rollback Note Example
+
+Change: remove "required llms.txt" from three passages.
+Source: `g-ai-opt-guide`.
+Confidence: confirmed contradiction.
+Owner: SEO reviewer.
+Trigger: restore review only if Google guidance changes.
+Review date: source refresh due date.
+Output wording: keep normal SEO fundamentals visible.
+Do not monitor ranking movement as the sole trigger.
+
+## Rollback-Specific Failure Modes
+
+- Trigger says "traffic drops" without query or date.
+- Owner is a team name, not an accountable person.
+- Canonical advice lacks pre-change URL evidence.
+- Schema warnings disappear during implementation handoff.
+- Market framing has no first-party comparison plan.
+
+## Plan Consumption
+
+[[Blog Rewrite Refresh Plan]] consumes rollback notes directly.
+Inputs supplied: changed section, source ID, baseline, trigger, owner.
+Expected output: reversal rule in the refresh table.
+[[Full Site Blog Audit Report]] consumes repeated rollback risks.
+It expects action card, due date, and priority.

@@ -43,6 +43,8 @@ Collect the final draft, CMS byline fields, author and reviewer records, source 
 | Commercial relationship | Affiliate, sponsor, or lead-generation interest is visible where relevant | Revenue relationship is hidden near recommendations | g-qrg-full | High | Content lead |
 | AI-assistance context | Workflow note records human review and added value | AI output is used as a substitute for accountability | g-spam-policies, g-helpful-content | High | SEO lead |
 | Corrections and contact | Reader has a practical path to report a problem | No correction or contact route for consequential advice | nng-editorial-heuristics, g-qrg-full | Medium | Site owner |
+| Method note | Material testing, review, or selection method is summarized | Reader cannot tell how recommendations were chosen | g-helpful-content, g-qrg-full | High | Editor |
+| Auto-updated date check | Updated label reflects a meaningful editorial change | CMS date changes without source or review change | g-helpful-content, nng-editorial-heuristics | Medium | Managing editor |
 
 ## Evidence, Severity, Owner, And Fix Status Rules
 
@@ -54,3 +56,20 @@ Assign `high` severity when opacity could change a reader's decision, hide a con
 2. Send author or reviewer credential problems to [[Author Bio Requirements]] or [[Reviewer And Expert Review Rules]].
 3. Send weak citation disclosure to [[Source Quality Ladder]].
 4. Keep the final note advisory and separate visible page edits from background process changes.
+
+## Transparency Repair Example
+
+An affiliate software review says "updated July 2026" and lists a reviewer, but the page does not explain what changed or whether pricing, features, or sponsor relationships were checked. The fix is not a longer disclaimer. Add a dated method note, a relationship disclosure near recommendations, and a reviewer scope sentence that names the sections checked. Helpful-content and QRG sources support making important trust context visible to readers, while NN/g supports clear status and error-prevention cues for later editors (source_ids: g-helpful-content, g-qrg-full, nng-editorial-heuristics).
+
+## Transparency Traps That Need Separate Fixes
+
+- A medical or financial page shows "reviewed by" without date, scope, or exclusions; route the missing substance to [[Reviewer And Expert Review Rules]] (source_id: g-qrg-full).
+- The correction link sits only in the footer while the article gives consequential recommendations; raise severity because the reader cannot recover easily (source_id: nng-editorial-heuristics).
+- A visible AI disclosure names the tool but not the human accountable for final claims; reopen [[AI Assisted Content Accountability]] (source_ids: g-spam-policies, g-helpful-content).
+- An auto-updated timestamp makes stale sources look fresh; compare source dates before accepting the update label (source_id: g-helpful-content).
+- A recommendation CTA contradicts the limitation note; treat the disclosure as failed until both agree (source_id: g-qrg-full).
+- A review note appears in CMS metadata only; readers still need visible context where trust is being asked (source_id: nng-editorial-heuristics).
+
+## Analyzer Transparency Handoff
+
+[[Blog Analyzer Score Report]] consumes this checklist for trust-transparency findings. Inputs are byline fields, update context, disclosure locations, correction path, reviewer scope, and AI-use summary. The report expects each failed row to become a severity-labeled trust finding with owner, page element, source ID, and required visible fix.

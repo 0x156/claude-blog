@@ -48,6 +48,21 @@ The working verdict is mixed: Google product-reach claims are `CONFIRMED` from `
 | Separate AI Mode from AIO | Citation overlap and target query list | `ahrefs-aio-vs-aimode` | Practitioner benchmark, not a Google rule | SEO lead | Build a different citation check when overlap risk matters |
 | Confirm eligibility basics | Crawlability, snippet controls, indexability | `g-ai-features` | Official Google documentation | Technical reviewer | Route blockers to the technical audit before rewriting |
 | Choose reporting language | First-party data availability and market caveat | `sparktoro-zero-click-2026` | Market context until property data exists | Analyst | Avoid presenting AI Mode exposure as expected traffic |
+| Check available AI reporting | GSC generative AI surface data, if the property has it | `g-genai-reports` | Official reporting boundary, partial availability | Analyst | Replace market weighting with property evidence when possible |
+| Keep product news proportional | I/O product update plus page intent | `blog-io2026`, `sparktoro-zero-click-2026` | Product reach and query-share evidence differ | Strategist | Keep the brief from making AI Mode the default priority |
+
+## AI Mode Priority Call In A Brief
+
+A contractor-payroll guide targets comparison and troubleshooting queries. The brief assigns AI Mode a secondary role: `blog-io2026` supports product-surface awareness, but `sparktoro-zero-click-2026` keeps measured query-share language caveated. No property AI report is available, so `g-genai-reports` stays a data-availability check rather than proof.
+
+The resulting [[Content Brief Output Contract]] input is a query set, surface label, and source list. Its expected output is one AI Mode caveat, two self-contained comparison passages, and a watch-only metric row.
+
+## AI Mode Planning Misreads
+
+- Do not treat a Google product launch as client demand without query evidence from `sparktoro-zero-click-2026` or property reporting from `g-genai-reports`.
+- Do not reuse AIO citation checks for AI Mode when overlap evidence remains limited in `ahrefs-aio-vs-aimode`.
+- Do not propose a special AI asset when Google documents standard crawling and preview controls in `g-ai-features`.
+- Do not upgrade AI Mode priority unless the next review changes the query mix or the property gains reported surface data (`g-genai-reports`).
 
 ## Source IDs, Evidence, Owner, Confidence, And Next Action
 

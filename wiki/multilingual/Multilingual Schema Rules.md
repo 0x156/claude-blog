@@ -42,6 +42,9 @@ Approval is required when the localized brand name, author identity, product ent
 | Rich-result assumptions must use supported Google types | `g-search-gallery` | Google Search enhancement claims | Reject unsupported type promises | SEO lead |
 | Breadcrumb URLs must match the localized page hierarchy | `schema-full`, visible URL map | BreadcrumbList | Check URL, label, and hierarchy parity | International SEO |
 | Author and Organization identity must not be invented locally | `schema-full`, `g-intro-sd` | Person and Organization | Confirm entity exists on page | Editorial owner |
+| Language-specific descriptions must mirror page copy | `g-intro-sd`, `schema-full` | Article and BlogPosting | Compare localized summary against visible introduction | Editor |
+| JSON-LD language or URL values must survive serialization | `w3c-jsonld`, `schema-full` | All JSON-LD blocks | Validate escaped characters and locale URLs | Technical SEO |
+| Google feature requests must be supported separately | `g-search-gallery` | Any rich-result enhancement | Warn when vocabulary exists but Google support is absent | SEO lead |
 
 ## Review And Rollback
 
@@ -53,3 +56,32 @@ Approval is required when the localized brand name, author identity, product ent
 ## Evidence Limit
 
 This note can approve consistency and supported-type posture. It cannot promise a rich result or AI citation.
+
+## Schema Repair Example
+
+A Japanese translation ships with a localized visible headline (`g-intro-sd`).
+The JSON-LD still contains the English headline and `mainEntityOfPage` URL from the source article (`g-intro-sd`).
+That fails visible-content alignment even if the JSON parses (`g-intro-sd`, `w3c-jsonld`).
+The repair updates headline, URL, description, and BreadcrumbList labels to match the rendered page (`schema-full`).
+If the team also asks for a special rich-result type, the request waits for supported-type review (`g-search-gallery`).
+
+## Schema-Specific Failure Modes
+
+- A global Organization name should not be translated when the visible brand remains global (`schema-full`).
+- Breadcrumb JSON can localize labels before the actual navigation is updated (`schema-full`).
+- Valid JSON-LD can still describe source-language content after translation (`g-intro-sd`).
+- A locale with weak performance should not receive unsupported markup as a shortcut (`g-search-gallery`).
+
+## Schema Contract Wiring
+
+Consumer: [[Schema Generation Output Contract]].
+
+Inputs provided:
+
+- localized headline, description, author, publisher, breadcrumb labels, URLs, and visible summary.
+- warnings for unsupported Google features, invented entities, and source-language residue.
+
+Outputs expected:
+
+- JSON-LD block that describes the localized page readers can inspect.
+- validation notes that separate syntax errors from visible-content mismatches.

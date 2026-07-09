@@ -38,6 +38,8 @@ This playbook routes confirmed spam updates to policy checks. It is not a conten
 | Back-button hijacking | User navigation manipulation appears in templates or ads | `g-update-2026-06-15-back-button-hijacking-spam-policy-in-effect`, `g-spam-policies` | CONFIRMED policy | Technical owner | Remove deceptive interaction patterns before content refresh work. |
 | Latest spam rollout review | Confirm June 2026 event before opening an incident lane | `g-update-2026-06-24-june-2026-spam-update`, `g-status-dashboard` | CONFIRMED event | Monitoring owner | Start only if policy evidence exists. |
 | Core contrast | Movement aligns with a core update but no spam-policy evidence is visible | `g-ranking-history`, `g-update-2026-05-21-may-2026-core-update` | CONFIRMED different lane | SEO lead | Send quality review to [[Core Update Response Playbook]]. |
+| Automated locale page risk | Translated or transformed pages exist at scale without added value | `g-spam-policies`, `g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content` | CONFIRMED policy, local proof needed | Localization owner | Audit templates and reviewer records before cleanup advice. |
+| Paid or UGC link risk | Sponsored or user links lack proper qualification | `g-spam-policies`, `g-qualify-links` | CONFIRMED policy context | Governance owner | Review link attributes before publishing a spam finding. |
 
 ## Spam Update Response Playbook Operating Procedure
 
@@ -46,6 +48,24 @@ This playbook routes confirmed spam updates to policy checks. It is not a conten
 3. Separate spam cleanup from core-update content review.
 4. Recommend no action when the only signal is date-adjacent ranking movement.
 5. Write a rollback condition for every cleanup recommendation.
+
+## Spam Policy Applied Scenario
+
+A site launched 500 AI-translated city pages with identical examples and no local review.
+The playbook cites `g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content`.
+It checks `g-spam-policies` for scaled-content and automated-transformation language.
+The June 2026 spam rollout ID only supplies timing through `g-update-2026-06-24-june-2026-spam-update`.
+If reviewer records show added local value, the case can downgrade to quality review.
+The consumer is [[Full Site Blog Audit Report]].
+Inputs passed are policy category, page pattern, source IDs, local evidence, and owner.
+The report should output severity, recommended cleanup lane, and rollback condition.
+
+## Spam Response Failure Modes
+
+- A spam update date without policy evidence should not trigger deletion advice.
+- Treating every AI-assisted post as scaled-content abuse ignores the added-value boundary.
+- Site-reputation checks need hosted third-party facts, not just affiliate language.
+- Link qualification from `g-qualify-links` supports governance review, not automatic penalties.
 
 ## Related
 

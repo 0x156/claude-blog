@@ -39,6 +39,8 @@ Reject pages that are technically tagged but not reviewed for local meaning. Als
 | Internal links | [[Cross Locale Internal Linking]] map | Anchors route to useful local or clearly labeled source pages | Major | Editor |
 | Schema parity | Rendered JSON-LD or CMS preview | Structured data names, URLs, and descriptions match page text | Major | Schema reviewer |
 | Source coverage | [[Localized Source Requirements]] register | Local claims have acceptable evidence or are removed | Blocker | Factchecker |
+| Preview metadata | CMS snippet, Open Graph fields, and social card | Source-language title or description no longer appears under `g-helpful-content` | Major | Editor |
+| Refresh trigger | Market-specific claim list and owner | First review date is named before publication under `g-helpful-content` | Major | Managing editor |
 
 ## Handoff Rule
 
@@ -49,3 +51,32 @@ Reject pages that are technically tagged but not reviewed for local meaning. Als
 ## Evidence Position
 
 This gate can approve readiness for publication within the brain. It cannot publish, change CMS state, or guarantee performance outcomes.
+
+## Final Gate Scenario
+
+A French Canadian analytics guide reaches launch with passing language review (`g-helpful-content`).
+The page still fails because JSON-LD keeps an English headline and one pricing claim lacks local evidence (`schema-full`, `g-helpful-content`).
+Hreflang can pass without making those content and schema issues safe (`g-localized`).
+The launch decision stays blocked until the schema mirrors visible text and the local claim is sourced or removed (`schema-full`, `g-helpful-content`).
+After the fix, QA records the first refresh trigger so the market-specific statement is revisited (`g-helpful-content`).
+
+## Launch-Only Failure Cases
+
+- A translation can pass while Open Graph fields still advertise the source-language article (`g-helpful-content`).
+- Schema may name the localized URL but describe the original page's headline or breadcrumb path (`schema-full`).
+- Internal links can pass syntax checks yet route readers to source-market signup flows (`g-helpful-content`).
+- A launch calendar entry without a refresh trigger hides volatile local claims from later review (`g-helpful-content`).
+
+## Runbook Wiring
+
+Consumer: [[Multilingual Publishing Runbook]].
+
+Inputs provided:
+
+- localized URL, source URL, reviewer signoff, hreflang result, schema preview, and source gap list.
+- pass, major issue, or blocker state for each final gate.
+
+Outputs expected:
+
+- approved localized URL list for the runbook discovery handoff.
+- blocker packet that sends failed rows back to the owning multilingual spoke.

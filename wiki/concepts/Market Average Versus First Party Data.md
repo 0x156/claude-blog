@@ -46,6 +46,21 @@ This note decides when public research should be replaced by property evidence. 
 | Market click context | No site data exists or stakeholders need a baseline | `sparktoro-zero-click-2026` | "A market panel suggests planning caution." | Replace once comparable first-party data appears |
 | AIO performance study | Citation or AIO presence is part of the question | `seer-aio-impact-ctr-2026` | "This study observed an association." | Replace with property AIO reporting when available |
 | Official eligibility guidance | The question is about Google support or non-support | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | "Google documents this boundary." | Keep unless Google documentation changes |
+| Generative AI report | The property exposes AI Overview or AI Mode impressions | `g-genai-reports` | "This property has reported AI surface visibility." | Demote broad AI studies to background context |
+| Third-party SEO claim | A vendor score or forecast is offered as proof | `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | "This is external tooling, not Google's internal data." | Never outranks first-party Search Console evidence |
+
+## Replacement Case: Study Context Meets Site Data
+
+A content lead wants to use Seer's AIO association as the forecast baseline. If the property has Search Console AI reporting, `g-genai-reports` moves the decision to property evidence; if it does not, `seer-aio-impact-ctr-2026` remains outside context and must be caveated.
+
+[[Full Site Blog Audit Report]] consumes this note when audit findings compare market assumptions with exports. It needs metric question, property fields, market source IDs, and date range; it expects an evidence-precedence label beside each recommendation.
+
+## Data Precedence Failure Cases
+
+- Sparse property data should not be treated as definitive when the query set is too small for the decision (`g-gsc-api`).
+- A market sample from `sparktoro-zero-click-2026` should not be pasted into a report as the site's own click rate.
+- A vendor dashboard claim must be caveated because Google says third-party tools lack internal ranking data (`g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice`).
+- A property without AI reporting should not invent AI exposure just because `g-genai-reports` describes the reporting rollout.
 
 ## Replacement Procedure
 

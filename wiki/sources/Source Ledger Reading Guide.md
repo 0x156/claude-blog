@@ -51,6 +51,7 @@ Use this note when a writer asks why a source ID is not enough by itself. A sour
 | `last_updated` or `published` | `g-helpful-content` | Whether the source date is current enough for release work. | Copying a date from another page in the same source family. | Record a date gap if fields conflict. |
 | `section` | `g-ranking-history` | Which wiki route should own interpretation. | Using a monitoring source for content-quality or schema advice. | Route to the matching canon note. |
 | `confidence` plus `evidence_tier` | `g-ai-opt-guide` | Source quality, not the full recommendation confidence. | Marking a mixed claim verified because one row is high confidence. | Apply [[Source Confidence Labels]]. |
+| `supports_claims` | `g-faqpage-sd` | The exact wording range the ledger row can support. | Using the title to infer broader policy. | Compare the draft sentence before citing. |
 
 ## Source, Confidence, Owner, Status, And Due Date
 
@@ -60,6 +61,7 @@ Use this note when a writer asks why a source ID is not enough by itself. A sour
 | `g-ai-opt-guide` | GEO steward | Strong for Google Search AI guidance. | Active ledger source. | 2026-08-01 | Google changes AI Search optimization guidance. |
 | `g-search-gallery` | schema steward | Strong for supported rich-result inventory. | Active ledger source. | 2026-08-01 | Supported type list changes. |
 | `g-ranking-history` | monitoring owner | Strong for confirmed ranking event history. | Active ledger source. | 2026-08-01 | New incident appears or redirect target changes. |
+| `g-faqpage-sd` | schema steward | Strong for FAQ rich-result retirement. | Active ledger source. | 2026-08-01 | Search updates restore or revise feature handling. |
 
 ## Source Ledger Reading Guide Review Loop
 
@@ -68,6 +70,16 @@ Use this note when a writer asks why a source ID is not enough by itself. A sour
 3. Compare the draft claim to the narrowest supported claim in the entry.
 4. If the draft is broader, lower the label or split the claim.
 5. If the ledger cannot represent the source cleanly, log the gap instead of smoothing it over.
+
+## Ledger Read: Shared Page, Different Claim
+
+The AI optimization guide appears under more than one source ID.
+Use `g-ai-opt-guide` for Google AI Search guidance.
+Use the llms.txt update ID for that specific clarification.
+The failure is merging both IDs because the URL matches.
+[[Factcheck Claim Register]] consumes the selected ledger row.
+Inputs provided: source ID, supported claim, date, and refresh trigger.
+Expected output: claim row that cites the right ledger handle.
 
 ## Related
 

@@ -25,6 +25,7 @@ source_urls:
   - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
   - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
   - "https://developers.google.com/search/docs/appearance/ai-features"
+  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
 ---
 
 # Distribution and Repurposing
@@ -51,10 +52,26 @@ This hub does not own technical SEO fixes, schema generation, content scoring, v
 | [[Distribution Measurement Plan]] | How reach and action are read | GA4, GSC, citation notes, platform metrics | `g-ai-features`, `sparktoro-zero-click-2026` | Requires property data | Define metric window |
 | [[Owned Audience Loop]] | How readers return without search dependence | Email, subscriber, community, repeat-visit signals | `sparktoro-zero-click-2026`, `blog-io2026` | Advisory context | Choose owned follow-up |
 | [[AI Referral Reporting]] | How AI referrals differ from AI feature impressions | Referral sessions, GSC AI reports, observations | `g-ai-features`, `similarweb-gen-ai-stats-2026` | Separate buckets | Deliver report |
+| [[Social Thread Adaptation]] | Which claim becomes a sequential public thread | Hook, evidence post, method caveat, canonical link | `g-ai-features`, [[AI Citation Mechanics]] | Requires source map | Draft thread plan |
+| [[Email Newsletter Adaptation]] | Which owned-audience promise fits the post | Subscriber segment, source cue, CTA, send date | `sparktoro-zero-click-2026` | Planning context only | Build email row |
+| [[Video Script Adaptation]] | Which visual proof makes the article easier to inspect | Script hook, source cards, thumbnail, transcript state | `g-ai-features` | Needs media review | Send to production |
+| [[Podcast Brief Adaptation]] and [[Community Post Adaptation]] | Which spoken or discussion format carries the idea | Listener job, forum rule, disclosure, show-note path | `g-ai-opt-guide` | Advisory until owner approves | Prepare channel brief |
 
 ## Spoke Jobs And Deliverable Boundaries
 
 Each spoke should produce a narrow deliverable: a source table, rule table, inventory row, measurement plan, channel asset, or report. A channel asset is not ready because it is clever; it is ready when the source owner can trace every reused claim and the measurement owner knows which signal will be reviewed. Market studies support planning posture, while first-party data controls actual performance interpretation.
+
+### Example: Routing One Finished Article
+
+A finished article about Google AI feature guidance should not automatically become every possible asset. The hub can approve a newsletter for owned readers, a social thread for the core caveat, and a community reply where someone asked the same question; it can hold video until visual proof exists. Google AI mechanics stay under `g-ai-features`, while unsupported setup tasks are rejected with `g-ai-opt-guide`.
+
+### Hub-Level Failure Cases
+
+The hub fails when a market-context source is treated as channel ROI, when a channel owner publishes before [[Repurposing Source Fidelity]] signs off, or when AI Mode scale from `blog-io2026` is converted into a site traffic forecast. Another failure is merging email replies, community comments, and AI citations into one "engagement" number.
+
+### Deliverable Boundary
+
+[[Repurposing Asset Matrix]] consumes the hub's routing decision. It needs selected channel lanes, source-fidelity gate, attribution gate, owner, measurement signal, and hold reason; it expects channel rows that can be approved, blocked, or sent back to the appropriate spoke.
 
 ## Distribution and Repurposing Evidence And Refresh Rules
 
@@ -62,4 +79,4 @@ Refresh this hub when Google changes AI feature documentation, when [[2026 Googl
 
 ## Source IDs In Hub Scope
 
-The hub wires `similarweb-gen-ai-stats-2026`, `sparktoro-zero-click-2026`, `blog-io2026`, and `g-ai-features`.
+The hub wires `similarweb-gen-ai-stats-2026`, `sparktoro-zero-click-2026`, `blog-io2026`, `g-ai-features`, and `g-ai-opt-guide`.

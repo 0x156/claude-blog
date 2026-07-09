@@ -30,10 +30,48 @@ Escalate if simplifying a sentence changes the claim, removes a condition, drops
 | Heading scan | H2 and H3 outline | Rename headings by section job | Strategist | A skimmer can predict section value |
 | Sentence load | Dense paragraphs and caveats | Split condition, action, and limit | Editor | No key caveat is buried |
 | Source proximity | Claim and citation distance | Place source cue near the claim | Factchecker | Claim remains verifiable outside the paragraph |
+| Caveat order | Advice appears before risk condition | Move limitation before action | Reviewer | Reader sees constraint before applying advice |
+| Table burden | Matrix has too many abstract columns | Rename columns by decision job | Editor | Table can be used without explanation |
+| CTA clarity | Next step is vague or overstrong | Match CTA to reader stage | Strategist | CTA states one safe action |
 
 ### Check, Evidence, Fix, Owner, And Exit Signal
 
 The reviewer should mark pass, revise, or block for each check. A draft can pass readability while still failing evidence; in that case [[Research Pack Index]] owns the blocker.
+
+## Intro Repair Example
+
+Before: "In today's AI era, brands must optimize every article for citations, ranking, and conversions."
+
+Problems: the sentence overstates certainty, hides the task, and mixes unsupported outcomes.
+
+After: "Start by making the article's main answer easy to find, then check whether claims sit near their source IDs."
+
+The after version follows `g-helpful-content` by centering reader usefulness and avoids the AI guarantee blocked by `g-ai-opt-guide`.
+
+If the article covers money, health, safety, or civic advice, the caveat appears before the action under `g-qrg-full`.
+
+The editor records the fix as readability because no new evidence is needed.
+
+If the source ID is missing, the row transfers to [[Factcheck Claim Register]] instead.
+
+## Readability Failure Modes
+
+- Simplification removes the condition that made a recommendation accurate.
+- Headings become catchy but stop naming the reader's task.
+- A table uses internal team labels that readers cannot recognize.
+- A caveat moves after the CTA and becomes invisible during scanning.
+- Source IDs collect at section ends, leaving individual claims hard to verify.
+- A short sentence keeps a forbidden promise because only length was reviewed.
+
+## Report Wiring
+
+Primary consumer: [[Blog Analyzer Score Report]].
+
+Inputs supplied: pass/revise/block mark, affected sentence or section, fix owner, and source-proximity issue.
+
+Output expected back: content-quality deduction, severity, due date, and retest trigger.
+
+Draft consumer: [[Blog Write Article Contract]] uses the approved readability fixes before final delivery gating.
 
 ## Readability Review Regression Check
 

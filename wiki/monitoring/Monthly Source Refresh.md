@@ -39,6 +39,9 @@ This note cannot validate ranking impact, traffic impact, AI citation rate, or a
 | `g-spam-policies` | Spam-policy definitions | 2026-07-06 | Scaled content, cloaking, redirects, abuse categories | Needs page-level evidence before action | Monthly and after spam updates |
 | `g-update-2026-05-21-may-2026-core-update` | Current core-event smoke test | 2026-07-09 | Confirms the refresh sees the latest 2026 core route | Does not validate page impact | Monthly with dashboard check |
 | `g-update-2026-06-24-june-2026-spam-update` | Current spam-event smoke test | 2026-07-06 | Confirms the refresh sees the latest spam route | Does not prove local spam risk | Monthly with dashboard check |
+| `g-genai-reports` | Generative-AI reporting source | 2026-07-08 | AI Overview and AI Mode reporting availability | Property access can differ from documentation | Monthly and before GEO reports |
+| `g-search-docs-updates-2026-07-07-product-structured-data` | Product-schema changelog check | 2026-07-09 | Product.category and sale-duration guidance | Product context is required before blog schema use | Before schema deliverables |
+| `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | Vendor-claim boundary | 2026-07-06 | Third-party SEO tool limitations | Does not replace first-party property evidence | Monthly and before audit claims |
 
 ## Monthly Source Refresh Refresh Procedure
 
@@ -51,6 +54,24 @@ This note cannot validate ranking impact, traffic impact, AI citation rate, or a
 ## Refresh Output Format
 
 Each refresh should produce a short entry with source ID, check date, changed or unchanged status, affected notes, owner, and next due date. If the source is a living document, include a limitation line even when no visible change is found.
+
+## Refresh Packet Example
+
+For the 2026-08 refresh, the operator checks `g-ai-opt-guide`, `g-search-gallery`, and `g-qrg-full`.
+`g-ai-opt-guide` still blocks special Google AI file claims.
+`g-search-gallery` still controls supported rich-result eligibility.
+`g-qrg-full` still supplies quality-review context, not direct ranking-system proof.
+The packet names affected notes and marks no-change where the source text is stable.
+The downstream deliverable is [[Factcheck Claim Register]].
+It receives source ID, checked date, claim wording, limitation, and next review date.
+It should output verified, stale, blocked, or pending for each delivery claim.
+
+## Refresh-Specific Pitfalls
+
+- A living document can be unchanged today and still require a due date.
+- A fresh retrieval date does not make a weak claim stronger than its source.
+- Market research flagged here still needs claim-ledger verdicts before use.
+- Updating a source row without routing affected notes leaves stale guidance hidden.
 
 ## Related
 

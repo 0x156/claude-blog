@@ -38,6 +38,9 @@ Do not call a page "future proof." Do not present the SparkToro panel as a forec
 | AI Search caveat | Draft AI claims and factcheck register | `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | High if overclaim appears | Remove tool-certainty or guarantee language | Ready after correction |
 | Market context | Distribution or visibility assumption | `sparktoro-zero-click-2026`, `seer-aio-impact-ctr-2026` | Medium | Treat as planning pressure, not traffic math | Advisory |
 | Open evidence gap | Missing source IDs or dates | [[FLOW Source Intake]] | High if claim is current | Block claim until sourced | Blocked |
+| Schema retirement finding | Factcheck correction and schema note | `g-faqpage-sd` | High if recommendation is current | Remove FAQ rich-result promise | Ready after schema owner accepts |
+| Rollback-sensitive rewrite | Accepted queue row and baseline note | [[FLOW Rollback Notes]] | High when live content changes | Attach trigger and review date | Ready for owner decision |
+| First-party evidence caveat | GSC or GA4 export summary | `g-gsc-api`, `g-ga4-data` | Medium | State scope and missing-data limits | Advisory or ready |
 
 ## Severity, Evidence, Recommendation, Owner, And Due Date
 
@@ -49,3 +52,36 @@ Each finding has one severity label, one evidence lane, one owner, and one due d
 2. Convert each item into a finding with evidence, confidence, owner, and next action.
 3. Put advisory market context in a separate section so it cannot be confused with property data.
 4. Send rollback-sensitive items to [[FLOW Rollback Notes]] before anyone implements them.
+
+## Example: Turning Checks Into Findings
+
+Inputs: a review memo flags thin answer depth, factcheck blocks FAQ rich-result
+language, and the approval queue accepts an AI-file correction.
+
+The report creates three findings: usefulness improvement citing
+`g-helpful-content`, schema correction citing `g-faqpage-sd`, and AI guidance
+correction citing `g-ai-opt-guide`.
+
+The market appendix links to [[AI Citation Mechanics]] instead of repeating a
+click-stat block.
+
+The owner receives one decision table with status, confidence, due date, and
+rollback trigger for live-content changes.
+
+## Report-Specific Overclaims
+
+- A quality score is presented as a ranking score.
+- A market study is written as a traffic forecast for the client.
+- Missing technical data is treated as a pass because no issue was observed.
+- A blocked claim remains in the summary because it sounds persuasive.
+
+## Consumed By Score Reports
+
+[[Blog Analyzer Score Report]] consumes report-ready findings, severity,
+evidence source, owner, due date, and delivery status.
+
+[[Full Site Blog Audit Report]] consumes the same fields at inventory scale and
+expects page-level evidence where a page-level recommendation appears.
+
+The output expected from both deliverables is a decision-ready summary with
+advisory items separated from confirmed corrections.

@@ -33,6 +33,9 @@ Image Sitemap Notes records when media discovery needs sitemap support and how t
 | Chart image | Carries a sourced comparison | Canonical page hosts data explanation | Caption gives source date | Schema does not replace dataset citation | Add only after chart approval. |
 | Embedded video | Discovery may need video metadata | Page contains visible playable video | Captions or transcript reviewed | [[VideoObject Checklist]] required | Consider video sitemap. |
 | Product video | Product media may affect merchant context | Product page or product section is canonical | Thumbnail and description match | Product-video update applies only in scope | Route to product owner. |
+| CDN transformed image | Original has resized derivatives | Canonical page owns the original file | Alt attached to canonical asset | Markup uses stable original URL | Include original, not every derivative. |
+| Lazy-loaded screenshot | Important asset may be hidden from static scan | Article explains the screenshot | Alt and caption complete | Structured data only if visible | Test rendered HTML before adding. |
+| OG-only preview | Social preview does not teach the article | Preview points back to canonical URL | Alt not relevant to page reading | No ImageObject unless visible | Exclude from image sitemap. |
 
 ## Image Sitemap Notes Review Procedure
 
@@ -45,6 +48,31 @@ Image Sitemap Notes records when media discovery needs sitemap support and how t
 ## Image Sitemap Notes Boundary Rules
 
 Do not use sitemap inclusion to fix weak content, missing captions, or inaccessible visuals. Do not use product-video source material for an ordinary blog image unless the page is actually product or merchant oriented. When the asset is a repurposed variant, [[Media Repurposing Matrix]] must preserve the canonical link target.
+
+## Original Diagram Sitemap Call
+
+A pillar article includes one proprietary workflow diagram and six UI icons.
+Before review, the request adds every media URL to the sitemap.
+The icons are decorative and do not merit discovery support under `g-google-images`.
+The diagram stays because the article explains it and uses a stable URL.
+The canonical page receives the caption, alt text, and source note.
+Derivative CDN sizes are excluded to avoid duplicate asset rows.
+If a related video appears, `g-video` moves it to the video review path.
+
+## Sitemap-Specific Misfires
+
+- Staging image URLs must not enter a production discovery list.
+- A canonical mismatch can send image context to the wrong article.
+- A product feed video cannot justify generic blog sitemap inclusion.
+- Cropped thumbnails should not replace the original explanatory image.
+- Rights-blocked files stay out even when technically reachable.
+
+## SEO Validation Wire
+
+[[SEO Check Validation Checklist]] consumes sitemap-ready media notes.
+Inputs are canonical page, stable file URL, asset job, and accessibility state.
+Expected output is pass, fix, or blocked for image handling.
+`g-intro-sd` applies when structured data describes the same visible asset.
 
 ## Image Sitemap Notes Source IDs
 

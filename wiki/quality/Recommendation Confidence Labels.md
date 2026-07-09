@@ -39,6 +39,9 @@ Inputs are the claim text, source IDs, source type, retrieval date, evidence tie
 | Advisory | Useful evidence with limits or missing property data. | `seer-aio-impact-ctr-2026` when used for AIO context. | Source informs decision but does not prove outcome. | Strategy owner | Add caveat and measurement plan. |
 | Blocked | Source contradicts the recommendation. | `g-ai-opt-guide` for required special-file claims, or `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` for vendor certainty. | Recommendation cannot ship. | SEO reviewer | Rewrite or remove. |
 | Unknown | No adequate ledger source or property evidence. | None until logged. | Evidence gap remains open. | Assigned reviewer | Move to [[Quality Review Evidence Log]]. |
+| As-reported | Dated practitioner finding with visible limitation. | `sparktoro-zero-click-2026`; `semrush-ai-mode-comparison`. | Source describes a market sample only. | Analyst | Keep caveat near the claim. |
+| Single-source | One useful source without corroboration. | `ziptie-aio-source-selection` for passage-shape advice. | Directional, not policy. | GEO reviewer | Seek corroboration or label advisory. |
+| Contested | Credible sources or property data disagree. | Source IDs vary by claim. | Decision needs owner judgment. | Research lead | Record competing evidence before shipping. |
 
 ## Source IDs, Evidence, Owner, Confidence, And Next Action
 
@@ -51,3 +54,30 @@ The label belongs beside the recommendation, not at the bottom of the packet. Do
 3. Apply the strictest valid label.
 4. Add owner, refresh date, and next action.
 5. Send blocked items to [[Quality Gate Failure Modes]].
+
+## Labeling Example
+
+Claim: "AI Mode citation optimization requires special Markdown."
+Source match: `g-ai-opt-guide`.
+Label: blocked.
+Replacement: "Keep content crawlable, helpful, and source clear."
+If using practitioner passage advice,
+label that part single-source with `ziptie-aio-source-selection`.
+If using market journey context,
+label it as-reported with `sparktoro-zero-click-2026`.
+
+## Label Assignment Traps
+
+- Confirmed source status is used for a broader claim.
+- Vendor certainty appears beside a medium-confidence study.
+- First-party absence is hidden under advisory wording.
+- Contested evidence is collapsed into "mixed signals."
+- Unknown recommendations ship without owner or deadline.
+
+## Deliverable Consumers
+
+[[Delivery Contract Gate]] consumes the final confidence label.
+Inputs provided: claim text, source ID, evidence tier, limitation.
+Expected output: ready, revise, blocked, or monitor state.
+[[Google API Evidence Matrix]] consumes property-data caveats.
+It expects credential tier, accepted evidence, and decision boundary.

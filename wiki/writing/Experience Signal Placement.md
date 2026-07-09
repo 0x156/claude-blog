@@ -36,6 +36,8 @@ Do not turn an anecdote into a universal rule. Do not imply that a case example 
 | Expert caveat | Claim-bearing section | Reviewer note or field constraint | `g-qrg-full` | Trust-sensitive review | Escalate if YMYL-adjacent |
 | Extractable example | Under the exact question heading | Entity, answer, source, caveat | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Official boundary plus practitioner guidance | Shape as a self-contained paragraph |
 | Failed attempt | Troubleshooting or limitations section | What was tried and why it failed | `g-helpful-content` | Reader usefulness depends on clarity | Keep if it changes action |
+| Reviewer proof | Near the claim requiring expertise | Reviewer name, role, and reviewed scope | `g-qrg-full` | Trust lens for sensitive advice | Add only when review happened |
+| Tool output caveat | Beside screenshots or generated drafts | Tool, prompt purpose, and human check | `g-helpful-content`, `g-ai-opt-guide` | Visible content accountability | Remove hidden AI-only framing |
 
 ## Experience Signal Editing Procedure
 
@@ -45,6 +47,31 @@ Do not turn an anecdote into a universal rule. Do not imply that a case example 
 4. Remove anecdotes that do not alter understanding, trust, or action.
 5. Add caveats when the example is narrow, dated, or sample-specific.
 6. Send trust gaps to [[E-E-A-T for Blog Content]] before final scoring.
+
+### Placement Example
+
+Weak placement: a case screenshot appears in the intro before the reader knows
+which decision it proves. Strong placement: the screenshot sits under the
+step where the reader chooses between rewriting and leaving a section intact.
+The stronger version gives first-hand evidence a useful job (`g-helpful-content`)
+and prevents a narrow example from becoming a universal claim (`g-qrg-full`).
+If the example is shaped for AI extraction, keep it visible in the article
+instead of storing it as hidden metadata (`g-ai-opt-guide`).
+
+### Experience Placement Risks
+
+- A testimonial replaces the method that would let readers verify the advice (`g-helpful-content`).
+- A case example is placed after the recommendation it should constrain (`g-qrg-full`).
+- An anonymized client detail still exposes enough context to identify the account (`g-qrg-full`).
+- A generated screenshot is presented as observed production evidence (`g-ai-opt-guide`).
+
+### Deliverable Wiring
+
+[[Blog Write Article Contract]] consumes this note for author or reviewer notes,
+tested examples, failed attempts, screenshots, and caveats tied to decisions.
+It expects visible proof that improves the draft rather than decorative authority.
+[[Blog Analyzer Score Report]] consumes missing or misplaced experience
+as E-E-A-T and content-usefulness deductions (`g-helpful-content`, `g-qrg-full`).
 
 ## Source Handling
 

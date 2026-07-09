@@ -52,10 +52,24 @@ The adapter may change the opener into a direct answer, turn a section into a ch
 | AI feature wording | No invented Google AI setup requirement | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Confirmed by SEO reviewer | SEO owner | Remove unsupported task language |
 | Spam boundary | Avoid scaled, repetitive, or deceptive reposting | `g-spam-policies` | Advisory for owned web surfaces | Distribution lead | Limit repeats and note context |
 | Link outcome | Canonical URL, no URL, or source-only reference | `g-qualify-links`, [[Canonical Attribution Rules]] | Channel-dependent | Community owner | Choose compliant attribution |
+| Affiliation disclosure | Plain relationship to the post or brand | `g-qualify-links` | Open until visible in copy | Community owner | Add short disclosure sentence |
+| Moderator revision | Required edit, removal reason, or warning | Community rules, `g-spam-policies` | Pending until logged | Distribution lead | Update inventory status |
 
 ## Disclosure, Context, And Non-Promotional Utility
 
 A community adaptation should be able to stand alone if the link is removed. The first paragraph answers the thread, the middle explains what evidence changes the answer, and the final sentence offers the canonical post as optional detail. If the community bans links, record that in [[Channel Asset Inventory]] and avoid workaround behavior. The reviewer should flag posts that read like ads, bulk distribution, or thin rewrites.
+
+### Example: Replying To An AI Setup Question
+
+In a marketing community, a member asks whether a blog needs an llms.txt file for Google AI features. The adapted reply answers the question first, cites `g-ai-opt-guide` and `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, then offers the canonical article only as optional background. The post does not paste the whole article or imply that the community link will create AI visibility.
+
+### Community-Specific Failure Modes
+
+The adaptation fails when disclosure appears only in a profile bio, when the same answer is dropped into multiple communities without the local question, or when a rule against links is bypassed with obfuscated URLs. It also fails when `sparktoro-zero-click-2026` is used to predict community referral volume instead of context inside [[Zero Click Planning Baseline]].
+
+### Matrix Row Produced
+
+[[Repurposing Asset Matrix]] consumes the community asset as a discussion or reply row. It needs community rule excerpt, exact question, disclosure wording, reused claim list, canonical-link decision, and moderation status; it expects approved, blocked, or revise before posting.
 
 ## Community Post Adaptation Fidelity Checks
 

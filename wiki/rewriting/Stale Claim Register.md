@@ -33,6 +33,8 @@ Performance diagnosis belongs to [[Historical Performance Review]], source repla
 | Google update timing claim | `g-ranking-history` | High for official event dates | Monitoring owner | Keep with date | 2026-08-01 | Source history changes or event is removed |
 | Duplicate URL ownership claim | `g-canonical` | High for canonical guidance, advisory for site case | SEO technical owner | Route to consolidation | 2026-08-01 | Better canonical owner is identified |
 | Claim retained after rewrite | Source varies by claim | Match weakest source | Source steward | Keep, update, remove, or caveat | Set per source refresh due date | New source contradicts retained wording |
+| FAQ rich-result availability claim | `g-faqpage-sd` | High for Google rich-result status | Schema reviewer | Remove or caveat | 2026-08-09 | Google Search gallery changes |
+| llms.txt visibility claim | `g-ai-opt-guide` | High for Google AI guidance | GEO owner | Remove unsupported wording | 2026-08-09 | Google AI guidance changes |
 
 ## Review Loop
 
@@ -41,9 +43,31 @@ Performance diagnosis belongs to [[Historical Performance Review]], source repla
 3. Assign the verdict before drafting replacement language.
 4. Close the row only after [[Rewrite QA Checklist]] confirms the source ID appears beside the updated claim.
 
+## Register Entry Example
+
+Draft claim: FAQPage markup will earn FAQ rich results.
+`g-faqpage-sd` marks that wording stale for current Google Search use.
+Verdict: confirmed source contradicts the draft claim.
+Action: remove the promise and route visible Q and A elsewhere.
+QA closes the row only when the edited sentence cites the replacement source.
+
+## Claim Aging Traps
+
+- A source can be current while the copied claim is outdated.
+- A broad Google guide does not prove every operational sentence.
+- Deleting a citation without deleting the claim leaves hidden risk.
+- GSC evidence from `g-gsc-api` proves fields, not editorial meaning.
+
+## Factcheck Register Wiring
+
+[[Factcheck Claim Register]] consumes rows that affect deliverable claims.
+Inputs provided: exact claim, source ID, verdict, owner, and review date.
+It expects claim status: verified, stale, pending, blocked, or removed.
+AI guidance rows use `g-ai-opt-guide`; rich-result rows use `g-faqpage-sd`.
+
 ## Register Source IDs
 
-`g-helpful-content`; `g-gsc-api`; `g-ranking-history`; `g-canonical`.
+`g-helpful-content`; `g-gsc-api`; `g-ranking-history`; `g-canonical`; `g-faqpage-sd`; `g-ai-opt-guide`.
 
 ## Related
 

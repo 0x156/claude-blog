@@ -32,6 +32,9 @@ Schema entity graph decisions belong to [[Blog Schema Stack]]. If the passage la
 | Source entity | Study publisher, date, and sample caveat are near the claim | `sparktoro-zero-click-2026`, `seer-aio-impact-ctr-2026` | AS-REPORTED market sources | Researcher | Add source name and limitation |
 | Assistant divergence | Non-Google citation claim is not treated as Google proof | `seoclarity-chatgpt` | Practitioner observation | GEO reviewer | Split surface language |
 | Passage self-containment | Block can be understood without title, intro, or previous section | `ziptie-aio-source-selection` | Advisory extraction pattern | Content lead | Rewrite block before scoring |
+| Comparison set | Every named alternative appears inside the answer block | `ziptie-aio-source-selection` | Advisory extraction pattern | Editor | Replace "other tools" with named options |
+| Locale qualifier | Country, language, or market scope appears near the recommendation | `g-ai-features`, `sparktoro-zero-click-2026` | Official context plus market-source caveat | Strategist | Add locale or remove overbroad wording |
+| Author or source identity | Publisher, study owner, or expert name is not ambiguous | `g-helpful-content`, `g-qrg-full` | Official quality guidance context | Researcher | Clarify who said what before handoff |
 
 ## Entity Clarity Rewrite Procedure
 
@@ -39,6 +42,37 @@ Schema entity graph decisions belong to [[Blog Schema Stack]]. If the passage la
 2. Replace unclear references with the exact entity name once per paragraph.
 3. Add date, geography, and source owner beside any market statistic.
 4. Read the block alone and remove any claim that cannot be interpreted without the article context.
+
+## Rewrite Scenario
+
+Before review, a paragraph says, "It works best for smaller teams and has better setup." That sentence loses the product entity, comparison set, and decision context when extracted.
+
+After review, it says, "Acme CRM fits solo clinics that need appointment reminders before migration workflows, while Orbit CRM fits teams comparing multi-location permissions." The sentence names the entities and comparison basis; any external claim about market behavior still needs its source ID.
+
+If the passage cites AI citation studies, the source owner and limitation move into the block. `seer-aio-impact-ctr-2026` and `sparktoro-zero-click-2026` can support market context only when the date, method caveat, and non-causal language remain visible.
+
+## Entity Failure Cases
+
+- The H1 names the product, but the extracted paragraph starts with "it" and loses the subject.
+- An acronym means two things in the same niche, so `g-helpful-content` reader clarity is not met.
+- The source entity and topic entity share a brand name, making the claim owner unclear.
+- A locale-sensitive claim omits country or language, even though the source context is not universal.
+
+## Brief Contract Wiring
+
+[[Content Brief Output Contract]] consumes this note when a brief names required entities for answer-first sections. It needs approved entity names, comparison sets, locale qualifiers, source owners, and terms the writer must avoid.
+
+The brief expects a compact entity instruction: exact noun phrases to use, aliases to avoid, and the claim slots where source identity must stay beside the statistic.
+
+## Entity Inventory Fields
+
+List the primary entity exactly as it should appear in the extracted sentence.
+
+List ambiguous aliases and acronyms before using `g-helpful-content` as the clarity guardrail.
+
+List source owners separately from topic entities when `seer-aio-impact-ctr-2026` or `sparktoro-zero-click-2026` is cited.
+
+List locale qualifiers when market context is narrower than the page audience.
 
 ## Entity Clarity Handoff
 

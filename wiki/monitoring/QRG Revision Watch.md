@@ -37,6 +37,8 @@ The watch decides whether a QRG revision changes internal review questions. `g-u
 | September 2025 AI Overview examples | Map examples to answer quality and YMYL sensitivity | `g-update-2025-09-11-qrg-update-sept-2025` | CONFIRMED | Quality reviewer | Update AI-answer review prompts without promising ranking effect. |
 | Non-QRG event boundary | Dashboard core or spam updates appear with no QRG file change | `g-ranking-history`, `g-status-dashboard`, `g-update-2026-05-21-may-2026-core-update`, `g-update-2026-06-24-june-2026-spam-update` | CONFIRMED different lane | Monitoring owner | Leave QRG checks unchanged and route event work elsewhere. |
 | No newer QRG as of this check | Confirm source-ledger status on 2026-07-09 | `g-qrg-full` | CONFIRMED current local state | Monitoring owner | Recheck next month and before release packaging. |
+| YMYL-adjacent brief flag | Check whether the topic needs heightened trust review | `g-qrg-full`, `g-update-2025-09-11-qrg-update-sept-2025` | CONFIRMED for guideline text | E-E-A-T reviewer | Route sensitive topics to trust scoring. |
+| Generated-content guard | Page uses AI, paraphrasing, or copied main content patterns | `g-update-2025-01-23-qrg-update-jan-2025` | CONFIRMED quality context | Reviewer | Require originality and source evidence before pass. |
 
 ## QRG Quality Mapping
 
@@ -48,6 +50,24 @@ Use QRG revisions to adjust review questions, not to force a content formula. A 
 2. Identify the changed sections and translate them into reviewer questions.
 3. Update only the affected quality checks, leaving ranking-impact analysis to [[Update Impact Review]].
 4. If the source is unchanged, write a dated no-change note for the refresh log.
+
+## QRG Review Example
+
+A draft about medical insurance cites AI-generated summaries without author review.
+The watch uses `g-qrg-full` for the quality-evaluator source.
+It uses `g-update-2025-09-11-qrg-update-sept-2025` for YMYL-adjacent framing.
+It uses `g-update-2025-01-23-qrg-update-jan-2025` when copied or filler main content appears.
+The recommendation is a trust review, not a ranking-causation claim.
+The consumer is [[Blog Analyzer Score Report]].
+Inputs passed are affected topic, QRG source IDs, trust concern, caveat, and owner.
+The report should output score impact, evidence row, blocker status, and retest trigger.
+
+## QRG Watch Failure Modes
+
+- The 36-page overview `g-qrg` cannot carry detailed section claims without `g-qrg-full`.
+- A QRG revision does not prove a core-update impact in [[Update Impact Review]].
+- AI Overview examples do not guarantee AI citation inclusion.
+- Treating author bio additions as automatic trust repair overstates `g-qrg-full`.
 
 ## Related
 

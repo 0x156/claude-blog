@@ -33,6 +33,9 @@ The media source set is intentionally narrow. `g-google-images` supports high-qu
 | Comparison chart | Unit definition and denominator | Caption names units and source date | Next to the decision it supports | Revise when measures mix incompatible bases. |
 | Video thumbnail with numbers | Video frame source and transcript alignment | Thumbnail text also appears in page copy | Only beside visible video | Use `g-video` before VideoObject review. |
 | Product media chart | Product data source and product-page context | Labels readable on mobile | Product or merchant content only | Apply merchant video update source only when in scope. |
+| Stacked share chart | Category definitions and total denominator | Pattern or label beyond color | Beside segmentation caveat | Block when the total changes silently. |
+| Before-after annotation | Event source and unaffected comparison window | Annotation readable without hover | Near the causal language | Revise unless causality is stated cautiously. |
+| Interactive chart export | Static fallback table and source packet | Keyboard-independent summary | After plain-language takeaway | Block if fallback loses key values. |
 
 ## Data Visualization Review Scale Audit
 
@@ -45,6 +48,31 @@ The media source set is intentionally narrow. `g-google-images` supports high-qu
 ## Data Visualization Review Failure Triggers
 
 Fail the asset when it uses cropped axes without disclosure, compares raw counts to percentages, hides sample size, repeats a chart from another article without checking freshness, or relies on a product-video rule outside product content. If the visual will become a channel variant, [[Media Repurposing Matrix]] must preserve the same caveat.
+
+## Scale Repair Example
+
+A bar chart shows conversion rate by landing-page template.
+Before review, the y-axis starts at 93 percent and exaggerates small gaps.
+The claim cites a source packet from [[Chart Source Requirements]].
+The reviewer changes the view to a table plus a modest bar chart.
+The caption states denominator, window, and metric name.
+If the chart is exported as an image, `g-google-images` governs context.
+If the chart appears in a video thumbnail, `g-video` governs alignment.
+
+## Visualization-Specific Traps
+
+- Color-only legends fail when exported to grayscale slide decks.
+- Hover-only labels disappear in static newsletter screenshots.
+- Product-video eligibility cannot justify a generic editorial chart.
+- Axis breaks need a visible note beside the chart.
+- Animated charts need a still frame that preserves the same caveat.
+
+## Chart Deliverable Wire
+
+[[Blog Chart Specification]] consumes this visual verdict after source approval.
+Inputs are chart draft, source packet, caption, fallback plan, and placement.
+Outputs are pass, revise, or block plus the exact repair instruction.
+`g-intro-sd` applies only when structured data describes the visible chart.
 
 ## Data Visualization Review Source IDs
 

@@ -36,6 +36,9 @@ Use `g-intro-sd` for Google's visible-content guardrail, `schema-full` for avail
 | Review or expert involvement | Visible reviewer or policy section before schema use | Reviewer field only when supported by page content | Hidden review claims create trust debt | `schema-full` |
 | Rich-result note | Search Gallery support before feature language | Current gallery entry exists | A valid vocabulary property is not a display promise | `g-search-gallery` |
 | Connected graph | Stable `@id` links among article, author, and organization | JSON-LD graph can be traced | Duplicate IDs can fragment the entity story | `w3c-jsonld` |
+| Firsthand experience claim | Page shows the experience evidence in text, media, or method notes | Schema does not exaggerate the claim | Experience belongs in content first | `g-helpful-content` |
+| Source-backed factual claim | Citation is visible near the claim or in the source pack | Schema repeats only represented facts | Markup should not hide unsupported statistics | `g-intro-sd` |
+| Disclosure or sponsorship | Disclosure appears where readers can inspect it | Sponsor stays separate from publisher | Commercial role confusion weakens trust review | `g-helpful-content` |
 
 ## E-E-A-T Boundary
 
@@ -47,6 +50,32 @@ If the visible content lacks author qualifications, firsthand evidence, source c
 2. Map each trust claim to a visible page element and then to a schema field.
 3. Remove or flag schema fields whose evidence is absent, hidden, or contradicted.
 4. Send editorial gaps to [[E-E-A-T for Blog Content]] and graph gaps to [[Blog Schema Stack]].
+
+## Trust Graph Example
+
+A YMYL-adjacent tax planning article displayed a freelance writer byline, a medical-style "Reviewed by expert" badge in JSON-LD, and no visible reviewer section. The badge was removed from schema because structured data should match inspectable page content, source ID `g-intro-sd`.
+
+The editor added a visible reviewer block only after the review owner approved it. Schema then linked the reviewer field to visible evidence, while the broader trust assessment stayed with [[E-E-A-T for Blog Content]], source ID `g-helpful-content`.
+
+The article had a fresh `dateModified` because a broken link was fixed. The reviewer did not treat that as a substantive editorial update until the page showed what changed, source IDs `g-intro-sd` and `g-helpful-content`.
+
+The final handoff separated a graph fix, removing unsupported reviewer markup, from a content fix, adding reviewer evidence and update notes.
+
+## Trust Alignment Breakpoints
+
+- Reviewer schema without a visible reviewer should fail, source ID `g-intro-sd`.
+- A build-date update should not imply editorial freshness, source ID `g-helpful-content`.
+- Sponsor identity should stay outside publisher fields unless visible, source ID `g-intro-sd`.
+- Author profile links cannot create experience evidence alone, source ID `g-helpful-content`.
+- Unsupported rich-result copy should be removed before client delivery, source ID `g-search-gallery`.
+
+## Trust Inputs To Reports
+
+[[Blog Analyzer Score Report]] consumes this note when scoring the E-E-A-T and technical schema slices.
+
+Inputs provided: mismatched trust fields, visible evidence status, graph fix list, and editorial escalation notes.
+
+Expected report output: scored finding, severity, owner, source ID, and whether the issue blocks publication or stays advisory.
 
 ## Schema Trust Publishing Boundary
 

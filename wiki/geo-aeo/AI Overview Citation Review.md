@@ -32,6 +32,8 @@ Reject universal CTR-loss percentages, guaranteed citation value, or recommendat
 | Is the page cited or adjacent? | Cited URL, cited domain, visible answer text | `seer-aio-impact-ctr-2026` | AS-REPORTED citation association | GEO reviewer | Prioritize passage inspection |
 | How should clicks be interpreted? | GSC data, AIO presence, control query | `pew-ai`, `ahrefs-aio` | CONTESTED market evidence | Analyst | Avoid single-number forecasts |
 | Is the topic AIO-prone? | Query class and SERP sample | `semrush-aio` | Practitioner context | Strategist | Decide whether to broaden sampling |
+| Is the cited claim fresh? | Source date, page update date, claim date | `g-ai-features`, `g-genai-reports` | Official context plus property reporting if available | Analyst | Mark stale or current before rewrite |
+| Are previews limiting display? | Rendered meta robots and snippet rule | `g-ai-features`, `g-ai-opt-guide` | Official preview-control guidance | Technical SEO | Route to [[AI Feature Preview Controls]] |
 
 ## AI Overview Citation Review Procedure
 
@@ -40,6 +42,37 @@ Reject universal CTR-loss percentages, guaranteed citation value, or recommendat
 3. Compare the answer passage against entity clarity, source proximity, and freshness.
 4. Label CTR claims as property data, AS-REPORTED study data, or unknown.
 5. Route passage fixes to [[Answer Block Extraction Test]] before adding work to a brief.
+
+## Observed AIO Scenario
+
+A product comparison query shows an AI Overview on desktop for the US locale. The observed answer cites a competitor page, while the reviewed page ranks organically but is not cited. `g-ai-features` supports recording the Search feature context, but it does not support saying the competitor was selected because of one visible passage trait.
+
+The reviewed page has a statistics paragraph where the source name appears only in a footnote. The analyst sends that paragraph to [[Source Proximity Pattern]] and labels any click discussion as CONTESTED, because `pew-ai`, `ahrefs-aio`, and `seer-aio-impact-ctr-2026` report different market views.
+
+If the property has Search Console generative AI reporting, [[Citation Exposure Metrics]] records impressions and clicks with `g-genai-reports`. If it does not, the report keeps the screenshot separate from performance claims.
+
+## AIO-Specific Failure Modes
+
+- The top organic URL is logged as cited without checking the visible AIO citation.
+- A desktop observation is copied into mobile or another locale without a new capture.
+- One third-party CTR study becomes a forecast, even though [[AI Citation Mechanics]] treats the impact evidence as contested.
+- A passage rewrite is prioritized before preview controls are checked with `g-ai-opt-guide`.
+
+## Readiness Register Wiring
+
+[[GEO Citation Readiness Register]] consumes the final AIO review row. It needs query, locale, device, observed citation URL, passage status, evidence label, and next review date.
+
+The register expects one of three outputs from this note: ready for passage review, revise the extractable block, or measure first. It must not receive a promised AIO inclusion statement.
+
+## Capture Fields That Change Decisions
+
+Record the exact visible cited URL, because `g-ai-features` does not let reviewers infer it from organic rank.
+
+Record the page passage reviewed, not just the query, before applying `ziptie-aio-source-selection`.
+
+Record whether click interpretation uses property data, `pew-ai`, `ahrefs-aio`, or `seer-aio-impact-ctr-2026`.
+
+Record preview-control conflicts before assigning a passage rewrite to the editor.
 
 ## AI Overview Citation Review Exit Rule
 

@@ -52,10 +52,24 @@ Allowed adaptations include a newsletter prompt, saved-resource CTA, community f
 | Subscription cue | Reader value for future updates | Advisory until offer exists | Growth owner | Subscription starts | Avoid ranking or citation promises |
 | AI visibility context | Subscribed-publication or citation observation | Market context only | SEO reviewer | Manual notes, not guarantee | Route to [[AI Citation Mechanics]] |
 | Measurement review | Date window and metric owner | Blocked without property data | Analytics owner | Engagement and return path metrics | Add to [[Distribution Measurement Plan]] |
+| Reply capture | Question, objection, or example from readers | Needs moderation note | Audience owner | Qualitative themes | Feed next brief or answer block |
+| Saved-resource path | Bookmark, checklist, or download reason | Requires canonical article value | Editor | Return visits and saves | Keep source cue near the asset |
 
 ## Asset, Channel, Source Link, Owner, Status, And Measurement
 
 Owned audience work needs one clear next action per post. A "subscribe for more" line is weak unless the post gives a reason to hear from the brand again. The row should show whether the loop is new, active, paused, or retired. If the asset cites market click scarcity, the exact number remains in [[Zero Click Planning Baseline]] and the owned loop records only the operational implication.
+
+### Example: Turning A Timely Post Into A Return Path
+
+A post about a dated source update becomes a newsletter follow-up and a community question asking which old articles readers are reviewing. The loop records the canonical article, the next useful update, and repeat-visit measurement through `g-ga4-data`. The copy can reference click-scarce planning with `sparktoro-zero-click-2026`, but the number stays in [[Zero Click Planning Baseline]].
+
+### Owned Loop Failure Patterns
+
+The loop fails when the CTA is just "subscribe" with no future value, when direct traffic is treated as loyalty without a return-path note, or when unsubscribes are ignored because clicks looked positive. It also fails when subscribed-publication context from `niemanlab-subscribed-publications-aio-2026` is phrased as guaranteed AI Overview placement.
+
+### Strategy Blueprint Input
+
+[[Blog Strategy Architecture Blueprint]] consumes owned-loop evidence during distribution architecture. It needs owned channel availability, article promise, next reader action, measurement source, and audience-risk notes; it expects a strategy rule that says which posts deserve an owned follow-up.
 
 ## Owned Audience Loop Fidelity Checks
 

@@ -52,3 +52,35 @@ The content score cannot pass when the page is useful only to an optimizer and n
 3. Compare the draft against the five evidence rows.
 4. Send source and trust gaps to their sibling spokes.
 5. Log the score rationale in [[Quality Review Evidence Log]].
+
+## Intro Repair Scenario
+
+Before: "This post explains everything about GEO."
+Reader job is missing.
+No usable answer appears before the background.
+After: "Use GEO checks to make claims inspectable."
+The revision names the task and gives direction.
+Attach `g-helpful-content` to the usefulness judgment.
+If the draft repeats AI-output at scale,
+check abuse risk with `g-spam-policies`.
+If the paragraph still feels hard to scan,
+use `nng-editorial-heuristics` for review language.
+Do not add a filler FAQ to gain length.
+
+## Content-Only Failure Patterns
+
+- Definitions crowd out the reader's decision.
+- Examples repeat SERP summaries without new synthesis.
+- Caveats appear after recommendations, too late to help.
+- Current AI guidance appears without ledger IDs.
+- Polished prose masks copied or scaled structure.
+
+## Writer Handoff
+
+[[Blog Write Article Contract]] consumes this subscore first.
+Inputs passed forward: reader job, answer gap, source gaps.
+Also pass originality notes and padding warnings.
+Expected output: answer-first intro and claim-backed body.
+The contract should block unsupported current claims.
+[[Blog Analyzer Score Report]] consumes the 30 point result.
+It expects blocker, major, minor, or pass wording.

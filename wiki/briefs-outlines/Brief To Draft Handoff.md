@@ -34,6 +34,9 @@ Approval calls, YMYL sensitivity, first-party data gaps, and confidence labels r
 | Click context | analyst | Source from [[Brief Source Pack]]; [[Dual Optimization]] | Keep market data caveated and separate from property metrics | Market average used as site forecast |
 | Quality bar | editor | `g-helpful-content` | Add original value and satisfy the named reader task | Thin summary of existing SERPs |
 | Risk caveats | approver | [[Brief Risk Notes]] | Preserve caveat text until reviewer removes it | Caveat deleted without approval |
+| Internal-link duty | strategist | Approved topic map or [[Semantic Topic Clusters]] | Place links where they extend the reader's next task | Link list added without context |
+| Freshness instruction | source steward | [[Brief Source Pack]] refresh cue | Keep dated guidance near time-sensitive claims | Current claim lacks date basis |
+| Prohibited claim list | editor | [[Evidence Block Requirements]] verdicts | Name claims the writer must not revive | Removed claim reappears in draft |
 
 ## Handoff Procedure
 
@@ -47,9 +50,31 @@ Approval calls, YMYL sensitivity, first-party data gaps, and confidence labels r
 
 Do not send the brief to drafting when the source pack is generic, when a heading asks for unsupported advice, when the reader job is only a keyword phrase, or when the requested angle would overstate AI citation control. Send those issues back to [[Search Intent Classification]], [[Evidence Block Requirements]], or [[Brief Risk Notes]].
 
+## Handoff Repair Scenario
+
+A draft request says: "Write a post that gets cited by AI Mode and include the latest zero-click numbers." The handoff blocks that wording because Google AI inclusion cannot be promised, and market behavior must remain contextual. Source IDs: `g-ai-opt-guide`, `sparktoro-zero-click-2026`.
+
+The repaired request gives the writer an answer-first intro, three approved claims, two internal-link zones, and a caveat saying AI-facing sections describe passage clarity and preview eligibility only. The writer also receives a "do not add" list for llms.txt and tool-score guarantees. Source IDs: `g-helpful-content`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice`.
+
+## Handoff Failure Points
+
+- The writer gets section titles but no section job. Source ID: `nng-editorial-heuristics`.
+- A caveat is placed in comments instead of the task body. Source ID: `gh-flow-framework`.
+- New statistics appear after the source pack is frozen. Source ID: `g-helpful-content`.
+- Internal links arrive as SEO targets, not reader continuations. Source ID: `g-helpful-content`.
+
+## Draft Contract Wiring
+
+[[Blog Write Article Contract]] consumes the final handoff packet. Inputs provided: reader job, frozen outline, approved claim-source pairs, caveats, internal-link intent, voice constraints, and stop conditions. Expected output: a draft package with source IDs beside current claims and owner-routed blockers.
+
+[[SERP Outline Output Contract]] supplies the hierarchy into this note. Expected output: no writer task begins until duplicate section jobs, unsupported evidence slots, and unresolved risks are named.
+
 ## Sources
 
 - `gh-flow-framework`
 - `g-helpful-content`
 - `g-ai-opt-guide`
 - `nng-editorial-heuristics`
+- `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` for prohibited writer instructions
+- `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` for handoff caveats about tools
+- `sparktoro-zero-click-2026`

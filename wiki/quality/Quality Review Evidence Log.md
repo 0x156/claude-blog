@@ -39,6 +39,10 @@ Raw source ingestion stays outside this folder. Final delivery status belongs in
 | Google AI feature caveat | `g-ai-opt-guide` | SEO reviewer | confirmed | accepted | 2026-08-01 | Reopen if Google changes AI feature guidance. |
 | Search Console query evidence | `g-gsc-api` | Data owner | confirmed | accepted | 2026-08-01 | Reopen if export scope or API contract changes. |
 | AIO click context caveat | `seer-aio-impact-ctr-2026` | Strategy owner | as-reported | advisory | 2026-08-06 | Reopen if first-party data contradicts planning assumption. |
+| Canonical inspection note | `g-urlinspect` | Technical SEO | confirmed when export exists | accepted or gap | 2026-08-01 | Reopen if selected canonical changes. |
+| Schema visible-content check | `g-intro-sd` | Schema reviewer | confirmed | accepted | 2026-08-01 | Reopen if markup stops matching page copy. |
+| Performance measurement row | `wd-vitals` | Data owner | confirmed for terminology | unavailable or accepted | 2026-08-01 | Reopen when field data becomes available. |
+| GenAI report availability | `g-genai-reports` | Analyst | confirmed for reporting surface | gap or accepted | 2026-08-01 | Reopen when property export is supplied. |
 
 ## Source, Confidence, Owner, Status, And Due Date
 
@@ -51,3 +55,29 @@ Each row needs a source ID, owner, confidence label, and due date. If evidence i
 3. Move unresolved rows into [[Quality Gate Failure Modes]].
 4. Refresh due rows before reusing an old score.
 5. Preserve the distinction between confirmed, as-reported, contested, and unknown.
+
+## Evidence Row Example
+
+Claim under review: "This page improved AI Mode visibility."
+Available data: Search Console export is missing.
+Ledger route: `g-genai-reports` supports the reporting surface.
+Status: gap, not accepted.
+Confidence: unknown for this property.
+Next review date: use the source refresh date.
+Rollback trigger: remove claim if no export appears.
+
+## Register Failure Details
+
+- A source ID without claim location is incomplete.
+- A retrieval date cannot replace source relevance.
+- Practitioner evidence needs its limitation copied into the row.
+- Property-data gaps stay gaps until an export exists.
+- Old accepted rows expire when refresh dates arrive.
+
+## Report Consumption
+
+[[Blog Analyzer Score Report]] consumes these evidence rows.
+Inputs sent: source ID, confidence, owner, status, due date.
+Expected output: reproducible deduction rationale.
+[[Full Site Blog Audit Report]] consumes repeated evidence gaps.
+It expects URL, finding, action priority, and rollback trigger.

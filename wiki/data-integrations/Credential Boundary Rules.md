@@ -45,10 +45,20 @@ The operating posture is read-only. A reviewer may cite a metric, a date range, 
 | Keep PageSpeed evidence public-page only | `g-psi` | URL-level lab and field performance checks | Staging URLs require owner-written approval and redacted host labels | SEO lead approves a non-secret alias before citation |
 | Separate GA4 engagement from Search demand | `g-ga4-data`, `g-gsc-api` | Landing-page sessions, events, conversions, query metrics | Join only by canonical page and date range | Reviewer documents join key in [[Metric Export Schema]] |
 | Block account or platform mutations | All listed IDs | GSC, GA4, PSI, CMS, sitemap, schema deployment | Future release with approval and rollback design only | Convert requested mutation to an advisory recommendation |
+| Remove request metadata before citation | `g-gsc-api`, `g-urlinspect`, `g-psi`, `g-ga4-data` | Request URLs, headers, property IDs, worksheet names | Keep an opaque export ID when traceability is needed | Reviewer confirms the identifier cannot reopen account access |
+| Treat screenshots as last-resort evidence | `g-urlinspect`, `g-ga4-data` | UI evidence where table export is unavailable | Summarize only after account chrome is cropped | SEO lead signs the redaction note |
 
 ## Exceptions That Require Approval
 
 An exception is needed when the export contains sensitive query text, staging URLs, campaign parameters, customer segments, or conversion labels that reveal private operations. Approval must name the owner, approved fields, retention period, redaction method, and rollback action. If any of those fields are missing, route the gap to [[Missing Data Disclosure]] and mark confidence through [[Data Confidence Labels]].
+
+## Redaction Pass Example
+
+A data owner sends a GSC CSV and a GA4 landing-page CSV for one article. Before citation, the reviewer removes property names, hidden sheet tabs, account URLs, and user comments, then keeps page, approved query group, date range, clicks, impressions, and aggregate engagement fields tied to `g-gsc-api` and `g-ga4-data`.
+
+If the same handoff includes a service-account key, the working copy is rejected and only the missing-evidence gap remains. That preserves the read-only evidence lane for `g-gsc-api` and `g-ga4-data` without storing credential material.
+
+[[Google API Evidence Matrix]] consumes the boundary verdict. This note provides approved source surface, credential tier, redacted field list, rejected artifact type, owner, and retention note. The deliverable expects either a sanitized evidence row or a blocked-path row.
 
 ## Review And Rollback
 

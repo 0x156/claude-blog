@@ -34,6 +34,8 @@ An introduction may say that the article considers AI-search visibility only whe
 | Direct answer preview | Narrow how-to or definition | Approved primary answer | "This gives the answer then exceptions" | `g-helpful-content`, `g-ai-opt-guide` | Move answer into sentence one |
 | Scope boundary | Fast-moving Search or AI topic | Date, source age, and caveat | "This covers what is currently supported" | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Add dated wording |
 | Trust setup | YMYL-adjacent or expert-heavy topic | Author, reviewer, or source authority | "This shows who and what the reader can verify" | `g-qrg-full` | Add byline or reviewer context |
+| Evidence preview | Research-led article or audit | Source pack and verdict labels | "This tells how claims will be proven" | `g-helpful-content`, `g-qrg-full` | Name evidence type before tactic |
+| Audience boundary | Mixed beginner and expert demand | Reader job and excluded use case | "This is for a specific operator" | `g-helpful-content` | Cut the audience sprawl |
 
 ## Introduction Editing Pass
 
@@ -43,6 +45,31 @@ An introduction may say that the article considers AI-search visibility only whe
 4. Move broad market context to a linked hub if it is not needed to start the answer.
 5. Check whether the promise can be fulfilled by the sections that follow.
 6. Send any unverified search-feature claim to [[Research Pack Index]] before drafting continues.
+
+### Opening Rewrite Scenario
+
+Before: "Search is changing fast, and brands need stronger blog strategy."
+After: "Use this checklist when a finished blog draft has claims, links,
+and AI-search caveats that must be verified before publication."
+The second version names the reader task and evidence standard,
+which matches people-first guidance (`g-helpful-content`).
+If the intro mentions Google AI features, it must stay inside documented
+Search guidance rather than promising a new visibility path (`g-ai-opt-guide`).
+
+### First-Screen Mistakes
+
+- The hook names volatility but not the reader's immediate job (`g-helpful-content`).
+- The intro promises a comparison while the H2s deliver a tutorial (`g-helpful-content`).
+- A trust-sensitive topic starts without author, reviewer, or method context (`g-qrg-full`).
+- AI-search framing appears before the draft has source dates (`g-ai-opt-guide`).
+
+### Deliverable Wiring
+
+[[Content Brief Output Contract]] consumes this note before drafting:
+reader job, opening promise, source standard, excluded claim, and audience boundary.
+It expects the brief to hand writers a startable promise, not a loose theme.
+[[SERP Outline Output Contract]] uses the same inputs to validate the H1,
+intro job, and first H2 sequence before the article is written (`g-helpful-content`).
 
 ## Source Handling
 

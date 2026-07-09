@@ -40,6 +40,9 @@ The reviewer needs the scored asset, subscore evidence, source IDs, confidence l
 | Market statistic use | Third-party study is caveated and not a property forecast. | `seer-aio-impact-ctr-2026`; [[AI Citation Mechanics]]. | Warning or blocker by impact. | Strategy owner |
 | Reader usefulness | Article has a reader job and direct answer. | `g-helpful-content`. | Blocker for thin content. | Editor |
 | Rollback readiness | Live-impact recommendation has a trigger and owner. | [[Rollback Note Patterns]]. | Warning unless risk is high. | Delivery owner |
+| Unsupported rich-result promise | Schema claim matches Google-supported feature list. | `g-search-gallery`. | Blocker when feature is unsupported. | Technical SEO |
+| Scaled content pattern | Page batch shows added value beyond generated volume. | `g-spam-policies`. | Blocker when abuse pattern appears. | Content lead |
+| Canonical uncertainty | Preferred URL evidence is visible before consolidation advice. | `g-canonical`. | Warning or blocker by URL risk. | SEO lead |
 
 ## Evidence, Severity, Owner, And Fix Status
 
@@ -52,3 +55,29 @@ Severity should describe the operational consequence, not the reviewer mood. A b
 3. Move evidence gaps to [[Quality Review Evidence Log]].
 4. Apply [[Recommendation Confidence Labels]] before handoff.
 5. Send unresolved blockers to [[Delivery Contract Gate]] as blocked.
+
+## Blocker Classification Example
+
+Issue: article requests FAQ rich-result markup for visibility.
+Evidence: Google support is not present in `g-search-gallery`.
+Related caveat: [[2026 Google Update Timeline]] tracks deprecation context.
+Severity: blocker, because the output would mislead delivery.
+Fix owner: technical SEO.
+Next action: replace promise with visible Q and A usefulness.
+Source check: use `g-faqpage-sd` before final wording.
+
+## Where This Gate Misfires
+
+- A warning becomes advisory because the owner is senior.
+- Missing canonical data is treated as harmless.
+- Unsupported schema is called experimental marketing copy.
+- Batch content is judged only page by page.
+- Blockers lack owners and drift into comments.
+
+## Audit Report Wiring
+
+[[Full Site Blog Audit Report]] consumes this failure register.
+Inputs supplied: defect, severity, owner, source ID, fix state.
+Expected output: priority queue row and recommendation format.
+[[Blog Analyzer Score Report]] consumes single-page failures.
+It expects blocker, major, minor, pass, or unavailable labels.

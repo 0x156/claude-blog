@@ -52,3 +52,34 @@ Do not award trust points for a byline alone. The point value comes from evidenc
 3. Score the five matrix rows and name the weakest row.
 4. Apply a blocked label when risk exceeds available evidence.
 5. Add the decision to [[Quality Review Evidence Log]].
+
+## Trust Triage Example
+
+Draft topic: choosing SEO software for a clinic blog.
+The topic is reputation and YMYL-adjacent.
+Author note: "Reviewed by content team."
+That note does not prove expertise fit.
+Add reviewer credentials or mark trust reduced.
+Use `g-qrg-full` for quality-review vocabulary.
+Use `g-update-2025-09-11-qrg-update-sept-2025` for current YMYL framing.
+If the article discloses AI assistance,
+score transparency against `g-helpful-content`.
+If the disclosure is hidden in footer text,
+treat it as weak accountability evidence.
+
+## Trust Failures That Look Acceptable
+
+- A named byline lacks topic-relevant reviewer support.
+- A sensitive recommendation uses only vendor documentation.
+- A market study appears without method limits.
+- AI assistance is mentioned after the recommendation.
+- A conflict disclosure omits the recommended product.
+
+## Audit Wiring
+
+[[Blog Analyzer Score Report]] consumes this trust subscore.
+Inputs sent: topic risk, author proof, reviewer proof, source quality.
+Also send conflict notes and sensitivity escalation.
+Expected output: trust severity and report recommendation.
+[[Factcheck Claim Register]] consumes risky claim details.
+It expects source ID, verdict label, confidence, and refresh date.

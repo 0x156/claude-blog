@@ -51,6 +51,9 @@ This hub owns the interpretation boundary for property-level evidence. It tells 
 | [[Page URL Canonical Data Checks]] | Normalize page joins | Canonical mapping register | `g-urlinspect`, `g-gsc-api` | All metric joins |
 | [[Data Confidence Labels]] | Assign evidence strength | Label per evidence packet | All listed IDs | Report caveats |
 | [[Missing Data Disclosure]] | Write approved gap language | Missing-data note | All listed IDs | Client-facing report |
+| [[Query Dimension Hygiene]] | Freeze filters and grouping rules | Reproducible query recipe | `g-gsc-api`, `g-genai-reports` | Cluster and decay analysis |
+| [[Metric Export Schema]] | Shape sanitized packets | Internal evidence contract | `g-intro-sd`, `w3c-jsonld` | Reports and schema warnings |
+| [[Read Only Data Access Pattern]] | Sequence owner handoffs | Approved access request packet | `g-gsc-api`, `g-urlinspect`, `g-psi`, `g-ga4-data` | Audit intake |
 
 ## Evidence And Refresh Rules
 
@@ -63,6 +66,12 @@ Use source-ledger dates, not memory. As of the 2026-07-09 ledger, Search Analyti
 3. Apply [[Credential Boundary Rules]] before any source data enters a note.
 4. Label every evidence packet through [[Data Confidence Labels]].
 5. State missing, stale, or sampled evidence through [[Missing Data Disclosure]].
+
+## Hub Routing Scenario
+
+A full-site audit asks for decay, engagement, and index evidence. The hub routes query movement to `g-gsc-api`, index state to `g-urlinspect`, page experience to `g-psi`, and post-click behavior to `g-ga4-data` before the report combines recommendations.
+
+[[Google API Evidence Matrix]] consumes that routing. This hub provides surface name, allowed evidence type, blocked access path, source ID, and sibling spoke; the matrix expects one row per evidence surface, not a blended metric.
 
 ## Source IDs
 

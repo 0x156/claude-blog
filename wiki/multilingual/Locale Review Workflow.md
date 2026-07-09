@@ -36,6 +36,8 @@ The exit artifact is a dated review record naming each reviewer, what evidence t
 | Source fidelity | Claim list | Local facts have local or translated evidence | Mark pass, gap, or remove | Factchecker | Launch QA |
 | Legal or YMYL screen | Sensitive claims | Local advice does not exceed evidence | Escalate when expertise is required | Policy owner | [[Regional Legal And YMYL Escalation]] |
 | Schema consistency | Rendered page and JSON-LD | Visible names, URLs, authors, and breadcrumbs agree | Approve or revise structured data | Schema reviewer | [[Multilingual Schema Rules]] |
+| Metadata review | CMS preview and SERP fields | Locale title, description, and social text match page purpose under `g-helpful-content` | Approve or send back to editor | Metadata owner | [[Locale Launch QA]] |
+| Refresh ownership | Volatile local claim list | Owner and next review trigger are named under `g-helpful-content` | Add cadence note or block handoff | Managing editor | [[Multilingual Refresh Cadence]] |
 
 ## Control Points
 
@@ -47,3 +49,32 @@ The exit artifact is a dated review record naming each reviewer, what evidence t
 ## Evidence Discipline
 
 Use `g-helpful-content` for the quality threshold, not as proof of local law or market behavior. Use `schema-full` only for vocabulary alignment, then verify Google-specific eligibility elsewhere when rich results are part of the decision.
+
+## Review Handoff Example
+
+A Spanish draft about health-adjacent software onboarding arrives with fluent language (`g-helpful-content`).
+The locale reviewer approves idiom and terminology, but the factchecker cannot verify an eligibility claim for the target market (`g-helpful-content`, `g-multiregional`).
+The workflow does not send the page to launch QA yet (`g-helpful-content`).
+It routes the claim to [[Regional Legal And YMYL Escalation]] and records source fidelity as blocked (`g-helpful-content`).
+Only the approved language lane moves forward; the claim lane waits for an owner decision (`g-helpful-content`).
+
+## Workflow-Specific Failure Modes
+
+- Native-language approval can be mistaken for evidence approval when lanes are not separated (`g-helpful-content`).
+- A schema reviewer may approve syntax while visible localized labels still differ (`schema-full`).
+- Reviewer names without inspected lanes create false confidence at launch QA (`g-helpful-content`).
+- Legal concerns raised during review should not be buried as copyediting comments (`g-helpful-content`).
+
+## Adaptation Checklist Wiring
+
+Consumer: [[Localization Adaptation Checklist]].
+
+Inputs provided:
+
+- reviewer lane, inspected evidence, approval state, unresolved claim, and escalation owner.
+- language, source, legal, schema, metadata, and refresh decisions as separate records.
+
+Outputs expected:
+
+- checklist pass or blocker states for examples, CTAs, legal references, source suitability, and escalation.
+- owner list that lets the adaptation deliverable avoid treating one reviewer as universal approval.

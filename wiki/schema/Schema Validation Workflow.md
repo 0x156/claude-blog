@@ -44,10 +44,43 @@ The source route is fixed for this folder. `w3c-jsonld` covers serialization mec
 | Google feature support checked | Pass when feature wording matches the current gallery | `g-search-gallery` | Major | SEO lead |
 | Entity graph connected | Pass when article, author, organization, and breadcrumbs use stable IDs | `w3c-jsonld` | Major | Schema owner |
 | Warnings triaged | Pass when warnings are accepted, fixed, or escalated with an owner | `g-intro-sd` | Minor to major | Delivery owner |
+| Post-render output captured | Pass when validation uses final HTML or exact preview output | `w3c-jsonld` | Blocker | Developer |
+| Add-on types approved | Pass when Product, VideoObject, and Q and A decisions cite their spoke notes | `g-intro-sd` | Major | Schema reviewer |
+| Retest trigger recorded | Pass when a later CMS or source change has an owner | `g-search-gallery` | Minor to major | Delivery owner |
 
 ## Evidence Packet
 
 Attach the validated URL or HTML sample, testing tool output, selected source IDs, and manual page comparison notes. If the page is not public yet, label the result as preview validation and require a post-publish recheck.
+
+## Validation Walkthrough
+
+Scenario: a post about webinar software shipped valid JSON-LD with Article, Product, and VideoObject nodes. The parser passed, but the product price was hidden in a collapsed personalization block and the video iframe failed on mobile.
+
+Layer one passed because the JSON-LD parsed in the rendered HTML, source ID `w3c-jsonld`.
+
+Layer two passed for vocabulary names after the reviewer checked Product and VideoObject properties against Schema.org, source ID `schema-full`.
+
+Layer three failed because the marked-up price and playable video were not reliably visible to readers, source ID `g-intro-sd`.
+
+Layer four blocked Search feature language until the current gallery wording was checked separately, source ID `g-search-gallery`.
+
+The final action was "Article schema passes, Product and VideoObject blocked, retest after template fix." That status gave the delivery owner a precise rollback and retest path.
+
+## Validation Failure Patterns
+
+- Valid JSON can still describe invisible page facts, source ID `g-intro-sd`.
+- A single page may pass Article review while failing add-on objects, source ID `schema-full`.
+- Rich-result wording needs a current gallery check after syntax passes, source ID `g-search-gallery`.
+- Preview validation should be repeated after production rendering, source ID `w3c-jsonld`.
+- CMS plugins can reintroduce removed nodes during later template updates, source ID `g-intro-sd`.
+
+## Workflow Consumer
+
+[[SEO Check Validation Checklist]] consumes this workflow for the structured-data row.
+
+It receives: rendered HTML, selected schema objects, source IDs, validation output, and page-comparison notes.
+
+It expects back: pass, fix, or blocked status, fix owner, blocker severity, rollback trigger, and retest date.
 
 ## Validation Handoff Rules
 

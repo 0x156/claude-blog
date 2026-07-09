@@ -34,6 +34,8 @@ The exit artifact is a claim-level source record with source ID, retrieval date,
 | Verify update references | Google update statement | `g-ranking-history` | Replace rumor language with dated official context | Monitoring owner | [[Google Algorithm Update Ledger]] |
 | Route duplicate URL evidence | Claim tied to alternate URLs | `g-canonical` | Move URL signal questions to consolidation review | SEO technical owner | [[Content Consolidation Rules]] |
 | Close the source record | Reviewed claim row | Source ID, date, confidence, limitation | Mark keep, update, remove, or escalate | Source steward | [[Rewrite QA Checklist]] |
+| Test AI guidance statements | Claim about Search AI requirements | `g-ai-opt-guide` | Remove unsupported special-file or schema claims | GEO owner | [[Stale Claim Register]] |
+| Preserve source limitation | Source proves only part of sentence | Source-ledger entry and `g-helpful-content` | Add caveat before drafting replacement | Source steward | [[Factcheck Claim Register]] |
 
 ## Control Points
 
@@ -42,9 +44,31 @@ The exit artifact is a claim-level source record with source ID, retrieval date,
 3. Record the source limitation before drafting new prose.
 4. Escalate contested or high-risk claims to [[Research Pack Index]] instead of smoothing over uncertainty.
 
+## Claim Refresh Example
+
+Before: a rewrite says `llms.txt` improves Google AI visibility.
+`g-ai-opt-guide` does not support that claim.
+After: the sentence becomes a caveat or is removed.
+If the page still needs AI guidance, route to [[AI Citation Mechanics]].
+The source record closes only after QA sees the new source ID.
+
+## Evidence Replacement Hazards
+
+- A newer source can be less relevant than the old source.
+- A source title match is not proof under `g-helpful-content`.
+- Query value from `g-gsc-api` affects priority, not truth.
+- Canonical discoveries belong to URL review through `g-canonical`.
+
+## Factcheck Register Wiring
+
+[[Factcheck Claim Register]] consumes reviewed claim outcomes from this workflow.
+Inputs provided: exact claim, source ID, verdict, confidence, limitation, and owner.
+It expects status output: verified, stale, pending, blocked, or removed.
+Google-update claims use `g-ranking-history`; AI guidance claims use `g-ai-opt-guide`.
+
 ## Source Refresh IDs
 
-`g-helpful-content`; `g-gsc-api`; `g-ranking-history`; `g-canonical`.
+`g-helpful-content`; `g-gsc-api`; `g-ranking-history`; `g-canonical`; `g-ai-opt-guide`.
 
 ## Related
 

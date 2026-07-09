@@ -32,6 +32,9 @@ Do not count "AI optimized" badges, llms.txt existence, unverified screenshots, 
 | Observed citation | Manual SERP or assistant capture with URL and date | `g-ai-features`, `blog-io2026` | Observation, not guaranteed repeatability | GEO reviewer | Store query, locale, device, and screenshot reference |
 | Preview-control exposure risk | Snippet setting and page rule | `g-ai-opt-guide`, `g-ai-features` | Official guidance context | Technical SEO | Link to [[AI Feature Preview Controls]] |
 | llms.txt request | File exists or stakeholder asks for one | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | CONFIRMED no Google Search visibility effect | Researcher | Report as caveat, not KPI |
+| Organic query baseline | GSC query and page export | `g-gsc-api`, `g-genai-reports` | First-party export when supplied | Analyst | Keep classic Search and AI feature rows separate |
+| Post-click engagement | GA4 organic sessions and engagement fields | `g-ga4-data` | First-party export when supplied | Data owner | Use only after URL keys are reconciled |
+| Manual sample gap | Query capture exists but no repeatable export | `g-ai-features` | Observation-only evidence | GEO reviewer | Add missing-data note instead of trend language |
 
 ## Citation Exposure Metrics Procedure
 
@@ -40,6 +43,37 @@ Do not count "AI optimized" badges, llms.txt existence, unverified screenshots, 
 3. Keep AI Overview and AI Mode rows separate even when the same URL appears.
 4. Add "not available" instead of substituting third-party market data for property reporting.
 5. Escalate trend claims to [[Google Data Integrations]] when GSC or GA4 exports are needed.
+
+## Measurement Packet Example
+
+A reviewer samples three queries for one guide and observes an AI Overview citation on only one capture. The metric row remains "observed citation" because `g-ai-features` supports feature context, not repeatability or trend interpretation.
+
+The property owner later provides a Search Console generative AI export. The packet adds query, URL, date range, clicks, and impressions under the first-party lane using `g-genai-reports`, while classic organic query baselines stay in the `g-gsc-api` lane.
+
+If GA4 export is supplied, post-click engagement is reported after canonical URL matching. `g-ga4-data` supports the GA4 reporting surface, but it does not identify which answer surface created a visit without clean source and medium evidence.
+
+## Metric Failure Patterns
+
+- Manual screenshots are counted as impressions, although `g-genai-reports` is the reporting source for eligible Google properties.
+- Market context replaces unavailable property data, despite [[AI Citation Mechanics]] routing broad context away from KPI rows.
+- AI Overview and AI Mode observations are merged into one count, weakening the surface-specific caveat from `g-ai-features`.
+- GA4 referral sessions are treated as citations without the cited answer URL, which `g-ga4-data` does not provide by itself.
+
+## API Matrix Wiring
+
+[[Google API Evidence Matrix]] consumes this note for field-level evidence planning. It needs surface label, credential tier, export fields, missing-data notes, and the source ID that supports each API surface.
+
+The matrix expects a concrete output list: GSC generative AI fields, GSC classic query fields, optional GA4 fields, and manual observation fields that cannot be joined without operator evidence.
+
+## Metric Packet Shape
+
+A Google AI row lists surface, query, URL, date range, impressions, clicks, and `g-genai-reports`.
+
+A classic organic row lists query, page, clicks, impressions, and `g-gsc-api`.
+
+A GA4 row lists canonical URL, traffic source, engagement fields, and `g-ga4-data`.
+
+A manual citation row lists screenshot reference, locale, device, date, and `g-ai-features`.
 
 ## Citation Exposure Metrics Review Loop
 

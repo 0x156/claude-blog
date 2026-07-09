@@ -52,3 +52,33 @@ Do not award points for keyword repetition without reader fit. A page can be tec
 3. Score the five grid rows.
 4. Mark unsupported outcome language as blocked.
 5. Send the score and gaps to [[Quality Score Rubric]].
+
+## Intent Mismatch Example
+
+Target query: "blog schema examples."
+Draft title: "Complete guide to SEO content strategy."
+Reader job and page promise diverge.
+Keyword data from `g-ads-kw` can inform demand.
+SERP overlap from `dfs-labs` can inform grouping.
+Neither source proves this draft satisfies intent.
+Fix: retitle around schema examples.
+Then move strategy material to a support section.
+If GSC export exists, use `g-gsc-api`.
+Without it, mark measurement advisory.
+
+## Intent-Specific Failure Cases
+
+- Secondary keywords drive the H2 order.
+- A comparison query receives a one-product answer.
+- Internal links point to sales pages before task completion.
+- Metadata promises data the article never provides.
+- Vendor SERP data is treated as first-party performance.
+
+## Brief And Outline Wiring
+
+[[Content Brief Output Contract]] consumes intent diagnostics early.
+Inputs provided: reader job, query set, SERP pattern, exclusions.
+Expected output: approved promise and source-backed section jobs.
+[[SERP Outline Output Contract]] consumes the scored alignment.
+It expects H1 job, H2 sequence, evidence slots, link zones.
+[[SEO Check Validation Checklist]] consumes final metadata gaps.

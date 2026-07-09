@@ -34,6 +34,9 @@ Exclude unverified competitor claims, AI-generated source summaries, screenshot-
 | Trust and risk flags | YMYL status, approval owner, caveat text | [[Brief Risk Notes]] | `g-qrg-full` when trust sensitivity matters | editor | Block if high-risk claim lacks owner |
 | AI and click posture | AI surface affected, click metric, visibility metric | [[AI Citation Mechanics]]; [[Dual Optimization]] | `g-ai-features`; `g-gsc-api` when property data exists | analyst | Revise if guarantees appear |
 | Draft constraints | heading rules, evidence blocks, internal links, voice notes | [[Heading Hierarchy Rules]] | approved outline inputs | outline owner | Block if handoff lacks constraints |
+| Property data state | GSC available, unavailable, or not requested | [[Google Data Integrations]] | `g-gsc-api` for first-party fields | analyst | Revise if market data substitutes silently |
+| Brand and compliance limits | forbidden terms, reviewer, approval lane | [[Brief Risk Notes]] | `g-qrg-full` when trust sensitivity applies | editor | Block if owner is unnamed |
+| Excluded claims | claims rejected by evidence review | [[Evidence Block Requirements]] | source ID behind each rejection | source steward | Block if removed claims can reappear |
 
 ## SERP Brief Input Contract Handoff Procedure
 
@@ -43,12 +46,33 @@ Exclude unverified competitor claims, AI-generated source summaries, screenshot-
 4. Send missing evidence to [[Brief Source Pack]] and missing risk review to [[Brief Risk Notes]].
 5. Move the contract to [[Outline QA Checklist]] only after all blocker fields have an owner or resolution.
 
+## Input Gate Example
+
+Initial request: "Make a brief for AI citation strategy with these three competitor URLs." The contract blocks drafting because there is no reader job, locale, observation date, source pack, property-data state, or rejected-claims list. Source IDs: `g-helpful-content`, `g-ai-features`.
+
+Completed input: target topic, US English locale, query set, reader job, dated SERP observation, approved source IDs, risk owner, and "do not claim guaranteed AI citation" rule. The brief may proceed to outline QA because blockers now have owners. Source IDs: `g-ai-opt-guide`, `g-qrg-full`.
+
+## Contract-Specific Failure Modes
+
+- "Not available" is used to skip research without naming impact. Source ID: `g-helpful-content`.
+- Screenshots replace dated observation summaries. Source ID: `dfs-api`.
+- Source IDs appear only in a bibliography field. Source ID: `g-helpful-content`.
+- The contract omits who can approve trust-sensitive claims. Source ID: `g-qrg-full`.
+
+## Deliverable Intake Wiring
+
+[[Content Brief Output Contract]] consumes this contract as its intake gate. Inputs provided: topic, locale, query set, reader job, intent label, source pack, risk state, data availability, and exclusions. Expected output: a complete brief packet rather than a keyword prompt.
+
+[[SERP Outline Output Contract]] consumes the contract after blockers close. Expected output: an outline that respects excluded claims, approved evidence, and known data gaps.
+
 ## Sources
 
 - `g-helpful-content`
 - `g-qrg-full`
 - `g-gsc-api`
 - `g-ai-features`
+- `g-ai-opt-guide`
+- `dfs-api`
 
 ## Contract Outcome
 

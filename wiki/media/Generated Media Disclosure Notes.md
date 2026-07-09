@@ -32,6 +32,9 @@ The assigned evidence set is search and schema oriented. `g-google-images` and `
 | Synthetic voice | Voice, speaker, or narration may imply real endorsement | Script, voice source, consent note | Transcript and article link | Replace if testimonial or expert quote is implied | Approval required |
 | Generated chart styling | Data is real but design was generated | Dataset, chart transform, tool | Caption gives source and date | Replace if data cannot be traced | Data review |
 | Video mockup | Scene is illustrative rather than captured | Script, storyboard, generation method | Captions or transcript | Replace when page discusses actual product behavior | Video review |
+| Background extension | Photo edges or setting were synthesized | Original asset, mask, edit reason | Alt avoids invented scene details | Replace if location or event proof matters | Media owner review |
+| Synthetic expert portrait | Person did not sit for the image | Identity basis, consent decision, prompt note | Caption blocks implied endorsement | Replace with real author photo for E-E-A-T claims | Editor review |
+| AI thumbnail text | Generated frame carries a headline or number | Prompt, final frame, transcript comparison | Text also appears in page copy | Replace if the number is unsupported | Video review |
 
 ## Generated Media Disclosure Notes Review Procedure
 
@@ -40,6 +43,32 @@ The assigned evidence set is search and schema oriented. `g-google-images` and `
 3. If illustrative, record provenance and decide whether a visible disclosure is needed.
 4. Check the asset against [[Alt Text Standards]] and [[Visual Claim Review]].
 5. Block publication when rights, consent, or source inputs are unclear.
+
+## Mock Product Hero Decision
+
+A SaaS article requests a generated dashboard hero for a feature announcement.
+Before review, the image resembles a working product screen.
+That can imply product behavior not visible in the article.
+`g-google-images` supports image context, not product-state proof.
+The approved version becomes an abstract workflow illustration.
+The caption says "illustrative workflow concept" when confusion is likely.
+A real dated screenshot replaces it when the article proves a UI state.
+No hidden AI-disclosure file is created under `g-ai-opt-guide`.
+
+## Disclosure Failure Paths
+
+- A small retouch can become factual when it changes a button state.
+- A synthetic voice may imply consent or endorsement absent from sources.
+- Generated chart styling cannot rescue an untraceable dataset.
+- A mock video cannot support a product availability claim.
+- Schema fields must not invent creator, location, or event provenance.
+
+## Image Brief Wire
+
+[[Blog Image Brief And Disclosure Checklist]] consumes the disclosure decision.
+Inputs are prompt summary, tool date, source assets, edits, and human approver.
+Expected output is disclose, replace, approve, or block with owner.
+`schema-full` is vocabulary context only; model-specific policy needs new sources.
 
 ## Generated Media Disclosure Notes Source IDs
 

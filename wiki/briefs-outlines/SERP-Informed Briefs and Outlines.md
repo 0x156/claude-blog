@@ -48,9 +48,35 @@ Do not move schema rules, AI citation mechanics, content scoring, rewrite decisi
 4. AI Overview, AI Mode, and llms.txt claims route to [[AI Citation Mechanics]] or [[2026 Google Update Timeline]] instead of being expanded here.
 5. Refresh this hub when the source ledger changes, when Google updates AI feature guidance, or when the spoke set changes.
 
+## Planning Run Example
+
+Request: "Brief an article about AI citation readiness for blog teams." The hub starts with [[SERP Brief Input Contract]], then forces a reader job before any heading is drafted. Source IDs: `g-helpful-content`, `g-ai-opt-guide`.
+
+The work then records current SERP features, separates competitor formats from proof, maps each claim to a source, and rejects any llms.txt guarantee. Source IDs: `dfs-api`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`.
+
+The final outline contains a direct answer, a caveated citation-readiness section, and a measurement caveat that points to dual optimization instead of pasted market statistics. Source IDs: `ziptie-aio-source-selection`, `sparktoro-zero-click-2026`.
+
+## Hub-Level Failure Cases
+
+- The hub becomes a warehouse for schema, scoring, or rewrite rules. Source ID: `g-intro-sd`.
+- A brief skips intent and starts from competitor H2s. Source ID: `g-helpful-content`.
+- Practitioner AI advice is treated as official Google instruction. Source ID: `g-ai-opt-guide`.
+- Market search behavior is used as a single-site forecast. Source ID: `g-gsc-api`.
+
+## Deliverable Handshake
+
+[[Content Brief Output Contract]] consumes the hub's full planning sequence. Inputs provided: reader job, intent map, SERP pattern, evidence pack, risk state, and draft constraints. Expected output: a source-cited brief that is ready for outline work.
+
+[[SERP Outline Output Contract]] consumes the approved brief decisions. Inputs provided: selected intent, hierarchy rules, evidence slots, internal-link zones, and excluded claims. Expected output: a draftable H2/H3 plan with caveats intact.
+
 ## Sources
 
 - `g-helpful-content`
 - `g-qrg-full`
 - `dfs-api`
+- `g-ai-opt-guide`
+- `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` for hub-level AI-file routing
+- `ziptie-aio-source-selection`
+- `g-intro-sd`
+- `g-gsc-api`
 - `sparktoro-zero-click-2026`

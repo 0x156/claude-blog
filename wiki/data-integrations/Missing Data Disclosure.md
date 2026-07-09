@@ -42,6 +42,8 @@ Missing means the evidence was not available. Stale means it exists but is outsi
 | GA4 engagement packet | Property, landing-page dimension, channel split | "Engagement evidence was not supplied, so post-click behavior is not used to prioritize this content change." | `missing` | Request aggregate landing-page report | `g-ga4-data` |
 | Generative AI report | Property eligibility or owner-provided export | "No property-level AI feature report was supplied, so the AI visibility section uses only non-AI Search data and clearly marked context." | `missing` | Recheck availability in next reporting cycle | `g-genai-reports` |
 | Redacted query or event field | Redaction reason and owner approval | "The export was redacted for privacy, so totals and examples are limited to the fields retained." | `sample` | Keep limitation beside the finding | `g-gsc-api`, `g-ga4-data` |
+| Stale comparison export | Export date, covered window, refresh trigger | "The comparison window is stale, so trend direction is not used as a current priority signal." | `stale` | Re-export matched dates | `g-gsc-api` |
+| Unsupported AI query column | Visible dimensions and owner confirmation | "The AI feature report did not expose query-level detail, so query-level AI visibility is not claimed." | `missing` | Keep page-level wording only | `g-genai-reports` |
 
 ## Decisions The Disclosure Must Record
 
@@ -54,6 +56,12 @@ Every disclosure needs a missing source, reason, owner, date checked, fallback e
 3. If not, write one disclosure sentence and downgrade the confidence label.
 4. Keep the fallback source separate from the missing source.
 5. Revisit the disclosure when the owner supplies a new export or confirms continued absence.
+
+## Disclosure Scenario
+
+A report draft says a post lost demand, but the only GSC export is outside the review window. The line changes to a stale-data caveat, because `g-gsc-api` supports query metrics only when the covered dates match the decision.
+
+When GA4 engagement exists for the same page, it remains a separate post-click context under `g-ga4-data`. [[Full Site Blog Audit Report]] consumes the disclosure sentence, blocked claim, fallback source, owner, and next check date.
 
 ## Source IDs
 
