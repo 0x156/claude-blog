@@ -5,7 +5,7 @@
 FAQ rich result deprecation, Google Search Central documentation updates.
 URL: https://developers.google.com/search/updates#deprecating-the-faq-rich-result-feature
 Effective date in ledger: 2026-05-07.
-Retrieved: 2026-07-08.
+Retrieved: 2026-07-09.
 Confidence: high. Evidence tier: EVIDENCE-BASED.
 
 ## Core Thesis

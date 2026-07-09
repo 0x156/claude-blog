@@ -3,7 +3,7 @@ type: hub
 title: "Google Algorithm Update Ledger"
 status: active
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [monitoring, google-updates, active]
 domain: "Google Update Monitoring"
 confidence: verified
@@ -40,11 +40,11 @@ This hub mirrors the source discipline from `data/google-updates.json` without e
 
 - The verified local update ledger contains 34 Google-owned update entries through the 2026-06-30 Merchant Center product videos entry, but that data file is stale for July 2026 Search documentation updates.
 - Google Search documentation updates add 2026-07-01 AMP guidance changes and 2026-07-07 merchant listing structured-data guidance changes.
-- The Search Status Dashboard records no confirmed Google-owned ranking incident after the 2026-06-24 spam update as of 2026-07-08.
+- The Search Status Dashboard records no confirmed Google-owned ranking incident after the 2026-06-24 spam update as of 2026-07-09.
 - FAQ rich results retired for all sites effective 2026-05-07.
 - Google AI optimization guidance has current page date 2026-06-29; the llms.txt clarification was added 2026-06-15 and says Google Search does not use llms.txt.
 - Preferred Sources availability for AI Mode and AI Overviews is confirmed by Google Search documentation dated 2026-05-27.
-- QRG status remains tied to the 2025-09-11 version, with no newer revision recorded as of 2026-07-08.
+- QRG status remains tied to the 2025-09-11 version, with no newer revision recorded as of 2026-07-09.
 
 ## Scope
 
@@ -81,6 +81,16 @@ This hub mirrors the source discipline from `data/google-updates.json` without e
 - Keep no-current-update claims dated.
 - Append durable changes to [[log]].
 
+## Current Watch State
+
+| Surface | Latest Google-owned event | Source ID | Retrieved | Operating action |
+|---|---|---|---:|---|
+| Ranking incidents | 2026-06-24 June 2026 spam update, completed 2026-06-26. | `g-status-dashboard`; `g-update-2026-06-24-june-2026-spam-update` | 2026-07-09 | Do not label July volatility as a confirmed update without a new dashboard or ranking-history entry. |
+| Search documentation | 2026-07-07 merchant listing structured-data guidance. | `g-search-docs-updates-2026-07-07-product-structured-data` | 2026-07-09 | Route ecommerce schema reviews through [[Structured Data Deprecation Register]]. |
+| AMP documentation | 2026-07-01 AMP docs simplification. | `pending:g-search-docs-updates-2026-07-01-amp` | 2026-07-09 | Remove old AMP viewer, AMP Cache, and signed exchange maintenance language. |
+| AI Search guidance | AI optimization guide last updated 2026-06-29; llms.txt clarification event 2026-06-15. | `g-ai-opt-guide`; `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | 2026-07-09 | Keep AI citation guidance advisory unless directly sourced to Google or first-party data. |
+| Preferred Sources | Page last updated 2026-05-27, includes AI Mode and AI Overviews availability. | `pending:g-preferred-sources` | 2026-07-09 | Treat as distribution and preference guidance, not guaranteed citation access. |
+
 ## Source posture
 
 - Use Search Status Dashboard for confirmed incidents and histories.
@@ -102,8 +112,8 @@ This hub mirrors the source discipline from `data/google-updates.json` without e
 
 ## Sources
 
-- Google Search Status Dashboard, retrieved 2026-07-08.
-- Google Search documentation updates, retrieved 2026-07-08.
+- Google Search Status Dashboard, retrieved 2026-07-09.
+- Google Search documentation updates, retrieved 2026-07-09.
 - Google ranking update history, dated 2026-05-21 in the ledger.
 - Google FAQPage documentation, effective 2026-05-07 for retirement.
 - Google AI optimization guide, last updated 2026-06-29, with llms.txt clarification dated 2026-06-15 in Search docs updates.

@@ -2,7 +2,15 @@
 
 ## Raw Sources
 
-- claude-blog skill v1.10.0 SKILL.md, 32 sub-skills, 5 agents, 21 references, 12 templates, and analysis scripts; Google Search Central docs; web.dev CWV; FLOW framework bibliography; GEO/AEO studies; content-marketing and copywriting research
+- `.raw/sources/claude-blog-skill/`: immutable local claude-blog v1.11.0
+  snapshot captured 2026-07-09, covering 32 skill directories
+  (1 orchestrator + 31 sub-skills), 30 user-facing commands, 5 agents,
+  14 scripts, 22 references, 12 templates, plugin metadata, README, license,
+  changelog, and top docs.
+- `.raw/sources/claude-blog-brain-data/google-updates.json`: immutable
+  snapshot of the repo's Google update ledger captured 2026-07-09.
+- Google Search Central docs; web.dev CWV; FLOW framework bibliography;
+  GEO/AEO studies; content-marketing and copywriting research.
 
 ## Enrichment Sources
 
@@ -16,7 +24,10 @@
 
 - Copy raw source files into `.raw/sources/`.
 - Record path, hash, retrieval date, owner, and source type.
+- Use `sha256` only and keep all raw paths vault-relative.
 - Record external research sources in `references/source-ledger.json`.
+- When a ledger entry relies on a captured raw file, record
+  `raw_snapshot_path` and `raw_snapshot_sha256`.
 - Record implemented schemas and adapters in `references/adapter-manifest.json`.
 - Create a source note under `wiki/sources/`.
 - Link affected entities, workflows, and deliverables.

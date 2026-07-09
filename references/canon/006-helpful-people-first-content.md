@@ -4,7 +4,7 @@
 
 Creating helpful, reliable, people-first content, Google Search Central.
 URL: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
-Retrieved: 2026-07-06.
+Retrieved: 2026-07-09.
 Confidence: EVIDENCE-BASED.
 
 ## Core Thesis

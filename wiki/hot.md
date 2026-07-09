@@ -3,7 +3,7 @@ type: meta
 title: "Hot"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [meta, hot, active]
 domain: "Blog Content Brain"
 confidence: verified
@@ -35,21 +35,24 @@ Working cache for Claude Blog Brain. Keep this note under 500 words and overwrit
 
 ## Last updated
 
-- 2026-07-08
+- 2026-07-09
 
 ## Mid 2026 anchors
 
-- Google Search documentation changed after the 2026-07-06 source pack: July 1 AMP docs remove AMP viewer, AMP Cache, and signed exchange maintenance references; July 7 merchant listing docs add `Product.category` guidance and sale-price effective-date guidance. Refresh [[Google Algorithm Update Ledger]] before using the old source pack.
+- Google Search documentation changed after the 2026-07-06 source pack: July 1 AMP docs remove AMP viewer, AMP Cache, and signed exchange maintenance references; July 7 merchant listing docs add `Product.category` guidance and sale-price effective-date guidance. These are documentation changes, not confirmed ranking rollouts.
+- Search Status Dashboard still shows no confirmed ranking incident after the 2026-06-24 spam update as of the 2026-07-09 check. See [[Google Algorithm Update Ledger]] and [[2026 Google Update Timeline]].
 - Zero click is a baseline constraint: SparkToro, 2026-06-09, reports US Google zero click searches at 68.01 percent for January through April 2026. See [[Dual Optimization]].
 - AI Overview CTR partially rebounded: Seer, 2026-04-24, reports AIO-present organic CTR from about 1.3 percent in December 2025 to about 2.4 percent in February 2026, and cited pages at about 120 percent more clicks per impression than not cited. See [[AI Citation Mechanics]].
 - AI Mode matters but is still small by query share: Google I/O, 2026-05-19, reported 1B plus monthly AI Mode users, while SparkToro records about 0.34 percent US query volume. See [[AI Citation Mechanics]].
 - FAQ rich results are retired for all sites as of 2026-05-07, so blog schema priority is Article or BlogPosting plus Person, Organization, BreadcrumbList, and visible Q and A when useful. See [[Blog Schema Stack]].
-- QRG status is stable as of 2026-07-08: the substrate records no newer revision than 2025-09-11. See [[E-E-A-T for Blog Content]].
+- QRG status is stable as of 2026-07-09: the substrate records no newer revision than 2025-09-11. See [[E-E-A-T for Blog Content]].
+- Source date caveat: `g-product-sd` is date-mismatched in the machine ledger. Use [[research-pack-2026-07-06|Research Pack 2026-07-06]] for the Product intro page, Search docs July 7 event, and Merchant listing page split.
+- Media caveat: Google AI image docs retrieved 2026-07-09 list Nano Banana model families, SynthID watermarking, rights requirements, and Imagen shutdown on 2026-08-17. Machine-ledger entries are still pending.
 
 ## Active threads
 
 - Root vault maturity remains not market-ready until audit, adapter truth, raw provenance, and release gates agree.
-- Source ledger and adapter manifest live outside this edit scope, so wiki notes must call out stale or contradictory source state instead of hiding it.
+- Source ledger and adapter manifest live outside this edit scope, so wiki notes must call out stale, pending, or contradictory source state instead of hiding it.
 - Keep [[Research Pack Index]], [[Claim To Source Mapping]], and [[Evidence Gap Register]] aligned when current Google docs change.
 - Keep [[Google Algorithm Update Ledger]] quarantined to Google-owned confirmations when labeling updates current.
 

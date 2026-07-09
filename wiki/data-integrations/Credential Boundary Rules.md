@@ -3,7 +3,7 @@ type: spoke
 title: "Credential Boundary Rules"
 status: active
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [data-integrations, gsc, ga4, read-only, active]
 domain: "Blog Data"
 confidence: verified
@@ -35,9 +35,18 @@ The vault is read-only. It stores recommendations and sanitized exports, never l
 |---|---|---|
 | Secrets | Do not store API keys, OAuth tokens, cookies, service-account JSON, refresh tokens, client secrets, `.env` files, or browser session exports. | Reject the import, delete the artifact from working memory, and record a gap without the secret value. |
 | Private data | Do not store raw user identifiers, emails, form submissions, paid customer lists, or private query logs. | Redact before import or keep the evidence outside the vault. |
-| Scopes | Use read-only scopes when data is exported for analysis. | If write scopes are present, block the export and request a read-only export. |
+| Scopes | Prefer read-only scopes when data is exported for analysis. Search Console Search Analytics and URL Inspection support `https://www.googleapis.com/auth/webmasters.readonly`; full `webmasters` is accepted by the APIs but is not the preferred vault evidence path. | If write-capable scopes are present, block the export and request a read-only export or a sanitized UI export. |
 | Paths | Do not write absolute local paths into wiki notes or reports. | Replace with vault-relative paths or source IDs. |
 | External systems | Do not submit URLs, mutate Search Console settings, change CMS fields, edit GA4, or update sitemaps from this vault. | Convert the action into an approval note with rollback conditions. |
+
+## API Boundary Table
+
+| Source | Official capability | Read-only boundary | Vault note |
+|---|---|---|---|
+| Search Analytics API | Queries Search traffic data, groups by dimensions, and returns rows with clicks, impressions, CTR, and position. Google documents that the API is bounded by Search Console limits and does not guarantee all rows. | Use `webmasters.readonly` when possible; store only sanitized exports or aggregate summaries. | Do not present API output as complete query truth. |
+| URL Inspection API | Inspects the indexed status of a URL under a Search Console property. Google states it shows the version in the Google index and cannot test live indexability. | Use `webmasters.readonly` when possible; inspect only URLs owned by the property. | Do not use this vault to request indexing or mutate URL state. |
+| GA4 Data API | Programmatically accesses Analytics report data and respects the property reporting identity settings. | Use exports that exclude user-level identifiers and private event payloads. | GA4 evidence supports engagement analysis, not Search query evidence. |
+| Search Console generative AI reports | Google announced AI Overviews and AI Mode reporting for some properties. | Treat availability as property-specific and UI/API-scope-sensitive until exact export routes are documented in the ledger. | Missing reports get a missing-data note, not an estimate. |
 
 ## Approved Evidence Shapes
 
@@ -63,6 +72,13 @@ The vault is read-only. It stores recommendations and sanitized exports, never l
 3. Scan filenames and content for secrets before adding source notes.
 4. Store only sanitized summaries in wiki notes.
 5. Record unavailable fields in [[Missing Data Disclosure]].
+
+## Source Notes
+
+- Search Analytics API, last updated 2026-05-20, retrieved 2026-07-09: https://developers.google.com/webmaster-tools/v1/searchanalytics/query
+- URL Inspection API, last updated 2024-07-23, retrieved 2026-07-09: https://developers.google.com/webmaster-tools/v1/urlInspection.index/inspect
+- GA4 Data API overview, retrieved 2026-07-09: https://developers.google.com/analytics/devguides/reporting/data/v1
+- Search Console generative AI reports announcement, published 2026-06-03, retrieved 2026-07-09: https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports
 
 ## Related
 

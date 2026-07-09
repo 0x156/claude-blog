@@ -14,6 +14,7 @@ import html.parser
 import json
 import re
 import sys
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
@@ -376,7 +377,16 @@ def is_uri(value: str) -> bool:
 
 
 def is_iso_date_or_datetime(value: str) -> bool:
-    return bool(ISO_DATE_RE.match(value))
+    if not ISO_DATE_RE.match(value):
+        return False
+    try:
+        if "T" in value or " " in value:
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        else:
+            date.fromisoformat(value)
+    except ValueError:
+        return False
+    return True
 
 
 def html_to_text(value: str) -> str:

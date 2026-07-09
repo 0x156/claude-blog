@@ -3,10 +3,10 @@
   "version": 1,
   "status": "researched",
   "domain": "blog content creation, optimization, and management dual-optimized for Google rankings (E-E-A-T, the 2026 core updates) and AI citations (GEO/AEO), spanning writing, rewriting and freshness, SERP-informed briefs and outlines, editorial calendars and strategy, semantic topic clusters, schema and internal linking, multilingual publishing, the FLOW framework, factchecking, personas, distribution, and the blog delivery contract, grounded in the claude-blog skill",
-  "generated_at": "2026-07-08",
-  "last_verified": "2026-07-08",
+  "generated_at": "2026-07-09",
+  "last_verified": "2026-07-09",
   "refresh_cadence": "monthly for Google algorithm updates and Search Central policy; before every release for E-E-A-T framing, schema deprecations, and GEO/AEO citation claims; on-changelog for the claude-blog skill",
-  "provenance": "Derived from data/google-updates.json, the 2026 Blog-SEO Research Substrate, blog-relevant entries in Claude SEO Brain references/source-ledger.json, and URLs cited by the claude-blog skill references. Immutable raw snapshots are not yet complete, so market-ready release remains gated on raw capture hashes.",
+  "provenance": "Derived from data/google-updates.json, immutable local snapshots of the claude-blog v1.11.0 skill surface, the 2026 Blog-SEO Research Substrate, blog-relevant entries in Claude SEO Brain references/source-ledger.json, and URLs cited by the claude-blog skill references. Raw snapshot hashes now cover the local skill surface and data/google-updates.json; external web-page snapshots remain incomplete, so market-ready release remains gated on full raw capture.",
   "rules": {
     "researched_requires": [
       "at least two captured sources for fast-moving or high-stakes domains",
@@ -43,7 +43,21 @@
       "date_precision",
       "living_doc"
     ],
-    "raw_snapshot_required_for_market_ready": true
+    "raw_snapshot_required_for_market_ready": true,
+    "date_precision_enum": [
+      "day",
+      "month",
+      "year",
+      "unknown"
+    ],
+    "raw_snapshot_fields": [
+      "raw_snapshot_path",
+      "raw_snapshot_sha256"
+    ],
+    "accepted_internal_types": [
+      "local-skill-source",
+      "repo-data"
+    ]
   },
   "sources": [
     {
@@ -70,24 +84,24 @@
     },
     {
       "id": "g-ranking-history",
-      "title": "Google ranking update history",
-      "url": "https://developers.google.com/search/updates/ranking",
+      "title": "Google Search Status Dashboard ranking history",
+      "url": "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-08",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "monitoring",
       "claims": [
-        "Canonical official history page for confirmed ranking updates. Use the Search Status Dashboard for current rollout status and avoid stale through-May-only summaries."
+        "Canonical official history page for confirmed ranking updates and rollout durations. Use it for rollout status, not third-party impact analysis."
       ],
       "supports_claims": [
-        "Canonical official history page for confirmed ranking updates. Use the Search Status Dashboard for current rollout status and avoid stale through-May-only summaries."
+        "Canonical official history page for confirmed ranking updates and rollout durations. Use it for rollout status, not third-party impact analysis."
       ],
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-05-21",
+      "last_updated": "2026-06-24",
       "date_precision": "day"
     },
     {
@@ -161,8 +175,8 @@
       "title": "Creating helpful, reliable, people-first content",
       "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "content",
@@ -175,7 +189,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-10",
       "date_precision": "day"
     },
     {
@@ -183,8 +197,8 @@
       "title": "Intro to structured data markup",
       "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data",
       "source_type": "official",
-      "retrieved": "2026-07-08",
-      "last_verified": "2026-07-08",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "schema",
@@ -197,7 +211,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-10",
       "date_precision": "day"
     },
     {
@@ -205,30 +219,54 @@
       "title": "Product structured data",
       "url": "https://developers.google.com/search/docs/appearance/structured-data/product",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "ecommerce",
       "claims": [
-        "Product structured data covers product snippets and merchant listings. July 7 2026 Search Central updates added Product.category guidance and sale-duration guidance to merchant listing documentation."
+        "The Product structured data overview distinguishes product snippets from merchant listings and points implementers to the feature-specific documentation for requirements."
       ],
       "supports_claims": [
-        "Product structured data covers product snippets and merchant listings. July 7 2026 Search Central updates added Product.category guidance and sale-duration guidance to merchant listing documentation."
+        "The Product structured data overview distinguishes product snippets from merchant listings and points implementers to the feature-specific documentation for requirements."
       ],
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-07-07",
+      "last_updated": "2025-12-10",
       "date_precision": "day"
+    },
+    {
+      "id": "g-merchant-listing-sd",
+      "title": "Merchant listing structured data",
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing",
+      "source_type": "official",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
+      "last_updated": "2026-07-07",
+      "date_precision": "day",
+      "living_doc": true,
+      "refresh_due": "2026-08-09",
+      "confidence": "high",
+      "section": "ecommerce",
+      "claims": [
+        "Merchant listing structured data documents Product.category use with Text and CategoryCode values.",
+        "Merchant listing structured data documents sale duration with validFrom, validThrough, and priceValidUntil for sale prices."
+      ],
+      "supports_claims": [
+        "Merchant listing structured data documents Product.category use with Text and CategoryCode values.",
+        "Merchant listing structured data documents sale duration with validFrom, validThrough, and priceValidUntil for sale prices."
+      ],
+      "source_pool": "direct official refresh 2026-07-09",
+      "evidence_tier": "EVIDENCE-BASED"
     },
     {
       "id": "g-faqpage-sd",
       "title": "FAQ rich result deprecation changelog",
       "url": "https://developers.google.com/search/updates#deprecating-the-faq-rich-result-feature",
       "source_type": "official",
-      "retrieved": "2026-07-08",
-      "last_verified": "2026-07-08",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "schema",
@@ -249,8 +287,8 @@
       "title": "Block search indexing with noindex",
       "url": "https://developers.google.com/search/docs/crawling-indexing/block-indexing",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -263,7 +301,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-10",
       "date_precision": "day"
     },
     {
@@ -271,8 +309,8 @@
       "title": "Robots.txt introduction and guide",
       "url": "https://developers.google.com/search/docs/crawling-indexing/robots/intro",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -285,7 +323,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-10",
       "date_precision": "day"
     },
     {
@@ -293,8 +331,8 @@
       "title": "Consolidate duplicate URLs (canonicalization)",
       "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -307,7 +345,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-03-27",
       "date_precision": "day"
     },
     {
@@ -315,8 +353,8 @@
       "title": "Sitemaps overview",
       "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -329,16 +367,16 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-10",
       "date_precision": "day"
     },
     {
       "id": "g-crawl-budget",
       "title": "Managing crawl budget for large sites",
-      "url": "https://developers.google.com/search/docs/crawling-indexing/large-site-managing-crawl-budget",
+      "url": "https://developers.google.com/crawling/docs/crawl-budget",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -351,7 +389,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-19",
       "date_precision": "day"
     },
     {
@@ -359,8 +397,8 @@
       "title": "JavaScript SEO basics",
       "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -373,7 +411,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-03-04",
       "date_precision": "day"
     },
     {
@@ -381,8 +419,8 @@
       "title": "Mobile-first indexing",
       "url": "https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -395,7 +433,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-10",
       "date_precision": "day"
     },
     {
@@ -403,8 +441,8 @@
       "title": "AI features and your website",
       "url": "https://developers.google.com/search/docs/appearance/ai-features",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "geo",
@@ -417,7 +455,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-10",
       "date_precision": "day"
     },
     {
@@ -425,8 +463,8 @@
       "title": "Google Images best practices",
       "url": "https://developers.google.com/search/docs/appearance/google-images",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "images",
@@ -439,7 +477,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-03-02",
       "date_precision": "day"
     },
     {
@@ -447,8 +485,8 @@
       "title": "Video SEO best practices",
       "url": "https://developers.google.com/search/docs/appearance/video",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "images",
@@ -461,7 +499,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-18",
       "date_precision": "day"
     },
     {
@@ -469,8 +507,8 @@
       "title": "Localized versions of pages (hreflang)",
       "url": "https://developers.google.com/search/docs/specialty/international/localized-versions",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "international",
@@ -483,7 +521,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-22",
       "date_precision": "day"
     },
     {
@@ -491,8 +529,8 @@
       "title": "Managing multi-regional and multilingual sites",
       "url": "https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "international",
@@ -505,7 +543,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-12-10",
       "date_precision": "day"
     },
     {
@@ -535,8 +573,8 @@
       "title": "Search Console Search Analytics API",
       "url": "https://developers.google.com/webmaster-tools/v1/searchanalytics/query",
       "source_type": "api-docs",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "data-sources",
@@ -549,7 +587,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-05-20",
       "date_precision": "day"
     },
     {
@@ -557,8 +595,8 @@
       "title": "URL Inspection API",
       "url": "https://developers.google.com/webmaster-tools/v1/urlInspection.index/inspect",
       "source_type": "api-docs",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "data-sources",
@@ -571,7 +609,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2024-07-23",
       "date_precision": "day"
     },
     {
@@ -579,8 +617,8 @@
       "title": "PageSpeed Insights API v5",
       "url": "https://developers.google.com/speed/docs/insights/v5/get-started",
       "source_type": "api-docs",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "data-sources",
@@ -593,7 +631,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-08-28",
       "date_precision": "day"
     },
     {
@@ -601,8 +639,8 @@
       "title": "CrUX API",
       "url": "https://developer.chrome.com/docs/crux/api",
       "source_type": "api-docs",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "data-sources",
@@ -615,7 +653,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-02-11",
       "date_precision": "day"
     },
     {
@@ -623,8 +661,8 @@
       "title": "CrUX History API",
       "url": "https://developer.chrome.com/docs/crux/history-api",
       "source_type": "api-docs",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "data-sources",
@@ -637,7 +675,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-04-11",
       "date_precision": "day"
     },
     {
@@ -645,8 +683,8 @@
       "title": "GA4 Data API",
       "url": "https://developers.google.com/analytics/devguides/reporting/data/v1",
       "source_type": "api-docs",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "data-sources",
@@ -659,16 +697,16 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-06-29",
       "date_precision": "day"
     },
     {
       "id": "g-nlp",
       "title": "Cloud Natural Language API",
-      "url": "https://cloud.google.com/natural-language/docs",
+      "url": "https://docs.cloud.google.com/natural-language/docs",
       "source_type": "api-docs",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "content",
@@ -681,7 +719,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-07-07",
       "date_precision": "day"
     },
     {
@@ -689,8 +727,8 @@
       "title": "Google Ads Keyword Planning API",
       "url": "https://developers.google.com/google-ads/api/docs/keyword-planning/overview",
       "source_type": "api-docs",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "content",
@@ -703,7 +741,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-06-24",
       "date_precision": "day"
     },
     {
@@ -733,8 +771,8 @@
       "title": "Largest Contentful Paint (LCP)",
       "url": "https://web.dev/articles/lcp",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -747,7 +785,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-09-04",
       "date_precision": "day"
     },
     {
@@ -755,8 +793,8 @@
       "title": "Cumulative Layout Shift (CLS)",
       "url": "https://web.dev/articles/cls",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -769,7 +807,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2023-04-12",
       "date_precision": "day"
     },
     {
@@ -777,8 +815,8 @@
       "title": "Web Vitals",
       "url": "https://web.dev/articles/vitals",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -791,7 +829,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2024-10-31",
       "date_precision": "day"
     },
     {
@@ -799,8 +837,8 @@
       "title": "Optimize INP",
       "url": "https://web.dev/articles/optimize-inp",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -813,7 +851,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-09-02",
       "date_precision": "day"
     },
     {
@@ -821,8 +859,8 @@
       "title": "Time to First Byte (TTFB)",
       "url": "https://web.dev/articles/ttfb",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -835,16 +873,16 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2025-11-28",
       "date_precision": "day"
     },
     {
       "id": "chrome-soft-nav",
       "title": "Soft Navigations experiment",
-      "url": "https://developer.chrome.com/docs/web-platform/soft-navigations-experiment",
+      "url": "https://developer.chrome.com/docs/web-platform/soft-navigations",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -857,7 +895,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2026-06-24",
       "date_precision": "day"
     },
     {
@@ -865,8 +903,8 @@
       "title": "Schema.org full type hierarchy",
       "url": "https://schema.org/docs/full.html",
       "source_type": "standards",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "schema",
@@ -879,16 +917,16 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "date_precision": "unknown",
+      "source_date_note": "No page-level published or last-updated date was exposed in the fetched source on 2026-07-09; use retrieved date only."
     },
     {
       "id": "schema-product",
       "title": "Schema.org Product type",
       "url": "https://schema.org/Product",
       "source_type": "standards",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "ecommerce",
@@ -901,16 +939,16 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "date_precision": "unknown",
+      "source_date_note": "No page-level published or last-updated date was exposed in the fetched source on 2026-07-09; use retrieved date only."
     },
     {
       "id": "schema-org-type",
       "title": "Schema.org Organization type",
       "url": "https://schema.org/Organization",
       "source_type": "standards",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "schema",
@@ -923,16 +961,16 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "date_precision": "unknown",
+      "source_date_note": "No page-level published or last-updated date was exposed in the fetched source on 2026-07-09; use retrieved date only."
     },
     {
       "id": "w3c-jsonld",
       "title": "JSON-LD 1.1 specification",
       "url": "https://www.w3.org/TR/json-ld11/",
       "source_type": "standards",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "schema",
@@ -944,9 +982,10 @@
       ],
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
-      "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "living_doc": false,
+      "date_precision": "day",
+      "published": "2020-07-16",
+      "source_date_note": "W3C Recommendation publication date verified on 2026-07-09."
     },
     {
       "id": "llmstxt",
@@ -975,8 +1014,8 @@
       "title": "Sitemaps.org protocol",
       "url": "https://www.sitemaps.org/protocol.html",
       "source_type": "standards",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -989,7 +1028,7 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
+      "last_updated": "2016-11-21",
       "date_precision": "day"
     },
     {
@@ -1019,8 +1058,8 @@
       "title": "DataForSEO API v3 documentation",
       "url": "https://docs.dataforseo.com/v3/",
       "source_type": "vendor",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "data-sources",
@@ -1033,16 +1072,16 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "date_precision": "unknown",
+      "source_date_note": "No page-level published or last-updated date was exposed in the fetched source on 2026-07-09; use retrieved date only."
     },
     {
       "id": "dfs-labs",
       "title": "DataForSEO Labs",
       "url": "https://docs.dataforseo.com/v3/dataforseo_labs/overview/",
       "source_type": "vendor",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "clusters",
@@ -1055,16 +1094,16 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "date_precision": "unknown",
+      "source_date_note": "No page-level published or last-updated date was exposed in the fetched source on 2026-07-09; use retrieved date only."
     },
     {
       "id": "bing-wmt",
       "title": "Bing Webmaster Guidelines",
       "url": "https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a",
       "source_type": "vendor",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "data-sources",
@@ -1077,38 +1116,38 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "date_precision": "unknown",
+      "source_date_note": "No page-level published or last-updated date was exposed in the fetched source on 2026-07-09; use retrieved date only."
     },
     {
       "id": "bing-submit",
-      "title": "Bing URL Submission API",
-      "url": "https://www.bing.com/webmasters/url-submission-api",
+      "title": "IndexNow URL submission protocol",
+      "url": "https://www.bing.com/indexnow",
       "source_type": "api-docs",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
       "claims": [
-        "Programmatic URL submission helps Bing discover submitted URLs. This source only documents URL discovery for Bing."
+        "IndexNow lets sites notify participating search engines about changed URLs. This source does not document Copilot citation behavior."
       ],
       "supports_claims": [
-        "Programmatic URL submission helps Bing discover submitted URLs. This source only documents URL discovery for Bing."
+        "IndexNow lets sites notify participating search engines about changed URLs. This source does not document Copilot citation behavior."
       ],
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "date_precision": "unknown",
+      "source_date_note": "No page-level published or last-updated date was exposed in the fetched source on 2026-07-09; use retrieved date only."
     },
     {
       "id": "ahrefs-api",
       "title": "Ahrefs API and MCP",
-      "url": "https://ahrefs.com/api",
+      "url": "https://docs.ahrefs.com/",
       "source_type": "vendor",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "backlinks",
@@ -1121,16 +1160,16 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "date_precision": "unknown",
+      "source_date_note": "No page-level published or last-updated date was exposed in the fetched source on 2026-07-09; use retrieved date only."
     },
     {
       "id": "firecrawl",
       "title": "Firecrawl documentation",
-      "url": "https://docs.firecrawl.dev/",
+      "url": "https://docs.firecrawl.dev/introduction",
       "source_type": "vendor",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "technical",
@@ -1143,8 +1182,8 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-30",
-      "date_precision": "day"
+      "date_precision": "unknown",
+      "source_date_note": "No page-level published or last-updated date was exposed in the fetched source on 2026-07-09; use retrieved date only."
     },
     {
       "id": "ahrefs-aio",
@@ -1699,7 +1738,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2024-03-05-inp-replaces-fid",
@@ -1721,7 +1763,10 @@
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
       "last_updated": "2024-03-05",
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2024-05-05-site-reputation-abuse-enforcement-begins",
@@ -1743,7 +1788,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2024-06-20-june-2024-spam-update",
@@ -1765,7 +1813,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2024-08-15-august-2024-core-update",
@@ -1787,15 +1838,18 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2024-11-11-november-2024-core-update",
       "title": "November 2024 Core Update",
-      "url": "https://developers.google.com/search/updates/ranking",
+      "url": "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2024-11-11",
       "refresh_due": "2026-08-06",
       "confidence": "high",
@@ -1809,7 +1863,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2024-11-19-site-reputation-abuse-policy-clarified",
@@ -1831,15 +1888,18 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2024-12-12-december-2024-core-update",
       "title": "December 2024 Core Update",
-      "url": "https://developers.google.com/search/updates/ranking",
+      "url": "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2024-12-12",
       "refresh_due": "2026-08-06",
       "confidence": "high",
@@ -1853,15 +1913,18 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2024-12-19-december-2024-spam-update",
       "title": "December 2024 Spam Update",
-      "url": "https://developers.google.com/search/updates/ranking",
+      "url": "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2024-12-19",
       "refresh_due": "2026-08-06",
       "confidence": "high",
@@ -1875,7 +1938,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2025-01-23-qrg-update-jan-2025",
@@ -1897,7 +1963,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2025-03-05-ai-mode-experimental-launch",
@@ -1919,15 +1988,18 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2025-03-13-march-2025-core-update",
       "title": "March 2025 Core Update",
-      "url": "https://developers.google.com/search/updates/ranking",
+      "url": "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2025-03-13",
       "refresh_due": "2026-08-06",
       "confidence": "high",
@@ -1941,7 +2013,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2025-05-20-ai-mode-general-rollout-us",
@@ -1963,7 +2038,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2025-06-19-structured-data-deprecation",
@@ -1985,29 +2063,36 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2025-06-30-june-2025-core-update",
       "title": "June 2025 Core Update",
-      "url": "https://developers.google.com/search/updates/ranking",
+      "url": "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2025-06-30",
       "refresh_due": "2026-08-06",
       "confidence": "high",
       "section": "algorithm-ledger",
       "claims": [
-        "16-day rollout. Some Sep 2023 HCU partial recoveries."
+        "June 2025 core update had a 16-day rollout in the official Google Search Status Dashboard history."
       ],
       "supports_claims": [
-        "16-day rollout. Some Sep 2023 HCU partial recoveries."
+        "June 2025 core update had a 16-day rollout in the official Google Search Status Dashboard history."
       ],
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256",
+      "limitations": "This official source does not support HCU recovery claims; cite a separate practitioner or reporting source before making recovery claims."
     },
     {
       "id": "g-update-2025-08-21-ai-mode-expands-to-180-countries",
@@ -2029,7 +2114,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2025-09-11-qrg-update-sept-2025",
@@ -2051,29 +2139,36 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2025-12-11-december-2025-core-update",
       "title": "December 2025 Core Update",
-      "url": "https://developers.google.com/search/updates/ranking",
+      "url": "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2025-12-11",
       "refresh_due": "2026-08-06",
       "confidence": "high",
       "section": "algorithm-ledger",
       "claims": [
-        "December 2025 core update had an 18-day rollout and was the third core update of 2025. Any ecommerce skew claim requires a separate practitioner source."
+        "December 2025 core update had an 18-day rollout and was the third core update of 2025 in the official Google Search Status Dashboard history."
       ],
       "supports_claims": [
-        "December 2025 core update had an 18-day rollout and was the third core update of 2025. Any ecommerce skew claim requires a separate practitioner source."
+        "December 2025 core update had an 18-day rollout and was the third core update of 2025 in the official Google Search Status Dashboard history."
       ],
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256",
+      "limitations": "This official source does not support ecommerce-sector impact claims; cite a separate practitioner source before making sector-impact claims."
     },
     {
       "id": "g-update-2026-02-05-february-2026-discover-update",
@@ -2095,7 +2190,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-03-24-march-2026-spam-update",
@@ -2117,15 +2215,18 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-03-27-march-2026-core-update",
       "title": "March 2026 Core Update",
-      "url": "https://developers.google.com/search/updates/ranking",
+      "url": "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2026-03-27",
       "refresh_due": "2026-08-06",
       "confidence": "high",
@@ -2139,7 +2240,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-05-07-faq-rich-results-retired",
@@ -2161,7 +2265,10 @@
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
       "last_updated": "2026-05-07",
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content",
@@ -2183,7 +2290,10 @@
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
       "last_updated": "2026-05-15",
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-05-15-new-generative-ai-optimization-guide",
@@ -2205,7 +2315,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-05-19-google-i-o-2026-gemini-3-5-flash-powers-ai-mode",
@@ -2227,7 +2340,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-05-20-hasadultconsideration-property-added",
@@ -2249,15 +2365,18 @@
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
       "last_updated": "2026-05-20",
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-05-21-may-2026-core-update",
       "title": "May 2026 Core Update",
-      "url": "https://developers.google.com/search/updates/ranking",
+      "url": "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2026-05-21",
       "refresh_due": "2026-08-06",
       "confidence": "high",
@@ -2271,7 +2390,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-06-02-may-2026-core-update-complete",
@@ -2293,7 +2415,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-06-03-search-console-search-generative-ai-performance-reports",
@@ -2315,7 +2440,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice",
@@ -2337,7 +2465,10 @@
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
       "last_updated": "2026-06-05",
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-06-15-back-button-hijacking-spam-policy-in-effect",
@@ -2359,7 +2490,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search",
@@ -2381,7 +2515,10 @@
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
       "last_updated": "2026-06-15",
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-06-24-june-2026-spam-update",
@@ -2403,15 +2540,18 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "g-update-2026-06-30-merchant-center-product-videos-serving-eligible",
       "title": "Merchant Center product videos serving-eligible",
       "url": "https://support.google.com/merchants/answer/16989427",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2026-06-30",
       "refresh_due": "2026-08-06",
       "confidence": "high",
@@ -2425,7 +2565,10 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
+      "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
+      "hash_algorithm": "sha256"
     },
     {
       "id": "sparktoro-zero-click-2026",
@@ -2600,8 +2743,8 @@
       "title": "Search Central documentation updates for Product structured data",
       "url": "https://developers.google.com/search/updates#july-2026",
       "source_type": "official",
-      "retrieved": "2026-07-08",
-      "last_verified": "2026-07-08",
+      "retrieved": "2026-07-09",
+      "last_verified": "2026-07-09",
       "published": "2026-07-07",
       "date_precision": "day",
       "living_doc": false,

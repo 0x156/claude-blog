@@ -3,7 +3,7 @@ type: spoke
 title: "Source Confidence Labels"
 status: active
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
@@ -36,106 +36,49 @@ source_urls:
 # Source Confidence Labels
 
 ## Summary
-This spoke defines verified and advisory labels for wiki notes and source claims.
-It belongs to [[Research Pack Index]] and supports source routing, confidence labels, claim mapping, refresh cadence, and evidence gaps.
-Primary working inputs: source type, evidence quality, recency, claim scope.
-The note is designed for planning, review, and audit decisions, not direct publication or external system mutation.
-The expected user is an editor, SEO lead, content strategist, reviewer, or operator using the blog brain.
-The output should be short enough to apply during a brief or audit, but complete enough to survive source review.
+This spoke defines claim-level confidence labels for wiki notes. The label belongs to the weakest evidence needed for the actual recommendation, not the strongest source in the bibliography.
 
-## Evidence Anchors
-- The source ledger contains 115 sources generated and last verified on 2026-07-06.
-- Current requirements were last verified 2026-07-06 and set a 2026-08-06 refresh due date.
-- Official Google, standards, primary, vendor, regulator, government, authority, and API documentation sources carry the highest source priority.
-- Practitioner studies are useful for workflow heuristics and market behavior, but they need advisory confidence when not first-party to the property.
-- Evidence must be recorded in references/source-ledger.json rather than only summarized in wiki prose.
-- As of 2026-07-06, SparkToro reports 68.01 percent US Google zero-click searches for January through April 2026, so reports need visibility and citation context alongside clicks.
-- Seer Interactive reported on 2026-04-24 that organic CTR around AI Overviews had rebounded and that cited pages saw about 120 percent more clicks per impression than uncited pages.
-- Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
-- Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
-- The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guide has current page date 2026-06-29; the 2026-06-15 documentation update added the llms.txt clarification.
-- Passage extraction heuristics are practitioner evidence unless an official source confirms them.
+The source ledger has separate `confidence` values such as high, medium, and low. This wiki uses operational labels below because a high-quality source can still support only a narrow claim.
 
 ## Allowed Labels
 
 | Label | Use when | Downgrade when | Example |
 |---|---|---|---|
-| verified | An official, primary, standards, government, regulator, API, or first-party source directly supports the exact claim and date. | The claim generalizes beyond the source, the source is stale, or the ledger lacks date precision. | FAQ rich result retirement effective 2026-05-07 from Google FAQPage docs. |
-| evidence-based | Multiple trustworthy sources or one strong primary source supports an observed pattern, but the claim is not an official requirement. | The evidence is property-specific, market-average only, or not reproducible. | INP replacing FID as a Core Web Vital. |
-| practitioner | A practitioner source describes a workflow, heuristic, or observed tactic without official confirmation. | It is presented as a ranking factor, guarantee, or durable rule. | Passage source-proximity guidance from ZipTie. |
-| advisory | The note combines official facts with market studies, practitioner heuristics, or local operating judgment. | Any important claim lacks a source ID, URL, retrieval date, or refresh trigger. | AI citation readiness checklist. |
-| contested | Trustworthy sources disagree or evidence is mixed across methods, sample sets, or periods. | A second source resolves the conflict or first-party data confirms one reading. | AIO CTR effects across different market studies. |
-| gap | The claim is missing, stale, source-mismatched, or outside the source coverage. | A dated trustworthy source is recorded in the claim map. | July 2026 docs updates missing from the machine ledger. |
+| verified | A current official, primary, standards, government, regulator, API, or first-party source directly supports the exact claim, date, and surface. | The claim generalizes beyond the source, source date fields are mixed, raw provenance is missing for a release claim, or the source is outside the affected platform. | Google AI optimization guide last updated 2026-06-29 says Google Search does not use llms.txt. |
+| evidence-based | Multiple trustworthy sources or one strong primary source supports an observed pattern, but it is not an official requirement for the local site. | The evidence is market-average only, property-specific without access to the property, or methodologically narrow. | First-party GSC data plus a market study show AIO exposure affects a content class. |
+| practitioner | A practitioner source describes a workflow, test, heuristic, or observed tactic without official confirmation. | It is presented as a durable rule, ranking factor, traffic guarantee, or AI citation guarantee. | ZipTie passage-format guidance for AI Overviews source selection. |
+| advisory | The recommendation combines verified facts with judgment, market context, practitioner heuristics, or local policy. | Any required claim is missing a source ID, URL, retrieval date, confidence label, or refresh trigger. | AI citation readiness checklist using Google facts plus GEO heuristics. |
+| contested | Trustworthy sources conflict, or studies disagree because of different samples, periods, surfaces, or methods. | One source is later found irrelevant, or first-party property data resolves the practical decision. | AIO CTR effect estimates from separate market studies. |
+| gap | Evidence is missing, stale, date-mismatched, source-mismatched, raw-provenance-missing, or outside the source coverage. | A dated trustworthy source is recorded in [[Claim To Source Mapping]] and, for release use, the machine ledger and raw provenance are corrected. | `g-product-sd` date mismatch for the July 7 merchant listing update. |
 
 ## Downgrade Rules
 
-- A note with any practitioner-only operational claim cannot be `confidence: verified` unless verified facts and practitioner advice are split.
+- A note with any practitioner-only operational claim cannot be `confidence: verified` unless verified facts and practitioner guidance are split into separate claim rows.
+- A note that mixes verified Google facts with market studies or workflow heuristics should use `confidence: advisory` at note level even if individual rows are verified.
 - Market-study statistics stay advisory until first-party property data confirms the local pattern.
-- Official Google documentation supports Google Search claims only; it does not prove behavior for ChatGPT, Perplexity, Copilot, or non-Google assistants.
-- A source URL without retrieval date and source ID cannot support a release-gate claim.
-- A source with a redirect, 404, or stale page date becomes `gap` until refreshed.
-- Confidence follows the weakest source needed for the recommendation, not the strongest source in the note.
+- Official Google Search documentation supports Google Search claims only; it does not prove behavior for ChatGPT, Perplexity, Copilot, or other non-Google assistants.
+- Google AI developer documentation supports model and provenance claims about Google AI products only; it does not clear rights, consent, or client publication policy.
+- A source URL without source ID, retrieval date, and refresh trigger cannot support a release-gate claim.
+- A live source whose page date conflicts with the machine ledger becomes `gap` until the date model is repaired.
+- Confidence follows the weakest source needed for the recommendation.
 
-## Required Inputs
-- Source ID, title, URL, source type, section, retrieved date, and refresh due date.
-- Claim text exactly as it will appear in a recommendation or audit.
-- Confidence label based on source authority, recency, and claim specificity.
-- Primary source preference when Google, standards, or first-party documentation exists.
-- Practitioner or market source caveat when the evidence describes behavior rather than official requirements.
-- Gap owner and due date when evidence is missing or stale.
-- Release gate note when a missing source blocks market-ready status.
-- Rollback note when an external source changes or loses relevance.
+## Label Examples
 
-## Workflow
-- Define the decision this note supports: defines verified and advisory labels for wiki notes and source claims.
-- Open [[Research Pack Index]] and confirm the hub rule that applies before using this spoke.
-- Start with official Google, standards, primary, or first-party sources when they exist for the claim.
-- Use practitioner sources for methods and observed behavior only with caveats about scope and recency.
-- Route every current requirement through the ledger rather than relying on memory or prose notes.
-- Promote gaps to the evidence register before they reach recommendations.
-- Start from the parent hub and confirm the article, locale, data set, or source family affected by this note.
-- List the claims that the draft or audit output will make before editing style, media, or schema.
-- Attach a source URL, retrieval date, and confidence label to each current or risky claim.
-- Separate reader-facing advice from implementation notes so the brain stays advisory in V1.
-- Check whether first-party property data exists before leaning on market averages or practitioner studies.
-- Record any missing evidence as a gap instead of converting it into a confident recommendation.
-- Route schema decisions through visible page content and current Google-supported rich result documentation.
-- Route AI citation decisions through answer-first passages, clear entities, and source-backed wording.
-- Route multilingual and persona decisions through human review when local facts, legal terms, or YMYL sensitivity appear.
-- Keep all external system changes outside this note and write only the recommendation, rationale, and rollback condition.
+| Claim | Label | Why |
+|---|---|---|
+| Google Search does not use llms.txt for Search visibility. | verified | Directly stated in Google AI optimization guide, retrieved 2026-07-09. |
+| Keep important answer passages concise and source-near. | practitioner | Useful GEO workflow, but supported by practitioner guidance rather than an official Google rule. |
+| AIO citation increases clicks by a fixed percent for this client. | gap | Market studies cannot be applied to a client without first-party data. |
+| Generated images need model, rights, consent, disclosure, and provenance review. | advisory | Combines Google AI docs, C2PA provenance standard, and local publication policy. |
+| The Product intro page was updated on 2026-07-07. | gap | Live Product intro page shows 2025-12-10; July 7 applies to merchant listing documentation. |
 
-## Review Checks
-- The note names exact dates when guidance can become stale.
-- The recommendation does not promise rankings, traffic, AI citations, or rich results.
-- FAQPage is not framed as a current rich result tactic after 2026-05-07.
-- FID is not used as a current Core Web Vital, and INP is used when performance enters the decision.
-- llms.txt is not presented as a Google Search visibility requirement.
-- The cited source is appropriate for the claim strength and not just a convenient example.
-- The output tells the reader what to do when first-party data is unavailable.
-- The advice can be reversed or refreshed if Google documentation changes.
-- The body links back to the parent hub, Index, and sibling spokes for graph health.
-- The note stays inside the assigned folder and does not mutate references, data, scripts, or external platforms.
+## Audit Checks
 
-## Risk Controls
-- Evidence currency risk: Source Confidence Labels decisions can go stale when a source, date, or requirement changes.
-- Claim scope risk: keep Source Confidence Labels advice tied to the source coverage named in this note.
-- Operational boundary risk: do not turn Source Confidence Labels into CMS, analytics, Search Console, API, or publishing mutation steps.
-- Proof gap risk: when the note lacks direct evidence, record the gap instead of upgrading confidence.
-- Audience fit risk: adjust Source Confidence Labels guidance for topic sensitivity, locale, and review ownership before use.
-- Media and data risk: verify charts, visuals, metrics, and examples before they carry this note's claims.
-- Metric interpretation risk: separate first-party exports, market studies, and API signals in Source Confidence Labels outputs.
-- Monitoring risk: quarantine unconfirmed volatility until a dated source in the ledger supports it.
-
-## Output Shape
-- A Source Confidence Labels decision summary for the editor or auditor.
-- The source IDs or URLs that directly support the active recommendation.
-- A confidence label that matches the evidence strength for this note.
-- A rollback or refresh condition tied to the source or workflow affected.
-- A blocked-claims list for Source Confidence Labels gaps that need more evidence.
-- A handoff note naming the writer, editor, reviewer, or data owner next action.
-- Links back to the parent hub and sibling notes that keep the graph navigable.
-- A no-action statement when Source Confidence Labels evidence is incomplete or outside this brain.
+- Every current claim has a row in [[Claim To Source Mapping]] or a gap in [[Evidence Gap Register]].
+- Every `pending:` source ID has a corresponding gap owner and due date.
+- Current claims include exact dates such as 2026-07-09 instead of relative wording.
+- Deprecated features are not scored as current tactics.
+- Advisory or practitioner evidence is never phrased as a guarantee.
 
 ## Related
 - [[Research Pack Index]]
@@ -162,11 +105,3 @@ The output should be short enough to apply during a brief or audit, but complete
 - https://blog.google/products-and-platforms/products/search/search-io-2026/
 - https://developers.google.com/search/docs/appearance/structured-data/faqpage
 - https://ziptie.dev/blog/google-ai-overviews-source-selection/
-
-## Maintenance Notes
-- Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
-- Keep backlink health with [[Research Pack Index]], [[index|Index]], and sibling spokes in this folder.
-- Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
-- Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.
-- Do not record secrets, tokens, private exports, or private client details in this note.
-- Do not publish or mutate CMS, GSC, GA4, Search Console, analytics, schema, sitemap, or platform settings from this note.

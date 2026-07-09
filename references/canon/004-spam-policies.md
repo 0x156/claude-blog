@@ -5,7 +5,7 @@
 Spam policies for Google web search, Google Search Central.
 URL: https://developers.google.com/search/docs/essentials/spam-policies
 Updated in ledger: 2026-05-15.
-Retrieved: 2026-07-06.
+Retrieved: 2026-07-09.
 Confidence: EVIDENCE-BASED.
 
 ## Core Thesis

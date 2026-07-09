@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from ingest_blog_input import ValidationError, load_blog_input  # noqa: E402
 from render_blog_report import render_markdown  # noqa: E402
-from synthesize_blog_plan import load_ingested, synthesize  # noqa: E402
+from synthesize_blog_plan import has_intent_coverage, load_ingested, synthesize  # noqa: E402
 
 
 FIXTURE = ROOT / "tests" / "fixtures" / "sample-blog-post.json"
@@ -25,6 +25,58 @@ def run_cli(args: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(args, cwd=ROOT, text=True, capture_output=True, check=False)
 
 
+def run_script(script: str, *args: str | Path) -> subprocess.CompletedProcess[str]:
+    return run_cli([PY, f"scripts/{script}", *(str(arg) for arg in args)])
+
+
+def assert_ok(proc: subprocess.CompletedProcess[str]) -> None:
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def assert_error_envelope(proc: subprocess.CompletedProcess[str]) -> dict[str, object]:
+    assert proc.returncode == 2
+    payload = json.loads(proc.stdout)
+    assert payload["ok"] is False
+    assert payload["errors"]
+    return payload
+
+
+def write_ingested(tmp_path: Path) -> Path:
+    ingested = tmp_path / "ingested.json"
+    proc = run_script("ingest_blog_input.py", FIXTURE, "-o", ingested)
+    assert_ok(proc)
+    return ingested
+
+
+def write_plan(tmp_path: Path) -> Path:
+    ingested = write_ingested(tmp_path)
+    plan = tmp_path / "plan.json"
+    proc = run_script("synthesize_blog_plan.py", ingested, "-o", plan)
+    assert_ok(proc)
+    return plan
+
+
+def assert_domain_specific_plan(plan: dict[str, object]) -> None:
+    assert plan["schema"] == "claude-blog-brain.blog-optimization-plan.v1"
+    assert plan["adapter"] == "synthesize_blog_plan"
+    assert set(plan["scores"]) >= {"overall", "content", "seo", "eeat", "technical", "ai_citation"}  # type: ignore[index]
+    assert "geo_ai_citation_readiness" in plan
+    assert "schema_recommendations" in plan
+    assert "delivery_contract" in plan
+    assert "source_citations" in plan
+
+
+def assert_domain_specific_report(report: str) -> None:
+    assert report.startswith("# Blog Optimization Plan:")
+    assert "## Scorecard" in report
+    assert "## Delivery Contract" in report
+    assert "## GEO and AI Citation Readiness" in report
+    assert "## Schema Recommendations" in report
+    assert "## Source Citations" in report
+    assert "`g-ai-opt-guide`" in report
+    assert "`seer-aio-impact-ctr-2026`" in report
+
+
 def test_blog_adapter_happy_path() -> None:
     record = load_blog_input(FIXTURE)
     plan = synthesize(record)
@@ -33,12 +85,11 @@ def test_blog_adapter_happy_path() -> None:
     assert record["schema"] == "claude-blog-brain.ingested-blog-post.v1"
     assert record["input"]["target_keyword"] == "AI citation ready blog"
     assert record["provenance"]["source_count"] == 3
-    assert plan["schema"] == "claude-blog-brain.blog-optimization-plan.v1"
-    assert set(plan["scores"]) >= {"overall", "content", "seo", "eeat", "technical", "ai_citation"}
+    assert_domain_specific_plan(plan)
     assert plan["geo_ai_citation_readiness"]["checks"][0]["name"] == "Passage extractability"
     assert any(item["schema_type"] == "FAQPage caveat" for item in plan["schema_recommendations"])
     assert "<table>" in report
-    assert "## Prioritized Recommendations" in report
+    assert_domain_specific_report(report)
     assert "`g-helpful-content`" in report
     assert "`g-faqpage-sd`" in report
 
@@ -84,7 +135,8 @@ def test_blog_adapter_invalid_input_error(tmp_path: Path) -> None:
 
 def test_blog_adapter_rejects_invalid_iso_dates(tmp_path: Path) -> None:
     payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
-    payload["published_at"] = "June 10, 2026"
+    payload["published_at"] = "2026-02-31"
+    payload["frontmatter"]["dateModified"] = "June 10, 2026"
     bad_input = tmp_path / "bad-iso-date-blog-post.json"
     bad_input.write_text(json.dumps(payload), encoding="utf-8")
 
@@ -92,6 +144,7 @@ def test_blog_adapter_rejects_invalid_iso_dates(tmp_path: Path) -> None:
         load_blog_input(bad_input)
 
     assert "published_at" in str(excinfo.value)
+    assert "frontmatter.dateModified" in str(excinfo.value)
     assert "ISO date or date-time" in str(excinfo.value)
 
 
@@ -145,46 +198,113 @@ def test_unknown_audit_source_is_operator_supplied_uncited(tmp_path: Path) -> No
     assert "operator-note" not in {source["id"] for source in plan["source_citations"]}
 
 
-def test_blog_adapter_script_clis_write_outputs(tmp_path: Path) -> None:
-    ingested = tmp_path / "ingested.json"
-    plan = tmp_path / "plan.json"
-    report = tmp_path / "report.md"
-
-    ingest_proc = run_cli([PY, "scripts/ingest_blog_input.py", str(FIXTURE), "-o", str(ingested)])
-    assert ingest_proc.returncode == 0, ingest_proc.stderr
-    assert json.loads(ingested.read_text(encoding="utf-8"))["schema"] == "claude-blog-brain.ingested-blog-post.v1"
-
-    synth_proc = run_cli([PY, "scripts/synthesize_blog_plan.py", str(ingested), "-o", str(plan)])
-    assert synth_proc.returncode == 0, synth_proc.stderr
-    assert json.loads(plan.read_text(encoding="utf-8"))["schema"] == "claude-blog-brain.blog-optimization-plan.v1"
-
-    render_proc = run_cli([PY, "scripts/render_blog_report.py", str(plan), "-o", str(report), "--json-errors"])
-    assert render_proc.returncode == 0, render_proc.stderr
-    assert "## Prioritized Recommendations" in report.read_text(encoding="utf-8")
+def test_intent_coverage_does_not_require_exact_target_phrase() -> None:
+    assert has_intent_coverage("AI citation ready blog", "Making posts quotable in AI answers", ["AI answers"])
+    assert has_intent_coverage("Article schema", "Article schemas for authors and publishers", [])
+    assert not has_intent_coverage("art", "article schema markup", [])
 
 
-def test_blog_adapter_cli_json_error_envelope(tmp_path: Path) -> None:
-    bad_input = tmp_path / "bad.json"
-    bad_input.write_text('{"url":"ftp://example.org"}', encoding="utf-8")
+def test_ingest_script_cli_valid_output_and_determinism(tmp_path: Path) -> None:
+    first = tmp_path / "ingested-first.json"
+    second = tmp_path / "ingested-second.json"
 
-    proc = run_cli([PY, "scripts/ingest_blog_input.py", str(bad_input)])
-    assert proc.returncode == 2
-    payload = json.loads(proc.stdout)
-    assert payload["ok"] is False
-    assert payload["errors"]
+    assert_ok(run_script("ingest_blog_input.py", FIXTURE, "-o", first))
+    assert_ok(run_script("ingest_blog_input.py", FIXTURE, "-o", second))
 
+    assert first.read_bytes() == second.read_bytes()
+    record = json.loads(first.read_text(encoding="utf-8"))
+    assert record["schema"] == "claude-blog-brain.ingested-blog-post.v1"
+    assert record["adapter"] == "ingest_blog_input"
+    assert record["content"]["headings"]
+    assert record["signals"]["has_direct_intro_answer"] is True
+
+
+def test_ingest_script_cli_malformed_input_json_error_envelope(tmp_path: Path) -> None:
+    bad_input = tmp_path / "bad-input.json"
+    bad_output = tmp_path / "bad-output.json"
+    bad_input.write_text('{"title": "Broken"', encoding="utf-8")
+
+    payload = assert_error_envelope(run_script("ingest_blog_input.py", bad_input, "-o", bad_output))
+
+    assert "invalid JSON" in " ".join(str(error) for error in payload["errors"])  # type: ignore[index]
+    assert not bad_output.exists()
+
+
+def test_synthesize_script_cli_valid_output_and_determinism(tmp_path: Path) -> None:
+    ingested = write_ingested(tmp_path)
+    first = tmp_path / "plan-first.json"
+    second = tmp_path / "plan-second.json"
+
+    assert_ok(run_script("synthesize_blog_plan.py", ingested, "-o", first))
+    assert_ok(run_script("synthesize_blog_plan.py", ingested, "-o", second))
+
+    assert first.read_bytes() == second.read_bytes()
+    plan = json.loads(first.read_text(encoding="utf-8"))
+    assert_domain_specific_plan(plan)
+    tactic_text = " ".join(item["tactic"] for item in plan["geo_ai_citation_readiness"]["being_cited_tactics"])
+    assert "observed association" in tactic_text
+    assert "causal or guaranteed" in tactic_text
+
+
+def test_synthesize_script_cli_malformed_input_json_error_envelope(tmp_path: Path) -> None:
+    bad_input = tmp_path / "bad-ingested.json"
+    bad_output = tmp_path / "bad-plan.json"
+    bad_input.write_text('{"schema": "claude-blog-brain.ingested-blog-post.v1"', encoding="utf-8")
+
+    payload = assert_error_envelope(run_script("synthesize_blog_plan.py", bad_input, "-o", bad_output))
+
+    assert "invalid JSON" in " ".join(str(error) for error in payload["errors"])  # type: ignore[index]
+    assert not bad_output.exists()
+
+
+def test_render_script_cli_valid_output_and_determinism(tmp_path: Path) -> None:
+    plan = write_plan(tmp_path)
+    first = tmp_path / "report-first.md"
+    second = tmp_path / "report-second.md"
+
+    assert_ok(run_script("render_blog_report.py", plan, "-o", first, "--json-errors"))
+    assert_ok(run_script("render_blog_report.py", plan, "-o", second, "--json-errors"))
+
+    assert first.read_bytes() == second.read_bytes()
+    assert_domain_specific_report(first.read_text(encoding="utf-8"))
+
+
+def test_render_script_cli_malformed_input_json_error_envelope(tmp_path: Path) -> None:
     bad_plan = tmp_path / "bad-plan.json"
-    bad_plan.write_text("{}", encoding="utf-8")
-    render_proc = run_cli([PY, "scripts/render_blog_report.py", str(bad_plan), "--json-errors"])
-    assert render_proc.returncode == 2
-    render_payload = json.loads(render_proc.stdout)
-    assert render_payload["ok"] is False
+    bad_output = tmp_path / "bad-report.md"
+    bad_plan.write_text("{", encoding="utf-8")
+
+    payload = assert_error_envelope(run_script("render_blog_report.py", bad_plan, "-o", bad_output, "--json-errors"))
+
+    assert payload["errors"]
+    assert not bad_output.exists()
 
 
-def test_installed_cli_blog_pipeline(tmp_path: Path) -> None:
+def test_package_cli_blog_subcommands_write_domain_outputs(tmp_path: Path) -> None:
+    ingested = tmp_path / "cli-ingested.json"
+    plan = tmp_path / "cli-plan.json"
+    report = tmp_path / "cli-report.md"
+
+    assert_ok(run_cli([PY, "-m", "claude_blog_brain", "blog-ingest", str(FIXTURE), "--output", str(ingested)]))
+    assert_ok(run_cli([PY, "-m", "claude_blog_brain", "blog-synthesize", str(ingested), "--output", str(plan)]))
+    assert_ok(run_cli([PY, "-m", "claude_blog_brain", "blog-report", str(plan), "--output", str(report), "--json-errors"]))
+
+    assert json.loads(ingested.read_text(encoding="utf-8"))["adapter"] == "ingest_blog_input"
+    assert_domain_specific_plan(json.loads(plan.read_text(encoding="utf-8")))
+    assert_domain_specific_report(report.read_text(encoding="utf-8"))
+
+
+def test_package_cli_blog_pipeline_is_domain_specific_and_temp_only(tmp_path: Path) -> None:
     out_dir = tmp_path / "pipeline"
     proc = run_cli([PY, "-m", "claude_blog_brain", "blog-pipeline", "--input", str(FIXTURE), "--out-dir", str(out_dir)])
-    assert proc.returncode == 0, proc.stderr
-    assert (out_dir / "ingested-blog-post.json").exists()
-    assert (out_dir / "blog-optimization-plan.json").exists()
-    assert (out_dir / "blog-optimization-report.md").exists()
+    assert_ok(proc)
+
+    ingested = out_dir / "ingested-blog-post.json"
+    plan = out_dir / "blog-optimization-plan.json"
+    report = out_dir / "blog-optimization-report.md"
+    assert ingested.exists()
+    assert plan.exists()
+    assert report.exists()
+    assert_domain_specific_plan(json.loads(plan.read_text(encoding="utf-8")))
+    assert_domain_specific_report(report.read_text(encoding="utf-8"))
+    assert str(report) in proc.stdout

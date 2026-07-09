@@ -4,7 +4,7 @@
 
 AI features and your website, Google Search Central.
 URL: https://developers.google.com/search/docs/appearance/ai-features
-Retrieved: 2026-07-06.
+Retrieved: 2026-07-09.
 Confidence: EVIDENCE-BASED.
 
 ## Core Thesis

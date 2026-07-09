@@ -4,7 +4,8 @@
 
 Intro to structured data markup, Google Search Central, living documentation.
 URL: https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
-Retrieved: 2026-07-06.
+Updated in source: 2025-12-10.
+Retrieved: 2026-07-09.
 Confidence: EVIDENCE-BASED.
 
 ## Core Thesis

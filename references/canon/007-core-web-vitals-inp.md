@@ -5,7 +5,8 @@
 Interaction to Next Paint, Web Vitals, Largest Contentful Paint, and Cumulative Layout Shift, web.dev.
 URLs: https://web.dev/articles/inp, https://web.dev/articles/vitals, https://web.dev/articles/lcp, https://web.dev/articles/cls
 INP ledger date: 2024-03-05.
-Retrieved: 2026-07-06.
+INP source updated: 2025-09-02.
+Retrieved: 2026-07-09.
 Confidence: EVIDENCE-BASED.
 
 ## Core Thesis

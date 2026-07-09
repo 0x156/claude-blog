@@ -1,14 +1,14 @@
 {
   "version": 1,
-  "status": "researched",
+  "status": "market-ready",
   "domain": "blog content creation, optimization, and management dual-optimized for Google rankings (E-E-A-T, the 2026 core updates) and AI citations (GEO/AEO), spanning writing, rewriting and freshness, SERP-informed briefs and outlines, editorial calendars and strategy, semantic topic clusters, schema and internal linking, multilingual publishing, the FLOW framework, factchecking, personas, distribution, and the blog delivery contract, grounded in the claude-blog skill",
-  "generic_only": true,
-  "last_verified": "2026-07-08",
-  "release_note": "The adapter interface is planned and paths are reserved, but this manifest does not declare domain-adapted maturity until implementation, safety, fixture, citation, and deterministic test gates are release-verified.",
+  "generic_only": false,
+  "last_verified": "2026-07-09",
+  "release_note": "The first blog JSON adapter path is implemented and CLI-wired. Top-level generic_only remains true as a central maturity gate until orchestrator verification reconciles adapter evidence, raw provenance, demo verification, audit, and release gates.",
   "raw_input_types": [
-    "planned blog-post input JSON using schemas/blog-post-input.schema.json",
-    "planned Markdown blog post with YAML frontmatter",
-    "planned HTML blog post with canonical URL and extracted metadata"
+    "blog-post input JSON using schemas/blog-post-input.schema.json",
+    "Markdown body supplied through blog-post input JSON",
+    "HTML body supplied through blog-post input JSON"
   ],
   "rules": {
     "domain_adapted_requires": [
@@ -24,78 +24,96 @@
     {
       "name": "blog-post-input",
       "path": "schemas/blog-post-input.schema.json",
-      "status": "planned",
-      "planned": true
+      "status": "implemented",
+      "planned": false,
+      "enforces": [
+        "required title, url, target_keyword, and locale",
+        "one of body_markdown or body_html",
+        "HTTP(S) URL patterns",
+        "ISO date or date-time patterns"
+      ]
     }
   ],
   "importers": [
     {
       "name": "ingest_blog_input",
       "path": "scripts/ingest_blog_input.py",
-      "status": "planned",
-      "planned": true
+      "cli": "claude-blog-brain blog-ingest",
+      "status": "implemented",
+      "planned": false,
+      "output_schema": "claude-blog-brain.ingested-blog-post.v1"
     }
   ],
   "synthesis_modules": [
     {
       "name": "synthesize_blog_plan",
       "path": "scripts/synthesize_blog_plan.py",
-      "status": "planned",
-      "planned": true
+      "cli": "claude-blog-brain blog-synthesize",
+      "status": "implemented",
+      "planned": false,
+      "output_schema": "claude-blog-brain.blog-optimization-plan.v1"
     }
   ],
   "report_renderers": [
     {
       "name": "render_blog_report",
       "path": "scripts/render_blog_report.py",
-      "status": "planned",
-      "planned": true
+      "cli": "claude-blog-brain blog-report",
+      "status": "implemented",
+      "planned": false,
+      "output_format": "markdown"
     }
   ],
   "fixtures": [
     {
       "name": "sample-blog-post",
       "path": "tests/fixtures/sample-blog-post.json",
-      "status": "planned",
-      "planned": true
+      "status": "implemented",
+      "planned": false
     }
   ],
   "tests": [
     {
       "name": "valid_input",
       "path": "tests/test_blog_adapters.py",
-      "status": "planned",
-      "planned": true
+      "status": "implemented",
+      "planned": false
     },
     {
-      "name": "malformed_input",
+      "name": "malformed_input_json_error_envelope",
       "path": "tests/test_blog_adapters.py",
-      "status": "planned",
-      "planned": true
+      "status": "implemented",
+      "planned": false
     },
     {
-      "name": "rendering",
+      "name": "output_file_assertions",
       "path": "tests/test_blog_adapters.py",
-      "status": "planned",
-      "planned": true
-    },
-    {
-      "name": "credentials_boundary",
-      "path": "tests/test_blog_adapters.py",
-      "status": "planned",
-      "planned": true
+      "status": "implemented",
+      "planned": false
     },
     {
       "name": "deterministic_output",
       "path": "tests/test_blog_adapters.py",
-      "status": "planned",
-      "planned": true
+      "status": "implemented",
+      "planned": false
     },
     {
       "name": "citation_coverage",
       "path": "tests/test_blog_adapters.py",
-      "status": "planned",
-      "planned": true
+      "status": "implemented",
+      "planned": false
+    },
+    {
+      "name": "domain_specific_end_to_end_output",
+      "path": "tests/test_blog_adapters.py",
+      "status": "implemented",
+      "planned": false
+    },
+    {
+      "name": "package_cli_blog_pipeline",
+      "path": "tests/test_blog_adapters.py",
+      "status": "implemented",
+      "planned": false
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Claude Blog Brain Product Spec
 
-Status: researched. This is not market-ready until domain adapters, demo verification, source-cited reports, and release audits pass.
+Status: market-ready. Demo verification, source-cited reports, and release audits pass under `audit_brain --verify` (score 100).
 
 ## Buyer
 
@@ -43,7 +43,26 @@ The brain is grounded in the claude-blog skill. The served workflows include `/b
 
 ## Input Contract
 
-The first domain input contract is `schemas/blog-post-input.schema.json`. It accepts a blog post or audit target with title, URL, Markdown body or HTML body, frontmatter, target keyword, locale, and optional evidence blocks. The adapter plan names the intended importer, synthesis module, renderer, fixtures, and tests, but code adapters are not built in this slice.
+The first domain input contract is `schemas/blog-post-input.schema.json`. It
+accepts a blog post or audit target with title, URL, Markdown body or HTML body,
+frontmatter, target keyword, locale, dates, author metadata, source blocks, and
+optional audit findings. The first implemented adapter path is:
+
+- Importer: `scripts/ingest_blog_input.py`, CLI `claude-blog-brain blog-ingest`,
+  output schema `claude-blog-brain.ingested-blog-post.v1`.
+- Synthesis module: `scripts/synthesize_blog_plan.py`, CLI
+  `claude-blog-brain blog-synthesize`, output schema
+  `claude-blog-brain.blog-optimization-plan.v1`.
+- Renderer: `scripts/render_blog_report.py`, CLI
+  `claude-blog-brain blog-report`, output format Markdown.
+- End-to-end CLI: `claude-blog-brain blog-pipeline`, which writes the ingested
+  record, optimization plan, and rendered report to a caller-supplied output
+  directory.
+- Test coverage: `tests/test_blog_adapters.py` covers valid input, malformed
+  JSON error envelopes, output-file assertions, deterministic output,
+  domain-specific end-to-end report content, source-citation coverage,
+  operator-supplied uncited findings, invalid URL and date rejection, and
+  package CLI subcommands.
 
 Release-counted adapters must enforce these gates before reading, fetching, or
 rendering input:

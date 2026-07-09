@@ -4,7 +4,7 @@
 
 Search Quality Rater Guidelines, Google, 2025-09-11 revision.
 URL: https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
-Retrieved: 2026-07-06.
+Retrieved: 2026-07-09.
 Confidence: EVIDENCE-BASED.
 
 ## Core Thesis
@@ -20,7 +20,7 @@ The Search Quality Rater Guidelines define the human rating framework for Page Q
 
 ## Current Status
 
-The research substrate records no newer QRG revision as of 2026-07-06. The 2025-09-11 version remains the active reference.
+The research substrate records no newer QRG revision as of 2026-07-09. The 2025-09-11 version remains the active reference in this vault.
 
 ## Quote Handling
 

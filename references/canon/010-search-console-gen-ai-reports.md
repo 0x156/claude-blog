@@ -5,7 +5,7 @@
 Search Console Search Generative AI performance reports, Google Search Central.
 URL: https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports
 Published in ledger: 2026-06-03.
-Retrieved: 2026-07-06.
+Retrieved: 2026-07-09.
 Confidence: EVIDENCE-BASED.
 
 ## Core Thesis

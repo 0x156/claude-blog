@@ -40,6 +40,7 @@ AUDIT_CATEGORY_MAP = {
 }
 AUDIT_PENALTY = {"critical": 28, "high": 18, "medium": 10, "low": 4}
 PRIORITY_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3}
+STOPWORDS = {"a", "an", "and", "are", "as", "for", "how", "in", "of", "on", "or", "the", "to", "with"}
 
 
 class SourceError(ValueError):
@@ -647,23 +648,43 @@ def mark_operator_supplied(recommendation: str) -> str:
 
 
 def has_intent_coverage(target: str, text: str, secondary_terms: list[str]) -> bool:
-    normalized = text.lower()
+    text_terms = text_term_set(text)
     target_terms = meaningful_terms(target)
     if not target_terms:
         return True
-    target_hits = sum(1 for term in target_terms if term in normalized)
-    if target_hits / len(target_terms) >= 0.6:
+    if term_coverage(target_terms, text_terms) >= 0.6:
         return True
     for term in secondary_terms:
         terms = meaningful_terms(term)
-        if terms and sum(1 for item in terms if item in normalized) / len(terms) >= 0.75:
+        if terms and term_coverage(terms, text_terms) >= 0.75:
             return True
     return False
 
 
 def meaningful_terms(value: str) -> list[str]:
-    stopwords = {"a", "an", "and", "are", "as", "for", "how", "in", "of", "on", "or", "the", "to", "with"}
-    return [term for term in re.findall(r"[a-z0-9]+", value.lower()) if len(term) > 2 and term not in stopwords]
+    return [term for term in re.findall(r"[a-z0-9]+", value.lower()) if len(term) > 2 and term not in STOPWORDS]
+
+
+def text_term_set(value: str) -> set[str]:
+    terms: set[str] = set()
+    for term in meaningful_terms(value):
+        terms.add(term)
+        if len(term) > 3 and term.endswith("s"):
+            terms.add(term[:-1])
+    return terms
+
+
+def term_coverage(terms: list[str], text_terms: set[str]) -> float:
+    if not terms:
+        return 1.0
+    hits = 0
+    for term in terms:
+        variants = {term}
+        if len(term) > 3 and term.endswith("s"):
+            variants.add(term[:-1])
+        if any(variant in text_terms for variant in variants):
+            hits += 1
+    return hits / len(terms)
 
 
 def compute_geo_metrics(record: dict[str, Any]) -> dict[str, Any]:
@@ -671,9 +692,10 @@ def compute_geo_metrics(record: dict[str, Any]) -> dict[str, Any]:
     extractable = [section for section in sections if is_extractable_opening(section.get("opening", ""))]
     terms = entity_terms(record)
     body = record["content"].get("body_text", "").lower()
-    present = [term for term in terms if term.lower() in body]
+    body_terms = text_term_set(body)
+    present = [term for term in terms if term_coverage(meaningful_terms(term), body_terms) >= 0.75]
     word_count = max(1, int(record["content"].get("word_count", 0)))
-    term_hits = sum(len(re.findall(re.escape(term.lower()), body)) for term in terms)
+    term_hits = sum(sum(1 for token in meaningful_terms(term) if token in body_terms) for term in terms)
     coverage = round(len(present) / len(terms), 2) if terms else 0.0
     return {
         "section_count": len(sections),

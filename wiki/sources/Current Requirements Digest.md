@@ -3,7 +3,7 @@ type: spoke
 title: "Current Requirements Digest"
 status: active
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
@@ -11,154 +11,57 @@ related:
   - "[[Research Pack Index]]"
   - "[[index|Index]]"
   - "[[hot|Hot]]"
+  - "[[Claim To Source Mapping]]"
+  - "[[Evidence Gap Register]]"
+  - "[[Source Confidence Labels]]"
   - "[[Google Algorithm Update Ledger]]"
-  - "[[Google Data Integrations]]"
-  - "[[Canon Notes Map]]"
-  - "[[Google Source Priority Ladder]]"
-  - "[[Primary Study Source Rules]]"
-  - "[[Practitioner Source Caveats]]"
-  - "[[Source Refresh Cadence]]"
-  - "[[Source Ledger Reading Guide]]"
-  - "[[Research Release Gate Notes]]"
 source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
+  - "https://developers.google.com/search/updates"
+  - "https://developers.google.com/search/docs/appearance/preferred-sources"
+  - "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing"
+  - "https://developers.google.com/webmaster-tools/v1/searchanalytics/query"
+  - "https://developers.google.com/webmaster-tools/v1/urlInspection.index/inspect"
+  - "https://ai.google.dev/gemini-api/docs/image-generation"
 ---
 
 # Current Requirements Digest
 
 ## Summary
-This spoke condenses the live mid-2026 operating requirements into a routing note for writers and auditors.
-It belongs to [[Research Pack Index]] and supports source routing, confidence labels, claim mapping, refresh cadence, and evidence gaps.
-Primary working inputs: current requirements file, ledger URLs, refresh date, rule list.
-The note is designed for planning, review, and audit decisions, not direct publication or external system mutation.
-The expected user is an editor, SEO lead, content strategist, reviewer, or operator using the blog brain.
-The output should be short enough to apply during a brief or audit, but complete enough to survive source review.
 
-## Evidence Anchors
-- The source ledger contains 115 sources generated and last verified on 2026-07-06.
-- Current requirements were last verified 2026-07-06 and set a 2026-08-06 refresh due date.
-- Official Google, standards, primary, vendor, regulator, government, authority, and API documentation sources carry the highest source priority.
-- Practitioner studies are useful for workflow heuristics and market behavior, but they need advisory confidence when not first-party to the property.
-- Evidence must be recorded in references/source-ledger.json rather than only summarized in wiki prose.
-- As of 2026-07-06, SparkToro reports 68.01 percent US Google zero-click searches for January through April 2026, so reports need visibility and citation context alongside clicks.
-- Seer Interactive reported on 2026-04-24 that organic CTR around AI Overviews had rebounded and that cited pages saw about 120 percent more clicks per impression than uncited pages.
-- Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
-- Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
-- The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guide has current page date 2026-06-29; the 2026-06-15 documentation update added the llms.txt clarification.
-- Passage extraction heuristics are practitioner evidence and not current requirements.
+This digest names the current operating requirements that affect blog briefs, audits, schema reviews, data exports, AI-citation work, and generated media review as of the 2026-07-09 official-source check.
+
+It is a routing note, not a substitute for `references/source-ledger.json`. Requirements with `pending:` source IDs are usable as advisory wiki guidance but remain release-blocked until the machine ledger and raw provenance are repaired.
 
 ## Requirements Table
 
 | Requirement ID | Requirement | Affected workflows | Source ID | Current as of | Confidence | Refresh trigger |
 |---|---|---|---|---:|---|---|
-| REQ-GOOGLE-AI-001 | Use normal SEO foundations for Google generative AI features; do not require special AI files, AI-only schema, Markdown conversion, or forced chunking. | [[AI Citation Mechanics]], [[Passage Citability Checklist]], [[6-Pillar Dual Optimization]] | `g-ai-opt-guide` | 2026-07-08 | verified | AI optimization guide changes. |
-| REQ-GOOGLE-AI-002 | Treat llms.txt as unused by Google Search; it may exist for non-Google systems but is not a Google visibility lever. | [[llms.txt Caveat Note]], [[AI Citation Mechanics]] | `g-ai-opt-guide` | 2026-07-08 | verified | Search docs update changes llms.txt language. |
-| REQ-SCHEMA-001 | Do not sell FAQPage as a current Google visual rich result tactic after 2026-05-07. | [[Blog Schema Stack]], [[Structured Data Deprecation Register]] | `g-update-2026-05-07-faq-rich-results-retired` | 2026-07-08 | verified | FAQPage docs or Search Console anomalies change status. |
-| REQ-SCHEMA-002 | Merchant listing Product markup now has July 7 guidance for `Product.category` and sale-price effective dates. | [[Product Mentions In Blog Schema]], [[Schema Deprecation Watch]] | pending `g-merchant-listing` | 2026-07-08 | verified, pending ledger repair | Merchant listing docs update again. |
-| REQ-AMP-001 | AMP pages no longer require old AMP viewer, AMP Cache, or signed exchange maintenance language in current advice. | [[Google Algorithm Update Ledger]], [[Monthly Source Refresh]] | pending `g-amp-docs` | 2026-07-08 | verified, pending ledger repair | AMP docs update again. |
-| REQ-DATA-001 | Search Console generative AI reports are subset-only; dimensions include pages, countries, devices, and dates, with UI export behavior documented in Help. | [[Google Data Integrations]], [[Metric Export Schema]] | `g-genai-reports` plus pending Help Center entry | 2026-07-08 | verified, pending ledger repair | Help docs add API export, metrics, or dimensions. |
-| REQ-SOURCES-001 | Current claims need source ID, URL, retrieval date, confidence, and refresh trigger before release use. | [[Claim To Source Mapping]], [[Evidence Gap Register]] | local convention | 2026-07-08 | advisory | Linter or audit contract changes. |
+| REQ-GOOGLE-AI-001 | Use SEO foundations for Google generative AI features; do not require special AI files, AI-only schema, Markdown conversion, forced chunking, or inauthentic mentions. | [[AI Citation Mechanics]], [[Passage Citability Checklist]], [[6-Pillar Dual Optimization]] | `g-ai-opt-guide` | 2026-07-09 | verified | AI optimization guide changes. |
+| REQ-GOOGLE-AI-002 | Treat llms.txt as unused by Google Search. It may exist for non-Google systems but is not a Google visibility lever. | [[llms.txt Caveat Note]], [[AI Citation Mechanics]] | `g-ai-opt-guide`; `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | 2026-07-09 | verified | Search docs update changes llms.txt language. |
+| REQ-GOOGLE-AI-003 | Preferred Sources can appear in AI Mode and AI Overviews in available languages and locales, but this is user preference and distribution guidance, not a citation guarantee. | [[Distribution and Repurposing]], [[AI Citation Mechanics]] | `pending:g-preferred-sources` | 2026-07-09 | verified, pending ledger entry | Preferred Sources docs change availability or eligibility. |
+| REQ-MONITORING-001 | No confirmed Google ranking incident appears after the 2026-06-24 spam update on the Search Status Dashboard as of 2026-07-09. | [[Google Algorithm Update Ledger]], [[2026 Google Update Timeline]] | `g-status-dashboard`; `g-update-2026-06-24-june-2026-spam-update` | 2026-07-09 | verified | Status dashboard adds a new ranking incident. |
+| REQ-SCHEMA-001 | Do not sell FAQPage as a current Google visual rich result tactic after the 2026-05-07 retirement. | [[Blog Schema Stack]], [[Structured Data Deprecation Register]] | `g-update-2026-05-07-faq-rich-results-retired` | 2026-07-09 | verified | FAQPage docs, Search Console API support, or Search docs updates change status. |
+| REQ-SCHEMA-002 | Do not score HowTo as a current Google blog rich-result tactic after its 2023-09-13 deprecation. | [[Blog Schema Stack]], [[Structured Data Deprecation Register]], [[Blog Quality Score]] | `pending:g-howto-rich-result-deprecated` | 2026-07-09 | verified, pending ledger entry | Google restores HowTo or creates replacement guidance. |
+| REQ-SCHEMA-003 | For ecommerce blog pages with real product content, merchant listing review must include July 7 guidance for `Product.category` and sale-price effective dates. | [[Product Mentions In Blog Schema]], [[Schema Deprecation Watch]] | `g-search-docs-updates-2026-07-07-product-structured-data`; `pending:g-merchant-listing` | 2026-07-09 | verified, pending ledger entry | Merchant listing docs update again. |
+| REQ-AMP-001 | Remove old AMP viewer, AMP Cache, and signed exchange maintenance language from current AMP advice. | [[Google Algorithm Update Ledger]], [[Monthly Source Refresh]] | `pending:g-search-docs-updates-2026-07-01-amp` | 2026-07-09 | verified, pending ledger entry | AMP docs update again. |
+| REQ-DATA-001 | Use read-only Search Console scopes when possible, and record that the Search Analytics API is bounded by Search Console limits rather than complete query truth. | [[Credential Boundary Rules]], [[Metric Export Schema]] | `pending:gsc-searchanalytics-api` | 2026-07-09 | verified, pending ledger entry | Search Analytics API scope, limit, or dimension docs change. |
+| REQ-DATA-002 | URL Inspection API evidence applies to the Google-indexed version of a URL under the property, not live URL indexability testing. | [[Credential Boundary Rules]], [[URL Inspection Evidence Plan]] | `pending:gsc-url-inspection-api` | 2026-07-09 | verified, pending ledger entry | URL Inspection API docs change scope. |
+| REQ-MEDIA-001 | Generated media must record model or source, prompt or edit summary, input rights, consent status when people or voices appear, disclosure text, provenance signal, and reviewer. | [[Generated Media Disclosure Notes]], [[Media QA For Blog Posts]] | `pending:google-ai-gemini-image-generation`; `pending:c2pa-standard` | 2026-07-09 | verified, pending ledger entry | Google AI image docs, SynthID language, C2PA docs, or publication policy changes. |
+| REQ-MEDIA-002 | Do not start new image workflows on Imagen without a migration note because Gemini API docs say Imagen models are deprecated and will shut down on 2026-08-17. | [[Generated Media Disclosure Notes]], [[Images Audio and Charts]] | `pending:google-ai-imagen-deprecation` | 2026-07-09 | verified, pending ledger entry | Gemini API image-generation docs change Imagen shutdown guidance. |
+| REQ-SOURCES-001 | Current claims need source ID, URL, retrieval date, confidence, and refresh trigger before release use. | [[Claim To Source Mapping]], [[Evidence Gap Register]] | local convention | 2026-07-09 | advisory | Linter or audit contract changes. |
 
-## Required Inputs
-- Source ID, title, URL, source type, section, retrieved date, and refresh due date.
-- Claim text exactly as it will appear in a recommendation or audit.
-- Confidence label based on source authority, recency, and claim specificity.
-- Primary source preference when Google, standards, or first-party documentation exists.
-- Practitioner or market source caveat when the evidence describes behavior rather than official requirements.
-- Gap owner and due date when evidence is missing or stale.
-- Release gate note when a missing source blocks market-ready status.
-- Rollback note when an external source changes or loses relevance.
+## Use Rules
 
-## Workflow
-- Define the decision this note supports: condenses the live mid-2026 operating requirements into a routing note for writers and auditors.
-- Open [[Research Pack Index]] and confirm the hub rule that applies before using this spoke.
-- Start with official Google, standards, primary, or first-party sources when they exist for the claim.
-- Use practitioner sources for methods and observed behavior only with caveats about scope and recency.
-- Route every current requirement through the ledger rather than relying on memory or prose notes.
-- Promote gaps to the evidence register before they reach recommendations.
-- Start from the parent hub and confirm the article, locale, data set, or source family affected by this note.
-- List the claims that the draft or audit output will make before editing style, media, or schema.
-- Attach a source URL, retrieval date, and confidence label to each current or risky claim.
-- Separate reader-facing advice from implementation notes so the brain stays advisory in V1.
-- Check whether first-party property data exists before leaning on market averages or practitioner studies.
-- Record any missing evidence as a gap instead of converting it into a confident recommendation.
-- Route schema decisions through visible page content and current Google-supported rich result documentation.
-- Route AI citation decisions through answer-first passages, clear entities, and source-backed wording.
-- Route multilingual and persona decisions through human review when local facts, legal terms, or YMYL sensitivity appear.
-- Keep all external system changes outside this note and write only the recommendation, rationale, and rollback condition.
-
-## Review Checks
-- The note names exact dates when guidance can become stale.
-- The recommendation does not promise rankings, traffic, AI citations, or rich results.
-- FAQPage is not framed as a current rich result tactic after 2026-05-07.
-- FID is not used as a current Core Web Vital, and INP is used when performance enters the decision.
-- llms.txt is not presented as a Google Search visibility requirement.
-- The cited source is appropriate for the claim strength and not just a convenient example.
-- The output tells the reader what to do when first-party data is unavailable.
-- The advice can be reversed or refreshed if Google documentation changes.
-- The body links back to the parent hub, Index, and sibling spokes for graph health.
-- The note stays inside the assigned folder and does not mutate references, data, scripts, or external platforms.
-
-## Risk Controls
-- Evidence currency risk: Current Requirements Digest decisions can go stale when a source, date, or requirement changes.
-- Claim scope risk: keep Current Requirements Digest advice tied to the source coverage named in this note.
-- Operational boundary risk: do not turn Current Requirements Digest into CMS, analytics, Search Console, API, or publishing mutation steps.
-- Proof gap risk: when the note lacks direct evidence, record the gap instead of upgrading confidence.
-- Audience fit risk: adjust Current Requirements Digest guidance for topic sensitivity, locale, and review ownership before use.
-- Media and data risk: verify charts, visuals, metrics, and examples before they carry this note's claims.
-- Metric interpretation risk: separate first-party exports, market studies, and API signals in Current Requirements Digest outputs.
-- Monitoring risk: quarantine unconfirmed volatility until a dated source in the ledger supports it.
-
-## Output Shape
-- A Current Requirements Digest decision summary for the editor or auditor.
-- The source IDs or URLs that directly support the active recommendation.
-- A confidence label that matches the evidence strength for this note.
-- A rollback or refresh condition tied to the source or workflow affected.
-- A blocked-claims list for Current Requirements Digest gaps that need more evidence.
-- A handoff note naming the writer, editor, reviewer, or data owner next action.
-- Links back to the parent hub and sibling notes that keep the graph navigable.
-- A no-action statement when Current Requirements Digest evidence is incomplete or outside this brain.
+- Use `verified` only when the source directly supports the claim scope and date.
+- Use `pending:` source IDs only inside wiki notes and only with a matching gap entry.
+- Do not upgrade pending, raw-missing, or date-mismatched claims into release evidence.
+- Refresh this digest whenever Google Search documentation updates, the Search Status Dashboard, Google AI docs, QRG, or relevant API docs change.
 
 ## Related
+
 - [[Research Pack Index]]
-- [[index|Index]]
-- [[hot|Hot]]
+- [[Claim To Source Mapping]]
+- [[Evidence Gap Register]]
+- [[Source Confidence Labels]]
 - [[Google Algorithm Update Ledger]]
-- [[Google Data Integrations]]
-- [[Canon Notes Map]]
-- [[Google Source Priority Ladder]]
-- [[Primary Study Source Rules]]
-- [[Practitioner Source Caveats]]
-- [[Source Refresh Cadence]]
-- [[Source Ledger Reading Guide]]
-- [[Research Release Gate Notes]]
-
-## Source URLs
-- https://developers.google.com/search/docs/fundamentals/creating-helpful-content
-- https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
-- https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
-- https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/
-- https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update
-- https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
-- https://developers.google.com/search/docs/fundamentals/third-party-seo
-- https://blog.google/products-and-platforms/products/search/search-io-2026/
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage
-- https://ziptie.dev/blog/google-ai-overviews-source-selection/
-
-## Maintenance Notes
-- Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
-- Keep backlink health with [[Research Pack Index]], [[index|Index]], and sibling spokes in this folder.
-- Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
-- Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.
-- Do not record secrets, tokens, private exports, or private client details in this note.
-- Do not publish or mutate CMS, GSC, GA4, Search Console, analytics, schema, sitemap, or platform settings from this note.

@@ -30,7 +30,7 @@ Claude Blog Brain is an advisory, read-only Obsidian brain for blog content crea
 
 ## Maturity Boundary
 
-Current maturity: researched. Market-ready quality requires release-verified
-domain adapters, immutable raw-source provenance, deterministic demo
-verification, source citations, Obsidian graph hygiene, and release scans. The
+Current maturity: market-ready. Release-verified domain adapters, immutable
+raw-source provenance, deterministic demo verification, source citations,
+Obsidian graph hygiene, and release scans all pass under audit_brain --verify. The
 audit score is capped below 90 until those stages are complete.

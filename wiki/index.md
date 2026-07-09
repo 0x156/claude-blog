@@ -3,7 +3,7 @@ type: meta
 title: "Index"
 status: active
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [meta, index, active]
 domain: "Blog Content Brain"
 confidence: verified
@@ -63,17 +63,37 @@ Start at [[Start Here]], scan [[hot|Hot]], then open the theme or type hub close
 
 ## Type hubs
 
-Root wiki note count after this remediation pass: 239.
+Root wiki note count after this remediation pass: 257.
 
-- [[entities/_index|Entities]]: 2 notes
-- [[platforms/_index|Platforms]]: 2 notes
-- [[accounts/_index|Accounts]]: 1 note
-- [[decisions/_index|Decisions]]: 2 notes
-- [[deliverables/_index|Deliverables]]: 1 note
-- [[questions/_index|Questions]]: 1 note
-- [[gaps/_index|Gaps]]: 1 note
-- [[experiments/_index|Experiments]]: 1 note
-- [[flows/_index|Flows]]: 2 notes
+Folder counts below exclude `_index.md` files.
+
+- [[wiki/accounts/_index|Accounts]]: 0 notes
+- [[wiki/briefs-outlines/_index|Briefs Outlines]]: 12 notes
+- [[wiki/clusters/_index|Clusters]]: 12 notes
+- [[wiki/concepts/_index|Concepts]]: 13 notes
+- [[wiki/data-integrations/_index|Data Integrations]]: 13 notes
+- [[wiki/decisions/_index|Decisions]]: 1 note
+- [[wiki/deliverables/_index|Deliverables]]: 0 notes
+- [[wiki/distribution/_index|Distribution]]: 12 notes
+- [[wiki/eeat/_index|E-E-A-T]]: 13 notes
+- [[wiki/entities/_index|Entities]]: 1 note
+- [[wiki/experiments/_index|Experiments]]: 0 notes
+- [[wiki/flow/_index|FLOW]]: 12 notes
+- [[wiki/flows/_index|Flows]]: 1 note
+- [[wiki/gaps/_index|Gaps]]: 0 notes
+- [[wiki/geo-aeo/_index|GEO AEO]]: 13 notes
+- [[wiki/media/_index|Media]]: 13 notes
+- [[wiki/meta/_index|Meta]]: 4 notes
+- [[wiki/monitoring/_index|Monitoring]]: 14 notes
+- [[wiki/multilingual/_index|Multilingual]]: 13 notes
+- [[wiki/personas/_index|Personas]]: 13 notes
+- [[wiki/platforms/_index|Platforms]]: 1 note
+- [[wiki/quality/_index|Quality]]: 12 notes
+- [[wiki/questions/_index|Questions]]: 0 notes
+- [[wiki/rewriting/_index|Rewriting]]: 13 notes
+- [[wiki/schema/_index|Schema]]: 13 notes
+- [[wiki/sources/_index|Sources]]: 14 notes
+- [[wiki/writing/_index|Writing]]: 13 notes
 
 ## Working memory
 

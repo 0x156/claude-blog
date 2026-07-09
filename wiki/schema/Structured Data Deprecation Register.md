@@ -3,7 +3,7 @@ type: spoke
 title: "Structured Data Deprecation Register"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [schema, blog-schema, evergreen]
 domain: "Blog Structured Data"
 confidence: verified
@@ -28,6 +28,8 @@ source_urls:
   - "https://schema.org/docs/full.html"
   - "https://www.w3.org/TR/json-ld11/"
   - "https://developers.google.com/search/docs/appearance/structured-data/product"
+  - "https://developers.google.com/search/blog/2023/08/howto-faq-changes"
+  - "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing"
 ---
 # Structured Data Deprecation Register
 
@@ -44,24 +46,26 @@ Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity g
 - The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
 
 ## Current Evidence Anchors
-- Google structured data introduction retrieved 2026-07-06 recommends JSON-LD and requires markup to describe visible content.
-- Google FAQPage documentation records FAQ rich results retired for all sites effective 2026-05-07.
+- Google structured data introduction retrieved 2026-07-09 recommends JSON-LD and requires markup to describe visible content.
+- Google Search documentation updates record FAQ rich results retired for all sites effective 2026-05-07.
 - Google Search Gallery dated 2026-07-01 in the ledger defines supported rich result types.
 - Schema.org full hierarchy and JSON-LD 1.1 provide standards references for vocabulary and serialization.
 - Article or BlogPosting with Person, Organization, and BreadcrumbList is the blog priority after FAQ and HowTo visibility loss.
 - Rich result eligibility is never a guarantee, and unsupported markup should not be sold as a current Search feature.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
+- Use dated wording such as retrieved 2026-07-09 when freshness affects the recommendation.
 - Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
 
 ## Deprecation Register
 
-| Feature | Status | Effective date | Source | Replacement action | Impacted templates |
-|---|---|---:|---|---|---|
-| FAQ rich result | Retired for all sites in Google Search. | 2026-05-07 | https://developers.google.com/search/docs/appearance/structured-data/faqpage | Keep visible Q and A only when it helps readers; do not score FAQPage as a visual rich result tactic. | [[Visible Q And A Without FAQ Rich Results]], [[Blog Schema Stack]] |
-| FAQ rich result documentation | Removed from Google Search docs after retirement. | 2026-06-15 | https://developers.google.com/search/updates | Treat docs removal as a separate documentation event from the 2026-05-07 retirement. | [[Research Pack 2026-07-06]], [[Claim To Source Mapping]] |
-| HowTo rich result for broad publisher use | Not a current general blog rich result tactic in this vault. | 2023-09-13 historical constraint | Google structured data history and Search Gallery | Do not add HowTo markup to ordinary blog posts for rich result eligibility. | Blog post schema checklist |
-| Course Info, Claim Review, Estimated Salary, Learning Video, Special Announcement, Vehicle Listing visual features | Phased out in Google Search result simplification. | 2025-06-19 | https://developers.google.com/search/blog/2025/06/simplifying-search-results | Remove from blog promise language unless a current Google feature page applies. | Legacy rich result templates |
-| Product merchant listing fields | Current but changed with new category and sale duration guidance. | 2026-07-07 | https://developers.google.com/search/docs/appearance/structured-data/merchant-listing | Use only when visible product content qualifies; add `Product.category` and sale-price effective-date review for ecommerce pages. | [[Product Mentions In Blog Schema]] |
+| Feature | Status | Effective date | Source ID | Source | Replacement action | Impacted templates |
+|---|---|---:|---|---|---|---|
+| FAQ rich result | Retired for all sites in Google Search. | 2026-05-07 | `g-update-2026-05-07-faq-rich-results-retired` | https://developers.google.com/search/updates#deprecating-the-faq-rich-result-feature | Keep visible Q and A only when it helps readers; do not score FAQPage as a visual rich result tactic. | [[Visible Q And A Without FAQ Rich Results]], [[Blog Schema Stack]], [[Blog Quality Score]] |
+| FAQ rich result documentation | Removed from Google Search docs after retirement. | 2026-06-15 | `g-faqpage-sd` | https://developers.google.com/search/updates | Treat docs removal as a separate documentation event from the 2026-05-07 retirement. | [[research-pack-2026-07-06|Research Pack 2026-07-06]], [[Claim To Source Mapping]] |
+| HowTo rich result | Deprecated in Google Search after desktop support ended. | 2023-09-13 | `pending:g-howto-rich-result-deprecated` | https://developers.google.com/search/blog/2023/08/howto-faq-changes | Do not add HowTo markup to ordinary blog posts for rich result eligibility; keep procedural content visible for readers when useful. | Blog post schema checklist, [[Blog Schema Stack]], [[Blog Quality Score]] |
+| Course Info, Claim Review, Estimated Salary, Learning Video, Special Announcement, Vehicle Listing visual features | Phased out from Google Search result support and Search Console rich-result reporting. | 2025-06-19 | `g-update-2025-06-19-structured-data-deprecation` | https://developers.google.com/search/blog/2025/06/simplifying-search-results | Remove from blog promise language unless a current Google feature page applies. | Legacy rich result templates, [[Quality Score Rubric]] |
+| Product intro page date | Not a July 2026 update source. Live Product intro page shows last updated 2025-12-10. | 2025-12-10 | `g-product-sd` | https://developers.google.com/search/docs/appearance/structured-data/product | Use for general Product structured data overview only; do not use it as the July 7 event source until the ledger date mismatch is repaired. | [[Product Mentions In Blog Schema]], [[research-pack-2026-07-06|Research Pack 2026-07-06]] |
+| Product merchant listing fields | Current but changed with July 7 category and sale duration guidance. | 2026-07-07 | `g-search-docs-updates-2026-07-07-product-structured-data`; `pending:g-merchant-listing` | https://developers.google.com/search/docs/appearance/structured-data/merchant-listing | Use only when visible product content qualifies; review `Product.category`, `validFrom`, `validThrough`, and `priceValidUntil` for ecommerce pages. | [[Product Mentions In Blog Schema]], [[Schema Deprecation Watch]] |
+| data-vocabulary.org markup for Google rich results | No longer eligible for Google rich result features. | 2020-04-06 | `pending:g-data-vocabulary-sunset` | https://developers.google.com/search/blog/2020/01/data-vocabulary | Convert old breadcrumb or legacy markup to Schema.org vocabulary. | Legacy schema migrations, [[BreadcrumbList For Blogs]] |
 
 ## Operating Standard
 - Describe only visible page content in structured data.
@@ -70,6 +74,7 @@ Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity g
 - Keep Article or BlogPosting, author identity, publisher identity, and breadcrumbs coherent.
 - Avoid presenting FAQPage or HowTo as current blog rich result tactics.
 - Use Product or VideoObject only when the page visibly contains qualifying content.
+- Keep documentation updates separate from ranking updates in monitoring notes.
 - Validate syntax, vocabulary, Google support, and page-content alignment before handoff.
 - Treat schema as entity clarity and eligibility support, not a traffic guarantee.
 - Keep the recommendation tied to a reader outcome and a measurable review path.

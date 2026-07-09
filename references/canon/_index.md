@@ -1,7 +1,7 @@
 # Claude Blog Brain Canon
 
 Status: researched.
-Last verified: 2026-07-06.
+Last verified: 2026-07-09.
 
 This folder holds the primary source layer for blog SEO, E-E-A-T, schema, AI search, spam policy, and performance decisions. Use these notes before practitioner sources.
 
