@@ -14,14 +14,14 @@ source_urls: []
 
 # E-E-A-T Index
 
-Folder index for 13 E-E-A-T notes.
+Folder index for 13 e-e-a-t notes.
 
 ## Notes
 
 - [[AI Assisted Content Accountability]]
 - [[Author Bio Requirements]]
-- [[E-E-A-T Review Rubric]]
 - [[E-E-A-T for Blog Content]]
+- [[E-E-A-T Review Rubric]]
 - [[Editorial Transparency Checklist]]
 - [[Experience Evidence Checklist]]
 - [[Reputation Research Workflow]]

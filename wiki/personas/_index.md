@@ -14,7 +14,7 @@ source_urls: []
 
 # Personas Index
 
-Folder index for 13 persona and voice notes.
+Folder index for 13 personas notes.
 
 ## Notes
 
@@ -28,6 +28,6 @@ Folder index for 13 persona and voice notes.
 - [[Readability Review]]
 - [[Terminology Control List]]
 - [[Tone By Funnel Stage]]
-- [[Voice Drift Audit]]
 - [[Voice and Style]]
+- [[Voice Drift Audit]]
 - [[YMYL Tone Guardrails]]

@@ -14,7 +14,7 @@ source_urls: []
 
 # Rewriting Index
 
-Folder index for 13 rewriting and freshness notes.
+Folder index for 13 rewriting notes.
 
 ## Notes
 

@@ -13,7 +13,7 @@ related:
 
 # FLOW Index
 
-Folder index for 12 FLOW notes.
+Folder index for 12 flow notes.
 
 ## Notes
 

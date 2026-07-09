@@ -3,7 +3,7 @@ type: meta
 title: "Start Here"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [meta, onboarding, active]
 domain: "Blog Content Brain"
 confidence: verified
@@ -32,29 +32,36 @@ It is dual optimized for Google rankings and AI citations, but it does not promi
 
 It is advisory and read-only toward CMS, Google Search Console, GA4, publishing systems, and external platforms.
 
-## Read order
+## Current Map
+
+- Navigable notes excluding folder hub `_index.md` files: 262
+- Folder notes: 258
+- Root notes: 4
+- Folder hubs: 22
+- Deliverable contracts: 33
+
+## Read Order
 
 1. Open [[overview]] for the operating context.
 2. Open [[hot]] for the current working cache.
-3. Open [[index]] for top-level navigation.
+3. Open [[index]] for folder-level navigation and complete note lists.
 4. Open [[CONVENTIONS]] before writing or editing notes.
 5. Open [[Tag Taxonomy]] before adding tags.
-6. Open [[dashboard|Dashboard]] for status and coverage.
-7. Open the relevant theme hub, usually [[Dual Optimization]] or [[6-Pillar Dual Optimization]] first.
-8. Use [[Research Pack Index]] when a claim needs a source route.
+6. Open [[dashboard|Dashboard]] for status, counts, and the deliverables lane.
+7. Open [[wiki/deliverables/_index|Deliverables Index]] when the work is an output contract.
+8. Use [[Research Pack Index]], [[Source Ledger Reading Guide]], and [[Claim To Source Mapping]] when a claim needs a source route.
 
-## What this brain is
+## Current Folder Set
 
-- A wiki foundation for blog strategy, drafting, rewriting, freshness, E-E-A-T, GEO, AEO, schema, clusters, briefs, distribution, quality scoring, multilingual publishing, media, monitoring, and source tracking.
-- A source-led note system, not a replacement for dated Google guidance or first-party property data.
-- A skeleton for later spoke notes, so hubs may contain forward wikilinks to notes that are intentionally not created in this slice.
-- A read-only operating memory for the claude-blog workflow surface.
+Briefs and Outlines, Clusters, Concepts, Data Integrations, Decisions, Deliverables, Distribution, E-E-A-T, Entities, FLOW, GEO and AEO, Media, Meta, Monitoring, Multilingual, Personas, Platforms, Quality, Rewriting, Schema, Sources, Writing.
 
-## Current anchors
+## Common Routes
 
-- Google frames generative AI optimization as regular SEO foundations in its 2026-06-15 guide. See [[AI Citation Mechanics]].
-- Search Console generative AI performance reporting was announced in June 2026 for AI Overviews and AI Mode surfaces. See [[Google Data Integrations]].
-- Google helpful content guidance, retrieved 2026-07-06, remains the people-first writing baseline. See [[E-E-A-T for Blog Content]].
+- Writing and rewrite work: [[6-Pillar Dual Optimization]], [[Freshness and Content Decay]], [[Blog Rewrite Refresh Plan]], [[Blog Write Article Contract]]
+- Briefs and outlines: [[SERP-Informed Briefs and Outlines]], [[Content Brief Output Contract]], [[SERP Outline Output Contract]]
+- Quality review: [[Blog Quality Score]], [[Quality Score Rubric]], [[Delivery Contract Gate]]
+- GEO and AEO: [[AI Citation Mechanics]], [[GEO Citation Readiness Register]], [[Passage Citability Checklist]]
+- Monitoring and sources: [[2026 Google Update Timeline]], [[Google Algorithm Update Ledger]], [[Source Ledger Reading Guide]], [[Claim Verification Flow]]
 
 ## Related
 
@@ -63,12 +70,7 @@ It is advisory and read-only toward CMS, Google Search Console, GA4, publishing 
 - [[CONVENTIONS]]
 - [[Tag Taxonomy]]
 - [[dashboard|Dashboard]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Research Pack Index]]
-
-## Next actions
-
-- Read [[hot|Hot]] before each working session.
-- Append durable changes to [[log]].
-- Keep current claims cited through real ledger URLs.
+- [[wiki/deliverables/_index|Deliverables Index]]
+- [[wiki/quality/_index|Quality Index]]
+- [[wiki/geo-aeo/_index|GEO and AEO Index]]
+- [[wiki/sources/_index|Sources Index]]

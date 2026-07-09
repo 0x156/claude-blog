@@ -4,7 +4,7 @@ title: "Platforms Index"
 domain: "Blog Content Brain"
 status: active
 created: 2026-07-08
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [type-hub, platforms, active]
 related:
   - "[[index|Index]]"
@@ -14,13 +14,8 @@ source_urls: []
 
 # Platforms Index
 
-Platform notes record CMS, analytics, publishing, and distribution surfaces without storing credentials or mutation steps.
+Folder index for 1 platforms note.
 
 ## Notes
 
 - [[WordPress]]
-
-## Rules
-
-- Keep platform notes advisory and read-only.
-- Send credentials and exports through [[Credential Boundary Rules]].

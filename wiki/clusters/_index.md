@@ -14,7 +14,7 @@ source_urls: []
 
 # Clusters Index
 
-Folder index for 12 semantic cluster notes.
+Folder index for 12 clusters notes.
 
 ## Notes
 

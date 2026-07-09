@@ -16,7 +16,7 @@ source_urls: []
 
 # Sources Index
 
-Folder index for 15 source-governance notes.
+Folder index for 15 sources notes.
 
 ## Notes
 
@@ -30,8 +30,8 @@ Folder index for 15 source-governance notes.
 - [[Primary Study Source Rules]]
 - [[Research Pack Index]]
 - [[Research Release Gate Notes]]
+- [[research-pack-2026-07-06]]
 - [[Source Confidence Labels]]
 - [[Source Ledger Reading Guide]]
 - [[Source Refresh Cadence]]
 - [[Source URL Canonicalization]]
-- [[research-pack-2026-07-06|Research Pack 2026-07-06]]

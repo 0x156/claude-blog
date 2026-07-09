@@ -12,9 +12,9 @@ related:
 source_urls: []
 ---
 
-# GEO AEO Index
+# GEO and AEO Index
 
-Folder index for 13 GEO and AEO notes.
+Folder index for 13 geo and aeo notes.
 
 ## Notes
 
@@ -26,8 +26,8 @@ Folder index for 13 GEO and AEO notes.
 - [[Assistant Answer Surface Map]]
 - [[Citation Exposure Metrics]]
 - [[Entity Clarity For AI Answers]]
-- [[GEO Risk Register]]
 - [[Generative Search Measurement Plan]]
+- [[GEO Risk Register]]
+- [[llms.txt Caveat Note]]
 - [[Passage Citability Checklist]]
 - [[Source Proximity Pattern]]
-- [[llms.txt Caveat Note]]

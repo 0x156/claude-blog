@@ -37,32 +37,29 @@ Working cache for Claude Blog Brain. Keep this note under 500 words and overwrit
 
 - 2026-07-09
 
-## Mid 2026 anchors
+## High Priority Notes
 
-- Google Search documentation changed after the 2026-07-06 source pack: July 1 AMP docs remove AMP viewer, AMP Cache, and signed exchange maintenance references; July 7 merchant listing docs add `Product.category` guidance and sale-price effective-date guidance. These are documentation changes, not confirmed ranking rollouts.
-- Search Status Dashboard still shows no confirmed ranking incident after the 2026-06-24 spam update as of the 2026-07-09 check. See [[Google Algorithm Update Ledger]] and [[2026 Google Update Timeline]].
-- Zero click is a baseline constraint: SparkToro, 2026-06-09, reports US Google zero click searches at 68.01 percent for January through April 2026. See [[Dual Optimization]].
-- AI Overview CTR partially rebounded: Seer, 2026-04-24, reports AIO-present organic CTR from about 1.3 percent in December 2025 to about 2.4 percent in February 2026, and cited pages at about 120 percent more clicks per impression than not cited. See [[AI Citation Mechanics]].
-- AI Mode matters but is still small by query share: Google I/O, 2026-05-19, reported 1B plus monthly AI Mode users, while SparkToro records about 0.34 percent US query volume. See [[AI Citation Mechanics]].
-- FAQ rich results are retired for all sites as of 2026-05-07, so blog schema priority is Article or BlogPosting plus Person, Organization, BreadcrumbList, and visible Q and A when useful. See [[Blog Schema Stack]].
-- QRG status is stable as of 2026-07-09: the substrate records no newer revision than 2025-09-11. See [[E-E-A-T for Blog Content]].
-- Source date caveat: `g-product-sd` is date-mismatched in the machine ledger. Use [[research-pack-2026-07-06|Research Pack 2026-07-06]] for the Product intro page, Search docs July 7 event, and Merchant listing page split.
-- Media caveat: Google AI image docs retrieved 2026-07-09 list Nano Banana model families, SynthID watermarking, rights requirements, and Imagen shutdown on 2026-08-17. Machine-ledger entries are still pending.
+- Deliverable contracts: [[wiki/deliverables/_index|Deliverables Index]], [[Blog Write Article Contract]], [[Content Brief Output Contract]], [[SERP Outline Output Contract]], [[Blog Analyzer Score Report]], [[Full Site Blog Audit Report]], [[Schema Generation Output Contract]], [[Semantic Cluster Execution Plan]]
+- Quality scorecard: [[Blog Quality Score]], [[Quality Score Rubric]], [[Delivery Contract Gate]], [[Quality Review Evidence Log]], [[AI Citation Readiness Subscore]]
+- GEO citation mechanics: [[AI Citation Mechanics]], [[Passage Citability Checklist]], [[Citation Readiness Decision Tree]], [[Citation Exposure Metrics]], [[GEO Citation Readiness Register]]
+- 2026 update timeline: [[2026 Google Update Timeline]], [[Google Algorithm Update Ledger]], [[Monthly Source Refresh]], [[AI Search Update Watch]]
+- Source and claim ledgers: [[Source Ledger Reading Guide]], [[Claim To Source Mapping]], [[Claim Verification Flow]], [[Current Requirements Digest]], [[Evidence Gap Register]]
 
-## Active threads
+## Working Rules
 
-- Root vault maturity remains not market-ready until audit, adapter truth, raw provenance, and release gates agree.
-- Source ledger and adapter manifest live outside this edit scope, so wiki notes must call out stale, pending, or contradictory source state instead of hiding it.
-- Keep [[Research Pack Index]], [[Claim To Source Mapping]], and [[Evidence Gap Register]] aligned when current Google docs change.
-- Keep [[Google Algorithm Update Ledger]] quarantined to Google-owned confirmations when labeling updates current.
+- Use the deliverable contracts before drafting or reviewing outputs.
+- Route scoring work through the quality scorecard notes, then record evidence in the source and claim ledger notes.
+- Treat GEO and AI citation advice as passage-level readiness work, not guaranteed assistant inclusion.
+- Use the 2026 timeline and update ledger for confirmed Google changes before relying on market commentary.
 
 ## Related
 
 - [[index|Index]]
 - [[Start Here]]
 - [[dashboard|Dashboard]]
+- [[wiki/deliverables/_index|Deliverables Index]]
+- [[Blog Quality Score]]
 - [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[E-E-A-T for Blog Content]]
-- [[Google Algorithm Update Ledger]]
-- [[Research Pack Index]]
+- [[2026 Google Update Timeline]]
+- [[Source Ledger Reading Guide]]
+- [[Claim To Source Mapping]]

@@ -15,7 +15,7 @@ source_urls: []
 
 # Data Integrations Index
 
-Folder index for 13 data integration notes.
+Folder index for 13 data integrations notes.
 
 ## Notes
 
@@ -23,9 +23,9 @@ Folder index for 13 data integration notes.
 - [[Data Confidence Labels]]
 - [[First Party Versus Market Data]]
 - [[GA4 Blog Engagement Metrics]]
-- [[GSC Search Analytics Query Plan]]
 - [[Generative AI Performance Reporting]]
 - [[Google Data Integrations]]
+- [[GSC Search Analytics Query Plan]]
 - [[Metric Export Schema]]
 - [[Missing Data Disclosure]]
 - [[Page URL Canonical Data Checks]]

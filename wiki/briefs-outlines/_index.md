@@ -12,9 +12,9 @@ related:
 source_urls: []
 ---
 
-# Briefs Outlines Index
+# Briefs and Outlines Index
 
-Folder index for 12 brief and outline notes.
+Folder index for 12 briefs and outlines notes.
 
 ## Notes
 
@@ -26,7 +26,7 @@ Folder index for 12 brief and outline notes.
 - [[Heading Hierarchy Rules]]
 - [[Outline QA Checklist]]
 - [[Reader Job Statement]]
+- [[Search Intent Classification]]
 - [[SERP Brief Input Contract]]
 - [[SERP Observation Ledger]]
 - [[SERP-Informed Briefs and Outlines]]
-- [[Search Intent Classification]]

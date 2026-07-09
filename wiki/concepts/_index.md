@@ -14,7 +14,7 @@ source_urls: []
 
 # Concepts Index
 
-Folder index for 13 dual-optimization concept notes.
+Folder index for 13 concepts notes.
 
 ## Notes
 
@@ -23,9 +23,9 @@ Folder index for 13 dual-optimization concept notes.
 - [[Citation And Click Forecasting]]
 - [[Citation Readiness Decision Tree]]
 - [[Classic SEO And GEO Tradeoffs]]
+- [[Dual Optimization]]
 - [[Dual Optimization Briefing Checklist]]
 - [[Dual Optimization Risk Register]]
-- [[Dual Optimization]]
 - [[Market Average Versus First Party Data]]
 - [[Reader Value Versus Extraction Value]]
 - [[Search Visibility Versus Citation Exposure]]

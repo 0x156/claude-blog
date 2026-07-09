@@ -19,6 +19,6 @@ Folder index for 4 meta notes.
 ## Notes
 
 - [[CONVENTIONS]]
+- [[dashboard]]
 - [[Start Here]]
 - [[Tag Taxonomy]]
-- [[dashboard]]

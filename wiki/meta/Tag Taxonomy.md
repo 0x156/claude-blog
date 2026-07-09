@@ -3,7 +3,7 @@ type: meta
 title: "Tag Taxonomy"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [meta, tag-taxonomy, evergreen]
 domain: "Blog Content Brain"
 confidence: verified
@@ -28,7 +28,15 @@ source_urls:
 
 Controlled kebab-case tag vocabulary for the blog domain.
 
-## Meta tags
+## Current Map
+
+- Current folders: 22
+- Folder notes: 258
+- Root notes: 4
+- Navigable notes excluding folder hub `_index.md` files: 262
+- Deliverable contracts: 33
+
+## Meta Tags
 
 - meta
 - onboarding
@@ -42,67 +50,154 @@ Controlled kebab-case tag vocabulary for the blog domain.
 - type-hub
 - evidence
 
-## Status tags
+## Status Tags
 
 - active
 - evergreen
 - seed
 
-## Theme tags
+## Folder Lane Tags
 
-- dual-optimization
-- writing
-- six-pillar
-- rewriting
-- freshness
-- content-decay
-- eeat
-- geo-aeo
-- ai-citation
-- schema
-- blog-schema
-- clusters
-- semantic-clusters
 - briefs-outlines
-- serp-briefs
-- distribution
-- repurposing
-- quality
-- scorecard
-- flow
-- multilingual
-- localization
-- personas
-- voice-style
+- clusters
+- concepts
 - data-integrations
-- gsc
-- ga4
-- media
-- images
-- audio
-- charts
-- monitoring
-- google-updates
-- sources
-- research-pack
-- read-only
-- entities
-- platforms
-- accounts
 - decisions
 - deliverables
-- questions
-- gaps
-- experiments
-- flows
+- distribution
+- eeat
+- entities
+- flow
+- geo-aeo
+- media
+- meta
+- monitoring
+- multilingual
+- personas
+- platforms
+- quality
+- rewriting
+- schema
+- sources
+- writing
+
+## Observed Workflow Tags
+
+- adaptation
+- ai-citation
+- ai-mode
+- ai-referrals
+- aio
+- analyzer
+- architecture-blueprint
+- article-contract
+- assets
+- attribution
+- audio
+- blog-audit
+- blog-schema
+- brand
+- brief
+- cannibalization
+- canonical
+- charts
+- checklist
+- citation-readiness
+- citations
+- claim-register
+- community
+- content-brief
+- content-decay
+- content-strategy
+- ctr
+- decision-tree
+- disclosure
+- discourse
+- dual-optimization
+- editorial-calendar
+- email
+- execution
+- extraction
+- factcheck
+- forecasting
+- formatting
+- freshness
+- ga4
+- geo
+- google-updates
+- governance
+- gsc
+- hreflang
+- hub
+- images
+- intent
+- internal-linking
+- inventory
+- json-ld
+- legal
+- locale-audit
+- localization
+- machine-translation
+- measurement
+- metrics
+- newsletter
+- outline-contract
+- owned-audience
+- planning
+- planning-matrix
+- podcast
+- production
+- prompts
+- publishing
+- qa
+- read-only
+- readers
+- refresh-plan
+- reporting
+- repurposing
+- research
+- research-pack
+- resolution-matrix
+- retention
+- review
+- score-report
+- scorecard
+- script
+- semantic-clusters
+- seo
+- seo-check
+- serp-brief
+- serp-briefs
+- serp-outline
+- site-audit
+- six-pillar
+- social
+- source-fidelity
+- strategy
+- structured-data
+- style
+- taxonomy
+- technical-seo
+- templates
+- thread
+- translation
+- triage
+- validation
+- verification
+- video
+- visibility
+- voice
+- voice-style
+- x-default
+- ymyl
+- zero-click
 
 ## Rules
 
 - Every note uses only tags listed here.
-- Add one theme tag plus one status tag when possible.
-- Add source or workflow tags when they improve navigation.
+- Add one folder or workflow tag plus one status tag when possible.
+- Add source, output, or workflow tags when they improve navigation.
 - New tags must be added here before use.
-- Linter enforcement for this taxonomy belongs in `scripts/lint_vault.py`, which is outside the current owned edit paths.
 - Use [[CONVENTIONS]] for frontmatter requirements.
 
 ## Related
@@ -110,8 +205,7 @@ Controlled kebab-case tag vocabulary for the blog domain.
 - [[index|Index]]
 - [[CONVENTIONS]]
 - [[dashboard|Dashboard]]
-- [[Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Google Data Integrations]]
-- [[Research Pack Index]]
+- [[wiki/deliverables/_index|Deliverables Index]]
+- [[wiki/quality/_index|Quality Index]]
+- [[wiki/geo-aeo/_index|GEO and AEO Index]]
+- [[wiki/sources/_index|Sources Index]]
