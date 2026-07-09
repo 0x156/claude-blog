@@ -142,10 +142,10 @@ Call `set_aspect_ratio` BEFORE generating. Use `conversation_id: "default"`.
 | `get_image_history` | Review generated images with `conversation_id: "default"` |
 | `clear_conversation` | Reset session context |
 
-**Model selection** with the pinned MCP package:
-- `flash` (default): MCP alias for `gemini-3.1-flash-image`, best for most blog images
-- `pro`: MCP alias for `gemini-3-pro-image`, use for final hero images or text-heavy assets
-- `gemini-3.1-flash-lite-image`: use only through direct API or a newer MCP that explicitly supports the stable ID
+**Model selection**:
+- Stable Google API IDs: `gemini-3.1-flash-image` and `gemini-3-pro-image`
+- Pinned `@ycse/nanobanana-mcp@1.1.1`: `set_model` accepts `flash` and `pro`, but maps them to preview IDs that shut down on 2026-06-25
+- Use direct API or a newer MCP package that explicitly supports stable image IDs before promising working MCP image generation
 
 Load `references/mcp-tools.md` for parameter details.
 Load `references/gemini-models.md` for model specs, pricing, and rate limits.
@@ -245,21 +245,22 @@ Bad: `SEO AI marketing blog optimization image`
 
 For `/blog image setup`:
 
-1. Run `python3 scripts/setup_image_mcp.py` (interactive)
-   - Prefer: `GOOGLE_AI_API_KEY=... python3 scripts/setup_image_mcp.py`
-   - Or: `python3 scripts/setup_image_mcp.py --key-file /path/to/key.txt`
+1. Run `python3 skills/blog-image/scripts/setup_image_mcp.py` (interactive)
+   - Prefer: `GOOGLE_AI_API_KEY=... python3 skills/blog-image/scripts/setup_image_mcp.py`
+   - Or: `python3 skills/blog-image/scripts/setup_image_mcp.py --key-file /path/to/key.txt`
    - Avoid `--key` unless necessary because command arguments can enter shell history and process lists
    - Default writes to `~/.claude/settings.json` (user-private, mode 0600)
    - `--project` flag opts into project `.mcp.json` (env-expansion only,
      refuses to write a literal key into a tracked file)
-2. Verify: `python3 scripts/validate_image_setup.py`
+2. Verify: `python3 skills/blog-image/scripts/validate_image_setup.py`
 3. Requires:
    - Node.js 18+ (npx)
    - Google AI API key, free to create at https://aistudio.google.com/apikey
    - A billing-enabled project may be required for image models
-4. The script pins the package to `@ycse/nanobanana-mcp@1.1.1`, whose model
-   selector accepts MCP aliases such as `flash` and `pro`. Update setup,
-   validation, and this documentation together when bumping the package.
+4. The script pins the package to `@ycse/nanobanana-mcp@1.1.1`. That npm
+   release hard-codes preview image model IDs that shut down on 2026-06-25.
+   Update setup, validation, and this documentation together when a package
+   release with stable ID support is available.
 
 ## Safety Filter Auto-Rephrase
 

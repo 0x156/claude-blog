@@ -41,6 +41,17 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Optional
 
+
+def _project_version() -> str:
+    """Read the package version from pyproject.toml."""
+    try:
+        text = (Path(__file__).resolve().parent.parent / "pyproject.toml").read_text(encoding="utf-8")
+    except OSError:
+        return "0.0.0"
+    match = re.search(r'^version\s*=\s*"([^"]+)"', text, re.MULTILINE)
+    return match.group(1) if match else "0.0.0"
+
+
 CONTRACT_REF = "skills/blog/references/blog-delivery-contract.md"
 REQUIRED_AGENTS = ("blog-reviewer",)
 OPTIONAL_AGENTS = ("blog-researcher", "blog-writer", "blog-seo", "blog-translator")
@@ -50,7 +61,7 @@ VIEWPORTS = [
     {"name": "tablet", "width": 768, "height": 1024},
     {"name": "desktop", "width": 1280, "height": 800},
 ]
-CONTRACT_VERSION = "1.9.2"
+CONTRACT_VERSION = _project_version()
 HEAD_TIMEOUT = 10
 USER_AGENT = f"claude-blog/{CONTRACT_VERSION} preflight (+https://github.com/AgriciDaniel/claude-blog)"
 URL_ALLOWLIST = ("example.com", "example.org")
@@ -84,23 +95,74 @@ def _review_state_path(draft: Path) -> Path:
     return state_root / f"{digest}.json"
 
 
-def _atomic_write_json(path: Path, data: dict[str, Any]) -> None:
-    """Atomic JSON write with restrictive parent permissions."""
-    path.parent.mkdir(parents=True, exist_ok=True)
+def _reject_symlink_output(path: Path) -> None:
+    if path.is_symlink():
+        raise ValueError(f"refusing to overwrite symlink: {path}")
+
+
+def _read_text_no_follow(path: Path) -> str:
+    """Read text without following a symlink at the final path."""
+    if path.is_symlink():
+        raise ValueError(f"refusing to read symlink: {path}")
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    fd = os.open(path, flags)
     try:
-        os.chmod(path.parent, 0o700)
-    except OSError:
-        pass
+        with os.fdopen(fd, "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception:
+        try:
+            os.close(fd)
+        except OSError:
+            pass
+        raise
+
+
+def _atomic_write_json(
+    path: Path,
+    data: dict[str, Any],
+    *,
+    indent: int | None = None,
+    sort_keys: bool = False,
+    private: bool = False,
+) -> None:
+    """Atomic JSON write that refuses symlink output paths."""
+    _reject_symlink_output(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if private:
+        try:
+            os.chmod(path.parent, 0o700)
+        except OSError:
+            pass
     fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=f".{path.name}.", suffix=".tmp")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
-            json.dump(data, f, sort_keys=True)
+            json.dump(data, f, indent=indent, sort_keys=sort_keys)
             f.write("\n")
         os.replace(tmp, path)
+        if private:
+            try:
+                os.chmod(path, 0o600)
+            except OSError:
+                pass
+    except Exception:
         try:
-            os.chmod(path, 0o600)
+            os.unlink(tmp)
         except OSError:
             pass
+        raise
+
+
+def _atomic_write_bytes(path: Path, data: bytes) -> None:
+    """Atomic bytes write that refuses symlink output paths."""
+    _reject_symlink_output(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=f".{path.name}.", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "wb") as f:
+            f.write(data)
+        os.replace(tmp, path)
     except Exception:
         try:
             os.unlink(tmp)
@@ -137,6 +199,8 @@ def _init_review_nonce(draft: Path) -> str:
             "created_at": dt.datetime.now(dt.timezone.utc).isoformat(),
             "version": CONTRACT_VERSION,
         },
+        private=True,
+        sort_keys=True,
     )
     return nonce
 
@@ -260,6 +324,9 @@ def _select_artifact_stem(draft_dir: Path, slug: str | None = None) -> tuple[str
         for kind, paths in selected.items():
             if len(paths) != 1:
                 violations.append(f"expected exactly one {stem}.{kind}, found {len(paths)}")
+            for path in paths:
+                if path.is_symlink():
+                    violations.append(f"{path.name} is a symlink artifact")
     return stem, selected, violations
 
 
@@ -289,8 +356,8 @@ def _load_unreachable_allowlist(draft_dir: Path) -> set[str]:
     if not cfg_path.is_file() or cfg_path.is_symlink():
         return hosts
     try:
-        data = json.loads(cfg_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+        data = json.loads(_read_text_no_follow(cfg_path))
+    except (OSError, ValueError, json.JSONDecodeError):
         return hosts
     raw_hosts = data.get("unreachable_hosts") or data.get("hosts") or []
     if isinstance(raw_hosts, list):
@@ -308,31 +375,66 @@ def _is_allowed_unreachable(url: str, allowed_hosts: set[str]) -> bool:
     return host in allowed_hosts
 
 
-def _safe_http_url(url: str) -> tuple[bool, str | None]:
-    """Validate URL scheme and every resolved address before fetch."""
+def _resolve_public_http_url(url: str) -> tuple[bool, str | None, str | None, int | None, list[Any]]:
+    """Validate URL scheme and resolved addresses before a fetch."""
     parsed = urllib.parse.urlparse(url)
     if parsed.scheme not in ALLOWED_HTTP_SCHEMES:
-        return False, "URL scheme must be http or https"
+        return False, "URL scheme must be http or https", None, None, []
     host = parsed.hostname
     if not host:
-        return False, "URL host missing"
+        return False, "URL host missing", None, None, []
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
     try:
-        infos = socket.getaddrinfo(host, parsed.port or (443 if parsed.scheme == "https" else 80), proto=socket.IPPROTO_TCP)
+        infos = socket.getaddrinfo(host, port, proto=socket.IPPROTO_TCP)
     except socket.gaierror as e:
-        return False, f"DNS resolution failed: {e}"
+        return False, f"DNS resolution failed: {e}", None, None, []
     except OSError as e:
-        return False, f"DNS resolution failed: {e}"
+        return False, f"DNS resolution failed: {e}", None, None, []
     if not infos:
-        return False, "DNS resolution returned no addresses"
+        return False, "DNS resolution returned no addresses", None, None, []
     for info in infos:
         addr_text = info[4][0]
         try:
             addr = ipaddress.ip_address(addr_text)
         except ValueError:
-            return False, f"invalid resolved address: {addr_text}"
+            return False, f"invalid resolved address: {addr_text}", None, None, []
         if not addr.is_global or addr.is_loopback or addr.is_link_local or addr.is_multicast or addr.is_unspecified:
-            return False, f"resolved address is not public: {addr}"
-    return True, None
+            return False, f"resolved address is not public: {addr}", None, None, []
+    return True, None, host.lower().rstrip("."), port, list(infos)
+
+
+def _safe_http_url(url: str) -> tuple[bool, str | None]:
+    """Validate URL scheme and every resolved address before fetch."""
+    ok, reason, _host, _port, _infos = _resolve_public_http_url(url)
+    return ok, reason
+
+
+class _PinnedDNS:
+    """Temporarily pin a host to the addresses already validated."""
+
+    def __init__(self, host: str, port: int, infos: list[Any]):
+        self.host = host.lower().rstrip(".")
+        self.port = port
+        self.infos = list(infos)
+        self.original_getaddrinfo = socket.getaddrinfo
+
+    def __enter__(self):
+        def pinned_getaddrinfo(host, port, *args, **kwargs):
+            normalized = str(host).lower().rstrip(".")
+            try:
+                requested_port = int(port)
+            except (TypeError, ValueError):
+                requested_port = port
+            if normalized == self.host and requested_port == self.port:
+                return list(self.infos)
+            return self.original_getaddrinfo(host, port, *args, **kwargs)
+
+        socket.getaddrinfo = pinned_getaddrinfo
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        socket.getaddrinfo = self.original_getaddrinfo
+        return False
 
 
 def _well_formed_http_url(url: str) -> tuple[bool, str | None]:
@@ -395,7 +497,10 @@ def gate_1_capability_discovery(draft_dir: Path, live_tools: list[str] | None = 
         "image_gen_path_available": image_gen_available,
         "openverse_assumed_available": openverse_assumed_available,
     }
-    (draft_dir / "capabilities.json").write_text(json.dumps(capabilities, indent=2), encoding="utf-8")
+    try:
+        _atomic_write_json(draft_dir / "capabilities.json", capabilities, indent=2)
+    except (OSError, ValueError) as e:
+        return _gate_result(1, "Capability Discovery", False, [f"capabilities.json write refused: {e}"])
 
     violations = []
     warnings = []
@@ -475,7 +580,11 @@ def gate_3_visual_verification(draft_dir: Path, slug: str | None = None) -> dict
 
     html_path = htmls[0]
     preview_dir = draft_dir / "preview"
+    if preview_dir.exists() and preview_dir.is_symlink():
+        return _gate_result(3, "Visual Verification", False, [f"preview output path is a symlink: {preview_dir}"])
     preview_dir.mkdir(exist_ok=True)
+    if not preview_dir.is_dir():
+        return _gate_result(3, "Visual Verification", False, [f"preview output path is not a directory: {preview_dir}"])
 
     violations = []
     warnings = [f"backend: {backend}"]
@@ -545,7 +654,8 @@ def gate_3_visual_verification(draft_dir: Path, slug: str | None = None) -> dict
                 console_errors: list[str] = []
                 page.on("console", lambda msg: console_errors.append(msg.text) if msg.type == "error" else None)
                 page.goto(html_path.resolve().as_uri(), wait_until="networkidle", timeout=30_000)
-                page.screenshot(path=str(preview_dir / f"{vp['name']}-{vp['width']}.png"), full_page=True)
+                screenshot = page.screenshot(full_page=True)
+                _atomic_write_bytes(preview_dir / f"{vp['name']}-{vp['width']}.png", screenshot)
                 result = page.evaluate(bbox_check_js)
                 per_viewport[vp["name"]] = {"result": result, "console_errors": console_errors}
                 if result["overflows"]:
@@ -582,7 +692,8 @@ def gate_3_visual_verification(draft_dir: Path, slug: str | None = None) -> dict
             page.goto(html_path.resolve().as_uri(), wait_until="networkidle", timeout=30_000)
             dark_bg = page.evaluate("() => getComputedStyle(document.body).backgroundColor")
             light_bg = per_viewport["desktop"]["result"]["bg"]
-            page.screenshot(path=str(preview_dir / "desktop-1280-dark.png"), full_page=True)
+            screenshot = page.screenshot(full_page=True)
+            _atomic_write_bytes(preview_dir / "desktop-1280-dark.png", screenshot)
             if dark_bg == light_bg:
                 violations.append(f"dark mode did not change background color (still {dark_bg})")
             per_viewport["desktop-dark"] = {"bg": dark_bg, "light_bg": light_bg}
@@ -682,13 +793,14 @@ _PREFLIGHT_NO_REDIRECT_OPENER = urllib.request.build_opener(_PreflightNoRedirect
 
 def _http_head(url: str) -> int:
     """HEAD request with SSRF guards and no redirect following."""
-    ok, _reason = _safe_http_url(url)
-    if not ok:
+    ok, _reason, host, port, infos = _resolve_public_http_url(url)
+    if not ok or host is None or port is None:
         return 0
     try:
         req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": USER_AGENT})
-        with _PREFLIGHT_NO_REDIRECT_OPENER.open(req, timeout=HEAD_TIMEOUT) as resp:
-            return resp.status
+        with _PinnedDNS(host, port, infos):
+            with _PREFLIGHT_NO_REDIRECT_OPENER.open(req, timeout=HEAD_TIMEOUT) as resp:
+                return resp.status
     except Exception:
         return 0
 
@@ -727,7 +839,10 @@ def gate_5_asset_link_integrity(draft_dir: Path, slug: str | None = None) -> dic
         return _gate_result(5, "Asset + Link Integrity", False, artifact_violations)
 
     html_path = htmls[0]
-    raw = html_path.read_text(encoding="utf-8")
+    try:
+        raw = _read_text_no_follow(html_path)
+    except (OSError, ValueError) as e:
+        return _gate_result(5, "Asset + Link Integrity", False, [f"html artifact unreadable: {e}"])
     parser = _MetaParser()
     parser.feed(raw)
 
@@ -738,11 +853,11 @@ def gate_5_asset_link_integrity(draft_dir: Path, slug: str | None = None) -> dic
     # img src resolution
     for src in parser.imgs:
         if src.startswith("http://") or src.startswith("https://"):
-            if _is_allowed_unreachable(src, allowed_hosts):
-                continue
             ok, reason = _safe_http_url(src)
             if not ok:
                 violations.append(f"img src refused by URL safety policy: {src} ({reason})")
+                continue
+            if _is_allowed_unreachable(src, allowed_hosts):
                 continue
             if _http_head(src) != 200:
                 violations.append(f"img src returned non-200: {src}")
@@ -778,11 +893,11 @@ def gate_5_asset_link_integrity(draft_dir: Path, slug: str | None = None) -> dic
     # without a scheme are left to Gate 5's img-src check above.
     for href in parser.links:
         if href.startswith(("http://", "https://")):
-            if _is_allowed_unreachable(href, allowed_hosts):
-                continue
             ok, reason = _safe_http_url(href)
             if not ok:
                 violations.append(f"link refused by URL safety policy: {href} ({reason})")
+                continue
+            if _is_allowed_unreachable(href, allowed_hosts):
                 continue
             status = _http_head(href)
             if status != 200:
@@ -857,7 +972,10 @@ def gate_4_content_review(draft_dir: Path) -> dict:
             4, "Content Review", False,
             ["review.md absent; orchestrator must dispatch blog-reviewer agent before preflight Gate 4"],
         )
-    text = review.read_text(encoding="utf-8")
+    try:
+        text = _read_text_no_follow(review)
+    except (OSError, ValueError) as e:
+        return _gate_result(4, "Content Review", False, [f"review.md unreadable: {e}"])
 
     expected_nonce, nonce_error = _read_expected_review_nonce(draft_dir)
     if nonce_error or expected_nonce is None:
@@ -911,7 +1029,9 @@ def gate_4_content_review(draft_dir: Path) -> dict:
         score = None
     else:
         score = int(score_match.group(1))
-        if score < 90:
+        if score < 0 or score > 100:
+            metric_violations.append(f"review overall score {score}/100 is outside 0..100")
+        elif score < 90:
             metric_violations.append(f"review overall score {score}/100 is below 90")
 
     burst_match = re.search(r"Burstiness score:\s*([0-9.]+)\s*-\s*(Natural|Borderline|Flagged)", text, re.IGNORECASE)
@@ -1018,7 +1138,11 @@ def main() -> int:
         "blocked": blocked,
         "gates": results,
     }
-    (draft / "preflight-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    try:
+        _atomic_write_json(draft / "preflight-report.json", report, indent=2)
+    except (OSError, ValueError) as e:
+        print(f"ERROR: preflight-report.json write refused: {e}", file=sys.stderr)
+        return 1
 
     if args.json:
         print(json.dumps(report))

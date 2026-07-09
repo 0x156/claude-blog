@@ -20,11 +20,12 @@ claude-blog/
 │   └── marketplace.json     # Marketplace catalog entry
 ├── skills/
 │   ├── blog/                # Main orchestrator + references + templates
-│   ├── blog-write/          # Sub-skills (28 user-facing + 2 internal-only)
+│   ├── blog-write/          # User-facing sub-skill
+│   ├── blog-chart/          # Internal-only sub-skill
 │   ├── blog-rewrite/
-│   └── ...                  # 30 sub-skill directories total
+│   └── ...                  # 31 sub-skill dirs: 30 user-facing + 1 internal
 ├── agents/                  # 5 specialized agents
-├── scripts/                 # Python analysis scripts (analyze_blog, cognitive_load, discourse_research, sync_flow)
+├── scripts/                 # 14 root-level Python helper scripts
 ├── tests/                   # pytest test suite (security guardrails + script tests)
 ├── docs/                    # Documentation (installation, commands, architecture, templates, troubleshooting, MCP)
 └── .github/workflows/       # CI pipeline
@@ -50,7 +51,7 @@ claude-blog/
 - Tests live in `tests/test_<module>.py` mirroring the script name; follow the `test_cognitive_load.py` and `test_discourse_research.py` patterns (subprocess invocation; happy / empty / contract tests).
 
 **Prose (SKILL.md, references/, docs/, CHANGELOG.md, CONTRIBUTORS.md):**
-- **No em-dashes or en-dashes** (`—`, `–`, ` -- `). Use periods, commas, semicolons, colons, or parentheses. Em-dashes are the strongest AI-content tell and the project deliberately avoids them. Exception: pedagogical use inside backticks (e.g. when documenting the character itself).
+- **No em dashes or en dashes** (U+2014, U+2013, or ASCII ` -- `). Use periods, commas, semicolons, colons, or parentheses. Em dashes are the strongest AI-content tell and the project deliberately avoids them. Exception: pedagogical use inside backticks (e.g. when documenting the character itself).
 - Inline citations as `[name](url)` markdown links (LAW 5 of `skills/blog/references/synthesis-contract.md`).
 - No invented titles for sources (LAW 2).
 - No trailing "Sources" block when sources are already cited inline (LAW 1).

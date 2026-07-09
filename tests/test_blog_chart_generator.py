@@ -98,7 +98,7 @@ def test_cli_writes_file_and_json_status(tmp_path, capsys):
 
     assert code == 0
     assert captured["status"] == "success"
-    assert captured["output"] == str(output)
+    assert captured["output"] == "chart.html"
     assert output.read_text(encoding="utf-8").startswith('<figure class="blog-chart">')
 
 

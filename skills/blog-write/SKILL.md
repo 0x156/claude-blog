@@ -339,10 +339,10 @@ Requirements per capsule:
 
 Example:
 ```markdown
-According to a 2026 Gartner study, 58% of enterprise buyers now consult AI
-assistants before contacting a vendor ([Gartner](https://www.gartner.com), 2026).
-This shift means B2B content must answer specific questions concisely enough
-for AI systems to extract and cite in their responses.
+[Verified source title], a [method or sample description] published on [date],
+found [specific metric] for [audience or market] ([Source name](https://example.com/full-report),
+retrieved YYYY-MM-DD). In practical terms, connect the evidence to one action
+the reader should take before making a claim or changing a workflow.
 ```
 
 Capsules map to the "AI Citation Readiness" scoring category (15 points) in

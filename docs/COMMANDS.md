@@ -35,7 +35,7 @@ Every command is invoked through the main orchestrator
 | `image [generate\|edit\|setup]` | blog-image | AI image generation and editing via Gemini |
 | `cannibalization [directory]` | blog-cannibalization | Detect keyword overlap across posts |
 | `factcheck <file>` | blog-factcheck | Verify statistics against cited sources |
-| `persona [create\|list\|apply]` | blog-persona | Manage writing personas and voice profiles |
+| `persona [create\|list\|use\|show]` | blog-persona | Manage writing personas and voice profiles |
 | `taxonomy [sync\|audit\|suggest]` | blog-taxonomy | Tag/category CMS management |
 | `notebooklm <question>` | blog-notebooklm | Query NotebookLM for source-grounded research |
 | `audio [generate\|voices\|setup]` | blog-audio | Generate audio narration via Gemini TTS |
@@ -662,7 +662,8 @@ user-private `~/.claude/settings.json`, mode 0600) per audit VULN-001 fix.
 ```
 /blog persona create
 /blog persona list
-/blog persona apply <name>
+/blog persona use <name>
+/blog persona show <name>
 ```
 
 **Flow**: See `skills/blog-persona/SKILL.md`. Personas live in
@@ -715,8 +716,8 @@ VULN-004 fix.
 
 ## /blog google
 
-**Purpose**: Google API data integration (PSI, CrUX, GSC, GA4, Indexing,
-NLP, YouTube, Keywords).
+**Purpose**: Google API data integration (PSI, CrUX, GSC, GA4, NLP,
+YouTube, Keywords). Indexing API use is limited to JobPosting or livestream URLs.
 
 ```
 /blog google <command> [args]
@@ -852,7 +853,7 @@ User Input                                  Routes To
 /blog translate <file> --to             --> blog-translate
 /blog localize <file> --locale          --> blog-localize
 /blog locale-audit <directory>          --> blog-locale-audit
-/blog flow [find|optimize|win|prompts]  --> blog-flow
+/blog flow [find|optimize|win|prompts|sync] --> blog-flow
 ```
 
 If no sub-command is provided, the orchestrator asks which action the user

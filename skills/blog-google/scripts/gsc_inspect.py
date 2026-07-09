@@ -15,7 +15,9 @@ import argparse
 import json
 import sys
 import time
+from pathlib import Path
 from typing import Optional
+from urllib.parse import urlparse
 
 try:
     from googleapiclient.discovery import build
@@ -39,6 +41,75 @@ GSC_SCOPES = ["https://www.googleapis.com/auth/webmasters.readonly"]
 # Daily limit per site
 DAILY_LIMIT = 2000
 QPM_LIMIT = 600
+
+
+def _path_contains_symlink(path: Path, root: Path) -> bool:
+    """Return True if path or any existing parent below root is a symlink."""
+    current = path if path.exists() or path.is_symlink() else path.parent
+    current = current.absolute()
+    root = root.absolute()
+    while current != current.parent:
+        if current.is_symlink():
+            return True
+        if current == root:
+            return False
+        current = current.parent
+    return False
+
+
+def _resolve_batch_file(path_value: str) -> Path:
+    """Resolve a batch file under the current working directory."""
+    root = Path.cwd().resolve()
+    candidate = Path(path_value).expanduser()
+    if not candidate.is_absolute():
+        candidate = root / candidate
+    if _path_contains_symlink(candidate, root):
+        raise ValueError("Batch file must not use symlinks")
+    try:
+        resolved = candidate.resolve(strict=True)
+    except FileNotFoundError as exc:
+        raise ValueError(f"Batch file not found: {path_value}") from exc
+    try:
+        resolved.relative_to(root)
+    except ValueError as exc:
+        raise ValueError(f"Refusing to read batch file outside working directory: {path_value}") from exc
+    if not resolved.is_file():
+        raise ValueError(f"Batch path is not a regular file: {path_value}")
+    return resolved
+
+
+def _validate_url(url: str) -> str:
+    """Validate an http or https URL before calling Google APIs."""
+    clean = str(url).strip()
+    parsed = urlparse(clean)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        raise ValueError(f"Invalid URL: {url}")
+    return clean
+
+
+def _load_batch_urls(path_value: str) -> list[str]:
+    """Load and validate URLs from a cwd-local batch file."""
+    path = _resolve_batch_file(path_value)
+    urls = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line_number, line in enumerate(f, 1):
+            clean = line.strip()
+            if not clean:
+                continue
+            try:
+                urls.append(_validate_url(clean))
+            except ValueError as exc:
+                raise ValueError(f"Invalid URL on line {line_number}: {clean}") from exc
+    return urls
+
+
+def _exit_error(message: str, as_json: bool) -> None:
+    """Emit a CLI error in the requested format."""
+    if as_json:
+        print(json.dumps({"error": message}, indent=2))
+    else:
+        print(f"Error: {message}", file=sys.stderr)
+    sys.exit(1)
 
 
 def _build_inspection_service():
@@ -82,6 +153,12 @@ def inspect_url(
         "verdict": None,
         "error": None,
     }
+    try:
+        inspection_url = _validate_url(inspection_url)
+        result["url"] = inspection_url
+    except ValueError as e:
+        result["error"] = str(e)
+        return result
 
     service = service or _build_inspection_service()
     if not service:
@@ -202,6 +279,15 @@ def batch_inspect(
         "error": None,
     }
 
+    try:
+        urls = [_validate_url(url) for url in urls if str(url).strip()]
+    except ValueError as e:
+        result["error"] = str(e)
+        result["total"] = 0
+        return result
+
+    result["total"] = len(urls)
+
     if len(urls) > DAILY_LIMIT:
         result["error"] = (
             f"Batch size ({len(urls)}) exceeds daily limit ({DAILY_LIMIT}). "
@@ -276,11 +362,9 @@ def main():
     if args.batch:
         # Batch mode
         try:
-            with open(args.batch, "r") as f:
-                urls = [line.strip() for line in f if line.strip()]
-        except IOError as e:
-            print(f"Error reading batch file: {e}", file=sys.stderr)
-            sys.exit(1)
+            urls = _load_batch_urls(args.batch)
+        except (OSError, ValueError) as e:
+            _exit_error(f"Error reading batch file: {e}", args.json)
 
         result = batch_inspect(urls, site_url, delay=args.delay)
     elif args.url:

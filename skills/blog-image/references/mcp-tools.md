@@ -75,10 +75,13 @@ Switch the active Gemini model.
 | `model` | string | Yes | MCP model alias |
 
 **Available aliases in pinned package:**
-- `flash`: maps to Nano Banana Flash
-- `pro`: maps to Nano Banana Pro
+- `flash`: maps to `gemini-3.1-flash-image-preview`
+- `pro`: maps to `gemini-3-pro-image-preview`
 
-Stable Google API IDs such as `gemini-3.1-flash-image`, `gemini-3.1-flash-lite-image`, and `gemini-3-pro-image` are direct API IDs. Do not pass them to `set_model` unless the installed MCP package explicitly supports them.
+Those preview IDs shut down on 2026-06-25. Stable Google API IDs such as
+`gemini-3.1-flash-image`, `gemini-3.1-flash-lite-image`, and
+`gemini-3-pro-image` are direct API IDs. Do not pass them to `set_model`
+unless the installed MCP package explicitly supports them.
 
 ### get_image_history
 Retrieve list of images generated in the current session.
@@ -102,7 +105,7 @@ Reset session context and conversation history.
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `GOOGLE_AI_API_KEY` | Yes | API key from https://aistudio.google.com/apikey |
-| `NANOBANANA_MODEL` | No | Override default MCP alias (default: `flash`) |
+| `NANOBANANA_MODEL` | No | Pinned package accepts only `gemini-3.1-flash-image-preview` or `gemini-3-pro-image-preview`; both are shut down |
 
 ## Output Directory
 All generated images are saved to: `~/Documents/nanobanana_generated/`

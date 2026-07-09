@@ -43,10 +43,10 @@ Output JSON schema:
       "platform_breakdown": { "reddit": N, "x": M, ... },
       "themes_new": [ { "theme": "...", "claim": "...", "sources": [...] } ],
       "themes_consensus": [ { "theme": "...", "claim": "...", "sources": [...] } ],
-      "themes_contrarian": [ ... ],
+      "themes_niche": [ ... ],
       "specifics": [ ... ],
       "source_count": N,
-      "useful_count": M
+      "specifics_count": M
     }
 
 The script enforces LAW 2 (no invented titles - titles come verbatim from
@@ -639,22 +639,27 @@ def _safe_link_text(text: str) -> str:
     if not text:
         return ""
     # Collapse all whitespace runs (incl. \n, \r, \t) into single spaces.
-    collapsed = " ".join(text.split())
+    collapsed = strip_em_dashes(" ".join(str(text).split()))
+    escaped = _escape_html_text(collapsed)
     # Escape the markdown-link terminator and the backslash that could be
     # used to bypass the escape.
-    return collapsed.replace("\\", "\\\\").replace("]", r"\]").replace("[", r"\[")
+    return escaped.replace("\\", "\\\\").replace("]", r"\]").replace("[", r"\[")
+
+
+def _escape_html_text(text: str) -> str:
+    """Escape HTML metacharacters in Markdown text."""
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 def _safe_markdown_text(text: str) -> str:
     """Escape Markdown control characters in user-supplied headings and lists."""
     cleaned = strip_em_dashes(" ".join(str(text).split()))
+    cleaned = _escape_html_text(cleaned)
     return (
         cleaned.replace("\\", "\\\\")
         .replace("[", r"\[")
         .replace("]", r"\]")
         .replace("|", r"\|")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
     )
 
 
@@ -704,12 +709,12 @@ def _safe_snippet(text: str) -> str:
     if not text:
         return ""
     cleaned = strip_em_dashes(text)[:200].strip()
-    return cleaned.replace("\\", "\\\\").replace("]", r"\]").replace("[", r"\[")
+    return _safe_markdown_text(cleaned)
 
 
 def render_cluster_paragraph(cluster: dict[str, Any]) -> str:
     items = cluster["items"]
-    theme = cluster["theme"].replace("-", " ").title()
+    theme = _safe_markdown_text(cluster["theme"].replace("-", " ").title())
     sources = ", ".join(render_inline_link(i) for i in items[:3])
     sample_snippet = _safe_snippet(items[0].get("snippet") or "")
     if sample_snippet:
@@ -813,7 +818,7 @@ def render_markdown(
     lines.append("|---|---|")
     for platform, count in sorted(platform_counts.items(), key=lambda kv: -kv[1]):
         label = PLATFORM_LABELS.get(platform, platform.capitalize())
-        lines.append(f"| {label} | {count} |")
+        lines.append(f"| {_safe_markdown_text(label)} | {count} |")
     lines.append("")
     return strip_em_dashes("\n".join(lines))
 

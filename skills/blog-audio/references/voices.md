@@ -73,7 +73,7 @@ compatibility:
 
 | Model | ID | Single speaker | Multispeaker | Note |
 |-------|----|----------------|--------------|------|
-| Gemini 3.1 Flash TTS | `gemini-3.1-flash-tts` | Yes | Yes | Local `flash` and `flash31` aliases map here |
+| Gemini 3.1 Flash TTS | `gemini-3.1-flash-tts-preview` | Yes | Yes | Local `flash` and `flash31` aliases map here |
 | Gemini 2.5 Flash Preview TTS | `gemini-2.5-flash-preview-tts` | Yes | Yes | Local `legacy-flash25` alias |
 | Gemini 2.5 Pro Preview TTS | `gemini-2.5-pro-preview-tts` | Yes | Yes | Local `pro` and `legacy-pro25` aliases |
 

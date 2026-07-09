@@ -147,30 +147,30 @@ If the user chose a voice, use it. Otherwise, recommend based on mode:
 
 ### Step 5: Generate Audio
 
-Write the prepared text to a temp file, then call:
+Write the prepared text to a file under the working directory, then call:
 
 ```bash
 # Single voice (summary or full mode)
 python3 scripts/run.py generate_audio.py \
-  --text-file /tmp/blog_audio_prepared.txt \
+  --text-file blog_audio_prepared.txt \
   --voice Charon \
   --model flash \
-  --output /path/to/audio/post-slug.mp3 \
+  --output audio/post-slug.mp3 \
   --json
 
 # Two voices (dialogue mode)
 python3 scripts/run.py generate_audio.py \
-  --text-file /tmp/blog_audio_dialogue.txt \
+  --text-file blog_audio_dialogue.txt \
   --voice Puck \
   --voice2 Kore \
   --model pro \
-  --output /path/to/audio/post-slug-dialogue.mp3 \
+  --output audio/post-slug-dialogue.mp3 \
   --json
 ```
 
 **Model selection:**
-- `flash` (default): maps to `gemini-3.1-flash-tts`, good for summaries and standard narration.
-- `flash31`: explicit alias for `gemini-3.1-flash-tts`.
+- `flash` (default): maps to `gemini-3.1-flash-tts-preview`, good for summaries and standard narration.
+- `flash31`: explicit alias for `gemini-3.1-flash-tts-preview`.
 - `legacy-flash25`: retained only for older compatibility.
 - `pro` or `legacy-pro25`: maps to `gemini-2.5-pro-preview-tts`, use only when needed.
 

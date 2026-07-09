@@ -1,7 +1,8 @@
 # Gemini Image Generation Models - Nano Banana
 
 > Last updated: 2026-07-08
-> Aligned with Google's July 2026 model availability state. Prices are approximate.
+> Aligned with Google's July 2026 model availability state. Check live pricing
+> and project limits before quoting cost or throughput.
 
 ## Available Models
 
@@ -14,7 +15,7 @@
 | **Aspect Ratios** | All 14 ratios (see table below) |
 | **Max Resolution** | Up to 4096×4096 (4K tier) |
 | **Features** | Google Search grounding (web + image), thinking levels, image-only output, extreme aspect ratios, 512px drafts |
-| **Rate Limits (Free)** | ~5-15 RPM / ~20-500 RPD, varies by billing and region |
+| **Rate Limits** | Check live project limits in AI Studio and the rate limits page |
 | **Output Tokens** | 1K: 1,120, 2K: 1,680, 4K: 2,520 |
 | **Cost (1K)** | ~$0.067/image |
 | **Best For** | Most blog images, rapid iteration, batch generation |
@@ -46,7 +47,7 @@ Lite from Claude Code.
 | **Aspect Ratios** | All 14 ratios |
 | **Max Resolution** | Up to 4096×4096 (4K tier) |
 | **Features** | Strong text rendering with quoted text, 14 reference images, C2PA Content Credentials |
-| **Rate Limits (Free)** | ~5-10 RPM / ~20-100 RPD |
+| **Rate Limits** | Check live project limits in AI Studio and the rate limits page |
 | **Output Tokens** | 1K/2K: 1,120, 4K: 2,000 |
 | **Cost (1K/2K)** | ~$0.134/image |
 | **Best For** | Hero images with text overlays, highest quality final assets, branded content |
@@ -61,7 +62,7 @@ Lite from Claude Code.
 | **Speed** | Fast |
 | **Aspect Ratios** | Standard ratios vary by API surface, verify in current docs |
 | **Max Resolution** | Up to 1024×1024 (1K tier) |
-| **Rate Limits (Free)** | ~10-15 RPM / ~500 RPD (stable - more generous than preview models) |
+| **Rate Limits** | Check live project limits in AI Studio and the rate limits page |
 | **Cost (1K)** | ~$0.039/image |
 | **Best For** | Budget-conscious workflows, proven quality, stable fallback |
 
@@ -147,14 +148,16 @@ limits table before promising throughput: https://ai.google.dev/gemini-api/docs/
 
 | Tier | RPM | RPD | How to Get |
 |------|-----|-----|-----------|
-| Free | ~5-15 | ~20-500 | Default (API key only, no billing) |
 | Tier 1 (Pay-as-you-go) | 150-300 | 1,500-10,000 | Enable billing on Google Cloud project |
 | Tier 2 ($250+ spend) | 1,000+ | Unlimited | Cumulative $250+ API spend |
 
 **Important:** The old NB2 and Pro preview image IDs are shut down. Free tier
 availability for image generation may require billing to be enabled.
 
-## Pricing (checked 2026-07-08)
+## Pricing Guidance
+
+Check live pricing before quoting image costs:
+https://ai.google.dev/gemini-api/docs/pricing
 
 | Model | Resolution | Cost per Image | Notes |
 |-------|-----------|---------------|-------|

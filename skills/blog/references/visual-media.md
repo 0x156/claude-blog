@@ -86,28 +86,28 @@ date: "YYYY-MM-DD"
 ### Pixabay (Preferred)
 - **License**: Pixabay Content License - free for commercial use, no attribution required
 - **URL**: https://pixabay.com
-- **Hotlinking**: Allowed via CDN URLs
+- **Hotlinking**: Not allowed by claude-blog policy. Use the source URL only to download a local asset, then serve the local file.
 
 **Finding images:**
-1. WebSearch: `site:pixabay.com [topic keywords]`
-2. Visit the image page to get the direct CDN URL
-3. Direct URL pattern: `https://cdn.pixabay.com/photo/YYYY/MM/DD/HH/MM/filename.jpg`
-4. Verify: `curl -sI "<url>" | head -1` - must return HTTP 200
+1. Prefer the official API when a key is available; otherwise use Openverse for CC assets.
+2. Download the selected image into the draft or site asset folder.
+3. Store attribution/license metadata next to the downloaded file.
+4. Verify the local file exists and renders before delivery.
 
-**Sizing**: Append query params for optimization:
-- Blog hero: original size (typically 1920px wide)
-- Inline images: use as-is (most are 1280px+)
+**Sizing**: Download a source large enough for local optimization:
+- Blog hero: source width at least 1200px, preferably 1920px+
+- Inline images: source width at least 1280px when available
 
 ### Unsplash (Alternative)
 - **License**: Unsplash License - free for commercial use, no attribution required
 - **URL**: https://unsplash.com
-- **Hotlinking**: Required - must use their CDN
+- **Hotlinking**: Not allowed by claude-blog policy. Use official API metadata to select an image, then download/cache it locally and keep source metadata.
 
 **Finding images:**
-1. WebSearch: `site:unsplash.com [topic keywords]`
-2. Extract photo ID from URL (e.g., `photo-1234567890123-abcdef`)
-3. Build direct URL: `https://images.unsplash.com/photo-<id>?w=1200&h=630&fit=crop&q=80`
-4. Verify: `curl -sI "<url>" | head -1` - must return HTTP 200
+1. Use the official API when `UNSPLASH_ACCESS_KEY` is present.
+2. Select a relevant 1.91:1 or crop-friendly image with license/source metadata.
+3. Download to the draft or site asset folder and write attribution/source notes.
+4. Verify the local file exists and renders before delivery.
 
 ### Pexels (Fallback)
 - **License**: Pexels License - free for commercial use, no attribution required
@@ -166,29 +166,25 @@ describe what the screenshot demonstrates.
 
 **Standard Markdown:**
 ```markdown
-![Descriptive alt text sentence](https://cdn.pixabay.com/photo/.../image.jpg)
+![Descriptive alt text sentence](/images/blog/topic-hero.jpg)
 ```
 
 **MDX (Next.js):**
 ```mdx
-![Descriptive alt text sentence](https://cdn.pixabay.com/photo/.../image.jpg)
+![Descriptive alt text sentence](/images/blog/topic-hero.jpg)
 ```
 
-For Next.js projects, verify `next.config.ts` includes the image domain:
+For Next.js projects, generated or downloaded assets should live under
+`public/images/blog/` or be imported from the local asset tree. Remote image
+domains are not required for claude-blog generated assets:
 ```typescript
-images: {
-  remotePatterns: [
-    { protocol: 'https', hostname: 'cdn.pixabay.com' },
-    { protocol: 'https', hostname: 'images.unsplash.com' },
-    { protocol: 'https', hostname: 'images.pexels.com' },
-  ],
-}
+const hero = "/images/blog/topic-hero.jpg"
 ```
 
 **HTML:**
 ```html
 <figure>
-  <img src="https://cdn.pixabay.com/photo/.../image.jpg"
+  <img src="/images/blog/topic-hero.jpg"
        alt="Descriptive alt text sentence"
        width="1200" height="630" loading="lazy">
   <figcaption>Photo via Pixabay</figcaption>

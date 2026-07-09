@@ -22,7 +22,7 @@ When you explicitly invoke certain commands, the plugin may interact with extern
 | SERP and keyword data | DataForSEO API (~$0.01/call) | Only when you run `/blog cannibalization --api` with your own DataForSEO credentials. Local mode (default) requires no API |
 | CMS taxonomy sync | WordPress, Shopify, Ghost, Strapi, Sanity APIs | Only when you run `/blog taxonomy` with your own CMS credentials |
 | NotebookLM research | Google NotebookLM | Only when you run `/blog notebooklm` with your own configuration |
-| Google API data | Google PageSpeed Insights, CrUX, Search Console, GA4, YouTube Data API, Cloud NLP, Indexing API, Keyword Planner | Only when you run `/blog google` commands and have configured your own API credentials at `~/.config/claude-seo/google-api.json` |
+| Google API data | Google PageSpeed Insights, CrUX, Search Console, GA4, YouTube Data API, Cloud NLP, Keyword Planner, and Indexing API for JobPosting or livestream URLs only | Only when you run `/blog google` commands and have configured your own API credentials at `~/.config/claude-seo/google-api.json` |
 
 All API keys and credentials are stored locally in your environment variables or `.env` files. This plugin never transmits your credentials to any party other than the service you are explicitly calling.
 

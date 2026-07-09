@@ -41,21 +41,23 @@ in place so the writer can focus on delivering unique value.
 
 ## Template Selection Guide
 
-Use this table to select the right template based on content goals.
+Use this table to select the right template based on content goals. Canonical
+target ranges live in each template file header; this table mirrors those
+headers and must be updated in the same change.
 
 | Goal | Template | Best For | Word Count |
 |------|----------|----------|------------|
 | Teach a process | `how-to-guide` | Step-by-step tutorials, "How to X" queries | 2,000-2,500 |
 | Rank for "best X" | `listicle` | Curated lists, "Best X for Y" queries | 1,500-2,000 |
-| Build authority | `case-study` | Proving results with real metrics | 2,000-3,000 |
+| Build authority | `case-study` | Proving results with real metrics | 1,500-2,000 |
 | Capture comparison traffic | `comparison` | "X vs Y" queries, tool evaluations | 1,500-2,000 |
 | Dominate a topic | `pillar-page` | Comprehensive coverage, hub pages | 3,000-4,000 |
-| Convert buyers | `product-review` | Bottom-of-funnel "is X worth it" queries | 1,500-2,500 |
-| Thought leadership | `thought-leadership` | Industry opinion, predictions, analysis | 2,000-3,000 |
-| Curate expertise | `roundup` | Expert quotes, multi-source collections | 2,000-2,500 |
-| Technical audience | `tutorial` | Code walkthroughs, tool demos | 2,500-3,500 |
+| Convert buyers | `product-review` | Bottom-of-funnel "is X worth it" queries | 1,500-2,000 |
+| Thought leadership | `thought-leadership` | Industry opinion, predictions, analysis | 1,500-2,500 |
+| Curate expertise | `roundup` | Expert quotes, multi-source collections | 1,500-2,000 |
+| Technical audience | `tutorial` | Code walkthroughs, tool demos | 2,000-3,000 |
 | Timely content | `news-analysis` | Event reactions, algorithm update coverage | 800-1,200 |
-| Original research | `data-research` | Proprietary data, survey results, experiments | 2,500-3,500 |
+| Original research | `data-research` | Proprietary data, survey results, experiments | 2,000-3,000 |
 | Answer questions | `faq-knowledge` | Knowledge base pages, Q&A reference content | 1,500-2,000 |
 
 ### Search Intent Mapping

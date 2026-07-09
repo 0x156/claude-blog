@@ -27,10 +27,21 @@ from pathlib import Path
 MCP_NAME = "nanobanana-mcp"
 OUTPUT_DIR = Path.home() / "Documents" / "nanobanana_generated"
 GLOBAL_SETTINGS_PATH = Path.home() / ".claude" / "settings.json"
-DEFAULT_NANOBANANA_MODEL = "flash"
-SUPPORTED_MCP_MODEL_ALIASES = {
-    "flash": "MCP alias for gemini-3.1-flash-image",
-    "pro": "MCP alias for gemini-3-pro-image",
+PINNED_PACKAGE = "@ycse/nanobanana-mcp@1.1.1"
+PINNED_PACKAGE_DEFAULT_MODEL = "gemini-3.1-flash-image-preview"
+SET_MODEL_ALIASES = {
+    "flash": "set_model alias for gemini-3.1-flash-image-preview",
+    "pro": "set_model alias for gemini-3-pro-image-preview",
+}
+PINNED_PACKAGE_ENV_MODELS = {
+    "gemini-3.1-flash-image-preview": (
+        "accepted by pinned package, but shut down on 2026-06-25; "
+        "use gemini-3.1-flash-image through direct API or a newer MCP package"
+    ),
+    "gemini-3-pro-image-preview": (
+        "accepted by pinned package, but shut down on 2026-06-25; "
+        "use gemini-3-pro-image through direct API or a newer MCP package"
+    ),
 }
 DIRECT_API_MODELS = {
     "gemini-3.1-flash-image": "Nano Banana 2 direct API ID",
@@ -105,29 +116,37 @@ def check(label: str, passed: bool, detail: str = "", results: list = None, quie
 
 
 def _supported_model_list() -> str:
-    return ", ".join(sorted(SUPPORTED_MCP_MODEL_ALIASES))
+    return ", ".join(sorted(PINNED_PACKAGE_ENV_MODELS))
 
 
 def validate_nanobanana_model(model: str) -> tuple:
-    """Validate the configured image model against supported GA model IDs."""
+    """Validate NANOBANANA_MODEL against the pinned MCP package contract."""
     model = (model or "").strip()
     if not model:
-        return True, f"(not set - package will use default {DEFAULT_NANOBANANA_MODEL})"
-    if model in SUPPORTED_MCP_MODEL_ALIASES:
-        return True, f"{model} ({SUPPORTED_MCP_MODEL_ALIASES[model]})"
+        return False, (
+            f"(not set - pinned {PINNED_PACKAGE} defaults to "
+            f"{PINNED_PACKAGE_DEFAULT_MODEL}, which shut down on 2026-06-25)"
+        )
+    if model in SET_MODEL_ALIASES:
+        return False, (
+            f"{model} ({SET_MODEL_ALIASES[model]}; aliases are accepted only by "
+            "the set_model MCP tool, not by NANOBANANA_MODEL)"
+        )
+    if model in PINNED_PACKAGE_ENV_MODELS:
+        return False, f"{model} ({PINNED_PACKAGE_ENV_MODELS[model]})"
     if model in DIRECT_API_MODELS:
         return False, (
-            f"{model} ({DIRECT_API_MODELS[model]}; pinned @ycse/nanobanana-mcp@1.1.1 "
-            "expects aliases flash or pro)"
+            f"{model} ({DIRECT_API_MODELS[model]}; pinned {PINNED_PACKAGE} does not "
+            "accept stable direct API IDs as NANOBANANA_MODEL)"
         )
     if model in DEPRECATED_MODEL_REPLACEMENTS:
         return False, f"{model} (WARNING: {DEPRECATED_MODEL_REPLACEMENTS[model]})"
     if "-preview" in model:
         return False, (
             f"{model} (WARNING: preview image models are deprecated or shut down; "
-            f"use one of: {_supported_model_list()})"
+            "use stable direct API IDs outside this pinned MCP package)"
         )
-    return False, f"{model} (unsupported; use one of: {_supported_model_list()})"
+    return False, f"{model} (unsupported by pinned {PINNED_PACKAGE}; accepts: {_supported_model_list()})"
 
 
 def find_mcp_config() -> tuple:
@@ -198,7 +217,7 @@ def main() -> int:
         if args.json:
             print(json.dumps({"status": "error", "checks": checks}, indent=2))
         else:
-            print(f"\nRun: python3 scripts/setup_image_mcp.py")
+            print("\nRun: python3 skills/blog-image/scripts/setup_image_mcp.py")
         return 1
 
     results.append(check("MCP config found", True, config_label, checks, quiet))
@@ -221,16 +240,16 @@ def main() -> int:
         ))
 
         # 5. Package is correct (accepts pinned versions like @ycse/nanobanana-mcp@1.1.1)
-        args = mcp.get("args", [])
+        mcp_args = mcp.get("args", [])
         has_pkg = any(
             isinstance(a, str) and a.startswith("@ycse/nanobanana-mcp")
-            for a in args
+            for a in mcp_args
         )
         is_pinned = any(
             isinstance(a, str) and a.startswith("@ycse/nanobanana-mcp@")
-            for a in args
+            for a in mcp_args
         )
-        pkg_detail = str(args)
+        pkg_detail = str(mcp_args)
         if has_pkg and not is_pinned:
             pkg_detail += " (WARNING: not version-pinned - supply chain risk)"
         results.append(check(
@@ -267,7 +286,7 @@ def main() -> int:
                 quiet,
             ))
 
-        # 7. Model configured (optional - package has a supported GA default)
+        # 7. Model configured. The pinned package does not support stable image IDs.
         model = env.get("NANOBANANA_MODEL", "")
         model_ok, model_detail = validate_nanobanana_model(model)
         results.append(check(
@@ -331,7 +350,7 @@ def main() -> int:
         return 0
     else:
         print("Status: Some checks failed. Fix the issues above.")
-        print("Setup: python3 scripts/setup_image_mcp.py")
+        print("Setup: python3 skills/blog-image/scripts/setup_image_mcp.py")
         return 1
 
 

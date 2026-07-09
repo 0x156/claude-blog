@@ -12,8 +12,10 @@ ecosystem for blog content creation, optimization, and management.
 | pip | Latest | Python dependency management |
 
 Claude Code must be installed and configured before installing `claude-blog`.
-Python is only required for the `analyze_blog.py` quality scoring script; all
-other commands work without it.
+Python 3.11+ is required for quality scoring and helper workflows including
+`analyze_blog.py`, `blog_preflight.py`, `blog_render.py`, `generate_hero.py`,
+`lint_prose.py`, and related script checks. Commands that do not invoke those
+helpers may still run without Python, but production installs should include it.
 
 ---
 
@@ -22,13 +24,13 @@ other commands work without it.
 ### Linux / macOS
 
 ```bash
-curl -sL https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | bash
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-irm https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1 -OutFile install.ps1
+irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 -OutFile install.ps1
 pwsh -File ./install.ps1
 ```
 
@@ -42,7 +44,7 @@ and scripts to the correct Claude Code configuration directories.
 ## Standard Install (Git Clone)
 
 ```bash
-git clone https://github.com/AgriciDaniel/claude-blog.git
+git clone https://github.com/AI-Marketing-Hub/claude-blog.git
 cd claude-blog
 chmod +x install.sh
 ./install.sh
@@ -50,11 +52,12 @@ chmod +x install.sh
 
 ### Install Python Dependencies
 
-The installer on Linux/macOS does not auto-install Python packages. Run this
-after the main install:
+The installers try to install Python packages from `requirements.txt` when
+Python and pip are available. If dependency installation is skipped or fails,
+run this after the main install:
 
 ```bash
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 #### Reproducible install via uv (v1.9.1+)
@@ -180,28 +183,39 @@ mkdir -p ~/.claude/agents
 cp skills/blog/SKILL.md ~/.claude/skills/blog/SKILL.md
 
 # References
-cp skills/blog/references/*.md ~/.claude/skills/blog/references/
+cp -R skills/blog/references/. ~/.claude/skills/blog/references/
 
 # Templates
-cp skills/blog/templates/*.md ~/.claude/skills/blog/templates/
+cp -R skills/blog/templates/. ~/.claude/skills/blog/templates/
 
-# Sub-skills
+# Sub-skills plus their payload directories
 for d in skills/blog-*/; do
     name=$(basename "$d")
-    cp "$d/SKILL.md" ~/.claude/skills/$name/SKILL.md
+    cp "$d/SKILL.md" "${HOME}/.claude/skills/$name/SKILL.md"
+    for payload in references scripts assets templates; do
+        if [ -d "$d/$payload" ]; then
+            mkdir -p "${HOME}/.claude/skills/$name/$payload"
+            cp -R "$d/$payload"/. "${HOME}/.claude/skills/$name/$payload/"
+        fi
+    done
+    if [ -d "${HOME}/.claude/skills/$name/scripts" ]; then
+        find "${HOME}/.claude/skills/$name/scripts" -type f -name '*.py' -exec chmod +x {} +
+    fi
 done
 
 # Agents
 cp agents/*.md ~/.claude/agents/
 
-# Scripts
-cp scripts/analyze_blog.py ~/.claude/skills/blog/scripts/
-chmod +x ~/.claude/skills/blog/scripts/analyze_blog.py
-
-# Blog-image references and scripts
-cp skills/blog-image/references/*.md ~/.claude/skills/blog-image/references/
-cp skills/blog-image/scripts/*.py ~/.claude/skills/blog-image/scripts/
-chmod +x ~/.claude/skills/blog-image/scripts/*.py
+# Root scripts
+for f in scripts/*.py; do
+    name=$(basename "$f")
+    cp "$f" "${HOME}/.claude/scripts/$name"
+    chmod +x "${HOME}/.claude/scripts/$name"
+    if [ "$name" = "analyze_blog.py" ]; then
+        cp "$f" ~/.claude/skills/blog/scripts/analyze_blog.py
+        chmod +x ~/.claude/skills/blog/scripts/analyze_blog.py
+    fi
+done
 ```
 
 ---

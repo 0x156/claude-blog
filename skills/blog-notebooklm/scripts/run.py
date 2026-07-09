@@ -78,9 +78,16 @@ def main():
 
     # Get script path
     skill_dir = Path(__file__).parent.parent
-    script_path = skill_dir / "scripts" / script_name
+    scripts_dir = (skill_dir / "scripts").resolve()
+    script_path = (scripts_dir / script_name).resolve()
 
-    if not script_path.exists():
+    try:
+        script_path.relative_to(scripts_dir)
+    except ValueError:
+        print(f"❌ Script path escapes scripts directory: {script_name}")
+        sys.exit(1)
+
+    if not script_path.is_file():
         print(f"❌ Script not found: {script_name}")
         print(f"   Working directory: {Path.cwd()}")
         print(f"   Skill directory: {skill_dir}")

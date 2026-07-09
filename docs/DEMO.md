@@ -38,7 +38,7 @@ every program you launch from that shell.
 
 | Component | Skill / Script | Status |
 |---|---|---|
-| Google Search Console + URL Inspection + Indexing | `blog-google google_auth --check` | Tier 1 detected |
+| Google Search Console + URL Inspection | `blog-google google_auth --check` | Tier 1 detected |
 | PageSpeed Insights + CrUX + CrUX History | `blog-google pagespeed_check / crux_history` | Tier 1 detected |
 | YouTube search + video deep-dive | `blog-google youtube_search` | API key live |
 | GA4 organic traffic | `blog-google ga4_report` | Needs `ga4_property_id` in google-api.json |

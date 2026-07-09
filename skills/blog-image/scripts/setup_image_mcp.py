@@ -16,15 +16,17 @@ Usage:
 """
 
 import argparse
+import errno
 import json
 import os
 import re
+import secrets
 import sys
 from pathlib import Path
 
 MCP_NAME = "nanobanana-mcp"
 MCP_PACKAGE = "@ycse/nanobanana-mcp"
-DEFAULT_MODEL = "flash"
+DEFAULT_MODEL = "gemini-3.1-flash-image-preview"
 PINNED_PACKAGE = "@ycse/nanobanana-mcp@1.1.1"
 ENV_PLACEHOLDER = "${GOOGLE_AI_API_KEY}"
 PLUGIN_NAME = "claude-blog"
@@ -54,15 +56,16 @@ def find_project_mcp_json() -> Path:
     return None
 
 
-def get_config_path(use_global: bool) -> Path:
+def get_config_path(use_global: bool, quiet: bool = False) -> Path:
     """Get the appropriate config file path."""
     if use_global:
         return GLOBAL_SETTINGS_PATH
     project_path = find_project_mcp_json()
     if project_path:
         return project_path
-    print("Warning: Could not find project root (.claude-plugin/plugin.json).")
-    print("Falling back to global settings.")
+    if not quiet:
+        print("Warning: Could not find project root (.claude-plugin/plugin.json).")
+        print("Falling back to global settings.")
     return GLOBAL_SETTINGS_PATH
 
 
@@ -80,14 +83,66 @@ def load_config(path: Path) -> dict:
         ) from exc
 
 
+def emit_error(message: str, as_json: bool, exit_code: int = 1) -> None:
+    """Print an error in text or JSON mode, then exit."""
+    if as_json:
+        print(json.dumps({"status": "error", "error": message}, indent=2))
+    else:
+        print(f"Error: {message}")
+    sys.exit(exit_code)
+
+
+def _verify_not_symlink(path: Path) -> None:
+    """Reject symlink config targets before atomic replacement."""
+    try:
+        path.lstat()
+    except FileNotFoundError:
+        return
+    if path.is_symlink():
+        raise ValueError(f"Refusing to write through symlink: {path}")
+
+    nofollow = getattr(os, "O_NOFOLLOW", 0)
+    try:
+        fd = os.open(path, os.O_RDONLY | nofollow)
+    except OSError as exc:
+        if exc.errno == errno.ELOOP:
+            raise ValueError(f"Refusing to write through symlink: {path}") from exc
+        raise
+    else:
+        os.close(fd)
+
+
+def _open_temp_no_follow(path: Path) -> tuple[int, Path]:
+    """Create a same-directory temp file without following symlinks."""
+    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0)
+    for _ in range(100):
+        candidate = path.with_name(f".{path.name}.{os.getpid()}.{secrets.token_hex(8)}.tmp")
+        try:
+            return os.open(candidate, flags, 0o600), candidate
+        except FileExistsError:
+            continue
+    raise FileExistsError(f"Could not create a unique temp file for {path}")
+
+
 def save_config(path: Path, config: dict, quiet: bool = False) -> None:
     """Save config file. Sets restrictive permissions if the file may contain secrets."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
-    with os.fdopen(fd, "w") as f:
-        json.dump(config, f, indent=2)
-        f.write("\n")
-    os.chmod(path, 0o600)  # belt-and-braces if file pre-existed
+    _verify_not_symlink(path)
+    fd, tmp_path = _open_temp_no_follow(path)
+    try:
+        os.fchmod(fd, 0o600)
+        with os.fdopen(fd, "w") as f:
+            json.dump(config, f, indent=2)
+            f.write("\n")
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp_path, path)
+    except Exception:
+        try:
+            tmp_path.unlink()
+        except FileNotFoundError:
+            pass
+        raise
     if not quiet:
         print(f"Config saved to {path}")
 
@@ -169,7 +224,7 @@ def check_setup(use_global: bool, as_json: bool = False) -> bool:
             else:
                 print(f"MCP server '{MCP_NAME}' found in {label}.")
                 print(f"  Path:    {path}")
-                print(f"  Package: {MCP_PACKAGE}")
+                print(f"  Package: {PINNED_PACKAGE}")
                 print(f"  API Key: {key_detail}")
                 print(f"  Model:   {result['model']}")
             return key_ok
@@ -183,7 +238,7 @@ def check_setup(use_global: bool, as_json: bool = False) -> bool:
 
 def remove_mcp(use_global: bool, as_json: bool = False) -> None:
     """Remove MCP configuration."""
-    path = get_config_path(use_global)
+    path = get_config_path(use_global, quiet=as_json)
     config = load_config(path)
     servers = config.get("mcpServers", {})
     if MCP_NAME in servers:
@@ -204,20 +259,26 @@ def remove_mcp(use_global: bool, as_json: bool = False) -> None:
 def setup_mcp(api_key: str, use_global: bool, as_json: bool = False) -> None:
     """Configure MCP server. Project mode uses env-expansion only (never literal key)."""
     if not api_key or not api_key.strip():
-        print("Error: API key cannot be empty.")
-        sys.exit(1)
+        emit_error("API key cannot be empty.", as_json)
     api_key = api_key.strip()
-    path = get_config_path(use_global)
+    path = get_config_path(use_global, quiet=as_json)
 
     # Safety: project mode must never write a literal key into a tracked file.
     if not use_global and _is_git_tracked(path):
         gitignore = path.parent / ".gitignore"
         ignored = ".mcp.json" in gitignore.read_text() if gitignore.exists() else False
         if not ignored:
+            message = (
+                f"{path} is tracked by git and .gitignore does not exclude .mcp.json. "
+                f"Add '.mcp.json' to {gitignore} and run: git rm --cached .mcp.json, "
+                "or use --global to write to ~/.claude/settings.json instead."
+            )
+            if as_json:
+                emit_error(message, as_json, exit_code=2)
             print(f"REFUSING: {path} is tracked by git and .gitignore does not exclude .mcp.json.")
             print("Either:")
             print(f"  1. Add '.mcp.json' to {gitignore} and run: git rm --cached .mcp.json")
-            print(f"  2. Use --global to write to ~/.claude/settings.json instead (recommended).")
+            print("  2. Use --global to write to ~/.claude/settings.json instead (recommended).")
             sys.exit(2)
 
     config = load_config(path)
@@ -243,6 +304,11 @@ def setup_mcp(api_key: str, use_global: bool, as_json: bool = False) -> None:
         "model": DEFAULT_MODEL,
         "config": str(path),
         "uses_env_placeholder": not use_global,
+        "warning": (
+            "Pinned package @ycse/nanobanana-mcp@1.1.1 only accepts preview image model IDs. "
+            "Those preview IDs shut down on 2026-06-25; use direct API or a newer MCP package "
+            "when stable ID support is released."
+        ),
     }
     if as_json:
         print(json.dumps(result, indent=2))
@@ -252,6 +318,7 @@ def setup_mcp(api_key: str, use_global: bool, as_json: bool = False) -> None:
     print(f"  Package: {PINNED_PACKAGE}")
     print(f"  Model:   {DEFAULT_MODEL}")
     print(f"  Config:  {path}")
+    print("  Warning: pinned package uses preview image model IDs shut down on 2026-06-25.")
     if not use_global:
         print()
         print("Project mode uses env-expansion (never writes literal key).")
@@ -290,7 +357,7 @@ def main() -> None:
     # Safer default: --global (writes user-private ~/.claude/settings.json).
     # --project opts in to project-local config (with safety guards).
     if args.project and args.global_scope:
-        parser.error("Use either --project or --global, not both")
+        emit_error("Use either --project or --global, not both", args.json, exit_code=2)
     use_global = not args.project
 
     try:
@@ -328,8 +395,7 @@ def main() -> None:
             try:
                 api_key = input("Enter your Google AI API key: ")
             except (EOFError, KeyboardInterrupt):
-                print("\nError: No input received. Provide --key-file or set GOOGLE_AI_API_KEY.")
-                sys.exit(1)
+                emit_error("No input received. Provide --key-file or set GOOGLE_AI_API_KEY.", args.json)
 
         setup_mcp(api_key, use_global, args.json)
     except (OSError, ValueError) as exc:

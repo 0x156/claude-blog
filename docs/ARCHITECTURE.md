@@ -150,7 +150,7 @@ and `agents/blog-translator.md`).
 |-------|-------|------|
 | blog-researcher | WebSearch, WebFetch, Read, Grep, Glob | Find statistics, images, competitive data |
 | blog-writer | Read, Write, Edit, Grep, Glob | Write and rewrite optimized content |
-| blog-seo | Read, WebFetch, Grep, Glob | Technical SEO analysis and validation |
+| blog-seo | Read, Grep, Glob | Technical SEO analysis and validation |
 | blog-reviewer | Read, Grep, Glob | Quality review and scoring; **BLOCKING in v1.9.0** (emits `BLOCKING: true\|false (reason)` line parsed by `scripts/blog_preflight.py` Gate 4) |
 | blog-translator | Read, Write, Edit, Grep, Glob | Multilingual translation (v1.7.0; no Bash for blast-radius safety) |
 

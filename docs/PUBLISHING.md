@@ -31,11 +31,12 @@ The two repos share git history. The private mirror runs ahead of public; public
    ```
 
 4. **Version + CHANGELOG**:
-   - Bump version coherently across all 14 surfaces. `tests/test_version_coherence.py` enforces this.
+   - Bump version coherently across the 4 canonical surfaces. `tests/test_version_coherence.py` enforces this and checks any `SKILL.md` metadata versions that exist.
      - `pyproject.toml`
      - `.claude-plugin/plugin.json`
      - `CITATION.cff` (also update `date-released`)
-     - All 11 sub-skill `SKILL.md` files with `version:` frontmatter
+     - `skills/blog/SKILL.md` metadata version
+     - Any `skills/*/SKILL.md` files that declare `metadata.version`
    - Move the `## [Unreleased]` block in `CHANGELOG.md` to `## [X.Y.Z] - YYYY-MM-DD` and start a fresh empty Unreleased.
 
 5. **Pro-community review** in the [AI Marketing Hub Pro Skool](https://www.skool.com/ai-marketing-hub-pro). Post the release notes and collect feedback. This is the "approval gate" before the public push.

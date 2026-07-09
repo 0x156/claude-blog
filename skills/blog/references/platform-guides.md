@@ -30,9 +30,9 @@ date: "2026-02-18"
 lastUpdated: "2026-02-18"
 author: "Author Name"
 tags: ["ai-search", "seo", "traffic"]
-coverImage: "https://cdn.pixabay.com/photo/2024/01/15/12/00/ai-search.jpg"
+coverImage: "/images/blog/ai-search.jpg"
 coverImageAlt: "Marketing dashboard showing AI search traffic metrics and citation rates"
-ogImage: "https://cdn.pixabay.com/photo/2024/01/15/12/00/ai-search.jpg"
+ogImage: "/images/blog/ai-search.jpg"
 ---
 ```
 
@@ -42,7 +42,7 @@ project's existing convention (some use `image` instead of `coverImage`).
 
 ### Image Embedding
 ```mdx
-![Marketing team analyzing search traffic on a dashboard](https://cdn.pixabay.com/photo/.../image.jpg)
+![Marketing team analyzing search traffic on a dashboard](/images/blog/ai-search.jpg)
 ```
 
 For projects using `next/image` component:
@@ -50,7 +50,7 @@ For projects using `next/image` component:
 import Image from 'next/image'
 
 <Image
-  src="https://cdn.pixabay.com/photo/.../image.jpg"
+  src="/images/blog/ai-search.jpg"
   alt="Marketing team analyzing search traffic on a dashboard"
   width={1200}
   height={630}
@@ -58,21 +58,11 @@ import Image from 'next/image'
 />
 ```
 
-### next.config.ts Image Domains (Required)
-```typescript
-// next.config.ts
-const nextConfig = {
-  images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'cdn.pixabay.com' },
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'images.pexels.com' },
-    ],
-  },
-}
-```
+### Local Image Policy
 
-Without these entries, `next/image` will reject external image URLs at build time.
+Store generated or downloaded images in `public/images/blog/` or import them
+from the local asset tree. Do not depend on remote CDN allowlists for
+claude-blog generated assets.
 
 ### Chart / SVG Embedding (JSX-Compatible)
 
@@ -238,14 +228,8 @@ import searchDashboard from '../assets/search-dashboard.jpg'
 <Image src={searchDashboard} alt="Marketing team analyzing search data" />
 ```
 
-For remote images, configure `astro.config.mjs`:
-```javascript
-export default defineConfig({
-  image: {
-    domains: ['cdn.pixabay.com', 'images.unsplash.com', 'images.pexels.com'],
-  },
-})
-```
+Generated or downloaded images should be local Astro assets. Do not depend on
+remote image-domain configuration for claude-blog generated assets.
 
 ### Chart / SVG Embedding
 
@@ -524,7 +508,7 @@ Gutenberg uses block-based editing. Key blocks for blog content:
 | Paragraph | Body text | Each paragraph auto-wraps in `<p>` |
 | Heading | H2-H6 | Set level in block toolbar |
 | Image | Photos | Set alt text, caption, link in sidebar |
-| Custom HTML | SVG charts | Paste raw SVG in HTML block |
+| Custom HTML | SVG charts | Paste only sanitized inline SVG in HTML block |
 | List | Bullets/numbers | For FAQ answers, step lists |
 | Quote | Blockquotes | For expert quotes with attribution |
 | Table | Comparison tables | For feature/pricing comparisons |
@@ -540,7 +524,7 @@ April 2026). This means brands should optimize for citation, since cited pages
 earn 120% more clicks per impression.</p>
 
 <figure>
-  <img src="https://cdn.pixabay.com/photo/.../image.jpg"
+  <img src="/images/blog/topic-hero.jpg"
        alt="Marketing dashboard showing AI search traffic metrics"
        width="1200" height="630" loading="lazy">
   <figcaption>Photo via Pixabay</figcaption>
@@ -555,11 +539,14 @@ Upload via Media Library, then insert. Set these fields:
 - **Featured Image**: Set in post sidebar (used as OG image and blog listing)
 
 ### Chart / SVG Embedding
-Use the Custom HTML block:
+Use the Custom HTML block only after sanitizing the SVG. Apply a strict element
+and attribute allowlist, escape text content, and reject `script`,
+event-handler attributes such as `onclick`, `foreignObject`, external
+references, `javascript:` URLs, `data:` URLs, and remote `<image href>`.
 ```html
 <figure class="wp-block-html chart-container">
   <svg viewBox="0 0 560 380" role="img" aria-label="Chart description">
-    <!-- Standard SVG with HTML attributes -->
+    <!-- Sanitized SVG with HTML attributes -->
   </svg>
 </figure>
 ```
@@ -625,11 +612,11 @@ api.posts.add({
   tags: [{ name: 'AI Search' }, { name: 'SEO' }],
   meta_title: 'AI Search Impact on Organic Traffic (2026 Data)',
   meta_description: 'AI Overview CTR gap narrowed to about 38%...',
-  og_image: 'https://cdn.pixabay.com/photo/.../cover.jpg',
+  og_image: '/content/images/topic-hero.jpg',
   og_title: 'AI Search Impact on Organic Traffic',
   og_description: 'New data reveals how AI search reshapes organic visibility.',
   canonical_url: 'https://your-blog.com/ai-search-organic-traffic',
-  feature_image: 'https://cdn.pixabay.com/photo/.../cover.jpg',
+  feature_image: '/content/images/topic-hero.jpg',
   feature_image_alt: 'Marketing dashboard showing AI search metrics',
 })
 ```
@@ -639,7 +626,7 @@ In the Ghost editor, use the Image card. For HTML content:
 ```html
 <figure class="kg-card kg-image-card">
   <img class="kg-image"
-       src="https://cdn.pixabay.com/photo/.../image.jpg"
+       src="/content/images/topic-hero.jpg"
        alt="Marketing team analyzing AI search data"
        loading="lazy">
   <figcaption>Photo via Pixabay</figcaption>
@@ -647,11 +634,15 @@ In the Ghost editor, use the Image card. For HTML content:
 ```
 
 ### Chart / SVG Embedding
-Use the HTML card in the Ghost editor to paste raw SVG:
+Use the HTML card in the Ghost editor for sanitized inline SVG only. Apply a
+strict element and attribute allowlist, escape text content, and reject
+`script`, event-handler attributes such as `onclick`, `foreignObject`,
+external references, `javascript:` URLs, `data:` URLs, and remote
+`<image href>`.
 ```html
 <figure class="kg-card kg-html-card">
   <svg viewBox="0 0 560 380" role="img" aria-label="Chart description">
-    <!-- Standard SVG -->
+    <!-- Sanitized SVG -->
   </svg>
 </figure>
 ```
@@ -957,7 +948,7 @@ exports.createPages = async ({ graphql, actions }) => {
   <meta property="og:type" content="article">
   <meta property="og:title" content="How Does AI Search Impact Organic Traffic in 2026?">
   <meta property="og:description" content="AI Overview CTR gap narrowed to about 38%.">
-  <meta property="og:image" content="https://cdn.pixabay.com/photo/.../cover.jpg">
+  <meta property="og:image" content="/images/blog/topic-hero.jpg">
   <meta property="og:url" content="https://yourblog.com/ai-search-organic-traffic">
   <meta property="article:published_time" content="2026-02-18T00:00:00Z">
   <meta property="article:modified_time" content="2026-02-18T00:00:00Z">
@@ -966,7 +957,7 @@ exports.createPages = async ({ graphql, actions }) => {
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How Does AI Search Impact Organic Traffic in 2026?">
   <meta name="twitter:description" content="AI Overview CTR gap narrowed to about 38%.">
-  <meta name="twitter:image" content="https://cdn.pixabay.com/photo/.../cover.jpg">
+  <meta name="twitter:image" content="/images/blog/topic-hero.jpg">
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -975,7 +966,7 @@ exports.createPages = async ({ graphql, actions }) => {
     "@type": "BlogPosting",
     "headline": "How Does AI Search Impact Organic Traffic in 2026?",
     "description": "AI Overview CTR gap narrowed to about 38%.",
-    "image": "https://cdn.pixabay.com/photo/.../cover.jpg",
+    "image": "/images/blog/topic-hero.jpg",
     "datePublished": "2026-02-18",
     "dateModified": "2026-02-18",
     "author": {
@@ -1017,7 +1008,7 @@ exports.createPages = async ({ graphql, actions }) => {
       uncited pages.</p>
 
       <figure>
-        <img src="https://cdn.pixabay.com/photo/.../image.jpg"
+        <img src="/images/blog/topic-hero.jpg"
              alt="Marketing dashboard showing AI search CTR metrics"
              width="1200" height="630" loading="lazy">
         <figcaption>Photo via Pixabay</figcaption>
@@ -1040,7 +1031,7 @@ exports.createPages = async ({ graphql, actions }) => {
 ### Image Embedding
 ```html
 <figure>
-  <img src="https://cdn.pixabay.com/photo/.../image.jpg"
+  <img src="/images/blog/topic-hero.jpg"
        alt="Descriptive sentence including topic keywords naturally"
        width="1200" height="630"
        loading="lazy"

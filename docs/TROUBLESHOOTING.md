@@ -127,10 +127,11 @@ not in the second or third paragraph.
 ```markdown
 ## How Does AI Search Impact Blog Traffic?
 
-AI Overviews caused a 61% decline in organic CTR across 3,119 queries
-([Seer Interactive](https://seerinteractive.com), 2025). This shift means
-blog publishers must optimize for both traditional rankings and AI citation
-to maintain visibility.
+AI Overviews initially caused a 61% decline in organic CTR across 3,119 queries
+in a 2025 Seer Interactive study
+([Seer Interactive](https://seerinteractive.com), 2025). Later 2026 reporting
+showed partial CTR rebound in some query sets, so treat this as historical
+context rather than a universal current rate.
 ```
 
 **Incorrect pattern** (stat buried):
@@ -152,7 +153,7 @@ characters of a number. Missing or malformed citations trigger this flag.
 
 **Correct attribution format**:
 ```markdown
-61% decline in organic CTR ([Seer Interactive](https://seerinteractive.com), 2025)
+initial 61% decline in organic CTR ([Seer Interactive](https://seerinteractive.com), 2025)
 ```
 
 **Formats that may not be detected**:
@@ -219,14 +220,17 @@ blog-writer, etc.), and instead tries to do everything inline.
    ls ~/.claude/agents/blog-*.md
    ```
    Expected: `blog-researcher.md`, `blog-writer.md`, `blog-seo.md`,
-   `blog-reviewer.md`
+   `blog-reviewer.md`, `blog-translator.md`
 
-2. **Missing `Task` in allowed-tools**: The sub-skill's YAML frontmatter must
-   include `Task` in its `allowed-tools` list. Check the sub-skill file:
+2. **Unsupported skill frontmatter**: `allowed-tools` is not a valid
+   `SKILL.md` field and does not enable delegation. Check the sub-skill file:
    ```bash
    head -20 ~/.claude/skills/blog-write/SKILL.md
    ```
-   The `allowed-tools` section should include `Task`.
+   Valid skill fields include `name`, `description`, `user-invokable`,
+   `argument-hint`, `license`, `compatibility`, `metadata`, and
+   `disable-model-invocation`. Agent tools live in
+   `~/.claude/agents/blog-*.md`.
 
 3. **Claude Code version**: Agent spawning via `Task` requires a recent
    version of Claude Code. Update to the latest version.

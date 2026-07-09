@@ -255,6 +255,13 @@ exist, and add FAQPage only when visible FAQ content exists.
 
 Combine all schemas into a single `<script>` tag using the @graph pattern:
 
+Security requirement: build the JSON-LD with a real JSON encoder, never string
+interpolation. Before embedding in HTML, make the JSON text script-safe by
+escaping closing script sequences and literal less-than characters, for example
+replace `</` with `<\/` and `<` with `\u003c`. User-controlled fields such as
+headline, description, author name, image URL, and breadcrumb labels must only
+enter the block as JSON-encoded values.
+
 ```html
 <script type="application/ld+json">
 {

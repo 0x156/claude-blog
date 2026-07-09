@@ -360,6 +360,69 @@ def test_preflight_gate_5_flags_non_http_scheme_as_violation(tmp_path: Path) -> 
     assert "javascript:" in result.stdout
 
 
+def test_preflight_gate_2_rejects_symlink_artifact(tmp_path: Path) -> None:
+    real = tmp_path / "real.md"
+    real.write_text(_VALID_FRONTMATTER + "body\n", encoding="utf-8")
+    link = tmp_path / "post.md"
+    try:
+        link.symlink_to(real)
+    except OSError:
+        pytest.skip("symlinks not supported on this filesystem")
+    (tmp_path / "post.html").write_text("<html></html>", encoding="utf-8")
+    (tmp_path / "post.pdf").write_bytes(b"%PDF-1.4\n")
+    (tmp_path / "hero.png").write_bytes(b"\x89PNG\r\n\x1a\n")
+
+    result = subprocess.run(
+        [sys.executable, str(PREFLIGHT_PATH), "--draft", str(tmp_path),
+         "--gate", "2", "--no-strict"],
+        capture_output=True, text=True, check=False,
+    )
+    assert "FAIL" in result.stdout and "Gate 2" in result.stdout
+    assert "symlink artifact" in result.stdout
+
+
+def test_preflight_gate_1_rejects_symlink_capabilities_output(tmp_path: Path) -> None:
+    target = tmp_path / "capabilities-target.json"
+    target.write_text("keep\n", encoding="utf-8")
+    link = tmp_path / "capabilities.json"
+    try:
+        link.symlink_to(target)
+    except OSError:
+        pytest.skip("symlinks not supported on this filesystem")
+
+    result = subprocess.run(
+        [sys.executable, str(PREFLIGHT_PATH), "--draft", str(tmp_path),
+         "--gate", "1", "--no-strict"],
+        capture_output=True, text=True, check=False,
+    )
+    assert "FAIL" in result.stdout and "Gate 1" in result.stdout
+    assert "capabilities.json write refused" in result.stdout
+    assert target.read_text(encoding="utf-8") == "keep\n"
+
+
+def test_preflight_rejects_symlink_report_output(tmp_path: Path) -> None:
+    (tmp_path / "post.md").write_text(_VALID_FRONTMATTER + "body\n", encoding="utf-8")
+    (tmp_path / "post.html").write_text("<html></html>", encoding="utf-8")
+    (tmp_path / "post.pdf").write_bytes(b"%PDF-1.4\n")
+    (tmp_path / "hero.png").write_bytes(b"\x89PNG\r\n\x1a\n")
+    target = tmp_path / "report-target.json"
+    target.write_text("keep\n", encoding="utf-8")
+    link = tmp_path / "preflight-report.json"
+    try:
+        link.symlink_to(target)
+    except OSError:
+        pytest.skip("symlinks not supported on this filesystem")
+
+    result = subprocess.run(
+        [sys.executable, str(PREFLIGHT_PATH), "--draft", str(tmp_path),
+         "--gate", "2", "--no-strict"],
+        capture_output=True, text=True, check=False,
+    )
+    assert result.returncode == 1
+    assert "preflight-report.json write refused" in result.stderr
+    assert target.read_text(encoding="utf-8") == "keep\n"
+
+
 # ---------------------------------------------------------------------------
 # Coherence test for the reference count across redundant surfaces (v1.9.0
 # hostile-review fix for C1 / C2). Same shape as test_version_coherence.

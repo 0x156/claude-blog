@@ -192,3 +192,59 @@ def test_http_get_does_not_use_default_urlopen(hero_module, monkeypatch):
     monkeypatch.setattr(hero_module.urllib.request, "urlopen", lambda *a, **k: (_ for _ in ()).throw(AssertionError("urlopen used")))
     monkeypatch.setattr(hero_module._NO_REDIRECT_OPENER, "open", lambda req, timeout=None: FakeResp())
     assert hero_module._http_get("https://images.example/photo.jpg") == b"\xff\xd8\xff\xe0ok"
+
+
+def test_http_get_pins_validated_dns_during_open(hero_module, monkeypatch):
+    public_info = [(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP, "", ("93.184.216.34", 443))]
+    private_info = [(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP, "", ("169.254.169.254", 443))]
+    dns_calls = 0
+
+    def fake_getaddrinfo(host, port, proto=0, *args, **kwargs):
+        nonlocal dns_calls
+        dns_calls += 1
+        return public_info if dns_calls == 1 else private_info
+
+    class FakeResp:
+        status = 200
+        def read(self, n=None):
+            return b"\xff\xd8\xff\xe0ok"
+        def __enter__(self):
+            return self
+        def __exit__(self, *args):
+            return False
+
+    def fake_open(req, timeout=None):
+        pinned = hero_module.socket.getaddrinfo(
+            "images.example", 443, proto=socket.IPPROTO_TCP
+        )
+        assert pinned == public_info
+        return FakeResp()
+
+    monkeypatch.setattr(hero_module.socket, "gethostbyname", lambda host: "93.184.216.34")
+    monkeypatch.setattr(hero_module.socket, "getaddrinfo", fake_getaddrinfo)
+    monkeypatch.setattr(hero_module._NO_REDIRECT_OPENER, "open", fake_open)
+
+    assert hero_module._http_get("https://images.example/photo.jpg") == b"\xff\xd8\xff\xe0ok"
+    assert hero_module.socket.getaddrinfo is fake_getaddrinfo
+
+
+def test_http_get_refusal_log_redacts_query(hero_module, monkeypatch, capsys):
+    def fail_dns(host):
+        raise socket.gaierror("nope")
+
+    monkeypatch.setattr(hero_module.socket, "gethostbyname", fail_dns)
+    assert hero_module._http_get("https://pixabay.com/api/?key=SECRET&q=test") is None
+    captured = capsys.readouterr()
+    assert "SECRET" not in captured.err
+    assert "[redacted]" in captured.err
+
+
+def test_fit_image_bytes_enforces_requested_dimensions(hero_module):
+    from io import BytesIO
+    from PIL import Image
+
+    src = BytesIO()
+    Image.new("RGB", (40, 80), "red").save(src, format="PNG")
+    out = hero_module._fit_image_bytes(src.getvalue(), 120, 60)
+    with Image.open(BytesIO(out)) as img:
+        assert img.size == (120, 60)

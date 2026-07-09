@@ -126,6 +126,16 @@ def test_gate_4_nonce_must_be_exact_match_no_suffix_attack(tmp_path, preflight_m
     assert result["passed"] is False, "Suffix attack on nonce match must be refused"
 
 
+def test_gate_4_rejects_score_above_100(tmp_path, preflight_module):
+    nonce = "1" * 32
+    review = _passing_review(nonce).replace("92/100", "999/100")
+    draft = _make_draft(tmp_path, review_text=review)
+    _write_state(preflight_module, draft, nonce)
+    result = preflight_module.gate_4_content_review(draft)
+    assert result["passed"] is False
+    assert any("outside 0..100" in v for v in result.get("violations", []))
+
+
 def test_init_review_nonce_cli_flag(tmp_path):
     """`blog_preflight.py --init-review-nonce --draft <dir>` exits 0 and writes the file."""
     draft = tmp_path / "post"

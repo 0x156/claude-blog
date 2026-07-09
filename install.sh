@@ -97,6 +97,12 @@ main() {
         echo "WARNING: python3 not found. The scripts require Python 3.11+."
         echo "         Install with: sudo apt install python3"
         echo ""
+    elif ! python3 -c 'import sys; raise SystemExit(0 if sys.version_info >= (3, 11) else 1)' >/dev/null 2>&1; then
+        local python3_version
+        python3_version="$(python3 -c 'import sys; print("%d.%d.%d" % sys.version_info[:3])' 2>/dev/null || echo unknown)"
+        echo "WARNING: python3 ${python3_version} found. The scripts require Python 3.11+."
+        echo "         Install Python 3.11+ before running scoring, preflight, render, hero, and lint helpers."
+        echo ""
     fi
 
     # Create directories

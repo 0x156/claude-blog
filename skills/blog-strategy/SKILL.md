@@ -238,12 +238,12 @@ Plan passage-level citability across all content, tailored to each AI platform.
 |-------------|--------|-------------------|
 | ChatGPT | Recency, brand authority, conversational clarity | Treat freshness targets as testable hypotheses, maintain clear entity definitions, and monitor observed citations |
 | Perplexity | Citations, source diversity, structured answers | Tier 1-3 sources, numbered lists, data tables |
-| Google AI Overviews | Topical authority, source quality, entity clarity, eligible Article/entity schema | Complete topic clusters, answer-first sections, Article/BlogPosting + Person + Organization + BreadcrumbList |
+| Google AI Overviews and AI Mode | Topical authority, source quality, entity clarity, crawlable helpful content | Complete topic clusters, answer-first sections, and standard SEO/schema hygiene without AI-specific markup |
 
 Strategy by platform:
 - **ChatGPT**: Ensure brand name appears consistently, test freshness cadence against observed citation monitoring, use conversational answer-first formatting
 - **Perplexity**: Maximize external citation count (8+ per post), use structured data tables, cite authoritative sources
-- **AI Overviews**: Complete topic cluster coverage, validate Article/entity schema, use featured-snippet-friendly formatting, and track Search Console gen-AI visibility where available
+- **AI Overviews and AI Mode**: Complete topic cluster coverage, keep Article/entity schema valid as standard SEO hygiene, use featured-snippet-friendly formatting, monitor direct SERP appearances, and review Search Console Performance data including the Generative AI performance report where available
 
 Reference: `skills/blog/references/geo-optimization.md` for platform-specific optimization guides.
 
@@ -279,8 +279,8 @@ Reference: `skills/blog/references/distribution-playbook.md` for detailed channe
 
 #### AI Citation Metrics (New)
 - Share of Voice in ChatGPT responses (manual tracking)
-- Google Search Console generative AI visibility or impressions where available
-- AI Overview citations measured separately by direct SERP checks or approved monitoring tools
+- Google Search Console Performance data, including generative AI impressions where the Generative AI performance report is available
+- AI Overview and AI Mode appearances measured separately by direct SERP checks or approved monitoring tools
 - Perplexity mentions (manual tracking)
 - AI referral traffic (GA4: source contains chatgpt, perplexity, claude)
 - Brand mention volume (branded search + web mentions)

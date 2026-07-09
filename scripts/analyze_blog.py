@@ -45,6 +45,17 @@ import urllib.parse
 from pathlib import Path
 from typing import Any
 
+
+def _project_version() -> str:
+    """Read the package version from pyproject.toml."""
+    try:
+        text = (Path(__file__).resolve().parent.parent / "pyproject.toml").read_text(encoding="utf-8")
+    except OSError:
+        return "0.0.0"
+    match = re.search(r'^version\s*=\s*"([^"]+)"', text, re.MULTILINE)
+    return match.group(1) if match else "0.0.0"
+
+
 # ---------------------------------------------------------------------------
 # Optional dependency detection
 # ---------------------------------------------------------------------------
@@ -1937,7 +1948,7 @@ Optional dependencies (graceful degradation):
   pip install textstat beautifulsoup4
         """,
     )
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--version', action='version', version=f'%(prog)s {_project_version()}')
     parser.add_argument('input', help='Blog file path or directory (with --batch)')
     parser.add_argument('--output', '-o', help='Output file path')
     parser.add_argument('--format', '-f', choices=['json', 'markdown', 'table'],

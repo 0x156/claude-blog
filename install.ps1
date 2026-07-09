@@ -37,6 +37,36 @@ function Count-Files($Path) {
     }).Count
 }
 
+function Test-Python311($PythonCommand) {
+    try {
+        & $PythonCommand.Source -c "import sys; raise SystemExit(0 if sys.version_info >= (3, 11) else 1)" *> $null
+        return $LASTEXITCODE -eq 0
+    } catch {
+        return $false
+    }
+}
+
+function Get-PythonVersion($PythonCommand) {
+    try {
+        return (& $PythonCommand.Source -c "import sys; print('%d.%d.%d' % sys.version_info[:3])" 2>$null).Trim()
+    } catch {
+        return "unknown"
+    }
+}
+
+function Print-Commands($SkillMd) {
+    if (-not (Test-Path -LiteralPath $SkillMd)) {
+        return
+    }
+    Get-Content -LiteralPath $SkillMd | ForEach-Object {
+        if ($_ -match '^\|\s*`/blog\s+([^`]+)`\s*\|\s*([^|]+)\|') {
+            $cmd = ("/blog " + $Matches[1]).Replace('\|', '|').Trim()
+            $desc = $Matches[2].Trim()
+            Write-Color Cyan ("    {0,-38} {1}" -f $cmd, $desc)
+        }
+    }
+}
+
 function Main {
     Write-Color Cyan @"
 
@@ -74,14 +104,13 @@ function Main {
     }
 
     # Check prerequisites
-    try {
-        $null = Get-Command python3 -ErrorAction Stop
-    } catch {
-        try {
-            $null = Get-Command python -ErrorAction Stop
-        } catch {
-            Write-Color Yellow "WARNING: Python not found. The analyze_blog.py script requires Python 3.11+."
-        }
+    $PythonCmd = Get-Command python3 -ErrorAction SilentlyContinue
+    if (-not $PythonCmd) { $PythonCmd = Get-Command python -ErrorAction SilentlyContinue }
+    if (-not $PythonCmd) {
+        Write-Color Yellow "WARNING: Python not found. The scripts require Python 3.11+."
+    } elseif (-not (Test-Python311 $PythonCmd)) {
+        $PythonVersion = Get-PythonVersion $PythonCmd
+        Write-Color Yellow "WARNING: Python $PythonVersion found. The scripts require Python 3.11+."
     }
 
     # Create directories
@@ -170,8 +199,7 @@ function Main {
         # Resolve python: prefer python3, fall back to python. Avoid the `??`
         # null-coalescing operator (PowerShell 7+ only) so this works on the
         # default Windows PowerShell 5.1.
-        $pipCmd = Get-Command python3 -ErrorAction SilentlyContinue
-        if (-not $pipCmd) { $pipCmd = Get-Command python -ErrorAction SilentlyContinue }
+        $pipCmd = $PythonCmd
         if ($pipCmd) {
             $proc = Start-Process -FilePath $pipCmd.Source -ArgumentList @("-m","pip","install","--quiet","-r",$reqFile) -RedirectStandardError $pipLog -NoNewWindow -Wait -PassThru
             if ($proc.ExitCode -eq 0) {
@@ -208,27 +236,7 @@ function Main {
     Write-Color Green "  Scripts:      $RootScriptCount root-level + per-skill scripts"
     Write-Color White ""
     Write-Color White "Commands available:"
-    Write-Color Cyan  "  /blog write <topic>        Write a new blog post"
-    Write-Color Cyan  "  /blog rewrite <file>       Optimize an existing blog post"
-    Write-Color Cyan  "  /blog analyze <file>       Audit blog quality (0-100 score)"
-    Write-Color Cyan  "  /blog brief <topic>        Generate a content brief"
-    Write-Color Cyan  "  /blog calendar             Generate an editorial calendar"
-    Write-Color Cyan  "  /blog strategy <niche>     Blog strategy and topic ideation"
-    Write-Color Cyan  "  /blog outline <topic>      Generate a SERP-informed outline"
-    Write-Color Cyan  "  /blog seo-check <file>     Post-writing SEO validation"
-    Write-Color Cyan  "  /blog schema <file>        Generate JSON-LD schema markup"
-    Write-Color Cyan  "  /blog repurpose <file>     Repurpose content for other platforms"
-    Write-Color Cyan  "  /blog geo <file>           AI citation optimization audit"
-    Write-Color Cyan  "  /blog image <idea>         AI image generation via Gemini"
-    Write-Color Cyan  "  /blog audit [directory]    Full-site blog health assessment"
-    Write-Color Cyan  "  /blog cannibalization      Detect keyword overlap across posts"
-    Write-Color Cyan  "  /blog factcheck            Verify statistics against sources"
-    Write-Color Cyan  "  /blog persona              Manage writing personas"
-    Write-Color Cyan  "  /blog taxonomy             Tag/category CMS management"
-    Write-Color Cyan  "  /blog notebooklm <query>   Query NotebookLM for research"
-    Write-Color Cyan  "  /blog audio <file>         Generate audio narration via Gemini TTS"
-    Write-Color Cyan  "  /blog style learn <paths>  Learn author voice profile"
-    Write-Color Cyan  "  /blog decay <current>      Detect GSC content decay"
+    Print-Commands (Join-Path (Join-Path (Join-Path $ScriptDir "skills") "blog") "SKILL.md")
     Write-Color White ""
     Write-Color White "Optional: AI Features (same API key for both)"
     Write-Color Cyan  "  /blog image setup             Configure Gemini image generation"

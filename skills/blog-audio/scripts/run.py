@@ -9,6 +9,7 @@ import json
 import os
 import subprocess
 import sys
+import argparse
 from pathlib import Path
 
 
@@ -63,16 +64,25 @@ def emit_error(message, code, as_json):
 
 def main():
     """Main runner"""
-    if len(sys.argv) < 2:
+    parser = argparse.ArgumentParser(
+        description="Run Blog Audio skill scripts with the managed virtual environment"
+    )
+    parser.add_argument("--json", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("script_name", nargs="?", help="Script file name to run")
+    parser.add_argument("script_args", nargs=argparse.REMAINDER, help="Arguments for the script")
+
+    args = parser.parse_args()
+
+    if not args.script_name:
         emit_error(
             "Usage: python3 run.py <script_name> [args...]",
             1,
-            wants_json(sys.argv[1:]),
+            args.json or wants_json(sys.argv[1:]),
         )
 
-    script_name = sys.argv[1]
-    script_args = sys.argv[2:]
-    as_json = wants_json(script_args)
+    script_name = args.script_name
+    script_args = args.script_args
+    as_json = args.json or wants_json(script_args)
 
     if "/" in script_name or "\\" in script_name or Path(script_name).name != script_name:
         emit_error("Script name must be a file name, not a path", 2, as_json)

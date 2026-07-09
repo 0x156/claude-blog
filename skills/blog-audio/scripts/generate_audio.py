@@ -17,6 +17,7 @@ import argparse
 import base64
 import html
 import json
+import mimetypes
 import os
 import shutil
 import subprocess
@@ -42,8 +43,8 @@ VOICES = {
 }
 
 MODELS = {
-    "flash": "gemini-3.1-flash-tts",
-    "flash31": "gemini-3.1-flash-tts",
+    "flash": "gemini-3.1-flash-tts-preview",
+    "flash31": "gemini-3.1-flash-tts-preview",
     "legacy-flash25": "gemini-2.5-flash-preview-tts",
     "pro": "gemini-2.5-pro-preview-tts",
     "legacy-pro25": "gemini-2.5-pro-preview-tts",
@@ -72,6 +73,78 @@ COST_PER_1M_INPUT = {
 AUDIO_TOKENS_PER_SECOND = 25
 MAX_INPUT_TOKENS = 8192
 CHUNK_TARGET_TOKENS = 7800
+MAX_TEXT_FILE_BYTES = 1_000_000
+TEXT_FILE_EXTENSIONS = {
+    ".csv",
+    ".htm",
+    ".html",
+    ".log",
+    ".markdown",
+    ".md",
+    ".rst",
+    ".text",
+    ".tsv",
+    ".txt",
+}
+
+
+def _path_contains_symlink(path: Path, root: Path) -> bool:
+    """Return True if path or any existing parent below root is a symlink."""
+    current = path if path.exists() or path.is_symlink() else path.parent
+    current = current.absolute()
+    root = root.absolute()
+    while current != current.parent:
+        if current.is_symlink():
+            return True
+        if current == root:
+            return False
+        current = current.parent
+    return False
+
+
+def _resolve_under_cwd(path_value: str, label: str, must_exist: bool) -> Path:
+    """Resolve a path under the current working directory."""
+    root = Path.cwd().resolve()
+    candidate = Path(path_value).expanduser()
+    if not candidate.is_absolute():
+        candidate = root / candidate
+
+    if _path_contains_symlink(candidate, root):
+        raise ValueError(f"{label} must not use symlinks")
+
+    try:
+        resolved = candidate.resolve(strict=must_exist)
+    except FileNotFoundError as exc:
+        raise ValueError(f"{label} not found: {path_value}") from exc
+
+    try:
+        resolved.relative_to(root)
+    except ValueError as exc:
+        raise ValueError(f"Refusing {label} outside working directory: {path_value}") from exc
+
+    return resolved
+
+
+def read_text_file(path_value: str) -> str:
+    """Read a bounded text file from the current working directory."""
+    path = _resolve_under_cwd(path_value, "text file", must_exist=True)
+    if not path.is_file():
+        raise ValueError(f"Text file is not a regular file: {path_value}")
+    size = path.stat().st_size
+    if size > MAX_TEXT_FILE_BYTES:
+        raise ValueError(f"Text file exceeds {MAX_TEXT_FILE_BYTES} bytes: {path_value}")
+
+    mime_type, _ = mimetypes.guess_type(path.name)
+    is_text_mime = bool(mime_type and mime_type.startswith("text/"))
+    if path.suffix.lower() not in TEXT_FILE_EXTENSIONS and not is_text_mime:
+        raise ValueError("Text file must use a text extension or text MIME type")
+
+    return path.read_text(encoding="utf-8")
+
+
+def resolve_output_path(path_value: str) -> Path:
+    """Resolve a writable output path under the current working directory."""
+    return _resolve_under_cwd(path_value, "output path", must_exist=False)
 
 
 def estimate_cost(text: str, model: str) -> dict:
@@ -169,19 +242,54 @@ def pcm_to_wav(pcm_data: bytes, output_path: str):
         f.write(pcm_data)
 
 
-def wav_to_mp3(wav_path: str, mp3_path: str) -> bool:
+def atomic_write_wav(pcm_data: bytes, output_path: Path) -> None:
+    """Write a WAV file atomically."""
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(
+        prefix=f".{output_path.stem}.",
+        suffix=".wav",
+        dir=str(output_path.parent),
+    )
+    os.close(fd)
+    tmp_path = Path(tmp_name)
+    try:
+        pcm_to_wav(pcm_data, str(tmp_path))
+        os.replace(tmp_path, output_path)
+    finally:
+        try:
+            if tmp_path.exists():
+                tmp_path.unlink()
+        except OSError:
+            pass
+
+
+def wav_to_mp3(wav_path: Path, mp3_path: Path) -> bool:
     """Convert WAV to MP3 using FFmpeg. Returns True on success."""
     if not shutil.which("ffmpeg"):
         return False
+    fd, tmp_name = tempfile.mkstemp(
+        prefix=f".{mp3_path.stem}.",
+        suffix=".mp3",
+        dir=str(mp3_path.parent),
+    )
+    os.close(fd)
+    tmp_path = Path(tmp_name)
     try:
         subprocess.run(
             ["ffmpeg", "-y", "-i", wav_path, "-codec:a", "libmp3lame",
-             "-b:a", "192k", "-ar", "24000", "-ac", "1", mp3_path],
+             "-b:a", "192k", "-ar", "24000", "-ac", "1", str(tmp_path)],
             check=True, capture_output=True,
         )
+        os.replace(tmp_path, mp3_path)
         return True
     except subprocess.CalledProcessError:
         return False
+    finally:
+        try:
+            if tmp_path.exists():
+                tmp_path.unlink()
+        except OSError:
+            pass
 
 
 def extract_audio_data(response) -> bytes:
@@ -317,12 +425,12 @@ def main():
 
     # Read text
     if args.text_file:
-        text_path = Path(args.text_file)
-        if not text_path.exists():
-            result = {"status": "error", "error": f"Text file not found: {args.text_file}"}
+        try:
+            text = read_text_file(args.text_file).strip()
+        except (OSError, UnicodeDecodeError, ValueError) as e:
+            result = {"status": "error", "error": f"Text file rejected: {e}"}
             output_result(result, args.json)
             return 1
-        text = text_path.read_text(encoding="utf-8").strip()
     else:
         text = args.text.strip()
 
@@ -378,37 +486,42 @@ def main():
     duration_sec = int(duration_seconds % 60)
     duration_human = f"{duration_min}:{duration_sec:02d}"
 
-    # Determine output path
-    if args.output:
-        output_path = Path(args.output)
-    else:
-        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_path = Path.cwd() / f"audio_{ts}.mp3"
-
-    # Write WAV, then convert to MP3
-    wav_path = str(output_path.with_suffix(".wav"))
-    pcm_to_wav(pcm_data, wav_path)
-
-    final_format = "wav"
-    final_path = wav_path
-
-    if output_path.suffix.lower() in (".mp3", ""):
-        mp3_path = str(output_path.with_suffix(".mp3"))
-        if wav_to_mp3(wav_path, mp3_path):
-            os.unlink(wav_path)  # Remove temp WAV
-            final_path = mp3_path
-            final_format = "mp3"
+    try:
+        # Determine output path
+        if args.output:
+            output_path = resolve_output_path(args.output)
         else:
-            if not args.json:
-                print("  Warning: FFmpeg not found. Output is WAV (install ffmpeg for MP3).")
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            output_path = resolve_output_path(f"audio_{ts}.mp3")
+
+        # Write WAV, then convert to MP3
+        wav_path = resolve_output_path(str(output_path.with_suffix(".wav")))
+        atomic_write_wav(pcm_data, wav_path)
+
+        final_format = "wav"
+        final_path = wav_path
+
+        if output_path.suffix.lower() in (".mp3", ""):
+            mp3_path = resolve_output_path(str(output_path.with_suffix(".mp3")))
+            if wav_to_mp3(wav_path, mp3_path):
+                wav_path.unlink()  # Remove generated WAV after MP3 succeeds
+                final_path = mp3_path
+                final_format = "mp3"
+            else:
+                if not args.json:
+                    print("  Warning: FFmpeg not found. Output is WAV (install ffmpeg for MP3).")
+                final_path = wav_path
+                final_format = "wav"
+        elif output_path.suffix.lower() == ".wav":
             final_path = wav_path
             final_format = "wav"
-    elif output_path.suffix.lower() == ".wav":
-        final_path = wav_path
-        final_format = "wav"
+    except (OSError, ValueError) as e:
+        result = {"status": "error", "error": f"Output path rejected: {e}"}
+        output_result(result, args.json)
+        return 1
 
     # Build embed HTML
-    rel_path = html.escape(Path(final_path).name, quote=True)
+    rel_path = html.escape(final_path.relative_to(Path.cwd().resolve()).as_posix(), quote=True)
     mime = "audio/mpeg" if final_format == "mp3" else "audio/wav"
     embed_html = (
         f'<audio controls preload="metadata">'

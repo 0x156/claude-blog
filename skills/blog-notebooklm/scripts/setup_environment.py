@@ -144,11 +144,27 @@ class SkillEnvironment:
         if stamp:
             self.stamp_file.write_text(stamp)
 
+    def resolve_script_path(self, script_name: str) -> Path:
+        """Resolve a script path and require it to stay in scripts/."""
+        if script_name.startswith("scripts/") or script_name.startswith("scripts\\"):
+            script_name = script_name[8:]
+        scripts_dir = (self.skill_dir / "scripts").resolve()
+        script_path = (scripts_dir / script_name).resolve()
+        try:
+            script_path.relative_to(scripts_dir)
+        except ValueError as exc:
+            raise ValueError(f"Script path escapes scripts directory: {script_name}") from exc
+        return script_path
+
     def run_script(self, script_name: str, args: list = None) -> int:
         """Run a script with the virtual environment"""
-        script_path = self.skill_dir / "scripts" / script_name
+        try:
+            script_path = self.resolve_script_path(script_name)
+        except ValueError as e:
+            print(f"❌ {e}")
+            return 1
 
-        if not script_path.exists():
+        if not script_path.is_file():
             print(f"❌ Script not found: {script_path}")
             return 1
 

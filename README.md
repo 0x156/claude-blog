@@ -231,7 +231,7 @@ Scoring bands: Exceptional (90-100), Strong (80-89), Acceptable (70-79), Below S
 - CMS taxonomy management for WordPress, Shopify, Ghost, Strapi, and Sanity.
 - Dual Google and AI-citation optimization, including answer-first passages, citation capsules, FAQ entity support, internal links, schema, and freshness signals.
 - Visual media through Gemini image generation, verified stock sourcing, SVG charts, YouTube embeds, and alt text requirements.
-- Google API integration across PageSpeed Insights, CrUX, Search Console, GA4, NLP, YouTube, URL Inspection, Indexing, and Keyword Planner.
+- Google API integration across PageSpeed Insights, CrUX, Search Console, GA4, NLP, YouTube, URL Inspection, and Keyword Planner. Indexing API use is scoped to JobPosting or livestream URLs only.
 - NotebookLM research for source-grounded answers from user-uploaded documents.
 - Gemini TTS audio narration in summary, full-article, and two-speaker dialogue modes.
 - Platform support for Next.js MDX, Astro, Hugo, Jekyll, WordPress, Ghost, 11ty, Gatsby, and static HTML.
@@ -294,11 +294,11 @@ Verify installer integrity before running:
 
 ```bash
 curl -fsSL -o install.sh https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh
-echo "6356a4ec5d2123b32c8316a6d85ef97e489715194319ae27201816d84e996028  install.sh" | sha256sum -c
+echo "c8433dc0e1911951287e454512c2a70208547fcab1737d4d13194b2cbce07cd9  install.sh" | sha256sum -c
 CLAUDE_BLOG_REF=v1.11.0 bash install.sh
 ```
 
-The SHA-256 above is for the current `install.sh` at HEAD on `main`; `CLAUDE_BLOG_REF` pins the repository clone performed by the installer. Verify against [the canonical file](https://github.com/AI-Marketing-Hub/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `0ed9afe7c35cc8a3012766ea62d3f1cf7db1ee674b72590e8ec1f0606ebeee23`.
+The SHA-256 above is for the current `install.sh` at HEAD on `main`; `CLAUDE_BLOG_REF` pins the repository clone performed by the installer. Verify against [the canonical file](https://github.com/AI-Marketing-Hub/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `bd816b42b51da5c7ce8b2881120b2b31cb9695bf04a6af688d4d3b6f92e4c156`.
 
 Restart Claude Code after installation to activate.
 

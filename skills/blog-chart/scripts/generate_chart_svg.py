@@ -19,6 +19,7 @@ import json
 import math
 import os
 import re
+import secrets
 import sys
 from pathlib import Path
 from urllib.parse import urlparse
@@ -63,6 +64,14 @@ def safe_number(value: object) -> float:
         raise ChartError(f"Invalid numeric value: {value!r}") from exc
     if not math.isfinite(number):
         raise ChartError(f"Invalid numeric value: {value!r}")
+    return number
+
+
+def safe_nonnegative_number(value: object) -> float:
+    """Convert a JSON value to a finite nonnegative number."""
+    number = safe_number(value)
+    if number < 0:
+        raise ChartError(f"Negative chart values are not supported: {value!r}")
     return number
 
 
@@ -129,7 +138,7 @@ def normalize_data(config: dict) -> list[dict]:
         label = str(item.get("label", "")).strip()
         if not label:
             raise ChartError("Each data item needs a label")
-        normalized.append({"label": label, "value": safe_number(item.get("value", 0))})
+        normalized.append({"label": label, "value": safe_nonnegative_number(item.get("value", 0))})
     return normalized
 
 
@@ -140,32 +149,53 @@ def normalize_grouped(config: dict) -> tuple[list[str], list[str], dict[tuple[st
     labels: list[str] = []
     names: list[str] = []
 
+    if series is not None and not isinstance(series, list):
+        raise ChartError("Grouped series must be an array")
+
     if isinstance(series, list) and series:
         for series_item in series:
+            if not isinstance(series_item, dict):
+                raise ChartError("Each series item must be an object")
             name = str(series_item.get("name", "")).strip()
             if not name:
                 raise ChartError("Each series needs a name")
             names.append(name)
-            for point in series_item.get("data", []):
+            points = series_item.get("data")
+            if not isinstance(points, list) or not points:
+                raise ChartError("Each series needs a non-empty data array")
+            for point in points:
+                if not isinstance(point, dict):
+                    raise ChartError("Each series data point must be an object")
                 label = str(point.get("label", "")).strip()
-                if label and label not in labels:
+                if not label:
+                    raise ChartError("Each series data point needs a label")
+                if label not in labels:
                     labels.append(label)
-                values[(label, name)] = safe_number(point.get("value", 0))
+                values[(label, name)] = safe_nonnegative_number(point.get("value", 0))
         return labels, names, values
 
     rows = config.get("data")
     if not isinstance(rows, list) or not rows:
         raise ChartError("Grouped charts need data or series")
     for row in rows:
+        if not isinstance(row, dict):
+            raise ChartError("Each grouped row must be an object")
         label = str(row.get("label", "")).strip()
+        if not label:
+            raise ChartError("Each grouped row needs a label")
         labels.append(label)
         row_values = row.get("values")
         if not isinstance(row_values, dict):
             raise ChartError("Grouped row needs values object")
+        if not row_values:
+            raise ChartError("Grouped row needs non-empty values object")
         for name, value in row_values.items():
-            if name not in names:
-                names.append(str(name))
-            values[(label, str(name))] = safe_number(value)
+            series_name = str(name).strip()
+            if not series_name:
+                raise ChartError("Grouped values need non-empty series names")
+            if series_name not in names:
+                names.append(series_name)
+            values[(label, series_name)] = safe_nonnegative_number(value)
     return labels, names, values
 
 
@@ -263,6 +293,8 @@ def render_grouped_bar(config: dict) -> str:
     chart_x, chart_y, chart_w, chart_h = 72, 92, 420, 185
     group_w = chart_w / max(len(labels), 1)
     bar_w = min(18, (group_w - 14) / max(len(names), 1))
+    if bar_w <= 2:
+        raise ChartError("Grouped chart is too dense for the fixed SVG renderer")
     rows = [grid_lines(chart_x, chart_y, chart_w, chart_h, 4)]
     for s_index, name in enumerate(names):
         lx = chart_x + s_index * 105
@@ -452,7 +484,31 @@ def to_mdx(markup: str) -> str:
     }
     for old, new in replacements.items():
         markup = markup.replace(old, new)
+    markup = re.sub(r'style="([^"]*)"', style_attr_to_jsx, markup)
     return markup
+
+
+def css_property_to_jsx(name: str) -> str:
+    """Convert a CSS property name to a JSX style object key."""
+    if name.startswith("--"):
+        return json.dumps(name)
+    parts = name.split("-")
+    return parts[0] + "".join(part.capitalize() for part in parts[1:])
+
+
+def style_attr_to_jsx(match: re.Match[str]) -> str:
+    """Convert an HTML style attribute to an MDX style object."""
+    declarations = []
+    for declaration in match.group(1).split(";"):
+        if ":" not in declaration:
+            continue
+        name, value = declaration.split(":", 1)
+        name = name.strip()
+        value = value.strip()
+        if not name or not value:
+            continue
+        declarations.append(f"{css_property_to_jsx(name)}: {json.dumps(value)}")
+    return "style={{" + ", ".join(declarations) + "}}"
 
 
 def reject_symlink_path(path: Path, root: Path) -> None:
@@ -520,6 +576,46 @@ def emit(data: dict, as_json: bool) -> None:
         print(f"Error: {data.get('error', 'Unknown error')}", file=sys.stderr)
 
 
+def output_display_path(output_arg: str, output_path: Path, root: Path) -> str:
+    """Return a non-resolved output path for status messages."""
+    if Path(output_arg).expanduser().is_absolute():
+        return str(output_path.relative_to(root))
+    return output_arg
+
+
+def write_text_atomic_no_follow(path: Path, text: str) -> None:
+    """Atomically write text without following a final-path symlink."""
+    dir_flags = os.O_RDONLY
+    if hasattr(os, "O_DIRECTORY"):
+        dir_flags |= os.O_DIRECTORY
+    if hasattr(os, "O_NOFOLLOW"):
+        dir_flags |= os.O_NOFOLLOW
+
+    dir_fd = os.open(path.parent, dir_flags)
+    tmp_name = f".{path.name}.{os.getpid()}.{secrets.token_hex(8)}.tmp"
+    tmp_created = False
+    try:
+        file_flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL
+        if hasattr(os, "O_NOFOLLOW"):
+            file_flags |= os.O_NOFOLLOW
+        fd = os.open(tmp_name, file_flags, 0o600, dir_fd=dir_fd)
+        tmp_created = True
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            handle.write(text)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(tmp_name, path.name, src_dir_fd=dir_fd, dst_dir_fd=dir_fd)
+        tmp_created = False
+        os.fsync(dir_fd)
+    finally:
+        if tmp_created:
+            try:
+                os.unlink(tmp_name, dir_fd=dir_fd)
+            except OSError:
+                pass
+        os.close(dir_fd)
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI entry point."""
     parser = build_parser()
@@ -542,8 +638,8 @@ def main(argv: list[str] | None = None) -> int:
             output_path.parent.mkdir(parents=True, exist_ok=True)
             if output_path.exists() and output_path.is_symlink():
                 raise ChartError(f"Refusing symlink output: {output_path}")
-            output_path.write_text(markup + os.linesep, encoding="utf-8")
-            result["output"] = str(output_path)
+            write_text_atomic_no_follow(output_path, markup + os.linesep)
+            result["output"] = output_display_path(args.output, output_path, root)
         else:
             result["content"] = markup
         emit(result, args.json)

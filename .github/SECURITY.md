@@ -152,9 +152,9 @@ please report it.
 ### WebFetch / WebSearch in `blog-researcher` agent
 
 **Where**: only `agents/blog-researcher.md` declares the WebSearch and
-WebFetch tools. The other 4 agents (`blog-writer`, `blog-seo`,
-`blog-reviewer`, `blog-translator`) have only `Read, Write, Edit, Glob,
-Grep` - least-privilege.
+WebFetch tools. `blog-writer` and `blog-translator` have `Read, Write,
+Edit, Glob, Grep`; `blog-seo` and `blog-reviewer` have `Read, Grep,
+Glob`.
 
 **Inherent risk** (VULN-039 in audit, accepted): when an LLM agent
 fetches a URL, the response body enters the agent's context as text. If
@@ -207,7 +207,9 @@ intent, not negligence.
 
 - No credentials or API keys are stored in this repository.
 - Install scripts write only to user-level directories (`~/.claude/`).
-- Python dependencies install in isolated virtual environments.
+- Install scripts run pip in the active user environment when
+  `requirements.txt` is present. Use a virtual environment if you need
+  dependency isolation.
 - Credential files (OAuth tokens, NotebookLM cookies, MCP API keys)
   are written with mode 0600 (owner read/write only).
 - `.mcp.json` is gitignored; the tracked template is `.mcp.example.json`

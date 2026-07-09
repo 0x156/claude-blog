@@ -135,7 +135,7 @@ For batch inspection: `python3 skills/blog-google/scripts/run.py gsc_inspect --b
 
 ### `/blog google index <url>`
 
-Notify Google of a URL update. Submit new blog posts for faster indexation.
+Notify Google of a URL update through the Indexing API.
 
 **Script:** `python3 skills/blog-google/scripts/run.py indexing_notify <url> --json`
 **Reference:** `references/api-reference.md`

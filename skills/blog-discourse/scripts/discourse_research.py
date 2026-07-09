@@ -14,6 +14,7 @@ CLI examples:
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import os
 import re
@@ -28,6 +29,7 @@ MAX_FIELD_CHARS = 4000
 MAX_RESULTS = 500
 CONTROL_CHARS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 ALLOWED_FIELDS = {"platform", "url", "title", "snippet", "date", "engagement_proxy"}
+HTML_TAGS = re.compile(r"<[^>]*>")
 
 
 def _slugify(value: str) -> str:
@@ -187,11 +189,24 @@ def _link(item: dict[str, str | None]) -> str:
     return f"[{title}]({item.get('url')})"
 
 
+def _safe_markdown_text(value: str, limit: int) -> str:
+    text = HTML_TAGS.sub("", value).strip()[:limit]
+    text = html.escape(text, quote=False)
+    return (
+        text.replace("\\", "\\\\")
+        .replace("`", "\\`")
+        .replace("[", "\\[")
+        .replace("]", "\\]")
+        .replace("(", "\\(")
+        .replace(")", "\\)")
+    )
+
+
 def _theme_paragraph(theme: dict[str, Any]) -> str:
     sources = theme.get("sources", [])
     links = ", ".join(_link(item) for item in sources[:3])
     snippets = [str(item.get("snippet") or "").strip() for item in sources if item.get("snippet")]
-    summary = snippets[0][:280] if snippets else "No snippet was available."
+    summary = _safe_markdown_text(snippets[0], 280) if snippets else "No snippet was available."
     return f"- **{theme['theme']}**. {summary} Sources: {links}."
 
 
@@ -230,7 +245,10 @@ def render_markdown(brief: dict[str, Any]) -> str:
     lines.extend(["", "## Practitioner specifics (commands, configs, links)", ""])
     specifics = [item for item in brief["items"] if re.search(r"`|config|command|how to|setup|step", str(item.get("snippet") or ""), re.I)]
     if specifics:
-        lines.extend(f"- From {_link(item)}: {str(item.get('snippet') or '')[:240]}" for item in specifics[:5])
+        lines.extend(
+            f"- From {_link(item)}: {_safe_markdown_text(str(item.get('snippet') or ''), 240)}"
+            for item in specifics[:5]
+        )
     else:
         lines.append("- No concrete commands, configs, or procedural details were visible in snippets.")
 
