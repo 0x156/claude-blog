@@ -4,7 +4,7 @@ title: "AI Citation Mechanics"
 domain: "GEO and AEO"
 status: active
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [geo-aeo, ai-citation, active]
 ---
 
@@ -36,10 +36,11 @@ Full schema implementation belongs to [[Blog Schema Stack]], query export hygien
 | Surface selection | Whether the task is AIO, AI Mode, or assistant answer review | `g-ai-features` | CONFIRMED for documented Search surfaces | Content lead | Pick the spoke note that matches the surface |
 | Special-file request | Stakeholder asks for an AI-only file or schema shortcut | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | CONFIRMED for Google Search caveat | SEO lead | Route file claims to [[llms.txt Caveat Note]] |
 | Measurement lane choice | Property report access, manual capture, or market context | `g-genai-reports`, `g-ai-features` | Official reporting context plus observation limits | Analyst | Route metric rows to [[Citation Exposure Metrics]] |
+| Crawler and rendering access | Static HTML, robots policy, CDN controls, and page-size evidence | `g-ai-opt-guide`, `g-robots-intro`, `g-googlebot` | Official for Google; owner-supplied for non-Google bots | Technical SEO | Route to [[AI Crawler Accessibility]] |
 
 ## AI Citation Mechanics Spoke Map
 
-Use [[Passage Citability Checklist]] before a draft is scored, [[AI Overview Citation Review]] when the observed surface is an AIO, and [[AI Mode Citation Review]] when follow-up query behavior is the concern. Use [[AI Feature Preview Controls]] when `nosnippet`, `max-snippet`, or preview policy is part of the decision. Use [[llms.txt Caveat Note]] only when someone proposes llms.txt as a visibility lever.
+Use [[Passage Citability Checklist]] before a draft is scored, [[AI Overview Citation Review]] when the observed surface is an AIO, and [[AI Mode Citation Review]] when follow-up query behavior is the concern. Use [[AI Feature Preview Controls]] when `nosnippet`, `max-snippet`, or preview policy is part of the decision. Use [[AI Crawler Accessibility]] when GPTBot, ClaudeBot, PerplexityBot, static HTML, CDN controls, or page-size evidence is part of the decision. Use [[llms.txt Caveat Note]] only when someone proposes llms.txt as a visibility lever.
 
 ## Worked Triage Example
 
@@ -49,7 +50,7 @@ The page has one clear answer paragraph, but the source is four paragraphs below
 
 The same owner asks whether to add `llms.txt`. The decision row above sends that request to [[llms.txt Caveat Note]] because `g-ai-opt-guide` and `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` say the file is not a Google Search visibility lever.
 
-If Search Console generative AI reporting exists for the property, the reviewer opens [[Citation Exposure Metrics]] and records the surface label, URL, query, and date range using `g-genai-reports`. If the report is absent, the note records missing data instead of substituting SparkToro or Seer market context.
+If Search Console generative AI reporting exists for the property, the reviewer opens [[Citation Exposure Metrics]] and records the surface label, page or URL, country, device, date range, and impressions using `g-genai-reports`. Query and click interpretation moves to `g-gsc-api` or an owner-supplied export. If those fields are absent, the note records missing data instead of substituting SparkToro or Seer market context.
 
 ## Hub-Specific Failure Points
 

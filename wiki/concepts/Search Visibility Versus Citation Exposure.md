@@ -4,7 +4,7 @@ title: "Search Visibility Versus Citation Exposure"
 domain: "Blog Content Optimization"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [dual-optimization, visibility, citations]
 confidence: advisory
 related:
@@ -24,7 +24,7 @@ source_urls:
 
 This note keeps four outcomes from being collapsed into one success story: ranking visibility, organic clicks, AI answer citation, and assisted value. It should be used whenever a dashboard, brief, or stakeholder summary treats a citation as if it were the same thing as a visit.
 
-The evidence mix is intentionally split. `g-ai-features` and `g-ai-opt-guide` explain Google AI feature participation boundaries. `sparktoro-zero-click-2026` helps explain why exposure may not produce a click. `seer-aio-impact-ctr-2026` supports interest in citation status, but its cited-page lift remains an observed association. Use [[AI Citation Mechanics]] for the stat hub and [[Visibility Metrics For Blog Programs]] for dashboard construction.
+The evidence mix is intentionally split. `g-ai-features` and `g-ai-opt-guide` explain Google AI feature participation boundaries. `g-gsc-api` supports Search Console impressions, clicks, query, page, CTR, and position exports, while `g-ga4-data` supports analytics and engagement reporting. `sparktoro-zero-click-2026` and `seer-aio-impact-ctr-2026` remain market-context caveats, not property metric sources. Use [[AI Citation Mechanics]] for the stat hub and [[Visibility Metrics For Blog Programs]] for dashboard construction.
 
 ### Outcome Inputs
 
@@ -43,12 +43,13 @@ The evidence mix is intentionally split. `g-ai-features` and `g-ai-opt-guide` ex
 
 | Outcome lane | What it measures | Evidence IDs | Do not confuse it with | Reporting owner |
 |---|---|---|---|---|
-| Search visibility | Presence in classic Search results | `g-ai-opt-guide` | Clicks or revenue | SEO analyst |
-| Click yield | Visits produced by search exposure | `sparktoro-zero-click-2026` | Citation exposure | Performance lead |
-| AI citation exposure | Page or passage used in an AI answer surface | `g-ai-features`, `seer-aio-impact-ctr-2026` | Ranking position | GEO reviewer |
-| Assisted value | Downstream behavior after exposure | `seer-aio-impact-ctr-2026` | Direct organic sessions | Growth owner |
+| Search visibility | Presence in classic Search results | `g-gsc-api` | Clicks or revenue | SEO analyst |
+| Click yield | Visits produced by search exposure | `g-gsc-api`, `g-ga4-data` | Citation exposure | Performance lead |
+| AI citation exposure | Page or passage used in an AI answer surface | `g-ai-features` | Ranking position | GEO reviewer |
+| Assisted value | Downstream behavior after exposure | `g-ga4-data` | Direct organic sessions | Growth owner |
 | Generative AI impressions | Search Console AI Overview or AI Mode reporting | `g-genai-reports` | Organic sessions | Analyst |
 | Tool visibility score | Vendor or rank-tracker estimate | `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | Google's internal ranking data | SEO lead |
+| Market caveat | External click-scarcity or AIO CTR context | `sparktoro-zero-click-2026`, `seer-aio-impact-ctr-2026` | Property performance | Strategist |
 
 ## Outcome Split In An Audit Finding
 

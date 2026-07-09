@@ -4,7 +4,7 @@ title: "AI Overview Citation Review"
 domain: "GEO and AEO"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [geo-aeo, ai-citation, evergreen]
 ---
 
@@ -32,7 +32,7 @@ Reject universal CTR-loss percentages, guaranteed citation value, or recommendat
 | Is the page cited or adjacent? | Cited URL, cited domain, visible answer text | `seer-aio-impact-ctr-2026` | AS-REPORTED citation association | GEO reviewer | Prioritize passage inspection |
 | How should clicks be interpreted? | GSC data, AIO presence, control query | `pew-ai`, `ahrefs-aio` | CONTESTED market evidence | Analyst | Avoid single-number forecasts |
 | Is the topic AIO-prone? | Query class and SERP sample | `semrush-aio` | Practitioner context | Strategist | Decide whether to broaden sampling |
-| Is the cited claim fresh? | Source date, page update date, claim date | `g-ai-features`, `g-genai-reports` | Official context plus property reporting if available | Analyst | Mark stale or current before rewrite |
+| Is the cited claim fresh? | Source date, page update date, claim date, and article source IDs | `g-ai-features` plus article source IDs | Official feature context plus cited-source provenance | Analyst | Mark stale or current before rewrite |
 | Are previews limiting display? | Rendered meta robots and snippet rule | `g-ai-features`, `g-ai-opt-guide` | Official preview-control guidance | Technical SEO | Route to [[AI Feature Preview Controls]] |
 
 ## AI Overview Citation Review Procedure
@@ -49,7 +49,7 @@ A product comparison query shows an AI Overview on desktop for the US locale. Th
 
 The reviewed page has a statistics paragraph where the source name appears only in a footnote. The analyst sends that paragraph to [[Source Proximity Pattern]] and labels any click discussion as CONTESTED, because `pew-ai`, `ahrefs-aio`, and `seer-aio-impact-ctr-2026` report different market views.
 
-If the property has Search Console generative AI reporting, [[Citation Exposure Metrics]] records impressions and clicks with `g-genai-reports`. If it does not, the report keeps the screenshot separate from performance claims.
+If the property has Search Console generative AI reporting, [[Citation Exposure Metrics]] records impressions by page or URL, country, device, and date with `g-genai-reports`. Click and query interpretation uses `g-gsc-api` or an owner-supplied export; when those fields are absent, the report keeps the screenshot separate from performance claims.
 
 ## AIO-Specific Failure Modes
 

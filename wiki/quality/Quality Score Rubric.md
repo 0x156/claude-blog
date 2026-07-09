@@ -4,7 +4,7 @@ title: "Quality Score Rubric"
 domain: "Blog Quality"
 status: active
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [quality, scorecard, active]
 confidence: advisory
 related:
@@ -24,7 +24,7 @@ This note defines the 100 point model used by [[Blog Quality Score]]. It owns ca
 
 ## Criteria This Score Owns
 
-The rubric owns the five category weights, the pass thresholds, and the rule that unresolved blockers beat the total score. It also owns the rule that a score must name the weakest confidence label used by any recommendation.
+The rubric owns the five category weights, the pass thresholds, and the rule that unresolved blockers beat the total score. The canonical split is Content 30, SEO 25, E-E-A-T 15, Technical 15, and AI Citation 15. It also owns the rule that a score must name the weakest confidence label used by any recommendation.
 
 ## Criteria Delegated To Other Scores
 
@@ -35,8 +35,8 @@ The subscore notes decide row-level proof. [[Content Quality Subscore]] owns use
 | Category | Points | Required evidence | Blocking failure |
 |---|---:|---|---|
 | Content quality | 30 | Reader job, useful answer, originality, completeness, and source-backed clarity. | Thin or generic content that does not satisfy the reader. |
-| SEO intent | 20 | Query fit, title promise, metadata discipline, and internal link logic. | The page optimizes for an intent it does not answer. |
-| E-E-A-T trust | 20 | Experience evidence, qualified review, source quality, and risk escalation. | Sensitive advice lacks credible authorship or review. |
+| SEO intent | 25 | Query fit, title promise, metadata discipline, and internal link logic. | The page optimizes for an intent it does not answer. |
+| E-E-A-T trust | 15 | Experience evidence, qualified review, source quality, and risk escalation. | Sensitive advice lacks credible authorship or review. |
 | Technical schema | 15 | Indexability, validation, visible-content schema, media, and performance evidence trail. | Deprecated or fabricated structured-data promise. |
 | AI citation readiness | 15 | Extractable passages, source proximity, entity clarity, and AI guidance caveats. | Guaranteed AI inclusion or required special AI-file claim. |
 
@@ -54,7 +54,7 @@ Scores of 90 to 100 are release candidates only when no blocker exists. Scores f
 
 ## Threshold Application Case
 
-Raw score: content 24, SEO 17, trust 16, technical 9, AI 12.
+Raw score: content 24, SEO 20, trust 13, technical 9, AI 12.
 Total: 78.
 Normal threshold would require named fixes.
 However, schema promises a retired rich result.

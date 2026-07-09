@@ -4,7 +4,7 @@ title: "Passage Citability Checklist"
 domain: "GEO and AEO"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [geo-aeo, ai-citation, evergreen]
 ---
 
@@ -28,7 +28,7 @@ Bring the passage text, page URL, target query, source IDs for claims, date-sens
 |---|---|---|---|---|---|
 | Answer sentence | The first sentence directly answers the reader job | `ziptie-aio-source-selection` | blocker | Editor | pass, fix, or defer |
 | Entity clarity | The target entity is named inside the passage | `g-ai-opt-guide`, `g-ai-features` | blocker | GEO reviewer | pass, fix, or defer |
-| Source proximity | The supporting source sits next to the claim | `seer-aio-impact-ctr-2026`, article source IDs | high | Researcher | pass, fix, or defer |
+| Source proximity | The supporting source sits next to the claim | `ziptie-aio-source-selection`, article source IDs | high | Researcher | pass, fix, or defer |
 | Market caveat | Broad click behavior is clearly labeled as market context | `sparktoro-zero-click-2026` | medium | Strategist | pass, fix, or defer |
 | Measurement path | A later citation check has a metric or explicit missing-data note | `g-genai-reports` | medium | Analyst | pass, fix, or defer |
 | Freshness context | Time-sensitive advice includes source date or review date | `g-ai-features`, `g-genai-reports` | high | Analyst | pass, fix, or defer |

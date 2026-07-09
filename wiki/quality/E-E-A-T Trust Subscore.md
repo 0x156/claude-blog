@@ -4,7 +4,7 @@ title: "E-E-A-T Trust Subscore"
 domain: "Blog Quality"
 status: active
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [quality, scorecard, active]
 confidence: advisory
 related:
@@ -18,7 +18,7 @@ related:
 
 ## Trust Scoring Assignment
 
-This 20 point spoke scores whether the draft makes experience, expertise, accountability, source quality, and sensitivity visible enough for a reviewer to trust the recommendation. `g-helpful-content` ties helpful content review to E-E-A-T style questions, `g-qrg-full` supplies the full rater-guideline frame, `g-update-2025-09-11-qrg-update-sept-2025` flags current AI Overview and YMYL examples, and `nng-editorial-heuristics` supports transparent review feedback.
+This 15 point spoke scores whether the draft makes experience, expertise, accountability, source quality, and sensitivity visible enough for a reviewer to trust the recommendation. `g-helpful-content` ties helpful content review to E-E-A-T style questions, `g-qrg-full` supplies the full rater-guideline frame, `g-update-2025-09-11-qrg-update-sept-2025` flags current AI Overview and YMYL examples, and `nng-editorial-heuristics` supports transparent review feedback.
 
 ## Trust Signals This Note Scores
 
@@ -35,11 +35,11 @@ Detailed E-E-A-T doctrine belongs in [[E-E-A-T for Blog Content]]. Final pass or
 
 | Trust criterion | Points | Required proof | Blocking failure |
 |---|---:|---|---|
-| Experience evidence | 5 | First-hand use, case context, expert interview, or original research is visible. | The piece gives advice without showing how it knows. |
-| Expertise fit | 4 | Author or reviewer background matches topic risk. | Sensitive advice lacks qualified review. |
-| Transparency | 4 | Dates, authorship, AI assistance, conflicts, and limitations are disclosed when relevant. | Material conflict or generated assistance is hidden. |
+| Experience evidence | 3 | First-hand use, case context, expert interview, or original research is visible. | The piece gives advice without showing how it knows. |
+| Expertise fit | 3 | Author or reviewer background matches topic risk. | Sensitive advice lacks qualified review. |
+| Transparency | 3 | Dates, authorship, AI assistance, conflicts, and limitations are disclosed when relevant. | Material conflict or generated assistance is hidden. |
 | Source quality | 4 | Important claims use official, primary, or clearly caveated sources. | Roundups or uncited summaries support core advice. |
-| YMYL and reputation risk | 3 | Escalation path is named for high-sensitivity content. | A risky recommendation ships with no specialist review. |
+| YMYL and reputation risk | 2 | Escalation path is named for high-sensitivity content. | A risky recommendation ships with no specialist review. |
 
 ## Weighting, Proof, And Blockers
 

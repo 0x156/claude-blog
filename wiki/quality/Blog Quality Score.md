@@ -4,7 +4,7 @@ title: "Blog Quality Score"
 domain: "Blog Quality"
 status: active
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [quality, scorecard, active]
 confidence: verified
 related:
@@ -25,6 +25,7 @@ related:
 ## What This Hub Owns In Blog Quality Scoring
 
 - The five-category 100 point score model.
+- Category weights: Content 30, SEO 25, E-E-A-T 15, Technical 15, AI Citation 15.
 - Final status labels: ready, revise, blocked, or monitor.
 - Evidence freshness checks before a recommendation is shipped.
 - The rule that a blocker overrides the point total.
@@ -39,11 +40,11 @@ This hub must not become the page-level evidence log, schema validator, content 
 | Spoke | Points or gate role | Deliverable boundary | Blocking checks |
 |---|---:|---|---|
 | [[Content Quality Subscore]] | 30 | Reader usefulness, originality, completeness, and source-backed clarity. | Thin content, filler, or unsourced current claims. |
-| [[SEO Intent Subscore]] | 20 | Query fit, title promise, metadata, and internal-link logic. | Intent mismatch or misleading SERP promise. |
-| [[E-E-A-T Trust Subscore]] | 20 | Experience, expertise, transparency, source quality, and YMYL risk. | Anonymous sensitive advice or weak sources. |
+| [[SEO Intent Subscore]] | 25 | Query fit, title promise, metadata, and internal-link logic. | Intent mismatch or misleading SERP promise. |
+| [[E-E-A-T Trust Subscore]] | 15 | Experience, expertise, transparency, source quality, and YMYL risk. | Anonymous sensitive advice or weak sources. |
 | [[Technical Schema Subscore]] | 15 | Indexability evidence, structured data fit, performance source trail, and media hygiene. | Deprecated schema promises or validation gaps. |
 | [[AI Citation Readiness Subscore]] | 15 | Answer-first passages, entity clarity, source proximity, and AI guidance caveats. | Unsupported AI inclusion or special-file requirements. |
-| [[Delivery Contract Gate]] | Gate | Ready, revise, blocked, or monitor handoff. | Missing owner, rollback note, or unresolved blocker. |
+| [[Delivery Contract Gate]] | Gate | Five delivery gates, retry loop, and strict-mode handoff. | Any failed delivery gate under strict mode. |
 
 ## Spoke Jobs And Deliverable Boundaries
 

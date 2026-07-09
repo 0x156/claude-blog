@@ -4,7 +4,7 @@ title: "SEO Intent Subscore"
 domain: "Blog Quality"
 status: active
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [quality, scorecard, active]
 confidence: advisory
 related:
@@ -18,7 +18,7 @@ related:
 
 ## SEO Intent Scoring Assignment
 
-This 20 point spoke checks whether the page matches the searcher job it is trying to serve. It scores intent fit, title promise, metadata, internal links, and measurement discipline. `g-helpful-content` anchors usefulness, `g-ads-kw` can support keyword research inputs, `dfs-labs` can support SERP-overlap or competitor datasets as vendor evidence, and `g-gsc-api` is the first-party route for query performance claims.
+This 25 point spoke checks whether the page matches the searcher job it is trying to serve. It scores intent fit, title promise, metadata, internal links, and measurement discipline. `g-helpful-content` anchors usefulness, `g-ads-kw` can support keyword research inputs, `dfs-labs` can support SERP-overlap or competitor datasets as vendor evidence, and `g-gsc-api` is the first-party route for query performance claims.
 
 ## Query Fit Signals This Note Scores
 
@@ -35,11 +35,11 @@ Originality belongs to [[Content Quality Subscore]]. Trust proof belongs to [[E-
 
 | SEO intent criterion | Points | Required proof | Blocking failure |
 |---|---:|---|---|
-| Query-to-reader fit | 5 | Target query maps to a clear reader problem and article outcome. | Query targets one job while the page answers another. |
-| Title and H1 promise | 4 | Title and H1 describe the real deliverable without inflated claims. | Headline promises a comparison, guide, or data point not present. |
-| Section alignment | 4 | H2s cover the necessary subquestions in a useful order. | Sections chase keywords while skipping the reader decision. |
-| Internal link logic | 4 | Links route to relevant hub, spoke, evidence, or next-step pages. | Links are absent, promotional, or unrelated to intent. |
-| Metadata and measurement | 3 | Description, canonical target, and data availability are recorded. | Performance claims rely on market averages alone. |
+| Query-to-reader fit | 6 | Target query maps to a clear reader problem and article outcome. | Query targets one job while the page answers another. |
+| Title and H1 promise | 5 | Title and H1 describe the real deliverable without inflated claims. | Headline promises a comparison, guide, or data point not present. |
+| Section alignment | 5 | H2s cover the necessary subquestions in a useful order. | Sections chase keywords while skipping the reader decision. |
+| Internal link logic | 5 | Links route to relevant hub, spoke, evidence, or next-step pages. | Links are absent, promotional, or unrelated to intent. |
+| Metadata and measurement | 4 | Description, canonical target, and data availability are recorded. | Performance claims rely on market averages alone. |
 
 ## Point Rules And Stop Conditions
 

@@ -4,7 +4,7 @@ title: "Content Template Selection Matrix"
 domain: "Blog Content Brain"
 status: active
 created: 2026-07-09
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [deliverables, templates, content-strategy]
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
@@ -16,7 +16,7 @@ source_urls:
 
 ## Template Selection Job
 
-This matrix tells `/blog write`, `/blog brief`, and `/blog outline` which article shape fits the reader job before drafting starts. It belongs between [[SERP-Informed Briefs and Outlines]] and [[Blog Quality Score]]. The source IDs are `g-helpful-content`, `g-ai-opt-guide`, and `g-qrg-full`.
+This matrix tells `/blog write`, `/blog brief`, and `/blog outline` which canonical claude-blog article shape fits the reader job before drafting starts. It belongs between [[SERP-Informed Briefs and Outlines]] and [[Blog Quality Score]]. Template IDs, filenames, and target lengths come from the local claude-blog v1.11.0 skill under `skills/blog/templates/`; Search quality caveats use source IDs `g-helpful-content`, `g-ai-opt-guide`, and `g-qrg-full`.
 
 ## Evidence Required Before A Template Is Picked
 
@@ -24,20 +24,20 @@ The selector needs intent, reader maturity, claim sensitivity, source availabili
 
 ## Twelve Template Matrix
 
-| Template | Select when | Brief input | Draft constraint |
-|---|---|---|---|
-| Answer-first explainer | Reader needs a direct answer | Core question and evidence packet | Answer before nuance |
-| Definition glossary | Term confusion blocks action | Definitions and related entities | Avoid circular definitions |
-| Comparison | Reader chooses between options | Criteria, alternatives, tradeoffs | Use equal evidence depth |
-| Checklist | Reader must verify readiness | Gate items and owners | Each item has pass evidence |
-| Step-by-step guide | Reader must perform a process | Preconditions and ordered steps | Do not imply HowTo rich result value |
-| Troubleshooting | Reader has symptoms or errors | Symptom list and diagnostics | Separate cause from fix |
-| Decision tree | Reader needs routing logic | Branch conditions | Every branch ends in action |
-| Cluster hub | Reader needs a map of subtopics | Spoke inventory | Link architecture is primary |
-| Case analysis | Reader evaluates an example | Source case and limits | Do not generalize beyond evidence |
-| Data story | Dataset explains a trend | Method, date, caveats | Keep source limits visible |
-| Opinion or POV | Brand position matters | Thesis and support | Label opinion separately |
-| Resource roundup | Reader needs curated assets | Inclusion criteria | Explain why each asset belongs |
+| Template ID | File path | Intent trigger | Target word count | Required inputs |
+|---|---|---|---|---|
+| `how-to-guide` | `skills/blog/templates/how-to-guide.md` | "How to" queries, setup tasks, ordered processes | 2,000-2,500 | Reader task, audience, preconditions, 3+ meaningful steps, source packet, screenshots or images, success test |
+| `listicle` | `skills/blog/templates/listicle.md` | "Best", "top", ranked option, tool, resource, or tip queries | 1,500-2,000 | Item set, ranking criteria, inclusion and exclusion rules, source dates, differentiators, media per item |
+| `case-study` | `skills/blog/templates/case-study.md` | Client result, before and after, strategy validation, real metric story | 1,500-2,000 | Permission, challenge, strategy, implementation notes, baseline, measured results, caveats |
+| `comparison` | `skills/blog/templates/comparison.md` | "X vs Y", alternatives, platform choice, method choice | 1,500-2,000 | Comparable options, decision criteria, feature and pricing facts, equal evidence depth, verdict basis |
+| `pillar-page` | `skills/blog/templates/pillar-page.md` | Broad topic hub, complete guide, cluster anchor | 3,000-4,000 | Primary topic, spoke inventory, subtopic map, internal-link plan, source pack, expanded FAQ set |
+| `product-review` | `skills/blog/templates/product-review.md` | Product review, "is it worth it", buyer evaluation | 1,500-2,000 | First-hand testing notes, product facts, pricing, pros and cons, alternatives, disclosure state |
+| `thought-leadership` | `skills/blog/templates/thought-leadership.md` | Opinion, prediction, contrarian industry take | 1,500-2,500 | Thesis, conventional view, supporting data, author experience, caveats, better approach |
+| `roundup` | `skills/blog/templates/roundup.md` | Expert quotes, multi-source perspective collection | 1,500-2,000 | Expert list, permission or quote source, inclusion criteria, bios, synthesis themes, methodology |
+| `tutorial` | `skills/blog/templates/tutorial.md` | Code, tool, build, install, or configuration walkthrough | 2,000-3,000 | Prerequisites, environment, ordered steps, code or commands, verification test, troubleshooting notes |
+| `news-analysis` | `skills/blog/templates/news-analysis.md` | Timely event, release, policy, or algorithm update analysis | 800-1,200 | Event source, event date, what happened, affected audience, immediate actions, retrieval notes |
+| `data-research` | `skills/blog/templates/data-research.md` | Original data, survey, experiment, benchmark, statistics query | 2,000-3,000 | Dataset, method, sample, analysis approach, findings, limitations, chart plan |
+| `faq-knowledge` | `skills/blog/templates/faq-knowledge.md` | "What is", recurring Q&A, support, knowledge-base topic | 1,500-2,000 | Question inventory, categories, 80-120 word answers, source pack, related resources, schema plan |
 
 ## Interpretation Rules For Write Brief Outline
 

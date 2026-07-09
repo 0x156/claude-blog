@@ -1,7 +1,7 @@
 # Market Research
 
 Status: researched. Evidence is captured in `references/source-ledger.json`.
-Last verified: 2026-07-09.
+Last verified: 2026-07-10.
 Refresh due: 2026-08-09.
 
 ## Buyer
@@ -70,7 +70,9 @@ only keyword rankings.
 
 Claim: Google does not require special AI files, special AI schema, or
 `llms.txt` for Search AI features.
-Source: Google AI optimization guide, updated 2026-06-15, retrieved 2026-07-09.
+Sources: `g-ai-opt-guide` page last updated 2026-06-29, retrieved 2026-07-10;
+`g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` changelog
+event 2026-06-15, retrieved 2026-07-10.
 Confidence: high. Evidence tier: EVIDENCE-BASED.
 Market implication: the product should protect buyers from unsupported GEO
 tactics and keep recommendations grounded in content quality, crawlability, and

@@ -5,8 +5,9 @@
 Generative AI optimization guide, Google Search Central.
 URL: https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
 Published in ledger: 2026-05-15.
-Updated in ledger: 2026-06-15.
-Retrieved: 2026-07-09.
+Page last updated in ledger: 2026-06-29.
+llms.txt changelog event in ledger: 2026-06-15.
+Retrieved: 2026-07-10.
 Confidence: EVIDENCE-BASED.
 
 ## Core Thesis

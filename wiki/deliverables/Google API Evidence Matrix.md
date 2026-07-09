@@ -4,37 +4,39 @@ title: "Google API Evidence Matrix"
 domain: "Blog Content Brain"
 status: active
 created: 2026-07-09
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [deliverables, data-integrations, evidence]
 source_urls:
   - "https://developers.google.com/webmaster-tools/v1/searchanalytics/query"
   - "https://developers.google.com/webmaster-tools/v1/urlInspection.index/inspect"
   - "https://developers.google.com/speed/docs/insights/v5/get-started"
   - "https://developers.google.com/analytics/devguides/reporting/data/v1"
+  - "https://docs.cloud.google.com/natural-language/docs"
+  - "https://developers.google.com/google-ads/api/docs/keyword-planning/overview"
 ---
 
 # Google API Evidence Matrix
 
 ## Evidence Comparison Job
 
-This matrix tells [[Google Data Integrations]] which exported fields can support a blog recommendation, which credentials would be needed outside the vault, and which surfaces are blocked because this ledger has no source ID for them. It is advisory and read-only. It never stores tokens, request headers, account IDs, or raw private exports. The source IDs wired here are `g-gsc-api`, `g-urlinspect`, `g-psi`, and `g-ga4-data`.
+This matrix tells [[Google Data Integrations]] which exported fields can support a blog recommendation, which credentials would be needed outside the vault, and which surfaces are blocked because this ledger has no source ID for them. It is advisory and read-only. It never stores tokens, request headers, account IDs, or raw private exports. The source IDs wired here are `g-gsc-api`, `g-urlinspect`, `g-psi`, `g-ga4-data`, `g-nlp`, and `g-ads-kw`; YouTube Data API remains the explicit source-ledger gap.
 
 ## Credential Tiers And Evidence Rows
 
-Tier 0 means public documentation only. Tier 1 means a redacted export supplied by an operator. Tier 2 means live API access held outside the vault. V1 notes may describe Tier 2 requirements, but they do not perform the request.
+Credential tiers mirror the claude-blog `/blog google` skill: Tier 0 is API key access for PageSpeed, CrUX, YouTube, and NLP; Tier 1 adds OAuth or service-account access for GSC and URL Inspection; Tier 2 adds a configured GA4 property; Tier 3 adds Google Ads developer token and customer IDs for Keyword Planner. A redacted operator export can satisfy evidence review without live access, but it does not change the skill tier.
 
 ## API Evidence Matrix
 
 | Data surface | Credential tier | Accepted evidence | Decision it can support | Source state |
 |---|---|---|---|---|
-| GSC Search Analytics | Tier 1 or 2 | Clicks, impressions, CTR, position by query or page | Decay triage, query fit, cluster demand | `g-gsc-api` |
-| URL Inspection | Tier 2 | Index state, canonical, rich result status | Indexing diagnosis and canonical review | `g-urlinspect` |
-| PageSpeed Insights and CrUX | Tier 0 to 2 | Lighthouse lab data and available field data | Technical risk notes for page quality | `g-psi` |
-| GA4 Data API | Tier 1 or 2 | Organic engagement and post-click behavior | Content usefulness review after the click | `g-ga4-data` |
-| Natural Language API | Tier 2 | Entity extraction export if separately sourced | Entity audit only after ledger addition | Source ID missing |
-| YouTube API | Tier 2 | Video metadata if separately sourced | Repurposing evidence, not blog ranking proof | Source ID missing |
-| Keyword Planner | Tier 2 | Operator export with account caveats | Demand planning, never exact traffic promise | Source ID missing |
-| Joined evidence view | Tier 1 | Page URL, canonical, query, engagement join | Recommendation confidence label | Uses all wired IDs |
+| PageSpeed Insights and CrUX | Tier 0 | Lighthouse lab data and available field data | Technical risk notes for page quality | `g-psi` |
+| YouTube Data API | Tier 0 | Video search metadata from `/blog google youtube` or redacted operator export | Video embedding and repurposing evidence, not blog ranking proof | Source-ledger gap: add official YouTube Data API source before release-satisfying claims |
+| Natural Language API | Tier 0 | Entity, sentiment, and classification export | Entity audit and E-E-A-T entity gap review | `g-nlp` |
+| GSC Search Analytics | Tier 1 | Clicks, impressions, CTR, position by query or page | Decay triage, query fit, cluster demand | `g-gsc-api` |
+| URL Inspection | Tier 1 | Index state, canonical, rich result status | Indexing diagnosis and canonical review | `g-urlinspect` |
+| GA4 Data API | Tier 2 | Organic engagement and post-click behavior | Content usefulness review after the click | `g-ga4-data` |
+| Keyword Planner | Tier 3 | Keyword ideas or volume export with Ads account caveats | Demand planning, never exact traffic promise | `g-ads-kw` |
+| Joined evidence view | Uses source-specific tiers | Page URL, canonical, query, engagement, entity, and demand joins | Recommendation confidence label | Uses wired IDs plus explicit YouTube gap |
 
 ## Interpretation Rules For Mixed API Evidence
 

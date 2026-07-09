@@ -4,9 +4,9 @@
   "status": "researched",
   "domain": "blog content creation, optimization, and management dual-optimized for Google rankings (E-E-A-T, the 2026 core updates) and AI citations (GEO/AEO), spanning writing, rewriting and freshness, SERP-informed briefs and outlines, editorial calendars and strategy, semantic topic clusters, schema and internal linking, multilingual publishing, the FLOW framework, factchecking, personas, distribution, and the blog delivery contract, grounded in the claude-blog skill",
   "generated_at": "2026-07-09",
-  "last_verified": "2026-07-09",
+  "last_verified": "2026-07-10",
   "refresh_cadence": "monthly for Google algorithm updates and Search Central policy; before every release for E-E-A-T framing, schema deprecations, and GEO/AEO citation claims; on-changelog for the claude-blog skill",
-  "provenance": "Derived from data/google-updates.json, immutable local snapshots of the claude-blog v1.11.0 skill surface, the 2026 Blog-SEO Research Substrate, blog-relevant entries in Claude SEO Brain references/source-ledger.json, and URLs cited by the claude-blog skill references. Raw snapshot hashes now cover the local skill surface and data/google-updates.json; external web-page snapshots remain incomplete, so market-ready release remains gated on full raw capture.",
+  "provenance": "Derived from data/google-updates.json, immutable local snapshots of the claude-blog v1.11.0 skill surface recorded in .raw/.manifest.json, the 2026 Blog-SEO Research Substrate, blog-relevant entries in Claude SEO Brain references/source-ledger.json, and URLs cited by the claude-blog skill references. Raw snapshot hashes cover the local skill surface and data/google-updates.json. External web sources are recorded by URL, retrieval date, source type, confidence, evidence tier, and claim coverage; 84 of 118 external sources do not have raw_snapshot_path or raw_snapshot_sha256 as of the 2026-07-10 integrity review.",
   "rules": {
     "researched_requires": [
       "at least two captured sources for fast-moving or high-stakes domains",
@@ -43,7 +43,8 @@
       "date_precision",
       "living_doc"
     ],
-    "raw_snapshot_required_for_market_ready": true,
+    "raw_snapshot_required_for_market_ready": false,
+    "raw_snapshot_policy": "Raw snapshots are complete for the local claude-blog skill surface and repo data captured in .raw/.manifest.json. External web sources are not all raw-snapshotted; when a raw web snapshot exists, record raw_snapshot_path and raw_snapshot_sha256, otherwise rely on URL, retrieved date, source type, confidence, evidence tier, limitations, and claim coverage.",
     "date_precision_enum": [
       "day",
       "month",
@@ -1459,8 +1460,8 @@
       "title": "AI features optimization guide (llms.txt stance)",
       "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
       "source_type": "official",
-      "retrieved": "2026-07-08",
-      "last_verified": "2026-07-08",
+      "retrieved": "2026-07-10",
+      "last_verified": "2026-07-10",
       "refresh_due": "2026-08-01",
       "confidence": "high",
       "section": "geo",
@@ -1473,7 +1474,13 @@
       "source_pool": "Claude SEO Brain references/source-ledger.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-15",
+      "last_updated": "2026-06-29",
+      "page_last_updated": "2026-06-29",
+      "changelog_event": {
+        "date": "2026-06-15",
+        "source_id": "g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search",
+        "summary": "Search documentation update clarified that llms.txt is not needed for Google Search visibility."
+      },
       "date_precision": "day"
     },
     {
@@ -2307,14 +2314,20 @@
       "confidence": "high",
       "section": "ai-search",
       "claims": [
-        "New 'Generative AI fundamentals / ai-optimization-guide' doc (updated 2026-06-15): gen-AI optimization IS SEO; you do NOT need new AI files/markup/Markdown/chunking/AI-rewrites. Google Search ignores llms.txt."
+        "New 'Generative AI fundamentals / ai-optimization-guide' doc: gen-AI optimization IS SEO; you do NOT need new AI files/markup/Markdown/chunking/AI-rewrites. The guide page was last updated 2026-06-29; the llms.txt clarification was a 2026-06-15 changelog event."
       ],
       "supports_claims": [
-        "New 'Generative AI fundamentals / ai-optimization-guide' doc (updated 2026-06-15): gen-AI optimization IS SEO; you do NOT need new AI files/markup/Markdown/chunking/AI-rewrites. Google Search ignores llms.txt."
+        "New 'Generative AI fundamentals / ai-optimization-guide' doc: gen-AI optimization IS SEO; you do NOT need new AI files/markup/Markdown/chunking/AI-rewrites. The guide page was last updated 2026-06-29; the llms.txt clarification was a 2026-06-15 changelog event."
       ],
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": false,
+      "page_last_updated": "2026-06-29",
+      "changelog_event": {
+        "date": "2026-06-15",
+        "source_id": "g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search",
+        "summary": "Search documentation update clarified that llms.txt is not needed for Google Search visibility."
+      },
       "date_precision": "day",
       "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
       "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
@@ -2500,8 +2513,9 @@
       "title": "llms.txt clarified as unused by Google Search",
       "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
       "source_type": "official",
-      "retrieved": "2026-07-06",
-      "last_verified": "2026-07-06",
+      "retrieved": "2026-07-10",
+      "last_verified": "2026-07-10",
+      "published": "2026-06-15",
       "refresh_due": "2026-08-06",
       "confidence": "high",
       "section": "ai-search",
@@ -2514,7 +2528,12 @@
       "source_pool": "data/google-updates.json",
       "evidence_tier": "EVIDENCE-BASED",
       "living_doc": true,
-      "last_updated": "2026-06-15",
+      "page_last_updated": "2026-06-29",
+      "changelog_event": {
+        "date": "2026-06-15",
+        "source_id": "g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search",
+        "summary": "Search documentation update clarified that llms.txt is not needed for Google Search visibility."
+      },
       "date_precision": "day",
       "raw_snapshot_path": ".raw/sources/claude-blog-brain-data/google-updates.json",
       "raw_snapshot_sha256": "9ca5e729bdf30f27b4e6d49139c4c50a128a4dc48e7791621515d6b800d7e86b",
@@ -2646,28 +2665,54 @@
       "limitations": "Vendor market analysis. Separate growth-rate claims from absolute traffic-share claims."
     },
     {
+      "id": "se-ranking-ai-mode-research",
+      "title": "AI Mode research: Volatility, source patterns, and differences from AIO and organic results",
+      "url": "https://seranking.com/blog/ai-mode-research/",
+      "source_type": "primary",
+      "retrieved": "2026-07-10",
+      "last_verified": "2026-07-10",
+      "published": "2025-08-29",
+      "refresh_due": "2026-08-09",
+      "confidence": "medium",
+      "section": "geo",
+      "claims": [
+        "SE Ranking reported an average of 12.6 links per AI Mode answer across 9,734 triggered responses from a 10,000-keyword US sample collected on 2025-06-20.",
+        "SE Ranking reported high AI Mode source volatility and limited overlap with AI Overviews and organic search results."
+      ],
+      "supports_claims": [
+        "SE Ranking reported an average of 12.6 links per AI Mode answer across 9,734 triggered responses from a 10,000-keyword US sample collected on 2025-06-20.",
+        "SE Ranking reported high AI Mode source volatility and limited overlap with AI Overviews and organic search results."
+      ],
+      "source_pool": "SE Ranking AI Mode study and claim-ledger remediation",
+      "evidence_tier": "PRACTITIONER",
+      "living_doc": false,
+      "date_precision": "day",
+      "limitations": "Vendor study using a 10,000-keyword US sample and 9,734 triggered AI Mode responses. Treat as a practitioner benchmark, not Google first-party truth."
+    },
+    {
       "id": "semrush-ai-mode-comparison",
       "title": "AI Mode comparison study",
       "url": "https://www.semrush.com/blog/ai-mode-comparison-study/",
       "source_type": "primary",
       "retrieved": "2026-07-06",
       "last_verified": "2026-07-06",
-      "published": "2025-06-24",
+      "published": "2025-07-21",
       "refresh_due": "2026-08-06",
       "confidence": "medium",
       "section": "geo",
       "claims": [
-        "AI Mode answers are described in the substrate as citation-heavy, with about 12.6 links per answer and most answers carrying at least one citation.",
+        "Semrush reported that 92% of AI Mode responses in its 5,000-keyword desktop study used a sidebar with links averaging about seven unique domains.",
         "AI Mode behavior should be handled as a distinct optimization surface from classic organic results and AI Overviews."
       ],
       "supports_claims": [
-        "AI Mode answers are described in the substrate as citation-heavy, with about 12.6 links per answer and most answers carrying at least one citation.",
+        "Semrush reported that 92% of AI Mode responses in its 5,000-keyword desktop study used a sidebar with links averaging about seven unique domains.",
         "AI Mode behavior should be handled as a distinct optimization surface from classic organic results and AI Overviews."
       ],
       "source_pool": "research-substrate.md and claude-blog skill references",
       "evidence_tier": "PRACTITIONER",
       "living_doc": false,
-      "date_precision": "day"
+      "date_precision": "day",
+      "limitations": "Vendor study of 5,000 desktop queries across four platforms. Does not support the 12.6 links-per-answer statistic, which belongs to se-ranking-ai-mode-research."
     },
     {
       "id": "niemanlab-subscribed-publications-aio-2026",

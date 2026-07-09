@@ -79,7 +79,7 @@ The deliverables lane now contains 33 output-contract notes. Start at [[wiki/del
 - Source posture: review. Current claim routing should use [[Research Pack Index]], [[Source Ledger Reading Guide]], [[Claim To Source Mapping]], and [[Evidence Gap Register]].
 - Spoke notes: seed to active. Hub lists now match the actual current folder contents.
 - External systems: evergreen. Brain remains advisory and read-only.
-- Market readiness: blocked. Do not call market-ready until the audit command passes and cross-document maturity contradictions are resolved.
+- Market readiness: market-ready. The audit computes market-ready with score 100; keep future status changes tied to `scripts/audit_brain.py`.
 - Lint posture: seed. Run `python3 scripts/lint_vault.py` after each navigation or graph update.
 
 ## Related

@@ -12,7 +12,7 @@ Claude Blog Brain serves blog content creation, optimization, and management. It
 
 ## Skill Surface
 
-The brain is grounded in the claude-blog skill. The served workflows include `/blog write`, `/blog rewrite`, `/blog analyze`, `/blog brief`, `/blog outline`, `/blog calendar`, `/blog strategy`, `/blog seo-check`, `/blog schema`, `/blog repurpose`, `/blog geo`, `/blog audit`, `/blog cannibalization`, `/blog factcheck`, `/blog persona`, `/blog discourse`, `/blog taxonomy`, `/blog google`, `/blog update`, `/blog cluster`, `/blog multilingual`, `/blog translate`, `/blog localize`, `/blog locale-audit`, and `/blog flow`.
+The brain is grounded in the claude-blog v1.11.0 skill. The served user-facing workflows include `/blog write`, `/blog rewrite`, `/blog analyze`, `/blog brief`, `/blog outline`, `/blog calendar`, `/blog strategy`, `/blog seo-check`, `/blog schema`, `/blog repurpose`, `/blog geo`, `/blog image`, `/blog audit`, `/blog cannibalization`, `/blog factcheck`, `/blog persona`, `/blog brand`, `/blog discourse`, `/blog taxonomy`, `/blog notebooklm`, `/blog audio`, `/blog google`, `/blog update`, `/blog cluster`, `/blog multilingual`, `/blog translate`, `/blog localize`, `/blog locale-audit`, `/blog flow`, `/blog style`, and `/blog decay`. `blog-chart` remains internal-only.
 
 ## Core Workflows
 

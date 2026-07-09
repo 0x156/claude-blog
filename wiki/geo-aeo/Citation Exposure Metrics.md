@@ -4,7 +4,7 @@ title: "Citation Exposure Metrics"
 domain: "GEO and AEO"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [geo-aeo, ai-citation, evergreen]
 ---
 
@@ -18,7 +18,7 @@ The Google `llms.txt` clarification (`g-update-2026-06-15-llms-txt-clarified-as-
 
 ### Metrics This Note Counts
 
-Count impressions, clicks, query, page, surface label, observed citation presence, citation URL, date, locale, and device when the data source can provide them.
+Count only the fields the selected data source can provide. The Search Console generative AI report lane counts impressions with page or URL, country, device, and date fields under `g-genai-reports`; query and click analysis belongs to classic Search Console via `g-gsc-api` or to an owner-supplied export with provenance.
 
 ### Metrics This Note Refuses
 
@@ -32,7 +32,7 @@ Do not count "AI optimized" badges, llms.txt existence, unverified screenshots, 
 | Observed citation | Manual SERP or assistant capture with URL and date | `g-ai-features`, `blog-io2026` | Observation, not guaranteed repeatability | GEO reviewer | Store query, locale, device, and screenshot reference |
 | Preview-control exposure risk | Snippet setting and page rule | `g-ai-opt-guide`, `g-ai-features` | Official guidance context | Technical SEO | Link to [[AI Feature Preview Controls]] |
 | llms.txt request | File exists or stakeholder asks for one | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | CONFIRMED no Google Search visibility effect | Researcher | Report as caveat, not KPI |
-| Organic query baseline | GSC query and page export | `g-gsc-api`, `g-genai-reports` | First-party export when supplied | Analyst | Keep classic Search and AI feature rows separate |
+| Organic query baseline | GSC query and page export | `g-gsc-api` | First-party export when supplied | Analyst | Keep classic Search and AI feature rows separate |
 | Post-click engagement | GA4 organic sessions and engagement fields | `g-ga4-data` | First-party export when supplied | Data owner | Use only after URL keys are reconciled |
 | Manual sample gap | Query capture exists but no repeatable export | `g-ai-features` | Observation-only evidence | GEO reviewer | Add missing-data note instead of trend language |
 
@@ -48,7 +48,7 @@ Do not count "AI optimized" badges, llms.txt existence, unverified screenshots, 
 
 A reviewer samples three queries for one guide and observes an AI Overview citation on only one capture. The metric row remains "observed citation" because `g-ai-features` supports feature context, not repeatability or trend interpretation.
 
-The property owner later provides a Search Console generative AI export. The packet adds query, URL, date range, clicks, and impressions under the first-party lane using `g-genai-reports`, while classic organic query baselines stay in the `g-gsc-api` lane.
+The property owner later provides a Search Console generative AI export. The packet adds surface, page or URL, country, device, date range, and impressions under the first-party lane using `g-genai-reports`, while queries, clicks, CTR, and position stay in the `g-gsc-api` lane unless an owner-supplied AI export documents those fields.
 
 If GA4 export is supplied, post-click engagement is reported after canonical URL matching. `g-ga4-data` supports the GA4 reporting surface, but it does not identify which answer surface created a visit without clean source and medium evidence.
 
@@ -63,11 +63,11 @@ If GA4 export is supplied, post-click engagement is reported after canonical URL
 
 [[Google API Evidence Matrix]] consumes this note for field-level evidence planning. It needs surface label, credential tier, export fields, missing-data notes, and the source ID that supports each API surface.
 
-The matrix expects a concrete output list: GSC generative AI fields, GSC classic query fields, optional GA4 fields, and manual observation fields that cannot be joined without operator evidence.
+The matrix expects a concrete output list: GSC generative AI fields, GSC classic query and click fields, optional GA4 fields, and manual observation fields that cannot be joined without operator evidence.
 
 ## Metric Packet Shape
 
-A Google AI row lists surface, query, URL, date range, impressions, clicks, and `g-genai-reports`.
+A Google AI row lists surface, page or URL, country, device, date range, impressions, and `g-genai-reports`. If query-level AI data or AI click data is absent, write "query-level AI data unavailable in the supplied export" instead of inferring it.
 
 A classic organic row lists query, page, clicks, impressions, and `g-gsc-api`.
 

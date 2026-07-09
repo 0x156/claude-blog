@@ -1,7 +1,7 @@
 # Current Requirements
 
 Status: researched. Evidence is captured in `references/source-ledger.json`.
-Last verified: 2026-07-09.
+Last verified: 2026-07-10.
 Refresh due: 2026-08-09.
 
 ## Source Standard
@@ -103,8 +103,9 @@ passages where useful, with source context close to the claim.
 
 Google says generative AI optimization is SEO, not a separate file or markup
 game.
-Source: Google generative AI optimization guide, updated 2026-06-15, retrieved
-2026-07-09.
+Sources: `g-ai-opt-guide` page last updated 2026-06-29, retrieved 2026-07-10;
+`g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` changelog
+event 2026-06-15, retrieved 2026-07-10.
 Claim: Google Search does not use `llms.txt` for Search, AI Overviews, or AI
 Mode. Google says no special AI schema, Markdown conversion, chunking file, or
 AI rewrite layer is required for its generative AI Search features.

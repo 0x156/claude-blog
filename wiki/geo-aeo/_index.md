@@ -4,7 +4,7 @@ title: "GEO AEO Index"
 domain: "Blog Content Brain"
 status: active
 created: 2026-07-09
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [type-hub, geo-aeo, active]
 related:
   - "[[index|Index]]"
@@ -14,11 +14,12 @@ source_urls: []
 
 # GEO and AEO Index
 
-Folder index for 13 geo and aeo notes.
+Folder index for 14 geo and aeo notes.
 
 ## Notes
 
 - [[AI Citation Mechanics]]
+- [[AI Crawler Accessibility]]
 - [[AI Feature Preview Controls]]
 - [[AI Mode Citation Review]]
 - [[AI Overview Citation Review]]

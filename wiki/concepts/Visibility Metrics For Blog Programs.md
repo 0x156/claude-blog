@@ -4,7 +4,7 @@ title: "Visibility Metrics For Blog Programs"
 domain: "Blog Content Optimization"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [dual-optimization, reporting, metrics]
 confidence: advisory
 related:
@@ -24,7 +24,7 @@ source_urls:
 
 This note defines the reporting vocabulary for a blog program that optimizes for Search and AI citation surfaces. Its job is to stop dashboards from hiding uncertainty. A good report says which metrics are observed, which are sampled from market studies, and which are inferred only as planning context.
 
-Use official Google documentation for participation boundaries (`g-ai-opt-guide`, `g-ai-features`). Use `sparktoro-zero-click-2026` to explain why impressions and clicks cannot be treated as the whole value story. Use `seer-aio-impact-ctr-2026` when a report needs AIO citation context, with the association caveat from [[AI Citation Mechanics]].
+Use official Google documentation for participation boundaries (`g-ai-opt-guide`, `g-ai-features`). Use `g-gsc-api` for Search Console impressions, clicks, CTR, query, page, and position exports, and `g-ga4-data` for analytics or engagement fields. Use `sparktoro-zero-click-2026` and `seer-aio-impact-ctr-2026` only as market-context caveats, not as property metric sources.
 
 ### Metric Inventory Inputs
 
@@ -43,12 +43,12 @@ Use official Google documentation for participation boundaries (`g-ai-opt-guide`
 
 | Metric lane | Preferred evidence | Source IDs | Dashboard label | Review cadence |
 |---|---|---|---|---|
-| Classic Search impressions | Search Console property export | `g-ai-opt-guide` | Observed Search visibility | Monthly |
-| Organic click yield | Search Console plus analytics | `sparktoro-zero-click-2026` | Observed clicks with market caveat | Monthly |
-| AIO citation status | Manual or tool-assisted citation checks | `seer-aio-impact-ctr-2026`, `g-ai-features` | Citation exposure, not traffic | Biweekly during tests |
+| Classic Search impressions | Search Console property export | `g-gsc-api` | Observed Search visibility | Monthly |
+| Organic click yield | Search Console clicks plus analytics engagement | `g-gsc-api`, `g-ga4-data` | Observed clicks with engagement follow-up | Monthly |
+| AIO citation status | Manual or tool-assisted citation checks | `g-ai-features` | Citation exposure, not traffic | Biweekly during tests |
 | AI eligibility blockers | Crawlability, snippets, indexing, preview controls | `g-ai-opt-guide`, `g-ai-features` | Technical eligibility | Before major refreshes |
 | Generative AI impressions | Search Console AI Overview and AI Mode reporting when exposed | `g-genai-reports` | Observed AI Search visibility | Monthly while available |
-| Market context lane | External zero-click or AI referral studies | `sparktoro-zero-click-2026`, `similarweb-gen-ai-stats-2026` | Background context, not property performance | Quarterly planning |
+| Market context lane | External zero-click, AIO CTR, or AI referral studies | `sparktoro-zero-click-2026`, `seer-aio-impact-ctr-2026`, `similarweb-gen-ai-stats-2026` | Background context, not property performance | Quarterly planning |
 
 ## Dashboard Case For A Cluster
 

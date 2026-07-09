@@ -4,7 +4,7 @@ title: "Multilingual Publishing Runbook"
 domain: "Blog Content Brain"
 status: active
 created: 2026-07-09
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [deliverables, multilingual, publishing]
 source_urls:
   - "https://developers.google.com/search/docs/specialty/international/localized-versions"
@@ -17,7 +17,7 @@ source_urls:
 
 ## Publishing Scope For One Command
 
-This runbook defines the artifact that a future approved multilingual command should produce for [[Multilingual Publishing]]. In V1 it remains advisory: it writes no CMS settings, does not submit sitemaps, and does not mutate hreflang. The source IDs are `g-localized`, `g-multiregional`, `g-helpful-content`, and `schema-full`.
+This runbook defines the artifact package that the current `/blog multilingual` command produces for [[Multilingual Publishing]]. In V1 it is an artifact-only command: it writes source and localized files plus hreflang assets, but it does not mutate CMS settings, submit sitemaps, or publish changes. The source IDs are `g-localized`, `g-multiregional`, `g-helpful-content`, and `schema-full`.
 
 ## Inputs And Decisions Held Outside Automation
 
@@ -27,12 +27,12 @@ Required inputs are source article, target locale, URL structure, translator or 
 
 | Phase | Input | Output | Evidence requirement | Review date |
 |---|---|---|---|---|
-| Source write | Approved canonical article | Locale-ready source packet | Helpfulness and source fidelity via `g-helpful-content` | Before translation |
-| Translate | Source packet, glossary | Draft translation | Preserved claims and citations | Same sprint |
-| Localize | Draft, regional examples, CTA rules | Market-adapted draft | Human locale review | Before QA |
-| Hreflang plan | URL map, language codes | Annotation map | Return-link and x-default check via `g-localized` | Before publish |
+| Source write | Topic, source language, format | `multilingual/{source}/{slug}.{ext}` | Helpfulness and source fidelity via `g-helpful-content` | Before translation |
+| Translate | Source packet, glossary, target codes | `multilingual/{lang}/{localized-slug}.{ext}` | Preserved claims and citations | Same sprint |
+| Localize | Draft, regional examples, CTA rules | Market-adapted localized file | Human locale review | Before QA |
+| Hreflang plan | URL map, language codes | `multilingual/hreflang-tags.html`, `multilingual/hreflang-sitemap.xml`, `multilingual/hreflang-map.json` | Return-link and x-default check via `g-localized` | Before publish |
 | URL structure | ccTLD, subdomain, or subdirectory decision | CMS-ready path map | Structure rationale via `g-multiregional` | Before CMS work |
-| Schema strings | Localized title, description, entity names | Schema text packet | Vocabulary route through `schema-full` | Before final QA |
+| Schema strings | Localized title, description, entity names | Localized Article or BlogPosting JSON-LD with `inLanguage` and translation relationship | Vocabulary route through `schema-full` | Before final QA |
 | Sitemap-ready list | Approved localized URLs | Discovery handoff | Only canonical locale URLs | After QA |
 
 ## Operating Loop After Launch

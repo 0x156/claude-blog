@@ -41,5 +41,6 @@ evidence until the ledger is backfilled.
   device filter, and retrieval date.
 - Do not use deprecated tactics, including FAQ rich results, HowTo rich
   results, or FID, as current recommendations.
-- Do not call the brain market-ready until raw snapshots, hashes, citations,
-  adapter tests, and the release audit all pass.
+- Do not call the brain market-ready until local raw snapshots and hashes,
+  external source URL and retrieval metadata, citations, adapter tests, and the
+  release audit all pass.

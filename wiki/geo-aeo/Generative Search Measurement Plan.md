@@ -4,7 +4,7 @@ title: "Generative Search Measurement Plan"
 domain: "GEO and AEO"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-10
 tags: [geo-aeo, ai-citation, evergreen]
 ---
 
@@ -27,7 +27,7 @@ Defer lift estimates, ROI promises, and channel-budget moves until the site has 
 | Phase | Inputs | Output | Owner | Evidence requirement | Follow-up |
 |---|---|---|---|---|---|
 | Surface inventory | Query list, locale, device, target URL | AIO, AI Mode, assistant, or none | Analyst | `g-ai-features` plus observation date | Pick the review note |
-| First-party export | GSC generative AI report if available | Impressions, clicks, query, URL | Data owner | `g-genai-reports` and export metadata | Send to [[Google Data Integrations]] |
+| First-party export | GSC generative AI report if available | Impressions, page or URL, country, device, and date | Data owner | `g-genai-reports` and export metadata | Send to [[Google Data Integrations]] |
 | Citation sampling | SERP captures or assistant answers | Cited URL log and screenshot references | GEO reviewer | `g-ai-opt-guide` for caveat language | Use [[Citation Exposure Metrics]] |
 | Market context | Stakeholder planning question | Caveated benchmark paragraph | Strategist | `sparktoro-zero-click-2026`, `seer-aio-impact-ctr-2026`, `similarweb-gen-ai-stats-2026` | Label as AS-REPORTED |
 | Missing-report disclosure | Property lacks eligible AI reporting | Missing-data note and review date | Analyst | `g-genai-reports` | Do not replace with market averages |
@@ -43,7 +43,9 @@ Defer lift estimates, ROI promises, and channel-budget moves until the site has 
 
 ## Measurement Packet Scenario
 
-A content lead wants to know whether five refreshed articles are visible in generative search. The plan starts with property access: if Search Console generative AI reporting is available, `g-genai-reports` supports exporting impressions, clicks, queries, and URLs for the covered Google surfaces.
+A content lead wants to know whether five refreshed articles are visible in generative search. The plan starts with property access: if Search Console generative AI reporting is available, `g-genai-reports` supports impressions by page or URL, country, device, and date for the covered Google surfaces.
+
+If the export does not include query-level AI fields or AI click fields, the analyst writes "query-level AI data unavailable in the supplied export" and keeps query or click interpretation in the `g-gsc-api` lane or in an owner-supplied export with its own provenance.
 
 If the report is unavailable, the analyst records a missing-report disclosure and then runs manual citation sampling. The sample uses `g-ai-features` for Search feature context and cannot be graphed as a trend without repeatable evidence.
 
@@ -68,7 +70,7 @@ The matrix expects an output that separates first-party exports, manual captures
 
 Manual captures should keep query, locale, device, date, and reviewer constant under `g-ai-features`.
 
-First-party exports should use stable date ranges before interpreting `g-genai-reports` changes.
+First-party AI exports should use stable date ranges before interpreting `g-genai-reports` changes, but query and click rows stay outside that source unless an owner-supplied export proves they exist.
 
 Market assumptions should be refreshed before client-facing use when their ledger due date passes.
 
