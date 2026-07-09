@@ -9,18 +9,20 @@ tags: [type-hub, sources, active]
 related:
   - "[[index|Index]]"
   - "[[Research Pack Index]]"
+  - "[[Claim Verification Flow]]"
   - "[[Claim To Source Mapping]]"
 source_urls: []
 ---
 
 # Sources Index
 
-Folder index for 14 source-governance notes.
+Folder index for 15 source-governance notes.
 
 ## Notes
 
 - [[Canon Notes Map]]
 - [[Claim To Source Mapping]]
+- [[Claim Verification Flow]]
 - [[Current Requirements Digest]]
 - [[Evidence Gap Register]]
 - [[Google Source Priority Ladder]]

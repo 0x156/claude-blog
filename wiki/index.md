@@ -63,11 +63,10 @@ Start at [[Start Here]], scan [[hot|Hot]], then open the theme or type hub close
 
 ## Type hubs
 
-Root wiki note count after this remediation pass: 257.
+Root wiki note count after this remediation pass: 252.
 
 Folder counts below exclude `_index.md` files.
 
-- [[wiki/accounts/_index|Accounts]]: 0 notes
 - [[wiki/briefs-outlines/_index|Briefs Outlines]]: 12 notes
 - [[wiki/clusters/_index|Clusters]]: 12 notes
 - [[wiki/concepts/_index|Concepts]]: 13 notes
@@ -77,10 +76,7 @@ Folder counts below exclude `_index.md` files.
 - [[wiki/distribution/_index|Distribution]]: 12 notes
 - [[wiki/eeat/_index|E-E-A-T]]: 13 notes
 - [[wiki/entities/_index|Entities]]: 1 note
-- [[wiki/experiments/_index|Experiments]]: 0 notes
 - [[wiki/flow/_index|FLOW]]: 12 notes
-- [[wiki/flows/_index|Flows]]: 1 note
-- [[wiki/gaps/_index|Gaps]]: 0 notes
 - [[wiki/geo-aeo/_index|GEO AEO]]: 13 notes
 - [[wiki/media/_index|Media]]: 13 notes
 - [[wiki/meta/_index|Meta]]: 4 notes
@@ -89,10 +85,9 @@ Folder counts below exclude `_index.md` files.
 - [[wiki/personas/_index|Personas]]: 13 notes
 - [[wiki/platforms/_index|Platforms]]: 1 note
 - [[wiki/quality/_index|Quality]]: 12 notes
-- [[wiki/questions/_index|Questions]]: 0 notes
 - [[wiki/rewriting/_index|Rewriting]]: 13 notes
 - [[wiki/schema/_index|Schema]]: 13 notes
-- [[wiki/sources/_index|Sources]]: 14 notes
+- [[wiki/sources/_index|Sources]]: 15 notes
 - [[wiki/writing/_index|Writing]]: 13 notes
 
 ## Working memory

@@ -1,12 +1,14 @@
 ---
-type: flow
+type: spoke
 title: "Claim Verification Flow"
 domain: "Source Evidence"
 status: active
 created: 2026-07-08
-updated: 2026-07-08
-tags: [flows, sources, evidence, active]
+updated: 2026-07-09
+tags: [sources, evidence, verification, active]
+confidence: advisory
 related:
+  - "[[Research Pack Index]]"
   - "[[Claim To Source Mapping]]"
   - "[[Source Confidence Labels]]"
   - "[[Evidence Gap Register]]"
