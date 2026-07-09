@@ -3,150 +3,51 @@ type: spoke
 title: "Schema And E-E-A-T Alignment"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [schema, blog-schema, evergreen]
 domain: "Blog Structured Data"
 confidence: verified
 related:
   - "[[Blog Schema Stack]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Article Schema Baseline]]"
-  - "[[BlogPosting Versus Article]]"
   - "[[Author Person Markup]]"
   - "[[Organization Entity Graph]]"
-  - "[[BreadcrumbList For Blogs]]"
-  - "[[Visible Q And A Without FAQ Rich Results]]"
-  - "[[VideoObject For Blog Posts]]"
-  - "[[Product Mentions In Blog Schema]]"
-  - "[[Dual Optimization]]"
+  - "[[E-E-A-T for Blog Content]]"
 source_urls:
   - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
   - "https://schema.org/docs/full.html"
   - "https://www.w3.org/TR/json-ld11/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/product"
 ---
 # Schema And E-E-A-T Alignment
 
-## Summary
-Schema And E-E-A-T Alignment is a schema review note for blog schema stack.
-It connects schema identity nodes to visible trust signals and author evidence.
-Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity graph, or structured data block.
+## Alignment Job
 
-## Operating Question
-- Does structured data reinforce the same trust story readers can inspect?
-- The expected output is an alignment note linking schema fields to E-E-A-T elements.
-- The main risk is using markup to claim trust signals not visible on the page.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note checks whether structured data tells the same trust story as the visible page. Schema can clarify author, publisher, dates, and source relationships, but it is not a substitute for expertise, experience, editorial standards, or reputation evidence. The quality lens belongs to [[E-E-A-T for Blog Content]]; this note only checks that the graph does not contradict it.
 
-## Current Evidence Anchors
-- Google structured data introduction retrieved 2026-07-06 recommends JSON-LD and requires markup to describe visible content.
-- Google FAQPage documentation records FAQ rich results retired for all sites effective 2026-05-07.
-- Google Search Gallery dated 2026-07-01 in the ledger defines supported rich result types.
-- Schema.org full hierarchy and JSON-LD 1.1 provide standards references for vocabulary and serialization.
-- Article or BlogPosting with Person, Organization, and BreadcrumbList is the blog priority after FAQ and HowTo visibility loss.
-- Rich result eligibility is never a guarantee, and unsupported markup should not be sold as a current Search feature.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+Use `g-intro-sd` for Google's visible-content guardrail, `schema-full` for available identity properties, `w3c-jsonld` for graph linking, and `g-search-gallery` when the reviewer discusses a supported Search appearance. The claim discipline is CONFIRMED for these official or standards sources, but schema-to-quality effects beyond those sources must stay advisory.
 
-## Operating Standard
-- Describe only visible page content in structured data.
-- Prefer JSON-LD unless a local platform requires another supported format.
-- Use Google Search Central for supported Search features and Schema.org for vocabulary breadth.
-- Keep Article or BlogPosting, author identity, publisher identity, and breadcrumbs coherent.
-- Avoid presenting FAQPage or HowTo as current blog rich result tactics.
-- Use Product or VideoObject only when the page visibly contains qualifying content.
-- Validate syntax, vocabulary, Google support, and page-content alignment before handoff.
-- Treat schema as entity clarity and eligibility support, not a traffic guarantee.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+## Trust Signal To Schema Map
 
-## Review Sequence
-1. Open [[Blog Schema Stack]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+| Visible trust signal | Schema field or relation | Validation target | Warning to record | Source id |
+|---|---|---|---|---|
+| Named author and author page | Article `author` linked to Person `@id` | Byline and author profile agree | Do not use Person markup to create expertise not shown on the page | `g-intro-sd` |
+| Publisher identity | Article `publisher` linked to Organization | Footer, about page, and graph use one entity | Sponsor, vendor, and publisher roles need separation | `schema-full` |
+| Editorial recency | `datePublished` and `dateModified` | Dates match visible page and CMS record | Build date or import date should not masquerade as editorial update | `g-intro-sd` |
+| Review or expert involvement | Visible reviewer or policy section before schema use | Reviewer field only when supported by page content | Hidden review claims create trust debt | `schema-full` |
+| Rich-result note | Search Gallery support before feature language | Current gallery entry exists | A valid vocabulary property is not a display promise | `g-search-gallery` |
+| Connected graph | Stable `@id` links among article, author, and organization | JSON-LD graph can be traced | Duplicate IDs can fragment the entity story | `w3c-jsonld` |
 
-## Specific Checks
-- Check that schema and e-e-a-t alignment is applied to the correct content unit.
-- Check that the decision matches this purpose: connects schema identity nodes to visible trust signals and author evidence.
-- Check that the output can be inspected as an alignment note linking schema fields to E-E-A-T elements.
-- Check that the risk is addressed directly: using markup to claim trust signals not visible on the page.
-- Verify that each marked-up fact is visible to readers.
-- Validate JSON-LD syntax before interpreting eligibility.
-- Check Google Search Gallery support before promising a feature.
-- Use Schema.org vocabulary for entity clarity even when Google has no rich result.
-- Keep author, publisher, dates, images, and breadcrumbs consistent with the page.
-- Avoid obsolete FAQ and HowTo rich result advice.
-- Use Product or VideoObject only for visible qualifying content.
-- Record validation evidence and unresolved platform constraints.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+## E-E-A-T Boundary
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+If the visible content lacks author qualifications, firsthand evidence, source citations, or editorial disclosures, schema should not paper over the gap. Record the gap and route it to the trust review. Schema can point to an author page, but the author page has to carry the actual evidence. Schema can connect publisher identity, but it cannot prove reputation.
 
-## Failure Modes
-- The markup describes content that is not visible on the page.
-- A rich result is promised even though Google support has changed.
-- FAQPage is retained as a visual SERP tactic after retirement.
-- Author or publisher nodes conflict with visible page identity.
-- Product markup is added to casual product mentions.
-- VideoObject appears without a qualifying visible video.
-- The schema validates syntactically but fails editorial alignment.
-- The structured data creates a disconnected entity graph.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## Review Procedure
 
-## Handoff
-- Attach the schema note to the article template, CMS ticket, or audit report.
-- List visible-content dependencies before implementation advice.
-- Record validation tools and unresolved warnings.
-- Send author and trust issues to [[E-E-A-T for Blog Content]].
-- Send media markup questions to [[Images Audio and Charts]].
-- Send deprecation questions to [[Google Algorithm Update Ledger]].
-- Send citation entity questions to [[AI Citation Mechanics]].
-- Score technical readiness through [[Blog Quality Score]].
-- Use [[Article Schema Baseline]] when this note needs a sibling follow-up.
-- Use [[BlogPosting Versus Article]] when the next decision belongs beside this note.
+1. Read the page as a reader and list trust claims before inspecting JSON-LD.
+2. Map each trust claim to a visible page element and then to a schema field.
+3. Remove or flag schema fields whose evidence is absent, hidden, or contradicted.
+4. Send editorial gaps to [[E-E-A-T for Blog Content]] and graph gaps to [[Blog Schema Stack]].
 
-## Related
-- [[Blog Schema Stack]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Images Audio and Charts]]
-- [[Multilingual Publishing]]
-- [[Google Data Integrations]]
-- [[Google Algorithm Update Ledger]]
-- [[Article Schema Baseline]]
-- [[BlogPosting Versus Article]]
-- [[Author Person Markup]]
-- [[Organization Entity Graph]]
-- [[BreadcrumbList For Blogs]]
-- [[Visible Q And A Without FAQ Rich Results]]
-- [[VideoObject For Blog Posts]]
-- [[Product Mentions In Blog Schema]]
-- [[Schema Validation Workflow]]
-- [[Structured Data Deprecation Register]]
-- [[JSON-LD Publishing Checklist]]
+## Schema Trust Publishing Boundary
+
+The handoff should separate graph fixes from content fixes. A graph fix can repair wrong IDs, missing links, or inconsistent roles. A content fix must be handled by editors and reviewers before schema repeats the claim.

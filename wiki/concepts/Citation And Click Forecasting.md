@@ -1,151 +1,60 @@
 ---
 type: spoke
 title: "Citation And Click Forecasting"
+domain: "Blog Content Optimization"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
-tags: [dual-optimization, evergreen]
-domain: "Blog Content Optimization"
+updated: 2026-07-09
+tags: [dual-optimization, forecasting, citations]
 confidence: advisory
 related:
   - "[[Dual Optimization]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Search Visibility Versus Citation Exposure]]"
-  - "[[Zero Click Planning Baseline]]"
   - "[[AI Overview CTR Interpretation]]"
-  - "[[AI Mode Query Share Context]]"
-  - "[[Citation Readiness Decision Tree]]"
-  - "[[Reader Value Versus Extraction Value]]"
-  - "[[Dual Optimization Risk Register]]"
-  - "[[Dual Optimization Briefing Checklist]]"
-  - "[[6-Pillar Dual Optimization]]"
+  - "[[Zero Click Planning Baseline]]"
+  - "[[Search Visibility Versus Citation Exposure]]"
 source_urls:
   - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
   - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://developers.google.com/search/docs/appearance/ai-features"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
 ---
 # Citation And Click Forecasting
 
-## Summary
-Citation And Click Forecasting is a planning note for dual optimization.
-It sets conservative forecasts under zero-click, AI Overview, and AI Mode constraints.
-Use it with [[Dual Optimization]] when the working unit is a blog program, article, or section.
+## Citation And Click Forecasting Distinct Job
 
-## Operating Question
-- What forecast can be defended without promising rankings or citations?
-- The expected output is a forecast range with named assumptions and review cadence.
-- The main risk is building a single deterministic traffic forecast from volatile surfaces.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note defines how to build a cautious forecast when a blog program is optimizing for both visits and answer-surface citation. It is not a traffic promise and it is not a ranking model. Its useful output is a bounded scenario with named assumptions, a review cadence, and a visible line between clicks, citations, and assisted outcomes.
 
-## Current Evidence Anchors
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026.
-- The same substrate records AI Mode near 0.34 percent of US query volume, so AI Mode work must be proportional.
-- Seer, 2026-04-24, reports AIO organic CTR recovery from about 1.3 percent in December 2025 to about 2.4 percent in February 2026.
-- Seer also reports cited pages at about 120 percent more clicks per impression than pages not cited when an AI Overview is present.
-- Google AI optimization guidance updated 2026-06-15 keeps the foundation on helpful, crawlable, structured content.
-- Search Console generative AI performance reporting began in June 2026 for a subset of properties, so first-party data should replace market averages when present.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+Use [[Zero Click Planning Baseline]] for the market backdrop from `sparktoro-zero-click-2026`. Use [[AI Citation Mechanics]] when a claim depends on AI Overview inclusion or citation behavior. Seer's cited-page finding can inform upside language, but it remains an association from a practitioner dataset (`seer-aio-impact-ctr-2026`). Google states that AI optimization relies on Search fundamentals and does not require special AI files (`g-ai-opt-guide`); the 2026 Google update entry on `llms.txt` reinforces that it is not a Google visibility lever (`g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`).
 
-## Operating Standard
-- Separate visibility, click, citation, and assisted outcome language before any forecast is shared.
-- State whether the recommendation is for classic Search, AI Overview exposure, AI Mode exposure, or reader trust.
-- Use market studies as planning context until Google Search Console or analytics data exists for the property.
-- Avoid promising ranking gains, AIO inclusion, AI Mode citation, or traffic recovery.
-- Keep zero click behavior visible in the brief so success is not reduced to organic clicks.
-- Pair every current market statistic with its publication date and retrieval date.
-- Treat passage-level work as the citation unit and page-level usefulness as the reader unit.
-- Escalate stale, unsourced, or overconfident claims back to [[Research Pack Index]].
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+### Forecast Inputs
 
-## Review Sequence
-1. Open [[Dual Optimization]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+- Baseline impressions, clicks, ranking position, and conversion or assisted-value metric.
+- Whether the target has AIO exposure, AI Mode exposure, neither, or unknown status.
+- Market context from source-ledger studies, clearly marked as non-client evidence.
+- The smallest measurable review window for the program.
 
-## Specific Checks
-- Check that citation and click forecasting is applied to the correct content unit.
-- Check that the decision matches this purpose: sets conservative forecasts under zero-click, AI Overview, and AI Mode constraints.
-- Check that the output can be inspected as a forecast range with named assumptions and review cadence.
-- Check that the risk is addressed directly: building a single deterministic traffic forecast from volatile surfaces.
-- Identify the search surface before selecting a tactic.
-- Name the business question the metric should answer.
-- Separate market evidence from property evidence.
-- Record what would change the priority call.
-- State whether the recommendation affects planning, drafting, rewriting, or reporting.
-- Keep every forecast as a range unless first-party data supports a tighter number.
-- Explain the reader benefit before the optimization benefit.
-- Connect the decision to a measurable next review.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+### Forecast Boundaries
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+- Do not apply a single AIO CTR number to every query.
+- Do not count citations as clicks unless the click is observed.
+- Do not add an `llms.txt` uplift, because Google has not documented it as useful for Search visibility.
 
-## Failure Modes
-- A report treats citations, impressions, and clicks as interchangeable.
-- A forecast uses a market average without saying whether property data exists.
-- A strategy overweights AI Mode because it is prominent in product news.
-- A brief hides zero click behavior from stakeholders.
-- A recommendation implies that optimization can force AI inclusion.
-- A metric lacks a source date or refresh plan.
-- A passage is made extractable but no longer reads naturally.
-- A planning decision has no rollback cue when evidence changes.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## Forecast Assumption Ledger
 
-## Handoff
-- Attach the metric split to the brief or report.
-- Name which evidence came from market sources and which came from the property.
-- Record the recommendation confidence as verified or advisory.
-- Add the next review date when a market source or Google guidance can change.
-- Send drafting needs to [[6-Pillar Dual Optimization]].
-- Send citation passage needs to [[AI Citation Mechanics]].
-- Send trust gaps to [[E-E-A-T for Blog Content]].
-- Send schema questions to [[Blog Schema Stack]].
-- Use [[Search Visibility Versus Citation Exposure]] when this note needs a sibling follow-up.
-- Use [[Zero Click Planning Baseline]] when the next decision belongs beside this note.
+| Forecast piece | Input required | Evidence IDs | Confidence handling | Review trigger |
+|---|---|---|---|---|
+| Lower click yield | Search demand and zero-click context | `sparktoro-zero-click-2026` | Medium, market panel | Refresh when the source-ledger panel changes |
+| Citation upside | Cited versus uncited AIO comparison | `seer-aio-impact-ctr-2026` | Medium, association only | Replace with property AIO data if available |
+| Technical eligibility | Crawlable content and preview controls | `g-ai-opt-guide` | High for Google guidance | Recheck after Google doc updates |
+| Excluded factor | `llms.txt` proposed as ranking input | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | High rejection for Google Search | Keep out unless Google reverses guidance |
 
-## Related
-- [[Dual Optimization]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[6-Pillar Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Blog Schema Stack]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
-- [[Search Visibility Versus Citation Exposure]]
-- [[Zero Click Planning Baseline]]
-- [[AI Overview CTR Interpretation]]
-- [[AI Mode Query Share Context]]
-- [[Citation Readiness Decision Tree]]
-- [[Reader Value Versus Extraction Value]]
-- [[Dual Optimization Risk Register]]
-- [[Dual Optimization Briefing Checklist]]
-- [[Classic SEO And GEO Tradeoffs]]
-- [[Visibility Metrics For Blog Programs]]
-- [[Market Average Versus First Party Data]]
+## Scenario Build Procedure
+
+1. Start with current first-party clicks, not market averages.
+2. Build conservative, expected, and upside cases around observed query groups.
+3. Attach each scenario to the evidence IDs that justify the assumption.
+4. Mark citation exposure separately from visits and assisted conversions.
+5. Send the final wording to [[AI Overview CTR Interpretation]] if AIO studies are used.
+
+## Review And Reversal Cues
+
+A forecast should be revised when Google adds reporting fields, when the property gains direct AIO or AI Mode data, when market studies conflict with observed behavior, or when a planned optimization no longer improves reader usefulness.

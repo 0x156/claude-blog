@@ -1,153 +1,44 @@
 ---
 type: spoke
 title: "Source Proximity Pattern"
+domain: "GEO and AEO"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [geo-aeo, ai-citation, evergreen]
-domain: "GEO and AEO"
-confidence: advisory
-related:
-  - "[[AI Citation Mechanics]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Passage Citability Checklist]]"
-  - "[[AI Overview Citation Review]]"
-  - "[[AI Mode Citation Review]]"
-  - "[[llms.txt Caveat Note]]"
-  - "[[Entity Clarity For AI Answers]]"
-  - "[[Answer Block Extraction Test]]"
-  - "[[Citation Exposure Metrics]]"
-  - "[[AI Feature Preview Controls]]"
-  - "[[Dual Optimization]]"
-source_urls:
-  - "https://developers.google.com/search/docs/appearance/ai-features"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
 ---
+
 # Source Proximity Pattern
 
-## Summary
-Source Proximity Pattern is a citation review note for AI citation mechanics.
-It places sources close enough to claims for reader and AI attribution context.
-Use it with [[AI Citation Mechanics]] when the working unit is a answer passage, AI feature exposure, or citation report.
+## Source Proximity Pattern Evidence Job
 
-## Operating Question
-- Is the source near the claim it supports?
-- The expected output is a source-proximity pattern with revised paragraph examples.
-- The main risk is burying source links far from the answer.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note defines how close a source must be to the claim it supports inside an extractable passage. The pattern is editorial and evidentiary, not a documented Google ranking factor. Use `g-ai-features` and `g-ai-opt-guide` for official Google AI feature boundaries, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` for the file shortcut caveat, and `ziptie-aio-source-selection` for practitioner guidance on visible attribution near answer blocks. `blog-io2026` provides AI Mode product context when the passage is being reviewed for conversational search.
 
-## Current Evidence Anchors
-- Google AI features documentation retrieved 2026-07-06 describes AI Overviews and AI Mode as Search surfaces with standard crawling and preview controls.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt for Search, AI Overviews, or AI Mode.
-- Google I/O Search update dated 2026-05-19 reported AI Mode surpassed 1B plus monthly users.
-- SparkToro, 2026-06-09, records AI Mode near 0.34 percent of US query volume in the substrate.
-- Seer, 2026-04-24, reports cited pages at about 120 percent more clicks per impression than pages not cited when AI Overviews are present.
-- ZipTie, 2026-03-25, is practitioner guidance for self-contained answer passages and visible source attribution.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Source Types This Note Owns
 
-## Operating Standard
-- Treat passage-level citability as the practical unit of GEO work.
-- Separate AI Overview, AI Mode, assistant answer, and classic organic outcomes.
-- Keep llms.txt caveated as non-Google Search guidance if it is mentioned.
-- Use market studies as directional context until first-party GSC reporting exists.
-- Never claim that a page can force inclusion or citation in an AI feature.
-- Place entity names, dates, constraints, and source context inside or near the answer block.
-- Keep preview-control recommendations explicit about tradeoffs for snippets and AI features.
-- Record confidence as advisory when evidence comes from practitioner observation.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+Own primary research, official documentation, first-party data exports, standards documents, market studies, and practitioner observations when they appear beside a claim in a blog passage.
 
-## Review Sequence
-1. Open [[AI Citation Mechanics]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### Claims This Note Must Not Validate Alone
 
-## Specific Checks
-- Check that source proximity pattern is applied to the correct content unit.
-- Check that the decision matches this purpose: places sources close enough to claims for reader and AI attribution context.
-- Check that the output can be inspected as a source-proximity pattern with revised paragraph examples.
-- Check that the risk is addressed directly: burying source links far from the answer.
-- Check whether the answer block names the entity without relying on prior paragraphs.
-- Add the key date, qualifier, or scope limit inside the extractable passage.
-- Place a source near the claim instead of only in a bibliography.
-- Distinguish AI Overview review from AI Mode review.
-- Confirm preview-control choices match the visibility goal.
-- Use GSC generative AI data when available and label missing data plainly.
-- Keep practitioner extraction advice marked as advisory.
-- Do not promise citation, inclusion, or click lift.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+Do not validate ranking effect, traffic lift, AI citation probability, or assistant inclusion. Source proximity improves auditability; it does not prove distribution.
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Source Proximity Pattern Source Table
 
-## Failure Modes
-- A passage is concise but lacks entity clarity or source context.
-- llms.txt is framed as a Google Search visibility requirement.
-- AI Mode work receives budget without proportional query-share context.
-- A preview control is changed without noting visibility tradeoffs.
-- Practitioner findings are written as official Google facts.
-- Citation exposure is reported without separating available and inferred data.
-- The article is optimized for extraction but loses reader usefulness.
-- The recommendation promises an AI citation.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Source ID | URL owner or type | Date basis | Claim coverage | Limitation | Refresh cadence |
+|---|---|---|---|---|---|
+| `g-ai-features` | Google Search documentation | last verified 2026-07-09 | AI feature and preview-control context | Does not guarantee citation | Monthly or docs change |
+| `g-ai-opt-guide` | Google Search documentation | updated 2026-06-15 | AI optimization foundations and no special AI files | Not a passage template spec | Monthly or docs change |
+| `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Google update record | 2026-06-15 event | llms.txt has no Google Search visibility effect | Does not govern non-Google consumers | Review through [[2026 Google Update Timeline]] |
+| `ziptie-aio-source-selection` | Practitioner source | published 2026-03-25 | Visible attribution and extractable blocks | Advisory, not official | Replace if stronger evidence appears |
+| `blog-io2026` | Google product blog | published 2026-05-19 | AI Mode product-scale context | Not a page-level traffic metric | Refresh before AI Mode planning |
 
-## Handoff
-- Attach the citation note to the brief, draft, or AI feature report.
-- Label every recommendation as official, first-party, market, or practitioner evidence.
-- Record whether GSC generative AI reporting is available for the property.
-- Send section-writing fixes to [[6-Pillar Dual Optimization]].
-- Send source gaps to [[Research Pack Index]].
-- Send schema entity questions to [[Blog Schema Stack]].
-- Send measurement work to [[Google Data Integrations]].
-- Score readiness through [[Blog Quality Score]].
-- Use [[Passage Citability Checklist]] when this note needs a sibling follow-up.
-- Use [[AI Overview Citation Review]] when the next decision belongs beside this note.
+## Source Proximity Pattern Refresh Procedure
 
-## Related
-- [[AI Citation Mechanics]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[Blog Schema Stack]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
-- [[Passage Citability Checklist]]
-- [[AI Overview Citation Review]]
-- [[AI Mode Citation Review]]
-- [[llms.txt Caveat Note]]
-- [[Entity Clarity For AI Answers]]
-- [[Answer Block Extraction Test]]
-- [[Citation Exposure Metrics]]
-- [[AI Feature Preview Controls]]
-- [[GEO Risk Register]]
-- [[Generative Search Measurement Plan]]
-- [[Assistant Answer Surface Map]]
+1. Put the source ID in the same paragraph or table row as the claim it supports.
+2. Add the date, geography, sample, or official-document status when the claim depends on it.
+3. Move broad market context to [[AI Citation Mechanics]] or [[Dual Optimization]] instead of overloading one passage.
+4. Refresh the source when the ledger due date passes or the claim becomes client-facing.
+
+## Source Proximity Pattern Handoff
+
+If the source is close but the subject is unclear, use [[Entity Clarity For AI Answers]]. If the source is missing from the ledger, route the gap to [[Research Pack Index]] before using the claim.

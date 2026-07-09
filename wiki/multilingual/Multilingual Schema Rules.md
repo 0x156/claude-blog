@@ -1,156 +1,55 @@
 ---
 type: spoke
 title: "Multilingual Schema Rules"
+domain: "Multilingual Blog Publishing"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
-tags: [multilingual, localization, active]
-domain: "Multilingual Blog Publishing"
-confidence: advisory
-related:
-  - "[[Multilingual Publishing]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Research Pack Index]]"
-  - "[[Voice and Style]]"
-  - "[[Locale Review Workflow]]"
-  - "[[Machine Translation Risk Notes]]"
-  - "[[Regional Legal And YMYL Escalation]]"
-  - "[[Multilingual Refresh Cadence]]"
-  - "[[Locale Launch QA]]"
-  - "[[Localized Source Requirements]]"
-  - "[[Locale Intent Research]]"
+updated: 2026-07-09
+tags: [multilingual, schema, structured-data, active]
 source_urls:
-  - "https://developers.google.com/search/docs/specialty/international/localized-versions"
-  - "https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites"
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/essentials/spam-policies"
   - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
+  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+  - "https://schema.org/docs/full.html"
+  - "https://www.w3.org/TR/json-ld11/"
 ---
 
 # Multilingual Schema Rules
 
-## Summary
-This spoke keeps Article, BlogPosting, author, Organization, and BreadcrumbList fields aligned with visible localized content.
-It belongs to [[Multilingual Publishing]] and supports locale-aware translation, hreflang, source fidelity, and regional content quality.
-Primary working inputs: schema JSON-LD, localized title, author entity, canonical and alternate URLs.
-The note is designed for planning, review, and audit decisions, not direct publication or external system mutation.
-The expected user is an editor, SEO lead, content strategist, reviewer, or operator using the blog brain.
-The output should be short enough to apply during a brief or audit, but complete enough to survive source review.
+## Rule Scope
 
-## Evidence Anchors
-- Google localized versions documentation, retrieved 2026-07-06, is the route for hreflang return links and x-default handling.
-- Google multi-regional guidance, retrieved 2026-07-06, is the route for URL structure choices across languages and regions.
-- Google spam policies updated 2026-05-15 flag automated transformations, including low-value translations, as a scaled content risk.
-- Helpful content guidance retrieved 2026-07-06 applies the same people-first quality bar to translated and localized pages.
-- Locale recommendations are advisory until native-language review, legal review where needed, and local source checks are complete.
-- As of 2026-07-06, SparkToro reports 68.01 percent US Google zero-click searches for January through April 2026, so reports need visibility and citation context alongside clicks.
-- Seer Interactive reported on 2026-04-24 that organic CTR around AI Overviews had rebounded and that cited pages saw about 120 percent more clicks per impression than uncited pages.
-- Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
-- Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
-- The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+This note keeps Article, BlogPosting, author, Organization, and BreadcrumbList fields aligned with the localized page a reader can see. It is not a general schema tutorial. Use [[Blog Schema Stack]] for broader schema strategy, then return here when a multilingual page needs localized names, URLs, descriptions, breadcrumbs, or author information.
 
-## Required Inputs
-- Target language and country or region, written as a precise locale rather than a vague market.
-- Canonical source article and the intended localized URL.
-- Alternate URL set, including self-reference, return links, and any fallback page.
-- Local source list for laws, pricing, product availability, units, dates, and examples.
-- Reviewer identity or reviewer role for language quality and source fidelity.
-- Schema fields that need localized names, descriptions, URLs, and author details.
-- Known YMYL or legal sensitivity that requires escalation before publication.
-- Refresh trigger for facts that vary by market or language.
+The source IDs are `g-intro-sd`, `g-search-gallery`, `schema-full`, and `w3c-jsonld`. Google documentation controls Search eligibility posture. Schema.org supplies vocabulary. W3C JSON-LD supports serialization mechanics.
 
-## Workflow
-- Define the decision this note supports: keeps Article, BlogPosting, author, Organization, and BreadcrumbList fields aligned with visible localized content.
-- Open [[Multilingual Publishing]] and confirm the hub rule that applies before using this spoke.
-- Map every localized claim to a source that is valid for the target locale or mark it as an evidence gap.
-- Check hreflang only after canonical URLs and locale URL structure are stable.
-- Treat translation memory, machine translation, and glossary matches as starting evidence, not final quality.
-- Require native or qualified review for idiom, cultural examples, YMYL risk, and legal references.
-- Start from the parent hub and confirm the article, locale, data set, or source family affected by this note.
-- List the claims that the draft or audit output will make before editing style, media, or schema.
-- Attach a source URL, retrieval date, and confidence label to each current or risky claim.
-- Separate reader-facing advice from implementation notes so the brain stays advisory in V1.
-- Check whether first-party property data exists before leaning on market averages or practitioner studies.
-- Record any missing evidence as a gap instead of converting it into a confident recommendation.
-- Route schema decisions through visible page content and current Google-supported rich result documentation.
-- Route AI citation decisions through answer-first passages, clear entities, and source-backed wording.
-- Route multilingual and persona decisions through human review when local facts, legal terms, or YMYL sensitivity appear.
-- Keep all external system changes outside this note and write only the recommendation, rationale, and rollback condition.
+### Allowed Actions
 
-## Review Checks
-- The note names exact dates when guidance can become stale.
-- The recommendation does not promise rankings, traffic, AI citations, or rich results.
-- FAQPage is not framed as a current rich result tactic after 2026-05-07.
-- FID is not used as a current Core Web Vital, and INP is used when performance enters the decision.
-- llms.txt is not presented as a Google Search visibility requirement.
-- The cited source is appropriate for the claim strength and not just a convenient example.
-- The output tells the reader what to do when first-party data is unavailable.
-- The advice can be reversed or refreshed if Google documentation changes.
-- The body links back to the parent hub, Index, and sibling spokes for graph health.
-- The note stays inside the assigned folder and does not mutate references, data, scripts, or external platforms.
+Localize schema strings that are visible or semantically equivalent on the page. Keep stable organization identity when the organization has one global entity. Update URLs, breadcrumbs, and language-specific descriptions to match the rendered localized page.
 
-## Risk Controls
-- Evidence currency risk: Multilingual Schema Rules decisions can go stale when a source, date, or requirement changes.
-- Claim scope risk: keep Multilingual Schema Rules advice tied to the source coverage named in this note.
-- Operational boundary risk: do not turn Multilingual Schema Rules into CMS, analytics, Search Console, API, or publishing mutation steps.
-- Proof gap risk: when the note lacks direct evidence, record the gap instead of upgrading confidence.
-- Audience fit risk: adjust Multilingual Schema Rules guidance for topic sensitivity, locale, and review ownership before use.
-- Media and data risk: verify charts, visuals, metrics, and examples before they carry this note's claims.
-- Metric interpretation risk: separate first-party exports, market studies, and API signals in Multilingual Schema Rules outputs.
-- Monitoring risk: quarantine unconfirmed volatility until a dated source in the ledger supports it.
+### Disallowed Actions
 
-## Output Shape
-- A Multilingual Schema Rules decision summary for the editor or auditor.
-- The source IDs or URLs that directly support the active recommendation.
-- A confidence label that matches the evidence strength for this note.
-- A rollback or refresh condition tied to the source or workflow affected.
-- A blocked-claims list for Multilingual Schema Rules gaps that need more evidence.
-- A handoff note naming the writer, editor, reviewer, or data owner next action.
-- Links back to the parent hub and sibling notes that keep the graph navigable.
-- A no-action statement when Multilingual Schema Rules evidence is incomplete or outside this brain.
+Do not use schema to smuggle translated claims that are not visible on the page. Do not add rich-result types only because a locale has weaker organic performance. Do not copy source-language schema names into a localized page unless the page visibly uses those names.
 
-## Related
-- [[Multilingual Publishing]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Research Pack Index]]
-- [[Voice and Style]]
-- [[Locale Review Workflow]]
-- [[Machine Translation Risk Notes]]
-- [[Regional Legal And YMYL Escalation]]
-- [[Multilingual Refresh Cadence]]
-- [[Locale Launch QA]]
-- [[Localized Source Requirements]]
-- [[Locale Intent Research]]
+### Exceptions Requiring Approval
 
-## Source URLs
-- https://developers.google.com/search/docs/specialty/international/localized-versions
-- https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites
-- https://developers.google.com/search/docs/fundamentals/creating-helpful-content
-- https://developers.google.com/search/docs/essentials/spam-policies
-- https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
-- https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/
-- https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update
-- https://blog.google/products-and-platforms/products/search/search-io-2026/
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage
-- https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
-- https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
-- https://ziptie.dev/blog/google-ai-overviews-source-selection/
+Approval is required when the localized brand name, author identity, product entity, or legal publisher differs from the source page. Route those cases to the schema owner and locale editor before [[Locale Launch QA]].
 
-## Maintenance Notes
-- Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
-- Keep backlink health with [[Multilingual Publishing]], [[index|Index]], and sibling spokes in this folder.
-- Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
-- Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.
-- Do not record secrets, tokens, private exports, or private client details in this note.
-- Do not publish or mutate CMS, GSC, GA4, Search Console, analytics, schema, sitemap, or platform settings from this note.
+## Multilingual Schema Rule Table
+
+| Rule | Evidence source | Applies to | Enforcement | Approval path |
+|---|---|---|---|---|
+| Schema text must match visible localized content | `g-intro-sd`, `schema-full` | Article, BlogPosting, BreadcrumbList | Compare rendered page and JSON-LD | Schema reviewer |
+| JSON-LD syntax must remain valid after translation | `w3c-jsonld` | All JSON-LD blocks | Validate generated code before handoff | Technical SEO |
+| Rich-result assumptions must use supported Google types | `g-search-gallery` | Google Search enhancement claims | Reject unsupported type promises | SEO lead |
+| Breadcrumb URLs must match the localized page hierarchy | `schema-full`, visible URL map | BreadcrumbList | Check URL, label, and hierarchy parity | International SEO |
+| Author and Organization identity must not be invented locally | `schema-full`, `g-intro-sd` | Person and Organization | Confirm entity exists on page | Editorial owner |
+
+## Review And Rollback
+
+1. Inspect the localized page before reviewing the schema block.
+2. Validate syntax and required entity relationships.
+3. Remove schema fields that are not supported by visible content.
+4. Roll back to the prior schema block if translation introduces entity ambiguity or invalid JSON-LD.
+
+## Evidence Limit
+
+This note can approve consistency and supported-type posture. It cannot promise a rich result or AI citation.

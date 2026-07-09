@@ -9,62 +9,61 @@ domain: "Source Evidence"
 confidence: verified
 related:
   - "[[Research Pack Index]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
   - "[[Claim To Source Mapping]]"
   - "[[Current Requirements Digest]]"
   - "[[Source Confidence Labels]]"
-  - "[[research-pack-2026-07-06|Research Pack 2026-07-06]]"
+  - "[[Research Release Gate Notes]]"
 source_urls:
-  - "https://developers.google.com/search/updates"
-  - "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing"
+  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://developers.google.com/webmaster-tools/v1/searchanalytics/query"
-  - "https://developers.google.com/webmaster-tools/v1/urlInspection.index/inspect"
-  - "https://ai.google.dev/gemini-api/docs/image-generation"
-  - "https://ai.google.dev/gemini-api/docs/imagen"
-  - "https://c2pa.org/"
+  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+  - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
 ---
 
 # Evidence Gap Register
 
-## Summary
+## Evidence Gap Register Record Scope
 
-This register holds evidence problems that would otherwise leak into recommendations as overconfident claims. A gap is closed only when the affected source, date, claim, and note path are fixed in the relevant machine or wiki layer.
+This register holds source problems that would otherwise leak into recommendations as confident claims. A gap is not a backlog wish. It is a claim-risk record with an owner, review date, confidence state, and rollback trigger.
 
-The wiki can document a real source inside the owned path, but release-grade evidence still needs `references/source-ledger.json` and raw-source provenance outside this edit scope.
+Use this note when a source is missing, stale, too broad, unsupported by the assigned source IDs, or unable to prove the exact claim. The fix can be to find better evidence, narrow the claim, downgrade the label, or remove the claim.
 
-## Open Gaps
+## Events Or Items This Register Captures
 
-| Gap ID | Gap | Owner | Due | Affected notes | Severity | Blocking rule |
-|---|---|---|---:|---|---|---|
-| GAP-2026-07-09-01 | Source ledger needs separate `published`, `last_updated`, `retrieved`, `event_date`, and `date_precision` fields for Google documentation pages that currently mix page dates and event dates. | source steward | 2026-07-16 | [[research-pack-2026-07-06|Research Pack 2026-07-06]], [[Claim To Source Mapping]], [[Current Requirements Digest]] | blocker | Blocks release-grade citation integrity. |
-| GAP-2026-07-09-02 | `g-product-sd` is date-mismatched: the live Product intro page shows last updated 2025-12-10, while the July 7 change is on Search docs updates and merchant listing documentation. | source steward | 2026-07-16 | [[research-pack-2026-07-06|Research Pack 2026-07-06]], [[Structured Data Deprecation Register]], [[Product Mentions In Blog Schema]] | blocker | Blocks trustworthy ecommerce schema guidance. |
-| GAP-2026-07-09-03 | July 1 AMP documentation update has a real Google source but no machine-ledger source ID or raw snapshot in this edit scope. | source steward | 2026-07-16 | [[2026 Google Update Timeline]], [[Google Algorithm Update Ledger]], [[Current Requirements Digest]] | high | Blocks release claims that the ledger is current through July 2026. |
-| GAP-2026-07-09-04 | Preferred Sources 2026-05-27 AI Mode and AI Overviews availability has a real Google source but no dedicated ledger source ID in this edit scope. | source steward | 2026-07-16 | [[2026 Google Update Timeline]], [[AI Citation Mechanics]], [[Distribution and Repurposing]] | high | Blocks source-ID completeness for AI distribution guidance. |
-| GAP-2026-07-09-05 | HowTo rich result deprecation is sourced to Google Search Central, but the source is not yet represented as a machine-ledger source ID. | schema steward | 2026-07-16 | [[Structured Data Deprecation Register]], [[Blog Schema Stack]], [[Quality Score Rubric]] | medium | Blocks a fully auditable deprecated-schema register. |
-| GAP-2026-07-09-06 | Search Console Search Analytics and URL Inspection API scope claims are sourced to official docs, but exact API pages need machine-ledger entries. | data steward | 2026-07-16 | [[Credential Boundary Rules]], [[Metric Export Schema]], [[Read Only Data Access Pattern]] | medium | Blocks verified credential-boundary source IDs. |
-| GAP-2026-07-09-07 | Search Console generative AI report Help Center pages need ledger entries for subset availability, dimensions, UI export behavior, and API caveats. | data steward | 2026-07-16 | [[Google Data Integrations]], [[Metric Export Schema]], [[Generative AI Performance Reporting]] | high | Blocks API-equivalent export claims. |
-| GAP-2026-07-09-08 | Gemini image generation, Nano Banana model families, SynthID, Imagen shutdown, and C2PA sources need machine-ledger entries and raw snapshots. | media steward | 2026-07-23 | [[Generated Media Disclosure Notes]], [[Images Audio and Charts]] | medium | Blocks model-specific media guidance from being release-verified. |
-| GAP-2026-07-09-09 | Raw provenance remains incomplete outside owned paths, while wiki notes cite live URLs and source pools. | release owner | 2026-07-23 | [[Research Pack Index]], [[Source Ledger Reading Guide]], [[Research Release Gate Notes]] | blocker | Blocks immutable evidence claims and market-ready release. |
-| GAP-2026-07-09-10 | The relationship map generator lives outside owned paths and still hard-codes a generic SVG. This pass replaces the attachment only. | vault maintainer | 2026-07-23 | [[dashboard]], [[overview]], [[index|Index]] | medium | Blocks repeatable graph generation until the script is fixed. |
+- A Google source supports a narrower claim than the draft uses.
+- A claim cites a real URL but no source ID exists in the ledger.
+- A source date conflicts with a note's date.
+- A recommendation crosses from Google Search into non-Google assistant behavior.
+- A schema claim names a feature not present in `g-search-gallery`.
 
-## Triage Rules
+## Events Or Items Routed Elsewhere
 
-| Severity | Meaning | Allowed use before closure |
-|---|---|---|
-| blocker | The gap can make release claims, maturity gates, or source integrity false. | Use only as a named blocker. Do not use in release claims. |
-| high | The gap can make current operating guidance stale or incomplete. | Use with explicit caveat and refresh trigger. |
-| medium | The source is real, but ledger, raw provenance, or scope detail is incomplete. | Use in advisory wiki guidance, not as a release-verified claim. |
-| low | Navigation, hygiene, or presentation issue that does not change claim truth. | Fix opportunistically. |
+- Confirmed update history belongs in [[Google Algorithm Update Ledger]] once `g-ranking-history` supports it.
+- Clean claim rows belong in [[Claim To Source Mapping]].
+- Label definitions belong in [[Source Confidence Labels]].
+- Release gate consequences belong in [[Research Release Gate Notes]].
 
-## Closure Checklist
+## Evidence Gap Register Register Table
 
-- Add or correct the machine-ledger entry outside this owned path.
-- Capture immutable raw source material and hash it when the release gate requires raw provenance.
-- Update [[Claim To Source Mapping]] with the final source ID and date fields.
-- Update affected operating notes and remove `pending:` source IDs.
-- Run `python3 scripts/lint_vault.py` and any broader release audit requested by the owner.
+| Gap ID | Evidence problem | Source ID involved | Owner | Confidence state | Status | Next review | Rollback trigger |
+|---|---|---|---|---|---|---:|---|
+| GAP-SRC-001 | A content claim turns `g-helpful-content` into a ranking guarantee. | `g-helpful-content` | content steward | gap | open | 2026-07-16 | Remove guarantee or add property evidence with a narrower claim. |
+| GAP-SRC-002 | A Google AI Search claim is applied to non-Google assistants. | `g-ai-opt-guide` | GEO steward | contested | open | 2026-07-16 | Split Google Search guidance from assistant-specific evidence. |
+| GAP-SRC-003 | A schema recommendation names a rich result not shown in Search Gallery. | `g-search-gallery` | schema reviewer | gap | open | 2026-07-16 | Remove rich-result claim or add current feature documentation. |
+| GAP-SRC-004 | An update impact claim uses official history for timing but not causation. | `g-ranking-history` | monitoring owner | advisory | open | 2026-07-16 | Rephrase as confirmed rollout only, or add first-party impact analysis. |
+| GAP-SRC-005 | A note needs API or generated-media evidence outside this source slice. | none in assigned set | source steward | gap | open | 2026-07-23 | Add proper ledger entries outside this folder or remove the claim. |
+
+## Source, Confidence, Owner, Status, And Due Date
+
+The table's confidence state is a claim state, not a source-quality score. A high-quality Google source can still produce a gap when a note asks it to prove too much.
+
+## Evidence Gap Register Review Loop
+
+1. Identify the exact sentence that would become unsafe if published.
+2. Name the source ID that was used or mark the source as missing.
+3. Assign an owner who can narrow, source, or remove the claim.
+4. Set the next review date close enough to block release drift.
+5. Move the issue to [[Claim To Source Mapping]] only after the claim has source ID, date, coverage, and limitation.
 
 ## Related
 
@@ -72,4 +71,4 @@ The wiki can document a real source inside the owned path, but release-grade evi
 - [[Claim To Source Mapping]]
 - [[Current Requirements Digest]]
 - [[Source Confidence Labels]]
-- [[research-pack-2026-07-06|Research Pack 2026-07-06]]
+- [[Research Release Gate Notes]]

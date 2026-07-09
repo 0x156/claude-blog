@@ -1,151 +1,57 @@
 ---
 type: spoke
 title: "Information Gain Checklist"
+domain: "Blog Writing"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [writing, six-pillar, evergreen]
-domain: "Blog Writing"
-confidence: advisory
-related:
-  - "[[6-Pillar Dual Optimization]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Intent Fit Writing Pass]]"
-  - "[[Experience Signal Placement]]"
-  - "[[Answer First Section Pattern]]"
-  - "[[Evidence Density For Blog Posts]]"
-  - "[[Citation Ready Paragraphs]]"
-  - "[[Blog Introduction Patterns]]"
-  - "[[Blog Conclusion Patterns]]"
-  - "[[Internal Link Placement Rules]]"
-  - "[[Dual Optimization]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
 ---
+
 # Information Gain Checklist
 
-## Summary
-Information Gain Checklist is a drafting note for six-pillar writing.
-It forces the draft to add value beyond paraphrasing existing search results.
-Use it with [[6-Pillar Dual Optimization]] when the working unit is a draft section, outline, or article.
+## Information Gain Checklist Review Scope
 
-## Operating Question
-- What does this post add that a reader cannot get from the current SERP summary?
-- The expected output is an information-gain checklist with examples, data, or decision criteria.
-- The main risk is publishing a competent but replaceable summary.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This checklist decides whether the draft adds useful content beyond what a competent reader would already find in common SERP summaries. Information gain can come from original examples, sharper distinctions, data interpretation, field constraints, decision rules, or clearer caveats. It cannot be simulated by longer prose.
 
-## Current Evidence Anchors
-- Google helpful content guidance retrieved 2026-07-06 is the people-first writing baseline.
-- The active QRG substrate is dated 2025-09-11, with no newer revision recorded as of 2026-07-06.
-- Google AI optimization guidance updated 2026-06-15 keeps generative AI optimization on SEO foundations.
-- FAQ rich results were retired for all sites effective 2026-05-07, so visible Q and A supports readers and extraction, not a rich result promise.
-- ZipTie, 2026-03-25, is practitioner evidence for self-contained answer passages and close source attribution.
-- The writing system must keep sources close to claims and preserve human accountability for AI-assisted drafts.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Checks Unique To This Gate
 
-## Operating Standard
-- Open each important section with a direct answer before adding nuance.
-- Make the reader problem explicit before keyword, schema, or citation work starts.
-- Add original value through examples, data, experience, comparison, or decision criteria.
-- Place dated sources near claims that could become stale.
-- Use headings to expose the answer hierarchy without flattening the article into fragments.
-- Keep Q and A blocks visible only when they help the reader or passage extraction.
-- Connect every drafting rule to [[Blog Quality Score]] before handoff.
-- Treat AI-assisted wording as draft material that requires review, sourcing, and editorial accountability.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+This gate looks for new reader value inside the draft, not just accurate sourcing. `g-helpful-content` supports the standard that content should be helpful and reliable. `g-qrg-full` raises the trust burden for topics where weak advice can harm the reader. `ziptie-aio-source-selection` is relevant only after a distinct answer exists; it cannot create the substance itself.
 
-## Review Sequence
-1. Open [[6-Pillar Dual Optimization]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### Inputs Required Before Review
 
-## Specific Checks
-- Check that information gain checklist is applied to the correct content unit.
-- Check that the decision matches this purpose: forces the draft to add value beyond paraphrasing existing search results.
-- Check that the output can be inspected as an information-gain checklist with examples, data, or decision criteria.
-- Check that the risk is addressed directly: publishing a competent but replaceable summary.
-- Check whether the primary answer appears before supporting context.
-- Mark every current claim that needs a dated source.
-- Look for original examples, first-hand evidence, or useful comparisons.
-- Remove generic filler that does not help the reader decide or understand.
-- Confirm headings match the answer hierarchy.
-- Confirm internal links are placed at moments of reader need.
-- Confirm schema notes do not drive the article away from visible content.
-- Send unresolved source gaps to the brief before the draft is approved.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+Before using this checklist, gather the target reader job, the outline, competitor or SERP observations, approved source IDs, and any first-party examples. AI-facing claims must stay inside `g-ai-opt-guide`, and broad AI visibility context should link to [[AI Citation Mechanics]] rather than repeat a market line.
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Information Gain Pass Fail Table
 
-## Failure Modes
-- The draft answers late and loses the impatient reader.
-- The post repeats SERP consensus without adding information gain.
-- The strongest evidence sits far from the claim it supports.
-- The introduction promises more certainty than the sources allow.
-- The article uses Q and A blocks as a deprecated rich result tactic.
-- The conclusion does not help the reader choose a next step.
-- The internal links are added for quota rather than context.
-- The draft relies on AI fluency instead of verified claims.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Check | Pass evidence | Fail signal | Source evidence | Severity | Fix owner |
+|---|---|---|---|---|---|
+| Distinct answer | The article states a position or decision rule | It paraphrases common summaries | `g-helpful-content` | Major | Writer |
+| Original proof | Example, method, data, or field note is visible | Claims are true but interchangeable | `g-qrg-full` | Major | Editor |
+| Useful caveat | Limitation changes reader action | Caveat is generic or absent | `g-helpful-content`, `g-qrg-full` | Blocker for sensitive claims | Reviewer |
+| Extractable substance | Self-contained answer contains real evidence | Passage is concise but empty | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Advisory to major | GEO reviewer |
+| Reader advancement | The reader can decide next step | Post ends with awareness only | `g-helpful-content` | Major | Strategist |
 
-## Handoff
-- Attach the writing pass to the draft or outline.
-- List missing sources before editorial approval.
-- Mark sections that need expert or reviewer input.
-- Send freshness gaps to [[Freshness and Content Decay]].
-- Send trust gaps to [[E-E-A-T for Blog Content]].
-- Send citation gaps to [[AI Citation Mechanics]].
-- Send schema notes to [[Blog Schema Stack]].
-- Score the final draft through [[Blog Quality Score]].
-- Use [[Intent Fit Writing Pass]] when this note needs a sibling follow-up.
-- Use [[Experience Signal Placement]] when the next decision belongs beside this note.
+## Information Gain Handoff Rules
+
+1. If no row passes, send the article back to brief or research instead of editing style.
+2. If only the extractable-substance row fails, route to [[Citation Ready Paragraphs]].
+3. If proof exists but is misplaced, route to [[Experience Signal Placement]].
+4. If the missing value is strategic positioning, return to [[SERP-Informed Briefs and Outlines]].
+5. If the topic is trust-sensitive, require editor approval before the draft enters [[Blog Quality Score]].
+
+## Source Handling
+
+This note cites `g-helpful-content`, `g-ai-opt-guide`, `g-qrg-full`, and `ziptie-aio-source-selection`. It does not cite market benchmarks because this pass measures draft substance, not search behavior.
 
 ## Related
+
 - [[6-Pillar Dual Optimization]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[E-E-A-T for Blog Content]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Blog Quality Score]]
-- [[FLOW Framework]]
-- [[Intent Fit Writing Pass]]
 - [[Experience Signal Placement]]
-- [[Answer First Section Pattern]]
-- [[Evidence Density For Blog Posts]]
-- [[Citation Ready Paragraphs]]
-- [[Blog Introduction Patterns]]
-- [[Blog Conclusion Patterns]]
-- [[Internal Link Placement Rules]]
-- [[Six Pillar Editing Rubric]]
-- [[Claim Source Pairing Pattern]]
-- [[Reader Satisfaction Test]]
+- [[SERP-Informed Briefs and Outlines]]
+- [[Blog Quality Score]]

@@ -1,111 +1,51 @@
 ---
 type: hub
 title: "FLOW Framework"
+domain: "Blog Workflow"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [flow, active]
-domain: "Blog Workflow"
 confidence: verified
 related:
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Dual Optimization]]"
-  - "[[6-Pillar Dual Optimization]]"
-  - "[[SERP-Informed Briefs and Outlines]]"
-  - "[[Blog Quality Score]]"
-  - "[[Research Pack Index]]"
-  - "[[CONVENTIONS]]"
-source_urls:
-  - "https://github.com/AgriciDaniel/flow"
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
+  - "[[FLOW Source Intake]]"
+  - "[[FLOW Brief Stage]]"
+  - "[[FLOW Draft Stage]]"
+  - "[[FLOW Review Stage]]"
+  - "[[FLOW Factcheck Stage]]"
+  - "[[FLOW Report Stage]]"
 ---
 
 # FLOW Framework
 
-## Summary
+## FLOW Framework Operating Scope
 
-FLOW Framework is the evidence discipline layer for planning, drafting, checking, and reporting blog work.
+FLOW Framework is the evidence discipline layer for blog planning, drafting, checking, rewriting, and reporting. It keeps the workflow from becoming a generic prompt chain by requiring source IDs, confidence, owners, and handoffs at each stage. The FLOW bibliography is the local framework source (source_id: `gh-flow-framework`). Google helpful-content guidance and the QRG inform usefulness and trust review (source_ids: `g-helpful-content`, `g-qrg-full`). Google AI optimization guidance keeps AI feature work grounded in Search fundamentals rather than separate folklore requirements (source_id: `g-ai-opt-guide`).
 
-This hub routes FLOW into the blog brain without expanding the full prompt corpus.
+### What This Hub Owns In FLOW Evidence Workflow
 
-## Current fact anchors
+The hub owns stage boundaries, source discipline, confidence tags, approval routing, and reporting shape. It connects writing work to [[FLOW Source Intake]], [[FLOW Brief Stage]], [[FLOW Draft Stage]], [[FLOW Review Stage]], [[FLOW Factcheck Stage]], [[FLOW Rewrite Stage]], [[FLOW Approval Queue]], [[FLOW Rollback Notes]], and [[FLOW Report Stage]].
 
-- The FLOW framework bibliography in the ledger is dated 2026-06-22 and retrieved 2026-07-06.
-- Google helpful content guidance, retrieved 2026-07-06, reinforces reader usefulness and source-backed quality.
-- Google AI optimization guidance, updated 2026-06-15, keeps AI feature work grounded in Search fundamentals.
-- Google third-party SEO guidance, 2026-06-05, warns against vendor or tool ranking guarantees.
-- FLOW should preserve evidence, constraints, and confidence through the blog workflow.
+### What The Hub Must Not Absorb
 
-## Scope
+The hub must not absorb every SEO concept, rewrite tactic, schema rule, or Google update. Those belong in their canonical notes such as [[AI Citation Mechanics]], [[Blog Schema Stack]], [[E-E-A-T for Blog Content]], and [[2026 Google Update Timeline]]. FLOW points to those notes when evidence is needed.
 
-- Define source intake discipline.
-- Define brief and outline evidence handling.
-- Define drafting constraints.
-- Define factchecking gates.
-- Define rewrite and freshness gates.
-- Define quality scoring and confidence.
-- Define report handoff.
-- Keep external system mutations outside V1.
+## FLOW Framework Spoke Map
 
-## Future spoke notes
+| Spoke | Input | Evidence required | Produced artifact | Downstream handoff |
+|---|---|---|---|---|
+| [[FLOW Source Intake]] | Raw source, claim, update, or study | Source ID, date, limitation | Intake packet | [[FLOW Brief Stage]] |
+| [[FLOW Brief Stage]] | Reader problem and intake packet | Helpful-content baseline, claim map | Draftable brief | [[FLOW Draft Stage]] |
+| [[FLOW Draft Stage]] | Approved brief and voice constraints | Bound source IDs | Source-preserving draft | [[FLOW Review Stage]] |
+| [[FLOW Review Stage]] | Draft and rubric | Usefulness, trust, link, schema signals | Revision memo | [[FLOW Factcheck Stage]] |
+| [[FLOW Factcheck Stage]] | Claims and citations | Ledger verdicts and source dates | Checked claim register | [[FLOW Confidence Tags]] |
+| [[FLOW Rewrite Stage]] | Refresh, consolidation, or pruning trigger | Current evidence and rollback risk | Rewrite plan | [[FLOW Approval Queue]] |
+| [[FLOW Report Stage]] | Decisions, blockers, risks | Verified or advisory findings | Delivery summary | Human owner |
 
-- [[FLOW Source Intake]]
-- [[FLOW Brief Stage]]
-- [[FLOW Draft Stage]]
-- [[FLOW Review Stage]]
-- [[FLOW Factcheck Stage]]
-- [[FLOW Rewrite Stage]]
-- [[FLOW Report Stage]]
-- [[FLOW Confidence Tags]]
-- [[FLOW Rollback Notes]]
-- [[FLOW Read Only Boundary]]
-- [[FLOW Approval Queue]]
+## Spoke Jobs And Deliverable Boundaries
 
-## Workflow sequence
+Each spoke produces one artifact and names the next owner. If a stage cannot name an artifact, it has drifted into general advice. If it cannot cite a source ID for a current claim, it loops back to intake. If it affects live content, it waits in the approval queue.
 
-- Frame the reader problem.
-- List evidence sources.
-- Identify dated current claims.
-- Draft the brief in [[SERP-Informed Briefs and Outlines]].
-- Draft or rewrite with [[6-Pillar Dual Optimization]].
-- Check trust through [[E-E-A-T for Blog Content]].
-- Check citation readiness through [[AI Citation Mechanics]].
-- Check schema through [[Blog Schema Stack]].
-- Score with [[Blog Quality Score]].
-- Record durable outcomes in [[log]].
+## FLOW Framework Evidence And Refresh Rules
 
-## Source posture
-
-- Keep source URLs attached to recommendations.
-- Keep confidence explicit.
-- Keep rollback notes where live content decisions are affected.
-- Keep all V1 actions advisory.
-- Use [[Research Pack Index]] as the source route.
-
-## Related themes
-
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[Freshness and Content Decay]]
-- [[E-E-A-T for Blog Content]]
-- [[AI Citation Mechanics]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
-
-## Sources
-
-- FLOW framework bibliography, 2026-06-22.
-- Google helpful content guidance, retrieved 2026-07-06.
-- Google AI optimization guide, updated 2026-06-15.
-- Google third-party SEO guidance, 2026-06-05.
-
-## Next actions
-
-- Fill [[FLOW Source Intake]] before workflow automation.
-- Fill [[FLOW Confidence Tags]] before scoring reports.
-- Use [[FLOW Approval Queue]] before high-impact advisory recommendations move forward.
-- Link [[FLOW Read Only Boundary]] back to [[CONVENTIONS]].
+Use official sources for rule-like claims, the QRG for quality-evaluation framing, and practitioner studies only with their limits. Refresh FLOW notes when source-ledger records change, Google Search guidance changes, or a report reveals a repeated handoff failure.

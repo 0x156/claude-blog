@@ -3,150 +3,49 @@ type: spoke
 title: "Product Mentions In Blog Schema"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [schema, blog-schema, evergreen]
 domain: "Blog Structured Data"
 confidence: verified
 related:
   - "[[Blog Schema Stack]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
   - "[[Article Schema Baseline]]"
-  - "[[BlogPosting Versus Article]]"
-  - "[[Author Person Markup]]"
-  - "[[Organization Entity Graph]]"
-  - "[[BreadcrumbList For Blogs]]"
-  - "[[Visible Q And A Without FAQ Rich Results]]"
-  - "[[VideoObject For Blog Posts]]"
-  - "[[Schema Validation Workflow]]"
-  - "[[Dual Optimization]]"
+  - "[[Structured Data Deprecation Register]]"
 source_urls:
   - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
   - "https://schema.org/docs/full.html"
   - "https://www.w3.org/TR/json-ld11/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/product"
 ---
 # Product Mentions In Blog Schema
 
-## Summary
-Product Mentions In Blog Schema is a schema review note for blog schema stack.
-It decides when product structured data is appropriate inside blog content.
-Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity graph, or structured data block.
+## Product Mention Decision
 
-## Operating Question
-- Is the page actually a product page, review, comparison, or informational post?
-- The expected output is a product schema decision note with eligibility and risk.
-- The main risk is adding Product markup to every affiliate mention.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note prevents casual product references from turning into Product structured data. A blog post may mention a tool, compare options, review a product, or embed an offer. Those situations carry different schema risk. [[Blog Schema Stack]] treats Product as an add-on only when the visible article provides product facts that justify it.
 
-## Current Evidence Anchors
-- Google structured data introduction retrieved 2026-07-06 recommends JSON-LD and requires markup to describe visible content.
-- Google FAQPage documentation records FAQ rich results retired for all sites effective 2026-05-07.
-- Google Search Gallery dated 2026-07-01 in the ledger defines supported rich result types.
-- Schema.org full hierarchy and JSON-LD 1.1 provide standards references for vocabulary and serialization.
-- Article or BlogPosting with Person, Organization, and BreadcrumbList is the blog priority after FAQ and HowTo visibility loss.
-- Rich result eligibility is never a guarantee, and unsupported markup should not be sold as a current Search feature.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+The note uses `schema-full` for Product vocabulary, `g-intro-sd` for the rule that markup must match page content, `g-search-gallery` for supported Search feature checks, and `w3c-jsonld` for graph serialization. It does not replace a dedicated ecommerce or merchant-listing review.
 
-## Operating Standard
-- Describe only visible page content in structured data.
-- Prefer JSON-LD unless a local platform requires another supported format.
-- Use Google Search Central for supported Search features and Schema.org for vocabulary breadth.
-- Keep Article or BlogPosting, author identity, publisher identity, and breadcrumbs coherent.
-- Avoid presenting FAQPage or HowTo as current blog rich result tactics.
-- Use Product or VideoObject only when the page visibly contains qualifying content.
-- Validate syntax, vocabulary, Google support, and page-content alignment before handoff.
-- Treat schema as entity clarity and eligibility support, not a traffic guarantee.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+## Product Mentions In Blog Schema Schema Table
 
-## Review Sequence
-1. Open [[Blog Schema Stack]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+| Blog situation | Schema decision | Required properties or proof | Validation target | Warning | Source id |
+|---|---|---|---|---|---|
+| Passing mention of a product | Keep inside article prose, no Product node | Product name is only contextual | Article schema remains sufficient | Mentions are not offers, reviews, or product pages | `g-intro-sd` |
+| Tool roundup with factual comparison | Consider Product or ItemList only after visible fields are complete | Names, URLs, prices or ratings only if shown and sourced | Vocabulary fit plus Search Gallery check | Thin affiliate tables should not invent product data | `schema-full` |
+| First-party product announcement | Product node may be valid if the article visibly describes the product | Brand, name, description, image, offer only when present | Rendered page and graph connection | Publisher, product brand, and seller can be different entities | `schema-full` |
+| Review-style blog post | Product markup needs review evidence and visible review context | Product identity, author, date, review content | Search feature language reviewed separately | Do not imply a rich result from vocabulary alone | `g-search-gallery` |
+| Embedded buy box or offer | Route to ecommerce schema review before publishing | Offer details visible and current | JSON-LD graph plus page comparison | Stale prices or hidden offers create high risk | `w3c-jsonld` |
 
-## Specific Checks
-- Check that product mentions in blog schema is applied to the correct content unit.
-- Check that the decision matches this purpose: decides when product structured data is appropriate inside blog content.
-- Check that the output can be inspected as a product schema decision note with eligibility and risk.
-- Check that the risk is addressed directly: adding Product markup to every affiliate mention.
-- Verify that each marked-up fact is visible to readers.
-- Validate JSON-LD syntax before interpreting eligibility.
-- Check Google Search Gallery support before promising a feature.
-- Use Schema.org vocabulary for entity clarity even when Google has no rich result.
-- Keep author, publisher, dates, images, and breadcrumbs consistent with the page.
-- Avoid obsolete FAQ and HowTo rich result advice.
-- Use Product or VideoObject only for visible qualifying content.
-- Record validation evidence and unresolved platform constraints.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+## Minimum Evidence Before Adding Product
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+1. Confirm the reader can see the product facts being marked up.
+2. Separate article author, publisher, product brand, seller, and sponsor.
+3. Check whether the current Google gallery supports the feature language being used.
+4. Record why Article-only markup is insufficient for this page.
 
-## Failure Modes
-- The markup describes content that is not visible on the page.
-- A rich result is promised even though Google support has changed.
-- FAQPage is retained as a visual SERP tactic after retirement.
-- Author or publisher nodes conflict with visible page identity.
-- Product markup is added to casual product mentions.
-- VideoObject appears without a qualifying visible video.
-- The schema validates syntactically but fails editorial alignment.
-- The structured data creates a disconnected entity graph.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## Product Boundaries For Blog Teams
 
-## Handoff
-- Attach the schema note to the article template, CMS ticket, or audit report.
-- List visible-content dependencies before implementation advice.
-- Record validation tools and unresolved warnings.
-- Send author and trust issues to [[E-E-A-T for Blog Content]].
-- Send media markup questions to [[Images Audio and Charts]].
-- Send deprecation questions to [[Google Algorithm Update Ledger]].
-- Send citation entity questions to [[AI Citation Mechanics]].
-- Score technical readiness through [[Blog Quality Score]].
-- Use [[Article Schema Baseline]] when this note needs a sibling follow-up.
-- Use [[BlogPosting Versus Article]] when the next decision belongs beside this note.
+Do not add Product markup because a post has an affiliate link. Do not mark a comparison table as Product data when the table lacks current attributes. Do not copy ecommerce fields into an informational article without visible backing. When a blog post is also a sales page, document the mixed purpose and require a stricter review.
 
-## Related
-- [[Blog Schema Stack]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Images Audio and Charts]]
-- [[Multilingual Publishing]]
-- [[Google Data Integrations]]
-- [[Google Algorithm Update Ledger]]
-- [[Article Schema Baseline]]
-- [[BlogPosting Versus Article]]
-- [[Author Person Markup]]
-- [[Organization Entity Graph]]
-- [[BreadcrumbList For Blogs]]
-- [[Visible Q And A Without FAQ Rich Results]]
-- [[VideoObject For Blog Posts]]
-- [[Schema Validation Workflow]]
-- [[Structured Data Deprecation Register]]
-- [[JSON-LD Publishing Checklist]]
-- [[Schema And E-E-A-T Alignment]]
+## Product Schema Handoff
+
+The output is one of three decisions: Article-only, Product candidate needing ecommerce review, or Product rejected. Any rejected Product field should name the missing visible evidence so the editor can fix the content or drop the markup.

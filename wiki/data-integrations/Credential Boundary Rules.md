@@ -16,69 +16,54 @@ related:
 source_urls:
   - "https://developers.google.com/webmaster-tools/v1/searchanalytics/query"
   - "https://developers.google.com/webmaster-tools/v1/urlInspection.index/inspect"
+  - "https://developers.google.com/speed/docs/insights/v5/get-started"
   - "https://developers.google.com/analytics/devguides/reporting/data/v1"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
 ---
 
 # Credential Boundary Rules
 
-## Summary
+## Rule Scope For Audit Data
 
-Credential Boundary Rules define what may enter the vault when GSC, URL Inspection, GA4, CrUX, or reporting exports support a blog audit.
+Credential Boundary Rules decide what can enter the vault when blog audits use Search Console, URL Inspection, PageSpeed Insights, GA4, or exported reports. The boundary is about evidence custody, not account setup. API docs confirm that the relevant systems can expose Search metrics, URL inspection status, field or lab performance data, and GA4 reporting data, but the vault stores only sanitized evidence summaries tied to source IDs: `g-gsc-api`, `g-urlinspect`, `g-psi`, and `g-ga4-data`.
 
-The vault is read-only. It stores recommendations and sanitized exports, never live credentials.
+The operating posture is read-only. A reviewer may cite a metric, a date range, an owner-provided export, or a redaction note. A reviewer may not store OAuth artifacts, service-account files, cookies, browser sessions, account emails, raw private event payloads, or local absolute paths.
 
-## Hard Boundaries
+## Allowed Actions And Disallowed Actions
 
-| Boundary | Rule | Failure action |
-|---|---|---|
-| Secrets | Do not store API keys, OAuth tokens, cookies, service-account JSON, refresh tokens, client secrets, `.env` files, or browser session exports. | Reject the import, delete the artifact from working memory, and record a gap without the secret value. |
-| Private data | Do not store raw user identifiers, emails, form submissions, paid customer lists, or private query logs. | Redact before import or keep the evidence outside the vault. |
-| Scopes | Prefer read-only scopes when data is exported for analysis. Search Console Search Analytics and URL Inspection support `https://www.googleapis.com/auth/webmasters.readonly`; full `webmasters` is accepted by the APIs but is not the preferred vault evidence path. | If write-capable scopes are present, block the export and request a read-only export or a sanitized UI export. |
-| Paths | Do not write absolute local paths into wiki notes or reports. | Replace with vault-relative paths or source IDs. |
-| External systems | Do not submit URLs, mutate Search Console settings, change CMS fields, edit GA4, or update sitemaps from this vault. | Convert the action into an approval note with rollback conditions. |
+- Allowed: summarize a sanitized Search Analytics export with page, query, country, device, clicks, impressions, CTR, and position when the owner approves query storage.
+- Allowed: record URL Inspection results for owned URLs, including index status, selected canonical, crawl state, and rich result state.
+- Allowed: keep PageSpeed or CrUX-derived URL evidence when it is tied to a public page and no credential material is present.
+- Allowed: use GA4 aggregate landing-page engagement when user identifiers and private event parameters are absent.
+- Disallowed: request indexing, change Search Console settings, edit GA4, submit a sitemap, publish schema, or run a CMS mutation from this brain.
 
-## API Boundary Table
+## Credential Boundary Rules Table
 
-| Source | Official capability | Read-only boundary | Vault note |
-|---|---|---|---|
-| Search Analytics API | Queries Search traffic data, groups by dimensions, and returns rows with clicks, impressions, CTR, and position. Google documents that the API is bounded by Search Console limits and does not guarantee all rows. | Use `webmasters.readonly` when possible; store only sanitized exports or aggregate summaries. | Do not present API output as complete query truth. |
-| URL Inspection API | Inspects the indexed status of a URL under a Search Console property. Google states it shows the version in the Google index and cannot test live indexability. | Use `webmasters.readonly` when possible; inspect only URLs owned by the property. | Do not use this vault to request indexing or mutate URL state. |
-| GA4 Data API | Programmatically accesses Analytics report data and respects the property reporting identity settings. | Use exports that exclude user-level identifiers and private event payloads. | GA4 evidence supports engagement analysis, not Search query evidence. |
-| Search Console generative AI reports | Google announced AI Overviews and AI Mode reporting for some properties. | Treat availability as property-specific and UI/API-scope-sensitive until exact export routes are documented in the ledger. | Missing reports get a missing-data note, not an estimate. |
+| Rule | Evidence source basis | Applies to | Exception | Approval path |
+|---|---|---|---|---|
+| Prefer read-only exports or read-only scopes | `g-gsc-api`, `g-urlinspect` | GSC Search Analytics and URL Inspection | Owner can provide a UI export when API access is unavailable | Data owner confirms source, date range, and redaction |
+| Never store auth artifacts | `g-gsc-api`, `g-urlinspect`, `g-ga4-data` | Tokens, cookies, service accounts, session files | No exception inside the vault | Reject artifact, purge working copy, log only the missing evidence |
+| Keep PageSpeed evidence public-page only | `g-psi` | URL-level lab and field performance checks | Staging URLs require owner-written approval and redacted host labels | SEO lead approves a non-secret alias before citation |
+| Separate GA4 engagement from Search demand | `g-ga4-data`, `g-gsc-api` | Landing-page sessions, events, conversions, query metrics | Join only by canonical page and date range | Reviewer documents join key in [[Metric Export Schema]] |
+| Block account or platform mutations | All listed IDs | GSC, GA4, PSI, CMS, sitemap, schema deployment | Future release with approval and rollback design only | Convert requested mutation to an advisory recommendation |
 
-## Approved Evidence Shapes
+## Exceptions That Require Approval
 
-| Evidence | Allowed fields | Disallowed fields | Confidence |
-|---|---|---|---|
-| GSC Search Analytics export | Property label, date range, page, query, country, device, clicks, impressions, CTR, average position, export timestamp. | Tokens, account email, OAuth metadata, hidden rows copied from UI. | first-party when export owner and date are recorded. |
-| URL Inspection evidence | Canonical URL, index status, crawl time, page fetch state, rich result state, inspection timestamp. | Credentials, live API request payload with auth headers. | first-party for inspected URL only. |
-| GA4 export | Landing page, channel grouping, sessions, engaged sessions, engagement rate, conversions if already sanitized, date range. | User IDs, client IDs, transaction PII, raw event payloads. | first-party but not a replacement for Search query data. |
-| Generative AI report export | Page, country, device, date, impressions, surface, export timestamp. | Unsupported query-level claims or API-equivalent claims unless Google documents them. | first-party when the property has the report. |
+An exception is needed when the export contains sensitive query text, staging URLs, campaign parameters, customer segments, or conversion labels that reveal private operations. Approval must name the owner, approved fields, retention period, redaction method, and rollback action. If any of those fields are missing, route the gap to [[Missing Data Disclosure]] and mark confidence through [[Data Confidence Labels]].
 
-## Redaction Standard
+## Review And Rollback
 
-- Replace account names with stable labels such as `property_a` when client confidentiality matters.
-- Keep query strings only when the owner confirms they are safe to store.
-- Remove URL parameters that expose campaign secrets, emails, IDs, or draft tokens.
-- Store aggregate metrics, not row-level user behavior.
-- Add a missing-data note when redaction removes a field needed for analysis.
+1. Inspect the file name, first rows, headers, and metadata before adding any excerpt to the vault.
+2. Remove auth fields, local paths, private identifiers, and unapproved query strings.
+3. Replace account names with stable labels such as `property_a` or `ga4_property_b`.
+4. Cite the evidence with source IDs and export dates, not screenshots of credentials or account screens.
+5. If a secret entered a note, remove the text, rotate the exposed credential outside the vault, and leave only a gap note without the secret value.
 
-## Export Handling
+## Source IDs
 
-1. Confirm the source owner and read-only basis.
-2. Verify the export date range, property, and canonical URL handling.
-3. Scan filenames and content for secrets before adding source notes.
-4. Store only sanitized summaries in wiki notes.
-5. Record unavailable fields in [[Missing Data Disclosure]].
-
-## Source Notes
-
-- Search Analytics API, last updated 2026-05-20, retrieved 2026-07-09: https://developers.google.com/webmaster-tools/v1/searchanalytics/query
-- URL Inspection API, last updated 2024-07-23, retrieved 2026-07-09: https://developers.google.com/webmaster-tools/v1/urlInspection.index/inspect
-- GA4 Data API overview, retrieved 2026-07-09: https://developers.google.com/analytics/devguides/reporting/data/v1
-- Search Console generative AI reports announcement, published 2026-06-03, retrieved 2026-07-09: https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports
+- `g-gsc-api`: Search Analytics metrics by dimension, last updated 2026-05-20.
+- `g-urlinspect`: URL-level index and rich-result inspection evidence, last updated 2024-07-23.
+- `g-psi`: URL performance evidence from PageSpeed Insights API v5, last updated 2025-08-28.
+- `g-ga4-data`: GA4 reporting data, last updated 2026-06-29.
 
 ## Related
 
@@ -86,3 +71,4 @@ The vault is read-only. It stores recommendations and sanitized exports, never l
 - [[Metric Export Schema]]
 - [[Read Only Data Access Pattern]]
 - [[Missing Data Disclosure]]
+- [[Data Confidence Labels]]

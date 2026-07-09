@@ -3,149 +3,54 @@ type: spoke
 title: "Editorial Transparency Checklist"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [eeat, evergreen]
 domain: "Blog Trust"
 confidence: verified
 related:
   - "[[E-E-A-T for Blog Content]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Author Bio Requirements]]"
-  - "[[Reviewer And Expert Review Rules]]"
-  - "[[Experience Evidence Checklist]]"
-  - "[[Source Quality Ladder]]"
-  - "[[YMYL Escalation Matrix]]"
   - "[[AI Assisted Content Accountability]]"
-  - "[[Reputation Research Workflow]]"
+  - "[[Reviewer And Expert Review Rules]]"
   - "[[Trust Signal Inventory]]"
-  - "[[Dual Optimization]]"
+  - "[[Source Quality Ladder]]"
 source_urls:
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/essentials/spam-policies"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+  - "https://www.nngroup.com/articles/ten-usability-heuristics/"
 ---
 # Editorial Transparency Checklist
 
-## Summary
-Editorial Transparency Checklist is a trust review note for E-E-A-T review.
-It makes ownership, limitations, methods, and update practices visible to readers.
-Use it with [[E-E-A-T for Blog Content]] when the working unit is a author, page, source set, or editorial process.
+## Editorial Transparency Checklist Review Scope
 
-## Operating Question
-- Can the reader understand who made the content and how it was reviewed?
-- The expected output is a transparency checklist with visible page elements.
-- The main risk is hiding limitations or commercial relationships from the reader.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This gate asks whether a reader can see who produced the article, how important claims were handled, what changed during review, and where the content has limits. It is narrower than a full E-E-A-T audit: it does not grade author expertise or source strength unless those gaps are made invisible. Use `g-helpful-content` for reader usefulness, `g-qrg-full` for trust and page-quality expectations, `g-spam-policies` when opacity hides scaled or deceptive production, and `nng-editorial-heuristics` for status visibility.
 
-## Current Evidence Anchors
-- The active QRG source in the substrate is dated 2025-09-11, with no newer revision recorded as of 2026-07-06.
-- Google helpful content guidance retrieved 2026-07-06 remains the people-first quality baseline.
-- Google spam policies updated 2026-05-15 name generative AI scaled content without added value as a scaled content abuse example.
-- Google third-party SEO guidance dated 2026-06-05 says no tool can guarantee rankings or access Google internal ranking systems.
-- The QRG substrate says the 2025-09-11 version adds AI Overview rating examples and keeps quality guidance unchanged.
-- Trust recommendations must stay advisory and must not guarantee rankings, rich results, or AI citations.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Checks Unique To This Gate
 
-## Operating Standard
-- Show experience, expertise, authority, and trust through inspectable page elements.
-- Distinguish author credentials, reviewer credentials, brand reputation, and source quality.
-- Escalate YMYL and YMYL-adjacent content before publication advice is finalized.
-- Reject vague expertise claims that do not connect to the topic or article purpose.
-- Treat AI-assisted content as accountable content that must add value and show provenance.
-- Use official Google sources for spam and quality policy claims.
-- Record uncertainty when reputation, credentials, or source quality cannot be verified.
-- Connect trust gaps to [[Blog Quality Score]] instead of presenting E-E-A-T as a magic switch.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+The checklist owns byline clarity, update dates, correction paths, material relationship disclosure, visible method notes, and AI-assistance context when that context changes reader trust.
 
-## Review Sequence
-1. Open [[E-E-A-T for Blog Content]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### Inputs Required Before Transparency Review
 
-## Specific Checks
-- Check that editorial transparency checklist is applied to the correct content unit.
-- Check that the decision matches this purpose: makes ownership, limitations, methods, and update practices visible to readers.
-- Check that the output can be inspected as a transparency checklist with visible page elements.
-- Check that the risk is addressed directly: hiding limitations or commercial relationships from the reader.
-- Confirm the page has a clear purpose and satisfies that purpose.
-- Check whether experience evidence is visible near claims that need it.
-- Confirm author and reviewer claims are topic-relevant.
-- Escalate YMYL and YMYL-adjacent topics with a visible rationale.
-- Check independent source quality before making authority claims.
-- Reject claims that rely on tool scores as proof of Google rankings.
-- Record AI assistance only as a workflow detail, not as a quality substitute.
-- Make limitations visible where reader decisions could be affected.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+Collect the final draft, CMS byline fields, author and reviewer records, source map, monetization disclosures, update history, and any AI-assistance note from [[AI Assisted Content Accountability]].
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Transparency Pass Fail Table
 
-## Failure Modes
-- The page lists credentials that do not fit the topic.
-- The reviewer name appears without review evidence.
-- A YMYL-adjacent topic skips escalation because it is labeled a blog post.
-- Sources are selected for convenience rather than claim strength.
-- AI-assisted volume replaces original value.
-- Reputation claims depend only on the brand site itself.
-- Limitations are hidden even when reader decisions are sensitive.
-- E-E-A-T is presented as a direct ranking lever instead of a review framework.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Check | Pass condition | Fail condition | Source evidence | Severity | Fix owner |
+|---|---|---|---|---|---|
+| Byline and ownership | Reader can identify the accountable author or editorial owner | Anonymous or role-only page for a trust-sensitive topic | g-helpful-content, g-qrg-full | High | Editor |
+| Review scope | Reviewer note says what was reviewed and when | Reviewer name appears without scope | g-qrg-full, nng-editorial-heuristics | High | Reviewer |
+| Update context | Important freshness changes are dated and explained | Updated label exists but no meaningful context | g-helpful-content | Medium | Managing editor |
+| Commercial relationship | Affiliate, sponsor, or lead-generation interest is visible where relevant | Revenue relationship is hidden near recommendations | g-qrg-full | High | Content lead |
+| AI-assistance context | Workflow note records human review and added value | AI output is used as a substitute for accountability | g-spam-policies, g-helpful-content | High | SEO lead |
+| Corrections and contact | Reader has a practical path to report a problem | No correction or contact route for consequential advice | nng-editorial-heuristics, g-qrg-full | Medium | Site owner |
 
-## Handoff
-- Attach the trust note to the content brief, audit, or rewrite plan.
-- List visible page changes separately from background editorial process.
-- Escalate unresolved YMYL or reputation uncertainty before publication advice.
-- Record dated sources for quality and spam policy claims.
-- Send voice consistency issues to [[Voice and Style]].
-- Send source gaps to [[Research Pack Index]].
-- Send schema identity questions to [[Blog Schema Stack]].
-- Score trust issues through [[Blog Quality Score]].
-- Use [[Author Bio Requirements]] when this note needs a sibling follow-up.
-- Use [[Reviewer And Expert Review Rules]] when the next decision belongs beside this note.
+## Evidence, Severity, Owner, And Fix Status Rules
 
-## Related
-- [[E-E-A-T for Blog Content]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Freshness and Content Decay]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Voice and Style]]
-- [[Blog Quality Score]]
-- [[Author Bio Requirements]]
-- [[Reviewer And Expert Review Rules]]
-- [[Experience Evidence Checklist]]
-- [[Source Quality Ladder]]
-- [[YMYL Escalation Matrix]]
-- [[AI Assisted Content Accountability]]
-- [[Reputation Research Workflow]]
-- [[Trust Signal Inventory]]
-- [[Value Less AI Content Warnings]]
-- [[E-E-A-T Review Rubric]]
-- [[YMYL Adjacent Blog Policy]]
+Assign `high` severity when opacity could change a reader's decision, hide a conflict, or mask weak review. Assign `medium` when the fix improves auditability but the page remains usable. Low-severity items belong in [[Trust Signal Inventory]], not this gate.
+
+## Editorial Transparency Handoff Rules
+
+1. Record each failed row with the exact page element that must change.
+2. Send author or reviewer credential problems to [[Author Bio Requirements]] or [[Reviewer And Expert Review Rules]].
+3. Send weak citation disclosure to [[Source Quality Ladder]].
+4. Keep the final note advisory and separate visible page edits from background process changes.

@@ -1,154 +1,58 @@
 ---
 type: spoke
 title: "Confirmed Update Entry Template"
+domain: "Google Update Monitoring"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [monitoring, google-updates, active]
-domain: "Google Update Monitoring"
-confidence: verified
-related:
-  - "[[Google Algorithm Update Ledger]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Research Pack Index]]"
-  - "[[Google Data Integrations]]"
-  - "[[Unverified Volatility Quarantine]]"
-  - "[[Core Update Response Playbook]]"
-  - "[[Spam Update Response Playbook]]"
-  - "[[Schema Deprecation Watch]]"
-  - "[[QRG Revision Watch]]"
-  - "[[2026 Google Update Timeline]]"
-  - "[[2025 Google Update Timeline]]"
 source_urls:
   - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
-  - "https://developers.google.com/search/updates/ranking"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/essentials/spam-policies"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
 ---
 
 # Confirmed Update Entry Template
 
-## Summary
-This spoke defines the minimum fields for a Google-owned update entry before it becomes guidance.
-It belongs to [[Google Algorithm Update Ledger]] and supports confirmed Google updates, volatility quarantine, update response, and dated source refresh.
-Primary working inputs: date, name, kind, source URL, notes, affected surfaces.
-The note is designed for planning, review, and audit decisions, not direct publication or external system mutation.
-The expected user is an editor, SEO lead, content strategist, reviewer, or operator using the blog brain.
-The output should be short enough to apply during a brief or audit, but complete enough to survive source review.
+## Confirmed Update Entry Template Distinct Job
 
-## Evidence Anchors
-- The local update ledger contains 34 Google-owned update entries through the 2026-06-30 Merchant Center product videos entry.
-- No Google-owned ranking, spam, schema, QRG, or AI search update is recorded from 2026-07-01 through 2026-07-06.
-- FAQ rich results retired for all sites effective 2026-05-07, which makes Article or BlogPosting the blog schema priority.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt for Search, AI Overviews, or AI Mode.
-- QRG status remains tied to the 2025-09-11 version as of 2026-07-06.
-- As of 2026-07-06, SparkToro reports 68.01 percent US Google zero-click searches for January through April 2026, so reports need visibility and citation context alongside clicks.
-- Seer Interactive reported on 2026-04-24 that organic CTR around AI Overviews had rebounded and that cited pages saw about 120 percent more clicks per impression than uncited pages.
-- Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
-- Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
-- The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+This template defines the minimum fields required before a Google update becomes operating guidance in this brain. It prevents a loose update mention from becoming advice. Use it inside [[Google Algorithm Update Ledger]], year timelines, and response playbooks whenever a new ranking, spam, QRG, schema, or AI-search event is added.
 
-## Required Inputs
-- Confirmed Google-owned source URL or explicit unverified status.
-- Exact date, update name, kind, and affected search surface.
-- Local page set or content class that could plausibly be affected.
-- GSC or GA4 date windows before and after the update when property data is available.
-- Policy, schema, AI search, QRG, or ranking route for interpretation.
-- Decision note that separates observation from recommended action.
-- Refresh owner and next check date when an update is still rolling out.
-- Quarantine note for third-party volatility until Google confirms it.
+## Inputs Specific To Confirmed Update Entry Template
 
-## Workflow
-- Define the decision this note supports: defines the minimum fields for a Google-owned update entry before it becomes guidance.
-- Open [[Google Algorithm Update Ledger]] and confirm the hub rule that applies before using this spoke.
-- Classify the event as core, spam, schema, QRG, product, AI search, guidance, tooling, or policy.
-- Wait for a Google-owned source before changing durable guidance from volatility reports.
-- Compare affected pages with first-party data only after the relevant rollout window is understood.
-- Record no-current-update claims with exact dates so they can be invalidated later.
-- Start from the parent hub and confirm the article, locale, data set, or source family affected by this note.
-- List the claims that the draft or audit output will make before editing style, media, or schema.
-- Attach a source URL, retrieval date, and confidence label to each current or risky claim.
-- Separate reader-facing advice from implementation notes so the brain stays advisory in V1.
-- Check whether first-party property data exists before leaning on market averages or practitioner studies.
-- Record any missing evidence as a gap instead of converting it into a confident recommendation.
-- Route schema decisions through visible page content and current Google-supported rich result documentation.
-- Route AI citation decisions through answer-first passages, clear entities, and source-backed wording.
-- Route multilingual and persona decisions through human review when local facts, legal terms, or YMYL sensitivity appear.
-- Keep all external system changes outside this note and write only the recommendation, rationale, and rollback condition.
+- Exact update name as recorded by Google or the local ledger.
+- Start date, completion date when available, and surface.
+- Source ID from `references/source-ledger.json`.
+- Evidence verdict using the claim-ledger language: CONFIRMED, AS-REPORTED, SINGLE-SOURCE, CONTESTED, or FOLKLORE.
+- Follow-up route and rollback trigger.
 
-## Review Checks
-- The note names exact dates when guidance can become stale.
-- The recommendation does not promise rankings, traffic, AI citations, or rich results.
-- FAQPage is not framed as a current rich result tactic after 2026-05-07.
-- FID is not used as a current Core Web Vital, and INP is used when performance enters the decision.
-- llms.txt is not presented as a Google Search visibility requirement.
-- The cited source is appropriate for the claim strength and not just a convenient example.
-- The output tells the reader what to do when first-party data is unavailable.
-- The advice can be reversed or refreshed if Google documentation changes.
-- The body links back to the parent hub, Index, and sibling spokes for graph health.
-- The note stays inside the assigned folder and does not mutate references, data, scripts, or external platforms.
+## Decisions Confirmed Update Entry Template Must Record
 
-## Risk Controls
-- Evidence currency risk: Confirmed Update Entry Template decisions can go stale when a source, date, or requirement changes.
-- Claim scope risk: keep Confirmed Update Entry Template advice tied to the source coverage named in this note.
-- Operational boundary risk: do not turn Confirmed Update Entry Template into CMS, analytics, Search Console, API, or publishing mutation steps.
-- Proof gap risk: when the note lacks direct evidence, record the gap instead of upgrading confidence.
-- Audience fit risk: adjust Confirmed Update Entry Template guidance for topic sensitivity, locale, and review ownership before use.
-- Media and data risk: verify charts, visuals, metrics, and examples before they carry this note's claims.
-- Metric interpretation risk: separate first-party exports, market studies, and API signals in Confirmed Update Entry Template outputs.
-- Monitoring risk: quarantine unconfirmed volatility until a dated source in the ledger supports it.
+The template decides whether an event is eligible for durable guidance. `g-ranking-history` and `g-status-dashboard` are sufficient for chronology, but they are not enough for site-level diagnosis. `g-update-2024-06-20-june-2024-spam-update` and `g-update-2024-11-11-november-2024-core-update` show the difference between an event record and an action plan: one names a spam rollout, the other marks a core rollout duration.
 
-## Output Shape
-- A Confirmed Update Entry Template decision summary for the editor or auditor.
-- The source IDs or URLs that directly support the active recommendation.
-- A confidence label that matches the evidence strength for this note.
-- A rollback or refresh condition tied to the source or workflow affected.
-- A blocked-claims list for Confirmed Update Entry Template gaps that need more evidence.
-- A handoff note naming the writer, editor, reviewer, or data owner next action.
-- Links back to the parent hub and sibling notes that keep the graph navigable.
-- A no-action statement when Confirmed Update Entry Template evidence is incomplete or outside this brain.
+## Confirmed Update Entry Template Field Table
+
+| Required field | Accepted evidence | Source IDs | Reject when | Owner | Next action |
+|---|---|---|---|---|---|
+| Event name | Google dashboard title or local ledger title | `g-ranking-history`, `g-status-dashboard` | Name comes only from a third-party volatility tool | Monitoring owner | Add the event to the right timeline. |
+| Event dates | Published, start, complete, or last-updated date | `g-update-2024-06-20-june-2024-spam-update`, `g-update-2024-11-11-november-2024-core-update` | Date is inferred from ranking movement | SEO lead | Record exact windows for later impact analysis. |
+| Surface and lane | Core, spam, schema, QRG, AI search, Discover, or reporting | Event-specific `g-update-*` ID | Surface is collapsed into "algorithm update" | Topic owner | Route to the matching spoke note. |
+| Evidence verdict | Claim-ledger verdict or official-source confidence | Any cited source ID | The note upgrades a weak source to confirmed | Reviewer | Downgrade or quarantine the claim. |
+| Action boundary | Read-only recommendation and rollback condition | Relevant playbook note | The entry mutates CMS, GSC, GA4, or schema directly | Operator | Write an advisory next step only. |
+
+## Confirmation Failure Cases
+
+An entry stays out of the confirmed ledger when the only evidence is a rank-tracker screenshot, a forum thread, or a vendor summary with no Google-owned source. It can still live in [[Unverified Volatility Quarantine]] if it is useful to watch. A confirmed event also needs a limitation statement: event existence can be confirmed while affected queries, affected pages, and recovery tactics remain unproven.
+
+## Confirmed Update Entry Template Operating Procedure
+
+1. Fill the five required fields before linking the event from a timeline.
+2. Attach the exact source IDs in the entry table, not a generic URL bundle.
+3. Assign one route note and one owner for the next review.
+4. If the source changes, update the entry and record the stale claim as a refresh task.
 
 ## Related
+
 - [[Google Algorithm Update Ledger]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Research Pack Index]]
-- [[Google Data Integrations]]
 - [[Unverified Volatility Quarantine]]
+- [[Update Impact Review]]
 - [[Core Update Response Playbook]]
 - [[Spam Update Response Playbook]]
-- [[Schema Deprecation Watch]]
-- [[QRG Revision Watch]]
-- [[2026 Google Update Timeline]]
-- [[2025 Google Update Timeline]]
-
-## Source URLs
-- https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history
-- https://developers.google.com/search/updates/ranking
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage
-- https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
-- https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
-- https://developers.google.com/search/docs/essentials/spam-policies
-- https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports
-- https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/
-- https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update
-- https://blog.google/products-and-platforms/products/search/search-io-2026/
-- https://ziptie.dev/blog/google-ai-overviews-source-selection/
-
-## Maintenance Notes
-- Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
-- Keep backlink health with [[Google Algorithm Update Ledger]], [[index|Index]], and sibling spokes in this folder.
-- Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
-- Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.
-- Do not record secrets, tokens, private exports, or private client details in this note.
-- Do not publish or mutate CMS, GSC, GA4, Search Console, analytics, schema, sitemap, or platform settings from this note.

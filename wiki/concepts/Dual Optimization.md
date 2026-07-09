@@ -1,115 +1,61 @@
 ---
 type: hub
 title: "Dual Optimization"
+domain: "Blog Content Optimization"
 status: active
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [dual-optimization, active]
-domain: "Blog Content Optimization"
 confidence: verified
 related:
   - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[6-Pillar Dual Optimization]]"
   - "[[AI Citation Mechanics]]"
-  - "[[E-E-A-T for Blog Content]]"
-  - "[[Blog Schema Stack]]"
   - "[[Blog Quality Score]]"
-  - "[[Research Pack Index]]"
+  - "[[Google Data Integrations]]"
 source_urls:
   - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
   - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   - "https://developers.google.com/search/docs/appearance/ai-features"
 ---
-
 # Dual Optimization
 
-## Summary
+## Dual Optimization Operating Scope
 
-Dual optimization is the operating idea that a blog post must serve readers, Google Search, and AI citation surfaces at the same time.
+Dual optimization is the hub idea that a blog asset must serve three audiences at once: the human reader, Google Search, and AI answer surfaces. The hub owns vocabulary, routing, and evidence discipline. It does not own every tactic. Drafting belongs in [[6-Pillar Dual Optimization]], citation mechanics belong in [[AI Citation Mechanics]], and measurement details belong in [[Visibility Metrics For Blog Programs]].
 
-It balances classic organic visibility with answer extraction, citation eligibility, and measurement realism.
+The evidence posture is conservative. `g-ai-opt-guide` and `g-ai-features` are official Google documentation for the AI Search boundary. `sparktoro-zero-click-2026` is useful market context for non-click planning, while `seer-aio-impact-ctr-2026` is practitioner evidence for AIO citation and CTR interpretation. Those studies justify planning caution, not guaranteed outcomes.
 
-This hub is the root concept note for the foundation.
+### What This Hub Owns In Dual-Optimization Concepts
 
-## Current fact anchors
+- Shared language for reader value, classic visibility, citation exposure, and measurement.
+- Links between the concept spokes in this folder.
+- Rules for treating official guidance differently from market or practitioner evidence.
+- Refresh cues when a claim belongs in [[2026 Google Update Timeline]] or [[Research Pack Index]].
 
-- SparkToro, 2026-06-09, reports US Google zero click searches at 68.01 percent for January through April 2026.
-- The same SparkToro substrate records AI Mode at about 0.34 percent of US query volume.
-- Seer, 2026-04-24, reports AIO-present organic CTR recovering from about 1.3 percent in December 2025 to about 2.4 percent in February 2026.
-- Seer also reports cited pages at about 120 percent more clicks per impression than not cited when an AI Overview is present.
-- Google Search Central AI optimization guide, last updated 2026-06-29, says generative AI optimization uses SEO foundations rather than special AI files or special AI markup.
+### What The Hub Must Not Absorb
 
-## Claim Source Table
+- It should not become a full writing checklist.
+- It should not duplicate source-ledger methodology.
+- It should not store client-specific forecasts.
+- It should not imply that AI inclusion, ranking, or traffic can be guaranteed.
 
-| Claim | Source ID | URL | Retrieved | Confidence |
-|---|---|---|---:|---|
-| US Google zero-click searches were 68.01 percent for January through April 2026 in SparkToro's analysis. | `sparktoro-zero-click-2026` | https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/ | 2026-07-06 | advisory market context |
-| AI Mode query share was about 0.34 percent in the substrate. | `sparktoro-zero-click-2026` | https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/ | 2026-07-06 | advisory market context |
-| AIO-present organic CTR rebounded in Seer's February 2026 data. | `seer-aio-impact-ctr-2026` | https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update | 2026-07-06 | advisory market context |
-| Google generative AI Search optimization uses SEO foundations rather than special AI files or markup. | `g-ai-opt-guide` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | 2026-07-08 | verified for Google Search |
+## Dual Optimization Spoke Map
 
-## Scope
+| Spoke | Job owned by the spoke | Inputs it needs | Source IDs | Boundary |
+|---|---|---|---|---|
+| [[Zero Click Planning Baseline]] | Sets non-click context before forecasts | Market click behavior and query class | `sparktoro-zero-click-2026` | Does not predict client traffic |
+| [[AI Overview CTR Interpretation]] | Explains contested AIO CTR evidence | Study sample, property data, AIO presence | `seer-aio-impact-ctr-2026`, `g-ai-features` | Does not create a universal multiplier |
+| [[Citation Readiness Decision Tree]] | Selects passages for GEO work | Reader question and visible evidence | `g-ai-opt-guide`, `g-ai-features` | Does not rewrite the whole article |
+| [[Search Visibility Versus Citation Exposure]] | Keeps outcome types separate | Rankings, clicks, citations, assisted signals | `sparktoro-zero-click-2026`, `seer-aio-impact-ctr-2026` | Does not collapse metrics into one score |
 
-- Define the relationship between classic SEO, [[AI Citation Mechanics]], and reader usefulness.
-- Separate visibility, clicks, assisted conversions, and citations.
-- Make zero click behavior part of planning, not an afterthought.
-- Treat citation readiness as passage-level work, not a sitewide slogan.
-- Keep ranking and AI inclusion promises out of blog recommendations.
-- Connect [[E-E-A-T for Blog Content]] with answer-first structure.
-- Connect [[Blog Schema Stack]] with entity clarity and eligibility.
-- Connect [[Google Data Integrations]] with first-party evidence.
+## Spoke Jobs And Deliverable Boundaries
 
-## Future spoke notes
+Use this hub as the first stop for planning language, then move to the spoke that owns the real decision. If a deliverable needs a forecast, send it to [[Citation And Click Forecasting]]. If a recommendation asks for first-party proof, use [[Market Average Versus First Party Data]]. If an editor is balancing flow against extraction, use [[Reader Value Versus Extraction Value]].
 
-- [[Search Visibility Versus Citation Exposure]]
-- [[Zero Click Planning Baseline]]
-- [[AI Overview CTR Interpretation]]
-- [[AI Mode Query Share Context]]
-- [[Citation Readiness Decision Tree]]
-- [[Reader Value Versus Extraction Value]]
-- [[Dual Optimization Risk Register]]
-- [[Dual Optimization Briefing Checklist]]
-- [[Classic SEO And GEO Tradeoffs]]
-- [[Visibility Metrics For Blog Programs]]
+## Dual Optimization Evidence And Refresh Rules
 
-## Operating questions
-
-- What user problem does the post solve before any optimization layer is applied?
-- Which query intents need classic organic ranking signals?
-- Which answer passages need extraction-ready sourcing?
-- Which current claims require source refresh before publication?
-- Which metrics should be reported as impressions, clicks, citations, or assisted outcomes?
-
-## Source posture
-
-- Use [[Research Pack Index]] to route claims to the ledger.
-- Use [[Google Algorithm Update Ledger]] when update timing affects recommendations.
-- Use [[Google Data Integrations]] before relying on market averages.
-- Use [[Blog Quality Score]] to turn the concept into a review gate.
-- Keep every recommendation advisory unless a future approval system is defined.
-
-## Related themes
-
-- [[6-Pillar Dual Optimization]]
-- [[Freshness and Content Decay]]
-- [[E-E-A-T for Blog Content]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Semantic Topic Clusters]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[Blog Quality Score]]
-
-## Sources
-
-- SparkToro, 2026-06-09, retrieved 2026-07-06.
-- Seer, 2026-04-24, retrieved 2026-07-06.
-- Google AI optimization guide, last updated 2026-06-29, retrieved 2026-07-08.
-- Google AI features documentation, retrieved 2026-07-06.
-
-## Next actions
-
-- Fill [[Zero Click Planning Baseline]] before writing traffic forecasts.
-- Fill [[Citation Readiness Decision Tree]] before adding GEO checks.
-- Cross-link new metrics back to [[Blog Quality Score]].
+1. Prefer official Google documentation for eligibility and technical boundaries.
+2. Treat market studies as context unless the client has matching first-party data.
+3. Label practitioner findings as `AS-REPORTED` when they are useful but not universal.
+4. Refresh this hub when any cited source-ledger entry reaches its due date or when [[AI Citation Mechanics]] changes its canonical stat summary.

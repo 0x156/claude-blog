@@ -9,7 +9,6 @@ tags: [type-hub, flow, active]
 related:
   - "[[index|Index]]"
   - "[[FLOW Framework]]"
-source_urls: []
 ---
 
 # FLOW Index

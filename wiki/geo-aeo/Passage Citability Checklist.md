@@ -1,156 +1,44 @@
 ---
 type: spoke
 title: "Passage Citability Checklist"
-status: active
-created: 2026-07-06
-updated: 2026-07-08
-tags: [geo-aeo, ai-citation, active]
 domain: "GEO and AEO"
-confidence: advisory
-related:
-  - "[[AI Citation Mechanics]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[AI Overview Citation Review]]"
-  - "[[AI Mode Citation Review]]"
-  - "[[llms.txt Caveat Note]]"
-  - "[[Entity Clarity For AI Answers]]"
-  - "[[Source Proximity Pattern]]"
-  - "[[Answer Block Extraction Test]]"
-  - "[[Citation Exposure Metrics]]"
-  - "[[AI Feature Preview Controls]]"
-  - "[[Dual Optimization]]"
-source_urls:
-  - "https://developers.google.com/search/docs/appearance/ai-features"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://developers.google.com/search/updates"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
+status: evergreen
+created: 2026-07-06
+updated: 2026-07-09
+tags: [geo-aeo, ai-citation, evergreen]
 ---
+
 # Passage Citability Checklist
 
-## Summary
-Passage Citability Checklist is a citation review note for AI citation mechanics.
-It checks whether a passage can be extracted, attributed, and understood out of context.
-Use it with [[AI Citation Mechanics]] when the working unit is a answer passage, AI feature exposure, or citation report.
+## Passage Citability Checklist Review Scope
 
-## Operating Question
-- Can an AI feature quote or cite this passage without losing the core meaning?
-- The expected output is a citability checklist with entity, answer, source, and caveat fields.
-- The main risk is optimizing a whole page while the key answer block stays vague.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This checklist is the pre-flight gate for a single passage before it enters an AI Overview, AI Mode, or assistant-answer review. It checks whether the passage is useful to a reader, clear outside its surrounding article, and tied to source evidence. Google sources `g-ai-opt-guide` and `g-ai-features` support the general AI feature and content-foundation posture. `ziptie-aio-source-selection` is advisory passage-craft evidence, while `sparktoro-zero-click-2026` and `seer-aio-impact-ctr-2026` provide market context that must not be turned into a claim of citation or click lift.
 
-## Current Evidence Anchors
-- Google AI features documentation retrieved 2026-07-06 describes AI Overviews and AI Mode as Search surfaces with standard crawling and preview controls.
-- Google AI optimization guide has current page date 2026-06-29; the Search documentation update on 2026-06-15 added the llms.txt clarification.
-- Google Search does not use llms.txt for Search, AI Overviews, or AI Mode.
-- Google I/O Search update dated 2026-05-19 reported AI Mode surpassed 1B plus monthly users.
-- SparkToro, 2026-06-09, records AI Mode near 0.34 percent of US query volume in the substrate.
-- Seer, 2026-04-24, reports cited pages at about 120 percent more clicks per impression than pages not cited when AI Overviews are present.
-- ZipTie, 2026-03-25, is practitioner guidance for self-contained answer passages and visible source attribution, not an official Google requirement.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Checks Unique To This Gate
 
-## Operating Standard
-- Treat passage-level citability as the practical unit of GEO work.
-- Separate AI Overview, AI Mode, assistant answer, and classic organic outcomes.
-- Keep llms.txt caveated as non-Google Search guidance if it is mentioned.
-- Use market studies as directional context until first-party GSC reporting exists.
-- Never claim that a page can force inclusion or citation in an AI feature.
-- Place entity names, dates, constraints, and source context inside or near the answer block.
-- Keep preview-control recommendations explicit about tradeoffs for snippets and AI features.
-- Record confidence as advisory when evidence comes from practitioner observation.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
-- Refresh trigger: review this checklist when Google changes the AI optimization guide, AI features documentation, Search Console generative AI reporting docs, or the practitioner source used for passage heuristics.
+The gate focuses on answer structure, entity naming, nearby evidence, scope limits, and whether a reader would still understand the claim if the passage appeared outside the article.
 
-## Review Sequence
-1. Open [[AI Citation Mechanics]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### Inputs Required Before Review
 
-## Specific Checks
-- Check that passage citability checklist is applied to the correct content unit.
-- Check that the decision matches this purpose: checks whether a passage can be extracted, attributed, and understood out of context.
-- Check that the output can be inspected as a citability checklist with entity, answer, source, and caveat fields.
-- Check that the risk is addressed directly: optimizing a whole page while the key answer block stays vague.
-- Check whether the answer block names the entity without relying on prior paragraphs.
-- Add the key date, qualifier, or scope limit inside the extractable passage.
-- Place a source near the claim instead of only in a bibliography.
-- Distinguish AI Overview review from AI Mode review.
-- Confirm preview-control choices match the visibility goal.
-- Use GSC generative AI data when available and label missing data plainly.
-- Keep practitioner extraction advice marked as advisory.
-- Do not promise citation, inclusion, or click lift.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+Bring the passage text, page URL, target query, source IDs for claims, date-sensitive numbers, and any preview-control constraints.
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Passage Citability Checklist Pass Fail Table
 
-## Failure Modes
-- A passage is concise but lacks entity clarity or source context.
-- llms.txt is framed as a Google Search visibility requirement.
-- AI Mode work receives budget without proportional query-share context.
-- A preview control is changed without noting visibility tradeoffs.
-- Practitioner findings are written as official Google facts.
-- Citation exposure is reported without separating available and inferred data.
-- The article is optimized for extraction but loses reader usefulness.
-- The recommendation promises an AI citation.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Check | Pass state | Source evidence | Severity | Fix owner | Status |
+|---|---|---|---|---|---|
+| Answer sentence | The first sentence directly answers the reader job | `ziptie-aio-source-selection` | blocker | Editor | pass, fix, or defer |
+| Entity clarity | The target entity is named inside the passage | `g-ai-opt-guide`, `g-ai-features` | blocker | GEO reviewer | pass, fix, or defer |
+| Source proximity | The supporting source sits next to the claim | `seer-aio-impact-ctr-2026`, article source IDs | high | Researcher | pass, fix, or defer |
+| Market caveat | Broad click behavior is clearly labeled as market context | `sparktoro-zero-click-2026` | medium | Strategist | pass, fix, or defer |
+| Measurement path | A later citation check has a metric or explicit missing-data note | `g-genai-reports` | medium | Analyst | pass, fix, or defer |
 
-## Handoff
-- Attach the citation note to the brief, draft, or AI feature report.
-- Label every recommendation as official, first-party, market, or practitioner evidence.
-- Record whether GSC generative AI reporting is available for the property.
-- Send section-writing fixes to [[6-Pillar Dual Optimization]].
-- Send source gaps to [[Research Pack Index]].
-- Send schema entity questions to [[Blog Schema Stack]].
-- Send measurement work to [[Google Data Integrations]].
-- Score readiness through [[Blog Quality Score]].
-- Use [[AI Overview Citation Review]] when this note needs a sibling follow-up.
-- Use [[AI Mode Citation Review]] when the next decision belongs beside this note.
+## Passage Citability Checklist Procedure
 
-## Related
-- [[AI Citation Mechanics]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[Blog Schema Stack]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
-- [[AI Overview Citation Review]]
-- [[AI Mode Citation Review]]
-- [[llms.txt Caveat Note]]
-- [[Entity Clarity For AI Answers]]
-- [[Source Proximity Pattern]]
-- [[Answer Block Extraction Test]]
-- [[Citation Exposure Metrics]]
-- [[AI Feature Preview Controls]]
-- [[GEO Risk Register]]
-- [[Generative Search Measurement Plan]]
-- [[Assistant Answer Surface Map]]
+1. Read only the candidate passage and mark any missing entity, date, source, or limitation.
+2. Compare each claim with its source ID and remove unsupported generalizations.
+3. Decide whether the passage is ready for surface-specific review or needs a rewrite.
+4. Send failed answer structure to [[Answer Block Extraction Test]] and failed source placement to [[Source Proximity Pattern]].
+
+## Passage Citability Checklist Handoff Rules
+
+A passage passes this checklist only when it is accurate, self-contained, source-adjacent, and clear to a human reader. Passing the checklist means "ready to review", not "likely to be cited".

@@ -3,107 +3,54 @@ type: hub
 title: "Blog Schema Stack"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [schema, blog-schema, active]
 domain: "Blog Structured Data"
 confidence: verified
 related:
   - "[[index|Index]]"
   - "[[hot|Hot]]"
-  - "[[Dual Optimization]]"
-  - "[[AI Citation Mechanics]]"
+  - "[[Article Schema Baseline]]"
+  - "[[Schema Validation Workflow]]"
+  - "[[Structured Data Deprecation Register]]"
   - "[[E-E-A-T for Blog Content]]"
-  - "[[Images Audio and Charts]]"
-  - "[[Google Algorithm Update Ledger]]"
-  - "[[Research Pack Index]]"
 source_urls:
   - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
   - "https://schema.org/docs/full.html"
   - "https://www.w3.org/TR/json-ld11/"
 ---
-
 # Blog Schema Stack
 
-## Summary
+## Stack Operating Scope
 
-Blog Schema Stack defines the baseline structured data set for blog posts after FAQ and HowTo rich result visibility loss.
+[[Blog Schema Stack]] is the hub for blog structured-data decisions. It defines the baseline graph that most posts should share, then routes special cases to smaller notes. The stack is useful when it makes article identity, site hierarchy, authorship, publisher identity, and qualifying media or product details easier to inspect. It is not a promise of rankings, clicks, or AI citation.
 
-The target is a coherent entity graph, not isolated snippets.
+The evidence route is deliberately conservative. `g-intro-sd` supplies Google's general rules for structured data and JSON-LD preference. `g-search-gallery` is the support check before a note says a type has a Google Search appearance. `schema-full` is the vocabulary map, and `w3c-jsonld` is the serialization reference.
 
-## Current fact anchors
+## What This Hub Owns
 
-- Google structured data introduction, retrieved 2026-07-06, recommends JSON-LD and requires markup to describe visible content.
-- Google FAQPage documentation records FAQ rich results retired for all sites effective 2026-05-07.
-- The substrate frames Article or BlogPosting plus Person, Organization, and BreadcrumbList as the blog priority after FAQ and HowTo deprecations.
-- Google Search Gallery, dated 2026-07-01 in the ledger, is the authority route for supported rich result types.
-- Schema.org and JSON-LD 1.1 provide standards references for vocabulary and serialization.
+The hub owns the standard blog graph: Article or BlogPosting, Person author, Organization publisher, BreadcrumbList, image references, and optional VideoObject or Product only when the article visibly qualifies. It also owns the routing rule that visible Q and A content may help readers without becoming an unsupported rich-result promise. When a claim mentions a changing Google surface, point to [[Structured Data Deprecation Register]] or [[2026 Google Update Timeline]] instead of burying it in a template note.
 
-## Scope
+## What The Hub Must Not Absorb
 
-- Define baseline BlogPosting or Article markup.
-- Define Person and Organization identity support.
-- Define BreadcrumbList requirements.
-- Define ImageObject, VideoObject, and Product add-ons when relevant.
-- Define visible Q and A content without selling FAQ rich results.
-- Define validation paths for Google support and Schema.org vocabulary.
-- Connect author trust to [[E-E-A-T for Blog Content]].
-- Connect media schema to [[Images Audio and Charts]].
+This page should not become a full Schema.org encyclopedia, a CMS implementation manual, or a general E-E-A-T playbook. Editorial trust belongs in [[E-E-A-T for Blog Content]]. Media asset decisions belong in [[Images Audio and Charts]]. Syntax and test evidence belong in [[Schema Validation Workflow]] and [[JSON-LD Publishing Checklist]]. Keeping those boundaries prevents schema notes from accumulating unsourced operational folklore.
 
-## Future spoke notes
+## Blog Schema Stack Spoke Map
 
-- [[Article Schema Baseline]]
-- [[BlogPosting Versus Article]]
-- [[Author Person Markup]]
-- [[Organization Entity Graph]]
-- [[BreadcrumbList For Blogs]]
-- [[Visible Q And A Without FAQ Rich Results]]
-- [[VideoObject For Blog Posts]]
-- [[Product Mentions In Blog Schema]]
-- [[Schema Validation Workflow]]
-- [[Structured Data Deprecation Register]]
+| Spoke | Decision it owns | Required evidence | Validation target | Warning | Source id |
+|---|---|---|---|---|---|
+| [[Article Schema Baseline]] | Minimum article graph | Rendered title, dates, author, publisher, image | Rich Results Test plus page comparison | Baseline should stay small enough to audit | `g-intro-sd` |
+| [[BlogPosting Versus Article]] | Type selection | Site convention and article purpose | Schema.org type fit | Do not present type choice as a ranking lever | `schema-full` |
+| [[Author Person Markup]] | Person node | Byline and author profile | Stable author `@id` | Markup cannot create missing expertise | `schema-full` |
+| [[Organization Entity Graph]] | Publisher node | Brand, logo, canonical site identity | Reused Organization `@id` | Sponsor and publisher are not interchangeable | `g-intro-sd` |
+| [[BreadcrumbList For Blogs]] | Hierarchy path | Visible breadcrumb or site taxonomy | Search Gallery supported feature route | Navigation changes stale this quickly | `g-search-gallery` |
+| [[JSON-LD Publishing Checklist]] | Prepublish syntax | Final rendered JSON-LD | JSON parser and Search test | Build systems can alter valid source snippets | `w3c-jsonld` |
 
-## Entity graph checklist
+## Spoke Jobs And Deliverable Boundaries
 
-- The schema describes content visible on the page.
-- The author is represented consistently.
-- The publisher or organization is represented consistently.
-- Dates match visible published and modified dates.
-- Images have stable URLs and useful alt context.
-- Breadcrumbs match the visible site hierarchy.
-- Product or video markup is used only when the page actually contains that content.
-- Rich result eligibility is never promised.
+Each spoke should return a review decision, not a live-system mutation. Accepted outputs include a table of fields, a pass or fail note, a rollback trigger, or a CMS ticket comment. Rejected outputs include invented source claims, generic rich-result promises, hidden-content markup, and broad performance forecasts.
 
-## Source posture
+## Evidence And Refresh Rules
 
-- Use Google Search Central for supported Search features.
-- Use Schema.org for vocabulary breadth.
-- Use W3C JSON-LD for serialization.
-- Track deprecations through [[Google Algorithm Update Ledger]].
-- Mark practitioner schema prioritization as advisory when it exceeds Google documentation.
-
-## Related themes
-
-- [[Dual Optimization]]
-- [[E-E-A-T for Blog Content]]
-- [[AI Citation Mechanics]]
-- [[Images Audio and Charts]]
-- [[Multilingual Publishing]]
-- [[Google Data Integrations]]
-- [[Google Algorithm Update Ledger]]
-- [[Research Pack Index]]
-
-## Sources
-
-- Google structured data introduction, retrieved 2026-07-06.
-- Google FAQPage documentation, effective 2026-05-07 for retirement.
-- Google Search Gallery, dated 2026-07-01 in the ledger.
-- Schema.org full hierarchy, retrieved 2026-07-06.
-- JSON-LD 1.1, retrieved 2026-07-06.
-
-## Next actions
-
-- Fill [[Article Schema Baseline]] before generator details.
-- Fill [[Structured Data Deprecation Register]] before schema audits.
-- Cross-link media requirements to [[Images Audio and Charts]].
+Refresh this hub when the source-ledger refresh date reaches 2026-08-01, when Google changes the Search Gallery, or when a template starts producing warnings that the existing notes do not explain. Vocabulary additions in Schema.org should be treated as available terms, not automatically as supported Google Search features.

@@ -1,107 +1,40 @@
 ---
 type: hub
 title: "Voice and Style"
+domain: "Blog Voice"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [personas, voice-style, active]
-domain: "Blog Voice"
-confidence: verified
-related:
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[6-Pillar Dual Optimization]]"
-  - "[[E-E-A-T for Blog Content]]"
-  - "[[SERP-Informed Briefs and Outlines]]"
-  - "[[Distribution and Repurposing]]"
-  - "[[Multilingual Publishing]]"
-  - "[[Research Pack Index]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://www.nngroup.com/articles/ten-usability-heuristics/"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
 ---
 
 # Voice and Style
 
-## Summary
+## Voice and Style Operating Scope
 
-Voice and Style keeps blog content recognizable, useful, and appropriate for audience risk while preserving source accuracy.
+Voice and Style keeps blog content recognizable, useful, source-bound, and appropriate for reader risk. The hub owns the operating system for personas, brand voice, tone, terminology, examples, readability, distribution adaptation, localization voice, and drift review. It is a control hub for content decisions, not a publishing workflow.
 
-It covers personas, tone, terminology, examples, and channel adaptation.
+### What This Hub Owns In Persona, Brand Voice, And Style Controls
 
-## Current fact anchors
+This hub owns the route from [[Audience Persona Template]] to [[Brand Voice Inventory]], [[Tone By Funnel Stage]], [[Terminology Control List]], [[Readability Review]], and [[Voice Drift Audit]]. It also routes sensitive language through [[YMYL Tone Guardrails]] and localized voice through [[Locale Voice Adaptation]]. Evidence posture comes from `g-helpful-content`, `g-qrg-full`, `nng-editorial-heuristics`, and `g-ai-opt-guide`.
 
-- Google helpful content guidance, retrieved 2026-07-06, supports content written for people and shaped by reader satisfaction.
-- The QRG source in the substrate is dated 2025-09-11 and supports purpose, quality, trust, and YMYL sensitivity.
-- Nielsen Norman Group heuristics, retrieved 2026-07-06 in the ledger, are adapted as editorial ergonomics in the reference set.
-- Google third-party SEO guidance, 2026-06-05, cautions against overconfident claims from tools or vendors.
-- Voice should never override source fidelity, risk caveats, or reader clarity.
+### What The Hub Must Not Absorb
 
-## Scope
+It must not duplicate [[Blog Quality Score]], [[Blog Schema Stack]], [[AI Citation Mechanics]], [[Distribution and Repurposing]], [[Multilingual Publishing]], or [[Research Pack Index]]. It does not promise rankings, traffic, AI visibility, rich results, compliance, or publication. If a recommendation needs source discovery, external data, or CMS action, the hub records the handoff and stops.
 
-- Define audience personas.
-- Define brand voice traits.
-- Define banned phrasing and unsupported certainty.
-- Define readability expectations.
-- Define examples and analogy rules.
-- Define style adaptation for distribution channels.
-- Define multilingual voice carryover.
-- Connect trust checks to [[E-E-A-T for Blog Content]].
+## Voice and Style Spoke Map
 
-## Future spoke notes
+| Spoke | Job | Deliverable boundary | Primary source IDs | Refresh trigger |
+|---|---|---|---|---|
+| [[Audience Persona Template]] | Convert reader evidence into writing constraints | Persona card, not market forecast | `g-helpful-content`, `g-qrg-full` | Persona or product changes |
+| [[Banned Claims And Phrases]] | Block unsupported certainty | Stoplist, not legal advice | `g-ai-opt-guide`, `nng-editorial-heuristics` | New banned pattern appears |
+| [[Example Selection Rules]] | Pick examples that fit reader and proof | Example approval, not source creation | `g-helpful-content`, `g-qrg-full` | Locale or risk changes |
+| [[Distribution Voice Adaptation]] | Adapt channel voice without claim drift | Asset voice note, not posting action | `g-update-2025-01-23-qrg-update-jan-2025` | New channel template |
 
-- [[Audience Persona Template]]
-- [[Brand Voice Inventory]]
-- [[Tone By Funnel Stage]]
-- [[Terminology Control List]]
-- [[Banned Claims And Phrases]]
-- [[Readability Review]]
-- [[Example Selection Rules]]
-- [[YMYL Tone Guardrails]]
-- [[Distribution Voice Adaptation]]
-- [[Locale Voice Adaptation]]
+### Spoke Jobs And Deliverable Boundaries
 
-## Style rules
+Each spoke should name the artifact it produces and the artifact it refuses to own. That boundary keeps a style discussion from swallowing evidence review, schema implementation, or analytics interpretation.
 
-- Prefer concrete wording.
-- Keep claims source-bound.
-- Use direct answers before nuance.
-- Avoid invented certainty.
-- Avoid filler introductions.
-- Preserve dates on current facts.
-- Use terms consistently across a cluster.
-- Adjust channel length without changing claim scope.
+## Voice and Style Evidence And Refresh Rules
 
-## Source posture
-
-- Treat voice as a delivery layer, not evidence.
-- Use official or primary sources for factual claims.
-- Use usability sources for reader experience heuristics.
-- Mark tone recommendations advisory when brand context is missing.
-- Keep external publishing outside V1.
-
-## Related themes
-
-- [[6-Pillar Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[E-E-A-T for Blog Content]]
-- [[Distribution and Repurposing]]
-- [[Multilingual Publishing]]
-- [[Blog Quality Score]]
-- [[FLOW Framework]]
-- [[Research Pack Index]]
-
-## Sources
-
-- Google helpful content guidance, retrieved 2026-07-06.
-- Search Quality Rater Guidelines, 2025-09-11.
-- Nielsen Norman Group heuristics, 2020, retrieved 2026-07-06.
-- Google third-party SEO guidance, 2026-06-05.
-
-## Next actions
-
-- Fill [[Audience Persona Template]] before persona-driven briefs.
-- Fill [[Banned Claims And Phrases]] before QA automation.
-- Link style checks to [[Blog Quality Score]].
+Refresh this hub when Google helpful-content guidance, the full QRG, the AI optimization guide, or the editorial heuristics source changes in `references/source-ledger.json`. Review the spoke map after three repeated drift findings or after a major brand positioning change.

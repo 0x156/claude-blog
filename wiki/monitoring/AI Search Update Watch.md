@@ -1,154 +1,61 @@
 ---
 type: spoke
 title: "AI Search Update Watch"
+domain: "Google Update Monitoring"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [monitoring, google-updates, active]
-domain: "Google Update Monitoring"
-confidence: verified
-related:
-  - "[[Google Algorithm Update Ledger]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Research Pack Index]]"
-  - "[[Google Data Integrations]]"
-  - "[[Update Impact Review]]"
-  - "[[Monthly Source Refresh]]"
-  - "[[Monitoring Confidence Labels]]"
-  - "[[2024 Google Update Timeline]]"
-  - "[[2025 Google Update Timeline]]"
-  - "[[QRG Revision Watch]]"
-  - "[[Schema Deprecation Watch]]"
 source_urls:
-  - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
-  - "https://developers.google.com/search/updates/ranking"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
+  - "https://developers.google.com/search/docs/appearance/ai-features"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/essentials/spam-policies"
   - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
   - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
 ---
 
 # AI Search Update Watch
 
-## Summary
-This spoke tracks AI Overview, AI Mode, and generative AI guidance changes without over-weighting small query surfaces.
-It belongs to [[Google Algorithm Update Ledger]] and supports confirmed Google updates, volatility quarantine, update response, and dated source refresh.
-Primary working inputs: AI feature source, date, query surface, reporting availability.
-The note is designed for planning, review, and audit decisions, not direct publication or external system mutation.
-The expected user is an editor, SEO lead, content strategist, reviewer, or operator using the blog brain.
-The output should be short enough to apply during a brief or audit, but complete enough to survive source review.
+## AI Search Update Watch Distinct Job
 
-## Evidence Anchors
-- The local update ledger contains 34 Google-owned update entries through the 2026-06-30 Merchant Center product videos entry.
-- No Google-owned ranking, spam, schema, QRG, or AI search update is recorded from 2026-07-01 through 2026-07-06.
-- FAQ rich results retired for all sites effective 2026-05-07, which makes Article or BlogPosting the blog schema priority.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt for Search, AI Overviews, or AI Mode.
-- QRG status remains tied to the 2025-09-11 version as of 2026-07-06.
-- As of 2026-07-06, SparkToro reports 68.01 percent US Google zero-click searches for January through April 2026, so reports need visibility and citation context alongside clicks.
-- Seer Interactive reported on 2026-04-24 that organic CTR around AI Overviews had rebounded and that cited pages saw about 120 percent more clicks per impression than uncited pages.
-- Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
-- Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
-- The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+This spoke tracks Google-owned AI Overview, AI Mode, and generative-AI guidance changes. It protects the brain from two errors: treating small or experimental surfaces as the whole search market, and treating AI-search product announcements as ranking updates. Market statistics and click behavior belong to [[AI Citation Mechanics]]; this watch records only the Google source lane and the operational routing decision.
 
-## Required Inputs
-- Confirmed Google-owned source URL or explicit unverified status.
-- Exact date, update name, kind, and affected search surface.
-- Local page set or content class that could plausibly be affected.
-- GSC or GA4 date windows before and after the update when property data is available.
-- Policy, schema, AI search, QRG, or ranking route for interpretation.
-- Decision note that separates observation from recommended action.
-- Refresh owner and next check date when an update is still rolling out.
-- Quarantine note for third-party volatility until Google confirms it.
+## Inputs Specific To AI Search Update Watch
 
-## Workflow
-- Define the decision this note supports: tracks AI Overview, AI Mode, and generative AI guidance changes without over-weighting small query surfaces.
-- Open [[Google Algorithm Update Ledger]] and confirm the hub rule that applies before using this spoke.
-- Classify the event as core, spam, schema, QRG, product, AI search, guidance, tooling, or policy.
-- Wait for a Google-owned source before changing durable guidance from volatility reports.
-- Compare affected pages with first-party data only after the relevant rollout window is understood.
-- Record no-current-update claims with exact dates so they can be invalidated later.
-- Start from the parent hub and confirm the article, locale, data set, or source family affected by this note.
-- List the claims that the draft or audit output will make before editing style, media, or schema.
-- Attach a source URL, retrieval date, and confidence label to each current or risky claim.
-- Separate reader-facing advice from implementation notes so the brain stays advisory in V1.
-- Check whether first-party property data exists before leaning on market averages or practitioner studies.
-- Record any missing evidence as a gap instead of converting it into a confident recommendation.
-- Route schema decisions through visible page content and current Google-supported rich result documentation.
-- Route AI citation decisions through answer-first passages, clear entities, and source-backed wording.
-- Route multilingual and persona decisions through human review when local facts, legal terms, or YMYL sensitivity appear.
-- Keep all external system changes outside this note and write only the recommendation, rationale, and rollback condition.
+- Google AI feature documentation, AI optimization guidance, Search Central posts, or Search product posts.
+- Source ID and date from `references/source-ledger.json`.
+- Surface name: AI Overview, AI Mode, generative AI reporting, preview controls, or AI guidance.
+- A boundary note explaining what the source does not prove.
 
-## Review Checks
-- The note names exact dates when guidance can become stale.
-- The recommendation does not promise rankings, traffic, AI citations, or rich results.
-- FAQPage is not framed as a current rich result tactic after 2026-05-07.
-- FID is not used as a current Core Web Vital, and INP is used when performance enters the decision.
-- llms.txt is not presented as a Google Search visibility requirement.
-- The cited source is appropriate for the claim strength and not just a convenient example.
-- The output tells the reader what to do when first-party data is unavailable.
-- The advice can be reversed or refreshed if Google documentation changes.
-- The body links back to the parent hub, Index, and sibling spokes for graph health.
-- The note stays inside the assigned folder and does not mutate references, data, scripts, or external platforms.
+## Decisions AI Search Update Watch Must Record
 
-## Risk Controls
-- Evidence currency risk: AI Search Update Watch decisions can go stale when a source, date, or requirement changes.
-- Claim scope risk: keep AI Search Update Watch advice tied to the source coverage named in this note.
-- Operational boundary risk: do not turn AI Search Update Watch into CMS, analytics, Search Console, API, or publishing mutation steps.
-- Proof gap risk: when the note lacks direct evidence, record the gap instead of upgrading confidence.
-- Audience fit risk: adjust AI Search Update Watch guidance for topic sensitivity, locale, and review ownership before use.
-- Media and data risk: verify charts, visuals, metrics, and examples before they carry this note's claims.
-- Metric interpretation risk: separate first-party exports, market studies, and API signals in AI Search Update Watch outputs.
-- Monitoring risk: quarantine unconfirmed volatility until a dated source in the ledger supports it.
+AI guidance can update briefs, measurement plans, and passage-citation reviews. It should not trigger mass rewrites without first-party evidence. A Google statement about Search feature behavior is CONFIRMED for that surface; claims about traffic share, CTR, or universal citation uplift need the verdict discipline from `references/claim-ledger.md`.
 
-## Output Shape
-- A AI Search Update Watch decision summary for the editor or auditor.
-- The source IDs or URLs that directly support the active recommendation.
-- A confidence label that matches the evidence strength for this note.
-- A rollback or refresh condition tied to the source or workflow affected.
-- A blocked-claims list for AI Search Update Watch gaps that need more evidence.
-- A handoff note naming the writer, editor, reviewer, or data owner next action.
-- Links back to the parent hub and sibling notes that keep the graph navigable.
-- A no-action statement when AI Search Update Watch evidence is incomplete or outside this brain.
+## AI Search Update Watch Update Entry Table
+
+| Watch decision | Required input | Source IDs | Evidence state | Owner | Next action |
+|---|---|---|---|---|---|
+| AI features eligibility | Check whether normal crawling and preview controls are still the documented path | `g-ai-features` | CONFIRMED | AI search owner | Keep AI-feature advice aligned with standard Google Search access rules. |
+| Special-file claims | Verify claims about llms.txt, special AI schema, Markdown conversion, or chunking files | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | CONFIRMED | Brief reviewer | Reject Google-visibility claims that contradict the AI optimization guide. |
+| Product-surface expansion | Distinguish AI Mode reach from query-share or traffic impact | `g-update-2026-05-19-google-i-o-2026-gemini-3-5-flash-powers-ai-mode` | AS-REPORTED by Google | Strategy owner | Route market-size interpretation to [[AI Citation Mechanics]]. |
+| Reporting availability | Record whether Search Console generative-AI reports are available for a property | `g-update-2026-06-03-search-console-search-generative-ai-performance-reports`, `g-genai-reports` | CONFIRMED with rollout caveat | Data owner | Add a read-only report availability check in [[Google Data Integrations]]. |
+| Spam intersection | Watch for AI-scaled content language in spam policy updates | `g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content`, `g-spam-policies` | CONFIRMED | Spam reviewer | Route low-value scaled pages to [[Spam Update Response Playbook]]. |
+| Ranking-event boundary | A core or spam update is being mistaken for an AI-search change | `g-ranking-history`, `g-status-dashboard`, `g-update-2026-05-21-may-2026-core-update`, `g-update-2026-06-24-june-2026-spam-update` | CONFIRMED non-AI route | Monitoring owner | Send the item to the timeline or playbook instead. |
+
+## Small Surface Guardrail
+
+Do not use this note to repeat zero-click or AI Mode share numbers. If a brief needs those market baselines, link to [[AI Citation Mechanics]] and carry the claim-ledger verdict. This watch can say that Google documented a feature or guidance change; it cannot say that a blog category should be deprioritized because a broad market average exists.
+
+## AI Search Update Watch Operating Procedure
+
+1. Identify the Google-owned AI source and extract only the changed guidance.
+2. Decide whether the change affects content guidance, measurement, spam review, or no action.
+3. Add a limitation line before any recommendation leaves monitoring.
+4. Recheck AI guidance during monthly refresh and before release packaging.
 
 ## Related
+
 - [[Google Algorithm Update Ledger]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Research Pack Index]]
+- [[AI Citation Mechanics]]
 - [[Google Data Integrations]]
-- [[Update Impact Review]]
-- [[Monthly Source Refresh]]
-- [[Monitoring Confidence Labels]]
-- [[2024 Google Update Timeline]]
-- [[2025 Google Update Timeline]]
-- [[QRG Revision Watch]]
-- [[Schema Deprecation Watch]]
-
-## Source URLs
-- https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history
-- https://developers.google.com/search/updates/ranking
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage
-- https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
-- https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
-- https://developers.google.com/search/docs/essentials/spam-policies
-- https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports
-- https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/
-- https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update
-- https://blog.google/products-and-platforms/products/search/search-io-2026/
-- https://ziptie.dev/blog/google-ai-overviews-source-selection/
-
-## Maintenance Notes
-- Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
-- Keep backlink health with [[Google Algorithm Update Ledger]], [[index|Index]], and sibling spokes in this folder.
-- Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
-- Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.
-- Do not record secrets, tokens, private exports, or private client details in this note.
-- Do not publish or mutate CMS, GSC, GA4, Search Console, analytics, schema, sitemap, or platform settings from this note.
+- [[Spam Update Response Playbook]]
+- [[Unverified Volatility Quarantine]]

@@ -1,109 +1,65 @@
 ---
 type: hub
 title: "Distribution and Repurposing"
+domain: "Blog Distribution"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
-tags: [distribution, repurposing, active]
-domain: "Blog Distribution"
+updated: 2026-07-09
+tags:
+  - distribution
+  - repurposing
+  - hub
+  - active
 confidence: verified
 related:
   - "[[index|Index]]"
   - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
+  - "[[AI Citation Mechanics]]"
+  - "[[Google Data Integrations]]"
   - "[[Images Audio and Charts]]"
   - "[[Voice and Style]]"
-  - "[[Google Data Integrations]]"
-  - "[[AI Citation Mechanics]]"
-  - "[[Research Pack Index]]"
+  - "[[Zero Click Planning Baseline]]"
 source_urls:
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.niemanlab.org/2026/05/google-highlights-links-from-subscribed-publications-in-new-ai-overviews-update/"
-  - "https://developers.google.com/search/docs/appearance/ai-features"
   - "https://www.similarweb.com/blog/marketing/geo/gen-ai-stats/"
+  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
+  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
+  - "https://developers.google.com/search/docs/appearance/ai-features"
 ---
 
 # Distribution and Repurposing
 
-## Summary
+## Distribution and Repurposing Operating Scope
 
-Distribution and Repurposing turns a blog post into channel-specific assets while preserving source fidelity, voice, and measurement context.
+Distribution and Repurposing turns a finished blog post into channel-specific assets while keeping the canonical post, source evidence, and measurement logic intact. The hub exists because 2026 distribution is not just "publish and share": AI features, click scarcity, owned audience loops, and assistant referrals create visibility signals that do not all behave like sessions. `sparktoro-zero-click-2026` belongs to [[Zero Click Planning Baseline]], `g-ai-features` belongs to [[AI Citation Mechanics]], and measurement routes through [[Google Data Integrations]].
 
-This hub keeps distribution aligned with dual optimization rather than treating publishing as the finish line.
+### What This Hub Owns In Distribution And Repurposing
 
-## Current fact anchors
+The hub owns derivative asset boundaries, canonical attribution, source-fidelity checks, distribution measurement framing, owned audience follow-up, and AI referral reporting. It can advise a human owner to create or revise an asset, but V1 does not mutate CMS, email, community, social, video, podcast, analytics, or Search Console systems.
 
-- SparkToro, 2026-06-09, reports that less than one third of US Google searches sent a click to the open web during January through April 2026.
-- Nieman Lab, 2026-05, reports AI Overviews can highlight links from publications a user subscribes to, making loyal audience channels relevant to visibility context.
-- Google AI features documentation, retrieved 2026-07-06, supports standard Search controls for AI feature previews.
-- Similarweb, 2026-05-28, is market context for growth in AI referral traffic in the substrate.
-- Distribution planning should report impressions, citations, assisted reach, and owned audience growth, not only clicks.
+### What The Hub Must Not Absorb
 
-## Scope
+This hub does not own technical SEO fixes, schema generation, content scoring, voice system design, or media asset production. Those route to [[Blog Schema Stack]], [[Blog Quality Score]], [[Voice and Style]], and [[Images Audio and Charts]]. It also must not promote AI Mode reach from `blog-io2026` or AI referral growth from `similarweb-gen-ai-stats-2026` into a guaranteed channel outcome.
 
-- Define owned, search, social, email, community, video, and AI assistant surfaces.
-- Define source-preserving repurpose formats.
-- Define channel-specific hooks without changing claims.
-- Define canonical URL and attribution discipline.
-- Define measurement by channel.
-- Connect media assets through [[Images Audio and Charts]].
-- Connect tone through [[Voice and Style]].
-- Connect GSC and GA4 data through [[Google Data Integrations]].
+## Distribution and Repurposing Spoke Map
 
-## Future spoke notes
+| Spoke | Operating decision | Required inputs | Source ids | Evidence state | Next action |
+|---|---|---|---|---|---|
+| [[Repurposing Source Fidelity]] | Which claims can leave the post | Claim list, source dates, caveats | `g-ai-features` | Required before copy | Build source table |
+| [[Canonical Attribution Rules]] | How derivatives point back | Canonical URL, source links, platform limits | `g-ai-features`, `sparktoro-zero-click-2026` | Required before publishing | Confirm attribution route |
+| [[Channel Asset Inventory]] | What assets exist and who owns them | Asset row, owner, status, metric | `similarweb-gen-ai-stats-2026` | Active control sheet | Assign owner |
+| [[Distribution Measurement Plan]] | How reach and action are read | GA4, GSC, citation notes, platform metrics | `g-ai-features`, `sparktoro-zero-click-2026` | Requires property data | Define metric window |
+| [[Owned Audience Loop]] | How readers return without search dependence | Email, subscriber, community, repeat-visit signals | `sparktoro-zero-click-2026`, `blog-io2026` | Advisory context | Choose owned follow-up |
+| [[AI Referral Reporting]] | How AI referrals differ from AI feature impressions | Referral sessions, GSC AI reports, observations | `g-ai-features`, `similarweb-gen-ai-stats-2026` | Separate buckets | Deliver report |
 
-- [[Repurposing Source Fidelity]]
-- [[Email Newsletter Adaptation]]
-- [[Social Thread Adaptation]]
-- [[Community Post Adaptation]]
-- [[Video Script Adaptation]]
-- [[Podcast Brief Adaptation]]
-- [[Canonical Attribution Rules]]
-- [[Distribution Measurement Plan]]
-- [[Owned Audience Loop]]
-- [[AI Referral Reporting]]
-- [[Channel Asset Inventory]]
+## Spoke Jobs And Deliverable Boundaries
 
-## Repurpose rules
+Each spoke should produce a narrow deliverable: a source table, rule table, inventory row, measurement plan, channel asset, or report. A channel asset is not ready because it is clever; it is ready when the source owner can trace every reused claim and the measurement owner knows which signal will be reviewed. Market studies support planning posture, while first-party data controls actual performance interpretation.
 
-- Keep the original claim scope intact.
-- Keep dates attached to current claims.
-- Keep sources visible when the channel allows.
-- Link back to the canonical post.
-- Do not inflate certainty for social performance.
-- Avoid changing regulated or YMYL wording without review.
-- Preserve brand voice from [[Voice and Style]].
-- Record channel-specific metrics without overwriting source truth.
+## Distribution and Repurposing Evidence And Refresh Rules
 
-## Source posture
+Refresh this hub when Google changes AI feature documentation, when [[2026 Google Update Timeline]] adds a relevant Search update, or when market studies materially change click-scarcity or AI referral context. Similarweb's generative AI stats source is market context from 2026-05-28; SparkToro's clickstream study is a practitioner panel from 2026-06-08. Google I/O 2026 explains AI Mode scale, but it is not a traffic-share metric for any site.
 
-- Use market studies as context, not as property forecasts.
-- Prefer GA4 and platform data for actual performance.
-- Keep AI referral and AI citation claims separate.
-- Avoid promising Discover, AI Overview, or social reach.
-- Keep external publishing actions outside V1.
+## Source IDs In Hub Scope
 
-## Related themes
-
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Images Audio and Charts]]
-- [[Voice and Style]]
-- [[Google Data Integrations]]
-- [[AI Citation Mechanics]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
-
-## Sources
-
-- SparkToro zero click study, 2026-06-09.
-- Nieman Lab subscribed publications report, 2026-05.
-- Google AI features documentation, retrieved 2026-07-06.
-- Similarweb generative AI stats, 2026-05-28.
-
-## Next actions
-
-- Fill [[Repurposing Source Fidelity]] before channel templates.
-- Fill [[Distribution Measurement Plan]] before reporting.
-- Use [[Channel Asset Inventory]] before publishing derivative assets.
-- Link media variants to [[Images Audio and Charts]].
+The hub wires `similarweb-gen-ai-stats-2026`, `sparktoro-zero-click-2026`, `blog-io2026`, and `g-ai-features`.

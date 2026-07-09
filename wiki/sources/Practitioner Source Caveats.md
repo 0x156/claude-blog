@@ -3,150 +3,66 @@ type: spoke
 title: "Practitioner Source Caveats"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
 related:
   - "[[Research Pack Index]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Google Algorithm Update Ledger]]"
-  - "[[Google Data Integrations]]"
-  - "[[Source Refresh Cadence]]"
-  - "[[Claim To Source Mapping]]"
-  - "[[Source Confidence Labels]]"
-  - "[[Evidence Gap Register]]"
-  - "[[Source URL Canonicalization]]"
   - "[[Primary Study Source Rules]]"
+  - "[[Source Confidence Labels]]"
+  - "[[Claim To Source Mapping]]"
+  - "[[Evidence Gap Register]]"
   - "[[Google Source Priority Ladder]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
+  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+  - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
 ---
 
 # Practitioner Source Caveats
 
-## Summary
-This spoke sets caveat language for SEO workflow studies, tools, and third-party experiments.
-It belongs to [[Research Pack Index]] and supports source routing, confidence labels, claim mapping, refresh cadence, and evidence gaps.
-Primary working inputs: practitioner URL, method note, confidence reason, fallback source.
-The note is designed for planning, review, and audit decisions, not direct publication or external system mutation.
-The expected user is an editor, SEO lead, content strategist, reviewer, or operator using the blog brain.
-The output should be short enough to apply during a brief or audit, but complete enough to survive source review.
+## Practitioner Caveat Job
 
-## Evidence Anchors
-- The source ledger contains 115 sources generated and last verified on 2026-07-06.
-- Current requirements were last verified 2026-07-06 and set a 2026-08-06 refresh due date.
-- Official Google, standards, primary, vendor, regulator, government, authority, and API documentation sources carry the highest source priority.
-- Practitioner studies are useful for workflow heuristics and market behavior, but they need advisory confidence when not first-party to the property.
-- Evidence must be recorded in references/source-ledger.json rather than only summarized in wiki prose.
-- As of 2026-07-06, SparkToro reports 68.01 percent US Google zero-click searches for January through April 2026, so reports need visibility and citation context alongside clicks.
-- Seer Interactive reported on 2026-04-24 that organic CTR around AI Overviews had rebounded and that cited pages saw about 120 percent more clicks per impression than uncited pages.
-- Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
-- Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
-- The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+This spoke sets the language used when a recommendation leans on SEO tool studies, agency experiments, benchmark posts, or workflow tests. Practitioner sources can help editors notice patterns, but they do not override official Google documentation or first-party property data.
 
-## Required Inputs
-- Source ID, title, URL, source type, section, retrieved date, and refresh due date.
-- Claim text exactly as it will appear in a recommendation or audit.
-- Confidence label based on source authority, recency, and claim specificity.
-- Primary source preference when Google, standards, or first-party documentation exists.
-- Practitioner or market source caveat when the evidence describes behavior rather than official requirements.
-- Gap owner and due date when evidence is missing or stale.
-- Release gate note when a missing source blocks market-ready status.
-- Rollback note when an external source changes or loses relevance.
+Use this note before a third-party study becomes client-facing advice. The output should preserve the study's scope, name what it cannot prove, and point the reviewer back to the Google source that governs the related requirement.
 
-## Workflow
-- Define the decision this note supports: sets caveat language for SEO workflow studies, tools, and third-party experiments.
-- Open [[Research Pack Index]] and confirm the hub rule that applies before using this spoke.
-- Start with official Google, standards, primary, or first-party sources when they exist for the claim.
-- Use practitioner sources for methods and observed behavior only with caveats about scope and recency.
-- Route every current requirement through the ledger rather than relying on memory or prose notes.
-- Promote gaps to the evidence register before they reach recommendations.
-- Start from the parent hub and confirm the article, locale, data set, or source family affected by this note.
-- List the claims that the draft or audit output will make before editing style, media, or schema.
-- Attach a source URL, retrieval date, and confidence label to each current or risky claim.
-- Separate reader-facing advice from implementation notes so the brain stays advisory in V1.
-- Check whether first-party property data exists before leaning on market averages or practitioner studies.
-- Record any missing evidence as a gap instead of converting it into a confident recommendation.
-- Route schema decisions through visible page content and current Google-supported rich result documentation.
-- Route AI citation decisions through answer-first passages, clear entities, and source-backed wording.
-- Route multilingual and persona decisions through human review when local facts, legal terms, or YMYL sensitivity appear.
-- Keep all external system changes outside this note and write only the recommendation, rationale, and rollback condition.
+## Practitioner Evidence Intake
 
-## Review Checks
-- The note names exact dates when guidance can become stale.
-- The recommendation does not promise rankings, traffic, AI citations, or rich results.
-- FAQPage is not framed as a current rich result tactic after 2026-05-07.
-- FID is not used as a current Core Web Vital, and INP is used when performance enters the decision.
-- llms.txt is not presented as a Google Search visibility requirement.
-- The cited source is appropriate for the claim strength and not just a convenient example.
-- The output tells the reader what to do when first-party data is unavailable.
-- The advice can be reversed or refreshed if Google documentation changes.
-- The body links back to the parent hub, Index, and sibling spokes for graph health.
-- The note stays inside the assigned folder and does not mutate references, data, scripts, or external platforms.
+- Study URL or tool report name.
+- Sample size, geography, search surface, and study window when available.
+- Source ID from `references/source-ledger.json`, or a gap if no source ID exists.
+- Official cross-check source such as `g-helpful-content`, `g-ai-opt-guide`, `g-search-gallery`, or `g-ranking-history`.
 
-## Risk Controls
-- Evidence currency risk: Practitioner Source Caveats decisions can go stale when a source, date, or requirement changes.
-- Claim scope risk: keep Practitioner Source Caveats advice tied to the source coverage named in this note.
-- Operational boundary risk: do not turn Practitioner Source Caveats into CMS, analytics, Search Console, API, or publishing mutation steps.
-- Proof gap risk: when the note lacks direct evidence, record the gap instead of upgrading confidence.
-- Audience fit risk: adjust Practitioner Source Caveats guidance for topic sensitivity, locale, and review ownership before use.
-- Media and data risk: verify charts, visuals, metrics, and examples before they carry this note's claims.
-- Metric interpretation risk: separate first-party exports, market studies, and API signals in Practitioner Source Caveats outputs.
-- Monitoring risk: quarantine unconfirmed volatility until a dated source in the ledger supports it.
+## Caveat Language Table
 
-## Output Shape
-- A Practitioner Source Caveats decision summary for the editor or auditor.
-- The source IDs or URLs that directly support the active recommendation.
-- A confidence label that matches the evidence strength for this note.
-- A rollback or refresh condition tied to the source or workflow affected.
-- A blocked-claims list for Practitioner Source Caveats gaps that need more evidence.
-- A handoff note naming the writer, editor, reviewer, or data owner next action.
-- Links back to the parent hub and sibling notes that keep the graph navigable.
-- A no-action statement when Practitioner Source Caveats evidence is incomplete or outside this brain.
+| Practitioner use case | Allowed wording | Blocked wording | Required official cross-check | Source IDs to cite |
+|---|---|---|---|---|
+| Content quality workflow study | "Use this as a review heuristic, then verify against people-first content guidance." | "This proves the page will rank." | Helpful content guidance | `g-helpful-content` |
+| Schema tactic discovered in a tool | "Validate against Google's current rich-result inventory before recommending." | "This schema type creates a Google rich result." | Search Gallery support check | `g-search-gallery` |
+| AI citation or passage-format experiment | "Treat as a Google AI Search hypothesis unless official docs support it." | "This format guarantees AI Overview or AI Mode citations." | AI optimization guide | `g-ai-opt-guide` |
+| SERP feature inventory from a third-party platform | "Use as observation input, then verify supported feature status." | "The tool output is Google's source of truth." | Search Gallery or ranking history, depending on claim | `g-search-gallery`; `g-ranking-history` |
+
+## Claims That Need Extra Friction
+
+Do not let a practitioner source carry a claim about a current Google requirement by itself. If the claim says "Google requires", "Google uses", "Google supports", or "Google launched", the claim needs a Google-owned source. If the claim says "we observed", "our panel found", or "our test suggests", keep the claim under `AS-REPORTED`, `SINGLE-SOURCE`, or `CONTESTED` discipline from `references/claim-ledger.md`.
+
+## Caveat Procedure
+
+1. Rewrite the study claim in plain language without promotional wording.
+2. Identify the official Google source that controls the adjacent requirement.
+3. Add a limitation sentence naming sample, surface, geography, or missing method detail.
+4. Assign the weakest suitable label in [[Source Confidence Labels]].
+5. Send missing source IDs or unsupported leaps to [[Evidence Gap Register]].
+6. Record release-facing claims in [[Claim To Source Mapping]] before publication.
 
 ## Related
+
 - [[Research Pack Index]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Google Algorithm Update Ledger]]
-- [[Google Data Integrations]]
-- [[Source Refresh Cadence]]
-- [[Claim To Source Mapping]]
-- [[Source Confidence Labels]]
-- [[Evidence Gap Register]]
-- [[Source URL Canonicalization]]
 - [[Primary Study Source Rules]]
+- [[Source Confidence Labels]]
+- [[Claim To Source Mapping]]
+- [[Evidence Gap Register]]
 - [[Google Source Priority Ladder]]
-
-## Source URLs
-- https://developers.google.com/search/docs/fundamentals/creating-helpful-content
-- https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
-- https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
-- https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/
-- https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update
-- https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
-- https://developers.google.com/search/docs/fundamentals/third-party-seo
-- https://blog.google/products-and-platforms/products/search/search-io-2026/
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage
-- https://ziptie.dev/blog/google-ai-overviews-source-selection/
-
-## Maintenance Notes
-- Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
-- Keep backlink health with [[Research Pack Index]], [[index|Index]], and sibling spokes in this folder.
-- Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
-- Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.
-- Do not record secrets, tokens, private exports, or private client details in this note.
-- Do not publish or mutate CMS, GSC, GA4, Search Console, analytics, schema, sitemap, or platform settings from this note.

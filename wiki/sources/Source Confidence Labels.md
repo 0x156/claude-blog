@@ -9,99 +9,64 @@ domain: "Source Evidence"
 confidence: verified
 related:
   - "[[Research Pack Index]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Google Algorithm Update Ledger]]"
-  - "[[Google Data Integrations]]"
-  - "[[Evidence Gap Register]]"
-  - "[[Source URL Canonicalization]]"
-  - "[[Research Release Gate Notes]]"
-  - "[[Source Ledger Reading Guide]]"
-  - "[[Current Requirements Digest]]"
   - "[[Claim To Source Mapping]]"
-  - "[[Source Refresh Cadence]]"
+  - "[[Evidence Gap Register]]"
+  - "[[Claim Verification Flow]]"
+  - "[[Source Ledger Reading Guide]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
+  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+  - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
 ---
 
 # Source Confidence Labels
 
-## Summary
-This spoke defines claim-level confidence labels for wiki notes. The label belongs to the weakest evidence needed for the actual recommendation, not the strongest source in the bibliography.
+## Source Confidence Labels Evidence Job
 
-The source ledger has separate `confidence` values such as high, medium, and low. This wiki uses operational labels below because a high-quality source can still support only a narrow claim.
+This spoke defines claim-level labels for wiki notes. A source can be high quality while a recommendation remains advisory, contested, or a gap. The label belongs to the claim as used, not to the prestige of the URL.
 
-## Allowed Labels
+The claim ledger uses `CONFIRMED`, `CONTESTED`, `AS-REPORTED`, `SINGLE-SOURCE`, and `FOLKLORE`. This note translates that discipline into operating labels that writers can apply inside source-governance notes.
 
-| Label | Use when | Downgrade when | Example |
-|---|---|---|---|
-| verified | A current official, primary, standards, government, regulator, API, or first-party source directly supports the exact claim, date, and surface. | The claim generalizes beyond the source, source date fields are mixed, raw provenance is missing for a release claim, or the source is outside the affected platform. | Google AI optimization guide last updated 2026-06-29 says Google Search does not use llms.txt. |
-| evidence-based | Multiple trustworthy sources or one strong primary source supports an observed pattern, but it is not an official requirement for the local site. | The evidence is market-average only, property-specific without access to the property, or methodologically narrow. | First-party GSC data plus a market study show AIO exposure affects a content class. |
-| practitioner | A practitioner source describes a workflow, test, heuristic, or observed tactic without official confirmation. | It is presented as a durable rule, ranking factor, traffic guarantee, or AI citation guarantee. | ZipTie passage-format guidance for AI Overviews source selection. |
-| advisory | The recommendation combines verified facts with judgment, market context, practitioner heuristics, or local policy. | Any required claim is missing a source ID, URL, retrieval date, confidence label, or refresh trigger. | AI citation readiness checklist using Google facts plus GEO heuristics. |
-| contested | Trustworthy sources conflict, or studies disagree because of different samples, periods, surfaces, or methods. | One source is later found irrelevant, or first-party property data resolves the practical decision. | AIO CTR effect estimates from separate market studies. |
-| gap | Evidence is missing, stale, date-mismatched, source-mismatched, raw-provenance-missing, or outside the source coverage. | A dated trustworthy source is recorded in [[Claim To Source Mapping]] and, for release use, the machine ledger and raw provenance are corrected. | `g-product-sd` date mismatch for the July 7 merchant listing update. |
+## Source Types This Note Owns
 
-## Downgrade Rules
+- Official Google Search sources that can support `verified` labels for exact Google claims.
+- Claim-ledger verdict terms used to prevent overstated study or practitioner claims.
+- Downgrade rules when a source supports a narrower claim than the draft.
 
-- A note with any practitioner-only operational claim cannot be `confidence: verified` unless verified facts and practitioner guidance are split into separate claim rows.
-- A note that mixes verified Google facts with market studies or workflow heuristics should use `confidence: advisory` at note level even if individual rows are verified.
-- Market-study statistics stay advisory until first-party property data confirms the local pattern.
-- Official Google Search documentation supports Google Search claims only; it does not prove behavior for ChatGPT, Perplexity, Copilot, or other non-Google assistants.
-- Google AI developer documentation supports model and provenance claims about Google AI products only; it does not clear rights, consent, or client publication policy.
-- A source URL without source ID, retrieval date, and refresh trigger cannot support a release-gate claim.
-- A live source whose page date conflicts with the machine ledger becomes `gap` until the date model is repaired.
-- Confidence follows the weakest source needed for the recommendation.
+## Claims This Note Must Not Validate Alone
 
-## Label Examples
+- Any claim with no source ID.
+- Any broad market or CTR claim that lacks method, geography, and time window.
+- Any schema, AI Search, or ranking claim whose source belongs to another platform.
 
-| Claim | Label | Why |
-|---|---|---|
-| Google Search does not use llms.txt for Search visibility. | verified | Directly stated in Google AI optimization guide, retrieved 2026-07-09. |
-| Keep important answer passages concise and source-near. | practitioner | Useful GEO workflow, but supported by practitioner guidance rather than an official Google rule. |
-| AIO citation increases clicks by a fixed percent for this client. | gap | Market studies cannot be applied to a client without first-party data. |
-| Generated images need model, rights, consent, disclosure, and provenance review. | advisory | Combines Google AI docs, C2PA provenance standard, and local publication policy. |
-| The Product intro page was updated on 2026-07-07. | gap | Live Product intro page shows 2025-12-10; July 7 applies to merchant listing documentation. |
+## Source Confidence Labels Source Table
 
-## Audit Checks
+| Operating label | Claim-ledger verdict alignment | Source pattern | Example source IDs | Use when | Downgrade when |
+|---|---|---|---|---|---|
+| verified | CONFIRMED | Official or primary source directly covers the claim. | `g-helpful-content`; `g-ai-opt-guide`; `g-search-gallery`; `g-ranking-history` | The wording, surface, and date all match the source. | The claim predicts outcomes or crosses platforms. |
+| evidence-based | CONFIRMED or AS-REPORTED | Strong source supports an observation, but it is not a universal rule. | Same source set plus property evidence outside this note. | The note states what was observed and preserves limits. | It becomes a guarantee or local forecast. |
+| practitioner | AS-REPORTED or SINGLE-SOURCE | Workflow study, tool report, or experiment. | Not established by the four Google sources alone. | The claim is framed as a heuristic. | It is presented as Google policy. |
+| advisory | AS-REPORTED, SINGLE-SOURCE, or mixed evidence | Verified facts plus editorial judgment. | `g-helpful-content`; `g-ai-opt-guide` | Recommendation needs human review or local fit. | Any required source row is missing. |
+| contested | CONTESTED | Credible sources or methods disagree. | Source conflict recorded in [[Evidence Gap Register]]. | The right action depends on scope or first-party data. | One source is later shown irrelevant. |
+| gap | FOLKLORE or source-ledger gap | Evidence is missing, stale, date-mismatched, or too broad. | Missing, stale, or misapplied source ID. | The claim should not be release-facing. | A valid source row closes the issue. |
 
-- Every current claim has a row in [[Claim To Source Mapping]] or a gap in [[Evidence Gap Register]].
-- Every `pending:` source ID has a corresponding gap owner and due date.
-- Current claims include exact dates such as 2026-07-09 instead of relative wording.
-- Deprecated features are not scored as current tactics.
-- Advisory or practitioner evidence is never phrased as a guarantee.
+## Source ID, URL, Date, Claim Coverage, And Limitation
+
+A confidence label requires all four evidence fields. If a note has a source ID and URL but no claim limitation, the reviewer cannot tell where the claim must stop.
+
+## Source Confidence Labels Refresh Procedure
+
+1. Read the exact claim, not just the surrounding note.
+2. Match it to the source row in [[Claim To Source Mapping]].
+3. Apply the weakest label needed by the full recommendation.
+4. Use claim-ledger verdict language for market studies and disputed claims.
+5. Move folklore, missing, or stretched claims to [[Evidence Gap Register]].
 
 ## Related
-- [[Research Pack Index]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Google Algorithm Update Ledger]]
-- [[Google Data Integrations]]
-- [[Evidence Gap Register]]
-- [[Source URL Canonicalization]]
-- [[Research Release Gate Notes]]
-- [[Source Ledger Reading Guide]]
-- [[Current Requirements Digest]]
-- [[Claim To Source Mapping]]
-- [[Source Refresh Cadence]]
 
-## Source URLs
-- https://developers.google.com/search/docs/fundamentals/creating-helpful-content
-- https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
-- https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
-- https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/
-- https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update
-- https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
-- https://developers.google.com/search/docs/fundamentals/third-party-seo
-- https://blog.google/products-and-platforms/products/search/search-io-2026/
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage
-- https://ziptie.dev/blog/google-ai-overviews-source-selection/
+- [[Research Pack Index]]
+- [[Claim To Source Mapping]]
+- [[Evidence Gap Register]]
+- [[Claim Verification Flow]]
+- [[Source Ledger Reading Guide]]

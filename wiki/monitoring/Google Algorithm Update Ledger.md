@@ -1,129 +1,63 @@
 ---
 type: hub
 title: "Google Algorithm Update Ledger"
+domain: "Google Update Monitoring"
 status: active
 created: 2026-07-06
 updated: 2026-07-09
 tags: [monitoring, google-updates, active]
-domain: "Google Update Monitoring"
-confidence: verified
-related:
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Freshness and Content Decay]]"
-  - "[[E-E-A-T for Blog Content]]"
-  - "[[Blog Schema Stack]]"
-  - "[[Google Data Integrations]]"
-  - "[[Blog Quality Score]]"
-  - "[[Research Pack Index]]"
 source_urls:
   - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
-  - "https://developers.google.com/search/updates/ranking"
-  - "https://developers.google.com/search/updates"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
+  - "https://developers.google.com/search/docs/essentials/spam-policies"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://developers.google.com/search/docs/appearance/preferred-sources"
-  - "https://developers.google.com/search/docs/crawling-indexing/amp"
-  - "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
 ---
 
 # Google Algorithm Update Ledger
 
-## Summary
+## Google Algorithm Update Ledger Operating Scope
 
-Google Algorithm Update Ledger is the monitoring hub for confirmed Google-owned updates, schema changes, AI search guidance, and QRG status.
+This hub owns Google-owned update memory for the blog brain. It keeps ranking updates, spam updates, Search documentation changes, AI-search guidance, schema support changes, and QRG revision status in one navigable place. It is advisory and read-only: it records evidence, routes review, and sets refresh obligations. It does not mutate CMS content, Search Console, Analytics, schema deployment, sitemaps, or publishing tools.
 
-This hub mirrors the source discipline from `data/google-updates.json` without editing that data file.
+## What This Hub Owns In Algorithm And Requirement Monitoring
 
-## Current fact anchors
+- Confirmed chronology from `g-ranking-history` and `g-status-dashboard`.
+- Event-specific local ledger entries such as `g-update-2026-05-21-may-2026-core-update` and `g-update-2026-06-24-june-2026-spam-update`.
+- Routing rules that decide whether a change belongs to a timeline, playbook, schema watch, QRG watch, AI-search watch, quarantine, or impact review.
+- Confidence labels folded from the former standalone monitoring-confidence note.
 
-- The verified local update ledger contains 34 Google-owned update entries through the 2026-06-30 Merchant Center product videos entry, but that data file is stale for July 2026 Search documentation updates.
-- Google Search documentation updates add 2026-07-01 AMP guidance changes and 2026-07-07 merchant listing structured-data guidance changes.
-- The Search Status Dashboard records no confirmed Google-owned ranking incident after the 2026-06-24 spam update as of 2026-07-09.
-- FAQ rich results retired for all sites effective 2026-05-07.
-- Google AI optimization guidance has current page date 2026-06-29; the llms.txt clarification was added 2026-06-15 and says Google Search does not use llms.txt.
-- Preferred Sources availability for AI Mode and AI Overviews is confirmed by Google Search documentation dated 2026-05-27.
-- QRG status remains tied to the 2025-09-11 version, with no newer revision recorded as of 2026-07-09.
+## What The Hub Must Not Absorb
 
-## Scope
+The hub must not absorb client-specific analytics, broad market CTR benchmarks, generic SEO advice, or unsupported volatility claims. Market behavior belongs to [[AI Citation Mechanics]] or [[Dual Optimization]]. First-party evidence belongs to [[Google Data Integrations]] and [[Update Impact Review]]. Unsupported volatility remains in [[Unverified Volatility Quarantine]] until a Google-owned source confirms an event.
 
-- Track confirmed Google ranking, spam, schema, AI, and QRG changes.
-- Quarantine third-party volatility reports until Google-owned confirmation exists.
-- Connect updates to [[Freshness and Content Decay]].
-- Connect schema changes to [[Blog Schema Stack]].
-- Connect QRG changes to [[E-E-A-T for Blog Content]].
-- Connect measurement changes to [[Google Data Integrations]].
-- Connect quality implications to [[Blog Quality Score]].
-- Keep update notes source-dated.
+## Google Algorithm Update Ledger Spoke Map
 
-## Future spoke notes
+| Ledger item | Source ID | Owner | Confidence | Status | Next review date | Rollback trigger |
+|---|---|---|---|---|---|---|
+| Confirmed timeline memory | `g-ranking-history`, `g-status-dashboard` | Monitoring owner | high | active | 2026-08-01 | Dashboard adds, removes, or edits an event. |
+| 2026 core and spam sequence | `g-update-2026-05-21-may-2026-core-update`, `g-update-2026-06-24-june-2026-spam-update` | SEO lead | high | active | 2026-08-06 | Source-ledger event date or completion status changes. |
+| Spam policy interpretation | `g-spam-policies`, `g-update-2026-05-15-spam-policies-update-gen-ai-scaled-content` | Spam reviewer | high | active | 2026-08-01 | Google changes spam-policy wording or enforcement note. |
+| AI-search guidance | `g-ai-opt-guide`, `g-ai-features` | AI search owner | high | active | 2026-08-01 | Google changes AI feature access or special-file guidance. |
+| Schema support watch | `g-search-gallery`, `g-intro-sd` | Schema reviewer | high | active | 2026-08-01 | Search gallery support changes. |
+| QRG status | `g-qrg-full`, `g-update-2025-09-11-qrg-update-sept-2025` | Quality reviewer | high | active | 2026-08-09 | A newer full QRG appears. |
+
+## Spoke Jobs And Deliverable Boundaries
+
+Use [[2026 Google Update Timeline]], [[2025 Google Update Timeline]], and [[2024 Google Update Timeline]] for event chronology. Use [[Core Update Response Playbook]] and [[Spam Update Response Playbook]] for response logic. Use [[Schema Deprecation Watch]], [[QRG Revision Watch]], and [[AI Search Update Watch]] for non-ranking guidance. Use [[Confirmed Update Entry Template]] for new entries and [[Update Impact Review]] for first-party impact checks.
+
+## Google Algorithm Update Ledger Evidence And Refresh Rules
+
+| Label | When to use it | Allowed action | Required caveat |
+|---|---|---|---|
+| CONFIRMED | Google-owned or standards source directly supports the event or rule | Add to timeline or guidance | Confirmation of the event is not proof of site impact. |
+| AS-REPORTED | A primary product post or dated study states a scoped fact | Cite with scope | Do not generalize beyond the source sample or surface. |
+| CONTESTED | Credible sources conflict or the operational claim overreaches | Keep advisory | Name what remains unresolved. |
+| SINGLE-SOURCE | One source supports the claim and no second source is available | Use only for low-risk guidance | Mark a refresh date before release use. |
+| QUARANTINED | Volatility or rumor lacks Google-owned confirmation | Watch only | Do not rewrite durable guidance. |
+
+## Related
 
 - [[Confirmed Update Entry Template]]
 - [[Unverified Volatility Quarantine]]
-- [[Core Update Response Playbook]]
-- [[Spam Update Response Playbook]]
-- [[Schema Deprecation Watch]]
-- [[QRG Revision Watch]]
-- [[AI Search Update Watch]]
-- [[Update Impact Review]]
 - [[Monthly Source Refresh]]
-- [[Monitoring Confidence Labels]]
-
-## Monitoring rules
-
-- Use Google-owned sources for confirmed updates.
-- Use third-party volatility only as advisory context.
-- Do not rewrite guidance from volatility chatter alone.
-- Add exact dates to all update claims.
-- Connect affected pages to first-party data where available.
-- Preserve the distinction between ranking updates and documentation updates.
-- Keep no-current-update claims dated.
-- Append durable changes to [[log]].
-
-## Current Watch State
-
-| Surface | Latest Google-owned event | Source ID | Retrieved | Operating action |
-|---|---|---|---:|---|
-| Ranking incidents | 2026-06-24 June 2026 spam update, completed 2026-06-26. | `g-status-dashboard`; `g-update-2026-06-24-june-2026-spam-update` | 2026-07-09 | Do not label July volatility as a confirmed update without a new dashboard or ranking-history entry. |
-| Search documentation | 2026-07-07 merchant listing structured-data guidance. | `g-search-docs-updates-2026-07-07-product-structured-data` | 2026-07-09 | Route ecommerce schema reviews through [[Structured Data Deprecation Register]]. |
-| AMP documentation | 2026-07-01 AMP docs simplification. | `pending:g-search-docs-updates-2026-07-01-amp` | 2026-07-09 | Remove old AMP viewer, AMP Cache, and signed exchange maintenance language. |
-| AI Search guidance | AI optimization guide last updated 2026-06-29; llms.txt clarification event 2026-06-15. | `g-ai-opt-guide`; `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | 2026-07-09 | Keep AI citation guidance advisory unless directly sourced to Google or first-party data. |
-| Preferred Sources | Page last updated 2026-05-27, includes AI Mode and AI Overviews availability. | `pending:g-preferred-sources` | 2026-07-09 | Treat as distribution and preference guidance, not guaranteed citation access. |
-
-## Source posture
-
-- Use Search Status Dashboard for confirmed incidents and histories.
-- Use Search Central documentation for policy and schema changes.
-- Use [[Research Pack Index]] for source-ledger routes.
-- Keep local data files read-only in this slice.
-- Keep recommendations advisory until approved elsewhere.
-
-## Related themes
-
-- [[Freshness and Content Decay]]
-- [[E-E-A-T for Blog Content]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-- [[FLOW Framework]]
+- [[Update Impact Review]]
 - [[Research Pack Index]]
-
-## Sources
-
-- Google Search Status Dashboard, retrieved 2026-07-09.
-- Google Search documentation updates, retrieved 2026-07-09.
-- Google ranking update history, dated 2026-05-21 in the ledger.
-- Google FAQPage documentation, effective 2026-05-07 for retirement.
-- Google AI optimization guide, last updated 2026-06-29, with llms.txt clarification dated 2026-06-15 in Search docs updates.
-- Google Preferred Sources documentation, last updated 2026-05-27.
-- Google AMP documentation, last updated 2026-07-01.
-- Google Merchant listing structured data, last updated 2026-07-07.
-- Search Quality Rater Guidelines, 2025-09-11.
-
-## Next actions
-
-- Fill [[Unverified Volatility Quarantine]] before monitoring imports.
-- Fill [[Monthly Source Refresh]] before recurring operations.
-- Link update impact to [[Freshness and Content Decay]].

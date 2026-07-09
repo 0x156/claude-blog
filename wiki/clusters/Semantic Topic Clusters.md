@@ -1,111 +1,44 @@
 ---
 type: hub
 title: "Semantic Topic Clusters"
+domain: "Blog Topic Architecture"
 status: active
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [clusters, semantic-clusters, active]
-domain: "Blog Topic Architecture"
 confidence: verified
-related:
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Dual Optimization]]"
-  - "[[SERP-Informed Briefs and Outlines]]"
-  - "[[AI Citation Mechanics]]"
-  - "[[Blog Schema Stack]]"
-  - "[[Google Data Integrations]]"
-  - "[[Research Pack Index]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://cloud.google.com/natural-language/docs"
-  - "https://developers.google.com/google-ads/api/docs/keyword-planning/overview"
-  - "https://developers.google.com/webmaster-tools/v1/searchanalytics/query"
 ---
 
 # Semantic Topic Clusters
 
-## Summary
+## Operating Scope
 
-Semantic Topic Clusters organize blog coverage into hubs, spokes, entities, intents, and internal links.
+Semantic Topic Clusters organize blog coverage into hubs, spokes, entities, intents, evidence, and internal links. This hub turns a set of articles into a navigable operating map rather than a pile of keyword targets.
 
-This hub defines the skeleton for cluster planning without filling the later spoke notes.
+### What This Hub Owns In Semantic Cluster Architecture
 
-## Current fact anchors
+The hub owns the cluster promise, the difference between hub and spoke roles, the flow from entity extraction to intent mapping, and the evidence standard for declaring a page useful. It uses Google helpful-content guidance as the quality floor and Search Console data as one route for validating page-query behavior. Source IDs: `g-helpful-content`, `g-gsc-api`.
 
-- Google helpful content guidance, retrieved 2026-07-06, supports coverage that gives original value instead of thin aggregation.
-- Google Cloud Natural Language API documentation, retrieved 2026-07-06, is an optional entity extraction tool route for entity and salience analysis.
-- Cloud Natural Language output is not evidence of Google's ranking systems and must not be treated as a Knowledge Graph or ranking proxy.
-- Google Ads Keyword Planning API documentation, retrieved 2026-07-06, is a source route for keyword ideas and volume.
-- Search Console Search Analytics API documentation, retrieved 2026-07-06, is a first-party route for clicks, impressions, CTR, and position by query and page dimensions.
-- Topic clusters should support readers and internal navigation, not manufacture doorway-like thin pages.
+### What The Hub Must Not Absorb
 
-## Scope
+This hub should not become a general SEO encyclopedia, a technical canonicalization manual, or a traffic forecast. Canonical URL mechanics stay with Google canonicalization evidence, and zero-click market context belongs in [[AI Citation Mechanics]]. Source IDs: `g-canonical`, `sparktoro-zero-click-2026`.
 
-- Define hub and spoke roles.
-- Map entities, intents, and query classes.
-- Identify missing support articles.
-- Identify cannibalization and consolidation candidates.
-- Design internal link paths from hubs to spokes.
-- Connect briefs through [[SERP-Informed Briefs and Outlines]].
-- Connect citation-oriented passages through [[AI Citation Mechanics]].
-- Connect measurement through [[Google Data Integrations]].
+## Spoke Map
 
-## Future spoke notes
+| Spoke | Job inside the cluster | Deliverable boundary | Evidence route |
+|---|---|---|---|
+| [[Cluster Hub Selection]] | Choose the broad owner page | Hub nomination, not rewrite approval | Helpful-content review plus SERP overlap if available |
+| [[Spoke Note Inventory]] | List existing, missing, stale, and merged spokes | Inventory status, not publication queue | Source IDs, page list, and GSC where present |
+| [[Entity Extraction Workflow]] | Extract entities and relationships | Entity sheet, not ranking proxy | Page text, sources, optional NLP output |
+| [[Intent Coverage Matrix]] | Map query patterns to reader tasks | Intent decision grid | Keyword ideas, editorial judgment, source confidence |
+| [[Internal Link Matrix]] | Assign hub, spoke, and sibling links | Link plan, not CMS mutation | Anchor review and page role evidence |
+| [[Cannibalization Review]] | Decide merge, differentiate, canonical owner, or monitor | Decision record | GSC, canonical evidence, reader task comparison |
+| [[Cluster Gap Analysis]] | Find useful missing support pages | Gap decision, not page quota | Helpful content and source availability |
+| [[Topical Authority Caveats]] | Keep authority language honest | Caveat register | Claim-ledger verdict discipline |
+| [[Cluster Refresh Cadence]] | Set review timing | Refresh calendar and triggers | Source freshness and update history |
+| [[Cluster Performance Score]] | Score health across the cluster | Advisory scorecard | Evidence, links, coverage, and outcomes |
+| [[Cluster Canonical Page Rules]] | Define editorial ownership | Rule table and rollback path | Helpful content plus canonical caveats |
 
-- [[Cluster Hub Selection]]
-- [[Spoke Note Inventory]]
-- [[Entity Extraction Workflow]]
-- [[Intent Coverage Matrix]]
-- [[Internal Link Matrix]]
-- [[Cannibalization Review]]
-- [[Cluster Gap Analysis]]
-- [[Topical Authority Caveats]]
-- [[Cluster Refresh Cadence]]
-- [[Cluster Performance Score]]
-- [[Cluster Canonical Page Rules]]
+## Evidence And Refresh Rules
 
-## Cluster planning flow
-
-- Start with business topic boundaries.
-- Pull first-party GSC query and page data where available.
-- Add keyword and entity data from approved integrations.
-- Group queries by intent and entity overlap.
-- Assign one canonical page per primary intent.
-- Mark supporting spokes and internal links.
-- Identify stale or overlapping content for [[Freshness and Content Decay]].
-- Score coverage with [[Blog Quality Score]].
-
-## Source posture
-
-- Use Google APIs as data sources, not as promises of ranking outcomes.
-- Use entity extraction as editorial clustering support only; validate clusters against reader tasks, SERP evidence, and first-party Search Console data.
-- Cite source dates when current Search behavior is discussed.
-- Treat third-party topical authority claims as advisory unless locally validated.
-- Do not create thin pages only to complete a cluster map.
-- Keep all actions read-only unless a future release defines approval and rollback.
-
-## Related themes
-
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Freshness and Content Decay]]
-- [[AI Citation Mechanics]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
-
-## Sources
-
-- Google helpful content guidance, retrieved 2026-07-06.
-- Google Cloud Natural Language API documentation, retrieved 2026-07-06.
-- Google Ads Keyword Planning API documentation, retrieved 2026-07-06.
-- Search Console Search Analytics API documentation, retrieved 2026-07-06.
-
-## Next actions
-
-- Fill [[Intent Coverage Matrix]] before cluster generation.
-- Fill [[Internal Link Matrix]] before link recommendations.
-- Use [[Cluster Canonical Page Rules]] before consolidation decisions.
-- Link decay decisions to [[Freshness and Content Decay]].
+Use `dfs-labs` or similar SERP-overlap data only as supporting research, not as proof of Google's systems. Refresh the cluster when source IDs expire, a Google update changes assumptions, GSC data contradicts the owner map, or a spoke starts serving a different reader task. A healthy cluster makes the reader path clearer even when clicks are harder to win.

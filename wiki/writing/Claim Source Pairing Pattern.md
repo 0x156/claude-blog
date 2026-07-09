@@ -1,151 +1,52 @@
 ---
 type: spoke
 title: "Claim Source Pairing Pattern"
+domain: "Blog Writing"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [writing, six-pillar, evergreen]
-domain: "Blog Writing"
-confidence: advisory
-related:
-  - "[[6-Pillar Dual Optimization]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Intent Fit Writing Pass]]"
-  - "[[Information Gain Checklist]]"
-  - "[[Experience Signal Placement]]"
-  - "[[Answer First Section Pattern]]"
-  - "[[Evidence Density For Blog Posts]]"
-  - "[[Citation Ready Paragraphs]]"
-  - "[[Blog Introduction Patterns]]"
-  - "[[Blog Conclusion Patterns]]"
-  - "[[Dual Optimization]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
 ---
+
 # Claim Source Pairing Pattern
 
-## Summary
-Claim Source Pairing Pattern is a drafting note for six-pillar writing.
-It pairs every current or risky claim with a nearby dated source.
-Use it with [[6-Pillar Dual Optimization]] when the working unit is a draft section, outline, or article.
+## Claim Source Pairing Pattern Evidence Job
 
-## Operating Question
-- Can a reviewer trace each claim to a trustworthy dated URL?
-- The expected output is a claim-source table or annotated draft pass.
-- The main risk is putting all sources at the end while claims stay unsupported.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note owns the pairing of a claim in draft prose to the source type that can support it. It is a gate before paragraphs become citation-ready. The output is a source pairing row, not a rewritten article section.
 
-## Current Evidence Anchors
-- Google helpful content guidance retrieved 2026-07-06 is the people-first writing baseline.
-- The active QRG substrate is dated 2025-09-11, with no newer revision recorded as of 2026-07-06.
-- Google AI optimization guidance updated 2026-06-15 keeps generative AI optimization on SEO foundations.
-- FAQ rich results were retired for all sites effective 2026-05-07, so visible Q and A supports readers and extraction, not a rich result promise.
-- ZipTie, 2026-03-25, is practitioner evidence for self-contained answer passages and close source attribution.
-- The writing system must keep sources close to claims and preserve human accountability for AI-assisted drafts.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Source Types This Note Owns
 
-## Operating Standard
-- Open each important section with a direct answer before adding nuance.
-- Make the reader problem explicit before keyword, schema, or citation work starts.
-- Add original value through examples, data, experience, comparison, or decision criteria.
-- Place dated sources near claims that could become stale.
-- Use headings to expose the answer hierarchy without flattening the article into fragments.
-- Keep Q and A blocks visible only when they help the reader or passage extraction.
-- Connect every drafting rule to [[Blog Quality Score]] before handoff.
-- Treat AI-assisted wording as draft material that requires review, sourcing, and editorial accountability.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+Official Google sources can support claims about Google Search guidance, AI feature documentation, and quality principles when the claim matches the page. The QRG source (`g-qrg-full`) supports quality-evaluator concepts, not a direct ranking formula. Practitioner sources may guide tactics only when labeled as practitioner evidence. For the assigned writing set, this note uses `g-helpful-content`, `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, and `g-qrg-full`.
 
-## Review Sequence
-1. Open [[6-Pillar Dual Optimization]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### Claims This Note Must Not Validate Alone
 
-## Specific Checks
-- Check that claim source pairing pattern is applied to the correct content unit.
-- Check that the decision matches this purpose: pairs every current or risky claim with a nearby dated source.
-- Check that the output can be inspected as a claim-source table or annotated draft pass.
-- Check that the risk is addressed directly: putting all sources at the end while claims stay unsupported.
-- Check whether the primary answer appears before supporting context.
-- Mark every current claim that needs a dated source.
-- Look for original examples, first-hand evidence, or useful comparisons.
-- Remove generic filler that does not help the reader decide or understand.
-- Confirm headings match the answer hierarchy.
-- Confirm internal links are placed at moments of reader need.
-- Confirm schema notes do not drive the article away from visible content.
-- Send unresolved source gaps to the brief before the draft is approved.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+Do not validate traffic lift, AI citation probability, ranking recovery, or click-through impact from these four sources. Do not use the llms.txt update as proof that non-Google assistants ignore the file. Do not use QRG language to imply that raters directly alter rankings for the reviewed page. Escalate broad market statistics to [[Claim To Source Mapping]] and AI-search caveats to [[AI Citation Mechanics]].
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Source Pairing Table
 
-## Failure Modes
-- The draft answers late and loses the impatient reader.
-- The post repeats SERP consensus without adding information gain.
-- The strongest evidence sits far from the claim it supports.
-- The introduction promises more certainty than the sources allow.
-- The article uses Q and A blocks as a deprecated rich result tactic.
-- The conclusion does not help the reader choose a next step.
-- The internal links are added for quota rather than context.
-- The draft relies on AI fluency instead of verified claims.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Source ID | URL | Date basis | Claim coverage | Limitation | Refresh cadence |
+|---|---|---|---|---|---|
+| `g-helpful-content` | https://developers.google.com/search/docs/fundamentals/creating-helpful-content | last updated 2025-12-10, retrieved 2026-07-09 | People-first content checks and E-E-A-T framing | Does not score a page or guarantee performance | Monthly or Search Central change |
+| `g-ai-opt-guide` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | last updated 2026-06-15, retrieved 2026-07-08 | AI feature optimization stays on normal Search foundations | Does not promise AI Overview or AI Mode inclusion | Monthly plus changelog watch |
+| `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | https://developers.google.com/search/docs/fundamentals/ai-optimization-guide | 2026-06-15 documentation event | Google Search does not use llms.txt for visibility | Does not settle other AI systems | Recheck on [[2026 Google Update Timeline]] update |
+| `g-qrg-full` | https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf | published 2025-09-11, retrieved 2026-07-08 | Quality evaluator terminology and trust lens | Not an operational ranking API | Monthly revision watch |
 
-## Handoff
-- Attach the writing pass to the draft or outline.
-- List missing sources before editorial approval.
-- Mark sections that need expert or reviewer input.
-- Send freshness gaps to [[Freshness and Content Decay]].
-- Send trust gaps to [[E-E-A-T for Blog Content]].
-- Send citation gaps to [[AI Citation Mechanics]].
-- Send schema notes to [[Blog Schema Stack]].
-- Score the final draft through [[Blog Quality Score]].
-- Use [[Intent Fit Writing Pass]] when this note needs a sibling follow-up.
-- Use [[Information Gain Checklist]] when the next decision belongs beside this note.
+## Claim Source Pairing Refresh Procedure
+
+1. Rewrite the draft claim without marketing language.
+2. Name the source ID that can actually prove the claim.
+3. Add the verdict discipline from `references/claim-ledger.md`: CONFIRMED, CONTESTED, AS-REPORTED, SINGLE-SOURCE, or FOLKLORE.
+4. Record the date that makes the claim refreshable.
+5. If the source only partly supports the claim, weaken the claim before editing the paragraph.
+6. Send unresolved pairs to [[Evidence Gap Register]] rather than filling gaps with inference.
 
 ## Related
-- [[6-Pillar Dual Optimization]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[E-E-A-T for Blog Content]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Blog Quality Score]]
-- [[FLOW Framework]]
-- [[Intent Fit Writing Pass]]
-- [[Information Gain Checklist]]
-- [[Experience Signal Placement]]
-- [[Answer First Section Pattern]]
-- [[Evidence Density For Blog Posts]]
+
 - [[Citation Ready Paragraphs]]
-- [[Blog Introduction Patterns]]
-- [[Blog Conclusion Patterns]]
-- [[Internal Link Placement Rules]]
-- [[Six Pillar Editing Rubric]]
-- [[Reader Satisfaction Test]]
+- [[Evidence Density For Blog Posts]]
+- [[Research Pack Index]]
+- [[AI Citation Mechanics]]

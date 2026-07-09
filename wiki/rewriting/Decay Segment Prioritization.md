@@ -1,151 +1,54 @@
 ---
 type: spoke
 title: "Decay Segment Prioritization"
-status: evergreen
-created: 2026-07-06
-updated: 2026-07-06
-tags: [rewriting, freshness, content-decay, evergreen]
 domain: "Blog Rewriting"
-confidence: advisory
-related:
-  - "[[Freshness and Content Decay]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Content Decay Detection]]"
-  - "[[Refresh Versus Rewrite Decision]]"
-  - "[[Source Refresh Workflow]]"
-  - "[[Intent Drift Audit]]"
-  - "[[Historical Performance Review]]"
-  - "[[Content Consolidation Rules]]"
-  - "[[Pruning Advisory Checklist]]"
-  - "[[Update Timestamp Policy]]"
-  - "[[Dual Optimization]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/updates/ranking"
-  - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
+status: active
+created: 2026-07-06
+updated: 2026-07-09
+tags: [rewriting, freshness, content-decay, active]
 ---
+
 # Decay Segment Prioritization
 
-## Summary
-Decay Segment Prioritization is a rewrite decision note for freshness and decay.
-It prioritizes decayed pages by opportunity, risk, effort, and evidence strength.
-Use it with [[Freshness and Content Decay]] when the working unit is a published post, cluster, or decayed section.
+## Prioritization Queue Purpose
 
-## Operating Question
-- Which decayed segment deserves work first and why?
-- The expected output is a prioritization list with scoring and confidence.
-- The main risk is rewriting the loudest complaint instead of the highest-value segment.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note ranks decay candidates after [[Content Decay Detection]] has identified a credible problem. Its job is to prevent the loudest page, newest complaint, or most recent Google rumor from consuming the rewrite queue.
 
-## Current Evidence Anchors
-- Google helpful content guidance retrieved 2026-07-06 remains the quality baseline for rewriting.
-- Google ranking update history dated 2026-05-21 and the Search Status Dashboard are the authority path for confirmed update history.
-- The substrate records no Google-owned ranking, spam, schema, QRG, or AI search update from 2026-07-01 through 2026-07-06.
-- Search Console generative AI reports were announced in June 2026 for AI Overviews and AI Mode reporting on a subset of properties.
-- FAQ rich results were retired effective 2026-05-07, so stale FAQ rich result claims must be removed during rewrites.
-- Rewrite actions remain advisory in V1 and should not mutate a CMS or publishing system directly.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+The scoring basis starts with reader usefulness from `g-helpful-content`: pages that block an important task outrank pages with cosmetic age. Confirmed update context comes from `g-ranking-history` and `g-status-dashboard`, which are official history sources rather than impact-analysis tools. `g-update-2024-06-20-june-2024-spam-update` is useful here as a concrete example of how a dated spam update should be recorded: start date, official source, and no unsupported claim about a specific site.
 
-## Operating Standard
-- Separate traffic decay, source staleness, intent drift, schema drift, and trust gaps before recommending work.
-- Prefer first-party GSC or analytics evidence over generic market behavior when the property has data.
-- Date every claim that could age, including Google update, schema, and AI feature guidance.
-- Quarantine unconfirmed volatility until a Google-owned source confirms it.
-- Choose refresh, rewrite, merge, prune, or no action from evidence rather than preference.
-- Preserve old evidence in the source trail even when a recommendation changes.
-- Record reversible decisions with the expected effect and rollback cue.
-- Keep all V1 rewrite outputs advisory and read-only toward publishing tools.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+### Signals This Queue Owns
 
-## Review Sequence
-1. Open [[Freshness and Content Decay]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+Prioritization owns severity, confidence, reversibility, source risk, and editorial effort. It does not decide the final treatment. Send treatment choice to [[Refresh Versus Rewrite Decision]], merge candidates to [[Content Consolidation Rules]], and rollback planning to [[Rewrite Rollback Notes]].
 
-## Specific Checks
-- Check that decay segment prioritization is applied to the correct content unit.
-- Check that the decision matches this purpose: prioritizes decayed pages by opportunity, risk, effort, and evidence strength.
-- Check that the output can be inspected as a prioritization list with scoring and confidence.
-- Check that the risk is addressed directly: rewriting the loudest complaint instead of the highest-value segment.
-- Compare the current page against the original intent and the current reader need.
-- List stale sources before touching prose.
-- Separate ranking volatility from confirmed Google updates.
-- Check whether AI feature data exists in Search Console before using market context.
-- Document whether the action is reversible.
-- Preserve evidence that explains why the old version changed.
-- Avoid changing visible timestamps without meaningful review.
-- Recommend no action when evidence does not justify work.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+### Boundaries Before Scoring
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+Do not score a page until the decay signal has a named evidence trail. If the only reason is "Google update happened," return the item to monitoring until the update window and affected page pattern are documented. If the page handles a trust-sensitive topic, raise the source-risk score even when traffic is not the largest opportunity.
 
-## Failure Modes
-- The rewrite is triggered by a single short-term metric dip.
-- A date is refreshed cosmetically without meaningful review.
-- Old claims remain after the article structure is changed.
-- Unconfirmed volatility is treated as a Google update.
-- A page is pruned before consolidation or refresh is evaluated.
-- The rewrite removes experience evidence that supported trust.
-- The new version breaks internal links or schema assumptions.
-- No one can tell what should be rolled back if results worsen.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## Priority Scoring Table
 
-## Handoff
-- Attach the decision note to the rewrite ticket or editorial plan.
-- Preserve source URLs that justify the change.
-- Name the owner who approves live content changes outside V1.
-- Record the expected measurement window.
-- Send source gaps to [[Research Pack Index]].
-- Send algorithm questions to [[Google Algorithm Update Ledger]].
-- Send data pulls to [[Google Data Integrations]].
-- Send final QA to [[Blog Quality Score]].
-- Use [[Content Decay Detection]] when this note needs a sibling follow-up.
-- Use [[Refresh Versus Rewrite Decision]] when the next decision belongs beside this note.
+| Candidate segment | Reader value | Evidence basis | Priority action | Owner | Deferral reason |
+|---|---:|---|---|---|---|
+| High-intent evergreen guide with stale process steps | 5 | `g-helpful-content` supports usefulness review | Refresh sources and examples first | Editor | Defer only if source owner is unavailable |
+| Cluster page affected during confirmed rollout window | 4 | `g-ranking-history`; `g-status-dashboard` | Compare changes against confirmed dates before rewriting | Monitoring owner | Defer if timing does not align |
+| Thin article with no distinct reader job | 2 | `g-helpful-content` | Move to prune or merge review | Content lead | Defer if a unique audience use case appears |
+| Page cited in old spam-update rationale | 3 | `g-update-2024-06-20-june-2024-spam-update` as dated update record pattern | Check for policy-related content risks without claiming causality | SEO strategist | Defer if evidence is only anecdotal |
+| Recently published post with short-lived dip | 1 | `g-status-dashboard` for official update context | Hold for another review cycle | Analyst | Defer because evidence is immature |
+
+## Queue Review Procedure
+
+1. Assign each candidate one primary reason for urgency: reader harm, source risk, confirmed update context, business dependency, or technical duplication.
+2. Score confidence separately from opportunity so weak evidence cannot outrank a smaller but well-supported fix.
+3. Confirm whether the item needs source refresh, editorial rewrite, consolidation, pruning advice, or observation.
+4. Record a due date and rollback owner only after the action type is chosen.
+
+## Prioritization Source IDs
+
+`g-helpful-content`; `g-ranking-history`; `g-status-dashboard`; `g-update-2024-06-20-june-2024-spam-update`.
 
 ## Related
+
 - [[Freshness and Content Decay]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[Google Algorithm Update Ledger]]
-- [[E-E-A-T for Blog Content]]
-- [[Google Data Integrations]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Blog Quality Score]]
 - [[Content Decay Detection]]
 - [[Refresh Versus Rewrite Decision]]
-- [[Source Refresh Workflow]]
-- [[Intent Drift Audit]]
-- [[Historical Performance Review]]
-- [[Content Consolidation Rules]]
-- [[Pruning Advisory Checklist]]
-- [[Update Timestamp Policy]]
-- [[Stale Claim Register]]
-- [[Rewrite QA Checklist]]
 - [[Rewrite Rollback Notes]]
+- [[2026 Google Update Timeline]]

@@ -3,7 +3,7 @@ type: hub
 title: "Google Data Integrations"
 status: active
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [data-integrations, gsc, ga4, active]
 domain: "Blog Data"
 confidence: verified
@@ -19,109 +19,60 @@ related:
 source_urls:
   - "https://developers.google.com/webmaster-tools/v1/searchanalytics/query"
   - "https://developers.google.com/webmaster-tools/v1/urlInspection.index/inspect"
+  - "https://developers.google.com/speed/docs/insights/v5/get-started"
   - "https://developers.google.com/analytics/devguides/reporting/data/v1"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
-  - "https://support.google.com/webmasters/answer/16984139"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
 ---
 
 # Google Data Integrations
 
-## Summary
+## Operating Scope For Read Only Integrations
 
-Google Data Integrations defines how GSC, URL Inspection, GA4, and related APIs inform blog planning and audits.
+Google Data Integrations is the hub for evidence imported from Google-owned data surfaces during blog planning and audit work. It covers Search Analytics metrics, URL Inspection evidence, PageSpeed or CrUX-style performance checks, and GA4 engagement reporting. The hub does not grant access, fetch live data, store credentials, or mutate any external system. Source IDs wired here are `g-gsc-api`, `g-urlinspect`, `g-psi`, and `g-ga4-data`.
 
-This hub is read-only and does not grant credentials, mutate properties, or fetch private data in V1.
+## What This Hub Owns
 
-## Current fact anchors
+This hub owns the interpretation boundary for property-level evidence. It tells reviewers when a metric can support a content decision, which sibling spoke owns the field-level procedure, and when missing evidence must be disclosed. It also keeps first-party property data separate from market research so [[Blog Quality Score]], [[Freshness and Content Decay]], and [[Semantic Topic Clusters]] do not overfit external averages.
 
-- Search Console Search Analytics API documentation, retrieved 2026-07-06, covers clicks, impressions, CTR, and position by query dimensions.
-- URL Inspection API documentation, retrieved 2026-07-06, covers index status, coverage, and rich-results state per URL.
-- GA4 Data API documentation, retrieved 2026-07-06, covers organic traffic and engagement reporting.
-- Search Console generative AI performance reports were announced by Google on 2026-06-03 for AI Overviews and AI Mode reporting on a subset of properties.
-- Search Console Help says the generative AI Search report is still subset-only, includes AI Overviews and AI Mode, and groups by pages, countries, dates, and devices.
-- As of this 2026-07-08 note, use UI export wording for generative AI reports unless a current Google API document explicitly exposes the same report.
-- Google third-party SEO guidance, 2026-06-05, says third-party tools do not access Google's internal ranking systems.
+## What The Hub Must Not Absorb
 
-## Scope
+- Claim-ledger verdicts about broad AI or click behavior. Route those to [[AI Citation Mechanics]] or [[2026 Google Update Timeline]].
+- Public structured data publishing rules. Route those to [[Blog Schema Stack]].
+- CMS edits, Search Console setting changes, GA4 configuration changes, sitemap submission, or indexing requests.
+- Credential storage, raw private exports, account screenshots, and local paths.
 
-- Define approved data sources.
-- Define required credential boundaries.
-- Define read-only query patterns.
-- Define metrics for [[Freshness and Content Decay]].
-- Define query and page inputs for [[Semantic Topic Clusters]].
-- Define AI feature reporting inputs for [[AI Citation Mechanics]].
-- Define quality score evidence for [[Blog Quality Score]].
-- Define missing-data language.
+## Spoke Map And Deliverable Boundaries
 
-## Future spoke notes
+| Spoke | Job | Deliverable boundary | Primary source IDs | Handoff |
+|---|---|---|---|---|
+| [[Credential Boundary Rules]] | Decide what evidence can enter the vault | Redaction rules and approval path | `g-gsc-api`, `g-urlinspect`, `g-psi`, `g-ga4-data` | Block unsafe imports |
+| [[GSC Search Analytics Query Plan]] | Define safe Search Analytics pulls | Query table or trend packet | `g-gsc-api` | Brief, audit, freshness review |
+| [[URL Inspection Evidence Plan]] | Separate index state from content quality | URL evidence packet | `g-urlinspect` | Technical SEO review |
+| [[GA4 Blog Engagement Metrics]] | Interpret post-click behavior | Engagement section with caveats | `g-ga4-data` | Content review |
+| [[Page URL Canonical Data Checks]] | Normalize page joins | Canonical mapping register | `g-urlinspect`, `g-gsc-api` | All metric joins |
+| [[Data Confidence Labels]] | Assign evidence strength | Label per evidence packet | All listed IDs | Report caveats |
+| [[Missing Data Disclosure]] | Write approved gap language | Missing-data note | All listed IDs | Client-facing report |
 
-- [[GSC Search Analytics Query Plan]]
-- [[URL Inspection Evidence Plan]]
-- [[GA4 Blog Engagement Metrics]]
-- [[Generative AI Performance Reporting]]
-- [[First Party Versus Market Data]]
-- [[Query Dimension Hygiene]]
-- [[Page URL Canonical Data Checks]]
-- [[Credential Boundary Rules]]
-- [[Data Confidence Labels]]
-- [[Missing Data Disclosure]]
+## Evidence And Refresh Rules
 
-## Metric families
+Use source-ledger dates, not memory. As of the 2026-07-09 ledger, Search Analytics was last updated 2026-05-20, URL Inspection 2024-07-23, PageSpeed Insights 2025-08-28, and GA4 Data API 2026-06-29. Refresh this hub when any source reaches its refresh due date, when Google changes API dimensions, or when a property export introduces a field not covered by [[Metric Export Schema]].
 
-- Impressions.
-- Clicks.
-- CTR.
-- Average position.
-- AI Overview impressions when the GSC generative AI report is available.
-- AI Mode impressions when the GSC generative AI report is available.
-- Landing page engagement.
-- Freshness deltas.
-- Query overlap.
-- Index and rich-results state.
+## Operating Loop
 
-## AI Feature Reporting Availability
+1. Identify the decision: planning, refresh, audit, canonical cleanup, or report caveat.
+2. Route the evidence to the narrowest spoke before drafting recommendations.
+3. Apply [[Credential Boundary Rules]] before any source data enters a note.
+4. Label every evidence packet through [[Data Confidence Labels]].
+5. State missing, stale, or sampled evidence through [[Missing Data Disclosure]].
 
-| Item | Current handling |
-|---|---|
-| Availability | Subset-only. If a property lacks the report, label the evidence `gap` rather than estimating it. |
-| Surfaces | AI Overviews and AI Mode for Search generative AI reporting. Discover has a separate generative AI report. |
-| Dimensions | Pages, countries, dates, and devices for Search generative AI reporting. |
-| Metrics | Impressions are the stable required metric in this vault. Clicks and CTR are used only when present in the export. |
-| Export method | UI export is allowed. API export is not claimed until a Google API doc proves it. |
-| Missing report fallback | Use ordinary GSC Search Analytics, GA4 engagement, and market context with advisory confidence. |
-| Query support | Do not infer query-level AI Overview or AI Mode metrics unless the export provides them. |
+## Source IDs
 
-## Source posture
+- `g-gsc-api`, `g-urlinspect`, `g-psi`, `g-ga4-data`
 
-- Prefer first-party Google data when the site has access.
-- Use market studies only as context for absent property data.
-- Do not store credentials in notes.
-- Do not run mutations or submissions from V1.
-- Make missing API access explicit.
-
-## Related themes
+## Related Themes
 
 - [[Dual Optimization]]
 - [[Freshness and Content Decay]]
 - [[AI Citation Mechanics]]
 - [[Semantic Topic Clusters]]
-- [[Distribution and Repurposing]]
 - [[Blog Quality Score]]
-- [[Google Algorithm Update Ledger]]
 - [[Research Pack Index]]
-
-## Sources
-
-- Search Console Search Analytics API, retrieved 2026-07-06.
-- URL Inspection API, retrieved 2026-07-06.
-- GA4 Data API, retrieved 2026-07-06.
-- Search Console generative AI reports, 2026-06-03.
-- Search Console generative AI Search report Help, retrieved 2026-07-08.
-- Google third-party SEO guidance, 2026-06-05.
-
-## Next actions
-
-- Fill [[Credential Boundary Rules]] before any importer work.
-- Fill [[Generative AI Performance Reporting]] before AI feature reports.
-- Link metric confidence to [[Blog Quality Score]].

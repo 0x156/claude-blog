@@ -1,178 +1,51 @@
 ---
 type: spoke
 title: "FLOW Report Stage"
+domain: "Blog Workflow"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [flow, active]
-domain: "Blog Workflow"
 confidence: advisory
 related:
   - "[[FLOW Framework]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[FLOW Source Intake]]"
-  - "[[FLOW Brief Stage]]"
-  - "[[FLOW Draft Stage]]"
-  - "[[FLOW Review Stage]]"
-  - "[[FLOW Factcheck Stage]]"
-  - "[[FLOW Rewrite Stage]]"
+  - "[[FLOW Approval Queue]]"
   - "[[FLOW Confidence Tags]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://github.com/AgriciDaniel/flow"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
+  - "[[Blog Quality Score]]"
+  - "[[AI Citation Mechanics]]"
 ---
 
 # FLOW Report Stage
 
-## Summary
-FLOW Report Stage is the spoke for summarize decisions, evidence, scores, risks, and next actions for handoff.
-Use it when [[FLOW Framework]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a FLOW report packet.
-The success condition is that reports make recommendations auditable and bounded.
-Keep the note advisory in V1 and route implementation to a human owner.
+## Report Purpose
 
-## Parent Hub Fit
-- Parent hub: [[FLOW Framework]].
-- Primary upstream context: [[Dual Optimization]].
-- Primary downstream context: [[6-Pillar Dual Optimization]].
-- Evidence route: [[Blog Quality Score]].
-- Sibling comparison starts with [[FLOW Source Intake]] and [[FLOW Brief Stage]].
-- Quality review should connect to [[Blog Quality Score]] when the note affects delivery.
-- Citation review should connect to [[AI Citation Mechanics]] when answer passages are created or changed.
-- Source refresh should connect to [[Research Pack Index]] when a dated claim is older than its cadence.
-- The note should not create a publishing action by itself.
-- The note should create a clear next decision, owner, and evidence state.
+FLOW Report Stage summarizes decisions, evidence, scores, risks, and next actions for handoff. It is the final reader-facing operating note, not a place to introduce new claims. It should make the owner able to see what is ready, what is blocked, what is advisory, and which live changes need approval.
 
-## Current Fact Anchors
-- Google helpful content guidance, retrieved 2026-07-06, is the baseline for original, people-first usefulness.
-- Google AI optimization guidance, updated 2026-06-15, says Google Search does not need special AI files, special AI schema, Markdown conversion, or llms.txt for AI features.
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026, so planning must include visibility beyond clicks.
-- Seer, 2026-04-24, records cited AI Overview pages with about 120 percent more clicks per impression than pages not cited in its analysis.
-- Google I/O Search update, 2026-05-19, reports AI Mode passed 1B monthly users, while the substrate records about 0.34 percent US query volume.
-- The current QRG reference is the 2025-09-11 revision, with no newer substrate revision recorded as of 2026-07-06.
-- FAQ rich results were retired for all sites on 2026-05-07, so Article or BlogPosting is the blog schema priority when schema is relevant.
-- Passage extractability guidance is practitioner guidance: aim for self-contained answer blocks around 130 to 170 words under clear headings.
-- The FLOW framework bibliography in the ledger is dated 2026-06-22 and retrieved 2026-07-06.
-- Google third-party SEO guidance, 2026-06-05, says tools and vendors do not have access to internal Google ranking systems and cannot guarantee rankings.
-- Use first-party GSC, GA4, and crawl evidence when available instead of replacing local data with market averages.
-- Treat practitioner studies as planning context unless an official source or property data confirms the exact claim.
+## Audience And Scope Filter
 
-## Required Inputs
-- Target topic, article, cluster, or workflow item that needs FLOW Report Stage.
-- Parent hub context from [[FLOW Framework]].
-- Reader problem and intended outcome in one sentence.
-- Primary query, entity, or channel that triggered the work.
-- Known source URLs with retrieval dates for every current claim.
-- First-party data availability, including GSC, GA4, crawl data, or none.
-- Existing internal links and candidate links that affect the decision.
-- YMYL, legal, medical, financial, or reputation sensitivity flags.
-- Schema, media, and author requirements if the note affects a published page.
-- Approval owner for changes that affect live content.
-- Rollback trigger if the recommendation is later implemented.
-- Metric set for review: recommendation count, confidence mix, blockers, and next owner.
+Write for the person who must decide or act next: editor, SEO lead, content strategist, technical owner, or executive stakeholder. Keep the report inside [[FLOW Framework]] boundaries. It can cite `g-helpful-content` for usefulness review, `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` when a recommendation risks tool certainty, and market studies such as `sparktoro-zero-click-2026` or `seer-aio-impact-ctr-2026` only as planning context. It should not imply guaranteed rankings, clicks, AI Overviews, or chatbot citations.
 
-## Operating Procedure
-- Start with the precise decision that FLOW Report Stage must make.
-- Restate the scope so it cannot drift beyond [[FLOW Framework]].
-- List the page, cluster, brief, asset, or workflow item under review.
-- Separate observed facts from recommendations before scoring or prioritizing.
-- Attach a source URL and date to every current Search, AI, schema, or market claim.
-- Prefer official Google, standards body, primary, or vendor documentation for rule-like claims.
-- Use practitioner sources only as supporting evidence or workflow guidance.
-- Check whether the recommendation depends on zero click behavior, AI Overview citation, or AI Mode exposure.
-- If it depends on AI features, state that inclusion cannot be guaranteed.
-- If it mentions FAQ rich results, rewrite the point because that visual tactic is retired for all sites.
-- If schema is relevant, route the baseline to Article or BlogPosting plus visible entity support.
-- If passages are relevant, make the answer block self-contained and cite source context nearby.
-- If the work affects trust, route the check through QRG-informed E-E-A-T review.
-- If first-party data exists, make it the measurement baseline.
-- If first-party data is missing, label the estimate advisory and name the data gap.
-- Reject the failure pattern of reporting confident outcomes from incomplete evidence.
-- Write the recommendation in a way that a reviewer can accept, revise, or reject.
-- Close with owner, next action, confidence, and rollback note.
+## Findings This Report Must Not Overclaim
 
-## Acceptance Criteria
-- The FLOW report packet names the exact object under review.
-- The recommendation has one primary owner.
-- Every current factual claim has a dated source URL.
-- The note distinguishes verified facts from advisory choices.
-- The note states whether property data is available or missing.
-- The note uses current Core Web Vitals language if performance is mentioned.
-- The note avoids FID as a current quality metric.
-- The note avoids FAQ rich result language as a current blog tactic.
-- The note avoids llms.txt as a Google Search, AI Overview, or AI Mode requirement.
-- The note does not promise rankings, traffic, Discover reach, AI Overview inclusion, or chatbot citation.
-- The note contains an explicit confidence label.
-- The note contains a rollback or review trigger when live content could change.
-- The note links back to the parent hub and at least six sibling spokes.
-- The note can be audited without reading private client systems.
+Do not call a page "future proof." Do not present the SparkToro panel as a forecast for one property. Do not say Google requires a special AI file. Do not treat a quality score as a ranking score. If a finding is based on official guidance, say what the guidance supports. If it is based on a practitioner or panel source, keep the limitation next to the recommendation.
 
-## Failure Modes
-- A claim is current but has no dated source.
-- A market statistic is applied as a property forecast without local data.
-- A recommendation treats an SEO tool as access to Google's internal ranking systems.
-- A passage is written for extraction but lacks source context.
-- A schema recommendation describes hidden or unsupported page content.
-- A cluster, brief, score, or workflow step creates thin content rather than useful content.
-- A reviewer cannot tell whether a statement is verified or advisory.
-- A high-risk change has no rollback note.
-- A channel or platform action is implied even though V1 is advisory and read-only toward external systems.
-- The note accepts reporting confident outcomes from incomplete evidence.
-- The note hides unresolved uncertainty instead of naming it.
-- The note duplicates another sibling without a clear boundary.
+## FLOW Report Stage Findings Table
 
-## Handoff
-- Send brief structure questions to [[FLOW Source Intake]].
-- Send evidence and source issues to [[FLOW Brief Stage]].
-- Send quality scoring issues to [[Blog Quality Score]].
-- Send citation passage issues to [[AI Citation Mechanics]].
-- Send schema issues to [[Blog Schema Stack]].
-- Send first-party measurement issues to [[Google Data Integrations]].
-- Send freshness and decay issues to [[Freshness and Content Decay]].
-- Send voice changes to [[Voice and Style]] when wording or channel tone changes.
-- Send visual or media requirements to [[Images Audio and Charts]] when the output needs assets.
-- Keep unresolved approval items out of automated publishing paths.
-- Record durable outcomes in [[log]] only when the vault owner asks for log maintenance.
-- Keep the final status as ready, revise, blocked, or monitor.
+| Report section | Inputs | Evidence sources | Severity | Recommendation | Delivery status |
+|---|---|---|---|---|---|
+| Executive decision | Approved queue rows and blockers | [[FLOW Approval Queue]] | High when live content changes | Accept, revise, reject, or monitor | Ready after owner review |
+| Quality finding | Review memo and score notes | `g-helpful-content`, [[Blog Quality Score]] | Medium to high | Improve reader usefulness and evidence fit | Ready if sourced |
+| AI Search caveat | Draft AI claims and factcheck register | `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` | High if overclaim appears | Remove tool-certainty or guarantee language | Ready after correction |
+| Market context | Distribution or visibility assumption | `sparktoro-zero-click-2026`, `seer-aio-impact-ctr-2026` | Medium | Treat as planning pressure, not traffic math | Advisory |
+| Open evidence gap | Missing source IDs or dates | [[FLOW Source Intake]] | High if claim is current | Block claim until sourced | Blocked |
 
-## Related Links
-- [[FLOW Framework]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[FLOW Source Intake]]
-- [[FLOW Brief Stage]]
-- [[FLOW Draft Stage]]
-- [[FLOW Review Stage]]
-- [[FLOW Factcheck Stage]]
-- [[FLOW Rewrite Stage]]
-- [[FLOW Confidence Tags]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
+## Severity, Evidence, Recommendation, Owner, And Due Date
 
-## Source Notes
-- Google helpful content guidance is the primary source for people-first usefulness and source-backed quality.
-- Google AI optimization guidance is the primary source for no special AI files, no special AI schema, and the Google llms.txt caveat.
-- SparkToro and Seer are used as dated market context, not property forecasts.
-- The QRG is used as a quality evaluation framework, not as a direct ranking factor claim.
-- ZipTie passage guidance is practitioner guidance for extraction readiness, not an official Google rule.
-- Search Gallery and FAQPage documentation control schema and rich result claims when schema appears in this note.
+Each finding has one severity label, one evidence lane, one owner, and one due date or review date. A report with many findings and no owner is just a memo. A report with recommendations and no source IDs is not FLOW-compliant.
 
-## Maintenance
-- Refresh this note when the source ledger refreshes.
-- Refresh this note when Google changes AI feature guidance, schema support, spam policy, or QRG references.
-- Refresh this note when first-party data contradicts an advisory assumption.
-- Keep source URLs in frontmatter aligned with the ledger.
-- Do not mark the brain market-ready from this note alone.
-- The next review should verify whether recommendation count, confidence mix, blockers, and next owner still captures the decision quality.
+## FLOW Report Stage Delivery Procedure
+
+1. Pull decided rows from the approval queue and unresolved rows from the factcheck register.
+2. Convert each item into a finding with evidence, confidence, owner, and next action.
+3. Put advisory market context in a separate section so it cannot be confused with property data.
+4. Send rollback-sensitive items to [[FLOW Rollback Notes]] before anyone implements them.

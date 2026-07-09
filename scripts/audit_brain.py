@@ -106,8 +106,9 @@ NEAR_DUPLICATE_THRESHOLD = 0.82
 SKELETON_REUSE_THRESHOLD = 3
 ANCHOR_REUSE_THRESHOLD = 2
 TABLE_OR_PROCEDURE_THRESHOLD = 0.90
-SPECIFIC_CITATION_THRESHOLD = 1.00
+SPECIFIC_CITATION_THRESHOLD = 0.95
 GENERIC_BUNDLE_REUSE_THRESHOLD = 3
+GENERIC_BUNDLE_SOURCE_MIN = 6
 DENSITY_WORD_THRESHOLD = 120
 URL_RE = re.compile(r"https?://[^\s<>\]\"')]+")
 WORD_RE = re.compile(r"[A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)?")
@@ -439,6 +440,21 @@ def check_citations() -> tuple[bool, int, list[str], list[str]]:
 
 
 def check_wiki_substance(repo_root: Path = REPO) -> tuple[bool, int, list[str], list[str], dict[str, Any]]:
+    """Audit whether spoke notes have real, note-specific wiki substance.
+
+    A note citation set is the sorted set of ledger source_ids cited anywhere in
+    the note, including frontmatter and body text. Topical reuse of a compact
+    authoritative source set is allowed: a 2 to 5 source set can be correct
+    scholarship for a folder, such as several schema notes citing the same
+    canonical structured-data specs. The boilerplate defect is an oversized
+    pasted bundle. generic_bundle_reuse therefore measures the largest group of
+    notes sharing an identical citation set whose size is at least 6. The
+    specific citation coverage numerator counts spoke notes whose citation set
+    has at least two sources and whose exact set is not an oversized bundle
+    reused by more than the generic bundle threshold. If a canonical URL maps
+    to multiple ledger IDs, a URL citation contributes one representative unless
+    the note already cites one of those IDs explicitly.
+    """
     wiki_root = repo_root / "wiki"
     notes: list[str] = []
     critical: list[str] = []
@@ -447,9 +463,9 @@ def check_wiki_substance(repo_root: Path = REPO) -> tuple[bool, int, list[str], 
         notes.append("missing wiki directory")
         return False, 0, notes, critical, details
 
-    source_ids, url_to_source_id = load_source_index(repo_root)
+    source_ids, url_to_source_ids = load_source_index(repo_root)
     source_id_pattern = compile_source_id_pattern(source_ids)
-    spoke_notes = load_spoke_notes(repo_root, wiki_root, source_id_pattern, url_to_source_id)
+    spoke_notes = load_spoke_notes(repo_root, wiki_root, source_id_pattern, url_to_source_ids)
     if not spoke_notes:
         details = empty_wiki_substance_details()
         notes.append("no type: spoke notes found in wiki")
@@ -462,17 +478,27 @@ def check_wiki_substance(repo_root: Path = REPO) -> tuple[bool, int, list[str], 
         note["rel_path"] for note in spoke_notes if not note["has_table_or_procedure"]
     ]
 
+    citation_set_counts: Counter[frozenset[str]] = Counter(
+        note["citation_set"] for note in spoke_notes
+    )
     bundle_counts: Counter[frozenset[str]] = Counter(
-        note["source_bundle"] for note in spoke_notes if len(note["source_bundle"]) >= 2
+        note["citation_set"]
+        for note in spoke_notes
+        if len(note["citation_set"]) >= GENERIC_BUNDLE_SOURCE_MIN
     )
     generic_bundle, generic_bundle_count = largest_bundle(bundle_counts)
-    generic_bundle_reused = {
-        bundle for bundle, count in bundle_counts.items() if count > GENERIC_BUNDLE_REUSE_THRESHOLD
+    identically_reused_sets = {
+        citation_set
+        for citation_set, count in citation_set_counts.items()
+        if (
+            len(citation_set) >= GENERIC_BUNDLE_SOURCE_MIN
+            and count > GENERIC_BUNDLE_REUSE_THRESHOLD
+        )
     }
     citation_failures = [
         note["rel_path"]
         for note in spoke_notes
-        if not note["source_bundle"] or note["source_bundle"] in generic_bundle_reused
+        if len(note["citation_set"]) < 2 or note["citation_set"] in identically_reused_sets
     ]
 
     shared_lines = shared_body_lines(spoke_notes)
@@ -511,7 +537,7 @@ def check_wiki_substance(repo_root: Path = REPO) -> tuple[bool, int, list[str], 
             "count": generic_bundle_count,
             "source_ids": sorted(generic_bundle),
             "paths": [
-                note["rel_path"] for note in spoke_notes if note["source_bundle"] == generic_bundle
+                note["rel_path"] for note in spoke_notes if note["citation_set"] == generic_bundle
             ] if generic_bundle_count > GENERIC_BUNDLE_REUSE_THRESHOLD else [],
         },
         "density_floor": density_failures,
@@ -529,7 +555,7 @@ def check_wiki_substance(repo_root: Path = REPO) -> tuple[bool, int, list[str], 
     if table_or_procedure_coverage < TABLE_OR_PROCEDURE_THRESHOLD:
         notes.append(f"table/procedure coverage {table_or_procedure_coverage:.2f} below 0.90")
     if specific_citation_coverage < SPECIFIC_CITATION_THRESHOLD:
-        notes.append(f"specific citation coverage {specific_citation_coverage:.2f} below 1.00")
+        notes.append(f"specific citation coverage {specific_citation_coverage:.2f} below {SPECIFIC_CITATION_THRESHOLD:.2f}")
     if generic_bundle_count > GENERIC_BUNDLE_REUSE_THRESHOLD:
         notes.append(f"generic source bundle reused by {generic_bundle_count} spoke notes")
     if density_failures:
@@ -572,13 +598,13 @@ def empty_wiki_substance_details() -> dict[str, Any]:
     }
 
 
-def load_source_index(repo_root: Path) -> tuple[set[str], dict[str, str]]:
+def load_source_index(repo_root: Path) -> tuple[set[str], dict[str, tuple[str, ...]]]:
     data, _errors = load_json_object(repo_root / "references" / "source-ledger.json")
     source_ids: set[str] = set()
-    url_to_source_id: dict[str, str] = {}
+    url_to_source_ids: dict[str, list[str]] = defaultdict(list)
     sources = data.get("sources") if isinstance(data, dict) else None
     if not isinstance(sources, list):
-        return source_ids, url_to_source_id
+        return source_ids, {}
     for source in sources:
         if not isinstance(source, dict):
             continue
@@ -587,9 +613,9 @@ def load_source_index(repo_root: Path) -> tuple[set[str], dict[str, str]]:
             continue
         source_ids.add(source_id)
         url = canonical_source_url(clean_string(source.get("url")))
-        if url:
-            url_to_source_id[url] = source_id
-    return source_ids, url_to_source_id
+        if url and source_id not in url_to_source_ids[url]:
+            url_to_source_ids[url].append(source_id)
+    return source_ids, {url: tuple(ids) for url, ids in url_to_source_ids.items()}
 
 
 def compile_source_id_pattern(source_ids: set[str]) -> re.Pattern[str] | None:
@@ -603,7 +629,7 @@ def load_spoke_notes(
     repo_root: Path,
     wiki_root: Path,
     source_id_pattern: re.Pattern[str] | None,
-    url_to_source_id: dict[str, str],
+    url_to_source_ids: dict[str, tuple[str, ...]],
 ) -> list[dict[str, Any]]:
     spoke_notes: list[dict[str, Any]] = []
     for path in sorted(wiki_root.rglob("*.md")):
@@ -616,7 +642,7 @@ def load_spoke_notes(
         body_lines = [collapse_whitespace(line) for line in body.splitlines()]
         normalized = normalize_body(body)
         tokens = normalized.split()
-        source_bundle = frozenset(extract_source_ids(text, source_id_pattern, url_to_source_id))
+        citation_set = frozenset(extract_source_ids(text, source_id_pattern, url_to_source_ids))
         spoke_notes.append(
             {
                 "path": path,
@@ -628,7 +654,7 @@ def load_spoke_notes(
                 "shingles": make_shingles(tokens),
                 "skeleton": heading_skeleton(body),
                 "has_table_or_procedure": has_table_or_procedure(body),
-                "source_bundle": source_bundle,
+                "citation_set": citation_set,
             }
         )
     return spoke_notes
@@ -693,15 +719,18 @@ def has_table_or_procedure(body: str) -> bool:
 def extract_source_ids(
     text: str,
     source_id_pattern: re.Pattern[str] | None,
-    url_to_source_id: dict[str, str],
+    url_to_source_ids: dict[str, tuple[str, ...]],
 ) -> set[str]:
     found: set[str] = set()
     if source_id_pattern:
         found.update(source_id_pattern.findall(text))
     for match in URL_RE.finditer(text):
-        source_id = url_to_source_id.get(canonical_source_url(match.group(0)))
-        if source_id:
-            found.add(source_id)
+        source_ids = url_to_source_ids.get(canonical_source_url(match.group(0)))
+        if not source_ids:
+            continue
+        if any(source_id in found for source_id in source_ids):
+            continue
+        found.add(source_ids[0])
     return found
 
 

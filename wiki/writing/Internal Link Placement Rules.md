@@ -1,151 +1,58 @@
 ---
 type: spoke
 title: "Internal Link Placement Rules"
+domain: "Blog Writing"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [writing, six-pillar, evergreen]
-domain: "Blog Writing"
-confidence: advisory
-related:
-  - "[[6-Pillar Dual Optimization]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Intent Fit Writing Pass]]"
-  - "[[Information Gain Checklist]]"
-  - "[[Experience Signal Placement]]"
-  - "[[Answer First Section Pattern]]"
-  - "[[Evidence Density For Blog Posts]]"
-  - "[[Citation Ready Paragraphs]]"
-  - "[[Blog Introduction Patterns]]"
-  - "[[Blog Conclusion Patterns]]"
-  - "[[Dual Optimization]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
 ---
+
 # Internal Link Placement Rules
 
-## Summary
-Internal Link Placement Rules is a drafting note for six-pillar writing.
-It places internal links where they help the reader or support the entity graph.
-Use it with [[6-Pillar Dual Optimization]] when the working unit is a draft section, outline, or article.
+## Internal Link Placement Rules Scope
 
-## Operating Question
-- Does each internal link advance context, evidence, or next-step navigation?
-- The expected output is an internal-link placement map tied to semantic cluster priorities.
-- The main risk is adding links only for anchor-text quotas.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note owns where links are placed inside a draft, not the full cluster architecture. A good internal link appears when the reader needs the next explanation, proof, template, or caveat. It should support comprehension and navigation before it supports any abstract SEO quota.
 
-## Current Evidence Anchors
-- Google helpful content guidance retrieved 2026-07-06 is the people-first writing baseline.
-- The active QRG substrate is dated 2025-09-11, with no newer revision recorded as of 2026-07-06.
-- Google AI optimization guidance updated 2026-06-15 keeps generative AI optimization on SEO foundations.
-- FAQ rich results were retired for all sites effective 2026-05-07, so visible Q and A supports readers and extraction, not a rich result promise.
-- ZipTie, 2026-03-25, is practitioner evidence for self-contained answer passages and close source attribution.
-- The writing system must keep sources close to claims and preserve human accountability for AI-assisted drafts.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Allowed Actions And Disallowed Actions
 
-## Operating Standard
-- Open each important section with a direct answer before adding nuance.
-- Make the reader problem explicit before keyword, schema, or citation work starts.
-- Add original value through examples, data, experience, comparison, or decision criteria.
-- Place dated sources near claims that could become stale.
-- Use headings to expose the answer hierarchy without flattening the article into fragments.
-- Keep Q and A blocks visible only when they help the reader or passage extraction.
-- Connect every drafting rule to [[Blog Quality Score]] before handoff.
-- Treat AI-assisted wording as draft material that requires review, sourcing, and editorial accountability.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+Allowed actions include adding a contextual link after a concept is introduced, replacing a vague anchor with a specific one, and removing a link that interrupts the answer. Disallowed actions include stuffing the first paragraph with hub links, linking only for exact-match anchors, or using links to hide missing explanation. `g-helpful-content` supports the reader-first standard, and `g-ai-opt-guide` prevents hidden AI-only navigation advice.
 
-## Review Sequence
-1. Open [[6-Pillar Dual Optimization]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### Exceptions That Require Approval
 
-## Specific Checks
-- Check that internal link placement rules is applied to the correct content unit.
-- Check that the decision matches this purpose: places internal links where they help the reader or support the entity graph.
-- Check that the output can be inspected as an internal-link placement map tied to semantic cluster priorities.
-- Check that the risk is addressed directly: adding links only for anchor-text quotas.
-- Check whether the primary answer appears before supporting context.
-- Mark every current claim that needs a dated source.
-- Look for original examples, first-hand evidence, or useful comparisons.
-- Remove generic filler that does not help the reader decide or understand.
-- Confirm headings match the answer hierarchy.
-- Confirm internal links are placed at moments of reader need.
-- Confirm schema notes do not drive the article away from visible content.
-- Send unresolved source gaps to the brief before the draft is approved.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+Approval is required before adding links in legal, medical, financial, or other trust-sensitive passages where the link might imply endorsement. Approval is also required when linking from a citation-ready paragraph could separate the claim from its source. `g-qrg-full` supplies the trust lens; `ziptie-aio-source-selection` supports keeping extraction candidates clean and self-contained.
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Internal Link Rule Table
 
-## Failure Modes
-- The draft answers late and loses the impatient reader.
-- The post repeats SERP consensus without adding information gain.
-- The strongest evidence sits far from the claim it supports.
-- The introduction promises more certainty than the sources allow.
-- The article uses Q and A blocks as a deprecated rich result tactic.
-- The conclusion does not help the reader choose a next step.
-- The internal links are added for quota rather than context.
-- The draft relies on AI fluency instead of verified claims.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Rule | Source basis | Applies to | Exception | Approval path |
+|---|---|---|---|---|
+| Link at the moment of reader need | `g-helpful-content` | Educational and advisory sections | No link if the paragraph already resolves the task | Editor approves during draft review |
+| Keep citation passages intact | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Answer blocks and sourced paragraphs | Link after the source cue if needed | GEO reviewer checks extraction risk |
+| Avoid link quotas | `g-helpful-content` | All blog drafts | Cluster hub may require a defined navigational link | Strategist documents reason |
+| Use trust-aware anchors | `g-qrg-full` | YMYL-adjacent or expert-heavy sections | Generic anchor may be safer for legal text | Lead editor reviews |
+| Route architecture elsewhere | `g-helpful-content` | Hub and spoke planning | Broken cluster ownership | Send to [[Semantic Topic Clusters]] |
 
-## Handoff
-- Attach the writing pass to the draft or outline.
-- List missing sources before editorial approval.
-- Mark sections that need expert or reviewer input.
-- Send freshness gaps to [[Freshness and Content Decay]].
-- Send trust gaps to [[E-E-A-T for Blog Content]].
-- Send citation gaps to [[AI Citation Mechanics]].
-- Send schema notes to [[Blog Schema Stack]].
-- Score the final draft through [[Blog Quality Score]].
-- Use [[Intent Fit Writing Pass]] when this note needs a sibling follow-up.
-- Use [[Information Gain Checklist]] when the next decision belongs beside this note.
+## Internal Link Review And Rollback
+
+1. Read the paragraph before and after each proposed link.
+2. Ask what reader question the link answers at that exact point.
+3. Remove links that send the reader away before the section's answer is complete.
+4. Check whether the link target is the canonical owner of the deeper topic.
+5. Record exceptions in the review note, not in hidden markup.
+6. Roll back any link that creates a dead wikilink, duplicate anchor, or unsupported endorsement.
+
+## Source Handling
+
+The wired IDs are `g-helpful-content`, `g-ai-opt-guide`, `g-qrg-full`, and `ziptie-aio-source-selection`. This note does not claim internal links guarantee rankings or AI citations.
 
 ## Related
-- [[6-Pillar Dual Optimization]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[E-E-A-T for Blog Content]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Blog Quality Score]]
-- [[FLOW Framework]]
-- [[Intent Fit Writing Pass]]
-- [[Information Gain Checklist]]
-- [[Experience Signal Placement]]
-- [[Answer First Section Pattern]]
-- [[Evidence Density For Blog Posts]]
+
+- [[Semantic Topic Clusters]]
 - [[Citation Ready Paragraphs]]
-- [[Blog Introduction Patterns]]
-- [[Blog Conclusion Patterns]]
-- [[Six Pillar Editing Rubric]]
-- [[Claim Source Pairing Pattern]]
-- [[Reader Satisfaction Test]]
+- [[Intent Fit Writing Pass]]
+- [[Blog Quality Score]]

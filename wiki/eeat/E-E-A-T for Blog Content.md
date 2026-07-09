@@ -3,7 +3,7 @@ type: hub
 title: "E-E-A-T for Blog Content"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [eeat, active]
 domain: "Blog Trust"
 confidence: verified
@@ -11,97 +11,44 @@ related:
   - "[[index|Index]]"
   - "[[hot|Hot]]"
   - "[[Dual Optimization]]"
-  - "[[6-Pillar Dual Optimization]]"
   - "[[Blog Quality Score]]"
-  - "[[Voice and Style]]"
   - "[[Research Pack Index]]"
   - "[[Google Algorithm Update Ledger]]"
 source_urls:
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/essentials/spam-policies"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
+  - "https://www.nngroup.com/articles/ten-usability-heuristics/"
 ---
-
 # E-E-A-T for Blog Content
 
-## Summary
+## E-E-A-T for Blog Content Operating Scope
 
-E-E-A-T for blog content covers experience, expertise, authoritativeness, and trust signals that readers and quality reviewers can inspect.
+This hub owns the blog-trust layer: visible experience, relevant expertise, authority evidence, and trust signals that a reader or quality reviewer can inspect. It does not treat E-E-A-T as a direct ranking lever. The claim ledger records that framing as `CONFIRMED`: Google describes E-E-A-T as part of how helpful, reliable content can be recognized, not as a single switch. Use `g-helpful-content` for the people-first baseline, `g-qrg-full` for the quality-rater lens, `g-spam-policies` for abuse boundaries, and `nng-editorial-heuristics` for making review state usable by editors.
 
-It is not a magic ranking switch. It is a review framework for purpose, quality, reputation, sourcing, and risk.
+### What This Hub Owns In E-E-A-T Trust Review
 
-## Current fact anchors
+The hub owns the decision map: which spoke answers the trust problem, what evidence must be collected, and when a recommendation is not ready. It also keeps blog trust connected to [[Blog Quality Score]] so trust gaps become operational fixes rather than vague comments.
 
-- The active QRG source in the substrate is dated 2025-09-11, with no newer revision recorded as of 2026-07-06.
-- The QRG substrate says the 2025-09-11 version adds AI Overview rating examples and keeps the quality guidance unchanged.
-- Google helpful content guidance was retrieved 2026-07-06 and remains the main official people-first content baseline.
-- Google spam policies updated 2026-05-15 explicitly name generative AI scaled content without added value as a scaled content abuse example.
-- Google third-party SEO guidance, 2026-06-05, warns that no tool can guarantee rankings and third-party tools do not access Google's internal ranking systems.
+### What The Hub Must Not Absorb
 
-## Scope
+This hub should not become a dump for schema advice, AI citation statistics, content calendars, or traffic forecasts. Route schema identity to [[Blog Schema Stack]], AI visibility claims to [[AI Citation Mechanics]], and Google rollout status to [[Google Algorithm Update Ledger]].
 
-- Define visible experience signals for blog posts.
-- Define author and reviewer evidence.
-- Define source quality requirements.
-- Define trust and transparency checks.
-- Define YMYL and YMYL-adjacent escalation.
-- Define AI-assisted content accountability.
-- Connect style consistency to [[Voice and Style]].
-- Connect scoring to [[Blog Quality Score]].
+## E-E-A-T for Blog Content Spoke Map
 
-## Future spoke notes
+| Trust decision | Spoke that owns it | Source ids | Evidence state | Owner | Next action |
+|---|---|---|---|---|---|
+| Who can stand behind the page | [[Author Bio Requirements]] | g-helpful-content, g-qrg-full | Author-topic fit required | Editor | Rewrite weak bios before scoring |
+| Whether experience is visible | [[Experience Evidence Checklist]] | g-qrg-full, nng-editorial-heuristics | Proof must appear near claims | Author | Add examples, observations, or limits |
+| Whether sources match claim risk | [[Source Quality Ladder]] | g-helpful-content, g-qrg-full | Weak source tier caps confidence | Research editor | Replace thin citations |
+| Whether expert review is needed | [[Reviewer And Expert Review Rules]] | g-qrg-full | Review scope must be recorded | Managing editor | Escalate sensitive or technical claims |
+| Whether AI-assisted work adds value | [[AI Assisted Content Accountability]] | g-helpful-content, g-spam-policies | Generic synthesis is not enough | SEO lead | Add human judgment or rewrite |
+| Whether YMYL risk changes the gate | [[YMYL Escalation Matrix]] | g-qrg-full, g-helpful-content | Reader harm risk controls severity | Reviewer | Require stricter evidence and limitations |
 
-- [[Author Bio Requirements]]
-- [[Reviewer And Expert Review Rules]]
-- [[Experience Evidence Checklist]]
-- [[Source Quality Ladder]]
-- [[YMYL Escalation Matrix]]
-- [[AI Assisted Content Accountability]]
-- [[Reputation Research Workflow]]
-- [[Trust Signal Inventory]]
-- [[Value Less AI Content Warnings]]
-- [[E-E-A-T Review Rubric]]
+## Spoke Jobs And Deliverable Boundaries
 
-## Review prompts
+Each spoke produces a review artifact, not a publishing mutation. The artifact can be attached to a brief, audit, rewrite plan, or approval queue. It should name the page, source IDs, owner, confidence, and next action. If a claim is disputed or needs a newer source, send it to [[Research Pack Index]] rather than solving it with prose.
 
-- Is the main content useful for the stated purpose?
-- Does the author or brand show relevant experience?
-- Are sources visible, dated, and trustworthy?
-- Does the post avoid unsupported certainty?
-- Does the post disclose material limitations?
-- Does the page make ownership and contact context clear where appropriate?
-- Does the content add original value beyond summarizing search results?
-- Does any YMYL content require expert review before publication?
+## E-E-A-T Evidence And Refresh Rules
 
-## Source posture
-
-- Keep QRG claims tied to 2025-09-11.
-- Keep helpful content claims tied to the retrieved date.
-- Use official Google sources for spam and quality policies.
-- Use practitioner sources only for supporting workflow details.
-- Keep recommendations advisory and read-only.
-
-## Related themes
-
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Freshness and Content Decay]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Voice and Style]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
-
-## Sources
-
-- Search Quality Rater Guidelines, 2025-09-11.
-- Google helpful content guidance, retrieved 2026-07-06.
-- Google spam policies, updated 2026-05-15.
-- Google third-party SEO guidance, 2026-06-05.
-
-## Next actions
-
-- Fill [[E-E-A-T Review Rubric]] before audit scoring.
-- Fill [[YMYL Escalation Matrix]] before regulated-topic workflows.
-- Link all source rules to [[Research Pack Index]].
+Refresh this hub when Google changes helpful-content guidance, the QRG date changes, spam policies change, or claim-ledger verdicts affecting E-E-A-T move from `CONFIRMED` to another state. Keep recommendations plain: evidence can support a quality decision, but this brain does not guarantee rankings, traffic, rich results, or AI citations.

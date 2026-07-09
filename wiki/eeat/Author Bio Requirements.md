@@ -3,149 +3,60 @@ type: spoke
 title: "Author Bio Requirements"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [eeat, evergreen]
 domain: "Blog Trust"
 confidence: verified
 related:
   - "[[E-E-A-T for Blog Content]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Reviewer And Expert Review Rules]]"
   - "[[Experience Evidence Checklist]]"
-  - "[[Source Quality Ladder]]"
-  - "[[YMYL Escalation Matrix]]"
-  - "[[AI Assisted Content Accountability]]"
+  - "[[Reviewer And Expert Review Rules]]"
   - "[[Reputation Research Workflow]]"
   - "[[Trust Signal Inventory]]"
-  - "[[Value Less AI Content Warnings]]"
-  - "[[Dual Optimization]]"
 source_urls:
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/essentials/spam-policies"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+  - "https://www.nngroup.com/articles/ten-usability-heuristics/"
 ---
 # Author Bio Requirements
 
-## Summary
-Author Bio Requirements is a trust review note for E-E-A-T review.
-It defines the minimum visible author evidence for blog trust.
-Use it with [[E-E-A-T for Blog Content]] when the working unit is a author, page, source set, or editorial process.
+## Author Bio Requirements Distinct Job
 
-## Operating Question
-- What must the reader know about the author to trust this page?
-- The expected output is an author-bio requirement set with topic fit and limits.
-- The main risk is using a generic bio that does not support the article purpose.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note defines what an author bio must prove for a specific blog post. A name and job title are not enough when the article asks readers to rely on experience, expertise, recommendations, or sensitive guidance. The bio gate checks topic fit, not prestige in the abstract. Google helpful-content guidance and the QRG support the general need for people-first, trustworthy content and inspectable expertise signals (source_ids: g-helpful-content, g-qrg-full). Spam-policy evidence is used only when fabricated, misleading, or mass-produced author presentation is part of the risk (source_id: g-spam-policies). NN/g helps make the bio understandable without forcing readers to infer the author's relevance (source_id: nng-editorial-heuristics).
 
-## Current Evidence Anchors
-- The active QRG source in the substrate is dated 2025-09-11, with no newer revision recorded as of 2026-07-06.
-- Google helpful content guidance retrieved 2026-07-06 remains the people-first quality baseline.
-- Google spam policies updated 2026-05-15 name generative AI scaled content without added value as a scaled content abuse example.
-- Google third-party SEO guidance dated 2026-06-05 says no tool can guarantee rankings or access Google internal ranking systems.
-- The QRG substrate says the 2025-09-11 version adds AI Overview rating examples and keeps quality guidance unchanged.
-- Trust recommendations must stay advisory and must not guarantee rankings, rich results, or AI citations.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Inputs For Bio Fit
 
-## Operating Standard
-- Show experience, expertise, authority, and trust through inspectable page elements.
-- Distinguish author credentials, reviewer credentials, brand reputation, and source quality.
-- Escalate YMYL and YMYL-adjacent content before publication advice is finalized.
-- Reject vague expertise claims that do not connect to the topic or article purpose.
-- Treat AI-assisted content as accountable content that must add value and show provenance.
-- Use official Google sources for spam and quality policy claims.
-- Record uncertainty when reputation, credentials, or source quality cannot be verified.
-- Connect trust gaps to [[Blog Quality Score]] instead of presenting E-E-A-T as a magic switch.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+Use the draft topic, target reader decision, author profile, reviewer profile if separate, relevant credentials, lived or operational experience, and any public reputation evidence. If the bio depends on external recognition, pair this note with [[Reputation Research Workflow]].
 
-## Review Sequence
-1. Open [[E-E-A-T for Blog Content]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### Decisions The Bio Gate Records
 
-## Specific Checks
-- Check that author bio requirements is applied to the correct content unit.
-- Check that the decision matches this purpose: defines the minimum visible author evidence for blog trust.
-- Check that the output can be inspected as an author-bio requirement set with topic fit and limits.
-- Check that the risk is addressed directly: using a generic bio that does not support the article purpose.
-- Confirm the page has a clear purpose and satisfies that purpose.
-- Check whether experience evidence is visible near claims that need it.
-- Confirm author and reviewer claims are topic-relevant.
-- Escalate YMYL and YMYL-adjacent topics with a visible rationale.
-- Check independent source quality before making authority claims.
-- Reject claims that rely on tool scores as proof of Google rankings.
-- Record AI assistance only as a workflow detail, not as a quality substitute.
-- Make limitations visible where reader decisions could be affected.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+The gate records whether the author is credible for this exact article, which claim types they can support, and where a reviewer or expert needs to supplement the byline.
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Author Evidence Requirement Table
 
-## Failure Modes
-- The page lists credentials that do not fit the topic.
-- The reviewer name appears without review evidence.
-- A YMYL-adjacent topic skips escalation because it is labeled a blog post.
-- Sources are selected for convenience rather than claim strength.
-- AI-assisted volume replaces original value.
-- Reputation claims depend only on the brand site itself.
-- Limitations are hidden even when reader decisions are sensitive.
-- E-E-A-T is presented as a direct ranking lever instead of a review framework.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Bio decision | Required input | Source ids | Evidence state | Owner | Next action |
+|---|---|---|---|---|---|
+| Topic fit | Bio statement tied to the article's subject and reader task | g-helpful-content, g-qrg-full | Generic role language is insufficient | Editor | Rewrite bio around relevant experience |
+| Experience proof | Projects, field work, product use, interviews, or operational exposure | g-qrg-full, nng-editorial-heuristics | Unsupported experience claim lowers trust | Author | Add visible proof or move claim to reviewer note |
+| Expertise limit | Clear boundary for what the author can and cannot advise on | g-helpful-content, g-qrg-full | Overbroad bio needs narrowing | Managing editor | Add limitation sentence near byline or disclosure |
+| Reviewer separation | Reviewer name, specialty, review date, and scope | g-qrg-full, nng-editorial-heuristics | Reviewer is not interchangeable with author | Reviewer | Send to [[Reviewer And Expert Review Rules]] |
+| Fabrication risk | Identity, credentials, and profile evidence checked for plausibility | g-spam-policies, g-qrg-full | Unverifiable bio blocks trust claim | SEO lead | Escalate before publication recommendation |
 
-## Handoff
-- Attach the trust note to the content brief, audit, or rewrite plan.
-- List visible page changes separately from background editorial process.
-- Escalate unresolved YMYL or reputation uncertainty before publication advice.
-- Record dated sources for quality and spam policy claims.
-- Send voice consistency issues to [[Voice and Style]].
-- Send source gaps to [[Research Pack Index]].
-- Send schema identity questions to [[Blog Schema Stack]].
-- Score trust issues through [[Blog Quality Score]].
-- Use [[Reviewer And Expert Review Rules]] when this note needs a sibling follow-up.
-- Use [[Experience Evidence Checklist]] when the next decision belongs beside this note.
+## Source IDs, Confidence, And Bio Owner
 
-## Related
-- [[E-E-A-T for Blog Content]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Freshness and Content Decay]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Voice and Style]]
-- [[Blog Quality Score]]
-- [[Reviewer And Expert Review Rules]]
-- [[Experience Evidence Checklist]]
-- [[Source Quality Ladder]]
-- [[YMYL Escalation Matrix]]
-- [[AI Assisted Content Accountability]]
-- [[Reputation Research Workflow]]
-- [[Trust Signal Inventory]]
-- [[Value Less AI Content Warnings]]
-- [[E-E-A-T Review Rubric]]
-- [[Editorial Transparency Checklist]]
-- [[YMYL Adjacent Blog Policy]]
+- `g-helpful-content`: supports matching author evidence to reader usefulness.
+- `g-qrg-full`: supports the quality-review lens for expertise, trust, and page purpose.
+- `g-spam-policies`: supports caution around deceptive or scaled identity patterns.
+- `nng-editorial-heuristics`: supports clear presentation of who did what and why it matters.
+
+Use `high` confidence only when the bio, article topic, and reviewer record agree. A recognized author can still fail this gate if the note cannot connect their background to the page's claims.
+
+## Bio Gate Procedure
+
+1. Read the article purpose and list the claim types that depend on author credibility.
+2. Compare those claims with the author bio and remove credentials that do not explain topic relevance.
+3. Add first-hand or operational evidence from [[Experience Evidence Checklist]] where the article leans on lived experience.
+4. Decide whether expert review is required and record it through [[Reviewer And Expert Review Rules]].
+5. If reputation proof is cited, verify it independently through [[Reputation Research Workflow]].
+6. Leave a short owner note that says whether the bio is ready, needs rewrite, or requires escalation.

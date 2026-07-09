@@ -1,113 +1,56 @@
 ---
 type: hub
 title: "SERP-Informed Briefs and Outlines"
+domain: "Blog Briefs"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [briefs-outlines, serp-briefs, active]
-domain: "Blog Briefs"
-confidence: verified
-related:
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Dual Optimization]]"
-  - "[[6-Pillar Dual Optimization]]"
-  - "[[Semantic Topic Clusters]]"
-  - "[[AI Citation Mechanics]]"
-  - "[[E-E-A-T for Blog Content]]"
-  - "[[Research Pack Index]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
 ---
 
 # SERP-Informed Briefs and Outlines
 
-## Summary
+## SERP-Informed Briefs and Outlines Operating Scope
 
-SERP-informed briefs translate query intent, source evidence, competitive patterns, and citation needs into a draftable blog outline.
+SERP-informed briefs translate query intent, source evidence, competitive patterns, and citation constraints into a draftable blog outline. This hub owns the planning sequence for that translation. It does not own article writing, publishing, CMS mutation, or performance reporting after publication.
 
-This hub defines the brief skeleton for later spoke notes.
+The hub keeps brief planning grounded in source-ledger evidence. `g-helpful-content` anchors usefulness and originality, while `g-qrg-full` is only a quality-evaluation reference for trust, reputation, and YMYL sensitivity. Use `dfs-api` or equivalent dated SERP capture when a brief depends on visible result features. Low-click planning comes from `sparktoro-zero-click-2026` as market context, not a forecast for one property.
 
-## Current fact anchors
+### What This Hub Owns In Brief Planning
 
-- Google helpful content guidance, retrieved 2026-07-06, requires people-first usefulness rather than content made primarily to attract search visits.
-- Google AI optimization guidance, updated 2026-06-15, keeps AI feature optimization grounded in standard Search foundations.
-- SparkToro, 2026-06-09, makes zero click behavior a planning constraint for brief goals.
-- Seer, 2026-04-24, makes AI Overview citation status a planning concern because cited pages had about 120 percent more clicks per impression than not cited.
-- The brief should separate ranking, citation, and reader outcome goals.
+The hub owns the order of operations: input contract, reader job, intent classification, observation ledger, competitive patterns, heading rules, evidence blocks, source pack, QA, risk notes, and draft handoff.
 
-## Scope
+### What The Hub Must Not Absorb
 
-- Define the primary query and reader job.
-- Define required sources and claim constraints.
-- Define search intent and content angle.
-- Define H2 and H3 structure.
-- Define answer-first passages for [[AI Citation Mechanics]].
-- Define E-E-A-T requirements from [[E-E-A-T for Blog Content]].
-- Define internal links from [[Semantic Topic Clusters]].
-- Define schema needs from [[Blog Schema Stack]].
+Do not move schema rules, AI citation mechanics, content scoring, rewrite decisions, or data integration details into this hub. Link to [[Blog Schema Stack]], [[AI Citation Mechanics]], [[Blog Quality Score]], [[Freshness and Content Decay]], and [[Google Data Integrations]] instead.
 
-## Future spoke notes
+## SERP-Informed Briefs and Outlines Spoke Map
 
-- [[SERP Brief Input Contract]]
-- [[Search Intent Classification]]
-- [[Reader Job Statement]]
-- [[Competitive Pattern Notes]]
-- [[Heading Hierarchy Rules]]
-- [[Evidence Block Requirements]]
-- [[Brief Source Pack]]
-- [[Outline QA Checklist]]
-- [[Brief To Draft Handoff]]
-- [[Brief Risk Notes]]
-- [[SERP Observation Ledger]]
+| Spoke | Planning job | Source requirement | Acceptance check | Draft handoff state |
+| --- | --- | --- | --- | --- |
+| [[SERP Brief Input Contract]] | Gate required fields before brief work | `g-helpful-content`; `g-qrg-full`; dated SERP capture; market context when needed | No generic source bundle or missing reader job | Ready when blocker fields close |
+| [[Reader Job Statement]] | Convert query demand into a human task | Query set plus helpful-content standard | Job names reader, task, and outcome | Required before intent |
+| [[Search Intent Classification]] | Choose primary and secondary intent | SERP notes and reader job evidence | Mixed intent is split or justified | Feeds heading design |
+| [[SERP Observation Ledger]] | Preserve dated SERP facts without overclaiming | Dated observation plus relevant source IDs | Observation is not called a ranking factor | Feeds pattern notes |
+| [[Competitive Pattern Notes]] | Interpret visible formats and gaps | SERP capture plus source pack checks | Competitors are not copied | Feeds information-gain requirements |
+| [[Heading Hierarchy Rules]] | Assign H1, H2, H3, and answer-block roles | Approved intent and evidence constraints | Headings have section jobs | Feeds outline QA |
+| [[Evidence Block Requirements]] | Map claims to proof and caveats | Source IDs with claim coverage | Verdict label matches evidence strength | Feeds source pack and handoff |
+| [[Brief Source Pack]] | Assemble dated source material | Official or primary first, practitioner caveated | URLs, dates, limits, and refresh cues present | Feeds drafting packet |
+| [[Outline QA Checklist]] | Decide ready, revise, or blocked | All prior notes | Blockers have owners | Releases to handoff |
+| [[Brief To Draft Handoff]] | Transfer constraints to the writer | Approved source pack and risk notes | Writer cannot invent facts | Opens draft request |
+| [[Brief Risk Notes]] | Surface uncertainty and approvals | Claim ledger discipline and owners | Risk has state, owner, and caveat | Travels with draft |
 
-## Brief sections
+## Evidence And Refresh Rules
 
-- Working title.
-- Reader problem.
-- Primary intent.
-- Secondary intents.
-- Must-answer questions.
-- Required evidence.
-- Required internal links.
-- Citation-ready answer blocks.
-- E-E-A-T requirements.
-- Schema and media requirements.
-- Measurement notes.
-- Approval and rollback caveats.
-
-## Source posture
-
-- Cite dated sources inside the brief, not only in final content.
-- Use SERP observations as evidence of current presentation, not proof of ranking factors.
-- Avoid copying competitor structures without adding original value.
-- Use [[Research Pack Index]] for source routes.
-- Use [[Google Data Integrations]] when first-party query data exists.
-
-## Related themes
-
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Semantic Topic Clusters]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Blog Schema Stack]]
-- [[Voice and Style]]
-- [[Blog Quality Score]]
+1. Source IDs must sit beside the claims they support.
+2. SERP observations need dates, locales, and device context before they influence structure.
+3. Practitioner studies can shape planning, but first-party data should replace them for property-specific forecasts.
+4. AI Overview, AI Mode, and llms.txt claims route to [[AI Citation Mechanics]] or [[2026 Google Update Timeline]] instead of being expanded here.
+5. Refresh this hub when the source ledger changes, when Google updates AI feature guidance, or when the spoke set changes.
 
 ## Sources
 
-- Google helpful content guidance, retrieved 2026-07-06.
-- Google AI optimization guide, updated 2026-06-15.
-- SparkToro zero click study, 2026-06-09.
-- Seer AIO CTR study, 2026-04-24.
-
-## Next actions
-
-- Fill [[SERP Brief Input Contract]] before brief automation.
-- Fill [[Heading Hierarchy Rules]] before outline generation.
-- Use [[SERP Observation Ledger]] when dated SERP observations influence the brief.
-- Link handoff checks to [[6-Pillar Dual Optimization]].
+- `g-helpful-content`
+- `g-qrg-full`
+- `dfs-api`
+- `sparktoro-zero-click-2026`

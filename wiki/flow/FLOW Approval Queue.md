@@ -1,178 +1,50 @@
 ---
 type: spoke
 title: "FLOW Approval Queue"
+domain: "Blog Workflow"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [flow, active]
-domain: "Blog Workflow"
 confidence: advisory
 related:
   - "[[FLOW Framework]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
   - "[[FLOW Source Intake]]"
-  - "[[FLOW Brief Stage]]"
-  - "[[FLOW Draft Stage]]"
-  - "[[FLOW Review Stage]]"
-  - "[[FLOW Factcheck Stage]]"
-  - "[[FLOW Rewrite Stage]]"
+  - "[[FLOW Confidence Tags]]"
+  - "[[FLOW Rollback Notes]]"
   - "[[FLOW Report Stage]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://github.com/AgriciDaniel/flow"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
 ---
 
 # FLOW Approval Queue
 
-## Summary
-FLOW Approval Queue is the spoke for queue recommendations that require human review before live implementation.
-Use it when [[FLOW Framework]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a FLOW approval queue.
-The success condition is that uncertain or high-impact actions wait for owner approval.
-Keep the note advisory in V1 and route implementation to a human owner.
+## Queue Record Scope
 
-## Parent Hub Fit
-- Parent hub: [[FLOW Framework]].
-- Primary upstream context: [[Dual Optimization]].
-- Primary downstream context: [[6-Pillar Dual Optimization]].
-- Evidence route: [[Blog Quality Score]].
-- Sibling comparison starts with [[FLOW Source Intake]] and [[FLOW Brief Stage]].
-- Quality review should connect to [[Blog Quality Score]] when the note affects delivery.
-- Citation review should connect to [[AI Citation Mechanics]] when answer passages are created or changed.
-- Source refresh should connect to [[Research Pack Index]] when a dated claim is older than its cadence.
-- The note should not create a publishing action by itself.
-- The note should create a clear next decision, owner, and evidence state.
+FLOW Approval Queue is the holding register for recommendations that are too consequential, uncertain, or live-site-adjacent to implement from a draft or report alone. It belongs under [[FLOW Framework]] and receives items from [[FLOW Review Stage]], [[FLOW Factcheck Stage]], [[FLOW Rewrite Stage]], and [[FLOW Report Stage]]. The queue does not publish, edit a CMS, change tracking, or approve itself. It gives the human owner a compact record of the object, evidence state, confidence, next review date, and rollback trigger.
 
-## Current Fact Anchors
-- Google helpful content guidance, retrieved 2026-07-06, is the baseline for original, people-first usefulness.
-- Google AI optimization guidance, updated 2026-06-15, says Google Search does not need special AI files, special AI schema, Markdown conversion, or llms.txt for AI features.
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026, so planning must include visibility beyond clicks.
-- Seer, 2026-04-24, records cited AI Overview pages with about 120 percent more clicks per impression than pages not cited in its analysis.
-- Google I/O Search update, 2026-05-19, reports AI Mode passed 1B monthly users, while the substrate records about 0.34 percent US query volume.
-- The current QRG reference is the 2025-09-11 revision, with no newer substrate revision recorded as of 2026-07-06.
-- FAQ rich results were retired for all sites on 2026-05-07, so Article or BlogPosting is the blog schema priority when schema is relevant.
-- Passage extractability guidance is practitioner guidance: aim for self-contained answer blocks around 130 to 170 words under clear headings.
-- The FLOW framework bibliography in the ledger is dated 2026-06-22 and retrieved 2026-07-06.
-- Google third-party SEO guidance, 2026-06-05, says tools and vendors do not have access to internal Google ranking systems and cannot guarantee rankings.
-- Use first-party GSC, GA4, and crawl evidence when available instead of replacing local data with market averages.
-- Treat practitioner studies as planning context unless an official source or property data confirms the exact claim.
+### Events Or Items This Register Captures
 
-## Required Inputs
-- Target topic, article, cluster, or workflow item that needs FLOW Approval Queue.
-- Parent hub context from [[FLOW Framework]].
-- Reader problem and intended outcome in one sentence.
-- Primary query, entity, or channel that triggered the work.
-- Known source URLs with retrieval dates for every current claim.
-- First-party data availability, including GSC, GA4, crawl data, or none.
-- Existing internal links and candidate links that affect the decision.
-- YMYL, legal, medical, financial, or reputation sensitivity flags.
-- Schema, media, and author requirements if the note affects a published page.
-- Approval owner for changes that affect live content.
-- Rollback trigger if the recommendation is later implemented.
-- Metric set for review: pending approvals, blocked items, owner response, and review cadence.
+Capture changes that affect live content, visible Search claims, AI feature positioning, schema language, deletion, consolidation, or recommendations built from market-level evidence. Usefulness rewrites cite the people-first baseline (source_id: `g-helpful-content`). AI-file corrections cite the Google AI guidance (source_id: `g-ai-opt-guide`). Schema-language decisions point to structured-data guidance (source_id: `g-intro-sd`). Rows based on traffic or engagement observations need property evidence such as GA4 reporting (source_id: `g-ga4-data`) before the queue treats them as site-specific.
 
-## Operating Procedure
-- Start with the precise decision that FLOW Approval Queue must make.
-- Restate the scope so it cannot drift beyond [[FLOW Framework]].
-- List the page, cluster, brief, asset, or workflow item under review.
-- Separate observed facts from recommendations before scoring or prioritizing.
-- Attach a source URL and date to every current Search, AI, schema, or market claim.
-- Prefer official Google, standards body, primary, or vendor documentation for rule-like claims.
-- Use practitioner sources only as supporting evidence or workflow guidance.
-- Check whether the recommendation depends on zero click behavior, AI Overview citation, or AI Mode exposure.
-- If it depends on AI features, state that inclusion cannot be guaranteed.
-- If it mentions FAQ rich results, rewrite the point because that visual tactic is retired for all sites.
-- If schema is relevant, route the baseline to Article or BlogPosting plus visible entity support.
-- If passages are relevant, make the answer block self-contained and cite source context nearby.
-- If the work affects trust, route the check through QRG-informed E-E-A-T review.
-- If first-party data exists, make it the measurement baseline.
-- If first-party data is missing, label the estimate advisory and name the data gap.
-- Reject the failure pattern of burying approval needs inside a report paragraph.
-- Write the recommendation in a way that a reviewer can accept, revise, or reject.
-- Close with owner, next action, confidence, and rollback note.
+### Events Or Items Routed Elsewhere
 
-## Acceptance Criteria
-- The FLOW approval queue names the exact object under review.
-- The recommendation has one primary owner.
-- Every current factual claim has a dated source URL.
-- The note distinguishes verified facts from advisory choices.
-- The note states whether property data is available or missing.
-- The note uses current Core Web Vitals language if performance is mentioned.
-- The note avoids FID as a current quality metric.
-- The note avoids FAQ rich result language as a current blog tactic.
-- The note avoids llms.txt as a Google Search, AI Overview, or AI Mode requirement.
-- The note does not promise rankings, traffic, Discover reach, AI Overview inclusion, or chatbot citation.
-- The note contains an explicit confidence label.
-- The note contains a rollback or review trigger when live content could change.
-- The note links back to the parent hub and at least six sibling spokes.
-- The note can be audited without reading private client systems.
+Pure source capture goes to [[FLOW Source Intake]]. Draft wording without implementation risk goes to [[FLOW Draft Stage]]. Confidence labels go to [[FLOW Confidence Tags]]. A final stakeholder summary goes to [[FLOW Report Stage]] after the queue owner decides.
 
-## Failure Modes
-- A claim is current but has no dated source.
-- A market statistic is applied as a property forecast without local data.
-- A recommendation treats an SEO tool as access to Google's internal ranking systems.
-- A passage is written for extraction but lacks source context.
-- A schema recommendation describes hidden or unsupported page content.
-- A cluster, brief, score, or workflow step creates thin content rather than useful content.
-- A reviewer cannot tell whether a statement is verified or advisory.
-- A high-risk change has no rollback note.
-- A channel or platform action is implied even though V1 is advisory and read-only toward external systems.
-- The note accepts burying approval needs inside a report paragraph.
-- The note hides unresolved uncertainty instead of naming it.
-- The note duplicates another sibling without a clear boundary.
+## FLOW Approval Queue Register Table
 
-## Handoff
-- Send brief structure questions to [[FLOW Source Intake]].
-- Send evidence and source issues to [[FLOW Brief Stage]].
-- Send quality scoring issues to [[Blog Quality Score]].
-- Send citation passage issues to [[AI Citation Mechanics]].
-- Send schema issues to [[Blog Schema Stack]].
-- Send first-party measurement issues to [[Google Data Integrations]].
-- Send freshness and decay issues to [[Freshness and Content Decay]].
-- Send voice changes to [[Voice and Style]] when wording or channel tone changes.
-- Send visual or media requirements to [[Images Audio and Charts]] when the output needs assets.
-- Keep unresolved approval items out of automated publishing paths.
-- Record durable outcomes in [[log]] only when the vault owner asks for log maintenance.
-- Keep the final status as ready, revise, blocked, or monitor.
+| Queue item | Source id | Owner | Confidence | Status | Next review date | Rollback trigger |
+|---|---|---|---|---|---|---|
+| Rewrite a section for usefulness rather than keyword coverage | `g-helpful-content` | Managing editor | High | Awaiting approval | 2026-07-16 | Reader task becomes less clear after edit |
+| Remove a proposed Google AI-specific file requirement | `g-ai-opt-guide` | SEO lead | High | Ready to accept | 2026-07-12 | Recommendation again implies a special AI Search file |
+| Validate a schema wording change before handoff | `g-intro-sd` | Technical owner | High | Needs review | 2026-07-14 | Recommendation implies unsupported structured-data eligibility |
+| Use GA4 observations as site-specific planning evidence | `g-ga4-data` | Strategy owner | Medium | Monitor | 2026-08-06 | Analytics access, segment, or date range proves unsuitable |
 
-## Related Links
-- [[FLOW Framework]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[FLOW Source Intake]]
-- [[FLOW Brief Stage]]
-- [[FLOW Draft Stage]]
-- [[FLOW Review Stage]]
-- [[FLOW Factcheck Stage]]
-- [[FLOW Rewrite Stage]]
-- [[FLOW Report Stage]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
+## Source, Confidence, Owner, Status, And Due Date
 
-## Source Notes
-- Google helpful content guidance is the primary source for people-first usefulness and source-backed quality.
-- Google AI optimization guidance is the primary source for no special AI files, no special AI schema, and the Google llms.txt caveat.
-- SparkToro and Seer are used as dated market context, not property forecasts.
-- The QRG is used as a quality evaluation framework, not as a direct ranking factor claim.
-- ZipTie passage guidance is practitioner guidance for extraction readiness, not an official Google rule.
-- Search Gallery and FAQPage documentation control schema and rich result claims when schema appears in this note.
+Each row needs one accountable owner and one confidence label. Use high confidence for official Google documentation that directly governs the recommendation. Use medium confidence for practitioner or panel research and mark the row as advisory when the data is not from the client property. If the item has no rollback trigger, it is not ready for approval because the operator cannot tell when to revisit the decision.
 
-## Maintenance
-- Refresh this note when the source ledger refreshes.
-- Refresh this note when Google changes AI feature guidance, schema support, spam policy, or QRG references.
-- Refresh this note when first-party data contradicts an advisory assumption.
-- Keep source URLs in frontmatter aligned with the ledger.
-- Do not mark the brain market-ready from this note alone.
-- The next review should verify whether pending approvals, blocked items, owner response, and review cadence still captures the decision quality.
+## FLOW Approval Queue Review Loop
+
+1. Add the item only after [[FLOW Confidence Tags]] names the verdict and evidence tier.
+2. Ask the owner to accept, revise, reject, or monitor the item before a live-content handoff.
+3. Send accepted live-change items to [[FLOW Rollback Notes]] and unresolved evidence items back to [[FLOW Source Intake]].
+4. Include only decided or clearly blocked rows in [[FLOW Report Stage]] so the report does not hide pending approvals.

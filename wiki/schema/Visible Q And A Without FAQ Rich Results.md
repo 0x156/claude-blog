@@ -3,150 +3,49 @@ type: spoke
 title: "Visible Q And A Without FAQ Rich Results"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [schema, blog-schema, evergreen]
 domain: "Blog Structured Data"
 confidence: verified
 related:
   - "[[Blog Schema Stack]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Article Schema Baseline]]"
-  - "[[BlogPosting Versus Article]]"
-  - "[[Author Person Markup]]"
-  - "[[Organization Entity Graph]]"
-  - "[[BreadcrumbList For Blogs]]"
-  - "[[VideoObject For Blog Posts]]"
-  - "[[Product Mentions In Blog Schema]]"
-  - "[[Schema Validation Workflow]]"
-  - "[[Dual Optimization]]"
+  - "[[Structured Data Deprecation Register]]"
+  - "[[AI Citation Mechanics]]"
 source_urls:
   - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
   - "https://schema.org/docs/full.html"
   - "https://www.w3.org/TR/json-ld11/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/product"
 ---
 # Visible Q And A Without FAQ Rich Results
 
-## Summary
-Visible Q And A Without FAQ Rich Results is a schema review note for blog schema stack.
-It uses visible Q and A for reader clarity and extraction after FAQ rich result retirement.
-Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity graph, or structured data block.
+## Q And A Content Job
 
-## Operating Question
-- Does the Q and A block help the reader even without a FAQ rich result?
-- The expected output is a Q and A guidance note that avoids deprecated rich result promises.
-- The main risk is keeping FAQ markup because old playbooks promised SERP expansion.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note keeps useful question-and-answer blocks in articles without turning them into an unsupported rich-result promise. The content decision is reader-first: a Q and A block is useful when it resolves objections, clarifies definitions, or supports an answerable subtask. [[Structured Data Deprecation Register]] owns the schema caution, and [[AI Citation Mechanics]] owns broader answer-surface caveats.
 
-## Current Evidence Anchors
-- Google structured data introduction retrieved 2026-07-06 recommends JSON-LD and requires markup to describe visible content.
-- Google FAQPage documentation records FAQ rich results retired for all sites effective 2026-05-07.
-- Google Search Gallery dated 2026-07-01 in the ledger defines supported rich result types.
-- Schema.org full hierarchy and JSON-LD 1.1 provide standards references for vocabulary and serialization.
-- Article or BlogPosting with Person, Organization, and BreadcrumbList is the blog priority after FAQ and HowTo visibility loss.
-- Rich result eligibility is never a guarantee, and unsupported markup should not be sold as a current Search feature.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+Use `g-intro-sd` for the principle that structured data must match visible content. Use `g-search-gallery` before saying a Google Search feature is supported. Use `schema-full` only for vocabulary availability, and use `w3c-jsonld` if a site still serializes related graph data.
 
-## Operating Standard
-- Describe only visible page content in structured data.
-- Prefer JSON-LD unless a local platform requires another supported format.
-- Use Google Search Central for supported Search features and Schema.org for vocabulary breadth.
-- Keep Article or BlogPosting, author identity, publisher identity, and breadcrumbs coherent.
-- Avoid presenting FAQPage or HowTo as current blog rich result tactics.
-- Use Product or VideoObject only when the page visibly contains qualifying content.
-- Validate syntax, vocabulary, Google support, and page-content alignment before handoff.
-- Treat schema as entity clarity and eligibility support, not a traffic guarantee.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+## Visible Q And A Without FAQ Rich Results Schema Table
 
-## Review Sequence
-1. Open [[Blog Schema Stack]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+| Q and A situation | Schema action | Validation target | Warning to record | Source id |
+|---|---|---|---|---|
+| Reader-facing Q and A at article end | Keep visible content; do not promise a FAQ rich result | Questions answer real article objections | The content can be useful without special markup | `g-intro-sd` |
+| FAQPage markup requested by template | Check current Search Gallery and deprecation register before use | Supported-feature evidence is current | Vocabulary availability is not enough for Search display language | `g-search-gallery` |
+| Definitions inside article body | Usually leave as headings or paragraphs | Reader can understand context without schema | Over-marking small answers can add noise | `schema-full` |
+| Product or service support questions | Route to product or support schema review if applicable | Page purpose and entity type are clear | Sales FAQs can blur article and product intent | `g-intro-sd` |
+| JSON-LD retained for non-Google consumers | Require explicit owner and rollback note | Graph parses and does not contradict visible page | Do not let orphaned JSON-LD outlive the content | `w3c-jsonld` |
 
-## Specific Checks
-- Check that visible q and a without faq rich results is applied to the correct content unit.
-- Check that the decision matches this purpose: uses visible Q and A for reader clarity and extraction after FAQ rich result retirement.
-- Check that the output can be inspected as a Q and A guidance note that avoids deprecated rich result promises.
-- Check that the risk is addressed directly: keeping FAQ markup because old playbooks promised SERP expansion.
-- Verify that each marked-up fact is visible to readers.
-- Validate JSON-LD syntax before interpreting eligibility.
-- Check Google Search Gallery support before promising a feature.
-- Use Schema.org vocabulary for entity clarity even when Google has no rich result.
-- Keep author, publisher, dates, images, and breadcrumbs consistent with the page.
-- Avoid obsolete FAQ and HowTo rich result advice.
-- Use Product or VideoObject only for visible qualifying content.
-- Record validation evidence and unresolved platform constraints.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+## Editorial Procedure For Q And A Blocks
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+1. Keep only questions a reader would naturally ask at that point in the article.
+2. Answer each question directly, with source-backed claims routed through the relevant hub.
+3. Remove schema or feature language that implies a current Google display without gallery support.
+4. Recheck the block when the article is refreshed or when [[Structured Data Deprecation Register]] changes.
 
-## Failure Modes
-- The markup describes content that is not visible on the page.
-- A rich result is promised even though Google support has changed.
-- FAQPage is retained as a visual SERP tactic after retirement.
-- Author or publisher nodes conflict with visible page identity.
-- Product markup is added to casual product mentions.
-- VideoObject appears without a qualifying visible video.
-- The schema validates syntactically but fails editorial alignment.
-- The structured data creates a disconnected entity graph.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## What This Note Does Not Claim
 
-## Handoff
-- Attach the schema note to the article template, CMS ticket, or audit report.
-- List visible-content dependencies before implementation advice.
-- Record validation tools and unresolved warnings.
-- Send author and trust issues to [[E-E-A-T for Blog Content]].
-- Send media markup questions to [[Images Audio and Charts]].
-- Send deprecation questions to [[Google Algorithm Update Ledger]].
-- Send citation entity questions to [[AI Citation Mechanics]].
-- Score technical readiness through [[Blog Quality Score]].
-- Use [[Article Schema Baseline]] when this note needs a sibling follow-up.
-- Use [[BlogPosting Versus Article]] when the next decision belongs beside this note.
+It does not claim that Q and A markup improves rankings, earns AI citations, or restores a retired appearance. It also does not ban visible Q and A content. The safer operating rule is to preserve helpful answers for readers while keeping Search feature claims tied to current Google documentation.
 
-## Related
-- [[Blog Schema Stack]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Images Audio and Charts]]
-- [[Multilingual Publishing]]
-- [[Google Data Integrations]]
-- [[Google Algorithm Update Ledger]]
-- [[Article Schema Baseline]]
-- [[BlogPosting Versus Article]]
-- [[Author Person Markup]]
-- [[Organization Entity Graph]]
-- [[BreadcrumbList For Blogs]]
-- [[VideoObject For Blog Posts]]
-- [[Product Mentions In Blog Schema]]
-- [[Schema Validation Workflow]]
-- [[Structured Data Deprecation Register]]
-- [[JSON-LD Publishing Checklist]]
-- [[Schema And E-E-A-T Alignment]]
+## Q And A Handoff
+
+The output should identify accepted questions, removed questions, schema status, and the owner for future refresh. If the Q and A block carries broad AI or zero-click context, route that claim to [[AI Citation Mechanics]] instead of repeating it here.

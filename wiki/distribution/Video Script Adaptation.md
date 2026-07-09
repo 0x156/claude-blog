@@ -1,179 +1,70 @@
 ---
 type: spoke
 title: "Video Script Adaptation"
+domain: "Blog Distribution"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
-tags: [distribution, repurposing, active]
-domain: "Blog Distribution"
+updated: 2026-07-09
+tags:
+  - distribution
+  - video
+  - script
+  - active
 confidence: advisory
 related:
   - "[[Distribution and Repurposing]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
+  - "[[Images Audio and Charts]]"
   - "[[Repurposing Source Fidelity]]"
-  - "[[Email Newsletter Adaptation]]"
-  - "[[Social Thread Adaptation]]"
-  - "[[Community Post Adaptation]]"
-  - "[[Podcast Brief Adaptation]]"
   - "[[Canonical Attribution Rules]]"
+  - "[[Channel Asset Inventory]]"
   - "[[Distribution Measurement Plan]]"
+  - "[[AI Citation Mechanics]]"
+  - "[[Zero Click Planning Baseline]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://www.niemanlab.org/2026/05/google-highlights-links-from-subscribed-publications-in-new-ai-overviews-update/"
-  - "https://www.similarweb.com/blog/marketing/geo/gen-ai-stats/"
-  - "https://developers.google.com/analytics/devguides/reporting/data/v1"
-  - "https://developers.google.com/search/docs/appearance/ai-features"
+  - "https://developers.google.com/search/docs/appearance/video"
+  - "https://developers.google.com/search/docs/appearance/google-images"
 ---
 
 # Video Script Adaptation
 
-## Summary
-Video Script Adaptation is the spoke for convert a blog into a concise script while preserving evidence and visual requirements.
-Use it when [[Distribution and Repurposing]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a video script brief.
-The success condition is that the script explains the core answer with verifiable claims and planned visuals.
-Keep the note advisory in V1 and route implementation to a human owner.
+## Video Script Adaptation Channel Job
 
-## Parent Hub Fit
-- Parent hub: [[Distribution and Repurposing]].
-- Primary upstream context: [[Dual Optimization]].
-- Primary downstream context: [[Images Audio and Charts]].
-- Evidence route: [[Blog Quality Score]].
-- Sibling comparison starts with [[Repurposing Source Fidelity]] and [[Email Newsletter Adaptation]].
-- Quality review should connect to [[Blog Quality Score]] when the note affects delivery.
-- Citation review should connect to [[AI Citation Mechanics]] when answer passages are created or changed.
-- Source refresh should connect to [[Research Pack Index]] when a dated claim is older than its cadence.
-- The note should not create a publishing action by itself.
-- The note should create a clear next decision, owner, and evidence state.
+Video Script Adaptation converts a blog post into a concise script with a visual plan, source reminders, and canonical follow-up links. It is not just a spoken version of the article. The script should identify what the viewer needs to see, which claims need on-screen support, and which source context belongs in the description or show notes.
 
-## Current Fact Anchors
-- Google helpful content guidance, retrieved 2026-07-06, is the baseline for original, people-first usefulness.
-- Google AI optimization guidance, updated 2026-06-15, says Google Search does not need special AI files, special AI schema, Markdown conversion, or llms.txt for AI features.
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026, so planning must include visibility beyond clicks.
-- Seer, 2026-04-24, records cited AI Overview pages with about 120 percent more clicks per impression than pages not cited in its analysis.
-- Google I/O Search update, 2026-05-19, reports AI Mode passed 1B monthly users, while the substrate records about 0.34 percent US query volume.
-- The current QRG reference is the 2025-09-11 revision, with no newer substrate revision recorded as of 2026-07-06.
-- FAQ rich results were retired for all sites on 2026-05-07, so Article or BlogPosting is the blog schema priority when schema is relevant.
-- Passage extractability guidance is practitioner guidance: aim for self-contained answer blocks around 130 to 170 words under clear headings.
-- Nieman Lab, 2026-05, reports AI Overviews can highlight links from subscribed publications, making owned audience relationships relevant context.
-- GA4 Data API documentation, retrieved 2026-07-06, is the route for owned organic traffic and engagement reporting when access exists.
-- Use first-party GSC, GA4, and crawl evidence when available instead of replacing local data with market averages.
-- Treat practitioner studies as planning context unless an official source or property data confirms the exact claim.
+### Canonical Post Signals To Preserve For Video
 
-## Required Inputs
-- Target topic, article, cluster, or workflow item that needs Video Script Adaptation.
-- Parent hub context from [[Distribution and Repurposing]].
-- Reader problem and intended outcome in one sentence.
-- Primary query, entity, or channel that triggered the work.
-- Known source URLs with retrieval dates for every current claim.
-- First-party data availability, including GSC, GA4, crawl data, or none.
-- Existing internal links and candidate links that affect the decision.
-- YMYL, legal, medical, financial, or reputation sensitivity flags.
-- Schema, media, and author requirements if the note affects a published page.
-- Approval owner for changes that affect live content.
-- Rollback trigger if the recommendation is later implemented.
-- Metric set for review: script clarity, source callouts, visual asset needs, and retention notes.
+Preserve the article URL, central answer, source-backed claims, publication or refresh date, and any caveats that change how a viewer should interpret the claim. Use `g-helpful-content` to keep the video useful rather than thin. AI feature language must cite `g-ai-opt-guide` and `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, especially if a script draft suggests special files for Google AI visibility.
 
-## Operating Procedure
-- Start with the precise decision that Video Script Adaptation must make.
-- Restate the scope so it cannot drift beyond [[Distribution and Repurposing]].
-- List the page, cluster, brief, asset, or workflow item under review.
-- Separate observed facts from recommendations before scoring or prioritizing.
-- Attach a source URL and date to every current Search, AI, schema, or market claim.
-- Prefer official Google, standards body, primary, or vendor documentation for rule-like claims.
-- Use practitioner sources only as supporting evidence or workflow guidance.
-- Check whether the recommendation depends on zero click behavior, AI Overview citation, or AI Mode exposure.
-- If it depends on AI features, state that inclusion cannot be guaranteed.
-- If it mentions FAQ rich results, rewrite the point because that visual tactic is retired for all sites.
-- If schema is relevant, route the baseline to Article or BlogPosting plus visible entity support.
-- If passages are relevant, make the answer block self-contained and cite source context nearby.
-- If the work affects trust, route the check through QRG-informed E-E-A-T review.
-- If first-party data exists, make it the measurement baseline.
-- If first-party data is missing, label the estimate advisory and name the data gap.
-- Reject the failure pattern of turning visual media into unsourced performance claims.
-- Write the recommendation in a way that a reviewer can accept, revise, or reject.
-- Close with owner, next action, confidence, and rollback note.
+### Channel-Specific Adaptations Allowed For Scripts
 
-## Acceptance Criteria
-- The video script brief names the exact object under review.
-- The recommendation has one primary owner.
-- Every current factual claim has a dated source URL.
-- The note distinguishes verified facts from advisory choices.
-- The note states whether property data is available or missing.
-- The note uses current Core Web Vitals language if performance is mentioned.
-- The note avoids FID as a current quality metric.
-- The note avoids FAQ rich result language as a current blog tactic.
-- The note avoids llms.txt as a Google Search, AI Overview, or AI Mode requirement.
-- The note does not promise rankings, traffic, Discover reach, AI Overview inclusion, or chatbot citation.
-- The note contains an explicit confidence label.
-- The note contains a rollback or review trigger when live content could change.
-- The note links back to the parent hub and at least six sibling spokes.
-- The note can be audited without reading private client systems.
+The adapter may use a cold open, b-roll cue, lower-third source label, visual example, chapter title, and canonical link in the description. It may not cite `sparktoro-zero-click-2026` without routing the numeric market baseline to [[Zero Click Planning Baseline]]. Video search and visual asset requirements use `g-video` and `g-google-images` when thumbnails, accessible metadata, or on-page video handling matter.
 
-## Failure Modes
-- A claim is current but has no dated source.
-- A market statistic is applied as a property forecast without local data.
-- A recommendation treats an SEO tool as access to Google's internal ranking systems.
-- A passage is written for extraction but lacks source context.
-- A schema recommendation describes hidden or unsupported page content.
-- A cluster, brief, score, or workflow step creates thin content rather than useful content.
-- A reviewer cannot tell whether a statement is verified or advisory.
-- A high-risk change has no rollback note.
-- A channel or platform action is implied even though V1 is advisory and read-only toward external systems.
-- The note accepts turning visual media into unsourced performance claims.
-- The note hides unresolved uncertainty instead of naming it.
-- The note duplicates another sibling without a clear boundary.
+## Video Script Adaptation Asset Table
 
-## Handoff
-- Send brief structure questions to [[Repurposing Source Fidelity]].
-- Send evidence and source issues to [[Email Newsletter Adaptation]].
-- Send quality scoring issues to [[Blog Quality Score]].
-- Send citation passage issues to [[AI Citation Mechanics]].
-- Send schema issues to [[Blog Schema Stack]].
-- Send first-party measurement issues to [[Google Data Integrations]].
-- Send freshness and decay issues to [[Freshness and Content Decay]].
-- Send voice changes to [[Voice and Style]] when wording or channel tone changes.
-- Send visual or media requirements to [[Images Audio and Charts]] when the output needs assets.
-- Keep unresolved approval items out of automated publishing paths.
-- Record durable outcomes in [[log]] only when the vault owner asks for log maintenance.
-- Keep the final status as ready, revise, blocked, or monitor.
+| Video asset | Requirement | Licensing or provenance | Accessibility check | Placement | Review result |
+|---|---|---|---|---|---|
+| Script hook | One viewer problem and no unsupported promise | Derived from canonical post | Plain spoken language | Opening 10 seconds | Editor approval |
+| Evidence card | Source ID, date, and short caveat | [[Repurposing Source Fidelity]] | Readable on mobile | On-screen graphic | Factcheck approval |
+| Thumbnail | Descriptive visual that matches the post | `g-google-images` or owned asset note | Alt text where published | Video platform and post embed | Media approval |
+| Video metadata | Title, description, canonical URL, source links | `g-video`, [[Canonical Attribution Rules]] | Clear description text | Platform description | SEO approval |
+| AI claim segment | No special Google AI file requirement | `g-ai-opt-guide`, update source ID | Avoid jargon-only phrasing | Script body | Claim corrected or accepted |
+| Measurement row | Published URL, date, channel, metric set | [[Distribution Measurement Plan]] | Captions or transcript noted | Inventory row | Ready for review window |
 
-## Related Links
-- [[Distribution and Repurposing]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Repurposing Source Fidelity]]
-- [[Email Newsletter Adaptation]]
-- [[Social Thread Adaptation]]
-- [[Community Post Adaptation]]
-- [[Podcast Brief Adaptation]]
-- [[Canonical Attribution Rules]]
-- [[Distribution Measurement Plan]]
-- [[Dual Optimization]]
-- [[Images Audio and Charts]]
-- [[Voice and Style]]
+## Asset Requirements, Provenance, Accessibility, Placement, And Review
 
-## Source Notes
-- Google helpful content guidance is the primary source for people-first usefulness and source-backed quality.
-- Google AI optimization guidance is the primary source for no special AI files, no special AI schema, and the Google llms.txt caveat.
-- SparkToro and Seer are used as dated market context, not property forecasts.
-- The QRG is used as a quality evaluation framework, not as a direct ranking factor claim.
-- ZipTie passage guidance is practitioner guidance for extraction readiness, not an official Google rule.
-- Search Gallery and FAQPage documentation control schema and rich result claims when schema appears in this note.
+Every visual asset needs a source or owner. Every evidence card needs enough context to keep a viewer from treating a practitioner benchmark as a universal result. Captions, transcript, description links, and thumbnail notes should be recorded in [[Channel Asset Inventory]]. If the video is embedded back on the article, the owner should coordinate with [[Images Audio and Charts]] before treating it as a page enhancement.
 
-## Maintenance
-- Refresh this note when the source ledger refreshes.
-- Refresh this note when Google changes AI feature guidance, schema support, spam policy, or QRG references.
-- Refresh this note when first-party data contradicts an advisory assumption.
-- Keep source URLs in frontmatter aligned with the ledger.
-- Do not mark the brain market-ready from this note alone.
-- The next review should verify whether script clarity, source callouts, visual asset needs, and retention notes still captures the decision quality.
+## Video Script Adaptation Fidelity Checks
+
+1. Extract the article's central answer and choose the visual proof needed to explain it.
+2. Write the script with source reminders in the production notes.
+3. Check thumbnail, caption, description, and canonical link requirements.
+4. Remove ranking, traffic, or AI citation promises that the source set does not prove.
+5. Mark the video asset ready only after editorial, source, media, and measurement owners sign off.
+
+## Source IDs Wired
+
+This note cites `g-helpful-content`, `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, `sparktoro-zero-click-2026`, `g-video`, and `g-google-images`.

@@ -1,127 +1,44 @@
 ---
 type: hub
 title: "AI Citation Mechanics"
+domain: "GEO and AEO"
 status: active
 created: 2026-07-06
 updated: 2026-07-09
 tags: [geo-aeo, ai-citation, active]
-domain: "GEO and AEO"
-confidence: advisory
-related:
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Dual Optimization]]"
-  - "[[6-Pillar Dual Optimization]]"
-  - "[[SERP-Informed Briefs and Outlines]]"
-  - "[[Blog Schema Stack]]"
-  - "[[Google Data Integrations]]"
-  - "[[Research Pack Index]]"
-source_urls:
-  - "https://developers.google.com/search/docs/appearance/ai-features"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://developers.google.com/search/updates"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
 ---
 
 # AI Citation Mechanics
 
-## Summary
+## AI Citation Mechanics Operating Scope
 
-AI Citation Mechanics covers how blog content is prepared for extraction, attribution, and measurement across AI Overviews, AI Mode, and assistant-like answer surfaces.
+This hub owns the practical rules for preparing blog content so an answer surface can identify the entity, extract the passage, retain the source context, and route measurement to the right evidence lane. It applies to AI Overviews, AI Mode, and assistant-like answer surfaces when a blog team is reviewing a passage, not when it is trying to force inclusion.
 
-The hub does not claim that any page can force an AI citation.
+Google guidance remains the highest-confidence layer: `g-ai-opt-guide` and `g-ai-features` support standard crawling, preview controls, and the warning that special AI files or special AI schema are not required for Google Search. Market context stays advisory. The click scarcity baseline from `sparktoro-zero-click-2026` belongs primarily in [[Dual Optimization]], while AIO click-through interpretation from `seer-aio-impact-ctr-2026` belongs here with the claim-ledger caveat that the evidence is AS-REPORTED or CONTESTED, not causal proof.
 
-## Current fact anchors
+### What This Hub Owns In AI Citation Readiness
 
-- Google AI features documentation, retrieved 2026-07-09, describes AI Overviews and AI Mode as Search surfaces governed by standard crawling and preview controls.
-- Google AI optimization guide has current page date 2026-06-29; the Search documentation update on 2026-06-15 specifically added the llms.txt clarification.
-- Google says Search does not use llms.txt for Search, AI Overviews, or AI Mode.
-- Google's current AI optimization guide says SEO foundations remain relevant for generative AI Search and that special AI files, special AI schema, forced Markdown, and chunking are not required for Google Search.
-- Google I/O Search update, 2026-05-19, reported AI Mode surpassed 1B plus monthly users.
-- SparkToro, 2026-06-09, records AI Mode at about 0.34 percent of US query volume in the substrate.
-- Seer, 2026-04-24, reports cited pages at about 120 percent more clicks per impression than not cited when AI Overviews are present.
-- ZipTie, 2026-03-25, is practitioner guidance for self-contained answer passages and visible source attribution, not an official Google requirement.
+- Passage-level extraction checks for direct answers, entity clarity, source proximity, and preview controls.
+- Surface separation between AI Overviews, AI Mode, non-Google assistants, and classic organic listings.
+- Confidence labels for official guidance, first-party property data, market studies, and practitioner heuristics.
 
-## Confidence Split
+### What The Hub Must Not Absorb
 
-| Claim class | Confidence | Source route | Operating rule |
-|---|---|---|---|
-| Google crawling, preview controls, llms.txt, and no special AI schema or AI files | verified | `g-ai-opt-guide`, `g-ai-features`, Google Search docs updates | Treat as official guidance until Google updates the docs. |
-| AI Mode scale and feature announcements | verified for Google's announcement only | Google I/O 2026 Search update | Do not infer query share or client traffic from the announcement alone. |
-| Zero-click and CTR market behavior | advisory | `sparktoro-zero-click-2026`, `seer-aio-impact-ctr-2026` | Use as market context unless first-party property data confirms it. |
-| Passage extraction patterns | advisory | `ziptie-aio-source-selection` | Use as workflow heuristic, not as an official ranking or citation factor. |
+Full schema implementation belongs to [[Blog Schema Stack]], query export hygiene belongs to [[Google Data Integrations]], and quality scoring belongs to [[Blog Quality Score]]. This hub can point to those notes, but it should not become a duplicate checklist for every SEO workflow.
 
-## Scope
+## AI Citation Mechanics Decision Matrix
 
-- Define citation readiness at passage level.
-- Distinguish AI Overviews from AI Mode.
-- Keep llms.txt caveated as non-Google Search guidance.
-- Connect direct answers to [[SERP-Informed Briefs and Outlines]].
-- Connect source proximity to [[Research Pack Index]].
-- Connect entity clarity to [[Blog Schema Stack]].
-- Connect measurement to [[Google Data Integrations]].
-- Keep inclusion promises out of recommendations.
+| Decision | Required inputs | Source IDs | Evidence state | Owner | Next action |
+|---|---|---|---|---|---|
+| AI feature eligibility review | Crawlability, snippet controls, visible answer text | `g-ai-features`, `g-ai-opt-guide` | CONFIRMED for Google guidance | GEO reviewer | Check preview settings before rewriting passages |
+| AIO citation value caveat | AIO presence, page citation state, first-party click data when available | `seer-aio-impact-ctr-2026` | AS-REPORTED and non-causal | Analyst | Compare with property data before prioritizing |
+| Click-scarcity framing | Channel mix and search journey assumptions | `sparktoro-zero-click-2026` | AS-REPORTED panel context | Strategist | Route broad planning claims to [[Dual Optimization]] |
+| Surface selection | Whether the task is AIO, AI Mode, or assistant answer review | `g-ai-features` | CONFIRMED for documented Search surfaces | Content lead | Pick the spoke note that matches the surface |
 
-## Future spoke notes
+## AI Citation Mechanics Spoke Map
 
-- [[Passage Citability Checklist]]
-- [[AI Overview Citation Review]]
-- [[AI Mode Citation Review]]
-- [[llms.txt Caveat Note]]
-- [[Entity Clarity For AI Answers]]
-- [[Source Proximity Pattern]]
-- [[Answer Block Extraction Test]]
-- [[Citation Exposure Metrics]]
-- [[AI Feature Preview Controls]]
-- [[GEO Risk Register]]
+Use [[Passage Citability Checklist]] before a draft is scored, [[AI Overview Citation Review]] when the observed surface is an AIO, and [[AI Mode Citation Review]] when follow-up query behavior is the concern. Use [[AI Feature Preview Controls]] when `nosnippet`, `max-snippet`, or preview policy is part of the decision. Use [[llms.txt Caveat Note]] only when someone proposes llms.txt as a visibility lever.
 
-## Passage pattern
+## AI Citation Mechanics Evidence And Refresh Rules
 
-- Start an important section with a direct answer.
-- Name the entity clearly.
-- Include the key date or constraint.
-- Place a source nearby.
-- Avoid vague pronouns.
-- Avoid unsupported superlatives.
-- Keep one main point per paragraph.
-- Link internally to a deeper supporting note.
-
-## Source posture
-
-- Use official Google sources for crawl, preview, and llms.txt claims.
-- Use market studies for behavior context, not guarantees.
-- Use practitioner sources for extraction workflow, not final proof.
-- Prefer GSC generative AI reporting when available.
-- Record confidence as advisory when only third-party observations are available.
-
-## Related themes
-
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[E-E-A-T for Blog Content]]
-- [[Blog Schema Stack]]
-- [[Semantic Topic Clusters]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-
-## Sources
-
-- Google AI features documentation, retrieved 2026-07-09.
-- `g-ai-features`: Google AI features documentation, retrieved 2026-07-09, https://developers.google.com/search/docs/appearance/ai-features
-- `g-ai-opt-guide`: Google AI optimization guide, last updated 2026-06-29, https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
-- `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`: llms.txt documentation event, 2026-06-15, https://developers.google.com/search/updates
-- Google Search documentation updates, retrieved 2026-07-09, https://developers.google.com/search/updates
-- Google I/O Search update, 2026-05-19, https://blog.google/products-and-platforms/products/search/search-io-2026/
-- `sparktoro-zero-click-2026`: SparkToro zero click study, 2026-06-09, https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/
-- `seer-aio-impact-ctr-2026`: Seer AIO CTR study, 2026-04-24, https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update
-- `ziptie-aio-source-selection`: ZipTie source selection guidance, 2026-03-25, https://ziptie.dev/blog/google-ai-overviews-source-selection/
-
-## Next actions
-
-- Fill [[Passage Citability Checklist]] before drafting GEO audits.
-- Fill [[AI Feature Preview Controls]] before no-snippet recommendations.
-- Link measurement work to [[Google Data Integrations]].
+Refresh official Google claims when `g-ai-features` or `g-ai-opt-guide` changes. Refresh market claims when [[AI Citation Mechanics]] depends on SparkToro or Seer data in a client-facing plan. Any claim about a named site, traffic lift, or guaranteed citation requires first-party evidence or a no-action caveat.

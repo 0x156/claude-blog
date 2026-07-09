@@ -3,150 +3,46 @@ type: spoke
 title: "Organization Entity Graph"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [schema, blog-schema, evergreen]
 domain: "Blog Structured Data"
 confidence: verified
 related:
   - "[[Blog Schema Stack]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Article Schema Baseline]]"
-  - "[[BlogPosting Versus Article]]"
   - "[[Author Person Markup]]"
-  - "[[BreadcrumbList For Blogs]]"
-  - "[[Visible Q And A Without FAQ Rich Results]]"
-  - "[[VideoObject For Blog Posts]]"
-  - "[[Product Mentions In Blog Schema]]"
-  - "[[Schema Validation Workflow]]"
-  - "[[Dual Optimization]]"
+  - "[[Schema And E-E-A-T Alignment]]"
 source_urls:
   - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
   - "https://schema.org/docs/full.html"
   - "https://www.w3.org/TR/json-ld11/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/product"
 ---
 # Organization Entity Graph
 
-## Summary
-Organization Entity Graph is a schema review note for blog schema stack.
-It keeps publisher, brand, logo, and sameAs identity consistent across posts.
-Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity graph, or structured data block.
+## Publisher Graph Job
 
-## Operating Question
-- Does the organization node match the site identity and visible publisher context?
-- The expected output is an organization graph note with fields and consistency checks.
-- The main risk is creating disconnected organization nodes across templates.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+The Organization node identifies the publisher or site owner that stands behind blog content. It should be stable across articles and connected to authors, articles, logos, and canonical site identity. This note keeps brand identity separate from author identity, product identity, sponsorship, and campaign messaging.
 
-## Current Evidence Anchors
-- Google structured data introduction retrieved 2026-07-06 recommends JSON-LD and requires markup to describe visible content.
-- Google FAQPage documentation records FAQ rich results retired for all sites effective 2026-05-07.
-- Google Search Gallery dated 2026-07-01 in the ledger defines supported rich result types.
-- Schema.org full hierarchy and JSON-LD 1.1 provide standards references for vocabulary and serialization.
-- Article or BlogPosting with Person, Organization, and BreadcrumbList is the blog priority after FAQ and HowTo visibility loss.
-- Rich result eligibility is never a guarantee, and unsupported markup should not be sold as a current Search feature.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+Google's general structured-data source `g-intro-sd` supports the visible-content and accuracy guardrail. Schema.org source `schema-full` defines Organization vocabulary. JSON-LD graph construction uses `w3c-jsonld`. Search appearance language must be checked against `g-search-gallery` before it reaches a client-facing note.
 
-## Operating Standard
-- Describe only visible page content in structured data.
-- Prefer JSON-LD unless a local platform requires another supported format.
-- Use Google Search Central for supported Search features and Schema.org for vocabulary breadth.
-- Keep Article or BlogPosting, author identity, publisher identity, and breadcrumbs coherent.
-- Avoid presenting FAQPage or HowTo as current blog rich result tactics.
-- Use Product or VideoObject only when the page visibly contains qualifying content.
-- Validate syntax, vocabulary, Google support, and page-content alignment before handoff.
-- Treat schema as entity clarity and eligibility support, not a traffic guarantee.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+## Organization Entity Graph Schema Table
 
-## Review Sequence
-1. Open [[Blog Schema Stack]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+| Graph component | Required property or relation | Validation target | Warning to record | Source id |
+|---|---|---|---|---|
+| Publisher `Organization` | `name`, `url`, stable `@id` | Same node reused in article publisher field | Do not rotate IDs by locale, theme, or campaign | `schema-full` |
+| Logo reference | Crawlable logo URL when used by the template | Image URL resolves and matches brand asset | A logo from a sponsor or product line may be the wrong publisher | `g-intro-sd` |
+| `sameAs` links | Official profiles only | Links are visible in footer, about page, or approved brand profile | Unowned directory entries should not disambiguate the entity | `schema-full` |
+| Author connection | Article author remains a Person or named organization as displayed | Publisher and author fields do not collapse accidentally | A staff blog can still need named author rules | `g-intro-sd` |
+| JSON-LD graph link | Organization `@id` referenced from Article publisher | Graph inspection shows one publisher node | Duplicate Organization nodes split the graph | `w3c-jsonld` |
 
-## Specific Checks
-- Check that organization entity graph is applied to the correct content unit.
-- Check that the decision matches this purpose: keeps publisher, brand, logo, and sameAs identity consistent across posts.
-- Check that the output can be inspected as an organization graph note with fields and consistency checks.
-- Check that the risk is addressed directly: creating disconnected organization nodes across templates.
-- Verify that each marked-up fact is visible to readers.
-- Validate JSON-LD syntax before interpreting eligibility.
-- Check Google Search Gallery support before promising a feature.
-- Use Schema.org vocabulary for entity clarity even when Google has no rich result.
-- Keep author, publisher, dates, images, and breadcrumbs consistent with the page.
-- Avoid obsolete FAQ and HowTo rich result advice.
-- Use Product or VideoObject only for visible qualifying content.
-- Record validation evidence and unresolved platform constraints.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+## Brand, Product, And Publisher Separation
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+A software product, parent company, media brand, and blog publisher can be different entities. Pick the one the page visibly presents as publisher. If a post is sponsored, reviewed by a partner, or syndicated, keep those roles out of the publisher node unless the visible page states that the organization is the publisher.
 
-## Failure Modes
-- The markup describes content that is not visible on the page.
-- A rich result is promised even though Google support has changed.
-- FAQPage is retained as a visual SERP tactic after retirement.
-- Author or publisher nodes conflict with visible page identity.
-- Product markup is added to casual product mentions.
-- VideoObject appears without a qualifying visible video.
-- The schema validates syntactically but fails editorial alignment.
-- The structured data creates a disconnected entity graph.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## Refresh Triggers
 
-## Handoff
-- Attach the schema note to the article template, CMS ticket, or audit report.
-- List visible-content dependencies before implementation advice.
-- Record validation tools and unresolved warnings.
-- Send author and trust issues to [[E-E-A-T for Blog Content]].
-- Send media markup questions to [[Images Audio and Charts]].
-- Send deprecation questions to [[Google Algorithm Update Ledger]].
-- Send citation entity questions to [[AI Citation Mechanics]].
-- Score technical readiness through [[Blog Quality Score]].
-- Use [[Article Schema Baseline]] when this note needs a sibling follow-up.
-- Use [[BlogPosting Versus Article]] when the next decision belongs beside this note.
+Recheck this note after a rebrand, merger, domain migration, logo change, author platform migration, or locale split. Organization markup often breaks through old templates, not through new prose. Validation should inspect several post types so a legacy template does not keep a stale publisher node.
 
-## Related
-- [[Blog Schema Stack]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Images Audio and Charts]]
-- [[Multilingual Publishing]]
-- [[Google Data Integrations]]
-- [[Google Algorithm Update Ledger]]
-- [[Article Schema Baseline]]
-- [[BlogPosting Versus Article]]
-- [[Author Person Markup]]
-- [[BreadcrumbList For Blogs]]
-- [[Visible Q And A Without FAQ Rich Results]]
-- [[VideoObject For Blog Posts]]
-- [[Product Mentions In Blog Schema]]
-- [[Schema Validation Workflow]]
-- [[Structured Data Deprecation Register]]
-- [[JSON-LD Publishing Checklist]]
-- [[Schema And E-E-A-T Alignment]]
+## Organization Graph Publishing Boundary
+
+The handoff should identify the approved Organization `@id`, the visible proof, and any profiles rejected from `sameAs`. Trust presentation issues go to [[Schema And E-E-A-T Alignment]]; author-specific conflicts go to [[Author Person Markup]].

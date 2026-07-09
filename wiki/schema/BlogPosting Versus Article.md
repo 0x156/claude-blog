@@ -3,150 +3,46 @@ type: spoke
 title: "BlogPosting Versus Article"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [schema, blog-schema, evergreen]
 domain: "Blog Structured Data"
 confidence: verified
 related:
   - "[[Blog Schema Stack]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
   - "[[Article Schema Baseline]]"
-  - "[[Author Person Markup]]"
-  - "[[Organization Entity Graph]]"
-  - "[[BreadcrumbList For Blogs]]"
-  - "[[Visible Q And A Without FAQ Rich Results]]"
-  - "[[VideoObject For Blog Posts]]"
-  - "[[Product Mentions In Blog Schema]]"
-  - "[[Schema Validation Workflow]]"
-  - "[[Dual Optimization]]"
+  - "[[JSON-LD Publishing Checklist]]"
 source_urls:
   - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
   - "https://schema.org/docs/full.html"
   - "https://www.w3.org/TR/json-ld11/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/product"
 ---
 # BlogPosting Versus Article
 
-## Summary
-BlogPosting Versus Article is a schema review note for blog schema stack.
-It chooses between BlogPosting and Article based on page purpose and local schema conventions.
-Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity graph, or structured data block.
+## Type Choice Question
 
-## Operating Question
-- Which type best describes the visible content and site model?
-- The expected output is a type-choice note with rationale and validation path.
-- The main risk is changing schema type to chase a rich result that does not exist.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+The review decides whether a blog page should use `BlogPosting`, `Article`, or a more specific article subtype already used by the site. The choice should describe the content model, not chase a surface-level advantage. In Schema.org's vocabulary, source ID `schema-full`, `BlogPosting` is a narrower article-like type for blog posts, while `Article` remains the broader fallback when the site does not distinguish formats.
 
-## Current Evidence Anchors
-- Google structured data introduction retrieved 2026-07-06 recommends JSON-LD and requires markup to describe visible content.
-- Google FAQPage documentation records FAQ rich results retired for all sites effective 2026-05-07.
-- Google Search Gallery dated 2026-07-01 in the ledger defines supported rich result types.
-- Schema.org full hierarchy and JSON-LD 1.1 provide standards references for vocabulary and serialization.
-- Article or BlogPosting with Person, Organization, and BreadcrumbList is the blog priority after FAQ and HowTo visibility loss.
-- Rich result eligibility is never a guarantee, and unsupported markup should not be sold as a current Search feature.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+Google's structured-data guidance, source ID `g-intro-sd`, keeps the choice anchored to what the page actually contains. Google Search Gallery, source ID `g-search-gallery`, is the check before anyone says the selected type has a current Search appearance. JSON-LD syntax and graph linking use source ID `w3c-jsonld`.
 
-## Operating Standard
-- Describe only visible page content in structured data.
-- Prefer JSON-LD unless a local platform requires another supported format.
-- Use Google Search Central for supported Search features and Schema.org for vocabulary breadth.
-- Keep Article or BlogPosting, author identity, publisher identity, and breadcrumbs coherent.
-- Avoid presenting FAQPage or HowTo as current blog rich result tactics.
-- Use Product or VideoObject only when the page visibly contains qualifying content.
-- Validate syntax, vocabulary, Google support, and page-content alignment before handoff.
-- Treat schema as entity clarity and eligibility support, not a traffic guarantee.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+## Decision Table For Article Types
 
-## Review Sequence
-1. Open [[Blog Schema Stack]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+| Page situation | Preferred type | Required properties to inspect | Validation target | Warning | Source id |
+|---|---|---|---|---|---|
+| Standard editorial blog post | `BlogPosting` | Headline, dates, author, publisher, image when visible | Template graph and rendered article | Use only if the site treats the page as a blog post | `schema-full` |
+| Newsroom, magazine, or evergreen article outside the blog | `Article` | Same baseline fields plus section or series context if visible | Article node connected to publisher | Do not force BlogPosting onto non-blog content | `schema-full` |
+| How-to style article with steps | `Article` unless a current supported feature applies | Visible steps, author, dates, page purpose | Search Gallery support check | Procedural content does not automatically justify legacy rich-result language | `g-search-gallery` |
+| Syndicated or partner article | `Article` with careful author and publisher links | Original source, visible byline, canonical policy | Rendered page and canonical note | Do not blur author, publisher, and host site identity | `g-intro-sd` |
+| CMS template cannot vary by format | One consistent site-level article type | Stable `@id`, fields, and visible-content match | JSON-LD parse plus sample pages | Consistency beats per-page guessing when evidence is thin | `w3c-jsonld` |
 
-## Specific Checks
-- Check that blogposting versus article is applied to the correct content unit.
-- Check that the decision matches this purpose: chooses between BlogPosting and Article based on page purpose and local schema conventions.
-- Check that the output can be inspected as a type-choice note with rationale and validation path.
-- Check that the risk is addressed directly: changing schema type to chase a rich result that does not exist.
-- Verify that each marked-up fact is visible to readers.
-- Validate JSON-LD syntax before interpreting eligibility.
-- Check Google Search Gallery support before promising a feature.
-- Use Schema.org vocabulary for entity clarity even when Google has no rich result.
-- Keep author, publisher, dates, images, and breadcrumbs consistent with the page.
-- Avoid obsolete FAQ and HowTo rich result advice.
-- Use Product or VideoObject only for visible qualifying content.
-- Record validation evidence and unresolved platform constraints.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+## Local Convention Check
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+Before changing type, inspect three existing posts that already validate. If they all use `BlogPosting`, keep the pattern unless the reviewed page is clearly not a blog post. If the site uses `Article` everywhere, document the convention and focus on field accuracy. Type churn can create noisy diffs without improving the graph.
 
-## Failure Modes
-- The markup describes content that is not visible on the page.
-- A rich result is promised even though Google support has changed.
-- FAQPage is retained as a visual SERP tactic after retirement.
-- Author or publisher nodes conflict with visible page identity.
-- Product markup is added to casual product mentions.
-- VideoObject appears without a qualifying visible video.
-- The schema validates syntactically but fails editorial alignment.
-- The structured data creates a disconnected entity graph.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## Unsupported Type Arguments
 
-## Handoff
-- Attach the schema note to the article template, CMS ticket, or audit report.
-- List visible-content dependencies before implementation advice.
-- Record validation tools and unresolved warnings.
-- Send author and trust issues to [[E-E-A-T for Blog Content]].
-- Send media markup questions to [[Images Audio and Charts]].
-- Send deprecation questions to [[Google Algorithm Update Ledger]].
-- Send citation entity questions to [[AI Citation Mechanics]].
-- Score technical readiness through [[Blog Quality Score]].
-- Use [[Article Schema Baseline]] when this note needs a sibling follow-up.
-- Use [[Author Person Markup]] when the next decision belongs beside this note.
+Reject arguments that claim one type will rank better without a dated source. Also reject "Schema.org allows it" as proof that Google Search displays it. Vocabulary fit and Search support are separate checks, so the final note should cite the vocabulary source and the Search Gallery source separately.
 
-## Related
-- [[Blog Schema Stack]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Images Audio and Charts]]
-- [[Multilingual Publishing]]
-- [[Google Data Integrations]]
-- [[Google Algorithm Update Ledger]]
-- [[Article Schema Baseline]]
-- [[Author Person Markup]]
-- [[Organization Entity Graph]]
-- [[BreadcrumbList For Blogs]]
-- [[Visible Q And A Without FAQ Rich Results]]
-- [[VideoObject For Blog Posts]]
-- [[Product Mentions In Blog Schema]]
-- [[Schema Validation Workflow]]
-- [[Structured Data Deprecation Register]]
-- [[JSON-LD Publishing Checklist]]
-- [[Schema And E-E-A-T Alignment]]
+## Handoff For Type Selection
+
+The deliverable is a one-line type decision, the reason, the checked sample pages, and any template constraints. Send field completeness to [[Article Schema Baseline]] and syntax evidence to [[JSON-LD Publishing Checklist]].

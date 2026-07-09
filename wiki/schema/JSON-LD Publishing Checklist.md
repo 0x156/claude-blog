@@ -3,150 +3,43 @@ type: spoke
 title: "JSON-LD Publishing Checklist"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [schema, blog-schema, evergreen]
 domain: "Blog Structured Data"
 confidence: verified
 related:
   - "[[Blog Schema Stack]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
+  - "[[Schema Validation Workflow]]"
   - "[[Article Schema Baseline]]"
-  - "[[BlogPosting Versus Article]]"
-  - "[[Author Person Markup]]"
-  - "[[Organization Entity Graph]]"
-  - "[[BreadcrumbList For Blogs]]"
-  - "[[Visible Q And A Without FAQ Rich Results]]"
-  - "[[VideoObject For Blog Posts]]"
-  - "[[Product Mentions In Blog Schema]]"
-  - "[[Dual Optimization]]"
 source_urls:
   - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
   - "https://schema.org/docs/full.html"
   - "https://www.w3.org/TR/json-ld11/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/product"
 ---
 # JSON-LD Publishing Checklist
 
-## Summary
-JSON-LD Publishing Checklist is a schema review note for blog schema stack.
-It checks JSON-LD placement, syntax, stable IDs, and template consistency.
-Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity graph, or structured data block.
+## Prepublish Gate Scope
 
-## Operating Question
-- Is the JSON-LD publishable in the current CMS template?
-- The expected output is a JSON-LD checklist with validation and deployment notes.
-- The main risk is shipping valid JSON-LD that does not match the rendered page.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This checklist catches JSON-LD issues after the schema decision is made and before a template, MDX file, or CMS block is handed off. It is narrower than [[Schema Validation Workflow]]: the workflow decides whether the structured data is correct; this gate decides whether the serialized JSON-LD can be published without obvious breakage.
 
-## Current Evidence Anchors
-- Google structured data introduction retrieved 2026-07-06 recommends JSON-LD and requires markup to describe visible content.
-- Google FAQPage documentation records FAQ rich results retired for all sites effective 2026-05-07.
-- Google Search Gallery dated 2026-07-01 in the ledger defines supported rich result types.
-- Schema.org full hierarchy and JSON-LD 1.1 provide standards references for vocabulary and serialization.
-- Article or BlogPosting with Person, Organization, and BreadcrumbList is the blog priority after FAQ and HowTo visibility loss.
-- Rich result eligibility is never a guarantee, and unsupported markup should not be sold as a current Search feature.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+Use `w3c-jsonld` for syntax and graph serialization expectations. Use `g-intro-sd` for Google's stated preference and visible-content guardrail. Use `schema-full` for vocabulary names and property fit. Use `g-search-gallery` when the checklist mentions a Google Search appearance.
 
-## Operating Standard
-- Describe only visible page content in structured data.
-- Prefer JSON-LD unless a local platform requires another supported format.
-- Use Google Search Central for supported Search features and Schema.org for vocabulary breadth.
-- Keep Article or BlogPosting, author identity, publisher identity, and breadcrumbs coherent.
-- Avoid presenting FAQPage or HowTo as current blog rich result tactics.
-- Use Product or VideoObject only when the page visibly contains qualifying content.
-- Validate syntax, vocabulary, Google support, and page-content alignment before handoff.
-- Treat schema as entity clarity and eligibility support, not a traffic guarantee.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+## JSON-LD Publishing Checklist Pass Fail Table
 
-## Review Sequence
-1. Open [[Blog Schema Stack]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+| Check | Pass or fail state | Source evidence | Blocker severity | Fix owner |
+|---|---|---|---|---|
+| Script parses as JSON-LD | Pass only after final rendered HTML is parsed, not just source code | `w3c-jsonld` | Blocker | Template engineer |
+| `@context`, `@type`, and `@id` are stable | Pass when IDs remain stable across preview and production URLs | `w3c-jsonld` | Blocker | Schema owner |
+| Marked-up facts are visible | Pass when title, author, dates, image, and special entities match the rendered page | `g-intro-sd` | Blocker | Editor |
+| Vocabulary properties are valid | Pass when properties belong to the selected Schema.org type or a valid inherited type | `schema-full` | Major | Schema reviewer |
+| Google feature language is current | Pass when any rich-result note matches the current Search Gallery | `g-search-gallery` | Major | SEO lead |
+| CMS output is not duplicated | Pass when only one authoritative graph is present for the page | `g-intro-sd` | Major | Platform owner |
 
-## Specific Checks
-- Check that json-ld publishing checklist is applied to the correct content unit.
-- Check that the decision matches this purpose: checks JSON-LD placement, syntax, stable IDs, and template consistency.
-- Check that the output can be inspected as a JSON-LD checklist with validation and deployment notes.
-- Check that the risk is addressed directly: shipping valid JSON-LD that does not match the rendered page.
-- Verify that each marked-up fact is visible to readers.
-- Validate JSON-LD syntax before interpreting eligibility.
-- Check Google Search Gallery support before promising a feature.
-- Use Schema.org vocabulary for entity clarity even when Google has no rich result.
-- Keep author, publisher, dates, images, and breadcrumbs consistent with the page.
-- Avoid obsolete FAQ and HowTo rich result advice.
-- Use Product or VideoObject only for visible qualifying content.
-- Record validation evidence and unresolved platform constraints.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+## Inputs Required Before Review
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+The reviewer needs the final URL or preview HTML, the rendered article body, the CMS template source, canonical URL policy, author data, publisher node, and any media or product block that contributes structured data. Reviewing a disconnected snippet is allowed only for early drafting and should be labeled as provisional.
 
-## Failure Modes
-- The markup describes content that is not visible on the page.
-- A rich result is promised even though Google support has changed.
-- FAQPage is retained as a visual SERP tactic after retirement.
-- Author or publisher nodes conflict with visible page identity.
-- Product markup is added to casual product mentions.
-- VideoObject appears without a qualifying visible video.
-- The schema validates syntactically but fails editorial alignment.
-- The structured data creates a disconnected entity graph.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## JSON-LD Checklist Handoff Rules
 
-## Handoff
-- Attach the schema note to the article template, CMS ticket, or audit report.
-- List visible-content dependencies before implementation advice.
-- Record validation tools and unresolved warnings.
-- Send author and trust issues to [[E-E-A-T for Blog Content]].
-- Send media markup questions to [[Images Audio and Charts]].
-- Send deprecation questions to [[Google Algorithm Update Ledger]].
-- Send citation entity questions to [[AI Citation Mechanics]].
-- Score technical readiness through [[Blog Quality Score]].
-- Use [[Article Schema Baseline]] when this note needs a sibling follow-up.
-- Use [[BlogPosting Versus Article]] when the next decision belongs beside this note.
-
-## Related
-- [[Blog Schema Stack]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Images Audio and Charts]]
-- [[Multilingual Publishing]]
-- [[Google Data Integrations]]
-- [[Google Algorithm Update Ledger]]
-- [[Article Schema Baseline]]
-- [[BlogPosting Versus Article]]
-- [[Author Person Markup]]
-- [[Organization Entity Graph]]
-- [[BreadcrumbList For Blogs]]
-- [[Visible Q And A Without FAQ Rich Results]]
-- [[VideoObject For Blog Posts]]
-- [[Product Mentions In Blog Schema]]
-- [[Schema Validation Workflow]]
-- [[Structured Data Deprecation Register]]
-- [[Schema And E-E-A-T Alignment]]
+If a blocker fails, stop the schema handoff and record the owner. If only advisory warnings remain, attach them to the publishing ticket with a review date. Do not use a JSON parser pass as proof of Google eligibility; the Search Gallery check is separate from JSON-LD validity.

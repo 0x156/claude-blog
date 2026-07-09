@@ -1,151 +1,56 @@
 ---
 type: spoke
 title: "Refresh Versus Rewrite Decision"
-status: evergreen
-created: 2026-07-06
-updated: 2026-07-06
-tags: [rewriting, freshness, content-decay, evergreen]
 domain: "Blog Rewriting"
-confidence: advisory
-related:
-  - "[[Freshness and Content Decay]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Content Decay Detection]]"
-  - "[[Source Refresh Workflow]]"
-  - "[[Intent Drift Audit]]"
-  - "[[Historical Performance Review]]"
-  - "[[Content Consolidation Rules]]"
-  - "[[Pruning Advisory Checklist]]"
-  - "[[Update Timestamp Policy]]"
-  - "[[Stale Claim Register]]"
-  - "[[Dual Optimization]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/updates/ranking"
-  - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
+status: active
+created: 2026-07-06
+updated: 2026-07-09
+tags: [rewriting, freshness, content-decay, active]
 ---
+
 # Refresh Versus Rewrite Decision
 
-## Summary
-Refresh Versus Rewrite Decision is a rewrite decision note for freshness and decay.
-It chooses a scoped refresh, full rewrite, merge, prune, or no action.
-Use it with [[Freshness and Content Decay]] when the working unit is a published post, cluster, or decayed section.
+## Decision Split Job
 
-## Operating Question
-- Which intervention matches the evidence and expected value?
-- The expected output is a decision record with action, rationale, and rollback cue.
-- The main risk is choosing a full rewrite when a source refresh would solve the problem.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note chooses between a targeted refresh and a deeper rewrite. A refresh preserves the article's core promise while updating evidence, examples, dates, links, or small structural gaps. A rewrite changes the answer architecture because the current page no longer satisfies the reader job.
 
-## Current Evidence Anchors
-- Google helpful content guidance retrieved 2026-07-06 remains the quality baseline for rewriting.
-- Google ranking update history dated 2026-05-21 and the Search Status Dashboard are the authority path for confirmed update history.
-- The substrate records no Google-owned ranking, spam, schema, QRG, or AI search update from 2026-07-01 through 2026-07-06.
-- Search Console generative AI reports were announced in June 2026 for AI Overviews and AI Mode reporting on a subset of properties.
-- FAQ rich results were retired effective 2026-05-07, so stale FAQ rich result claims must be removed during rewrites.
-- Rewrite actions remain advisory in V1 and should not mutate a CMS or publishing system directly.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+`g-helpful-content` anchors the user-value question. `g-gsc-api` helps show whether the page is losing a small set of queries, a whole intent class, CTR, or visibility. `g-ranking-history` prevents a rewrite plan from leaning on unconfirmed update stories, and `g-canonical` keeps duplicate URL problems out of the editorial rewrite bucket.
 
-## Operating Standard
-- Separate traffic decay, source staleness, intent drift, schema drift, and trust gaps before recommending work.
-- Prefer first-party GSC or analytics evidence over generic market behavior when the property has data.
-- Date every claim that could age, including Google update, schema, and AI feature guidance.
-- Quarantine unconfirmed volatility until a Google-owned source confirms it.
-- Choose refresh, rewrite, merge, prune, or no action from evidence rather than preference.
-- Preserve old evidence in the source trail even when a recommendation changes.
-- Record reversible decisions with the expected effect and rollback cue.
-- Keep all V1 rewrite outputs advisory and read-only toward publishing tools.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+### Signal Owned By This Decision
 
-## Review Sequence
-1. Open [[Freshness and Content Decay]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+The decision owns action class, not diagnosis. It should receive inputs from [[Content Decay Detection]], [[Historical Performance Review]], [[Intent Drift Audit]], and [[Stale Claim Register]]. If those inputs are missing, the correct outcome is "not ready to decide."
 
-## Specific Checks
-- Check that refresh versus rewrite decision is applied to the correct content unit.
-- Check that the decision matches this purpose: chooses a scoped refresh, full rewrite, merge, prune, or no action.
-- Check that the output can be inspected as a decision record with action, rationale, and rollback cue.
-- Check that the risk is addressed directly: choosing a full rewrite when a source refresh would solve the problem.
-- Compare the current page against the original intent and the current reader need.
-- List stale sources before touching prose.
-- Separate ranking volatility from confirmed Google updates.
-- Check whether AI feature data exists in Search Console before using market context.
-- Document whether the action is reversible.
-- Preserve evidence that explains why the old version changed.
-- Avoid changing visible timestamps without meaningful review.
-- Recommend no action when evidence does not justify work.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+### Boundary Between Refresh, Rewrite, Consolidate, And Prune
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+Choose refresh when the core article is sound. Choose rewrite when the page needs a new structure, reader promise, or evidence model. Choose consolidate when another URL should own the answer. Choose prune only after usefulness, data, source, and canonical checks have failed.
 
-## Failure Modes
-- The rewrite is triggered by a single short-term metric dip.
-- A date is refreshed cosmetically without meaningful review.
-- Old claims remain after the article structure is changed.
-- Unconfirmed volatility is treated as a Google update.
-- A page is pruned before consolidation or refresh is evaluated.
-- The rewrite removes experience evidence that supported trust.
-- The new version breaks internal links or schema assumptions.
-- No one can tell what should be rolled back if results worsen.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## Action Decision Table
 
-## Handoff
-- Attach the decision note to the rewrite ticket or editorial plan.
-- Preserve source URLs that justify the change.
-- Name the owner who approves live content changes outside V1.
-- Record the expected measurement window.
-- Send source gaps to [[Research Pack Index]].
-- Send algorithm questions to [[Google Algorithm Update Ledger]].
-- Send data pulls to [[Google Data Integrations]].
-- Send final QA to [[Blog Quality Score]].
-- Use [[Content Decay Detection]] when this note needs a sibling follow-up.
-- Use [[Source Refresh Workflow]] when the next decision belongs beside this note.
+| Candidate URL | Dominant signal | Source freshness | Action | Owner | Rollback note |
+|---|---|---|---|---|---|
+| Evergreen guide with outdated examples | Source age, small gaps | `g-helpful-content` and source review current | Refresh | Editor | Restore prior example if new source weakens clarity |
+| Article losing one query group | Query mix shift, limited scope | `g-gsc-api` export tied to date range | Refresh section and heading promise | SEO strategist | Revert if target query relevance drops |
+| Page no longer matches current reader job | Intent drift and structural mismatch | `g-helpful-content`; [[Intent Drift Audit]] | Rewrite | Content lead | Compare new outline to old job statement |
+| Two pages cover one answer | Split signals or duplicate URL issue | `g-canonical`; `g-gsc-api` | Consolidate, not rewrite | SEO technical owner | Keep separate if intents prove distinct |
+| Decline near confirmed rollout | Official update timing overlaps | `g-ranking-history` | Review cautiously, avoid causal claim | Monitoring owner | Remove update framing if evidence diverges |
+| Page lacks usefulness and replacement value | Failed prune gate | `g-helpful-content`; [[Pruning Advisory Checklist]] | Prune recommendation for approval | Program owner | Restore if a retained reader job is found |
+
+## Decision Procedure
+
+1. Require a diagnosis note before selecting an action.
+2. Identify the smallest change that can restore usefulness and source support.
+3. Check whether the problem is editorial, source-related, technical, or measurement-related.
+4. Assign one primary action and one fallback action.
+5. Write the rollback cue in the same record as the recommendation.
+
+## Decision Source IDs
+
+`g-helpful-content`; `g-gsc-api`; `g-ranking-history`; `g-canonical`.
 
 ## Related
-- [[Freshness and Content Decay]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[Google Algorithm Update Ledger]]
-- [[E-E-A-T for Blog Content]]
-- [[Google Data Integrations]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Blog Quality Score]]
+
 - [[Content Decay Detection]]
-- [[Source Refresh Workflow]]
 - [[Intent Drift Audit]]
-- [[Historical Performance Review]]
 - [[Content Consolidation Rules]]
 - [[Pruning Advisory Checklist]]
-- [[Update Timestamp Policy]]
-- [[Stale Claim Register]]
-- [[Rewrite QA Checklist]]
 - [[Rewrite Rollback Notes]]
-- [[Decay Segment Prioritization]]

@@ -1,151 +1,57 @@
 ---
 type: spoke
 title: "Reader Satisfaction Test"
+domain: "Blog Writing"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [writing, six-pillar, evergreen]
-domain: "Blog Writing"
-confidence: advisory
-related:
-  - "[[6-Pillar Dual Optimization]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Intent Fit Writing Pass]]"
-  - "[[Information Gain Checklist]]"
-  - "[[Experience Signal Placement]]"
-  - "[[Answer First Section Pattern]]"
-  - "[[Evidence Density For Blog Posts]]"
-  - "[[Citation Ready Paragraphs]]"
-  - "[[Blog Introduction Patterns]]"
-  - "[[Blog Conclusion Patterns]]"
-  - "[[Dual Optimization]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
 ---
+
 # Reader Satisfaction Test
 
-## Summary
-Reader Satisfaction Test is a drafting note for six-pillar writing.
-It checks whether the article would satisfy the reader without another search.
-Use it with [[6-Pillar Dual Optimization]] when the working unit is a draft section, outline, or article.
+## Reader Satisfaction Test Drafting Job
 
-## Operating Question
-- Would the target reader finish with the answer, evidence, and next step they needed?
-- The expected output is a satisfaction pass with friction points and missing answers.
-- The main risk is optimizing for extraction while leaving the reader under-served.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This test asks whether the target reader could stop searching after reading the article. It is the human outcome check for [[6-Pillar Dual Optimization]]. Passing extraction, schema, or keyword checks is not enough if the article leaves the reader without a clear answer, useful proof, or next step.
 
-## Current Evidence Anchors
-- Google helpful content guidance retrieved 2026-07-06 is the people-first writing baseline.
-- The active QRG substrate is dated 2025-09-11, with no newer revision recorded as of 2026-07-06.
-- Google AI optimization guidance updated 2026-06-15 keeps generative AI optimization on SEO foundations.
-- FAQ rich results were retired for all sites effective 2026-05-07, so visible Q and A supports readers and extraction, not a rich result promise.
-- ZipTie, 2026-03-25, is practitioner evidence for self-contained answer passages and close source attribution.
-- The writing system must keep sources close to claims and preserve human accountability for AI-assisted drafts.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Satisfaction Signals This Note Measures
 
-## Operating Standard
-- Open each important section with a direct answer before adding nuance.
-- Make the reader problem explicit before keyword, schema, or citation work starts.
-- Add original value through examples, data, experience, comparison, or decision criteria.
-- Place dated sources near claims that could become stale.
-- Use headings to expose the answer hierarchy without flattening the article into fragments.
-- Keep Q and A blocks visible only when they help the reader or passage extraction.
-- Connect every drafting rule to [[Blog Quality Score]] before handoff.
-- Treat AI-assisted wording as draft material that requires review, sourcing, and editorial accountability.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+The reader should see the main answer early, understand the conditions where it changes, trust the source path, and know what to do next. `g-helpful-content` is the primary source for people-first review. `g-qrg-full` supports stronger scrutiny where trust and expertise affect the reader's decision. `g-ai-opt-guide` keeps AI-facing advice inside normal Search guidance rather than making a separate hidden objective.
 
-## Review Sequence
-1. Open [[6-Pillar Dual Optimization]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### What Counts As A Failed Reader Outcome
 
-## Specific Checks
-- Check that reader satisfaction test is applied to the correct content unit.
-- Check that the decision matches this purpose: checks whether the article would satisfy the reader without another search.
-- Check that the output can be inspected as a satisfaction pass with friction points and missing answers.
-- Check that the risk is addressed directly: optimizing for extraction while leaving the reader under-served.
-- Check whether the primary answer appears before supporting context.
-- Mark every current claim that needs a dated source.
-- Look for original examples, first-hand evidence, or useful comparisons.
-- Remove generic filler that does not help the reader decide or understand.
-- Confirm headings match the answer hierarchy.
-- Confirm internal links are placed at moments of reader need.
-- Confirm schema notes do not drive the article away from visible content.
-- Send unresolved source gaps to the brief before the draft is approved.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+The article fails when it answers a keyword but not the task, cites sources without explaining what they prove, adds caveats that are too late to matter, or optimizes passages in a way that fragments the reading experience. A post can also fail by turning a dated Google clarification, such as the llms.txt stance in `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, into a broad recommendation that the source does not support.
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Reader Satisfaction Test Table
 
-## Failure Modes
-- The draft answers late and loses the impatient reader.
-- The post repeats SERP consensus without adding information gain.
-- The strongest evidence sits far from the claim it supports.
-- The introduction promises more certainty than the sources allow.
-- The article uses Q and A blocks as a deprecated rich result tactic.
-- The conclusion does not help the reader choose a next step.
-- The internal links are added for quota rather than context.
-- The draft relies on AI fluency instead of verified claims.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Review point | Required input | Source IDs | Evidence state | Owner | Next action |
+|---|---|---|---|---|---|
+| Main answer visibility | Intro and first H2 | `g-helpful-content` | Official people-first baseline | Editor | Move answer up |
+| Decision completeness | Reader task and article promise | `g-helpful-content`, `g-qrg-full` | Official quality lens | Strategist | Add missing criterion |
+| Trust clarity | Byline, reviewer, sources, dates | `g-qrg-full` | Official quality-evaluator source | Lead editor | Add proof or caveat |
+| AI boundary honesty | AI-facing claims and caveats | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | Official Google Search boundary | GEO reviewer | Remove unsupported AI task |
+| Next step usefulness | Conclusion and internal links | `g-helpful-content` | Editorial judgment | Writer | Add or simplify handoff |
 
-## Handoff
-- Attach the writing pass to the draft or outline.
-- List missing sources before editorial approval.
-- Mark sections that need expert or reviewer input.
-- Send freshness gaps to [[Freshness and Content Decay]].
-- Send trust gaps to [[E-E-A-T for Blog Content]].
-- Send citation gaps to [[AI Citation Mechanics]].
-- Send schema notes to [[Blog Schema Stack]].
-- Score the final draft through [[Blog Quality Score]].
-- Use [[Intent Fit Writing Pass]] when this note needs a sibling follow-up.
-- Use [[Information Gain Checklist]] when the next decision belongs beside this note.
+## Reader Satisfaction Editing Procedure
+
+1. Give the draft to a reviewer who has not seen the brief.
+2. Ask them to state the answer, evidence, and next step in three sentences.
+3. Mark every place where they had to infer missing context.
+4. Rewrite sections that require another search for the basic answer.
+5. Confirm that internal links deepen the task instead of replacing the answer.
+6. Score the revised draft through [[Six Pillar Editing Rubric]].
+
+## Source Handling
+
+This note cites `g-helpful-content`, `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`, and `g-qrg-full`.
 
 ## Related
+
 - [[6-Pillar Dual Optimization]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[SERP-Informed Briefs and Outlines]]
-- [[E-E-A-T for Blog Content]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Blog Quality Score]]
-- [[FLOW Framework]]
-- [[Intent Fit Writing Pass]]
-- [[Information Gain Checklist]]
-- [[Experience Signal Placement]]
-- [[Answer First Section Pattern]]
-- [[Evidence Density For Blog Posts]]
-- [[Citation Ready Paragraphs]]
-- [[Blog Introduction Patterns]]
 - [[Blog Conclusion Patterns]]
-- [[Internal Link Placement Rules]]
+- [[Intent Fit Writing Pass]]
 - [[Six Pillar Editing Rubric]]
-- [[Claim Source Pairing Pattern]]

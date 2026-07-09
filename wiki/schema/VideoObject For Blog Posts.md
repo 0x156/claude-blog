@@ -3,150 +3,49 @@ type: spoke
 title: "VideoObject For Blog Posts"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [schema, blog-schema, evergreen]
 domain: "Blog Structured Data"
 confidence: verified
 related:
   - "[[Blog Schema Stack]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
+  - "[[Images Audio and Charts]]"
   - "[[Article Schema Baseline]]"
-  - "[[BlogPosting Versus Article]]"
-  - "[[Author Person Markup]]"
-  - "[[Organization Entity Graph]]"
-  - "[[BreadcrumbList For Blogs]]"
-  - "[[Visible Q And A Without FAQ Rich Results]]"
-  - "[[Product Mentions In Blog Schema]]"
-  - "[[Schema Validation Workflow]]"
-  - "[[Dual Optimization]]"
 source_urls:
   - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
   - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
   - "https://schema.org/docs/full.html"
   - "https://www.w3.org/TR/json-ld11/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/product"
 ---
 # VideoObject For Blog Posts
 
-## Summary
-VideoObject For Blog Posts is a schema review note for blog schema stack.
-It adds VideoObject only when qualifying video is visible and central to the page.
-Use it with [[Blog Schema Stack]] when the working unit is a blog post, entity graph, or structured data block.
+## VideoObject Decision Job
 
-## Operating Question
-- Does the blog post contain a video that deserves structured data?
-- The expected output is a VideoObject checklist with visibility, thumbnail, and date checks.
-- The main risk is marking up a decorative or absent video.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+VideoObject is an add-on for blog posts that visibly contain a meaningful video. It should not be added to every article template, to decorative embeds, or to a page that only links to a video elsewhere. [[Images Audio and Charts]] owns media quality and accessibility; this note owns the structured-data decision.
 
-## Current Evidence Anchors
-- Google structured data introduction retrieved 2026-07-06 recommends JSON-LD and requires markup to describe visible content.
-- Google FAQPage documentation records FAQ rich results retired for all sites effective 2026-05-07.
-- Google Search Gallery dated 2026-07-01 in the ledger defines supported rich result types.
-- Schema.org full hierarchy and JSON-LD 1.1 provide standards references for vocabulary and serialization.
-- Article or BlogPosting with Person, Organization, and BreadcrumbList is the blog priority after FAQ and HowTo visibility loss.
-- Rich result eligibility is never a guarantee, and unsupported markup should not be sold as a current Search feature.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+Use `g-intro-sd` to keep markup aligned with visible media, `schema-full` for VideoObject vocabulary, `w3c-jsonld` for graph syntax, and `g-search-gallery` before discussing a Google Search video appearance.
 
-## Operating Standard
-- Describe only visible page content in structured data.
-- Prefer JSON-LD unless a local platform requires another supported format.
-- Use Google Search Central for supported Search features and Schema.org for vocabulary breadth.
-- Keep Article or BlogPosting, author identity, publisher identity, and breadcrumbs coherent.
-- Avoid presenting FAQPage or HowTo as current blog rich result tactics.
-- Use Product or VideoObject only when the page visibly contains qualifying content.
-- Validate syntax, vocabulary, Google support, and page-content alignment before handoff.
-- Treat schema as entity clarity and eligibility support, not a traffic guarantee.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+## VideoObject For Blog Posts Schema Table
 
-## Review Sequence
-1. Open [[Blog Schema Stack]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+| Video situation | Required property or proof | Validation target | Warning to record | Source id |
+|---|---|---|---|---|
+| Original embedded explainer | Video is visible, playable, and central to the article | Article body and player render in final HTML | Do not mark a hidden or lazy-failed player as a video | `g-intro-sd` |
+| Hosted video with thumbnail | Name, description, thumbnail URL, upload date when available | VideoObject fields match visible media and asset metadata | Thumbnail and upload date should not be invented | `schema-full` |
+| Third-party embed | Embed URL, visible player, and rights or platform context | JSON-LD links the article and video consistently | Platform embed changes can stale the graph | `w3c-jsonld` |
+| Short decorative clip | Usually no VideoObject | Editorial value is incidental | Decorative motion should stay outside schema | `g-intro-sd` |
+| Search feature claim | Current gallery confirms relevant support | Search Gallery reviewed on current source date | Eligibility language is not a guarantee of display | `g-search-gallery` |
 
-## Specific Checks
-- Check that videoobject for blog posts is applied to the correct content unit.
-- Check that the decision matches this purpose: adds VideoObject only when qualifying video is visible and central to the page.
-- Check that the output can be inspected as a VideoObject checklist with visibility, thumbnail, and date checks.
-- Check that the risk is addressed directly: marking up a decorative or absent video.
-- Verify that each marked-up fact is visible to readers.
-- Validate JSON-LD syntax before interpreting eligibility.
-- Check Google Search Gallery support before promising a feature.
-- Use Schema.org vocabulary for entity clarity even when Google has no rich result.
-- Keep author, publisher, dates, images, and breadcrumbs consistent with the page.
-- Avoid obsolete FAQ and HowTo rich result advice.
-- Use Product or VideoObject only for visible qualifying content.
-- Record validation evidence and unresolved platform constraints.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+## Qualification Procedure
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+1. Watch or inspect the video enough to confirm it supports the article's reader task.
+2. Verify the player, thumbnail, transcript or caption availability, and publication metadata.
+3. Connect the VideoObject to the article graph only after the media facts pass review.
+4. Escalate rights, accessibility, and production gaps to [[Images Audio and Charts]].
 
-## Failure Modes
-- The markup describes content that is not visible on the page.
-- A rich result is promised even though Google support has changed.
-- FAQPage is retained as a visual SERP tactic after retirement.
-- Author or publisher nodes conflict with visible page identity.
-- Product markup is added to casual product mentions.
-- VideoObject appears without a qualifying visible video.
-- The schema validates syntactically but fails editorial alignment.
-- The structured data creates a disconnected entity graph.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## Cases To Reject
 
-## Handoff
-- Attach the schema note to the article template, CMS ticket, or audit report.
-- List visible-content dependencies before implementation advice.
-- Record validation tools and unresolved warnings.
-- Send author and trust issues to [[E-E-A-T for Blog Content]].
-- Send media markup questions to [[Images Audio and Charts]].
-- Send deprecation questions to [[Google Algorithm Update Ledger]].
-- Send citation entity questions to [[AI Citation Mechanics]].
-- Score technical readiness through [[Blog Quality Score]].
-- Use [[Article Schema Baseline]] when this note needs a sibling follow-up.
-- Use [[BlogPosting Versus Article]] when the next decision belongs beside this note.
+Reject VideoObject when the page has only a text link, a broken embed, a background animation, an unrelated product demo, or a video whose title and thumbnail do not match the article. Also reject it when the CMS would emit the same video node on every post.
 
-## Related
-- [[Blog Schema Stack]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Images Audio and Charts]]
-- [[Multilingual Publishing]]
-- [[Google Data Integrations]]
-- [[Google Algorithm Update Ledger]]
-- [[Article Schema Baseline]]
-- [[BlogPosting Versus Article]]
-- [[Author Person Markup]]
-- [[Organization Entity Graph]]
-- [[BreadcrumbList For Blogs]]
-- [[Visible Q And A Without FAQ Rich Results]]
-- [[Product Mentions In Blog Schema]]
-- [[Schema Validation Workflow]]
-- [[Structured Data Deprecation Register]]
-- [[JSON-LD Publishing Checklist]]
-- [[Schema And E-E-A-T Alignment]]
+## VideoObject Publishing Boundary
+
+The handoff should say VideoObject accepted, rejected, or deferred. Accepted handoffs list the visible video, fields used, validation result, and owner for future media changes.

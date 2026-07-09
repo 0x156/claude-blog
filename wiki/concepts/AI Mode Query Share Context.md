@@ -1,151 +1,67 @@
 ---
 type: spoke
 title: "AI Mode Query Share Context"
+domain: "Blog Content Optimization"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
-tags: [dual-optimization, evergreen]
-domain: "Blog Content Optimization"
+updated: 2026-07-09
+tags: [dual-optimization, ai-mode, planning]
 confidence: advisory
 related:
   - "[[Dual Optimization]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
+  - "[[AI Citation Mechanics]]"
   - "[[Search Visibility Versus Citation Exposure]]"
-  - "[[Zero Click Planning Baseline]]"
-  - "[[AI Overview CTR Interpretation]]"
-  - "[[Citation Readiness Decision Tree]]"
-  - "[[Reader Value Versus Extraction Value]]"
-  - "[[Dual Optimization Risk Register]]"
-  - "[[Dual Optimization Briefing Checklist]]"
-  - "[[Classic SEO And GEO Tradeoffs]]"
-  - "[[6-Pillar Dual Optimization]]"
+  - "[[Visibility Metrics For Blog Programs]]"
 source_urls:
+  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
   - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+  - "https://ahrefs.com/blog/ai-overviews-vs-ai-mode/"
   - "https://developers.google.com/search/docs/appearance/ai-features"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
 ---
 # AI Mode Query Share Context
 
-## Summary
-AI Mode Query Share Context is a planning note for dual optimization.
-It keeps AI Mode strategy proportional to high user count and small measured query share.
-Use it with [[Dual Optimization]] when the working unit is a blog program, article, or section.
+## AI Mode Query Share Context Distinct Job
 
-## Operating Question
-- How much planning weight should AI Mode receive for this program right now?
-- The expected output is a proportional priority call with user-count and query-share context.
-- The main risk is over-weighting AI Mode because the product is strategically visible.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note prevents AI Mode from being treated either as irrelevant or as the whole search strategy. Google framed AI Mode as a large product surface at I/O 2026, while SparkToro's early-2026 US panel puts measured query share in a much smaller planning bucket. Use [[AI Citation Mechanics]] for the canonical statistic context and use this note only to decide how much AI Mode weight a blog brief should receive.
 
-## Current Evidence Anchors
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026.
-- The same substrate records AI Mode near 0.34 percent of US query volume, so AI Mode work must be proportional.
-- Seer, 2026-04-24, reports AIO organic CTR recovery from about 1.3 percent in December 2025 to about 2.4 percent in February 2026.
-- Seer also reports cited pages at about 120 percent more clicks per impression than pages not cited when an AI Overview is present.
-- Google AI optimization guidance updated 2026-06-15 keeps the foundation on helpful, crawlable, structured content.
-- Search Console generative AI performance reporting began in June 2026 for a subset of properties, so first-party data should replace market averages when present.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+The working verdict is mixed: Google product-reach claims are `CONFIRMED` from `blog-io2026`, the SparkToro query-share estimate is `AS-REPORTED` from `sparktoro-zero-click-2026`, and the Ahrefs overlap figure is practitioner evidence from `ahrefs-aio-vs-aimode`. Google documentation for AI features says normal crawling and preview controls still matter, so AI Mode planning should start with crawlable, helpful content rather than a separate AI-only artifact (`g-ai-features`).
 
-## Operating Standard
-- Separate visibility, click, citation, and assisted outcome language before any forecast is shared.
-- State whether the recommendation is for classic Search, AI Overview exposure, AI Mode exposure, or reader trust.
-- Use market studies as planning context until Google Search Console or analytics data exists for the property.
-- Avoid promising ranking gains, AIO inclusion, AI Mode citation, or traffic recovery.
-- Keep zero click behavior visible in the brief so success is not reduced to organic clicks.
-- Pair every current market statistic with its publication date and retrieval date.
-- Treat passage-level work as the citation unit and page-level usefulness as the reader unit.
-- Escalate stale, unsourced, or overconfident claims back to [[Research Pack Index]].
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+### Inputs Specific To AI Mode Query Share Context
 
-## Review Sequence
-1. Open [[Dual Optimization]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+- Current Search, AI Overview, and AI Mode visibility evidence for the page or cluster.
+- The query class: informational, comparative, transactional-adjacent, or troubleshooting.
+- Whether the brief needs AI Mode-specific language or only a proportional caveat.
+- The review date for source refresh, because AI Mode adoption is fast-moving.
 
-## Specific Checks
-- Check that ai mode query share context is applied to the correct content unit.
-- Check that the decision matches this purpose: keeps AI Mode strategy proportional to high user count and small measured query share.
-- Check that the output can be inspected as a proportional priority call with user-count and query-share context.
-- Check that the risk is addressed directly: over-weighting AI Mode because the product is strategically visible.
-- Identify the search surface before selecting a tactic.
-- Name the business question the metric should answer.
-- Separate market evidence from property evidence.
-- Record what would change the priority call.
-- State whether the recommendation affects planning, drafting, rewriting, or reporting.
-- Keep every forecast as a range unless first-party data supports a tighter number.
-- Explain the reader benefit before the optimization benefit.
-- Connect the decision to a measurable next review.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+### Decisions AI Mode Query Share Context Must Record
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+- Whether AI Mode gets a primary, secondary, or watch-only role in the content plan.
+- Which passages should be self-contained enough for answer surfaces.
+- Whether measurement depends on property data or only market benchmarks.
+- What would downgrade or upgrade AI Mode priority at the next review.
 
-## Failure Modes
-- A report treats citations, impressions, and clicks as interchangeable.
-- A forecast uses a market average without saying whether property data exists.
-- A strategy overweights AI Mode because it is prominent in product news.
-- A brief hides zero click behavior from stakeholders.
-- A recommendation implies that optimization can force AI inclusion.
-- A metric lacks a source date or refresh plan.
-- A passage is made extractable but no longer reads naturally.
-- A planning decision has no rollback cue when evidence changes.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## AI Mode Query Share Context Decision Frame Table
 
-## Handoff
-- Attach the metric split to the brief or report.
-- Name which evidence came from market sources and which came from the property.
-- Record the recommendation confidence as verified or advisory.
-- Add the next review date when a market source or Google guidance can change.
-- Send drafting needs to [[6-Pillar Dual Optimization]].
-- Send citation passage needs to [[AI Citation Mechanics]].
-- Send trust gaps to [[E-E-A-T for Blog Content]].
-- Send schema questions to [[Blog Schema Stack]].
-- Use [[Search Visibility Versus Citation Exposure]] when this note needs a sibling follow-up.
-- Use [[Zero Click Planning Baseline]] when the next decision belongs beside this note.
+| Decision point | Required input | Source IDs | Evidence state | Owner | Next action |
+|---|---|---|---|---|---|
+| Set AI Mode planning weight | Product reach, market query share, and page intent | `blog-io2026`, `sparktoro-zero-click-2026` | Confirmed reach plus as-reported panel share | Strategist | Mark priority as primary, secondary, or watch-only |
+| Separate AI Mode from AIO | Citation overlap and target query list | `ahrefs-aio-vs-aimode` | Practitioner benchmark, not a Google rule | SEO lead | Build a different citation check when overlap risk matters |
+| Confirm eligibility basics | Crawlability, snippet controls, indexability | `g-ai-features` | Official Google documentation | Technical reviewer | Route blockers to the technical audit before rewriting |
+| Choose reporting language | First-party data availability and market caveat | `sparktoro-zero-click-2026` | Market context until property data exists | Analyst | Avoid presenting AI Mode exposure as expected traffic |
 
-## Related
-- [[Dual Optimization]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[6-Pillar Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[E-E-A-T for Blog Content]]
-- [[Blog Schema Stack]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-- [[Research Pack Index]]
-- [[Search Visibility Versus Citation Exposure]]
-- [[Zero Click Planning Baseline]]
-- [[AI Overview CTR Interpretation]]
-- [[Citation Readiness Decision Tree]]
-- [[Reader Value Versus Extraction Value]]
-- [[Dual Optimization Risk Register]]
-- [[Dual Optimization Briefing Checklist]]
-- [[Classic SEO And GEO Tradeoffs]]
-- [[Visibility Metrics For Blog Programs]]
-- [[Market Average Versus First Party Data]]
-- [[Citation And Click Forecasting]]
+## Source IDs, Evidence, Owner, Confidence, And Next Action
+
+Use `blog-io2026` for the product-scale claim, `sparktoro-zero-click-2026` for market-share context, `ahrefs-aio-vs-aimode` for low-overlap planning, and `g-ai-features` for what Google documents about AI surfaces. If a future [[2026 Google Update Timeline]] entry changes AI Mode visibility reporting, update this note's priority ladder before reusing it in a client brief.
+
+## AI Mode Query Share Context Operating Procedure
+
+1. Name the exact query set and decide whether it is likely to trigger AI Mode-style exploration.
+2. Check whether the page already has crawlability, preview, and visible answer support before proposing new GEO work.
+3. Compare AI Mode attention against classic Search and AIO opportunities, then assign one priority label.
+4. Write the caveat in the brief: market share and product reach are different measurements.
+5. Schedule the next review when source-ledger evidence or first-party reporting changes.
+
+## Handback Links
+
+- Use [[Search Visibility Versus Citation Exposure]] when stakeholders mix AI Mode exposure with classic ranking.
+- Use [[Visibility Metrics For Blog Programs]] when the measurement plan needs dashboard language.

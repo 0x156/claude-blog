@@ -1,177 +1,55 @@
 ---
 type: spoke
 title: "Brief To Draft Handoff"
+domain: "Blog Briefs"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [briefs-outlines, serp-briefs, active]
-domain: "Blog Briefs"
-confidence: advisory
-related:
-  - "[[SERP-Informed Briefs and Outlines]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[SERP Brief Input Contract]]"
-  - "[[Search Intent Classification]]"
-  - "[[Reader Job Statement]]"
-  - "[[Competitive Pattern Notes]]"
-  - "[[Heading Hierarchy Rules]]"
-  - "[[Evidence Block Requirements]]"
-  - "[[Brief Source Pack]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/ai-features"
-  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
 ---
 
 # Brief To Draft Handoff
 
-## Summary
-Brief To Draft Handoff is the spoke for transfer brief constraints, source blocks, voice notes, and acceptance criteria into drafting.
-Use it when [[SERP-Informed Briefs and Outlines]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a draft handoff packet.
-The success condition is that the writer receives enough context to draft without inventing facts.
-Keep the note advisory in V1 and route implementation to a human owner.
+## Brief To Draft Handoff Control Point
 
-## Parent Hub Fit
-- Parent hub: [[SERP-Informed Briefs and Outlines]].
-- Primary upstream context: [[Dual Optimization]].
-- Primary downstream context: [[6-Pillar Dual Optimization]].
-- Evidence route: [[Blog Quality Score]].
-- Sibling comparison starts with [[SERP Brief Input Contract]] and [[Search Intent Classification]].
-- Quality review should connect to [[Blog Quality Score]] when the note affects delivery.
-- Citation review should connect to [[AI Citation Mechanics]] when answer passages are created or changed.
-- Source refresh should connect to [[Research Pack Index]] when a dated claim is older than its cadence.
-- The note should not create a publishing action by itself.
-- The note should create a clear next decision, owner, and evidence state.
+This note turns a completed brief into drafting instructions. It is the transfer layer between planning and writing: the drafter receives the reader job, approved outline, mandatory evidence, caveats, voice constraints, internal links, and rejection conditions. The handoff should be specific enough that the first draft does not invent sources or smooth away uncertainty.
 
-## Current Fact Anchors
-- Google helpful content guidance, retrieved 2026-07-06, is the baseline for original, people-first usefulness.
-- Google AI optimization guidance, updated 2026-06-15, says Google Search does not need special AI files, special AI schema, Markdown conversion, or llms.txt for AI features.
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026, so planning must include visibility beyond clicks.
-- Seer, 2026-04-24, records cited AI Overview pages with about 120 percent more clicks per impression than pages not cited in its analysis.
-- Google I/O Search update, 2026-05-19, reports AI Mode passed 1B monthly users, while the substrate records about 0.34 percent US query volume.
-- The current QRG reference is the 2025-09-11 revision, with no newer substrate revision recorded as of 2026-07-06.
-- FAQ rich results were retired for all sites on 2026-05-07, so Article or BlogPosting is the blog schema priority when schema is relevant.
-- Passage extractability guidance is practitioner guidance: aim for self-contained answer blocks around 130 to 170 words under clear headings.
-- Google AI features documentation, retrieved 2026-07-06, supports standard crawl, index, and preview controls for AI feature visibility.
-- Google Search Gallery, retrieved 2026-07-06, is the supported rich result type reference when a brief requests schema.
-- Use first-party GSC, GA4, and crawl evidence when available instead of replacing local data with market averages.
-- Treat practitioner studies as planning context unless an official source or property data confirms the exact claim.
+Use [[Brief Source Pack]] for approved evidence, [[Brief Risk Notes]] for unresolved warnings, and [[Heading Hierarchy Rules]] for outline shape. Source IDs travel with the claims. `gh-flow-framework` supports disciplined handoff between evidence, instructions, and output. `g-helpful-content` anchors useful original value, `g-ai-opt-guide` keeps AI-facing wording inside Google's Search guidance, and `nng-editorial-heuristics` supports clear reviewer feedback for the drafter.
 
-## Required Inputs
-- Target topic, article, cluster, or workflow item that needs Brief To Draft Handoff.
-- Parent hub context from [[SERP-Informed Briefs and Outlines]].
-- Reader problem and intended outcome in one sentence.
-- Primary query, entity, or channel that triggered the work.
-- Known source URLs with retrieval dates for every current claim.
-- First-party data availability, including GSC, GA4, crawl data, or none.
-- Existing internal links and candidate links that affect the decision.
-- YMYL, legal, medical, financial, or reputation sensitivity flags.
-- Schema, media, and author requirements if the note affects a published page.
-- Approval owner for changes that affect live content.
-- Rollback trigger if the recommendation is later implemented.
-- Metric set for review: handoff completeness, source attachment, voice fit, and revision triggers.
+### What The Drafter Receives
 
-## Operating Procedure
-- Start with the precise decision that Brief To Draft Handoff must make.
-- Restate the scope so it cannot drift beyond [[SERP-Informed Briefs and Outlines]].
-- List the page, cluster, brief, asset, or workflow item under review.
-- Separate observed facts from recommendations before scoring or prioritizing.
-- Attach a source URL and date to every current Search, AI, schema, or market claim.
-- Prefer official Google, standards body, primary, or vendor documentation for rule-like claims.
-- Use practitioner sources only as supporting evidence or workflow guidance.
-- Check whether the recommendation depends on zero click behavior, AI Overview citation, or AI Mode exposure.
-- If it depends on AI features, state that inclusion cannot be guaranteed.
-- If it mentions FAQ rich results, rewrite the point because that visual tactic is retired for all sites.
-- If schema is relevant, route the baseline to Article or BlogPosting plus visible entity support.
-- If passages are relevant, make the answer block self-contained and cite source context nearby.
-- If the work affects trust, route the check through QRG-informed E-E-A-T review.
-- If first-party data exists, make it the measurement baseline.
-- If first-party data is missing, label the estimate advisory and name the data gap.
-- Reject the failure pattern of dropping risk notes and sources during handoff.
-- Write the recommendation in a way that a reviewer can accept, revise, or reject.
-- Close with owner, next action, confidence, and rollback note.
+The drafter receives approved claims, answer targets, section roles, examples to avoid, required caveats, and source IDs. They do not receive permission to add new factual claims without routing them back to the evidence gate.
 
-## Acceptance Criteria
-- The draft handoff packet names the exact object under review.
-- The recommendation has one primary owner.
-- Every current factual claim has a dated source URL.
-- The note distinguishes verified facts from advisory choices.
-- The note states whether property data is available or missing.
-- The note uses current Core Web Vitals language if performance is mentioned.
-- The note avoids FID as a current quality metric.
-- The note avoids FAQ rich result language as a current blog tactic.
-- The note avoids llms.txt as a Google Search, AI Overview, or AI Mode requirement.
-- The note does not promise rankings, traffic, Discover reach, AI Overview inclusion, or chatbot citation.
-- The note contains an explicit confidence label.
-- The note contains a rollback or review trigger when live content could change.
-- The note links back to the parent hub and at least six sibling spokes.
-- The note can be audited without reading private client systems.
+### What Stays With Reviewer
 
-## Failure Modes
-- A claim is current but has no dated source.
-- A market statistic is applied as a property forecast without local data.
-- A recommendation treats an SEO tool as access to Google's internal ranking systems.
-- A passage is written for extraction but lacks source context.
-- A schema recommendation describes hidden or unsupported page content.
-- A cluster, brief, score, or workflow step creates thin content rather than useful content.
-- A reviewer cannot tell whether a statement is verified or advisory.
-- A high-risk change has no rollback note.
-- A channel or platform action is implied even though V1 is advisory and read-only toward external systems.
-- The note accepts dropping risk notes and sources during handoff.
-- The note hides unresolved uncertainty instead of naming it.
-- The note duplicates another sibling without a clear boundary.
+Approval calls, YMYL sensitivity, first-party data gaps, and confidence labels remain with the reviewer until the draft is ready for QA. If a risk is still open, the handoff must say whether writing can proceed with a caveat or must pause.
 
-## Handoff
-- Send brief structure questions to [[SERP Brief Input Contract]].
-- Send evidence and source issues to [[Search Intent Classification]].
-- Send quality scoring issues to [[Blog Quality Score]].
-- Send citation passage issues to [[AI Citation Mechanics]].
-- Send schema issues to [[Blog Schema Stack]].
-- Send first-party measurement issues to [[Google Data Integrations]].
-- Send freshness and decay issues to [[Freshness and Content Decay]].
-- Send voice changes to [[Voice and Style]] when wording or channel tone changes.
-- Send visual or media requirements to [[Images Audio and Charts]] when the output needs assets.
-- Keep unresolved approval items out of automated publishing paths.
-- Record durable outcomes in [[log]] only when the vault owner asks for log maintenance.
-- Keep the final status as ready, revise, blocked, or monitor.
+## Constraint Transfer Table
 
-## Related Links
-- [[SERP-Informed Briefs and Outlines]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[SERP Brief Input Contract]]
-- [[Search Intent Classification]]
-- [[Reader Job Statement]]
-- [[Competitive Pattern Notes]]
-- [[Heading Hierarchy Rules]]
-- [[Evidence Block Requirements]]
-- [[Brief Source Pack]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Semantic Topic Clusters]]
+| Handoff field | Owner | Required source or note | Writer instruction | Stop condition |
+| --- | --- | --- | --- | --- |
+| Reader job | brief owner | [[Reader Job Statement]] | Open with the reader problem, not an SEO abstraction | Missing success condition |
+| Approved evidence | source steward | [[Brief Source Pack]] plus source IDs | Cite only the supplied claim-source pairs | Source ID absent from a factual claim |
+| AI feature wording | SEO lead | `g-ai-opt-guide`; dated llms.txt clarification | Say "eligible to be understood and previewed", not "guaranteed to appear" | AI inclusion promise |
+| Click context | analyst | Source from [[Brief Source Pack]]; [[Dual Optimization]] | Keep market data caveated and separate from property metrics | Market average used as site forecast |
+| Quality bar | editor | `g-helpful-content` | Add original value and satisfy the named reader task | Thin summary of existing SERPs |
+| Risk caveats | approver | [[Brief Risk Notes]] | Preserve caveat text until reviewer removes it | Caveat deleted without approval |
 
-## Source Notes
-- Google helpful content guidance is the primary source for people-first usefulness and source-backed quality.
-- Google AI optimization guidance is the primary source for no special AI files, no special AI schema, and the Google llms.txt caveat.
-- SparkToro and Seer are used as dated market context, not property forecasts.
-- The QRG is used as a quality evaluation framework, not as a direct ranking factor claim.
-- ZipTie passage guidance is practitioner guidance for extraction readiness, not an official Google rule.
-- Search Gallery and FAQPage documentation control schema and rich result claims when schema appears in this note.
+## Handoff Procedure
 
-## Maintenance
-- Refresh this note when the source ledger refreshes.
-- Refresh this note when Google changes AI feature guidance, schema support, spam policy, or QRG references.
-- Refresh this note when first-party data contradicts an advisory assumption.
-- Keep source URLs in frontmatter aligned with the ledger.
-- Do not mark the brain market-ready from this note alone.
-- The next review should verify whether handoff completeness, source attachment, voice fit, and revision triggers still captures the decision quality.
+1. Confirm [[Outline QA Checklist]] has no blocker rows open.
+2. Paste the reader job, approved H2/H3 outline, required claims, and source IDs into the draft request.
+3. Add the caveats that cannot be softened, especially around AI features, zero-click context, and missing property data.
+4. Assign a reviewer for any claim marked advisory, contested, or practitioner.
+5. Reject the draft request if it asks the writer to infer facts from competitor pages or live SERP appearance.
+
+## Rejection Conditions
+
+Do not send the brief to drafting when the source pack is generic, when a heading asks for unsupported advice, when the reader job is only a keyword phrase, or when the requested angle would overstate AI citation control. Send those issues back to [[Search Intent Classification]], [[Evidence Block Requirements]], or [[Brief Risk Notes]].
+
+## Sources
+
+- `gh-flow-framework`
+- `g-helpful-content`
+- `g-ai-opt-guide`
+- `nng-editorial-heuristics`

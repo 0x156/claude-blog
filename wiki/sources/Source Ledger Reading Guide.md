@@ -3,150 +3,76 @@ type: spoke
 title: "Source Ledger Reading Guide"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
 related:
   - "[[Research Pack Index]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Google Algorithm Update Ledger]]"
-  - "[[Google Data Integrations]]"
   - "[[Current Requirements Digest]]"
-  - "[[Canon Notes Map]]"
-  - "[[Google Source Priority Ladder]]"
-  - "[[Primary Study Source Rules]]"
-  - "[[Practitioner Source Caveats]]"
-  - "[[Research Release Gate Notes]]"
-  - "[[Source URL Canonicalization]]"
+  - "[[Source Confidence Labels]]"
+  - "[[Evidence Gap Register]]"
+  - "[[Claim To Source Mapping]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
+  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+  - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
 ---
 
 # Source Ledger Reading Guide
 
-## Summary
-This spoke explains how to read source IDs, source types, dates, confidence, sections, and supported claims.
-It belongs to [[Research Pack Index]] and supports source routing, confidence labels, claim mapping, refresh cadence, and evidence gaps.
-Primary working inputs: ledger entry, source URL, retrieved date, refresh due, claim text.
-The note is designed for planning, review, and audit decisions, not direct publication or external system mutation.
-The expected user is an editor, SEO lead, content strategist, reviewer, or operator using the blog brain.
-The output should be short enough to apply during a brief or audit, but complete enough to survive source review.
+## Record Scope
 
-## Evidence Anchors
-- The source ledger contains 115 sources generated and last verified on 2026-07-06.
-- Current requirements were last verified 2026-07-06 and set a 2026-08-06 refresh due date.
-- Official Google, standards, primary, vendor, regulator, government, authority, and API documentation sources carry the highest source priority.
-- Practitioner studies are useful for workflow heuristics and market behavior, but they need advisory confidence when not first-party to the property.
-- Evidence must be recorded in references/source-ledger.json rather than only summarized in wiki prose.
-- As of 2026-07-06, SparkToro reports 68.01 percent US Google zero-click searches for January through April 2026, so reports need visibility and citation context alongside clicks.
-- Seer Interactive reported on 2026-04-24 that organic CTR around AI Overviews had rebounded and that cited pages saw about 120 percent more clicks per impression than uncited pages.
-- Google I/O Search updates on 2026-05-19 reported AI Mode above 1B monthly users, while the research substrate records about 0.34 percent US query volume, so AI Mode is strategic but not the only planning surface.
-- Google FAQPage documentation marks FAQ rich results retired for all sites effective 2026-05-07, so blog schema planning should prioritize Article or BlogPosting with visible helpful content.
-- The active QRG reference is the 2025-09-11 revision as of 2026-07-06, and the substrate records no newer QRG revision.
-- Google AI optimization guidance updated 2026-06-15 says Google Search does not use llms.txt and does not require special AI schema, Markdown conversion, or chunking files.
-- The practical passage extraction target is a self-contained answer block of roughly 130 to 170 words under a clear heading, with source context and entity clarity.
+This guide explains how to read a row in `references/source-ledger.json` without overclaiming what that row proves. The ledger has 117 source entries as of the 2026-07-09 check. Each entry can support only the claim coverage named by its URL, date fields, source type, confidence, and section.
 
-## Required Inputs
-- Source ID, title, URL, source type, section, retrieved date, and refresh due date.
-- Claim text exactly as it will appear in a recommendation or audit.
-- Confidence label based on source authority, recency, and claim specificity.
-- Primary source preference when Google, standards, or first-party documentation exists.
-- Practitioner or market source caveat when the evidence describes behavior rather than official requirements.
-- Gap owner and due date when evidence is missing or stale.
-- Release gate note when a missing source blocks market-ready status.
-- Rollback note when an external source changes or loses relevance.
+Use this note when a writer asks why a source ID is not enough by itself. A source ID is a handle, not a verdict. The verdict comes from matching the exact claim to the source's scope and the claim-ledger discipline.
 
-## Workflow
-- Define the decision this note supports: explains how to read source IDs, source types, dates, confidence, sections, and supported claims.
-- Open [[Research Pack Index]] and confirm the hub rule that applies before using this spoke.
-- Start with official Google, standards, primary, or first-party sources when they exist for the claim.
-- Use practitioner sources for methods and observed behavior only with caveats about scope and recency.
-- Route every current requirement through the ledger rather than relying on memory or prose notes.
-- Promote gaps to the evidence register before they reach recommendations.
-- Start from the parent hub and confirm the article, locale, data set, or source family affected by this note.
-- List the claims that the draft or audit output will make before editing style, media, or schema.
-- Attach a source URL, retrieval date, and confidence label to each current or risky claim.
-- Separate reader-facing advice from implementation notes so the brain stays advisory in V1.
-- Check whether first-party property data exists before leaning on market averages or practitioner studies.
-- Record any missing evidence as a gap instead of converting it into a confident recommendation.
-- Route schema decisions through visible page content and current Google-supported rich result documentation.
-- Route AI citation decisions through answer-first passages, clear entities, and source-backed wording.
-- Route multilingual and persona decisions through human review when local facts, legal terms, or YMYL sensitivity appear.
-- Keep all external system changes outside this note and write only the recommendation, rationale, and rollback condition.
+## Events Or Items This Register Captures
 
-## Review Checks
-- The note names exact dates when guidance can become stale.
-- The recommendation does not promise rankings, traffic, AI citations, or rich results.
-- FAQPage is not framed as a current rich result tactic after 2026-05-07.
-- FID is not used as a current Core Web Vital, and INP is used when performance enters the decision.
-- llms.txt is not presented as a Google Search visibility requirement.
-- The cited source is appropriate for the claim strength and not just a convenient example.
-- The output tells the reader what to do when first-party data is unavailable.
-- The advice can be reversed or refreshed if Google documentation changes.
-- The body links back to the parent hub, Index, and sibling spokes for graph health.
-- The note stays inside the assigned folder and does not mutate references, data, scripts, or external platforms.
+- Source IDs used repeatedly across source-governance notes.
+- The dates reviewers must inspect before treating a claim as current.
+- Confidence states that need a downgrade or a gap record.
+- Rollback triggers when a source changes or no longer covers the claim.
 
-## Risk Controls
-- Evidence currency risk: Source Ledger Reading Guide decisions can go stale when a source, date, or requirement changes.
-- Claim scope risk: keep Source Ledger Reading Guide advice tied to the source coverage named in this note.
-- Operational boundary risk: do not turn Source Ledger Reading Guide into CMS, analytics, Search Console, API, or publishing mutation steps.
-- Proof gap risk: when the note lacks direct evidence, record the gap instead of upgrading confidence.
-- Audience fit risk: adjust Source Ledger Reading Guide guidance for topic sensitivity, locale, and review ownership before use.
-- Media and data risk: verify charts, visuals, metrics, and examples before they carry this note's claims.
-- Metric interpretation risk: separate first-party exports, market studies, and API signals in Source Ledger Reading Guide outputs.
-- Monitoring risk: quarantine unconfirmed volatility until a dated source in the ledger supports it.
+## Events Or Items Routed Elsewhere
 
-## Output Shape
-- A Source Ledger Reading Guide decision summary for the editor or auditor.
-- The source IDs or URLs that directly support the active recommendation.
-- A confidence label that matches the evidence strength for this note.
-- A rollback or refresh condition tied to the source or workflow affected.
-- A blocked-claims list for Source Ledger Reading Guide gaps that need more evidence.
-- A handoff note naming the writer, editor, reviewer, or data owner next action.
-- Links back to the parent hub and sibling notes that keep the graph navigable.
-- A no-action statement when Source Ledger Reading Guide evidence is incomplete or outside this brain.
+- New research evidence belongs in `references/source-ledger.json`, outside this folder.
+- Release blocker decisions belong in [[Research Release Gate Notes]].
+- Live claim rows belong in [[Claim To Source Mapping]].
+- Missing source IDs, raw snapshots, or date conflicts belong in [[Evidence Gap Register]].
+
+## Source Ledger Reading Guide Register Table
+
+| Ledger field to inspect | Example source ID | What it tells the reviewer | Common misuse | Next action |
+|---|---|---|---|---|
+| `id` | `g-ai-opt-guide` | The citation handle to use in body tables and claim maps. | Treating the handle as proof without checking the claim text. | Match the claim to `supports_claims`. |
+| `url` | `g-search-gallery` | The exact page that should be inspected during refresh. | Replacing it with a nearby Google page because it is easier to cite. | Keep the canonical ledger URL in `source_urls`. |
+| `last_updated` or `published` | `g-helpful-content` | Whether the source date is current enough for release work. | Copying a date from another page in the same source family. | Record a date gap if fields conflict. |
+| `section` | `g-ranking-history` | Which wiki route should own interpretation. | Using a monitoring source for content-quality or schema advice. | Route to the matching canon note. |
+| `confidence` plus `evidence_tier` | `g-ai-opt-guide` | Source quality, not the full recommendation confidence. | Marking a mixed claim verified because one row is high confidence. | Apply [[Source Confidence Labels]]. |
+
+## Source, Confidence, Owner, Status, And Due Date
+
+| Source ID | Owner | Confidence use | Status on 2026-07-09 | Next review | Rollback trigger |
+|---|---|---|---|---:|---|
+| `g-helpful-content` | content steward | Strong for people-first content framing. | Active ledger source. | 2026-08-01 | Page date or guidance changes. |
+| `g-ai-opt-guide` | GEO steward | Strong for Google Search AI guidance. | Active ledger source. | 2026-08-01 | Google changes AI Search optimization guidance. |
+| `g-search-gallery` | schema steward | Strong for supported rich-result inventory. | Active ledger source. | 2026-08-01 | Supported type list changes. |
+| `g-ranking-history` | monitoring owner | Strong for confirmed ranking event history. | Active ledger source. | 2026-08-01 | New incident appears or redirect target changes. |
+
+## Source Ledger Reading Guide Review Loop
+
+1. Read the source entry before opening wiki prose that summarizes it.
+2. Confirm URL, date fields, confidence, evidence tier, section, and supported claims.
+3. Compare the draft claim to the narrowest supported claim in the entry.
+4. If the draft is broader, lower the label or split the claim.
+5. If the ledger cannot represent the source cleanly, log the gap instead of smoothing it over.
 
 ## Related
+
 - [[Research Pack Index]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Google Algorithm Update Ledger]]
-- [[Google Data Integrations]]
 - [[Current Requirements Digest]]
-- [[Canon Notes Map]]
-- [[Google Source Priority Ladder]]
-- [[Primary Study Source Rules]]
-- [[Practitioner Source Caveats]]
-- [[Research Release Gate Notes]]
-- [[Source URL Canonicalization]]
-
-## Source URLs
-- https://developers.google.com/search/docs/fundamentals/creating-helpful-content
-- https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
-- https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
-- https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/
-- https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update
-- https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf
-- https://developers.google.com/search/docs/fundamentals/third-party-seo
-- https://blog.google/products-and-platforms/products/search/search-io-2026/
-- https://developers.google.com/search/docs/appearance/structured-data/faqpage
-- https://ziptie.dev/blog/google-ai-overviews-source-selection/
-
-## Maintenance Notes
-- Refresh this note from [[Research Pack Index]] when any listed source changes after 2026-07-06.
-- Keep backlink health with [[Research Pack Index]], [[index|Index]], and sibling spokes in this folder.
-- Keep confidence advisory when source coverage is incomplete, narrow, stale, or practitioner-led.
-- Keep confidence verified only for claims directly tied to official, primary, standards, or first-party sources.
-- Do not record secrets, tokens, private exports, or private client details in this note.
-- Do not publish or mutate CMS, GSC, GA4, Search Console, analytics, schema, sitemap, or platform settings from this note.
+- [[Source Confidence Labels]]
+- [[Evidence Gap Register]]
+- [[Claim To Source Mapping]]

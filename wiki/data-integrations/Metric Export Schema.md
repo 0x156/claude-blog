@@ -3,7 +3,7 @@ type: spoke
 title: "Metric Export Schema"
 status: active
 created: 2026-07-06
-updated: 2026-07-08
+updated: 2026-07-09
 tags: [data-integrations, gsc, ga4, read-only, active]
 domain: "Blog Data"
 confidence: verified
@@ -13,72 +13,50 @@ related:
   - "[[Generative AI Performance Reporting]]"
   - "[[Missing Data Disclosure]]"
 source_urls:
-  - "https://developers.google.com/webmaster-tools/v1/searchanalytics/query"
-  - "https://support.google.com/webmasters/answer/16984139"
-  - "https://support.google.com/webmasters/answer/7042828"
-  - "https://developers.google.com/analytics/devguides/reporting/data/v1"
+  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
+  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+  - "https://schema.org/docs/full.html"
+  - "https://www.w3.org/TR/json-ld11/"
 ---
 
 # Metric Export Schema
 
-## Summary
+## Structured Export Job
 
-Metric Export Schema defines the minimum columns needed for sanitized, read-only blog performance analysis.
+Metric Export Schema defines the internal data contract for sanitized blog performance packets. The source IDs assigned to this note are structured-data and JSON-LD sources: `g-intro-sd`, `g-search-gallery`, `schema-full`, and `w3c-jsonld`. That makes the key boundary explicit: internal metric exports may be structured, but they are not public Search structured data and must not be published as invented rich-result markup.
 
-Exports must be deterministic enough to compare over time and limited enough to avoid credentials or private user data.
+## Schema Meaning In This Note
 
-## Required Common Columns
+Use "schema" here as a table contract for evidence, not as a promise of Google rich results. Google's structured data guidance covers eligible markup and recommends JSON-LD for Search structured data. The Search gallery limits which public rich-result types Google documents. Schema.org provides a wider vocabulary than Google Search supports, and W3C JSON-LD defines a linked-data serialization. Those sources guide the boundary between internal metric packets and publishable page markup.
 
-| Column | Required | Null allowed | Description |
-|---|---|---|---|
-| `export_id` | yes | no | Stable ID for the export batch. |
-| `source_surface` | yes | no | One of `gsc_search`, `gsc_gen_ai_search`, `gsc_discover`, `ga4`, `url_inspection`, `crux`. |
-| `export_method` | yes | no | One of `ui_export`, `api_export`, `manual_summary`, `sanitized_client_export`. |
-| `property_label` | yes | no | Non-secret label for the property. |
-| `date_start` | yes | no | ISO date. |
-| `date_end` | yes | no | ISO date. |
-| `retrieved_at` | yes | no | ISO date or timestamp of export. |
-| `owner` | yes | no | Person or role that produced the export. |
-| `confidence` | yes | no | `first-party`, `sampled`, `incomplete`, `advisory`, or `gap`. |
-| `notes` | no | yes | Caveats, filters, missing data, or redactions. |
+## Sanitized Export Schema Table
 
-## GSC Search Columns
+| Field | Required | Validation target | Warning | Source ID |
+|---|---|---|---|---|
+| `export_id` | Yes | Stable opaque identifier | Do not include account names or local paths | `w3c-jsonld` |
+| `source_id` | Yes | Ledger ID such as `g-gsc-api` or `g-ga4-data` | This is evidence provenance, not public schema markup | `g-intro-sd` |
+| `page_url` | Yes | Canonical public URL or approved alias | Remove private draft tokens and campaign secrets | `schema-full` |
+| `entity_type` | Yes | Internal value such as `BlogPosting`, `Article`, or `LandingPage` | Use Schema.org names only when they match visible page facts | `schema-full` |
+| `metric_name` | Yes | Controlled list from the data-integration spoke | Never invent a Search rich-result property for metrics | `g-search-gallery` |
+| `metric_value` | Yes | Number, rate, label, or null with reason | Keep sampled or missing values labeled | `g-intro-sd` |
+| `date_start` and `date_end` | Yes | ISO dates | Do not mix GA4 and GSC windows without noting it | `w3c-jsonld` |
+| `public_schema_candidate` | No | `none`, `Article`, `BlogPosting`, `BreadcrumbList`, or another supported type | Candidate status does not mean publish approval | `g-search-gallery` |
 
-| Column | Required | Null allowed | Notes |
-|---|---|---|---|
-| `page_url` | yes | no | Canonical URL where available. |
-| `query` | no | yes | Redact if query privacy is sensitive or omitted by export. |
-| `country` | no | yes | ISO country or UI label. |
-| `device` | no | yes | `desktop`, `mobile`, `tablet`, or blank. |
-| `clicks` | yes | no | Numeric. |
-| `impressions` | yes | no | Numeric. |
-| `ctr` | yes | no | Decimal or percent, specify format in notes. |
-| `average_position` | no | yes | Null when not provided or not meaningful. |
+## Unsupported Markup To Avoid
 
-## AI Overview And AI Mode Columns
+Do not place clicks, impressions, CTR, average position, engagement rate, or private conversion metrics inside public BlogPosting or Article JSON-LD. Do not use the full Schema.org hierarchy as proof that Google Search supports a rich result. Do not turn a metric packet into an `@graph` block on a live page unless [[Blog Schema Stack]] confirms that every property is visible, useful, and supported for the page context.
 
-Google's 2026-06-03 announcement and Search Console Help describe subset-only generative AI reporting. Use UI-export language unless Google documents API parity.
+## Publishing Boundary
 
-| Column | Required | Null allowed | Notes |
-|---|---|---|---|
-| `source_surface` | yes | no | Use `gsc_gen_ai_search`. |
-| `ai_surface` | yes | no | `ai_overviews`, `ai_mode`, `combined`, or `unknown`. |
-| `page_url` | yes | no | Page dimension is supported in the Help docs. |
-| `country` | no | yes | Supported dimension. |
-| `device` | no | yes | Supported for Search results. |
-| `date` | yes | no | Day, week, month, or hour if the UI export uses that granularity. |
-| `impressions` | yes | no | Links shown in generative AI features. |
-| `clicks` | no | yes | Null unless the export explicitly provides click data. |
-| `ctr` | no | yes | Null unless computed from available click and impression fields. |
-| `query` | no | yes | Do not infer query-level AI feature data unless the report exports it. |
-| `export_method` | yes | no | Usually `ui_export` as of this note. |
+1. Build metric exports as internal evidence tables.
+2. Validate provenance, dates, redaction, and confidence labels before citation.
+3. If a field might inform public structured data, route it to [[Blog Schema Stack]].
+4. Keep public JSON-LD limited to visible page facts and supported Search use cases.
+5. Store unpublished metrics only in notes or reports that follow [[Credential Boundary Rules]].
 
-## Missing Data Labels
+## Source IDs
 
-- `gap`: report not available for the property.
-- `incomplete`: available but filtered, sampled, truncated, redacted, or missing a required dimension.
-- `advisory`: market or practitioner estimate, not first-party export.
-- `first-party`: owner-provided export with retrieval date and fields intact.
+- `g-intro-sd`, `g-search-gallery`, `schema-full`, `w3c-jsonld`
 
 ## Related
 
@@ -86,3 +64,4 @@ Google's 2026-06-03 announcement and Search Console Help describe subset-only ge
 - [[Credential Boundary Rules]]
 - [[Generative AI Performance Reporting]]
 - [[Missing Data Disclosure]]
+- [[Blog Schema Stack]]

@@ -1,179 +1,69 @@
 ---
 type: spoke
 title: "Canonical Attribution Rules"
+domain: "Blog Distribution"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
-tags: [distribution, repurposing, active]
-domain: "Blog Distribution"
+updated: 2026-07-09
+tags:
+  - distribution
+  - attribution
+  - canonical
+  - active
 confidence: advisory
 related:
   - "[[Distribution and Repurposing]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
   - "[[Repurposing Source Fidelity]]"
-  - "[[Email Newsletter Adaptation]]"
+  - "[[Channel Asset Inventory]]"
   - "[[Social Thread Adaptation]]"
+  - "[[Email Newsletter Adaptation]]"
   - "[[Community Post Adaptation]]"
-  - "[[Video Script Adaptation]]"
-  - "[[Podcast Brief Adaptation]]"
-  - "[[Distribution Measurement Plan]]"
+  - "[[AI Citation Mechanics]]"
+  - "[[2026 Google Update Timeline]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://www.niemanlab.org/2026/05/google-highlights-links-from-subscribed-publications-in-new-ai-overviews-update/"
-  - "https://www.similarweb.com/blog/marketing/geo/gen-ai-stats/"
-  - "https://developers.google.com/analytics/devguides/reporting/data/v1"
-  - "https://developers.google.com/search/docs/appearance/ai-features"
+  - "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls"
+  - "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
 ---
 
 # Canonical Attribution Rules
 
-## Summary
-Canonical Attribution Rules is the spoke for define how every channel points back to the canonical post and original sources.
-Use it when [[Distribution and Repurposing]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a canonical attribution rule set.
-The success condition is that distribution reinforces source provenance and canonical ownership.
-Keep the note advisory in V1 and route implementation to a human owner.
+## Canonical Attribution Rules Rule Scope
 
-## Parent Hub Fit
-- Parent hub: [[Distribution and Repurposing]].
-- Primary upstream context: [[Dual Optimization]].
-- Primary downstream context: [[Images Audio and Charts]].
-- Evidence route: [[Blog Quality Score]].
-- Sibling comparison starts with [[Repurposing Source Fidelity]] and [[Email Newsletter Adaptation]].
-- Quality review should connect to [[Blog Quality Score]] when the note affects delivery.
-- Citation review should connect to [[AI Citation Mechanics]] when answer passages are created or changed.
-- Source refresh should connect to [[Research Pack Index]] when a dated claim is older than its cadence.
-- The note should not create a publishing action by itself.
-- The note should create a clear next decision, owner, and evidence state.
+Canonical Attribution Rules define how every derivative asset points back to the original blog post and preserves the sources that made the post publishable. This note is not a technical canonicalization implementation guide by itself; it translates canonical URL, attribution, and outbound link discipline into distribution review rules. Technical canonical signals use `g-canonical`, while source-link treatment uses `g-qualify-links`.
 
-## Current Fact Anchors
-- Google helpful content guidance, retrieved 2026-07-06, is the baseline for original, people-first usefulness.
-- Google AI optimization guidance, updated 2026-06-15, says Google Search does not need special AI files, special AI schema, Markdown conversion, or llms.txt for AI features.
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026, so planning must include visibility beyond clicks.
-- Seer, 2026-04-24, records cited AI Overview pages with about 120 percent more clicks per impression than pages not cited in its analysis.
-- Google I/O Search update, 2026-05-19, reports AI Mode passed 1B monthly users, while the substrate records about 0.34 percent US query volume.
-- The current QRG reference is the 2025-09-11 revision, with no newer substrate revision recorded as of 2026-07-06.
-- FAQ rich results were retired for all sites on 2026-05-07, so Article or BlogPosting is the blog schema priority when schema is relevant.
-- Passage extractability guidance is practitioner guidance: aim for self-contained answer blocks around 130 to 170 words under clear headings.
-- Nieman Lab, 2026-05, reports AI Overviews can highlight links from subscribed publications, making owned audience relationships relevant context.
-- GA4 Data API documentation, retrieved 2026-07-06, is the route for owned organic traffic and engagement reporting when access exists.
-- Use first-party GSC, GA4, and crawl evidence when available instead of replacing local data with market averages.
-- Treat practitioner studies as planning context unless an official source or property data confirms the exact claim.
+### Allowed Actions And Disallowed Actions
 
-## Required Inputs
-- Target topic, article, cluster, or workflow item that needs Canonical Attribution Rules.
-- Parent hub context from [[Distribution and Repurposing]].
-- Reader problem and intended outcome in one sentence.
-- Primary query, entity, or channel that triggered the work.
-- Known source URLs with retrieval dates for every current claim.
-- First-party data availability, including GSC, GA4, crawl data, or none.
-- Existing internal links and candidate links that affect the decision.
-- YMYL, legal, medical, financial, or reputation sensitivity flags.
-- Schema, media, and author requirements if the note affects a published page.
-- Approval owner for changes that affect live content.
-- Rollback trigger if the recommendation is later implemented.
-- Metric set for review: canonical link presence, source credit, UTM use, and duplicate risk.
+Allowed actions include linking the canonical post in email, show notes, video descriptions, community posts, and social threads; naming the original source when a claim is reused; and keeping a visible "read the full analysis" path where the channel allows it. Disallowed actions include posting a full duplicate article as a standalone page without canonical review, stripping source caveats for space, or treating `llms.txt` as a Google AI visibility requirement. The last caveat is dated through `g-ai-opt-guide` and `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`.
 
-## Operating Procedure
-- Start with the precise decision that Canonical Attribution Rules must make.
-- Restate the scope so it cannot drift beyond [[Distribution and Repurposing]].
-- List the page, cluster, brief, asset, or workflow item under review.
-- Separate observed facts from recommendations before scoring or prioritizing.
-- Attach a source URL and date to every current Search, AI, schema, or market claim.
-- Prefer official Google, standards body, primary, or vendor documentation for rule-like claims.
-- Use practitioner sources only as supporting evidence or workflow guidance.
-- Check whether the recommendation depends on zero click behavior, AI Overview citation, or AI Mode exposure.
-- If it depends on AI features, state that inclusion cannot be guaranteed.
-- If it mentions FAQ rich results, rewrite the point because that visual tactic is retired for all sites.
-- If schema is relevant, route the baseline to Article or BlogPosting plus visible entity support.
-- If passages are relevant, make the answer block self-contained and cite source context nearby.
-- If the work affects trust, route the check through QRG-informed E-E-A-T review.
-- If first-party data exists, make it the measurement baseline.
-- If first-party data is missing, label the estimate advisory and name the data gap.
-- Reject the failure pattern of letting syndicated or copied assets outrank the canonical context.
-- Write the recommendation in a way that a reviewer can accept, revise, or reject.
-- Close with owner, next action, confidence, and rollback note.
+### Exceptions That Require Approval
 
-## Acceptance Criteria
-- The canonical attribution rule set names the exact object under review.
-- The recommendation has one primary owner.
-- Every current factual claim has a dated source URL.
-- The note distinguishes verified facts from advisory choices.
-- The note states whether property data is available or missing.
-- The note uses current Core Web Vitals language if performance is mentioned.
-- The note avoids FID as a current quality metric.
-- The note avoids FAQ rich result language as a current blog tactic.
-- The note avoids llms.txt as a Google Search, AI Overview, or AI Mode requirement.
-- The note does not promise rankings, traffic, Discover reach, AI Overview inclusion, or chatbot citation.
-- The note contains an explicit confidence label.
-- The note contains a rollback or review trigger when live content could change.
-- The note links back to the parent hub and at least six sibling spokes.
-- The note can be audited without reading private client systems.
+Approval is required when a partner syndicates more than an excerpt, a platform blocks links, a community bans promotional URLs, or a paid placement changes link qualification. If click scarcity context is invoked, cite `sparktoro-zero-click-2026` and link [[Zero Click Planning Baseline]] instead of putting the market number into channel copy.
 
-## Failure Modes
-- A claim is current but has no dated source.
-- A market statistic is applied as a property forecast without local data.
-- A recommendation treats an SEO tool as access to Google's internal ranking systems.
-- A passage is written for extraction but lacks source context.
-- A schema recommendation describes hidden or unsupported page content.
-- A cluster, brief, score, or workflow step creates thin content rather than useful content.
-- A reviewer cannot tell whether a statement is verified or advisory.
-- A high-risk change has no rollback note.
-- A channel or platform action is implied even though V1 is advisory and read-only toward external systems.
-- The note accepts letting syndicated or copied assets outrank the canonical context.
-- The note hides unresolved uncertainty instead of naming it.
-- The note duplicates another sibling without a clear boundary.
+## Canonical Attribution Rules Rule Table
 
-## Handoff
-- Send brief structure questions to [[Repurposing Source Fidelity]].
-- Send evidence and source issues to [[Email Newsletter Adaptation]].
-- Send quality scoring issues to [[Blog Quality Score]].
-- Send citation passage issues to [[AI Citation Mechanics]].
-- Send schema issues to [[Blog Schema Stack]].
-- Send first-party measurement issues to [[Google Data Integrations]].
-- Send freshness and decay issues to [[Freshness and Content Decay]].
-- Send voice changes to [[Voice and Style]] when wording or channel tone changes.
-- Send visual or media requirements to [[Images Audio and Charts]] when the output needs assets.
-- Keep unresolved approval items out of automated publishing paths.
-- Record durable outcomes in [[log]] only when the vault owner asks for log maintenance.
-- Keep the final status as ready, revise, blocked, or monitor.
+| Rule | Source basis | Applies to | Exception path | Enforcement |
+|---|---|---|---|---|
+| Link the canonical post when a channel permits a URL | `g-canonical`, [[Distribution and Repurposing]] | Email, social bios, video descriptions, community comments | Channel policy blocks links | Reviewer records a no-link reason |
+| Keep original evidence attached to reused claims | `g-helpful-content`, [[Repurposing Source Fidelity]] | Threads, newsletters, scripts, briefings | Space limits require a source roundup link | Source owner approves compressed wording |
+| Qualify paid or user-generated outbound links where relevant | `g-qualify-links` | Sponsored reposts, UGC areas, partner pages | Platform owns the markup | Distribution owner notes control boundary |
+| Do not invent Google AI setup tasks | `g-ai-opt-guide`, `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` | AI citation pitches and recap reports | Non-Google assistants have separate requirements | Claim gets moved to a platform-specific note |
+| Preserve the canonical value proposition, not just the URL | `g-helpful-content`, [[Voice and Style]] | All derivative assets | Localized or persona-specific rewrite | Voice reviewer checks that meaning survives |
 
-## Related Links
-- [[Distribution and Repurposing]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Repurposing Source Fidelity]]
-- [[Email Newsletter Adaptation]]
-- [[Social Thread Adaptation]]
-- [[Community Post Adaptation]]
-- [[Video Script Adaptation]]
-- [[Podcast Brief Adaptation]]
-- [[Distribution Measurement Plan]]
-- [[Dual Optimization]]
-- [[Images Audio and Charts]]
-- [[Voice and Style]]
+## Rule, Evidence Source, Applies To, And Enforcement
 
-## Source Notes
-- Google helpful content guidance is the primary source for people-first usefulness and source-backed quality.
-- Google AI optimization guidance is the primary source for no special AI files, no special AI schema, and the Google llms.txt caveat.
-- SparkToro and Seer are used as dated market context, not property forecasts.
-- The QRG is used as a quality evaluation framework, not as a direct ranking factor claim.
-- ZipTie passage guidance is practitioner guidance for extraction readiness, not an official Google rule.
-- Search Gallery and FAQPage documentation control schema and rich result claims when schema appears in this note.
+The reviewer should evaluate attribution before creative polish. A channel asset can be concise, but it cannot change who made the claim, what the claim was based on, or where the reader can verify it. For off-site assets, enforcement is a checklist item in [[Channel Asset Inventory]]. For on-site duplicates or syndicated pages, enforcement moves to technical canonical review and may require a rollback if Google selects an unintended canonical.
 
-## Maintenance
-- Refresh this note when the source ledger refreshes.
-- Refresh this note when Google changes AI feature guidance, schema support, spam policy, or QRG references.
-- Refresh this note when first-party data contradicts an advisory assumption.
-- Keep source URLs in frontmatter aligned with the ledger.
-- Do not mark the brain market-ready from this note alone.
-- The next review should verify whether canonical link presence, source credit, UTM use, and duplicate risk still captures the decision quality.
+## Canonical Attribution Rules Review And Rollback
+
+1. Compare the derivative asset against the canonical post title, URL, primary claim, and source list.
+2. Mark each reused claim as exact, narrowed, broadened, or unsupported.
+3. Confirm the link route: canonical post, source page, both, or blocked by platform policy.
+4. Apply link qualification guidance if the asset sits in paid, sponsored, or user-generated contexts.
+5. Roll back by removing the derivative asset, correcting attribution, or replacing the link target before the next reporting cycle.
+
+## Source IDs For This Rule Set
+
+`g-helpful-content` anchors usefulness and provenance, `g-ai-opt-guide` and `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` prevent false AI setup claims, `sparktoro-zero-click-2026` is used only as [[Zero Click Planning Baseline]] context, `g-canonical` supports canonical URL handling, and `g-qualify-links` controls outbound link labels.

@@ -10,7 +10,6 @@ related:
   - "[[index|Index]]"
   - "[[Images Audio and Charts]]"
   - "[[Generated Media Disclosure Notes]]"
-source_urls: []
 ---
 
 # Media Index

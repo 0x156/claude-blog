@@ -1,178 +1,53 @@
 ---
 type: spoke
 title: "Recommendation Confidence Labels"
+domain: "Blog Quality"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [quality, scorecard, active]
-domain: "Blog Quality"
 confidence: advisory
 related:
   - "[[Blog Quality Score]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Quality Score Rubric]]"
-  - "[[Content Quality Subscore]]"
-  - "[[SEO Intent Subscore]]"
-  - "[[E-E-A-T Trust Subscore]]"
-  - "[[Technical Schema Subscore]]"
-  - "[[AI Citation Readiness Subscore]]"
+  - "[[Quality Review Evidence Log]]"
   - "[[Quality Gate Failure Modes]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://web.dev/articles/vitals"
-  - "https://web.dev/articles/inp"
-  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+  - "[[Delivery Contract Gate]]"
 ---
 
 # Recommendation Confidence Labels
 
-## Summary
-Recommendation Confidence Labels is the spoke for standardize verified, advisory, blocked, and unknown recommendation confidence.
-Use it when [[Blog Quality Score]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a confidence label guide.
-The success condition is that recommendations show how much evidence supports them.
-Keep the note advisory in V1 and route implementation to a human owner.
+## Recommendation Confidence Labels Distinct Job
 
-## Parent Hub Fit
-- Parent hub: [[Blog Quality Score]].
-- Primary upstream context: [[Dual Optimization]].
-- Primary downstream context: [[6-Pillar Dual Optimization]].
-- Evidence route: [[Google Data Integrations]].
-- Sibling comparison starts with [[Quality Score Rubric]] and [[Content Quality Subscore]].
-- Quality review should connect to [[Blog Quality Score]] when the note affects delivery.
-- Citation review should connect to [[AI Citation Mechanics]] when answer passages are created or changed.
-- Source refresh should connect to [[Research Pack Index]] when a dated claim is older than its cadence.
-- The note should not create a publishing action by itself.
-- The note should create a clear next decision, owner, and evidence state.
+This note standardizes the confidence language used in quality reviews. Its job is to stop advisory SEO and GEO recommendations from sounding more certain than the evidence allows. It follows the verdict discipline from `references/claim-ledger.md`: confirmed, as-reported, single-source, contested, folklore, blocked, and unknown must not be collapsed into one generic "verified" label. The source IDs wired here are `g-ai-opt-guide`, `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice`, `g-gsc-api`, and `seer-aio-impact-ctr-2026`.
 
-## Current Fact Anchors
-- Google helpful content guidance, retrieved 2026-07-06, is the baseline for original, people-first usefulness.
-- Google AI optimization guidance, updated 2026-06-15, says Google Search does not need special AI files, special AI schema, Markdown conversion, or llms.txt for AI features.
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026, so planning must include visibility beyond clicks.
-- Seer, 2026-04-24, records cited AI Overview pages with about 120 percent more clicks per impression than pages not cited in its analysis.
-- Google I/O Search update, 2026-05-19, reports AI Mode passed 1B monthly users, while the substrate records about 0.34 percent US query volume.
-- The current QRG reference is the 2025-09-11 revision, with no newer substrate revision recorded as of 2026-07-06.
-- FAQ rich results were retired for all sites on 2026-05-07, so Article or BlogPosting is the blog schema priority when schema is relevant.
-- Passage extractability guidance is practitioner guidance: aim for self-contained answer blocks around 130 to 170 words under clear headings.
-- Web Vitals documentation, retrieved 2026-07-06, keeps LCP, INP, and CLS as the current Core Web Vitals set.
-- INP replaced FID as a Core Web Vital in 2024, so quality scoring must not reward FID as a current metric.
-- Use first-party GSC, GA4, and crawl evidence when available instead of replacing local data with market averages.
-- Treat practitioner studies as planning context unless an official source or property data confirms the exact claim.
+## Inputs Specific To Recommendation Confidence Labels
 
-## Required Inputs
-- Target topic, article, cluster, or workflow item that needs Recommendation Confidence Labels.
-- Parent hub context from [[Blog Quality Score]].
-- Reader problem and intended outcome in one sentence.
-- Primary query, entity, or channel that triggered the work.
-- Known source URLs with retrieval dates for every current claim.
-- First-party data availability, including GSC, GA4, crawl data, or none.
-- Existing internal links and candidate links that affect the decision.
-- YMYL, legal, medical, financial, or reputation sensitivity flags.
-- Schema, media, and author requirements if the note affects a published page.
-- Approval owner for changes that affect live content.
-- Rollback trigger if the recommendation is later implemented.
-- Metric set for review: confidence distribution, source type, evidence age, and caveat count.
+Inputs are the claim text, source IDs, source type, retrieval date, evidence tier, methodology limit, owner, and whether first-party data exists. A recommendation about people-first content can often be confirmed from Google guidance. A recommendation about zero-click behavior should usually be as-reported unless client data independently supports it.
 
-## Operating Procedure
-- Start with the precise decision that Recommendation Confidence Labels must make.
-- Restate the scope so it cannot drift beyond [[Blog Quality Score]].
-- List the page, cluster, brief, asset, or workflow item under review.
-- Separate observed facts from recommendations before scoring or prioritizing.
-- Attach a source URL and date to every current Search, AI, schema, or market claim.
-- Prefer official Google, standards body, primary, or vendor documentation for rule-like claims.
-- Use practitioner sources only as supporting evidence or workflow guidance.
-- Check whether the recommendation depends on zero click behavior, AI Overview citation, or AI Mode exposure.
-- If it depends on AI features, state that inclusion cannot be guaranteed.
-- If it mentions FAQ rich results, rewrite the point because that visual tactic is retired for all sites.
-- If schema is relevant, route the baseline to Article or BlogPosting plus visible entity support.
-- If passages are relevant, make the answer block self-contained and cite source context nearby.
-- If the work affects trust, route the check through QRG-informed E-E-A-T review.
-- If first-party data exists, make it the measurement baseline.
-- If first-party data is missing, label the estimate advisory and name the data gap.
-- Reject the failure pattern of presenting unsupported recommendations with verified language.
-- Write the recommendation in a way that a reviewer can accept, revise, or reject.
-- Close with owner, next action, confidence, and rollback note.
+## Decisions Recommendation Confidence Labels Must Record
 
-## Acceptance Criteria
-- The confidence label guide names the exact object under review.
-- The recommendation has one primary owner.
-- Every current factual claim has a dated source URL.
-- The note distinguishes verified facts from advisory choices.
-- The note states whether property data is available or missing.
-- The note uses current Core Web Vitals language if performance is mentioned.
-- The note avoids FID as a current quality metric.
-- The note avoids FAQ rich result language as a current blog tactic.
-- The note avoids llms.txt as a Google Search, AI Overview, or AI Mode requirement.
-- The note does not promise rankings, traffic, Discover reach, AI Overview inclusion, or chatbot citation.
-- The note contains an explicit confidence label.
-- The note contains a rollback or review trigger when live content could change.
-- The note links back to the parent hub and at least six sibling spokes.
-- The note can be audited without reading private client systems.
+- Whether the claim is confirmed, advisory, blocked, unknown, or contested.
+- Whether a practitioner source is being used as context or as proof.
+- Whether the recommendation can ship as written.
+- Which owner can refresh or downgrade the label later.
 
-## Failure Modes
-- A claim is current but has no dated source.
-- A market statistic is applied as a property forecast without local data.
-- A recommendation treats an SEO tool as access to Google's internal ranking systems.
-- A passage is written for extraction but lacks source context.
-- A schema recommendation describes hidden or unsupported page content.
-- A cluster, brief, score, or workflow step creates thin content rather than useful content.
-- A reviewer cannot tell whether a statement is verified or advisory.
-- A high-risk change has no rollback note.
-- A channel or platform action is implied even though V1 is advisory and read-only toward external systems.
-- The note accepts presenting unsupported recommendations with verified language.
-- The note hides unresolved uncertainty instead of naming it.
-- The note duplicates another sibling without a clear boundary.
+## Recommendation Confidence Labels Scorecard Evidence Table
 
-## Handoff
-- Send brief structure questions to [[Quality Score Rubric]].
-- Send evidence and source issues to [[Content Quality Subscore]].
-- Send quality scoring issues to [[Blog Quality Score]].
-- Send citation passage issues to [[AI Citation Mechanics]].
-- Send schema issues to [[Blog Schema Stack]].
-- Send first-party measurement issues to [[Google Data Integrations]].
-- Send freshness and decay issues to [[Freshness and Content Decay]].
-- Send voice changes to [[Voice and Style]] when wording or channel tone changes.
-- Send visual or media requirements to [[Images Audio and Charts]] when the output needs assets.
-- Keep unresolved approval items out of automated publishing paths.
-- Record durable outcomes in [[log]] only when the vault owner asks for log maintenance.
-- Keep the final status as ready, revise, blocked, or monitor.
+| Label | Required inputs | Source IDs | Evidence state | Owner | Next action |
+|---|---|---|---|---|---|
+| Confirmed | Official or primary source, current date, matching claim. | `g-ai-opt-guide`; `g-gsc-api`; `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice`. | Source directly supports the recommendation. | Research owner | Allow use with refresh date. |
+| Advisory | Useful evidence with limits or missing property data. | `seer-aio-impact-ctr-2026` when used for AIO context. | Source informs decision but does not prove outcome. | Strategy owner | Add caveat and measurement plan. |
+| Blocked | Source contradicts the recommendation. | `g-ai-opt-guide` for required special-file claims, or `g-update-2026-06-05-guidance-on-third-party-seo-tools-services-and-advice` for vendor certainty. | Recommendation cannot ship. | SEO reviewer | Rewrite or remove. |
+| Unknown | No adequate ledger source or property evidence. | None until logged. | Evidence gap remains open. | Assigned reviewer | Move to [[Quality Review Evidence Log]]. |
 
-## Related Links
-- [[Blog Quality Score]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Quality Score Rubric]]
-- [[Content Quality Subscore]]
-- [[SEO Intent Subscore]]
-- [[E-E-A-T Trust Subscore]]
-- [[Technical Schema Subscore]]
-- [[AI Citation Readiness Subscore]]
-- [[Quality Gate Failure Modes]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[E-E-A-T for Blog Content]]
+## Source IDs, Evidence, Owner, Confidence, And Next Action
 
-## Source Notes
-- Google helpful content guidance is the primary source for people-first usefulness and source-backed quality.
-- Google AI optimization guidance is the primary source for no special AI files, no special AI schema, and the Google llms.txt caveat.
-- SparkToro and Seer are used as dated market context, not property forecasts.
-- The QRG is used as a quality evaluation framework, not as a direct ranking factor claim.
-- ZipTie passage guidance is practitioner guidance for extraction readiness, not an official Google rule.
-- Search Gallery and FAQPage documentation control schema and rich result claims when schema appears in this note.
+The label belongs beside the recommendation, not at the bottom of the packet. Do not use "verified" for a claim that is only as-reported. Do not use "blocked" as a style preference. The label should tell the delivery owner whether to publish, caveat, revise, or hold.
 
-## Maintenance
-- Refresh this note when the source ledger refreshes.
-- Refresh this note when Google changes AI feature guidance, schema support, spam policy, or QRG references.
-- Refresh this note when first-party data contradicts an advisory assumption.
-- Keep source URLs in frontmatter aligned with the ledger.
-- Do not mark the brain market-ready from this note alone.
-- The next review should verify whether confidence distribution, source type, evidence age, and caveat count still captures the decision quality.
+## Recommendation Confidence Labels Operating Procedure
+
+1. Rewrite the claim in one inspectable sentence.
+2. Match it to a source ID or mark a gap.
+3. Apply the strictest valid label.
+4. Add owner, refresh date, and next action.
+5. Send blocked items to [[Quality Gate Failure Modes]].

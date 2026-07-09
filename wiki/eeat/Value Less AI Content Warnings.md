@@ -3,149 +3,52 @@ type: spoke
 title: "Value Less AI Content Warnings"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [eeat, evergreen]
 domain: "Blog Trust"
 confidence: verified
 related:
   - "[[E-E-A-T for Blog Content]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Author Bio Requirements]]"
-  - "[[Reviewer And Expert Review Rules]]"
-  - "[[Experience Evidence Checklist]]"
-  - "[[Source Quality Ladder]]"
-  - "[[YMYL Escalation Matrix]]"
   - "[[AI Assisted Content Accountability]]"
-  - "[[Reputation Research Workflow]]"
-  - "[[Trust Signal Inventory]]"
-  - "[[Dual Optimization]]"
+  - "[[Source Quality Ladder]]"
+  - "[[E-E-A-T Review Rubric]]"
+  - "[[Reviewer And Expert Review Rules]]"
 source_urls:
   - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/essentials/spam-policies"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
 ---
 # Value Less AI Content Warnings
 
-## Summary
-Value Less AI Content Warnings is a trust review note for E-E-A-T review.
-It flags content that may be automated, thin, copied, or transformed without added value.
-Use it with [[E-E-A-T for Blog Content]] when the working unit is a author, page, source set, or editorial process.
+## Value Less AI Content Warnings Distinct Job
 
-## Operating Question
-- Could this page look like scaled content without original value?
-- The expected output is a warning note with risk level and fix options.
-- The main risk is using AI scale to produce many similar pages without usefulness.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This warning note flags pages that look mechanically generated, lightly paraphrased, copied, or expanded without reader value. It does not ban AI assistance. It asks whether the final main content gives original help, clear sourcing, and accountable review. The local source ledger ties this topic to `g-qrg-full`, the 2025-01-23 QRG update record on generative AI and low-value main content, the 2025-09-11 QRG update record, and `g-helpful-content`.
 
-## Current Evidence Anchors
-- The active QRG source in the substrate is dated 2025-09-11, with no newer revision recorded as of 2026-07-06.
-- Google helpful content guidance retrieved 2026-07-06 remains the people-first quality baseline.
-- Google spam policies updated 2026-05-15 name generative AI scaled content without added value as a scaled content abuse example.
-- Google third-party SEO guidance dated 2026-06-05 says no tool can guarantee rankings or access Google internal ranking systems.
-- The QRG substrate says the 2025-09-11 version adds AI Overview rating examples and keeps quality guidance unchanged.
-- Trust recommendations must stay advisory and must not guarantee rankings, rich results, or AI citations.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Inputs Specific To Low Value AI Review
 
-## Operating Standard
-- Show experience, expertise, authority, and trust through inspectable page elements.
-- Distinguish author credentials, reviewer credentials, brand reputation, and source quality.
-- Escalate YMYL and YMYL-adjacent content before publication advice is finalized.
-- Reject vague expertise claims that do not connect to the topic or article purpose.
-- Treat AI-assisted content as accountable content that must add value and show provenance.
-- Use official Google sources for spam and quality policy claims.
-- Record uncertainty when reputation, credentials, or source quality cannot be verified.
-- Connect trust gaps to [[Blog Quality Score]] instead of presenting E-E-A-T as a magic switch.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+Use the draft, competing pages, internal template inventory, source pack, AI-assistance record, copied-content scan if available, and owner notes about what was added by humans.
 
-## Review Sequence
-1. Open [[E-E-A-T for Blog Content]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### Decisions This Warning Must Record
 
-## Specific Checks
-- Check that value less ai content warnings is applied to the correct content unit.
-- Check that the decision matches this purpose: flags content that may be automated, thin, copied, or transformed without added value.
-- Check that the output can be inspected as a warning note with risk level and fix options.
-- Check that the risk is addressed directly: using AI scale to produce many similar pages without usefulness.
-- Confirm the page has a clear purpose and satisfies that purpose.
-- Check whether experience evidence is visible near claims that need it.
-- Confirm author and reviewer claims are topic-relevant.
-- Escalate YMYL and YMYL-adjacent topics with a visible rationale.
-- Check independent source quality before making authority claims.
-- Reject claims that rely on tool scores as proof of Google rankings.
-- Record AI assistance only as a workflow detail, not as a quality substitute.
-- Make limitations visible where reader decisions could be affected.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+The warning must decide whether the page is ready, needs substantial rewrite, should be consolidated, or should be removed from the content plan. If two pages serve the same intent with only superficial changes, send the decision to the cluster owner rather than padding the inventory.
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## Low Value AI Warning Table
 
-## Failure Modes
-- The page lists credentials that do not fit the topic.
-- The reviewer name appears without review evidence.
-- A YMYL-adjacent topic skips escalation because it is labeled a blog post.
-- Sources are selected for convenience rather than claim strength.
-- AI-assisted volume replaces original value.
-- Reputation claims depend only on the brand site itself.
-- Limitations are hidden even when reader decisions are sensitive.
-- E-E-A-T is presented as a direct ranking lever instead of a review framework.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Warning | Required input | Source ids | Evidence state | Owner | Next action |
+|---|---|---|---|---|---|
+| Mostly paraphrased main content | Draft compared with source material and SERP competitors | g-update-2025-01-23-qrg-update-jan-2025, g-qrg-full | High risk if original analysis is absent | Editor | Rewrite around distinct observations |
+| Template page with thin substitutions | Pattern check across similar site pages | g-qrg-full, g-helpful-content | Risk rises when pages share purpose and structure | SEO lead | Merge, prune, or rebuild intent |
+| AI output without human judgment | Accountability record and reviewer note | g-helpful-content, g-update-2025-01-23-qrg-update-jan-2025 | Missing owner blocks trust approval | Managing editor | Open [[AI Assisted Content Accountability]] |
+| Unsupported certainty | Claim list and source map | g-helpful-content, g-qrg-full | Strong claims need strong proof | Research editor | Replace claim or source through [[Source Quality Ladder]] |
+| Sensitive topic handled generically | YMYL check and review requirement | g-update-2025-09-11-qrg-update-sept-2025, g-qrg-full | Consequential advice needs escalation | Reviewer | Send to [[YMYL Escalation Matrix]] |
 
-## Handoff
-- Attach the trust note to the content brief, audit, or rewrite plan.
-- List visible page changes separately from background editorial process.
-- Escalate unresolved YMYL or reputation uncertainty before publication advice.
-- Record dated sources for quality and spam policy claims.
-- Send voice consistency issues to [[Voice and Style]].
-- Send source gaps to [[Research Pack Index]].
-- Send schema identity questions to [[Blog Schema Stack]].
-- Score trust issues through [[Blog Quality Score]].
-- Use [[Author Bio Requirements]] when this note needs a sibling follow-up.
-- Use [[Reviewer And Expert Review Rules]] when the next decision belongs beside this note.
+## Source IDs, Evidence Limits, And Confidence
 
-## Related
-- [[E-E-A-T for Blog Content]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Freshness and Content Decay]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Voice and Style]]
-- [[Blog Quality Score]]
-- [[Author Bio Requirements]]
-- [[Reviewer And Expert Review Rules]]
-- [[Experience Evidence Checklist]]
-- [[Source Quality Ladder]]
-- [[YMYL Escalation Matrix]]
-- [[AI Assisted Content Accountability]]
-- [[Reputation Research Workflow]]
-- [[Trust Signal Inventory]]
-- [[E-E-A-T Review Rubric]]
-- [[Editorial Transparency Checklist]]
-- [[YMYL Adjacent Blog Policy]]
+Use the QRG update IDs as local ledger records, not as permission to overstate Google enforcement. The evidence supports a quality-warning workflow. It does not prove that a specific page will rank, fail, or receive a manual action.
+
+## Value Less AI Content Warning Review Procedure
+
+1. Compare the page against its stated purpose and remove sections that merely restate common knowledge.
+2. Mark copied, paraphrased, or templated sections and decide whether they can be made useful.
+3. Add original evidence, experience, analysis, or limitations where the page currently has filler.
+4. If the page cannot serve a distinct intent, recommend merge or prune instead of another rewrite pass.
+5. Reopen [[E-E-A-T Review Rubric]] only after the low-value warning is cleared.

@@ -1,151 +1,55 @@
 ---
 type: spoke
 title: "Historical Performance Review"
-status: evergreen
-created: 2026-07-06
-updated: 2026-07-06
-tags: [rewriting, freshness, content-decay, evergreen]
 domain: "Blog Rewriting"
-confidence: advisory
-related:
-  - "[[Freshness and Content Decay]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Content Decay Detection]]"
-  - "[[Refresh Versus Rewrite Decision]]"
-  - "[[Source Refresh Workflow]]"
-  - "[[Intent Drift Audit]]"
-  - "[[Content Consolidation Rules]]"
-  - "[[Pruning Advisory Checklist]]"
-  - "[[Update Timestamp Policy]]"
-  - "[[Stale Claim Register]]"
-  - "[[Dual Optimization]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/updates/ranking"
-  - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
-  - "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
+status: active
+created: 2026-07-06
+updated: 2026-07-09
+tags: [rewriting, freshness, content-decay, active]
 ---
+
 # Historical Performance Review
 
-## Summary
-Historical Performance Review is a rewrite decision note for freshness and decay.
-It uses first-party performance history to separate decay from seasonality or mix shifts.
-Use it with [[Freshness and Content Decay]] when the working unit is a published post, cluster, or decayed section.
+## Performance Review Job
 
-## Operating Question
-- What does historical performance say before a rewrite is recommended?
-- The expected output is a performance review with date ranges, surfaces, and caveats.
-- The main risk is judging a post from a single reporting window.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+Historical performance review explains what changed before a rewrite decision is made. It compares the page to its own prior behavior, not to a generic industry benchmark. The review should leave behind a dated interpretation that another analyst can challenge.
 
-## Current Evidence Anchors
-- Google helpful content guidance retrieved 2026-07-06 remains the quality baseline for rewriting.
-- Google ranking update history dated 2026-05-21 and the Search Status Dashboard are the authority path for confirmed update history.
-- The substrate records no Google-owned ranking, spam, schema, QRG, or AI search update from 2026-07-01 through 2026-07-06.
-- Search Console generative AI reports were announced in June 2026 for AI Overviews and AI Mode reporting on a subset of properties.
-- FAQ rich results were retired effective 2026-05-07, so stale FAQ rich result claims must be removed during rewrites.
-- Rewrite actions remain advisory in V1 and should not mutate a CMS or publishing system directly.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+Use `g-gsc-api` for page and query dimensions with clicks, impressions, CTR, and position. Use `g-ranking-history` only to confirm whether an official ranking update overlaps the review window. `g-helpful-content` supplies the editorial quality lens when the numbers point to a content problem, and `g-canonical` is the handoff source when multiple URLs blur the page history.
 
-## Operating Standard
-- Separate traffic decay, source staleness, intent drift, schema drift, and trust gaps before recommending work.
-- Prefer first-party GSC or analytics evidence over generic market behavior when the property has data.
-- Date every claim that could age, including Google update, schema, and AI feature guidance.
-- Quarantine unconfirmed volatility until a Google-owned source confirms it.
-- Choose refresh, rewrite, merge, prune, or no action from evidence rather than preference.
-- Preserve old evidence in the source trail even when a recommendation changes.
-- Record reversible decisions with the expected effect and rollback cue.
-- Keep all V1 rewrite outputs advisory and read-only toward publishing tools.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+### Owned Signal
 
-## Review Sequence
-1. Open [[Freshness and Content Decay]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+This note owns historical context: baseline period, comparison period, seasonality caveat, query mix, affected pages, and known Google events. It does not decide whether to refresh, merge, or prune. Those choices belong to [[Refresh Versus Rewrite Decision]], [[Content Consolidation Rules]], and [[Pruning Advisory Checklist]].
 
-## Specific Checks
-- Check that historical performance review is applied to the correct content unit.
-- Check that the decision matches this purpose: uses first-party performance history to separate decay from seasonality or mix shifts.
-- Check that the output can be inspected as a performance review with date ranges, surfaces, and caveats.
-- Check that the risk is addressed directly: judging a post from a single reporting window.
-- Compare the current page against the original intent and the current reader need.
-- List stale sources before touching prose.
-- Separate ranking volatility from confirmed Google updates.
-- Check whether AI feature data exists in Search Console before using market context.
-- Document whether the action is reversible.
-- Preserve evidence that explains why the old version changed.
-- Avoid changing visible timestamps without meaningful review.
-- Recommend no action when evidence does not justify work.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+### Non-Comparable Periods
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+Do not compare a launch week with a mature month, a sale period with a normal period, or a post-migration URL with its old path unless the limitation is written into the finding. If GSC data is missing, the review can still record a gap, but it should not invent a trend.
 
-## Failure Modes
-- The rewrite is triggered by a single short-term metric dip.
-- A date is refreshed cosmetically without meaningful review.
-- Old claims remain after the article structure is changed.
-- Unconfirmed volatility is treated as a Google update.
-- A page is pruned before consolidation or refresh is evaluated.
-- The rewrite removes experience evidence that supported trust.
-- The new version breaks internal links or schema assumptions.
-- No one can tell what should be rolled back if results worsen.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+## Historical Review Table
 
-## Handoff
-- Attach the decision note to the rewrite ticket or editorial plan.
-- Preserve source URLs that justify the change.
-- Name the owner who approves live content changes outside V1.
-- Record the expected measurement window.
-- Send source gaps to [[Research Pack Index]].
-- Send algorithm questions to [[Google Algorithm Update Ledger]].
-- Send data pulls to [[Google Data Integrations]].
-- Send final QA to [[Blog Quality Score]].
-- Use [[Content Decay Detection]] when this note needs a sibling follow-up.
-- Use [[Refresh Versus Rewrite Decision]] when the next decision belongs beside this note.
+| URL or group | Comparison signal | Source freshness | Action | Owner | Rollback or revision cue |
+|---|---|---|---|---|---|
+| Single evergreen article | Query-level clicks and impressions by matched window | `g-gsc-api` retrieved for review date | Identify whether decline is demand, visibility, or CTR | Analyst | Reclassify if query mix explains the change |
+| Cluster of related posts | Page dimension split across URLs | `g-gsc-api` plus `g-canonical` | Send to consolidation if history is fragmented | SEO strategist | Keep separate if paths serve separate tasks |
+| Page reviewed near an update | Date overlap with official rollout | `g-ranking-history` | Add update context without claiming causation | Monitoring owner | Remove update language if dates do not overlap |
+| Article with old proof points | Source age and usefulness risk | `g-helpful-content` | Send claims to source refresh before rewriting | Editor | Mark no action if sources remain current |
+| Newly published post | Insufficient mature baseline | `g-gsc-api` unavailable or sparse | Hold until a comparable window exists | Program owner | Start review once the period is long enough |
+
+## Review Procedure
+
+1. Define the baseline and comparison periods before opening any narrative explanation.
+2. Pull page and query views separately so a query-mix change is not mistaken for page decay.
+3. Check official Google update dates only after the trend is visible in first-party data.
+4. State the weakest assumption in the finding, such as seasonality, migration, or missing country filters.
+5. Hand off to the next rewriting note with a recommended action class and a confidence label.
+
+## Historical Review Source IDs
+
+`g-helpful-content`; `g-gsc-api`; `g-ranking-history`; `g-canonical`.
 
 ## Related
-- [[Freshness and Content Decay]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[Google Algorithm Update Ledger]]
-- [[E-E-A-T for Blog Content]]
-- [[Google Data Integrations]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Blog Quality Score]]
+
 - [[Content Decay Detection]]
 - [[Refresh Versus Rewrite Decision]]
-- [[Source Refresh Workflow]]
-- [[Intent Drift Audit]]
 - [[Content Consolidation Rules]]
-- [[Pruning Advisory Checklist]]
-- [[Update Timestamp Policy]]
-- [[Stale Claim Register]]
-- [[Rewrite QA Checklist]]
-- [[Rewrite Rollback Notes]]
-- [[Decay Segment Prioritization]]
+- [[Google Algorithm Update Ledger]]
+- [[Google Data Integrations]]

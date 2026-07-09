@@ -14,7 +14,7 @@ source_urls: []
 
 # Monitoring Index
 
-Folder index for 14 monitoring notes.
+Folder index for 13 monitoring notes.
 
 ## Notes
 
@@ -25,7 +25,6 @@ Folder index for 14 monitoring notes.
 - [[Confirmed Update Entry Template]]
 - [[Core Update Response Playbook]]
 - [[Google Algorithm Update Ledger]]
-- [[Monitoring Confidence Labels]]
 - [[Monthly Source Refresh]]
 - [[QRG Revision Watch]]
 - [[Schema Deprecation Watch]]

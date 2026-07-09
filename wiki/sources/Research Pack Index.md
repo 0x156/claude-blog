@@ -3,7 +3,7 @@ type: hub
 title: "Research Pack Index"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [sources, research-pack, active]
 domain: "Source Evidence"
 confidence: verified
@@ -11,106 +11,70 @@ related:
   - "[[index|Index]]"
   - "[[hot|Hot]]"
   - "[[CONVENTIONS]]"
-  - "[[Google Algorithm Update Ledger]]"
-  - "[[Dual Optimization]]"
-  - "[[AI Citation Mechanics]]"
-  - "[[Blog Schema Stack]]"
-  - "[[Google Data Integrations]]"
+  - "[[Claim To Source Mapping]]"
+  - "[[Current Requirements Digest]]"
+  - "[[Evidence Gap Register]]"
+  - "[[research-pack-2026-07-06|Research Pack 2026-07-06]]"
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
   - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
+  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+  - "https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history"
 ---
 
 # Research Pack Index
 
-## Summary
+## Research Pack Index Routing Job
 
-Research Pack Index is the wiki route into `references/source-ledger.json`, current requirements, canon notes, and update memory.
+Research Pack Index is the wiki route into `references/source-ledger.json`, the current requirements digest, canon notes, claim maps, and evidence gaps. It tells operators where to go next; it does not replace the ledger.
 
-This note does not replace the ledger. The ledger remains the evidence record.
+The source ledger has 117 entries as of 2026-07-09. This hub keeps the source-governance folder navigable while leaving machine-readable evidence in `references/source-ledger.json`.
 
-## Current fact anchors
+## Notes That Belong In Research Pack Index
 
-- The source ledger contains 115 entries as of 2026-07-06.
-- Current requirements are last verified 2026-07-06 with refresh due 2026-08-06.
-- Mid 2026 requirements include zero click at 68.01 percent US Google searches for January through April 2026.
-- Mid 2026 requirements include Seer reporting AI Overview CTR rebound and about 120 percent more clicks per impression for cited pages.
-- Mid 2026 requirements include FAQ rich results retired effective 2026-05-07.
-- Mid 2026 requirements include QRG stability at the 2025-09-11 revision.
+- Source-reading and source-priority notes.
+- Claim verification and claim-to-source mapping notes.
+- Current requirements summaries grounded in source IDs.
+- Gap, release, refresh, and URL hygiene notes.
+- The human-readable [[research-pack-2026-07-06|Research Pack 2026-07-06]] companion.
 
-## Source families
+## Notes That Should Be Routed Elsewhere
 
-- Official Google Search Central documentation.
-- Google Search Status Dashboard and ranking history.
-- Search Quality Rater Guidelines.
-- Schema.org and W3C JSON-LD standards.
-- Google API documentation.
-- Primary and market studies for behavior context.
-- Practitioner sources for workflow heuristics.
-- FLOW framework bibliography.
+- Algorithm interpretation belongs in [[Google Algorithm Update Ledger]].
+- Blog schema execution belongs in [[Blog Schema Stack]].
+- AI citation mechanics belong in [[AI Citation Mechanics]].
+- Data integration evidence belongs in [[Google Data Integrations]].
 
-## Future spoke notes
+## Research Pack Index Folder Table
 
-- [[Source Ledger Reading Guide]]
-- [[Current Requirements Digest]]
-- [[Canon Notes Map]]
-- [[Google Source Priority Ladder]]
-- [[Primary Study Source Rules]]
-- [[Practitioner Source Caveats]]
-- [[Source Refresh Cadence]]
-- [[Claim To Source Mapping]]
-- [[Source Confidence Labels]]
-- [[Evidence Gap Register]]
+| Folder note | Primary job | Owner | Source coverage | Refresh trigger |
+|---|---|---|---|---|
+| [[Source Ledger Reading Guide]] | Explain ledger fields, dates, confidence, and source sections. | source steward | `g-helpful-content`; `g-ai-opt-guide`; `g-search-gallery`; `g-ranking-history` | Ledger schema or date model changes. |
+| [[Canon Notes Map]] | Route canon notes to their primary source families. | editorial steward | Canon-specific source IDs and current requirement routes. | Canon route changes. |
+| [[Google Source Priority Ladder]] | Rank Google source families by claim fit. | source steward | Google content, AI, schema, and ranking sources. | Google docs or dashboard changes. |
+| [[Claim To Source Mapping]] | Tie release-facing claims to source IDs and limitations. | release reviewer | Current source IDs plus claim limitations. | Any current claim changes. |
+| [[Evidence Gap Register]] | Track missing, stale, broad, or unsupported evidence. | source steward | Gap records tied to affected source IDs. | New gap or closure. |
+| [[Source Refresh Cadence]] | Schedule monthly, release-time, and on-change checks. | source steward | Source IDs with cadence and owner. | Source date or update cadence changes. |
+| [[Research Release Gate Notes]] | Convert source completeness into release pass or fail posture. | release owner | Evidence completeness, severity, and fix ownership. | Release review. |
 
-## Routing rules
+## Active Notes, Owners, And Source Coverage
 
-- Use official Google sources for current Google requirements.
-- Use standards sources for vocabulary and serialization.
-- Use primary market studies for behavior context.
-- Use practitioner sources for workflow tactics with advisory confidence.
-- Use local first-party data when a client property provides it.
-- Keep dated claims tied to source date and retrieval date.
-- Record evidence in the ledger, not only in wiki prose.
-- Do not modify references in this wiki foundation slice.
+Use the table above as the first stop for folder-level navigation. Use [[Claim Verification Flow]] when a draft claim needs step-by-step review before it enters the map.
 
-## Source posture
+## Research Pack Index Graph Hygiene Checks
 
-- Treat this note as an index.
-- Treat `references/source-ledger.json` as the evidence artifact.
-- Treat `references/current-requirements.md` as the current requirements digest.
-- Treat `references/canon/` as source-specific summaries.
-- Keep all source refresh actions outside this slice.
+1. Every source-governance spoke should link back here or to a sibling source note.
+2. Every source-backed body table should include source ID, URL, date, coverage, and limitation when relevant.
+3. Every unsupported claim should link to [[Evidence Gap Register]] rather than hiding in prose.
+4. Every Google AI Search claim should be able to route to [[AI Citation Mechanics]].
+5. Every schema support claim should be able to route to [[Blog Schema Stack]].
 
-## Related themes
+## Related
 
+- [[index|Index]]
+- [[hot|Hot]]
 - [[CONVENTIONS]]
-- [[Google Algorithm Update Ledger]]
-- [[Dual Optimization]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Google Data Integrations]]
-- [[Blog Quality Score]]
-- [[FLOW Framework]]
-
-## Sources
-
-- Google helpful content guidance, retrieved 2026-07-06.
-- Google structured data introduction, retrieved 2026-07-06.
-- Google AI optimization guide, updated 2026-06-15.
-- SparkToro zero click study, 2026-06-09.
-- Seer AIO CTR study, 2026-04-24.
-- Search Quality Rater Guidelines, 2025-09-11.
-
-## Next actions
-
-- Fill [[Claim To Source Mapping]] before detailed spoke notes.
-- Fill [[Evidence Gap Register]] before market-ready review.
-- Link every source refresh back to [[Google Algorithm Update Ledger]] or [[log]].
-
-## Latest research pack
-
-- [[research-pack-2026-07-06|Research Pack 2026-07-06]] - 115 dated primary and official sources.
+- [[Claim To Source Mapping]]
+- [[Current Requirements Digest]]
+- [[Evidence Gap Register]]
+- [[research-pack-2026-07-06|Research Pack 2026-07-06]]

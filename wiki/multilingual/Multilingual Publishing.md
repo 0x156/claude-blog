@@ -1,109 +1,49 @@
 ---
 type: hub
 title: "Multilingual Publishing"
+domain: "Multilingual Blog Publishing"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
-tags: [multilingual, localization, active]
-domain: "Multilingual Blog Publishing"
-confidence: verified
-related:
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Dual Optimization]]"
-  - "[[Freshness and Content Decay]]"
-  - "[[E-E-A-T for Blog Content]]"
-  - "[[Blog Schema Stack]]"
-  - "[[Voice and Style]]"
-  - "[[Research Pack Index]]"
+updated: 2026-07-09
+tags: [multilingual, localization, hub, active]
 source_urls:
   - "https://developers.google.com/search/docs/specialty/international/localized-versions"
   - "https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites"
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/essentials/spam-policies"
+  - "https://schema.org/docs/full.html"
 ---
 
 # Multilingual Publishing
 
-## Summary
+## Operating Scope
 
-Multilingual Publishing covers translation, localization, hreflang, locale-specific quality, and source fidelity for blog content.
+This hub routes multilingual blog work across translation, localization, hreflang, human review, local source coverage, schema consistency, and refresh cadence. It is the folder-level control note for `/blog multilingual`, `/blog translate`, `/blog localize`, and `/blog locale-audit` style work inside this brain.
 
-This hub is advisory and does not mutate CMS language settings.
+Its source set is `g-localized`, `g-multiregional`, `g-helpful-content`, and `schema-full`. The hub does not make country-specific legal, medical, pricing, or ranking claims by itself. It points those claims to the spoke that can name the evidence, reviewer, and rollback condition.
 
-## Current fact anchors
+### What This Hub Owns
 
-- Google localized versions documentation, retrieved 2026-07-06, is the source route for hreflang annotations, return links, and x-default handling.
-- Google multi-regional and multilingual site documentation, retrieved 2026-07-06, is the source route for URL structure options.
-- Google helpful content guidance, retrieved 2026-07-06, applies quality expectations to localized content.
-- Google spam policies, updated 2026-05-15, include automated transformations such as translations as possible scaled content abuse when they add no value.
-- Translation output needs human accountability when claims, legal terms, medical terms, finance terms, or local facts are involved.
+- Routing between translation, localization, review, and launch gates.
+- The distinction between a page that is linguistically correct and a page that is useful for a locale.
+- Graph hygiene among multilingual notes so operators can move from brief to QA without guessing the next artifact.
 
-## Scope
+### What This Hub Must Not Absorb
 
-- Define translation versus localization.
-- Define locale research requirements.
-- Define hreflang and x-default requirements.
-- Define localized schema fields.
-- Define author and reviewer needs by locale.
-- Define source translation and citation rules.
-- Define localized media requirements.
-- Connect updates to [[Freshness and Content Decay]].
+Do not turn this hub into a duplicate checklist for every spoke. Hreflang details belong to [[Hreflang Checklist]], schema enforcement belongs to [[Multilingual Schema Rules]], and market-sensitive claim evidence belongs to [[Localized Source Requirements]].
 
-## Future spoke notes
+## Multilingual Publishing Spoke Map
 
-- [[Translation Versus Localization]]
-- [[Hreflang Checklist]]
-- [[x-default Handling]]
-- [[Locale Intent Research]]
-- [[Localized Source Requirements]]
-- [[Multilingual Schema Rules]]
-- [[Locale Review Workflow]]
-- [[Machine Translation Risk Notes]]
-- [[Regional Legal And YMYL Escalation]]
-- [[Multilingual Refresh Cadence]]
+| Spoke | Job | Deliverable boundary | Primary source IDs |
+|---|---|---|---|
+| [[Translation Versus Localization]] | Decide whether the page needs literal transfer or market adaptation | Boundary memo | `g-localized`, `g-multiregional`, `g-helpful-content`, `schema-full` |
+| [[Locale Intent Research]] | Find search intent and terminology differences | Locale brief addendum | `g-localized`, `g-multiregional`, `g-helpful-content`, `schema-full` |
+| [[Hreflang Checklist]] | Validate alternate-language annotations | Pass or fail checklist | `g-localized`, `g-multiregional`, `g-canonical`, `sitemaps-org` |
+| [[Locale Review Workflow]] | Assign human review lanes | Review record | `g-localized`, `g-multiregional`, `g-helpful-content`, `schema-full` |
+| [[Locale Launch QA]] | Make the final readiness call | Launch gate decision | `g-localized`, `g-multiregional`, `g-helpful-content`, `schema-full` |
+| [[Multilingual Refresh Cadence]] | Schedule updates for facts that drift by locale | Refresh register | `g-localized`, `g-multiregional`, `g-helpful-content`, `g-spam-policies` |
 
-## Publishing checklist
+## Evidence And Refresh Rules
 
-- Confirm the target locale and language.
-- Confirm URL structure.
-- Confirm hreflang return links.
-- Confirm x-default strategy.
-- Localize examples, units, currency, and dates.
-- Re-check source suitability for the locale.
-- Re-check voice through [[Voice and Style]].
-- Re-check schema through [[Blog Schema Stack]].
-- Re-check trust through [[E-E-A-T for Blog Content]].
-- Re-check freshness cadence after publication.
+Use official Google international guidance for annotation and site-structure claims. Use helpful-content guidance for quality posture, then require local sources for local facts. Use Schema.org only for vocabulary and entity consistency unless a Google structured-data note also supports the rich-result claim.
 
-## Source posture
-
-- Use Google international documentation for technical guidance.
-- Use local sources for local current claims.
-- Do not treat machine translation as value by itself.
-- Keep locale-specific confidence explicit.
-- Keep external publishing actions outside V1.
-
-## Related themes
-
-- [[Dual Optimization]]
-- [[Freshness and Content Decay]]
-- [[E-E-A-T for Blog Content]]
-- [[Blog Schema Stack]]
-- [[Voice and Style]]
-- [[Images Audio and Charts]]
-- [[Google Data Integrations]]
-- [[Research Pack Index]]
-
-## Sources
-
-- Google localized versions documentation, retrieved 2026-07-06.
-- Google multi-regional site documentation, retrieved 2026-07-06.
-- Google helpful content guidance, retrieved 2026-07-06.
-- Google spam policies, updated 2026-05-15.
-
-## Next actions
-
-- Fill [[Hreflang Checklist]] before locale audits.
-- Fill [[Machine Translation Risk Notes]] before translation workflows.
-- Link locale refresh to [[Freshness and Content Decay]].
+When a source changes after 2026-07-09, update the relevant spoke first and then adjust this hub only if the routing changes.

@@ -3,149 +3,60 @@ type: spoke
 title: "AI Assisted Content Accountability"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [eeat, evergreen]
 domain: "Blog Trust"
 confidence: verified
 related:
   - "[[E-E-A-T for Blog Content]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[Author Bio Requirements]]"
   - "[[Reviewer And Expert Review Rules]]"
   - "[[Experience Evidence Checklist]]"
   - "[[Source Quality Ladder]]"
-  - "[[YMYL Escalation Matrix]]"
-  - "[[Reputation Research Workflow]]"
-  - "[[Trust Signal Inventory]]"
   - "[[Value Less AI Content Warnings]]"
-  - "[[Dual Optimization]]"
 source_urls:
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
   - "https://developers.google.com/search/docs/essentials/spam-policies"
-  - "https://developers.google.com/search/docs/fundamentals/third-party-seo"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+  - "https://www.nngroup.com/articles/ten-usability-heuristics/"
 ---
 # AI Assisted Content Accountability
 
-## Summary
-AI Assisted Content Accountability is a trust review note for E-E-A-T review.
-It keeps AI-assisted drafts accountable to human review, source provenance, and originality.
-Use it with [[E-E-A-T for Blog Content]] when the working unit is a author, page, source set, or editorial process.
+## AI Assisted Content Accountability Distinct Job
 
-## Operating Question
-- Who is accountable for the final claims and usefulness of the content?
-- The expected output is an accountability record for AI-assisted content.
-- The main risk is publishing AI-generated volume without added value.
-- The reviewer should be able to see the decision, evidence, caveat, and next action without asking for context.
-- The note is advisory unless a future approval and publishing workflow changes the V1 boundary.
+This note records who owns the final quality of a draft when AI tools helped with ideation, rewriting, extraction, or first-pass composition. It does not decide whether AI use is acceptable by itself. The decision is whether the final page has human accountability, original value, dated sources, and visible review evidence. Google helpful-content guidance is treated here as the people-first baseline, while the QRG and spam-policy records keep the review alert to copied, mass-produced, or low-value main content (source_ids: g-helpful-content, g-qrg-full, g-spam-policies). NN/g is used only for the editorial ergonomics of making review state understandable to a later operator (source_id: nng-editorial-heuristics).
 
-## Current Evidence Anchors
-- The active QRG source in the substrate is dated 2025-09-11, with no newer revision recorded as of 2026-07-06.
-- Google helpful content guidance retrieved 2026-07-06 remains the people-first quality baseline.
-- Google spam policies updated 2026-05-15 name generative AI scaled content without added value as a scaled content abuse example.
-- Google third-party SEO guidance dated 2026-06-05 says no tool can guarantee rankings or access Google internal ranking systems.
-- The QRG substrate says the 2025-09-11 version adds AI Overview rating examples and keeps quality guidance unchanged.
-- Trust recommendations must stay advisory and must not guarantee rankings, rich results, or AI citations.
-- Use dated wording such as retrieved 2026-07-06 when freshness affects the recommendation.
-- Route new or disputed evidence through [[Research Pack Index]] rather than relying on prose-only notes.
+### Inputs Specific To AI Use Review
 
-## Operating Standard
-- Show experience, expertise, authority, and trust through inspectable page elements.
-- Distinguish author credentials, reviewer credentials, brand reputation, and source quality.
-- Escalate YMYL and YMYL-adjacent content before publication advice is finalized.
-- Reject vague expertise claims that do not connect to the topic or article purpose.
-- Treat AI-assisted content as accountable content that must add value and show provenance.
-- Use official Google sources for spam and quality policy claims.
-- Record uncertainty when reputation, credentials, or source quality cannot be verified.
-- Connect trust gaps to [[Blog Quality Score]] instead of presenting E-E-A-T as a magic switch.
-- Keep the recommendation tied to a reader outcome and a measurable review path.
-- Do not present advisory workflow guidance as if it were an official ranking factor.
+Collect the draft, source pack, prompt or transformation summary if available, author or reviewer names, copied-source check, and a short explanation of what humans added beyond synthesis. If any claim touches sensitive reader decisions, send it to [[YMYL Escalation Matrix]] before accountability is closed.
 
-## Review Sequence
-1. Open [[E-E-A-T for Blog Content]] and confirm the parent workflow still applies.
-2. Name the page, section, cluster, or program being reviewed.
-3. State the reader task in one sentence.
-4. Identify the search or answer surface affected by the decision.
-5. Pull the current dated source URLs before editing recommendations.
-6. Record whether the evidence is official, first-party, market, or practitioner evidence.
-7. Identify what would make the recommendation stale.
-8. Decide whether the action is draft, refresh, rewrite, measure, escalate, or defer.
-9. Add a confidence label that matches the weakest important evidence source.
-10. Link the decision to a sibling spoke that handles the next operational detail.
-11. Send unresolved quality issues to [[Blog Quality Score]].
-12. Keep the final note read-only toward external systems.
+### Decisions This Record Must Preserve
 
-## Specific Checks
-- Check that ai assisted content accountability is applied to the correct content unit.
-- Check that the decision matches this purpose: keeps AI-assisted drafts accountable to human review, source provenance, and originality.
-- Check that the output can be inspected as an accountability record for AI-assisted content.
-- Check that the risk is addressed directly: publishing AI-generated volume without added value.
-- Confirm the page has a clear purpose and satisfies that purpose.
-- Check whether experience evidence is visible near claims that need it.
-- Confirm author and reviewer claims are topic-relevant.
-- Escalate YMYL and YMYL-adjacent topics with a visible rationale.
-- Check independent source quality before making authority claims.
-- Reject claims that rely on tool scores as proof of Google rankings.
-- Record AI assistance only as a workflow detail, not as a quality substitute.
-- Make limitations visible where reader decisions could be affected.
-- Check that links point to existing notes and not future placeholders.
-- Check that source URLs are real ledger URLs with retrieval context.
+The record must name the accountable human, the content unit reviewed, the proof of added value, and the unresolved limitations. It should also say when a page should be rewritten instead of disclosed.
 
-## Acceptance Criteria
-- The article or program owner can understand the recommendation without a meeting.
-- The current claim dates are visible enough for a later refresh pass.
-- The source posture does not mix official guidance with practitioner evidence.
-- The note names the relevant hub and at least one sibling spoke for deeper work.
-- The decision can be reversed, revised, or deferred if new evidence appears.
-- The recommendation does not mutate a CMS, GSC, GA4, or publishing platform.
-- The wording avoids ranking guarantees, traffic guarantees, rich result guarantees, and AI citation guarantees.
-- The next action is concrete enough to enter a brief, audit, or editorial queue.
+## AI Assistance Accountability Decision Table
 
-## Failure Modes
-- The page lists credentials that do not fit the topic.
-- The reviewer name appears without review evidence.
-- A YMYL-adjacent topic skips escalation because it is labeled a blog post.
-- Sources are selected for convenience rather than claim strength.
-- AI-assisted volume replaces original value.
-- Reputation claims depend only on the brand site itself.
-- Limitations are hidden even when reader decisions are sensitive.
-- E-E-A-T is presented as a direct ranking lever instead of a review framework.
-- The note becomes stale because a Google source changed and no refresh cue was recorded.
-- The recommendation sounds polished but cannot be traced to a dated source.
+| Decision | Required input | Source ids | Evidence state | Owner | Next action |
+|---|---|---|---|---|---|
+| Human accountability | Named editor, author, or expert responsible for final claims | g-helpful-content, g-qrg-full | Missing owner blocks publication advice | Managing editor | Add byline or reviewer record before handoff |
+| Added value beyond synthesis | Original examples, test notes, field observations, screenshots, or analysis | g-helpful-content, g-spam-policies | Thin summary triggers rewrite | Author | Move proof into the draft, not only the audit notes |
+| Source provenance | Dated source list mapped to claims | g-helpful-content, nng-editorial-heuristics | Ambiguous source mapping lowers confidence | Research editor | Rebuild the [[Source Quality Ladder]] row for weak claims |
+| Scaled-content risk | Similar-page inventory, template footprint, copied passage check | g-spam-policies, g-qrg-full | Reused generic copy requires escalation | SEO lead | Open [[Value Less AI Content Warnings]] |
+| Review visibility | Reviewer note, date, scope, and limits visible in the workflow | nng-editorial-heuristics, g-qrg-full | Invisible review cannot support trust claims | Reviewer | Add what was checked and what was excluded |
 
-## Handoff
-- Attach the trust note to the content brief, audit, or rewrite plan.
-- List visible page changes separately from background editorial process.
-- Escalate unresolved YMYL or reputation uncertainty before publication advice.
-- Record dated sources for quality and spam policy claims.
-- Send voice consistency issues to [[Voice and Style]].
-- Send source gaps to [[Research Pack Index]].
-- Send schema identity questions to [[Blog Schema Stack]].
-- Score trust issues through [[Blog Quality Score]].
-- Use [[Author Bio Requirements]] when this note needs a sibling follow-up.
-- Use [[Reviewer And Expert Review Rules]] when the next decision belongs beside this note.
+## Source IDs, Evidence, Owner, Confidence, And Next Action
 
-## Related
-- [[E-E-A-T for Blog Content]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Freshness and Content Decay]]
-- [[AI Citation Mechanics]]
-- [[Blog Schema Stack]]
-- [[Voice and Style]]
-- [[Blog Quality Score]]
-- [[Author Bio Requirements]]
-- [[Reviewer And Expert Review Rules]]
-- [[Experience Evidence Checklist]]
-- [[Source Quality Ladder]]
-- [[YMYL Escalation Matrix]]
-- [[Reputation Research Workflow]]
-- [[Trust Signal Inventory]]
-- [[Value Less AI Content Warnings]]
-- [[E-E-A-T Review Rubric]]
-- [[Editorial Transparency Checklist]]
-- [[YMYL Adjacent Blog Policy]]
+- `g-helpful-content`: use for the people-first review question, especially whether the page helps a reader complete the stated task.
+- `g-qrg-full`: use for quality-rater framing, including whether the page shows enough effort, originality, talent, or skill for its purpose.
+- `g-spam-policies`: use when AI scale, copied structure, or near-duplicate pages create abuse risk.
+- `nng-editorial-heuristics`: use for making accountability status visible, recoverable, and easy to audit.
+
+Confidence is `high` only when the human owner, source map, and added-value proof are all present. If one is missing, mark the page `review` in the working queue rather than implying that AI disclosure alone solves the issue.
+
+## AI Assisted Content Accountability Operating Procedure
+
+1. Identify every section created, rewritten, summarized, or expanded with AI assistance.
+2. Match each factual claim to a dated source and send weak matches to [[Source Quality Ladder]].
+3. Mark the human contribution that changes the page from synthesis into useful advice, such as testing, examples, judgment, or limitations.
+4. Ask the named owner to approve the final claim set and record the review scope.
+5. If the page is mostly paraphrase, template fill, or generic aggregation, stop the handoff and route to [[Value Less AI Content Warnings]].
+6. Keep the recommendation advisory: this note never promises rankings, traffic, rich results, or AI citations.

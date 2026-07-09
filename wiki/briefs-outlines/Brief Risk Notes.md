@@ -1,177 +1,58 @@
 ---
 type: spoke
 title: "Brief Risk Notes"
+domain: "Blog Briefs"
 status: active
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-09
 tags: [briefs-outlines, serp-briefs, active]
-domain: "Blog Briefs"
-confidence: advisory
-related:
-  - "[[SERP-Informed Briefs and Outlines]]"
-  - "[[index|Index]]"
-  - "[[hot|Hot]]"
-  - "[[SERP Brief Input Contract]]"
-  - "[[Search Intent Classification]]"
-  - "[[Reader Job Statement]]"
-  - "[[Competitive Pattern Notes]]"
-  - "[[Heading Hierarchy Rules]]"
-  - "[[Evidence Block Requirements]]"
-  - "[[Brief Source Pack]]"
-source_urls:
-  - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  - "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
-  - "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/"
-  - "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update"
-  - "https://blog.google/products-and-platforms/products/search/search-io-2026/"
-  - "https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf"
-  - "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
-  - "https://ziptie.dev/blog/google-ai-overviews-source-selection/"
-  - "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
-  - "https://developers.google.com/search/docs/appearance/ai-features"
-  - "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
 ---
 
 # Brief Risk Notes
 
-## Summary
-Brief Risk Notes is the spoke for surface uncertainty, YMYL concerns, outdated sources, and claims that need approval.
-Use it when [[SERP-Informed Briefs and Outlines]] needs a repeatable decision record before a brief, draft, score, or report moves forward.
-The durable output is a brief risk register.
-The success condition is that risky assumptions are visible before writing starts.
-Keep the note advisory in V1 and route implementation to a human owner.
+## Brief Risk Notes Planning Job
 
-## Parent Hub Fit
-- Parent hub: [[SERP-Informed Briefs and Outlines]].
-- Primary upstream context: [[Dual Optimization]].
-- Primary downstream context: [[6-Pillar Dual Optimization]].
-- Evidence route: [[Blog Quality Score]].
-- Sibling comparison starts with [[SERP Brief Input Contract]] and [[Search Intent Classification]].
-- Quality review should connect to [[Blog Quality Score]] when the note affects delivery.
-- Citation review should connect to [[AI Citation Mechanics]] when answer passages are created or changed.
-- Source refresh should connect to [[Research Pack Index]] when a dated claim is older than its cadence.
-- The note should not create a publishing action by itself.
-- The note should create a clear next decision, owner, and evidence state.
+This note owns the risk register that travels with a SERP-informed brief. It is not the place to fix the outline or rewrite the article. Its job is to make uncertainty visible before drafting starts, especially when the brief touches YMYL-adjacent advice, stale statistics, non-Google AI tactics, or market data that could be mistaken for property performance.
 
-## Current Fact Anchors
-- Google helpful content guidance, retrieved 2026-07-06, is the baseline for original, people-first usefulness.
-- Google AI optimization guidance, updated 2026-06-15, says Google Search does not need special AI files, special AI schema, Markdown conversion, or llms.txt for AI features.
-- SparkToro, 2026-06-09, records 68.01 percent US Google zero click searches for January through April 2026, so planning must include visibility beyond clicks.
-- Seer, 2026-04-24, records cited AI Overview pages with about 120 percent more clicks per impression than pages not cited in its analysis.
-- Google I/O Search update, 2026-05-19, reports AI Mode passed 1B monthly users, while the substrate records about 0.34 percent US query volume.
-- The current QRG reference is the 2025-09-11 revision, with no newer substrate revision recorded as of 2026-07-06.
-- FAQ rich results were retired for all sites on 2026-05-07, so Article or BlogPosting is the blog schema priority when schema is relevant.
-- Passage extractability guidance is practitioner guidance: aim for self-contained answer blocks around 130 to 170 words under clear headings.
-- Google AI features documentation, retrieved 2026-07-06, supports standard crawl, index, and preview controls for AI feature visibility.
-- Google Search Gallery, retrieved 2026-07-06, is the supported rich result type reference when a brief requests schema.
-- Use first-party GSC, GA4, and crawl evidence when available instead of replacing local data with market averages.
-- Treat practitioner studies as planning context unless an official source or property data confirms the exact claim.
+Risk notes should point reviewers to the canonical hub rather than restating broad evidence. Use [[AI Citation Mechanics]] for Google AI feature constraints, [[Dual Optimization]] for zero-click and click-planning context, and [[2026 Google Update Timeline]] when the concern is tied to a dated Google Search change. Cite `sparktoro-zero-click-2026` only as market context, and use `g-qrg-full` when the brief enters trust or YMYL sensitivity.
 
-## Required Inputs
-- Target topic, article, cluster, or workflow item that needs Brief Risk Notes.
-- Parent hub context from [[SERP-Informed Briefs and Outlines]].
-- Reader problem and intended outcome in one sentence.
-- Primary query, entity, or channel that triggered the work.
-- Known source URLs with retrieval dates for every current claim.
-- First-party data availability, including GSC, GA4, crawl data, or none.
-- Existing internal links and candidate links that affect the decision.
-- YMYL, legal, medical, financial, or reputation sensitivity flags.
-- Schema, media, and author requirements if the note affects a published page.
-- Approval owner for changes that affect live content.
-- Rollback trigger if the recommendation is later implemented.
-- Metric set for review: risk severity, owner, source age, and rollback note status.
+### Risk Register Boundary
 
-## Operating Procedure
-- Start with the precise decision that Brief Risk Notes must make.
-- Restate the scope so it cannot drift beyond [[SERP-Informed Briefs and Outlines]].
-- List the page, cluster, brief, asset, or workflow item under review.
-- Separate observed facts from recommendations before scoring or prioritizing.
-- Attach a source URL and date to every current Search, AI, schema, or market claim.
-- Prefer official Google, standards body, primary, or vendor documentation for rule-like claims.
-- Use practitioner sources only as supporting evidence or workflow guidance.
-- Check whether the recommendation depends on zero click behavior, AI Overview citation, or AI Mode exposure.
-- If it depends on AI features, state that inclusion cannot be guaranteed.
-- If it mentions FAQ rich results, rewrite the point because that visual tactic is retired for all sites.
-- If schema is relevant, route the baseline to Article or BlogPosting plus visible entity support.
-- If passages are relevant, make the answer block self-contained and cite source context nearby.
-- If the work affects trust, route the check through QRG-informed E-E-A-T review.
-- If first-party data exists, make it the measurement baseline.
-- If first-party data is missing, label the estimate advisory and name the data gap.
-- Reject the failure pattern of burying warnings in comments that the writer can miss.
-- Write the recommendation in a way that a reviewer can accept, revise, or reject.
-- Close with owner, next action, confidence, and rollback note.
+Record only risks that can change the brief, block drafting, or force a named caveat. Minor wording preferences belong in [[Brief To Draft Handoff]], and missing sources belong in [[Brief Source Pack]] unless the absence creates approval risk.
 
-## Acceptance Criteria
-- The brief risk register names the exact object under review.
-- The recommendation has one primary owner.
-- Every current factual claim has a dated source URL.
-- The note distinguishes verified facts from advisory choices.
-- The note states whether property data is available or missing.
-- The note uses current Core Web Vitals language if performance is mentioned.
-- The note avoids FID as a current quality metric.
-- The note avoids FAQ rich result language as a current blog tactic.
-- The note avoids llms.txt as a Google Search, AI Overview, or AI Mode requirement.
-- The note does not promise rankings, traffic, Discover reach, AI Overview inclusion, or chatbot citation.
-- The note contains an explicit confidence label.
-- The note contains a rollback or review trigger when live content could change.
-- The note links back to the parent hub and at least six sibling spokes.
-- The note can be audited without reading private client systems.
+### Approval Triggers
 
-## Failure Modes
-- A claim is current but has no dated source.
-- A market statistic is applied as a property forecast without local data.
-- A recommendation treats an SEO tool as access to Google's internal ranking systems.
-- A passage is written for extraction but lacks source context.
-- A schema recommendation describes hidden or unsupported page content.
-- A cluster, brief, score, or workflow step creates thin content rather than useful content.
-- A reviewer cannot tell whether a statement is verified or advisory.
-- A high-risk change has no rollback note.
-- A channel or platform action is implied even though V1 is advisory and read-only toward external systems.
-- The note accepts burying warnings in comments that the writer can miss.
-- The note hides unresolved uncertainty instead of naming it.
-- The note duplicates another sibling without a clear boundary.
+Require owner review when a claim depends on practitioner data, when a recommendation implies Google AI feature eligibility, or when the source is older than its refresh cadence. `g-spam-policies` covers scaled-content and abuse risk, while `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` blocks unsupported AI-file requirements for Google Search.
 
-## Handoff
-- Send brief structure questions to [[SERP Brief Input Contract]].
-- Send evidence and source issues to [[Search Intent Classification]].
-- Send quality scoring issues to [[Blog Quality Score]].
-- Send citation passage issues to [[AI Citation Mechanics]].
-- Send schema issues to [[Blog Schema Stack]].
-- Send first-party measurement issues to [[Google Data Integrations]].
-- Send freshness and decay issues to [[Freshness and Content Decay]].
-- Send voice changes to [[Voice and Style]] when wording or channel tone changes.
-- Send visual or media requirements to [[Images Audio and Charts]] when the output needs assets.
-- Keep unresolved approval items out of automated publishing paths.
-- Record durable outcomes in [[log]] only when the vault owner asks for log maintenance.
-- Keep the final status as ready, revise, blocked, or monitor.
+## Reader Intent Signals And Exposure Caveats
 
-## Related Links
-- [[SERP-Informed Briefs and Outlines]]
-- [[index|Index]]
-- [[hot|Hot]]
-- [[SERP Brief Input Contract]]
-- [[Search Intent Classification]]
-- [[Reader Job Statement]]
-- [[Competitive Pattern Notes]]
-- [[Heading Hierarchy Rules]]
-- [[Evidence Block Requirements]]
-- [[Brief Source Pack]]
-- [[Dual Optimization]]
-- [[6-Pillar Dual Optimization]]
-- [[Semantic Topic Clusters]]
+Risk scoring starts with the reader decision the brief will influence. A high-volume query is not enough. The reviewer should know whether the reader is choosing a tool, handling a compliance concern, comparing options, or solving a time-sensitive problem. If the likely search journey may end without a site visit, the brief still needs a useful answer path and a measurement caveat tied to [[Dual Optimization]].
 
-## Source Notes
-- Google helpful content guidance is the primary source for people-first usefulness and source-backed quality.
-- Google AI optimization guidance is the primary source for no special AI files, no special AI schema, and the Google llms.txt caveat.
-- SparkToro and Seer are used as dated market context, not property forecasts.
-- The QRG is used as a quality evaluation framework, not as a direct ranking factor claim.
-- ZipTie passage guidance is practitioner guidance for extraction readiness, not an official Google rule.
-- Search Gallery and FAQPage documentation control schema and rich result claims when schema appears in this note.
+## Brief Risk Notes Planning Table
 
-## Maintenance
-- Refresh this note when the source ledger refreshes.
-- Refresh this note when Google changes AI feature guidance, schema support, spam policy, or QRG references.
-- Refresh this note when first-party data contradicts an advisory assumption.
-- Keep source URLs in frontmatter aligned with the ledger.
-- Do not mark the brain market-ready from this note alone.
-- The next review should verify whether risk severity, owner, source age, and rollback note status still captures the decision quality.
+| Risk field | Owner | Source requirement | Acceptance check | Draft handoff state |
+| --- | --- | --- | --- | --- |
+| YMYL or reputation sensitivity | editor | `g-qrg-full` plus an expert or policy source for the topic | Risk note names who must approve the claim before drafting | Blocked until owner signs off |
+| AI feature tactic | SEO lead | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` when the tactic mentions special files | No claim says a file, schema, or formatting trick guarantees AI visibility | Ready with caveat |
+| Market behavior statistic | analyst | `sparktoro-zero-click-2026` with method limits | The note says market panel, geography, and that first-party data wins | Advisory only |
+| Outdated Search guidance | source steward | `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search` or newer ledger entry | Refresh due date is named and routed to [[Research Pack Index]] | Monitor |
+| Unapproved factual claim | brief owner | Source ID from [[Brief Source Pack]] | Claim has a verdict label from the claim-ledger discipline | Revise before draft |
+
+## Brief Risk Notes Acceptance Procedure
+
+1. Name the exact brief, page, cluster, or outline section affected by the risk.
+2. Classify the risk as blocker, caveat, monitor, or no action.
+3. Attach at least one source ID and state whether the evidence is official, primary, or practitioner.
+4. Decide who can approve the risk and what wording the drafter must preserve.
+5. Send unresolved source gaps to [[Brief Source Pack]] and unresolved structure gaps to [[Outline QA Checklist]].
+
+## Sources
+
+- `g-qrg-full`
+- `g-spam-policies`
+- `g-update-2026-06-15-llms-txt-clarified-as-unused-by-google-search`
+- `sparktoro-zero-click-2026`
+
+## Related Routes
+
+[[SERP-Informed Briefs and Outlines]] owns the parent workflow. [[Evidence Block Requirements]] decides source strength for individual claims. [[SERP Observation Ledger]] holds dated SERP observations without turning them into ranking facts.
