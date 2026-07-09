@@ -7,6 +7,7 @@
 #   pwsh -File ./install.ps1
 
 $ErrorActionPreference = "Stop"
+$ClaudeBlogVersion = "1.12.0"
 
 function Write-Color($Color, $Text) {
     Write-Host $Text -ForegroundColor $Color
@@ -76,6 +77,9 @@ function Main {
    ╚══════════════════════════════════════╝
 
 "@
+
+    Write-Color White "Release: $ClaudeBlogVersion"
+    Write-Color White ""
 
     $SkillDir = Join-Path (Join-Path $env:USERPROFILE ".claude") "skills"
     $AgentDir = Join-Path (Join-Path $env:USERPROFILE ".claude") "agents"

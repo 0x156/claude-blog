@@ -3,6 +3,8 @@
 System design documentation for `claude-blog`, covering component types,
 data flow, scoring methodology, file conventions, and extension points.
 
+The Claude Blog Brain is vendored at `./brain` as a self-contained, evidence-gated Obsidian brain. It is not part of the plugin payload; all skill tooling remains scoped to `skills/`.
+
 ---
 
 ## System Overview
@@ -503,7 +505,7 @@ After installation, `claude-blog` occupies this structure inside `~/.claude/`:
     └── blog-translator.md              # v1.7.0
 ```
 
-**Component counts (v1.11.0)**: 32 skill directories (1 orchestrator + 31
+**Component counts (v1.12.0)**: 32 skill directories (1 orchestrator + 31
 sub-skills); 30 user-facing commands, 5 agents (blog-researcher, blog-writer, blog-seo, blog-reviewer,
 blog-translator), 22 references in `skills/blog/references/` (plus per-sub-skill
 references and 30 synced FLOW prompts under `skills/blog-flow/references/`),
@@ -518,6 +520,6 @@ DISCOURSE.md, auto-loaded via `scripts/load_untrusted_root.py` with
 CSPRNG nonce fencing). v1.8.4+ enforces prose hygiene and version
 coherence via CI (see `scripts/lint_prose.py`, `tests/test_version_coherence.py`).
 v1.9.0 adds the 5-gate Blog Delivery Contract (see
-`skills/blog/references/blog-delivery-contract.md`) and 242-test pytest
+`skills/blog/references/blog-delivery-contract.md`) and 252-test pytest
 suite including mutation-test-verified XSS, symlink, and frontmatter
 regression coverage.

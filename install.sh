@@ -9,6 +9,7 @@ set -euo pipefail
 
 # Declared outside main() so the EXIT trap can access it after main() returns
 TEMP_DIR=""
+readonly CLAUDE_BLOG_VERSION="1.12.0"
 
 copy_tree() {
     local src="$1"
@@ -69,6 +70,8 @@ main() {
     echo "  ║         claude-blog Installer        ║"
     echo "  ║  Blog Content Engine for Claude Code ║"
     echo "  ╚══════════════════════════════════════╝"
+    echo ""
+    echo "  Release: ${CLAUDE_BLOG_VERSION}"
     echo ""
 
     # Determine source directory (local clone or piped from curl)

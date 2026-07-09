@@ -9,6 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes._
 
+## [1.12.0] - 2026-07-10
+
+Independent `grand-audit-2` re-audit, bundled brain, and targeted security, currency, and drift remediation.
+
+### Added
+
+- Vendored the Claude Blog Brain at `brain/`, a self-contained, evidence-gated, market-ready SSS+ Obsidian brain. It is not part of the plugin payload; all skill tooling remains scoped to `skills/`.
+- Added 10 regression tests, bringing the root suite from 242 to 252 tests.
+
+### Security
+
+- Completed the independent `grand-audit-2` re-audit and remediated security, currency, and drift across 54 files.
+- Revalidated SSRF protections, enforced symlink no-follow and path-traversal confinement, applied allowlist-before-safety validation ordering, and expanded XSS escaping.
+
+### Changed
+
+- Scoped Google Indexing API submissions to `JobPosting` and livestream pages only.
+- Refreshed model IDs for current availability and trimmed `skills/blog/SKILL.md` below its token budget.
+- Unified FAQ rich-result guidance around Google's full retirement on 2026-05-07.
+
 ## [1.11.0] - 2026-07-08
 
 Full-repo audit remediation plus a knowledge and currency refresh. A multi-agent audit surfaced 672 findings across every sub-skill, agent, script, reference, and template; the high-value fixes ship here. This release also rebuilds the README on a new visual system and closes several community-reported issues.

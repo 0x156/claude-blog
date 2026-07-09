@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/Skill%20Dirs-32-orange" alt="Skill directories: 32">
   <img src="https://img.shields.io/badge/Sub--Skills-31-orange" alt="Sub-skills: 31">
   <img src="https://img.shields.io/badge/Commands-30-blueviolet" alt="User-facing commands: 30">
-  <img src="https://img.shields.io/badge/Tests-242%20passing-brightgreen" alt="Tests: 242 passing">
+  <img src="https://img.shields.io/badge/Tests-252%20passing-brightgreen" alt="Tests: 252 passing">
 </p>
 
 **claude-blog is a Claude Code skill suite that writes, optimizes, audits, localizes, and refreshes blog content at scale.** Every article is dual-optimized for Google rankings ([2026 core and spam update timeline](https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history), E-E-A-T) and AI citation platforms such as ChatGPT, Perplexity, Gemini, and AI Overviews. Version 1.11.0 was released on 2026-07-08.
@@ -51,7 +51,7 @@ The core promise is simple: the user is never the first reviewer. A 5-gate Blog 
 
 claude-blog is a full-lifecycle blog engine for strategy, briefs, outlines, writing, rewriting, analysis, schema, AI citation readiness, site audits, topic clusters, multilingual publishing, audio narration, and content decay detection.
 
-Current v1.11.0 shape: **32 skill directories = 1 orchestrator + 31 sub-skills; 30 user-facing /blog commands (`blog-chart` is internal, not a command).** It also includes 5 specialized agents, 14 root scripts, 22 references, 12 templates, and 242 tests.
+Current v1.12.0 shape: **32 skill directories = 1 orchestrator + 31 sub-skills; 30 user-facing /blog commands (`blog-chart` is internal, not a command).** It also includes 5 specialized agents, 14 root scripts, 22 references, 12 templates, 252 tests, and the bundled Claude Blog Brain at `./brain`.
 
 Every draft ships as an artifact folder with the markdown source, rendered HTML, PDF, real `hero.<ext>`, 3 viewport screenshots, `review.md`, and `preflight-report.json`. The renderer uses XSS-safe JSON-LD handling, dark-mode-aware CSS, and the same source for every output format.
 
@@ -113,7 +113,7 @@ The orchestrator in `skills/blog/SKILL.md` parses `/blog` input, detects the tar
 | Root scripts | 14 | `scripts/*.py` |
 | References | 22 | `skills/blog/references/*.md` |
 | Templates | 12 | `skills/blog/templates/*.md` |
-| Tests | 242 | `tests/` |
+| Tests | 252 | `tests/` |
 
 More architecture detail lives in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -250,7 +250,7 @@ Adapted attribution lives in [`CONTRIBUTORS.md`](docs/CONTRIBUTORS.md).
 
 ## Brain Provenance
 
-The knowledge base is curated in a separate Claude Blog Brain vault, a source-cited Obsidian brain that informs the skill's references and keeps the editorial, SEO, and AI-citation substrate current. This repo does not document an automated brain-to-skill pipeline; updates land through reviewed reference, script, and documentation changes.
+The Claude Blog Brain is vendored at `./brain` as a self-contained, evidence-gated Obsidian brain. It is not part of the plugin payload; all skill tooling remains scoped to `skills/`. Brain-derived updates land through reviewed reference, script, and documentation changes.
 
 ## Install
 
@@ -294,11 +294,11 @@ Verify installer integrity before running:
 
 ```bash
 curl -fsSL -o install.sh https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh
-echo "c8433dc0e1911951287e454512c2a70208547fcab1737d4d13194b2cbce07cd9  install.sh" | sha256sum -c
+echo "9dae6d63ce45ee4da881d91ee228b14d86aadac7a76464a25cc053099fb37858  install.sh" | sha256sum -c
 CLAUDE_BLOG_REF=v1.11.0 bash install.sh
 ```
 
-The SHA-256 above is for the current `install.sh` at HEAD on `main`; `CLAUDE_BLOG_REF` pins the repository clone performed by the installer. Verify against [the canonical file](https://github.com/AI-Marketing-Hub/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `bd816b42b51da5c7ce8b2881120b2b31cb9695bf04a6af688d4d3b6f92e4c156`.
+The SHA-256 above is for the current `install.sh` at HEAD on `main`; `CLAUDE_BLOG_REF` pins the repository clone performed by the installer. Verify against [the canonical file](https://github.com/AI-Marketing-Hub/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `d8ae0e4fb15278f904cc84f2147770d4bdb36ba270d0610c530719df6d8dec5b`.
 
 Restart Claude Code after installation to activate.
 
@@ -323,14 +323,15 @@ Installation details: [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
 - Python 3.11+ for quality scoring, the delivery contract runners, renderers, and lint.
 - Optional: `pip install -r requirements.txt` for advanced analysis, readability scoring, schema detection, and media workflows.
 
-### Six CI Quality Gates
+### Seven CI Quality Gates
 
-1. **pytest**: 242 tests across security, behavioral, regression, installer, and delivery-contract suites.
+1. **pytest**: 252 tests across security, behavioral, regression, installer, and delivery-contract suites.
 2. **Plugin validation**: `claude plugin validate .` plus manifest, marketplace, and frontmatter checks.
 3. **Stale-path lint**: catches drift in `references/`, `templates/`, command docs, and installer payloads.
 4. **Prose hygiene**: `scripts/lint_prose.py` enforces no em dash, no en dash, and no ASCII double-hyphen prose.
-5. **Version coherence**: canonical version surfaces must all match 1.11.0.
+5. **Version coherence**: canonical version surfaces must all match 1.12.0.
 6. **Command coherence**: `skills/blog/SKILL.md` and [`docs/COMMANDS.md`](docs/COMMANDS.md) must declare the same command set.
+7. **Brain validation**: changes under `brain/**` run its pytest suite, vault lint, and report-only audit.
 
 Run locally before pushing:
 
@@ -418,7 +419,7 @@ If you use claude-blog in research or production, please cite the project:
   title        = {claude-blog: AI Blog Writing and SEO Optimization Skill for Claude Code},
   year         = {2026},
   url          = {https://github.com/AgriciDaniel/claude-blog},
-  version      = {1.11.0},
+  version      = {1.12.0},
   license      = {MIT}
 }
 ```
@@ -434,7 +435,7 @@ GitHub also surfaces the structured [`CITATION.cff`](CITATION.cff) file via "Cit
 
 Contributions are welcome. See [`CONTRIBUTING.md`](.github/CONTRIBUTING.md) for guidelines. Before opening a PR:
 
-1. Run `python3 -m pytest tests/` and confirm the 242-test suite passes.
+1. Run `python3 -m pytest tests/` and confirm the 252-test suite passes.
 2. Run `python3 scripts/lint_prose.py` and confirm zero violations.
 3. Run `claude plugin validate .`.
 4. Bump versions coherently if you touch user-visible counts or behavior.

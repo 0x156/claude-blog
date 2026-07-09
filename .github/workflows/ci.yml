@@ -196,3 +196,62 @@ jobs:
         # is now the single source of truth; local devs and CI run the same
         # assertion logic. Closes 7TH-AUDIT-012.
         run: python3 -m pytest tests/test_version_coherence.py -v
+
+  # Keep the brain job conditional on brain/** changes without filtering existing jobs.
+  brain-changes:
+    name: Detect brain changes
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.filter.outputs.changed }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # SHA-pinned
+        with:
+          fetch-depth: 0
+
+      - name: Check whether brain changed
+        id: filter
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            changed_files="$(git diff --name-only "$BASE_SHA...$HEAD_SHA" -- brain/)"
+          elif [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            changed_files="$(git ls-tree -r --name-only "$GITHUB_SHA" -- brain/)"
+          else
+            changed_files="$(git diff --name-only "$BEFORE_SHA" "$GITHUB_SHA" -- brain/)"
+          fi
+
+          if [ -n "$changed_files" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  brain:
+    name: Brain
+    needs: brain-changes
+    if: ${{ needs.brain-changes.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # SHA-pinned
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # SHA-pinned
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python3 -m pip install "pytest>=8.0,<10.0"
+
+      - name: Run brain tests
+        run: python3 -m pytest brain/tests/
+
+      - name: Lint brain vault
+        run: python3 brain/scripts/lint_vault.py
+
+      - name: Audit brain
+        run: python3 brain/scripts/audit_brain.py --json --report-only --no-exec
