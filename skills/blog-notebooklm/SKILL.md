@@ -14,7 +14,7 @@ argument-hint: "[ask|discover|library|setup|status|cleanup] [question-or-url]"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "1.12.0"
+  version: "1.12.1"
   source: "https://github.com/PleasePrompto/notebooklm-skill"
 ---
 
@@ -52,9 +52,9 @@ URL as the bibliography entry for public content.
 - Google Chrome (installed automatically on first run via Patchright)
 - One-time authentication setup (interactive Google login in visible browser)
 
-## Always Use run.py Wrapper
+## Use the run.py Wrapper
 
-**NEVER call scripts directly. ALWAYS use `python3 scripts/run.py [script]`:**
+Call scripts only through the run.py wrapper: `python3 scripts/run.py [script]`:
 
 ```bash
 # CORRECT:
@@ -161,7 +161,7 @@ python3 scripts/run.py notebook_manager.py add \
   --topics "<Extracted topics>"
 ```
 
-**NEVER guess or use generic descriptions.** Always discover or ask the user.
+Do not guess descriptions; discover or ask the user.
 
 ## Library Management
 

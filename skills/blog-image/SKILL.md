@@ -2,22 +2,18 @@
 name: blog-image
 description: >
   AI image generation and editing for blog content powered by Gemini via MCP.
-  Claude acts as Creative Director - interpreting intent, selecting domain expertise,
-  constructing optimized 6-component prompts (Subject + Action + Context + Composition
-  + Lighting + Style), and orchestrating Gemini for blog-quality results. Generates
-  hero images, inline illustrations, social preview cards, and OG images. Edits
-  existing blog images. Supports 6 blog-optimized domain modes (Editorial, Product,
-  Landscape, UI/Web, Infographic, Abstract). Works standalone via /blog image or
-  internally from blog-write and blog-rewrite workflows. Falls back gracefully when
-  MCP is not configured. Use when user says "blog image", "generate hero image",
-  "blog illustration", "social card", "generate blog image", "edit blog image",
-  "image generate", "blog cover image", "inline image", "OG image".
+  Generates hero images, inline illustrations, social preview cards, and OG
+  images, and edits existing ones. Supports 6 domain modes (Editorial, Product,
+  Landscape, UI/Web, Infographic, Abstract). Works standalone or internally from
+  blog-write and blog-rewrite; falls back gracefully when MCP is unavailable.
+  Use when user says "blog image", "generate hero image", "blog illustration",
+  "edit blog image", "OG image".
 user-invokable: true
 argument-hint: "[generate|edit|setup] [description-or-path]"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "1.12.0"
+  version: "1.12.1"
   mcp-package: "@ycse/nanobanana-mcp"
 ---
 
@@ -95,7 +91,7 @@ Load `references/prompt-engineering-blog.md` for domain mode modifier libraries.
 
 ### Step 3: Construct the 6-Component Reasoning Brief
 
-Build the prompt as natural narrative paragraphs - NEVER as keyword lists:
+Build the prompt as natural narrative paragraphs, not keyword lists:
 
 1. **Subject** - Who/what, with rich physical detail (textures, materials, scale)
 2. **Action** - What is happening, pose, gesture, movement, state

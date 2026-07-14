@@ -2,16 +2,12 @@
 name: blog-rewrite
 description: >
   Rewrite and optimize existing blog posts for Google SEO (May 2026 Core
-  Update, March 2026 core/spam context, June 2026 spam context, E-E-A-T)
-  and AI citation visibility as one SEO discipline. Full rewrite for both
-  Google rankings AND AI citations. For AI-citation-only audit (no Google
-  work), use blog-geo instead. Replaces fabricated statistics with sourced
-  data, applies answer-first formatting, adds Pixabay/Unsplash images,
-  generates built-in SVG charts, validates Article-priority schema, performs AI content
-  detection, adds citation capsules and information gain markers, and
-  updates freshness signals. Works with any blog format (MDX, markdown,
-  HTML). Use when user says "rewrite blog", "optimize blog", "update blog",
-  "improve blog", "fix blog", "refresh blog post", "blog optimization".
+  Update, E-E-A-T) and AI citation visibility as one SEO discipline. For
+  AI-citation-only audit (no Google work), use blog-geo instead. Replaces
+  fabricated statistics with sourced data, applies answer-first formatting,
+  adds images, generates SVG charts, and updates freshness signals. Works
+  with any blog format (MDX, markdown, HTML). Use when user says "rewrite
+  blog", "optimize blog", "update blog", "improve blog", "fix blog".
 user-invokable: true
 argument-hint: "<file-path>"
 license: MIT
@@ -154,7 +150,7 @@ Apply changes in this order:
 - Verify tags/categories are appropriate
 
 #### 4c. Apply Answer-First Formatting
-Every H2 section MUST open with a 40-60 word paragraph containing:
+Open every H2 section with a 40-60 word paragraph containing:
 - At least one specific statistic with source attribution
 - A direct answer to the heading's implicit question
 

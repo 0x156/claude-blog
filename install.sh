@@ -9,7 +9,7 @@ set -euo pipefail
 
 # Declared outside main() so the EXIT trap can access it after main() returns
 TEMP_DIR=""
-readonly CLAUDE_BLOG_VERSION="1.12.0"
+readonly CLAUDE_BLOG_VERSION="1.12.1"
 
 copy_tree() {
     local src="$1"

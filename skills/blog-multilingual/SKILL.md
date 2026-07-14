@@ -15,7 +15,7 @@ license: MIT
 compatibility: Requires claude-blog (blog-write). Optional integration with claude-seo (seo-hreflang) for richer hreflang validation.
 metadata:
   author: AgriciDaniel
-  version: "1.12.0"
+  version: "1.12.1"
   category: blog
 ---
 
@@ -91,7 +91,7 @@ in `<source>` first, then translated."
      {lang-2}/
      ...
    ```
-   Output MUST stay inside the project root. Never write outside the cwd.
+   Keep all output inside the project root; do not write outside the cwd.
 
 Progress: `Phase 1: Configuration complete, [N] languages selected ([codes])`
 

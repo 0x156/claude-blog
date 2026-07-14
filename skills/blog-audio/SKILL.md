@@ -14,7 +14,7 @@ argument-hint: "[generate|voices|setup] [file-or-text] [--mode summary|full|dial
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "1.12.0"
+  version: "1.12.1"
 ---
 
 # Blog Audio: Gemini TTS Narration for Blog Posts
@@ -109,7 +109,7 @@ Ask the user (or auto-select if they specified `--mode`):
 
 ### Step 3: Prepare Text
 
-**CRITICAL:** Claude prepares the text. The script does TTS only.
+Claude prepares the text; the script does TTS only.
 
 **Summary mode:**
 Write a 200-300 word spoken summary of the article. Rules:

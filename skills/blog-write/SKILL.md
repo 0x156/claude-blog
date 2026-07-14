@@ -256,7 +256,7 @@ Requirements:
 - Backward compatible: accept existing TL;DR boxes during rewrites
 
 #### 5c. Answer-First Formatting (Critical)
-Every H2 section MUST open with a 40-60 word paragraph containing:
+Open every H2 section with a 40-60 word paragraph containing:
 - At least one specific statistic with source attribution
 - A direct answer to the heading's implicit question
 
