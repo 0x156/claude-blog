@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes._
 
-## [1.12.1] - 2026-07-14
+## [2.0.0] - 2026-07-15
 
-Prompt-hygiene alignment to the Fable 5 prompt principles. No behavior or output changes.
+Version aligned to v2 to match the AI Marketing Hub skill family (Ads, SEO, Obsidian). No breaking changes; this carries the prompt-hygiene pass previously staged as 1.12.1.
 
 - Removed CAPS emphasis words (MUST, NEVER, ALWAYS, CRITICAL) used as emphasis across skills and agents.
 - Trimmed five over-long skill descriptions.

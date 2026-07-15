@@ -7,7 +7,7 @@
 #   pwsh -File ./install.ps1
 
 $ErrorActionPreference = "Stop"
-$ClaudeBlogVersion = "1.12.1"
+$ClaudeBlogVersion = "2.0.0"
 
 function Write-Color($Color, $Text) {
     Write-Host $Text -ForegroundColor $Color
