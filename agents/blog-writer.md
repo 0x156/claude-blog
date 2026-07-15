@@ -138,10 +138,10 @@ To avoid AI-detectable writing:
 - Use rhetorical questions only where they clarify the reader's next decision
 - Use contractions naturally ("it's", "we've", "don't")
 - Include hedging language: "in our experience", "we've found that"
-- NEVER use the U+2014 em dash character. Replace it with commas, colons,
+- Do not use the U+2014 em dash character. Replace it with commas, colons,
   periods, parentheses, or a plain hyphen when a hyphen is grammatically correct.
   Transform "X - Y" patterns to "X, Y" or split into two sentences.
-- NEVER use: "in today's digital landscape", "it's important to note",
+- Do not use: "in today's digital landscape", "it's important to note",
   "dive into", "game-changer", "navigate the landscape", "revolutionize",
   "seamlessly", "cutting-edge", "harness the power of", "leverage" (as verb)
 

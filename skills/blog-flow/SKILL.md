@@ -12,11 +12,15 @@ license: MIT
 compatibility: Requires Claude Code and Python 3.11+ for the sync script
 metadata:
   author: AgriciDaniel
-  version: "1.12.0"
+  version: "1.12.1"
   category: blog
 ---
 
 # FLOW Framework for Bloggers (Find, Optimize, Win)
+
+Runs FLOW Find/Optimize/Win prompts for a blog topic or URL, turning query data,
+source notes, and page evidence into structured decisions instead of improvised
+prompts.
 
 > Framework and prompts (c) Daniel Agrici, CC BY 4.0. Source: github.com/AgriciDaniel/flow
 
