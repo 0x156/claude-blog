@@ -28,6 +28,8 @@ Public distribution normalization and a collision-safe patch release.
   checkout-independent verification for PowerShell.
 - Declared Pillow for presentation workflows and completed the development
   dependency set used by rendering, image, PageSpeed, and Search Console tests.
+- Made plugin validation deterministic on pull requests and protected branches
+  by installing an exact Claude Code CLI version in CI.
 
 ## [2.1.0] - 2026-07-23
 

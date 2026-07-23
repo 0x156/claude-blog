@@ -77,6 +77,14 @@ jobs:
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # SHA-pinned, closes VULN-503
 
+      - name: Set up Node.js 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4, SHA-pinned
+        with:
+          node-version: "22"
+
+      - name: Install Claude Code CLI
+        run: npm install --global --no-audit --no-fund @anthropic-ai/claude-code@2.1.218
+
       - name: Validate SKILL.md frontmatter
         run: |
           python3 - <<'PY'
@@ -152,20 +160,7 @@ jobs:
           "
 
       - name: Run `claude plugin validate`
-        run: |
-          if command -v claude >/dev/null 2>&1; then
-            claude plugin validate .
-          else
-            case "${GITHUB_REF_NAME}" in
-              main|master|release/*|v*)
-                echo "claude CLI is required for protected and release refs"
-                exit 1
-                ;;
-              *)
-                echo "claude CLI not available on runner; schema checks above still ran"
-                ;;
-            esac
-          fi
+        run: claude plugin validate .
 
   lint-markdown:
     runs-on: ubuntu-latest
