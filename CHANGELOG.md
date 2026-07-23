@@ -9,9 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes._
 
+## [2.1.1] - 2026-07-23
+
+Public distribution normalization and a collision-safe patch release.
+
+### Changed
+
+- Normalized public repository, installer, marketplace, documentation, and
+  issue-routing surfaces to `AgriciDaniel/claude-blog`.
+- Bumped the public candidate to v2.1.1 so its release tag does not collide
+  with the separately prepared private v2.1.0 release.
+
+### Fixed
+
+- Replaced private Discussions, security-advisory, and documentation links in
+  the public issue template with their public canonical destinations.
+- Recomputed installer digests from canonical raw LF bytes while preserving
+  checkout-independent verification for PowerShell.
+
 ## [2.1.0] - 2026-07-23
 
-Google policy alignment, public-backlog review, and private release safeguards.
+Google policy alignment, dependency maintenance, community-backlog fixes, and
+public release safeguards.
 
 ### Added
 
@@ -33,9 +52,9 @@ Google policy alignment, public-backlog review, and private release safeguards.
   first-party sources.
 - Updated `google-genai` to the tested 2.14.0 release and Patchright to 1.61.2
   with regenerated hash locks.
-- Updated private installation and publishing documentation, corrected the
-  public marketplace slug, and shipped the Google update ledger in standalone
-  installs.
+- Updated installation and publishing documentation for public distribution,
+  corrected the marketplace slug, and shipped the Google update ledger in
+  standalone installs.
 
 ### Fixed
 
@@ -102,7 +121,9 @@ Full-repo audit remediation plus a knowledge and currency refresh. A multi-agent
 - Reworked the Windows install to download then run (`irm ... -OutFile install.ps1; pwsh -File ./install.ps1`) instead of piping to the shell. Safer, and it avoids a heuristic antivirus false positive. Added an "Antivirus false positives" section to `SECURITY.md`.
 
 ### Packaging and installers
-- Defaulted installers to the `AI-Marketing-Hub/claude-blog` mirror with `CLAUDE_BLOG_REF` pinned-install support and `CLAUDE_BLOG_REPO` and `CLAUDE_BLOG_URL` overrides for forks.
+- Defaulted installers to the canonical release repository with
+  `CLAUDE_BLOG_REF` pinned-install support and `CLAUDE_BLOG_REPO` and
+  `CLAUDE_BLOG_URL` overrides for forks.
 - Recursive, allowlisted skill payload copies so nested FLOW prompts, Google report templates, and per-skill references, scripts, assets, and templates install together.
 - Unix install manifest and package-scoped uninstall that leaves shared `~/.config/claude-seo` credentials intact.
 - Stronger CI skill validation for frontmatter allowlists, `allowed-tools` rejection, and line and token caps.

@@ -5,11 +5,11 @@ set -euo pipefail
 # Installs the blog skill ecosystem to ~/.claude/skills/ and ~/.claude/agents/
 #
 # One-command install:
-#   curl -sL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | bash
+#   curl -sL https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh | bash
 
 # Declared outside main() so the EXIT trap can access it after main() returns
 TEMP_DIR=""
-readonly CLAUDE_BLOG_VERSION="2.1.0"
+readonly CLAUDE_BLOG_VERSION="2.1.1"
 
 copy_tree() {
     local src="$1"
@@ -78,7 +78,7 @@ main() {
     if [ -f "${BASH_SOURCE[0]:-}" ] && [ -d "$(dirname "${BASH_SOURCE[0]}")/skills/blog" ]; then
         SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     else
-        local repo="${CLAUDE_BLOG_REPO:-AI-Marketing-Hub/claude-blog}"
+        local repo="${CLAUDE_BLOG_REPO:-AgriciDaniel/claude-blog}"
         local ref="${CLAUDE_BLOG_REF:-main}"
         local url="${CLAUDE_BLOG_URL:-https://github.com/${repo}.git}"
         echo "→ Cloning claude-blog from ${repo} (${ref})..."

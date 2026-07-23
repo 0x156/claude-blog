@@ -9,7 +9,7 @@
   <a href="https://github.com/AgriciDaniel/claude-blog/releases"><img src="https://img.shields.io/github/v/release/AgriciDaniel/claude-blog?label=public%20release" alt="Version"></a>
   <a href="https://github.com/AgriciDaniel/claude-blog/actions"><img src="https://img.shields.io/github/actions/workflow/status/AgriciDaniel/claude-blog/ci.yml?branch=main&label=public%20CI" alt="CI"></a>
   <a href="https://github.com/AgriciDaniel/claude-blog/stargazers"><img src="https://img.shields.io/github/stars/AgriciDaniel/claude-blog?style=social" alt="GitHub stars"></a>
-  <a href="https://www.skool.com/ai-marketing-hub-pro"><img src="https://img.shields.io/badge/AI%20Marketing%20Hub-Pro%20community-purple" alt="Community"></a>
+  <a href="https://github.com/AgriciDaniel/claude-blog/discussions"><img src="https://img.shields.io/badge/Community-GitHub%20Discussions-blue" alt="GitHub Discussions"></a>
   <img src="https://img.shields.io/badge/License-MIT-green" alt="License: MIT">
   <img src="https://img.shields.io/badge/Python-3.11%2B-blue" alt="Python 3.11+">
   <img src="https://img.shields.io/badge/Skill%20Dirs-32-orange" alt="Skill directories: 32">
@@ -18,16 +18,14 @@
   <img src="https://img.shields.io/badge/Tests-250%2B%20passing-brightgreen" alt="Tests: more than 250 passing">
 </p>
 
-**claude-blog is a Claude Code skill suite that writes, optimizes, audits, localizes, and refreshes blog content at scale.** Every article is evaluated for Google-aligned usefulness and internal AI citation readiness heuristics. Version 2.1.0 was prepared on 2026-07-23.
+**claude-blog is a Claude Code skill suite that writes, optimizes, audits, localizes, and refreshes blog content at scale.** Every article is evaluated for Google-aligned usefulness and internal AI citation readiness heuristics. Version 2.1.1 was prepared on 2026-07-23.
 
 The core promise is simple: the user is never the first reviewer. A 5-gate Blog Delivery Contract scores every draft against a 100-point rubric, blocks delivery below 90, verifies artifacts and links, and iterates up to 3 times before escalation.
 
-> **Two versions of this skill.** Choose the one that fits how you work:
->
-> - **Public open-source**: [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog). MIT-licensed, public releases, open to anyone. Use this if you want the stable, downloadable, no-membership-required version.
-> - **Community private mirror** (this repo): [`AI-Marketing-Hub/claude-blog`](https://github.com/AI-Marketing-Hub/claude-blog). Early access to in-development work, including current Google guidance, the Blog Delivery Contract, the hero ladder, mutation-tested regression coverage, and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
->
-> The badges above track the **public** repo (`AgriciDaniel/claude-blog`) since the private mirror is not visible to shields.io. The publishing workflow is documented in [`docs/PUBLISHING.md`](docs/PUBLISHING.md).
+This is the public, MIT-licensed distribution at
+[`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog).
+The publishing workflow is documented in
+[`docs/PUBLISHING.md`](docs/PUBLISHING.md).
 
 **Blog:** [See how claude-blog works](https://agricidaniel.com/blog/claude-code-blog-writer)
 
@@ -51,7 +49,7 @@ The core promise is simple: the user is never the first reviewer. A 5-gate Blog 
 
 claude-blog is a full-lifecycle blog engine for strategy, briefs, outlines, writing, rewriting, analysis, schema, AI citation readiness, site audits, topic clusters, multilingual publishing, audio narration, and content decay detection.
 
-Current v2.1.0 shape: **32 skill directories = 1 orchestrator + 31 sub-skills; 30 user-facing /blog commands (`blog-chart` is internal, not a command).** It also includes 5 specialized agents, repository consistency and public-release validators, 22 core references, 12 templates, a 250+ test suite, and the bundled Claude Blog Brain at `./brain`.
+Current v2.1.1 shape: **32 skill directories = 1 orchestrator + 31 sub-skills; 30 user-facing /blog commands (`blog-chart` is internal, not a command).** It also includes 5 specialized agents, repository consistency and public-release validators, 22 core references, 12 templates, a 250+ test suite, and the bundled Claude Blog Brain at `./brain`.
 
 Every draft ships as an artifact folder with the markdown source, rendered HTML, PDF, real `hero.<ext>`, 3 viewport screenshots, `review.md`, and `preflight-report.json`. The renderer uses XSS-safe JSON-LD handling, dark-mode-aware CSS, and the same source for every output format.
 
@@ -254,24 +252,19 @@ The Claude Blog Brain is vendored at `./brain` as a self-contained, evidence-gat
 
 ## Install
 
-> **Which version are you installing?**
->
-> - **Not an AI Marketing Hub Pro member?** Install from the public repo: [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog). Swap `AI-Marketing-Hub/claude-blog` for `AgriciDaniel/claude-blog` and the plugin slug `claude-blog@ai-marketing-hub-claude-blog` for `claude-blog@agricidaniel-blog`.
-> - **Pro member?** The commands below install the community version with early access to in-development features. They require an authenticated `gh auth login` or GitHub PAT session with access to the `AI-Marketing-Hub` org. If `/plugin marketplace add` fails with a 404, your account is not in the org yet.
-
 Plugin install for Claude Code 1.0.33+:
 
 ```bash
-/plugin marketplace add AI-Marketing-Hub/claude-blog
-/plugin install claude-blog@ai-marketing-hub-claude-blog
+/plugin marketplace add AgriciDaniel/claude-blog
+/plugin install claude-blog@agricidaniel-blog
 ```
 
 Recommended clone, verify, then install flow:
 
 ```bash
-git clone https://github.com/AI-Marketing-Hub/claude-blog.git
+git clone https://github.com/AgriciDaniel/claude-blog.git
 cd claude-blog
-git checkout v2.1.0
+git checkout v2.1.1
 chmod +x install.sh
 ./install.sh
 ```
@@ -279,26 +272,26 @@ chmod +x install.sh
 One-command install on Unix and macOS:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | CLAUDE_BLOG_REF=v2.1.0 bash
+curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh | CLAUDE_BLOG_REF=v2.1.1 bash
 ```
 
 One-command install on Windows PowerShell:
 
 ```powershell
-$env:CLAUDE_BLOG_REF = "v2.1.0"
-irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 -OutFile install.ps1
+$env:CLAUDE_BLOG_REF = "v2.1.1"
+irm https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1 -OutFile install.ps1
 pwsh -File ./install.ps1
 ```
 
 Verify installer integrity before running:
 
 ```bash
-curl -fsSL -o install.sh https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh
-echo "7f82ad081eb3393421a46e62bac135b1e326e3d9925c9d65f908d65ff62f354d  install.sh" | sha256sum -c
-CLAUDE_BLOG_REF=v2.1.0 bash install.sh
+curl -fsSL -o install.sh https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh
+echo "b4fcd5aa6767529bc8d11017699bd8211519c93b0d6c28c5cf032f76ada98381  install.sh" | sha256sum -c
+CLAUDE_BLOG_REF=v2.1.1 bash install.sh
 ```
 
-The SHA-256 above is for the current `install.sh` at HEAD on `main`; `CLAUDE_BLOG_REF` pins the repository clone performed by the installer. Verify against [the canonical file](https://github.com/AI-Marketing-Hub/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `3e908113fc9c1c2cf1b88940701f3ff772fb315200bedafce2c4e44787e6d985`.
+The SHA-256 above is for the current `install.sh` at HEAD on `main`; `CLAUDE_BLOG_REF` pins the repository clone performed by the installer. Verify against [the canonical file](https://github.com/AgriciDaniel/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `9532d3014aa24468d8dd309e19acb5557c9cc7e4edab718381c26515aab48a79`.
 
 Restart Claude Code after installation to activate.
 
@@ -372,9 +365,10 @@ claude-blog is a Claude Code skill suite for writing, optimizing, and auditing b
 
 Direct prompting gives you one draft from one prompt. claude-blog gives you a structured pipeline: research with sourced statistics, outline approval, draft generation, multi-pass quality scoring, advisory editorial pattern review, fact verification, schema injection, and a blocking review that iterates up to 3 times before delivery.
 
-### Do I need an AI Marketing Hub Pro membership to use claude-blog?
+### Is claude-blog free and open source?
 
-No. The public open-source version at [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog) is MIT-licensed and free for anyone with Claude Code. The private mirror is for Pro members who want early access and direct collaboration.
+Yes. [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog)
+is MIT-licensed and available to anyone using Claude Code.
 
 ### What blog platforms does claude-blog support?
 
@@ -398,7 +392,7 @@ See [How To Cite](#how-to-cite) or [`CITATION.cff`](CITATION.cff). GitHub also s
 
 ### Is claude-blog secure to install?
 
-The recommended flow downloads the installer as a file so you can inspect it before execution. v2.1.0 uses pinned refs, allowlisted recursive payload copies, manifest-backed uninstall, prose lint, version coherence checks, repository consistency checks, and installer regression tests. See [`SECURITY.md`](.github/SECURITY.md).
+The recommended flow downloads the installer as a file so you can inspect it before execution. v2.1.1 uses pinned refs, allowlisted recursive payload copies, manifest-backed uninstall, prose lint, version coherence checks, repository consistency checks, and installer regression tests. See [`SECURITY.md`](.github/SECURITY.md).
 
 ## Documentation Index
 
@@ -421,7 +415,7 @@ If you use claude-blog in research or production, please cite the project:
   title        = {claude-blog: AI Blog Writing and SEO Optimization Skill for Claude Code},
   year         = {2026},
   url          = {https://github.com/AgriciDaniel/claude-blog},
-  version      = {2.1.0},
+  version      = {2.1.1},
   license      = {MIT}
 }
 ```
@@ -451,7 +445,7 @@ MIT License. See [`LICENSE`](LICENSE).
 - **[Rankenstein](https://rankenstein.pro)**: GUI-based content publishing workflow.
 - **[FLOW framework](https://github.com/AgriciDaniel/flow)**: Evidence-led Find, Leverage, Optimize, Win prompts (CC BY 4.0).
 - **[Claude Ads](https://github.com/AgriciDaniel/claude-ads)** and **[Claude SEO](https://github.com/AgriciDaniel/claude-seo)**: sibling Claude Code skills.
-- **[AI Marketing Hub](https://www.skool.com/ai-marketing-hub)**: free community. Pro tier at [`ai-marketing-hub-pro`](https://www.skool.com/ai-marketing-hub-pro) hosts this skill's private mirror.
+- **[AI Marketing Hub](https://www.skool.com/ai-marketing-hub)**: Free community for AI-powered marketing.
 
 ## Author
 

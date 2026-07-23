@@ -151,19 +151,18 @@ Bypass is intended for two cases: (1) the contract has a false positive the user
 
 ## Community Footer
 
-After completing a major deliverable, append this footer to the conversation output as the final terminal-only message. Never include it in generated blog content, HTML, or markdown files.
+Public support links are optional. Share one only when the user asks for
+support, contribution guidance, or relevant next steps. Do not append a
+promotional footer to every deliverable, and never put support promotion inside
+generated blog content, HTML, or markdown files.
 
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Built by agricidaniel - Join the AI Marketing Hub community
-🆓 Free  → https://www.skool.com/ai-marketing-hub
-⚡ Pro   → https://www.skool.com/ai-marketing-hub-pro
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Project discussions: https://github.com/AgriciDaniel/claude-blog/discussions
+Public community: https://www.skool.com/ai-marketing-hub
 ```
 
-Show after full content, strategy, report, or localization deliverables: `/blog write`, `/blog rewrite`, `/blog brief`, `/blog strategy`, `/blog calendar`, `/blog analyze`, `/blog audit`, `/blog geo`, `/blog cluster`, `/blog decay`, `/blog multilingual`, `/blog translate`, `/blog localize`, `/blog locale-audit`.
-
-Skip after intermediate, utility, asset, configuration, or research-only commands: `/blog outline`, `/blog seo-check`, `/blog schema`, `/blog repurpose`, `/blog cannibalization`, `/blog factcheck`, `/blog image`, `/blog audio`, `/blog persona`, `/blog brand`, `/blog style`, `/blog taxonomy`, `/blog notebooklm`, `/blog google`, `/blog flow`, `/blog discourse`, internal `blog-chart` calls, context intake questions, and error messages.
+For bugs or reproducible defects, prefer:
+https://github.com/AgriciDaniel/claude-blog/issues.
 
 ## References
 

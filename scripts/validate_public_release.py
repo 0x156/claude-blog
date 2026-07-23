@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 PUBLIC_REPOSITORY = "https://github.com/AgriciDaniel/claude-blog"
+PUBLIC_VERSION = "2.1.1"
 PUBLIC_SLUG = "claude-blog@agricidaniel-blog"
 PUBLIC_OWNER = "AgriciDaniel"
 PUBLIC_OWNER_URL = "https://github.com/AgriciDaniel"
@@ -26,13 +27,24 @@ PUBLIC_RAW_INSTALL_SH = (
 PUBLIC_RAW_INSTALL_PS1 = (
     "https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1"
 )
+PUBLIC_PINNED_INSTALL_SH = (
+    f"https://raw.githubusercontent.com/AgriciDaniel/claude-blog/"
+    f"v{PUBLIC_VERSION}/install.sh"
+)
+PUBLIC_DISCUSSIONS = f"{PUBLIC_REPOSITORY}/discussions"
+PUBLIC_SECURITY_ADVISORY = f"{PUBLIC_REPOSITORY}/security/advisories/new"
+PUBLIC_DOCUMENTATION = f"{PUBLIC_REPOSITORY}/tree/main/docs"
 SURFACES = (
     "README.md",
+    "CLAUDE.md",
+    "CITATION.cff",
     "pyproject.toml",
     ".claude-plugin/plugin.json",
     ".claude-plugin/marketplace.json",
+    ".github/ISSUE_TEMPLATE/config.yml",
     "install.sh",
     "install.ps1",
+    "skills/blog/SKILL.md",
 )
 FORBIDDEN_PATTERNS = {
     "private_raw_url": re.compile(
@@ -125,6 +137,60 @@ def validate(root: Path) -> dict:
                 }
             )
 
+    version_fragments = {
+        "README.md": (
+            f"git checkout v{PUBLIC_VERSION}",
+            f"CLAUDE_BLOG_REF=v{PUBLIC_VERSION}",
+        ),
+        "CLAUDE.md": (
+            f"CLAUDE_BLOG_REF=v{PUBLIC_VERSION}",
+            PUBLIC_PINNED_INSTALL_SH,
+        ),
+        "CITATION.cff": (f"version: {PUBLIC_VERSION}",),
+        "pyproject.toml": (f'version = "{PUBLIC_VERSION}"',),
+        ".claude-plugin/plugin.json": (f'"version": "{PUBLIC_VERSION}"',),
+        "install.sh": (f'CLAUDE_BLOG_VERSION="{PUBLIC_VERSION}"',),
+        "install.ps1": (f'$ClaudeBlogVersion = "{PUBLIC_VERSION}"',),
+        "skills/blog/SKILL.md": (f'version: "{PUBLIC_VERSION}"',),
+    }
+    for relative, expected_fragments in version_fragments.items():
+        text = contents.get(relative, "")
+        for expected in expected_fragments:
+            if expected not in text:
+                errors.append(
+                    {
+                        "kind": "invalid_public_release_version",
+                        "file": relative,
+                        "expected": expected,
+                    }
+                )
+
+    citation = contents.get("CITATION.cff", "")
+    expected_citation_repository = f'repository-code: "{PUBLIC_REPOSITORY}"'
+    if expected_citation_repository not in citation:
+        errors.append(
+            {
+                "kind": "invalid_public_citation_repository",
+                "file": "CITATION.cff",
+                "expected": expected_citation_repository,
+            }
+        )
+
+    issue_config = contents.get(".github/ISSUE_TEMPLATE/config.yml", "")
+    for expected in (
+        PUBLIC_DISCUSSIONS,
+        PUBLIC_SECURITY_ADVISORY,
+        PUBLIC_DOCUMENTATION,
+    ):
+        if expected not in issue_config:
+            errors.append(
+                {
+                    "kind": "invalid_public_issue_routing",
+                    "file": ".github/ISSUE_TEMPLATE/config.yml",
+                    "expected": expected,
+                }
+            )
+
     expected_installer_urls = {
         "install.sh": PUBLIC_RAW_INSTALL_SH,
         "install.ps1": PUBLIC_RAW_INSTALL_PS1,
@@ -150,7 +216,11 @@ def validate(root: Path) -> dict:
 
     for relative, text in contents.items():
         for found in RAW_INSTALLER_RE.findall(text):
-            if found not in {PUBLIC_RAW_INSTALL_SH, PUBLIC_RAW_INSTALL_PS1}:
+            if found not in {
+                PUBLIC_RAW_INSTALL_SH,
+                PUBLIC_RAW_INSTALL_PS1,
+                PUBLIC_PINNED_INSTALL_SH,
+            }:
                 errors.append(
                     {
                         "kind": "wrong_public_raw_installer_url",

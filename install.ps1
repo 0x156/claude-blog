@@ -3,11 +3,11 @@
 # Installs the blog skill ecosystem to ~/.claude/skills/ and ~/.claude/agents/
 #
 # Install (download first, then run so you can inspect it):
-#   irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 -OutFile install.ps1
+#   irm https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1 -OutFile install.ps1
 #   pwsh -File ./install.ps1
 
 $ErrorActionPreference = "Stop"
-$ClaudeBlogVersion = "2.1.0"
+$ClaudeBlogVersion = "2.1.1"
 
 function Write-Color($Color, $Text) {
     Write-Host $Text -ForegroundColor $Color
@@ -89,7 +89,7 @@ function Main {
     if ($MyInvocation.MyCommand.Path -and (Test-Path (Join-Path (Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "skills") "blog"))) {
         $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
     } else {
-        $Repo = if ($env:CLAUDE_BLOG_REPO) { $env:CLAUDE_BLOG_REPO } else { "AI-Marketing-Hub/claude-blog" }
+        $Repo = if ($env:CLAUDE_BLOG_REPO) { $env:CLAUDE_BLOG_REPO } else { "AgriciDaniel/claude-blog" }
         $Ref = if ($env:CLAUDE_BLOG_REF) { $env:CLAUDE_BLOG_REF } else { "main" }
         $Url = if ($env:CLAUDE_BLOG_URL) { $env:CLAUDE_BLOG_URL } else { "https://github.com/$Repo.git" }
         Write-Color White "Cloning claude-blog from $Repo ($Ref)..."

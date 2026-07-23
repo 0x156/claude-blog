@@ -24,13 +24,13 @@ helpers may still run without Python, but production installs should include it.
 ### Linux / macOS
 
 ```bash
-curl -sL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh | bash
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 -OutFile install.ps1
+irm https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1 -OutFile install.ps1
 pwsh -File ./install.ps1
 ```
 
@@ -44,7 +44,7 @@ and scripts to the correct Claude Code configuration directories.
 ## Standard Install (Git Clone)
 
 ```bash
-git clone https://github.com/AI-Marketing-Hub/claude-blog.git
+git clone https://github.com/AgriciDaniel/claude-blog.git
 cd claude-blog
 chmod +x install.sh
 ./install.sh

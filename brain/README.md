@@ -92,4 +92,7 @@ and unsafe ZIP entries before writing `dist/RELEASE_MANIFEST.json` and
 
 ## Community
 
-Discuss and get support in the AI Marketing Hub Pro community: https://www.skool.com/ai-marketing-hub-pro
+Use public project Discussions for questions and support:
+https://github.com/AgriciDaniel/claude-blog/discussions.
+Report reproducible defects through public Issues:
+https://github.com/AgriciDaniel/claude-blog/issues.

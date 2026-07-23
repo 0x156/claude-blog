@@ -1,4 +1,4 @@
-"""Regression coverage for v2.1.0 release and repository safeguards."""
+"""Regression coverage for v2.1.1 release and repository safeguards."""
 
 from __future__ import annotations
 
@@ -206,15 +206,20 @@ def test_length_experience_and_style_diagnostics_are_conditional() -> None:
     eeat = (
         ROOT / "skills" / "blog" / "references" / "eeat-signals.md"
     ).read_text(encoding="utf-8")
-    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    instruction_paths = [ROOT / "CLAUDE.md"]
+    agents_path = ROOT / "AGENTS.md"
+    if agents_path.is_file():
+        instruction_paths.append(agents_path)
 
     assert "Paragraphs > 200 words (Yoast red)" not in quality
     assert "length alone does not set priority" in quality
     assert "never from length alone" in quality
     assert "needs first-hand testing" not in eeat
     assert "neutral sourced analysis can rely on" in eeat
-    assert "with AI detection" not in agents
-    assert "not authorship detection" in agents
+    for path in instruction_paths:
+        instructions = path.read_text(encoding="utf-8")
+        assert "with AI detection" not in instructions
+        assert "not authorship detection" in instructions
 
 
 def test_evidence_guidance_has_no_placement_or_source_count_quotas() -> None:
@@ -465,6 +470,7 @@ def test_consistency_checker_discovers_skill_relative_resources_and_agents(
 
 def _public_fixture(root: Path) -> None:
     public = "https://github.com/AgriciDaniel/claude-blog"
+    version = "2.1.1"
     raw_sh = (
         "https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh"
     )
@@ -472,13 +478,26 @@ def _public_fixture(root: Path) -> None:
         "https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1"
     )
     (root / ".claude-plugin").mkdir(parents=True)
+    (root / ".github" / "ISSUE_TEMPLATE").mkdir(parents=True)
+    (root / "skills" / "blog").mkdir(parents=True)
     (root / "README.md").write_text(
-        f"{public}\nclaude-blog@agricidaniel-blog\n{raw_sh}\n{raw_ps1}\n",
+        f"{public}\nclaude-blog@agricidaniel-blog\n{raw_sh}\n{raw_ps1}\n"
+        f"git checkout v{version}\nCLAUDE_BLOG_REF=v{version}\n",
+        encoding="utf-8",
+    )
+    (root / "CLAUDE.md").write_text(
+        f"https://raw.githubusercontent.com/AgriciDaniel/claude-blog/"
+        f"v{version}/install.sh\nCLAUDE_BLOG_REF=v{version}\n",
+        encoding="utf-8",
+    )
+    (root / "CITATION.cff").write_text(
+        f'repository-code: "{public}"\nversion: {version}\n',
         encoding="utf-8",
     )
     (root / "pyproject.toml").write_text(
         "\n".join(
-            [
+            [f'version = "{version}"']
+            + [
                 f'{field} = "{public}{suffix}"'
                 for field, suffix in (
                     ("homepage", ""),
@@ -495,6 +514,7 @@ def _public_fixture(root: Path) -> None:
         json.dumps(
             {
                 "name": "claude-blog",
+                "version": version,
                 "homepage": public,
                 "repository": public,
                 "author": {
@@ -515,12 +535,28 @@ def _public_fixture(root: Path) -> None:
         ),
         encoding="utf-8",
     )
+    (root / ".github" / "ISSUE_TEMPLATE" / "config.yml").write_text(
+        "\n".join(
+            (
+                f"url: {public}/discussions",
+                f"url: {public}/security/advisories/new",
+                f"url: {public}/tree/main/docs",
+            )
+        ),
+        encoding="utf-8",
+    )
     (root / "install.sh").write_text(
-        f'{raw_sh}\nrepo="${{CLAUDE_BLOG_REPO:-AgriciDaniel/claude-blog}}"\n',
+        f'{raw_sh}\nCLAUDE_BLOG_VERSION="{version}"\n'
+        'repo="${CLAUDE_BLOG_REPO:-AgriciDaniel/claude-blog}"\n',
         encoding="utf-8",
     )
     (root / "install.ps1").write_text(
-        f'{raw_ps1}\n$Repo = "AgriciDaniel/claude-blog"\n',
+        f'{raw_ps1}\n$ClaudeBlogVersion = "{version}"\n'
+        '$Repo = "AgriciDaniel/claude-blog"\n',
+        encoding="utf-8",
+    )
+    (root / "skills" / "blog" / "SKILL.md").write_text(
+        f'  version: "{version}"\n',
         encoding="utf-8",
     )
 
@@ -532,6 +568,17 @@ def test_public_release_validator_passes_normalized_fixture(tmp_path: Path) -> N
     )
     _public_fixture(tmp_path)
     assert module.validate(tmp_path)["status"] == "pass"
+
+
+def test_current_public_release_surfaces_pass_validator() -> None:
+    private_note = ROOT / "docs" / "PUBLIC-BACKLOG-TRIAGE-2026-07-23.md"
+    if private_note.exists():
+        pytest.skip("private source worktree intentionally retains its triage note")
+    module = _load_module(
+        "release_public_validator_current",
+        ROOT / "scripts" / "validate_public_release.py",
+    )
+    assert module.validate(ROOT)["status"] == "pass"
 
 
 def test_public_release_validator_rejects_private_raw_url(tmp_path: Path) -> None:
@@ -547,6 +594,56 @@ def test_public_release_validator_rejects_private_raw_url(tmp_path: Path) -> Non
     report = module.validate(tmp_path)
     assert report["status"] == "fail"
     assert any(e["kind"] == "private_raw_url" for e in report["errors"])
+
+
+def test_public_release_validator_rejects_private_issue_routing(
+    tmp_path: Path,
+) -> None:
+    module = _load_module(
+        "release_public_validator_issue_routing",
+        ROOT / "scripts" / "validate_public_release.py",
+    )
+    _public_fixture(tmp_path)
+    config = tmp_path / ".github" / "ISSUE_TEMPLATE" / "config.yml"
+    config.write_text(
+        config.read_text(encoding="utf-8").replace(
+            "https://github.com/AgriciDaniel/claude-blog/discussions",
+            "https://github.com/AI-Marketing-Hub/claude-blog/discussions",
+        ),
+        encoding="utf-8",
+    )
+    report = module.validate(tmp_path)
+    assert report["status"] == "fail"
+    assert any(
+        error["file"] == ".github/ISSUE_TEMPLATE/config.yml"
+        and error["kind"] in {
+            "private_repository_url",
+            "invalid_public_issue_routing",
+        }
+        for error in report["errors"]
+    )
+
+
+def test_public_release_validator_rejects_version_collision(
+    tmp_path: Path,
+) -> None:
+    module = _load_module(
+        "release_public_validator_version",
+        ROOT / "scripts" / "validate_public_release.py",
+    )
+    _public_fixture(tmp_path)
+    pyproject = tmp_path / "pyproject.toml"
+    pyproject.write_text(
+        pyproject.read_text(encoding="utf-8").replace("2.1.1", "2.1.0"),
+        encoding="utf-8",
+    )
+    report = module.validate(tmp_path)
+    assert report["status"] == "fail"
+    assert any(
+        error["kind"] == "invalid_public_release_version"
+        and error["file"] == "pyproject.toml"
+        for error in report["errors"]
+    )
 
 
 def test_public_release_validator_rejects_third_party_raw_url(
@@ -610,9 +707,10 @@ def test_public_release_validator_rejects_private_docs(tmp_path: Path) -> None:
 
 
 def test_public_triage_note_covers_entire_open_backlog() -> None:
-    text = (
-        ROOT / "docs" / "PUBLIC-BACKLOG-TRIAGE-2026-07-23.md"
-    ).read_text(encoding="utf-8")
+    path = ROOT / "docs" / "PUBLIC-BACKLOG-TRIAGE-2026-07-23.md"
+    if not path.exists():
+        pytest.skip("private-only triage note is excluded from public releases")
+    text = path.read_text(encoding="utf-8")
     for number in (48, 47, 46, 42, 41, 40, 38, 37, 26, 25, 23, 20, 19, 18, 17, 15, 13, 10):
         assert f"/pull/{number}" in text
     for number in (44, 36, 33, 29, 22):

@@ -9,4 +9,7 @@ Keep changes small, sourced, and verified.
 
 ## Community
 
-Discuss and get support in the AI Marketing Hub Pro community: https://www.skool.com/ai-marketing-hub-pro
+Use public project Discussions for design questions and contributor support:
+https://github.com/AgriciDaniel/claude-blog/discussions.
+Use public Issues for reproducible defects and scoped change proposals:
+https://github.com/AgriciDaniel/claude-blog/issues.
