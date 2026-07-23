@@ -71,7 +71,8 @@ Ask:
 Ask:
 - **Do list** (3 to 7 things the blog will always do; e.g. "cite primary sources only," "name the practitioner not the product")
 - **Don't list** (3 to 7 things the blog will never do; e.g. "no clickbait titles," "no listicle filler")
-- **Taboo phrases** (specific words or phrases this brand never uses; complements but is separate from the AI-detection blocklist)
+- **Taboo phrases** (specific words or phrases this brand never uses; separate
+  from the repository's optional project style list)
 - **Required disclosures** (e.g. affiliate disclosure, AI-content disclosure, conflict-of-interest patterns)
 
 ### Step 4: Topic boundaries

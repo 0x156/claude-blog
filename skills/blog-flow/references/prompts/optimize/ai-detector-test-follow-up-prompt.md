@@ -1,19 +1,21 @@
 <!-- (c) Daniel Agrici, FLOW (https://github.com/AgriciDaniel/flow), CC BY 4.0 -->
 <!-- Synced from FLOW on 2026-04-27 -->
 ---
-title: "AI detector test follow-up Prompt"
-description: "AI detector test follow-up Prompt"
-updated: 2026-04-25
+title: "Evidence-based quality follow-up prompt"
+description: "Evidence-based quality follow-up for clarity, support, and reader value"
+updated: 2026-07-23
 tags:
   - prompts
   - optimize
 ---
 
-# AI detector test follow-up Prompt
+# Evidence-Based Quality Follow-Up Prompt
 
 ## Use This When
 
-Use this prompt when you need a structured optimize deliverable and want the model to separate observations, assumptions, recommended actions, and claims that need verification.
+Use this prompt after a quality review to separate observations, assumptions,
+recommended actions, and claims that need verification. Do not infer human or
+model authorship from prose patterns.
 
 ## AI Compatibility
 
@@ -32,7 +34,8 @@ Works with long-context reasoning models. For smaller models, provide narrower i
 ```text
 Act as a senior SEO strategist using the FLOW model.
 
-Task: create an Optimize-stage blog deliverable for: [ARTICLE, HUB, OR SITE].
+Task: create an evidence-based Optimize-stage quality follow-up for:
+[ARTICLE, HUB, OR SITE].
 
 Use only the supplied inputs and clearly label any assumption. Do not invent statistics. Do not reuse private examples. Build the answer around:
 1. Searcher or buyer intent.
@@ -41,6 +44,12 @@ Use only the supplied inputs and clearly label any assumption. Do not invent sta
 4. Recommended changes in priority order.
 5. Measurement events and review cadence.
 6. Claims that require source verification before publication.
+
+Evaluate clarity, source fidelity, factual support, purpose fit, originality,
+and reader usefulness. Do not classify authorship, produce an AI-origin
+percentage, or recommend "humanization" tricks. Treat phrase preferences,
+punctuation, sentence variation, and vocabulary diversity as optional editorial
+style observations only.
 
 Return a concise working document the team can execute.
 ```

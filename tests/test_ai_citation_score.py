@@ -1,4 +1,4 @@
-"""Tests for the AI citation probability scorer."""
+"""Tests for the AI citation readiness heuristic."""
 
 import json
 import subprocess
@@ -19,7 +19,7 @@ FRONTMATTER_BOUNDARY = "-" * 3
 
 HIGH_QUALITY_POST = f"""{FRONTMATTER_BOUNDARY}
 title: AI Citation Optimization Benchmarks for 2026
-description: Evidence-backed benchmarks for increasing AI citation probability across Google, Perplexity, and ChatGPT.
+description: An evidence-backed editorial readiness fixture for Google, Perplexity, and ChatGPT citation surfaces.
 author: Jane Doe
 date: 2026-01-15
 lastUpdated: 2026-06-20
@@ -29,9 +29,15 @@ lastUpdated: 2026-06-20
 
 TL;DR: AI citation optimization works best when a post gives a direct answer, cites authoritative sources, defines entities, and keeps data fresh.
 
-## What raises AI citation probability?
+## AI citation readiness factors
 
-AI citation probability rises when a page gives a complete answer in one extractable passage. **AI citation probability** is the estimated chance that an answer engine will quote or reference a page for a matching query. In our testing, answer-first sections worked best when the first paragraph named the entity, gave the direct answer, added a current statistic, and linked to the source. A 2026 review found that 68% of cited passages included a direct definition and a source link [NIH research](https://nih.gov/example-ai-citations). A second benchmark found 54% better retrieval when headings used questions [Stanford study](https://stanford.edu/example-study). The strongest posts also used short paragraphs, one idea per section, and a summary list that a model can lift without extra context. This paragraph is intentionally self-contained so an answer engine can cite it without reading the rest of the article.
+**AI citation readiness** is an internal editorial review of observable page
+signals, not the estimated chance that an answer engine will cite a page. This
+fixture names its topic, provides self-contained context, and links claims to
+sources such as [NIH publishing guidance](https://nih.gov/example-ai-citations)
+and a [Stanford research resource](https://stanford.edu/example-study). It uses
+clear sections, stable terminology, and a summary list without treating any
+single format as an answer-engine requirement.
 
 ## How should sources be added?
 
@@ -80,6 +86,9 @@ def test_scores_have_expected_shape(tmp_path):
     assert set(result["engines"]) == {"ai_overview", "perplexity", "chatgpt"}
     assert isinstance(result["factors"], dict)
     assert isinstance(result["recommendations"], list)
+    assert result["methodology"] == "internal_ai_citation_readiness_heuristic"
+    assert result["calibrated_probability"] is False
+    assert result["overall_probability"] == result["overall"]
 
     for engine_result in result["engines"].values():
         assert isinstance(engine_result["score"], int)
@@ -131,3 +140,85 @@ def test_invalid_utf8_cli_exits_cleanly_with_json_error(tmp_path):
     assert "error" in payload
     assert "Could not analyze" in payload["error"]
     assert "Traceback" not in result.stderr
+
+
+def test_legacy_length_and_faq_signals_do_not_change_score():
+    analysis = {
+        "file": "post.md",
+        "frontmatter": {"title": "Clear title"},
+        "headings": {"h2_count": 3, "hierarchy_clean": True},
+        "schema": {"has_blogposting": True, "has_person": True, "schema_count": 2},
+        "citations": {
+            "inline_citations": 3,
+            "paren_citations": 0,
+            "sourced_statistics": 2,
+            "unsourced_statistics": 0,
+            "unique_sources": 3,
+            "tier_counts": {1: 2, 2: 1},
+        },
+        "ai_citation_readiness": {
+            "self_contained_sections": 2,
+            "evidence_backed_sections": 3,
+            "purpose_statement": True,
+            "entity_definitions": 2,
+            "has_robots_restriction": False,
+            "table_count": 1,
+            "list_count": 3,
+            "citable_passages": 0,
+        },
+        "structured_data": {
+            "table_count": 1,
+            "ordered_list_items": 3,
+            "unordered_list_items": 0,
+        },
+        "engagement": {"example_count": 2},
+        "images": {"count": 1, "without_alt_text": 0},
+        "charts": {"chart_count": 1},
+        "faq": {"has_faq_section": False, "faq_item_count": 0},
+        "freshness": {"has_date": False, "has_last_updated": False},
+    }
+    with_legacy_signals = json.loads(json.dumps(analysis))
+    with_legacy_signals["ai_citation_readiness"]["citable_passages"] = 12
+    with_legacy_signals["faq"] = {"has_faq_section": True, "faq_item_count": 8}
+    with_legacy_signals["freshness"] = {"has_date": True, "has_last_updated": True}
+    with_legacy_signals["headings"]["h2_question_ratio"] = 1.0
+
+    assert ai_citation_score.score_analysis(analysis)["overall"] == (
+        ai_citation_score.score_analysis(with_legacy_signals)["overall"]
+    )
+
+
+@pytest.mark.parametrize("schema_type", ["FAQPage", "HowTo", "SpecialAnnouncement"])
+def test_ineligible_schema_types_add_no_readiness_points(schema_type):
+    baseline = {
+        "frontmatter": {},
+        "headings": {},
+        "schema": {"schemas_found": [], "schema_count": 0},
+        "citations": {},
+        "ai_citation_readiness": {},
+        "structured_data": {},
+        "engagement": {},
+        "images": {},
+        "charts": {},
+    }
+    with_ineligible_schema = json.loads(json.dumps(baseline))
+    with_ineligible_schema["schema"] = {
+        "schemas_found": [schema_type],
+        "schema_count": 1,
+        "has_faqpage": schema_type == "FAQPage",
+    }
+
+    baseline_result = ai_citation_score.score_analysis(baseline)
+    schema_result = ai_citation_score.score_analysis(with_ineligible_schema)
+
+    assert schema_result["factors"]["ai_overview"]["article_schema"]["points"] == 0
+    assert schema_result["overall"] == baseline_result["overall"]
+
+
+def test_markdown_labels_score_as_heuristic(tmp_path):
+    post = _write_post(tmp_path, "high.md", HIGH_QUALITY_POST)
+    rendered = ai_citation_score._format_markdown(ai_citation_score.score_file(post))
+
+    assert "AI Citation Readiness Heuristic" in rendered
+    assert "Overall probability:" not in rendered
+    assert "not a calibrated citation probability" in rendered

@@ -173,20 +173,19 @@ The Person schema embedded in BlogPosting and on author pages.
 
 ---
 
-## Experience Signal Markers
+## Supported First-Hand Evidence
 
-Phrases that demonstrate first-hand experience. Use these naturally throughout
-content to signal genuine expertise to both human readers and quality raters.
-In AI citation selection, demonstrated Experience is the tie-breaker when two
-sources are similarly authoritative: original testing, named workflows, direct
-observations, and proprietary data win over generic summaries.
+First-hand claims can add value only when they are true and supported by
+methodology, measurements, screenshots, records, or other inspectable evidence.
+Never add first-person phrasing merely to earn E-E-A-T points. Neutral,
+well-sourced explainers are valid.
 
 ### Use These Patterns
 
-| Pattern | When to Use |
+| Pattern | Use Only When |
 |---------|-------------|
-| "When we tested..." | Describing an experiment or A/B test |
-| "In our experience..." | Sharing practitioner insight |
+| "When we tested..." | The test setup, sample, and result can be described |
+| "In our experience..." | The relevant work and observation can be substantiated |
 | "After implementing this for [client]..." | Case study context |
 | "Over the past [N] years, I've found..." | Long-term observation |
 | "Here's what our data shows..." | Introducing proprietary findings |
@@ -206,7 +205,7 @@ observations, and proprietary data win over generic summaries.
 | "Everyone agrees..." | Unfalsifiable |
 | "Trust us when we say..." | Demands trust rather than earning it |
 | Generic "top tips" language | Could have been written by anyone |
-| No first-person perspective | Reads like encyclopedia, not experience |
+| Unsupported first-person claim | Performs experience without evidence |
 | "In this article, we will..." | Filler, not experience signal |
 
 ---
@@ -241,7 +240,12 @@ Trust encompasses and validates all other signals.
 | Expert review | "Reviewed by [Expert Name], [credentials]" |
 | Date transparency | Publish date AND last updated date visible |
 
-**Trustworthiness requires the FLOW evidence triple.** Experience and authority signals only land when the underlying claims are verifiable: year anchor in prose, inline citation with publisher and title, URL with retrieval date in compact retrieval notes, footnotes, or a bibliography. See `flow-alignment.md`.
+**Trustworthiness requires source fidelity and claim-appropriate provenance.**
+Experience and authority signals only land when the underlying claims are
+verifiable. Include source identity, relevant dates, methodology, limitations,
+stable URLs, and retrieval notes when those details are needed to identify or
+interpret the evidence. No fixed citation form is required. See
+`flow-alignment.md`.
 
 ---
 
@@ -297,8 +301,11 @@ scrutiny.
 - **Highest risk**: health, finance, legal, safety, elections, civics, and other
   YMYL topics need strong credentials, sourcing, review, and harm-prevention
   language.
-- **Medium risk**: technical, business, and product guidance needs first-hand
-  testing, transparent methodology, and current sources.
+- **Medium risk**: technical, business, and product guidance needs evidence
+  proportionate to the claim and potential harm. First-hand testing and a
+  transparent methodology are required when the article claims a test or
+  recommends a consequential action; neutral sourced analysis can rely on
+  current, appropriate sources without inventing personal experience.
 - **Lower risk**: hobby and entertainment topics still benefit from experience
   signals, but they do not need the same proof burden as health or finance.
 

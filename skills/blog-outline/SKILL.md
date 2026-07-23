@@ -77,7 +77,8 @@ Create a structured outline with the following format:
 ## Target Parameters
 - **Primary keyword**: [keyword]
 - **Search intent**: [Informational/Commercial/Transactional]
-- **Target word count**: [X,XXX] words
+- **Optional planning estimate**: [X,XXX] words, adjusted to intent and never
+  used as a score or gate
 - **H2 sections**: [6-8]
 - **Target reading level**: Flesch 60-70
 
@@ -123,10 +124,11 @@ Create a structured outline with the following format:
 ```
 
 Guidelines for heading generation:
-- Use 60-70% question-format H2 headings when the query pattern and readability support it; do not force questions against user intent
+- Use question-format H2 headings only when the query pattern and reader intent support them; no ratio target
 - Each H2 should have a clear answer-first paragraph prompt
 - Include H3 subsections only where the topic genuinely warrants subdivision
-- Target word counts should sum to the overall post target
+- Section estimates may help planning, but coverage follows intent; estimates
+  never score or block a complete outline
 - Choose chart types by data shape first; prefer diversity only when it does not weaken the visualization
 - Image placement markers should be distributed evenly across the post
 

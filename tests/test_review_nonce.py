@@ -136,6 +136,23 @@ def test_gate_4_rejects_score_above_100(tmp_path, preflight_module):
     assert any("outside 0..100" in v for v in result.get("violations", []))
 
 
+def test_gate_4_style_diagnostics_do_not_block(tmp_path, preflight_module):
+    nonce = "2" * 32
+    review = _passing_review(nonce).replace(
+        "zero P0 issues found\n",
+        "- Sentence-length variation: 0.01\n"
+        "- Configured style phrases: 99\n"
+        "- Vocabulary diversity sample: 0.10\n"
+        "zero P0 issues found\n",
+    )
+    draft = _make_draft(tmp_path, review_text=review)
+    _write_state(preflight_module, draft, nonce)
+
+    result = preflight_module.gate_4_content_review(draft)
+
+    assert result["passed"] is True
+
+
 def test_init_review_nonce_cli_flag(tmp_path):
     """`blog_preflight.py --init-review-nonce --draft <dir>` exits 0 and writes the file."""
     draft = tmp_path / "post"
@@ -157,10 +174,8 @@ def _passing_review(nonce: str) -> str:
     return (
         "## Quality Review: Fixture\n"
         "### Overall Score: 92/100 - Exceptional\n"
-        "### AI Content Detection\n"
-        "- Burstiness score: 0.52 - Natural\n"
-        "- AI phrases found: 0 - none\n"
-        "- Vocabulary diversity (TTR): 0.55 - Normal\n"
+        "### Editorial Style Diagnostics\n"
+        "These observations are advisory and do not infer authorship.\n"
         "zero P0 issues found\n"
         f"Nonce: {nonce}\n"
         "BLOCKING: false (cleared all gates; 92/100 overall, no P0)\n"

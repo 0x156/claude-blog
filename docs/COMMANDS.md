@@ -151,11 +151,11 @@ AI citation platforms.
 A complete blog post in the detected format (Markdown, MDX, or HTML) with:
 
 - YAML frontmatter (title, description, coverImage, ogImage, date, tags)
-- Answer-first formatting on every H2 section
+- Purpose-first treatment of important sections, with evidence where needed
 - 8-12 sourced statistics from tier 1-3 sources
 - 3-5 inline images from Pixabay/Unsplash/Pexels
 - 2-4 SVG data visualization charts
-- FAQ section with 3-5 items
+- Optional FAQ when genuine reader questions warrant it
 - Internal linking placeholders
 
 ### Related Commands
@@ -185,7 +185,7 @@ the author's voice and unique perspective.
 2. **Plan**: Presents section-by-section optimization plan for approval
 3. **Research**: Finds replacement statistics for fabricated/unsourced data
 4. **Chart generation**: Adds SVG charts if the post has fewer than 2
-5. **Rewrite**: Applies answer-first formatting, fixes paragraphs, adds FAQ
+5. **Rewrite**: Clarifies important sections, fixes paragraphs, and adds Q&A only when useful
 6. **Verification**: Confirms all quality gates pass
 7. **Summary**: Reports before/after scores and changes made
 
@@ -193,11 +193,11 @@ the author's voice and unique perspective.
 
 The rewritten file in its original format with:
 
-- Updated `lastUpdated` date in frontmatter
-- Answer-first paragraphs on all H2 sections
+- Truthful `lastUpdated` only when facts, methods, or recommendations materially changed
+- Clear, evidence-backed treatment of important sections
 - Fabricated statistics replaced with sourced data
 - Images and charts added where needed
-- FAQ section added or improved
+- FAQ added or improved only when it serves real reader questions
 - Self-promotion reduced to max 1 brand mention
 
 ### Related Commands
@@ -413,8 +413,8 @@ the target keyword.
 
 A structured outline with:
 
-- H2 section headings (60-70% question format)
-- Answer-first guidance per section
+- H2 section headings in the form that best matches reader intent
+- Purpose-first guidance for important sections
 - Image and chart placement markers
 - FAQ question suggestions
 - Word count targets per section
@@ -440,15 +440,15 @@ quality.
 
 ### Checks Performed
 
-- Meta title length (under 60 characters)
-- Meta description length (150-160 characters with statistic)
+- Meta title clarity and fit for the page
+- Accurate, page-specific meta description
 - Heading hierarchy (H1 > H2 > H3, no skips)
 - Keyword presence in title, H2s, and meta description
 - Internal link count (target 5-10 per 2,000 words)
 - Image alt text completeness
 - Schema markup presence (BlogPosting, FAQPage)
 - Open Graph / Twitter Card meta tags
-- `lastUpdated` / `dateModified` freshness signal
+- `lastUpdated` / `dateModified` truthfulness after substantive changes
 
 ### Related Commands
 
@@ -486,9 +486,10 @@ and FAQ items.
 
 ### Important
 
-Schema must appear in HTML source (server-rendered), not injected via
-client-side JavaScript. AI crawlers (GPTBot, ClaudeBot, PerplexityBot) do
-not execute JavaScript.
+Prefer schema in source or server-rendered HTML for portability because crawler
+rendering capabilities vary. For Google Search, JavaScript-generated JSON-LD is
+acceptable when it reaches the rendered DOM, matches visible content, and
+passes validation. Verify other target crawlers individually.
 
 ### Related Commands
 
@@ -540,14 +541,14 @@ visibility on AI platforms (ChatGPT, Perplexity, Google AI Overviews).
 
 ### Checks Performed
 
-- Answer-first formatting (critical for AI citation visibility)
-- Content freshness (76% of top citations updated within 30 days)
-- FAQ schema presence (improves AI citation visibility)
+- Evidence-backed, self-contained treatment of important claims
+- Substantive maintenance when facts, methods, or recommendations change
+- Optional visible Q&A with no Google rich-result or readiness-score benefit
 - Source authority tier quality
-- Content extractability (50-150 word chunks)
-- JavaScript dependency (AI crawlers cannot execute JS)
+- Reader-useful structure and enough context for important claims to stand alone
+- JavaScript dependency and target-crawler rendering compatibility
 - `robots.txt` AI crawler access (GPTBot, ClaudeBot, PerplexityBot)
-- Off-site signal recommendations (YouTube, Reddit, reviews)
+- Optional audience-channel recommendations (YouTube, Reddit, reviews)
 
 ### Related Commands
 
@@ -603,9 +604,9 @@ changes and focuses on updating data and signals.
 1. Updates statistics to latest available data (2025-2026)
 2. Adds new developments since last update
 3. Refreshes images if older than 1 year
-4. Updates `lastUpdated` in frontmatter
+4. Updates `lastUpdated` only after substantive content changes
 5. Preserves existing structure (minimal rewrites)
-6. Targets at least 30% content change for AI freshness signals
+6. Makes only the changes needed for factual accuracy and reader value; no percentage-change target
 
 ### Related Commands
 

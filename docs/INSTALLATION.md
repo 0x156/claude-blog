@@ -343,8 +343,11 @@ chmod +x uninstall.sh
 This removes:
 
 - `~/.claude/skills/blog/` and `~/.claude/skills/blog-*/` (32 skill directories: 1 orchestrator + 31 sub-skills; 30 user-facing commands; `blog-chart` is internal-only)
-- `~/.claude/scripts/` (14 root-level scripts: ai_citation_score, analyze_blog, blog_hygiene, blog_preflight, blog_render, cognitive_load, content_decay, discourse_research, generate_hero, lint_prose, load_untrusted_root, quality_gate, style_learn, sync_flow)
+- `~/.claude/scripts/` (17 root-level scripts: ai_citation_score, analyze_blog, blog_hygiene, blog_preflight, blog_render, cognitive_load, consistency_check, content_decay, dependency_smoke, discourse_research, generate_hero, lint_prose, load_untrusted_root, quality_gate, style_learn, sync_flow, validate_public_release)
 - `~/.claude/agents/blog-*.md` (all 5 agents: blog-researcher, blog-writer, blog-seo, blog-reviewer, blog-translator)
+
+Shared Google credentials under `~/.config/claude-seo/` are owned by the user
+and may be used by other skills. Both uninstallers leave them intact.
 
 ### Manual Uninstall
 
@@ -356,8 +359,8 @@ rm -rf ~/.claude/skills/blog-*
 # All 5 agents
 rm -f ~/.claude/agents/blog-{researcher,writer,seo,reviewer,translator}.md
 
-# All 14 root-level scripts (only if no other plugin uses ~/.claude/scripts/)
-rm -f ~/.claude/scripts/{ai_citation_score,analyze_blog,blog_hygiene,blog_preflight,blog_render,cognitive_load,content_decay,discourse_research,generate_hero,lint_prose,load_untrusted_root,quality_gate,style_learn,sync_flow}.py
+# All 17 root-level scripts (only if no other plugin uses ~/.claude/scripts/)
+rm -f ~/.claude/scripts/{ai_citation_score,analyze_blog,blog_hygiene,blog_preflight,blog_render,cognitive_load,consistency_check,content_decay,dependency_smoke,discourse_research,generate_hero,lint_prose,load_untrusted_root,quality_gate,style_learn,sync_flow,validate_public_release}.py
 ```
 
 ### Clean Up Python Dependencies (Optional)

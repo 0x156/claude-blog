@@ -32,10 +32,10 @@ defines:
 
 1. **Section structure**: The H2/H3 skeleton for the content type
 2. **Answer-first prompts**: Guidance for opening each section with data
-3. **Word count targets**: Per-section and total word counts
+3. **Coverage prompts**: Intent-dependent completeness without padding
 4. **Info gain markers**: Where original data or unique perspective is needed
 5. **Visual element placement**: Where charts and images should appear
-6. **FAQ zone**: Where the FAQ section fits in the flow
+6. **Optional Q&A zone**: Where genuine unanswered reader questions fit
 7. **Linking zones**: Where internal and external links are most natural
 
 ---
@@ -53,7 +53,7 @@ Every template follows a consistent internal structure:
 - H2 sections: [count]
 - Charts: [count]
 - Images: [count]
-- FAQ items: [count]
+- Optional Q&A items: [count by reader need]
 
 ## Section Structure
 
@@ -73,8 +73,9 @@ VISUAL: [Chart type or image suggestion]
 
 [... additional H2 sections ...]
 
-### FAQ Zone (3-5 items)
-[FAQ format guidance specific to this content type]
+### Optional Q&A Zone (count by reader need)
+[Visible Q&A guidance specific to this content type; omit when it would repeat
+the article. Q&A presence earns no score.]
 
 ### Conclusion (100-150 words)
 [Closing pattern for this content type]
@@ -87,11 +88,11 @@ VISUAL: [Chart type or image suggestion]
 
 | Marker | Purpose |
 |--------|---------|
-| `ANSWER-FIRST:` | Guidance for the 40-60 word stat-rich opening paragraph |
+| `ANSWER-FIRST:` | Guidance to state the section point early and support material claims; no fixed length or statistic quota |
 | `CONTENT:` | What topics and subtopics to cover in the section body |
 | `INFO-GAIN:` | Where original data, first-hand experience, or unique perspective is needed |
 | `VISUAL:` | Recommended chart type or image placement |
-| `FAQ-ZONE:` | Where the FAQ section should appear (usually before conclusion) |
+| `FAQ-ZONE:` | Where an optional visible Q&A section may appear when reader need warrants it |
 | `LINK-ZONE:` | Natural places for internal or external links |
 
 ---
@@ -151,7 +152,7 @@ Structure:
   H2: Step 2 - [Action]
   H2: Step 3 - [Action]
   H2: Common Mistakes to Avoid
-  H2: FAQ (3-5 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (key takeaways + next step)
 
 Visuals: Process flow chart, before/after comparison chart
@@ -169,7 +170,7 @@ Structure:
   H2: [Item 2] - [Key Differentiator]
   ... (5-15 items depending on depth)
   H2: How We Evaluated [Category]
-  H2: FAQ (3-5 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (top pick + comparison table)
 
 Visuals: Comparison bar chart, market share donut chart
@@ -188,7 +189,7 @@ Structure:
   H2: Implementation Details
   H2: Results (metrics + timeline)
   H2: Key Takeaways
-  H2: FAQ (3-5 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (CTA to learn more)
 
 Visuals: Before/after bar chart, timeline or results line chart
@@ -209,7 +210,7 @@ Structure:
   H2: Feature-by-Feature Comparison
   H2: Pricing Comparison
   H2: Which Should You Choose?
-  H2: FAQ (3-5 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (recommendation matrix)
 
 Visuals: Feature comparison radar chart, pricing bar chart
@@ -231,7 +232,7 @@ Structure:
   H2: [Core Subtopic 4]
   H2: [Advanced Topic]
   H2: Tools and Resources
-  H2: FAQ (5-8 items, more than standard)
+  H2: Optional Q&A (count by reader need)
   Conclusion (learning path + next steps)
 
 Visuals: 3-4 charts (diverse types), topic overview diagram
@@ -254,7 +255,7 @@ Structure:
   H2: Pricing and Value
   H2: Pros and Cons
   H2: Who Is This For?
-  H2: FAQ (3-5 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (final rating + recommendation)
 
 Visuals: Performance benchmark chart, pricing comparison
@@ -272,14 +273,16 @@ Structure:
   H2: The Current Landscape
   H2: What's Changing (analysis + data)
   H2: Why This Matters
-  H2: What I've Seen (first-hand perspective)
+  H2: Evidence and Interpretation (supported first-hand perspective when
+      supplied, otherwise differentiated sourced analysis)
   H2: What to Do About It (actionable advice)
   H2: Looking Ahead (predictions)
-  H2: FAQ (3-5 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (key thesis + call to action)
 
 Visuals: Trend line chart, market shift chart
-Info-Gain: Personal perspective and predictions (differentiator)
+Info-Gain: Supported personal perspective when available, or differentiated
+sourced synthesis and clearly framed analysis
 ```
 
 ### roundup.md
@@ -294,7 +297,7 @@ Structure:
   H2: Key Finding 3
   H2: Expert Perspectives
   H2: What This Means for [Audience]
-  H2: FAQ (3-5 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (synthesis + action items)
 
 Visuals: Multi-source comparison chart, trend aggregation
@@ -313,7 +316,7 @@ Structure:
   H2: Step 3 - [Integration]
   H2: Step 4 - [Testing/Deployment]
   H2: Troubleshooting Common Issues
-  H2: FAQ (3-5 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (complete code repo link + extensions)
 
 Visuals: Architecture diagram (SVG), performance chart
@@ -332,7 +335,7 @@ Structure:
   H2: Why It Matters
   H2: Who's Affected
   H2: What to Do Now (immediate actions)
-  H2: FAQ (2-3 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (outlook)
 
 Visuals: 1-2 charts (impact visualization)
@@ -352,7 +355,7 @@ Structure:
   H2: Key Finding 3
   H2: Implications
   H2: Limitations
-  H2: FAQ (3-5 items)
+  H2: Optional Q&A (count by reader need)
   Conclusion (summary of findings + data access)
 
 Visuals: 3-4 charts (data visualizations are central)
@@ -367,7 +370,7 @@ Best for comprehensive Q&A reference content.
 Structure:
   Introduction (topic scope + common questions stat)
   H2: [Category 1] Questions
-    H3: Question 1? (answer-first, 40-60 words)
+    H3: Question 1? (concise, complete answer with support where needed)
     H3: Question 2?
   H2: [Category 2] Questions
     H3: Question 3?
@@ -376,8 +379,8 @@ Structure:
   Conclusion (additional resources)
 
 Visuals: 1-2 summary charts
-Special: Every answer must contain a statistic
-Schema: FAQPage schema critical for this type
+Special: Use statistics only when relevant, verified, and useful
+Schema: FAQPage is optional visible-content markup with no readiness-score benefit
 ```
 
 ---
@@ -410,7 +413,7 @@ Schema: FAQPage schema critical for this type
 - Use `INFO-GAIN:` markers liberally: these are the sections that
   differentiate your content from AI-generated consensus
 - Set realistic word counts that match the content type's natural depth
-- Ensure every template includes an FAQ zone and conclusion
+- Include an FAQ zone only when genuine reader questions warrant it; keep a conclusion when the content type benefits from one
 
 ---
 
@@ -422,9 +425,9 @@ The mapping between template features and scoring categories:
 | Template Feature | Scoring Category | Points At Stake |
 |-----------------|------------------|-----------------|
 | Section structure | Schema & Structure | 10 |
-| Answer-first markers | Answer-First Formatting | 20 |
+| Purpose-first markers | Purpose Fit and Reader Utility | 20 |
 | Visual placement | Visual Elements | 15 |
-| FAQ zone | Schema & Structure | 4 |
+| Optional FAQ zone | Reader utility only; no Google/AI score effect | 0 |
 | Info-gain markers | Content Quality | 25 |
 | Citation guidance | Statistics & Citations | 20 |
 

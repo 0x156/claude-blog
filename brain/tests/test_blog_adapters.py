@@ -169,7 +169,10 @@ def test_blog_adapter_rejects_wrong_typed_dates(tmp_path: Path) -> None:
     with pytest.raises(ValidationError) as excinfo:
         load_blog_input(bad_input)
 
-    assert "published_at must be a string" in str(excinfo.value)
+    assert any(
+        "published_at" in error and "string" in error
+        for error in excinfo.value.errors
+    )
 
 
 def test_blog_synthesis_rejects_missing_nested_fields(tmp_path: Path) -> None:

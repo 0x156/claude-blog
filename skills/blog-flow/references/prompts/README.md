@@ -12,7 +12,7 @@ Local-SEO prompts are excluded by design. See claude-seo for those.
 | find | keyword-variations-for-topical-relevance-prompt.md | Keyword variations for topical relevance prompt | Use to expand a cluster; returns variation groups and coverage gaps |
 | find | prompt-audience-avatar.md | Prompt: Audience Avatar | Use when reader context is thin; returns audience jobs, objections, and evidence needs |
 | leverage | backlink-competition-prompt.md | Backlink competition prompt | Use for off-page authority gaps; returns linkable assets and outreach angles |
-| optimize | ai-detector-test-follow-up-prompt.md | AI detector test follow-up Prompt | Use after quality concerns; returns humanization fixes grounded in evidence |
+| optimize | ai-detector-test-follow-up-prompt.md | Evidence-based quality follow-up prompt | Use after quality concerns; returns clarity, evidence, and reader-value fixes without authorship claims |
 | optimize | ai-supporting-pages-rewrite-prompt.md | AI Supporting Pages Rewrite Prompt | Use for weak supporting pages; returns rewrite priorities and internal links |
 | optimize | basic-prompt.md | Basic Prompt | Use for a compact audit; returns observations, assumptions, actions, and checks |
 | optimize | blog-post-outline-prompt.md | Blog Post Outline Prompt | Use before drafting; returns answer-first structure and evidence slots |

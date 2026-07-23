@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-AI Citation Probability Scoring.
+AI Citation Readiness Heuristic.
 
 Usage:
     python3 ai_citation_score.py FILE
@@ -9,14 +9,11 @@ Usage:
     python3 ai_citation_score.py DIR in batch mode
 
 Scoring model:
-    Each engine receives a 0-100 probability score from signals produced by
-    analyze_blog.analyze_file. Google AI Overview weights passage extractability,
-    answer-first structure, entity clarity, schema, freshness, and clean headings.
-    Perplexity weights source citations, tier 1 and tier 2 authority, sourced
-    statistics, freshness, and citation diversity. ChatGPT weights clean structure,
-    TLDR, Q&A pairs, entity definitions, extractable lists or tables, and
-    readability. Overall score is a weighted blend: ai_overview 40 percent,
-    perplexity 35 percent, and chatgpt 25 percent.
+    Each engine receives a 0-100 internal readiness score from observable
+    editorial and technical signals produced by analyze_blog.analyze_file.
+    These scores are not calibrated probabilities and do not predict whether
+    any answer engine will cite a page. Overall score is a weighted blend:
+    ai_overview 40 percent, perplexity 35 percent, and chatgpt 25 percent.
 """
 
 from __future__ import annotations
@@ -88,71 +85,92 @@ def _score_ai_overview(analysis: dict[str, Any]) -> dict[str, Any]:
     ai_ready = analysis.get("ai_citation_readiness", {})
     headings = analysis.get("headings", {})
     schema = analysis.get("schema", {})
-    freshness = analysis.get("freshness", {})
-    paragraphs = analysis.get("paragraphs", {})
+    citations = analysis.get("citations", {})
+    frontmatter = analysis.get("frontmatter", {})
+    structured_data = analysis.get("structured_data", {})
+    engagement = analysis.get("engagement", {})
+    images = analysis.get("images", {})
+    charts = analysis.get("charts", {})
 
-    citable_passages = _to_int(ai_ready.get("citable_passages"))
-    passage_points = _count_points(citable_passages, [(1, 12), (2, 20), (3, 26), (4, 30)])
+    inline_citations = _to_int(citations.get("inline_citations"))
+    sourced_statistics = _to_int(citations.get("sourced_statistics"))
+    unsourced_statistics = _to_int(citations.get("unsourced_statistics"))
+    source_points = _count_points(inline_citations, [(1, 8), (2, 12), (3, 15)])
+    if sourced_statistics > 0 and unsourced_statistics == 0:
+        source_points += 10
+    elif sourced_statistics > 0:
+        source_points += 5
+    elif unsourced_statistics == 0:
+        source_points += 5
+    source_points = max(0, min(25, source_points - min(10, unsourced_statistics * 2)))
 
-    qa_pairs = _to_int(ai_ready.get("qa_pairs"))
-    question_ratio = _to_float(headings.get("h2_question_ratio"))
-    answer_points = min(12, qa_pairs * 4)
-    answer_points += min(5, int(round(question_ratio * 5)))
-    if ai_ready.get("has_tldr"):
-        answer_points += 3
-    answer_points = min(20, answer_points)
-
+    purpose_points = 0
+    if frontmatter.get("title"):
+        purpose_points += 5
+    if ai_ready.get("purpose_statement"):
+        purpose_points += 5
+    if headings.get("hierarchy_clean"):
+        purpose_points += 4
+    if _to_int(headings.get("h2_count")) >= 1:
+        purpose_points += 2
     entity_definitions = _to_int(ai_ready.get("entity_definitions"))
-    entity_points = _count_points(entity_definitions, [(1, 7), (2, 12), (3, 15)])
+    purpose_points += _count_points(entity_definitions, [(1, 2), (2, 4)])
+    purpose_points = min(20, purpose_points)
+
+    self_contained = _to_int(ai_ready.get("self_contained_sections"))
+    usefulness_points = _count_points(self_contained, [(1, 6), (2, 10), (3, 12)])
+    usefulness_points += _count_points(_to_int(engagement.get("example_count")), [(1, 4), (2, 6)])
+    structures = (
+        _to_int(structured_data.get("table_count"))
+        + _to_int(structured_data.get("ordered_list_items"))
+        + _to_int(structured_data.get("unordered_list_items"))
+    )
+    usefulness_points += _count_points(structures, [(1, 1), (3, 2)])
+    usefulness_points = min(20, usefulness_points)
 
     schema_points = 0
     if schema.get("has_blogposting"):
-        schema_points += 12
-    elif _to_int(schema.get("schema_count")) > 0:
-        schema_points += 5
+        schema_points += 10
     if schema.get("has_person"):
+        schema_points += 3
+    if schema.get("has_organization") or schema.get("has_breadcrumblist"):
         schema_points += 2
-    if schema.get("has_faqpage"):
-        schema_points += 1
     schema_points = min(15, schema_points)
 
-    freshness_points = 0
-    if freshness.get("has_last_updated"):
-        freshness_points += 7
-    if freshness.get("has_date"):
-        freshness_points += 3
-
-    h2_count = _to_int(headings.get("h2_count"))
-    heading_points = 0
-    if headings.get("hierarchy_clean"):
-        heading_points += 4
-    heading_points += _count_points(h2_count, [(1, 2), (3, 4)])
-    if _to_int(paragraphs.get("max_word_count")) <= 180 and _to_int(paragraphs.get("total_paragraphs")) > 0:
-        heading_points += 2
-    heading_points = min(10, heading_points)
+    crawl_points = 0 if ai_ready.get("has_robots_restriction") else 10
+    media_count = _to_int(images.get("count")) + _to_int(charts.get("chart_count"))
+    media_points = _count_points(media_count, [(1, 5), (2, 8), (3, 10)])
+    if _to_int(images.get("without_alt_text")) > 0:
+        media_points = max(0, media_points - 2)
 
     factors = {
-        "passage_extractability": _factor(
-            passage_points,
-            30,
+        "source_fidelity": _factor(
+            source_points,
+            25,
             {
-                "citable_passages_120_to_180_words": citable_passages,
-                "target": "self-contained 130-170 word passages",
+                "inline_citations": inline_citations,
+                "sourced_statistics": sourced_statistics,
+                "unsourced_statistics": unsourced_statistics,
             },
         ),
-        "answer_first_structure": _factor(
-            answer_points,
+        "purpose_and_entity_clarity": _factor(
+            purpose_points,
             20,
             {
-                "qa_pairs": qa_pairs,
-                "h2_question_ratio": question_ratio,
-                "has_tldr": bool(ai_ready.get("has_tldr")),
+                "has_title": bool(frontmatter.get("title")),
+                "purpose_statement": bool(ai_ready.get("purpose_statement")),
+                "hierarchy_clean": bool(headings.get("hierarchy_clean")),
+                "entity_definitions": entity_definitions,
             },
         ),
-        "entity_clarity": _factor(
-            entity_points,
-            15,
-            {"entity_definitions": entity_definitions},
+        "reader_usefulness": _factor(
+            usefulness_points,
+            20,
+            {
+                "self_contained_sections": self_contained,
+                "examples": _to_int(engagement.get("example_count")),
+                "useful_structures": structures,
+            },
         ),
         "article_schema": _factor(
             schema_points,
@@ -160,24 +178,22 @@ def _score_ai_overview(analysis: dict[str, Any]) -> dict[str, Any]:
             {
                 "has_blogposting_or_article": bool(schema.get("has_blogposting")),
                 "has_person": bool(schema.get("has_person")),
-                "has_faqpage": bool(schema.get("has_faqpage")),
+                "has_organization": bool(schema.get("has_organization")),
+                "has_breadcrumblist": bool(schema.get("has_breadcrumblist")),
+                "schema_count": _to_int(schema.get("schema_count")),
             },
         ),
-        "freshness": _factor(
-            freshness_points,
+        "crawlability": _factor(
+            crawl_points,
             10,
-            {
-                "has_date": bool(freshness.get("has_date")),
-                "has_last_updated": bool(freshness.get("has_last_updated")),
-            },
+            {"has_robots_restriction": bool(ai_ready.get("has_robots_restriction"))},
         ),
-        "clean_headings": _factor(
-            heading_points,
+        "relevant_media": _factor(
+            media_points,
             10,
             {
-                "h2_count": h2_count,
-                "hierarchy_clean": bool(headings.get("hierarchy_clean")),
-                "max_paragraph_words": _to_int(paragraphs.get("max_word_count")),
+                "media_count": media_count,
+                "images_without_alt": _to_int(images.get("without_alt_text")),
             },
         ),
     }
@@ -188,7 +204,8 @@ def _score_ai_overview(analysis: dict[str, Any]) -> dict[str, Any]:
 
 def _score_perplexity(analysis: dict[str, Any]) -> dict[str, Any]:
     citations = analysis.get("citations", {})
-    freshness = analysis.get("freshness", {})
+    ai_ready = analysis.get("ai_citation_readiness", {})
+    engagement = analysis.get("engagement", {})
 
     inline_citations = _to_int(citations.get("inline_citations"))
     parenthetical_citations = _to_int(citations.get("paren_citations"))
@@ -211,17 +228,20 @@ def _score_perplexity(analysis: dict[str, Any]) -> dict[str, Any]:
 
     sourced_statistics = _to_int(citations.get("sourced_statistics"))
     unsourced_statistics = _to_int(citations.get("unsourced_statistics"))
-    statistic_points = _count_points(sourced_statistics, [(1, 7), (2, 12), (3, 16), (4, 20)])
-    statistic_points = max(0, statistic_points - min(6, unsourced_statistics * 2))
-
-    freshness_points = 0
-    if freshness.get("has_last_updated"):
-        freshness_points += 10
-    if freshness.get("has_date"):
-        freshness_points += 5
+    if sourced_statistics == 0 and unsourced_statistics == 0:
+        statistic_points = 15
+    else:
+        statistic_points = _count_points(sourced_statistics, [(1, 10), (2, 16), (3, 21), (4, 25)])
+    statistic_points = max(0, statistic_points - min(10, unsourced_statistics * 3))
 
     unique_sources = _to_int(citations.get("unique_sources"))
     diversity_points = _count_points(unique_sources, [(1, 3), (2, 6), (3, 10)])
+    usefulness_points = _count_points(
+        _to_int(ai_ready.get("evidence_backed_sections")),
+        [(1, 4), (2, 7), (3, 8)],
+    )
+    usefulness_points += _count_points(_to_int(engagement.get("example_count")), [(1, 1), (2, 2)])
+    usefulness_points = min(10, usefulness_points)
 
     factors = {
         "source_citations": _factor(
@@ -240,24 +260,24 @@ def _score_perplexity(analysis: dict[str, Any]) -> dict[str, Any]:
         ),
         "sourced_statistics": _factor(
             statistic_points,
-            20,
+            25,
             {
                 "sourced_statistics": sourced_statistics,
                 "unsourced_statistics": unsourced_statistics,
-            },
-        ),
-        "recency_freshness": _factor(
-            freshness_points,
-            15,
-            {
-                "has_date": bool(freshness.get("has_date")),
-                "has_last_updated": bool(freshness.get("has_last_updated")),
             },
         ),
         "citation_diversity": _factor(
             diversity_points,
             10,
             {"unique_sources": unique_sources},
+        ),
+        "reader_usefulness": _factor(
+            usefulness_points,
+            10,
+            {
+                "evidence_backed_sections": _to_int(ai_ready.get("evidence_backed_sections")),
+                "examples": _to_int(engagement.get("example_count")),
+            },
         ),
     }
 
@@ -268,29 +288,32 @@ def _score_perplexity(analysis: dict[str, Any]) -> dict[str, Any]:
 def _score_chatgpt(analysis: dict[str, Any]) -> dict[str, Any]:
     ai_ready = analysis.get("ai_citation_readiness", {})
     headings = analysis.get("headings", {})
-    paragraphs = analysis.get("paragraphs", {})
     structured_data = analysis.get("structured_data", {})
-    readability = analysis.get("readability", {})
-    sentences = analysis.get("sentences", {})
-    faq = analysis.get("faq", {})
+    citations = analysis.get("citations", {})
+    engagement = analysis.get("engagement", {})
+    frontmatter = analysis.get("frontmatter", {})
 
-    h2_count = _to_int(headings.get("h2_count"))
-    clean_points = _count_points(h2_count, [(1, 3), (3, 8)])
+    source_points = _count_points(_to_int(citations.get("inline_citations")), [(1, 8), (2, 15), (3, 20)])
+    if _to_int(citations.get("unsourced_statistics")) == 0:
+        source_points += 5
+    source_points = min(25, source_points)
+
+    purpose_points = 0
+    if frontmatter.get("title"):
+        purpose_points += 5
+    if ai_ready.get("purpose_statement"):
+        purpose_points += 5
     if headings.get("hierarchy_clean"):
-        clean_points += 6
-    if _to_int(paragraphs.get("max_word_count")) <= 140 and _to_int(paragraphs.get("total_paragraphs")) > 0:
-        clean_points += 5
-    if _to_float(paragraphs.get("in_range_ratio")) >= 0.35:
-        clean_points += 3
-    if _to_int(paragraphs.get("total_word_count")) >= 600:
-        clean_points += 3
-    clean_points = min(25, clean_points)
+        purpose_points += 5
+    if _to_int(headings.get("h2_count")) >= 1:
+        purpose_points += 5
 
-    tldr_points = 15 if ai_ready.get("has_tldr") else 0
-
-    qa_pairs = _to_int(ai_ready.get("qa_pairs"))
-    faq_items = _to_int(faq.get("faq_item_count"))
-    qa_points = min(20, qa_pairs * 5 + faq_items * 2 + (4 if faq.get("has_faq_section") else 0))
+    utility_points = _count_points(
+        _to_int(ai_ready.get("self_contained_sections")),
+        [(1, 7), (2, 12), (3, 15)],
+    )
+    utility_points += _count_points(_to_int(engagement.get("example_count")), [(1, 3), (2, 5)])
+    utility_points = min(20, utility_points)
 
     entity_definitions = _to_int(ai_ready.get("entity_definitions"))
     entity_points = _count_points(entity_definitions, [(1, 7), (2, 12), (3, 15)])
@@ -301,44 +324,33 @@ def _score_chatgpt(analysis: dict[str, Any]) -> dict[str, Any]:
         + _to_int(structured_data.get("unordered_list_items"))
         + _to_int(structured_data.get("ordered_list_items"))
     )
-    extract_points = min(15, table_count * 5 + _count_points(list_items, [(3, 4), (6, 7), (10, 10)]))
-
-    flesch = _to_float(readability.get("flesch_reading_ease"))
-    avg_sentence = _to_float(sentences.get("avg_length"))
-    over_20_pct = _to_float(sentences.get("over_20_pct"))
-    readability_points = 0
-    if 45 <= flesch <= 80:
-        readability_points += 4
-    if 10 <= avg_sentence <= 24:
-        readability_points += 3
-    if over_20_pct <= 25:
-        readability_points += 2
-    if _to_int(sentences.get("very_long_count")) == 0:
-        readability_points += 1
+    extract_points = min(10, table_count * 4 + _count_points(list_items, [(3, 3), (6, 6)]))
+    crawl_points = 0 if ai_ready.get("has_robots_restriction") else 10
 
     factors = {
-        "clean_structure": _factor(
-            clean_points,
+        "source_fidelity": _factor(
+            source_points,
             25,
             {
-                "h2_count": h2_count,
-                "hierarchy_clean": bool(headings.get("hierarchy_clean")),
-                "max_paragraph_words": _to_int(paragraphs.get("max_word_count")),
-                "word_count": _to_int(paragraphs.get("total_word_count")),
+                "inline_citations": _to_int(citations.get("inline_citations")),
+                "unsourced_statistics": _to_int(citations.get("unsourced_statistics")),
             },
         ),
-        "tldr_presence": _factor(
-            tldr_points,
-            15,
-            {"has_tldr": bool(ai_ready.get("has_tldr"))},
-        ),
-        "qa_pairs": _factor(
-            qa_points,
+        "purpose_clarity": _factor(
+            purpose_points,
             20,
             {
-                "qa_pairs": qa_pairs,
-                "faq_item_count": faq_items,
-                "has_faq_section": bool(faq.get("has_faq_section")),
+                "has_title": bool(frontmatter.get("title")),
+                "purpose_statement": bool(ai_ready.get("purpose_statement")),
+                "hierarchy_clean": bool(headings.get("hierarchy_clean")),
+            },
+        ),
+        "reader_utility": _factor(
+            utility_points,
+            20,
+            {
+                "self_contained_sections": _to_int(ai_ready.get("self_contained_sections")),
+                "examples": _to_int(engagement.get("example_count")),
             },
         ),
         "entity_definitions": _factor(
@@ -348,17 +360,13 @@ def _score_chatgpt(analysis: dict[str, Any]) -> dict[str, Any]:
         ),
         "extractable_lists_tables": _factor(
             extract_points,
-            15,
+            10,
             {"table_count": table_count, "list_items": list_items},
         ),
-        "readability": _factor(
-            readability_points,
+        "crawlability": _factor(
+            crawl_points,
             10,
-            {
-                "flesch_reading_ease": flesch,
-                "avg_sentence_length": avg_sentence,
-                "sentences_over_20_pct": over_20_pct,
-            },
+            {"has_robots_restriction": bool(ai_ready.get("has_robots_restriction"))},
         ),
     }
 
@@ -374,7 +382,7 @@ def _engine_results(analysis: dict[str, Any]) -> dict[str, dict[str, Any]]:
     }
     for engine, result in scored.items():
         result["weight"] = ENGINE_WEIGHTS[engine]
-        result["probability"] = result["score"]
+        result["readiness_score"] = result["score"]
     return scored
 
 
@@ -396,15 +404,24 @@ def _build_recommendations(
 
     candidates = [
         (
-            "Create three self-contained 130-170 word passages with a 40-60 word direct answer after question H2s.",
-            [("ai_overview", "passage_extractability"), ("ai_overview", "answer_first_structure")],
+            "Make important sections self-contained and support their reusable claims with primary sources or transparent original evidence.",
+            [
+                ("ai_overview", "source_fidelity"),
+                ("ai_overview", "reader_usefulness"),
+                ("perplexity", "reader_usefulness"),
+                ("chatgpt", "source_fidelity"),
+                ("chatgpt", "reader_utility"),
+            ],
         ),
         (
-            "Add BlogPosting or Article JSON-LD with author and dateModified fields.",
+            "Add accurate BlogPosting or Article JSON-LD with author details and applicable "
+            "visible dates; use dateModified only after a substantive update.",
             [("ai_overview", "article_schema")],
         ),
         (
-            "Source every statistic and add at least three unique tier 1 or tier 2 citations.",
+            "Support material claims with sufficient relevant, authoritative "
+            "sources; use source count and diversity only when the topic "
+            "requires them.",
             [
                 ("perplexity", "source_citations"),
                 ("perplexity", "source_authority"),
@@ -413,14 +430,10 @@ def _build_recommendations(
             ],
         ),
         (
-            "Refresh the post metadata with date and lastUpdated fields.",
-            [("ai_overview", "freshness"), ("perplexity", "recency_freshness")],
-        ),
-        (
-            "Add a TLDR block, Q&A headings, and bold term definitions near the top.",
+            "Clarify the page purpose, use stable entity names, and make the heading hierarchy match the reader's task.",
             [
-                ("chatgpt", "tldr_presence"),
-                ("chatgpt", "qa_pairs"),
+                ("ai_overview", "purpose_and_entity_clarity"),
+                ("chatgpt", "purpose_clarity"),
                 ("chatgpt", "entity_definitions"),
             ],
         ),
@@ -429,8 +442,8 @@ def _build_recommendations(
             [("chatgpt", "extractable_lists_tables")],
         ),
         (
-            "Tighten headings and paragraph length so sections are easy to scan.",
-            [("ai_overview", "clean_headings"), ("chatgpt", "clean_structure")],
+            "Add relevant diagrams, screenshots, or charts with descriptive alternative text when they improve understanding.",
+            [("ai_overview", "relevant_media")],
         ),
     ]
 
@@ -463,7 +476,11 @@ def score_analysis(analysis: dict[str, Any], engine: str = "all") -> dict[str, A
     return {
         "file": analysis.get("file", ""),
         "overall": overall,
+        # Deprecated compatibility alias. This value is a readiness heuristic,
+        # not a calibrated probability.
         "overall_probability": overall,
+        "methodology": "internal_ai_citation_readiness_heuristic",
+        "calibrated_probability": False,
         "model_weights": ENGINE_WEIGHTS,
         "engine_filter": engine,
         "engines": visible_results,
@@ -491,6 +508,8 @@ def _process_batch(directory: Path, engine: str) -> dict[str, Any]:
         "count": len(results),
         "engine_filter": engine,
         "model_weights": ENGINE_WEIGHTS,
+        "methodology": "internal_ai_citation_readiness_heuristic",
+        "calibrated_probability": False,
         "results": results,
     }
 
@@ -504,9 +523,11 @@ def _format_markdown(result: dict[str, Any]) -> str:
 
     file_name = Path(str(result.get("file", ""))).name
     lines = [
-        f"## AI Citation Probability: {file_name}",
+        f"## AI Citation Readiness Heuristic: {file_name}",
         "",
-        f"Overall probability: {result.get('overall', 0)}/100",
+        f"Overall readiness: {result.get('overall', 0)}/100",
+        "",
+        "This is an internal editorial heuristic, not a calibrated citation probability.",
         "",
         "### Engine Scores",
     ]
@@ -544,7 +565,7 @@ def _json_error(message: str) -> str:
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(description="AI citation probability scorer")
+    parser = argparse.ArgumentParser(description="AI citation readiness heuristic")
     parser.add_argument("input", help="Blog file path or directory")
     parser.add_argument(f"{LONG_FLAG}format", choices=["json", "markdown"], default="json", help="Output format")
     parser.add_argument(f"{LONG_FLAG}engine", choices=["all", *ALL_ENGINES], default="all", help="Engine view")

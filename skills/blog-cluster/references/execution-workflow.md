@@ -80,7 +80,8 @@ The execution engine will replace it with a real link after the target is writte
 - This is an automated cluster execution. Do NOT ask the user for input.
 - Skip topic clarification (Phase 1 of blog-write). All parameters are above.
 - Use the specified TEMPLATE; do not auto-detect.
-- Use the specified WORD COUNT TARGET as a hard constraint.
+- Use the specified WORD COUNT TARGET as an optional planning estimate;
+  intent-dependent completeness controls final length.
 - Skip outline approval. Write directly from the constraints.
 - Keep standard research, image sourcing, and chart generation active.
 - Proceed through all blog-write phases autonomously.
@@ -92,13 +93,14 @@ The execution engine will replace it with a real link after the target is writte
 
 ### How `blog-write` consumes the context
 
-The cluster context is prepended to the topic prompt. `blog-write` treats it
-as a set of hard constraints and runs in headless mode:
+The cluster context is prepended to the topic prompt. `blog-write` treats
+topic, linking, and metadata requirements as constraints and runs in headless
+mode. Length remains an optional planning estimate:
 
 1. PRIMARY KEYWORD becomes the main SEO target.
 2. SECONDARY KEYWORDS appear in subheadings and body naturally.
 3. TEMPLATE is loaded directly (no auto-detection).
-4. WORD COUNT TARGET is enforced.
+4. WORD COUNT TARGET guides planning but never blocks a complete article.
 5. Topic clarification is skipped; all parameters are provided.
 6. Outline approval is skipped; the writer proceeds directly.
 7. Real links are inserted to ALREADY WRITTEN posts using the listed filenames.

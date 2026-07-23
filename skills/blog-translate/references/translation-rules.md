@@ -112,7 +112,8 @@ Before reporting a translation as done, verify:
 - [ ] All SVG `<text>` and `<tspan>` content translated, lengths
       adjusted per the table above.
 - [ ] FAQ questions and answers natural in target language.
-- [ ] Citation capsules self-contained in target language.
+- [ ] Evidence-backed explanations remain accurate and self-contained in the
+      target language where present.
 - [ ] No mixed-language sentences (other than loanwords).
 - [ ] No literal idiom translations; idioms adapted to local equivalents.
 - [ ] Information parity, section coverage, and readability are preserved.

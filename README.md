@@ -15,17 +15,17 @@
   <img src="https://img.shields.io/badge/Skill%20Dirs-32-orange" alt="Skill directories: 32">
   <img src="https://img.shields.io/badge/Sub--Skills-31-orange" alt="Sub-skills: 31">
   <img src="https://img.shields.io/badge/Commands-30-blueviolet" alt="User-facing commands: 30">
-  <img src="https://img.shields.io/badge/Tests-252%20passing-brightgreen" alt="Tests: 252 passing">
+  <img src="https://img.shields.io/badge/Tests-250%2B%20passing-brightgreen" alt="Tests: more than 250 passing">
 </p>
 
-**claude-blog is a Claude Code skill suite that writes, optimizes, audits, localizes, and refreshes blog content at scale.** Every article is dual-optimized for Google rankings ([2026 core and spam update timeline](https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history), E-E-A-T) and AI citation platforms such as ChatGPT, Perplexity, Gemini, and AI Overviews. Version 1.11.0 was released on 2026-07-08.
+**claude-blog is a Claude Code skill suite that writes, optimizes, audits, localizes, and refreshes blog content at scale.** Every article is evaluated for Google-aligned usefulness and internal AI citation readiness heuristics. Version 2.1.0 was prepared on 2026-07-23.
 
 The core promise is simple: the user is never the first reviewer. A 5-gate Blog Delivery Contract scores every draft against a 100-point rubric, blocks delivery below 90, verifies artifacts and links, and iterates up to 3 times before escalation.
 
 > **Two versions of this skill.** Choose the one that fits how you work:
 >
 > - **Public open-source**: [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog). MIT-licensed, public releases, open to anyone. Use this if you want the stable, downloadable, no-membership-required version.
-> - **Community private mirror** (this repo): [`AI-Marketing-Hub/claude-blog`](https://github.com/AI-Marketing-Hub/claude-blog). Early access to in-development work, including v1.11.0 audit remediation, the Blog Delivery Contract, hero ladder, mutation-tested regression coverage, and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
+> - **Community private mirror** (this repo): [`AI-Marketing-Hub/claude-blog`](https://github.com/AI-Marketing-Hub/claude-blog). Early access to in-development work, including current Google guidance, the Blog Delivery Contract, the hero ladder, mutation-tested regression coverage, and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
 >
 > The badges above track the **public** repo (`AgriciDaniel/claude-blog`) since the private mirror is not visible to shields.io. The publishing workflow is documented in [`docs/PUBLISHING.md`](docs/PUBLISHING.md).
 
@@ -51,7 +51,7 @@ The core promise is simple: the user is never the first reviewer. A 5-gate Blog 
 
 claude-blog is a full-lifecycle blog engine for strategy, briefs, outlines, writing, rewriting, analysis, schema, AI citation readiness, site audits, topic clusters, multilingual publishing, audio narration, and content decay detection.
 
-Current v1.12.0 shape: **32 skill directories = 1 orchestrator + 31 sub-skills; 30 user-facing /blog commands (`blog-chart` is internal, not a command).** It also includes 5 specialized agents, 14 root scripts, 22 references, 12 templates, 252 tests, and the bundled Claude Blog Brain at `./brain`.
+Current v2.1.0 shape: **32 skill directories = 1 orchestrator + 31 sub-skills; 30 user-facing /blog commands (`blog-chart` is internal, not a command).** It also includes 5 specialized agents, repository consistency and public-release validators, 22 core references, 12 templates, a 250+ test suite, and the bundled Claude Blog Brain at `./brain`.
 
 Every draft ships as an artifact folder with the markdown source, rendered HTML, PDF, real `hero.<ext>`, 3 viewport screenshots, `review.md`, and `preflight-report.json`. The renderer uses XSS-safe JSON-LD handling, dark-mode-aware CSS, and the same source for every output format.
 
@@ -198,7 +198,7 @@ claude-blog integrates the FLOW framework from [`AgriciDaniel/flow`](https://git
 ### v1.10 and v1.11 Highlights
 
 - **5-gate Delivery Contract**: code-enforced pre-presentation gates for format, visuals, review, assets, and links.
-- **AI Citation Probability Scoring**: `scripts/ai_citation_score.py` scores AI Overview, Perplexity, and ChatGPT citation likelihood from 0 to 100 and feeds `/blog geo`.
+- **AI Citation Readiness Heuristic**: `scripts/ai_citation_score.py` produces non-calibrated 0-100 editorial-readiness views for AI Overview, Perplexity, and ChatGPT and feeds `/blog geo`.
 - **Writing style learning**: `/blog style learn <paths>` builds an author voice profile from 5 to 10 posts.
 - **Content decay detection**: `/blog decay <current-gsc> <previous-gsc>` flags 20%+ quarter-over-quarter GSC traffic drops and suggests refresh, consolidate, or prune actions.
 - **Pre-commit quality gate**: `scripts/quality_gate.py` and `.pre-commit-config.yaml` block blog posts below score 70 before commit.
@@ -216,20 +216,20 @@ Auto-selected by topic and intent: how-to guide, listicle, case study, compariso
 |---|---:|---|
 | Content Quality | 30 | Depth, readability, originality, engagement |
 | SEO Optimization | 25 | Headings, title, keywords, links, meta |
-| E-E-A-T Signals | 15 | Author, citations, trust, experience |
+| E-E-A-T Signals | 15 | Author, citations, trust, evidence basis |
 | Technical Elements | 15 | Schema, images, speed, mobile, OG tags |
-| AI Citation Readiness | 15 | Citability, Q&A format, entity clarity |
+| AI Citation Readiness | 15 | Evidence-backed citability, purpose fit, entity clarity |
 
 Scoring bands: Exceptional (90-100), Strong (80-89), Acceptable (70-79), Below Standard (60-69), Rewrite (<60). The delivery contract blocks delivery below 90.
 
 ### More Capabilities
 
-- AI-content detection with burstiness scoring, known phrase detection, and vocabulary diversity checks.
+- Advisory editorial style diagnostics for sentence-length variation, configured phrase lists, and vocabulary sampling; these never infer authorship or affect scoring.
 - Persona-driven writing with NNGroup tone dimensions, readability bands, and style enforcement.
 - `/blog factcheck` source verification with exact match, paraphrase, and not-found confidence scoring.
 - `/blog cannibalization` keyword overlap detection with merge or differentiate recommendations.
 - CMS taxonomy management for WordPress, Shopify, Ghost, Strapi, and Sanity.
-- Dual Google and AI-citation optimization, including answer-first passages, citation capsules, FAQ entity support, internal links, schema, and freshness signals.
+- Dual Google and AI-citation optimization, including evidence-backed explanations, intent-matched structure, optional visible Q&A, internal links, schema, and substantive maintenance.
 - Visual media through Gemini image generation, verified stock sourcing, SVG charts, YouTube embeds, and alt text requirements.
 - Google API integration across PageSpeed Insights, CrUX, Search Console, GA4, NLP, YouTube, URL Inspection, and Keyword Planner. Indexing API use is scoped to JobPosting or livestream URLs only.
 - NotebookLM research for source-grounded answers from user-uploaded documents.
@@ -240,7 +240,7 @@ Scoring bands: Exceptional (90-100), Strong (80-89), Acceptable (70-79), Below S
 
 | Reference | Purpose |
 |---|---|
-| `ai-slop-detection.md` | Two-tier first-order and structural-rhythm AI-content detection |
+| `ai-slop-detection.md` | Two-tier advisory editorial pattern review; never an authorship classifier or scoring input |
 | `editorial-heuristics.md` | Nielsen-adapted 0-4 scoring with P0-P3 severity |
 | `cognitive-load.md` | Per-section concept-density scoring |
 | `research-quality.md` | Source-tier, freshness, and synthesis quality checks |
@@ -256,7 +256,7 @@ The Claude Blog Brain is vendored at `./brain` as a self-contained, evidence-gat
 
 > **Which version are you installing?**
 >
-> - **Not an AI Marketing Hub Pro member?** Install from the public repo: [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog). Swap `AI-Marketing-Hub/claude-blog` for `AgriciDaniel/claude-blog` and the plugin slug `claude-blog@ai-marketing-hub-claude-blog` for `claude-blog@agricidaniel-claude-blog`.
+> - **Not an AI Marketing Hub Pro member?** Install from the public repo: [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog). Swap `AI-Marketing-Hub/claude-blog` for `AgriciDaniel/claude-blog` and the plugin slug `claude-blog@ai-marketing-hub-claude-blog` for `claude-blog@agricidaniel-blog`.
 > - **Pro member?** The commands below install the community version with early access to in-development features. They require an authenticated `gh auth login` or GitHub PAT session with access to the `AI-Marketing-Hub` org. If `/plugin marketplace add` fails with a 404, your account is not in the org yet.
 
 Plugin install for Claude Code 1.0.33+:
@@ -271,7 +271,7 @@ Recommended clone, verify, then install flow:
 ```bash
 git clone https://github.com/AI-Marketing-Hub/claude-blog.git
 cd claude-blog
-git checkout v1.11.0
+git checkout v2.1.0
 chmod +x install.sh
 ./install.sh
 ```
@@ -279,13 +279,13 @@ chmod +x install.sh
 One-command install on Unix and macOS:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | CLAUDE_BLOG_REF=v1.11.0 bash
+curl -fsSL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | CLAUDE_BLOG_REF=v2.1.0 bash
 ```
 
 One-command install on Windows PowerShell:
 
 ```powershell
-$env:CLAUDE_BLOG_REF = "v1.11.0"
+$env:CLAUDE_BLOG_REF = "v2.1.0"
 irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 -OutFile install.ps1
 pwsh -File ./install.ps1
 ```
@@ -294,11 +294,11 @@ Verify installer integrity before running:
 
 ```bash
 curl -fsSL -o install.sh https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh
-echo "9dae6d63ce45ee4da881d91ee228b14d86aadac7a76464a25cc053099fb37858  install.sh" | sha256sum -c
-CLAUDE_BLOG_REF=v1.11.0 bash install.sh
+echo "7f82ad081eb3393421a46e62bac135b1e326e3d9925c9d65f908d65ff62f354d  install.sh" | sha256sum -c
+CLAUDE_BLOG_REF=v2.1.0 bash install.sh
 ```
 
-The SHA-256 above is for the current `install.sh` at HEAD on `main`; `CLAUDE_BLOG_REF` pins the repository clone performed by the installer. Verify against [the canonical file](https://github.com/AI-Marketing-Hub/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `d8ae0e4fb15278f904cc84f2147770d4bdb36ba270d0610c530719df6d8dec5b`.
+The SHA-256 above is for the current `install.sh` at HEAD on `main`; `CLAUDE_BLOG_REF` pins the repository clone performed by the installer. Verify against [the canonical file](https://github.com/AI-Marketing-Hub/claude-blog/blob/main/install.sh) before running. The `install.ps1` companion hash is `3e908113fc9c1c2cf1b88940701f3ff772fb315200bedafce2c4e44787e6d985`.
 
 Restart Claude Code after installation to activate.
 
@@ -323,15 +323,17 @@ Installation details: [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
 - Python 3.11+ for quality scoring, the delivery contract runners, renderers, and lint.
 - Optional: `pip install -r requirements.txt` for advanced analysis, readability scoring, schema detection, and media workflows.
 
-### Seven CI Quality Gates
+### Automated CI Quality Gates
 
-1. **pytest**: 252 tests across security, behavioral, regression, installer, and delivery-contract suites.
+1. **pytest**: the complete security, behavioral, regression, installer, and delivery-contract suite.
 2. **Plugin validation**: `claude plugin validate .` plus manifest, marketplace, and frontmatter checks.
 3. **Stale-path lint**: catches drift in `references/`, `templates/`, command docs, and installer payloads.
 4. **Prose hygiene**: `scripts/lint_prose.py` enforces no em dash, no en dash, and no ASCII double-hyphen prose.
-5. **Version coherence**: canonical version surfaces must all match 1.12.0.
+5. **Version coherence**: canonical version surfaces must all match the release version.
 6. **Command coherence**: `skills/blog/SKILL.md` and [`docs/COMMANDS.md`](docs/COMMANDS.md) must declare the same command set.
-7. **Brain validation**: changes under `brain/**` run its pytest suite, vault lint, and report-only audit.
+7. **Repository consistency**: validates local reference targets, FLOW prompt locks, and reports orphaned resources without blocking.
+8. **Hash-locked dependency smoke**: installs the audio and NotebookLM locks with `--require-hashes`, then initializes google-genai, Patchright, and preflight without API calls or a browser launch.
+9. **Brain validation**: changes under `brain/**` run its pytest suite, vault lint, and report-only audit.
 
 Run locally before pushing:
 
@@ -368,7 +370,7 @@ claude-blog is a Claude Code skill suite for writing, optimizing, and auditing b
 
 ### How is claude-blog different from prompting Claude or ChatGPT directly?
 
-Direct prompting gives you one draft from one prompt. claude-blog gives you a structured pipeline: research with sourced statistics, outline approval, draft generation, multi-pass quality scoring, AI-content detection, fact verification, schema injection, and a blocking review that iterates up to 3 times before delivery.
+Direct prompting gives you one draft from one prompt. claude-blog gives you a structured pipeline: research with sourced statistics, outline approval, draft generation, multi-pass quality scoring, advisory editorial pattern review, fact verification, schema injection, and a blocking review that iterates up to 3 times before delivery.
 
 ### Do I need an AI Marketing Hub Pro membership to use claude-blog?
 
@@ -396,7 +398,7 @@ See [How To Cite](#how-to-cite) or [`CITATION.cff`](CITATION.cff). GitHub also s
 
 ### Is claude-blog secure to install?
 
-The recommended flow downloads the installer as a file so you can inspect it before execution. v1.11.0 uses pinned refs, allowlisted recursive payload copies, manifest-backed uninstall, prose lint, version coherence checks, and installer regression tests. See [`SECURITY.md`](.github/SECURITY.md).
+The recommended flow downloads the installer as a file so you can inspect it before execution. v2.1.0 uses pinned refs, allowlisted recursive payload copies, manifest-backed uninstall, prose lint, version coherence checks, repository consistency checks, and installer regression tests. See [`SECURITY.md`](.github/SECURITY.md).
 
 ## Documentation Index
 
@@ -419,7 +421,7 @@ If you use claude-blog in research or production, please cite the project:
   title        = {claude-blog: AI Blog Writing and SEO Optimization Skill for Claude Code},
   year         = {2026},
   url          = {https://github.com/AgriciDaniel/claude-blog},
-  version      = {1.12.0},
+  version      = {2.1.0},
   license      = {MIT}
 }
 ```
@@ -435,7 +437,7 @@ GitHub also surfaces the structured [`CITATION.cff`](CITATION.cff) file via "Cit
 
 Contributions are welcome. See [`CONTRIBUTING.md`](.github/CONTRIBUTING.md) for guidelines. Before opening a PR:
 
-1. Run `python3 -m pytest tests/` and confirm the 252-test suite passes.
+1. Run `python3 -m pytest tests/` and confirm the full suite passes.
 2. Run `python3 scripts/lint_prose.py` and confirm zero violations.
 3. Run `claude plugin validate .`.
 4. Bump versions coherently if you touch user-visible counts or behavior.

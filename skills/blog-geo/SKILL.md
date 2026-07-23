@@ -6,8 +6,8 @@ description: >
   to rank or be cited in ChatGPT, Perplexity, Claude, Gemini, Copilot,
   You.com, Google AI Overviews, or Google AI Mode. AI citation optimization
   audit scoring blog posts for major answer surfaces. Evaluates
-  passage-level citability, Q&A formatting, entity clarity, structured
-  data, and AI crawler accessibility. Generates citation capsules and a
+  evidence-backed citability, purpose clarity, entity clarity, structured
+  data, and AI crawler accessibility. Suggests evidence-backed explanations and a
   0-100 AI Citation Readiness score. Use when user says "geo", "ai
   citation", "ai optimization", "citation audit", "aeo", "perplexity
   optimization", "chatgpt citation".
@@ -20,8 +20,9 @@ license: MIT
 
 Scores blog posts for AI citation readiness across ChatGPT, Perplexity, Claude,
 Gemini, Copilot, You.com, Google AI Overviews, and Google AI Mode as one SEO
-workflow, not a separate discipline. Generates citation capsules and a 0-100 AI
-Citation Readiness score with platform-specific recommendations.
+workflow, not a separate discipline. Generates a 0-100 internal AI Citation
+Readiness heuristic with platform-specific recommendations. The score is not a
+calibrated probability of citation.
 
 Google's 2026-05-15 guidance frames generative-AI optimization as SEO: no
 special markup, llms.txt requirement, or separate GEO/AEO playbook is required
@@ -31,7 +32,9 @@ for Google visibility. Use GEO/AEO as shorthand labels only.
 
 This skill covers FLOW surface 3 (AI assistant citations: ChatGPT, Perplexity, Claude, Gemini, Copilot, You.com) and contributes to surface 2 (SERP plus AI Overviews). Surface mapping: `skills/blog/references/flow-alignment.md`.
 
-For directly relevant AI-citation prompts (AI-supporting-pages-rewrite-prompt, ai-detector-test, ChatGPT discovery, visibility prompts), see `/blog flow optimize`.
+For directly relevant AI-citation prompts (AI-supporting-pages rewrite,
+evidence-based quality follow-up, ChatGPT discovery, visibility prompts), see
+`/blog flow optimize`.
 
 ## Evidence Discipline
 
@@ -40,7 +43,8 @@ with URL, publisher, methodology, sample size, engine or version, query class,
 retrieval date, and expiry date. If any field is missing, label the benchmark as
 directional or remove the number. Default heuristics:
 
-- Self-contained 120-180 word answer passages are a practitioner heuristic.
+- Self-contained, evidence-backed explanations can aid reuse, but Google
+  prescribes no passage-length or "chunking" requirement.
 - Comparison tables with semantic headers may improve extractability, but do not
   cite an uplift without a dated source block.
 - AI Overviews coverage is methodology-dependent: cite a dated range, not a
@@ -62,33 +66,33 @@ Extract from the blog post:
 - Numbered/ordered lists
 - Definition-style formatting
 
-### Step 2: Passage-Level Citability (4 pts)
+### Step 2: Evidence-Backed Citability (4 pts)
 
 Check each section between headings for AI-extractable passages:
 
 | Check | Criteria |
 |-------|----------|
-| Word count | Each section contains 120-180 word self-contained passages |
 | Context independence | Each passage makes sense extracted from surrounding context |
 | Claim structure | Passages contain: specific claim + supporting evidence + source attribution |
 | Completeness | Passage answers a question without requiring reader to read adjacent sections |
 
-**Scoring:** Count passages meeting all criteria vs total sections.
+**Scoring:** Count important sections meeting the evidence and completeness
+criteria. Do not score section length.
 - 4 pts: 80%+ sections have citable passages
 - 3 pts: 60-79%
 - 2 pts: 40-59%
 - 1 pt: 20-39%
 - 0 pts: <20%
 
-### Step 3: Q&A Formatting (3 pts)
+### Step 3: Purpose Fit and Reader Utility (3 pts)
 
 Check heading format and answer structure:
 
 | Check | Criteria |
 |-------|----------|
-| Question headings | 60-70% of H2s are phrased as questions |
-| Answer-first format | Opening paragraph under each H2 provides a direct answer |
-| FAQ section | Dedicated FAQ section with structured question-answer pairs |
+| Clear purpose | The introduction identifies the page's topic, audience, and reader task |
+| Useful section openings | Important sections state the point without throat-clearing |
+| Intent-matched format | Declarative headings, questions, FAQs, tables, and lists are used only when they fit the material |
 
 **Scoring:**
 - 3 pts: All three criteria met
@@ -119,11 +123,11 @@ Check for AI-extractable content patterns:
 
 | Check | Criteria |
 |-------|----------|
-| TL;DR box | 40-60 word standalone summary present at top |
+| Summary | Optional standalone summary when it helps the intended reader |
 | Comparison tables | Tables with semantic headers such as `<thead>` or clear column labels |
 | Ordered lists | Numbered lists for processes and step-by-step instructions |
 | Definition formatting | Key terms formatted with clear definition patterns |
-| Citation capsules | 40-60 word definitive statements in each major section |
+| Evidence-backed explanations | Important reusable claims carry enough context and source support |
 
 **Scoring:**
 - 3 pts: 4-5 elements present
@@ -137,10 +141,10 @@ Check technical requirements for AI crawler indexing:
 
 | Check | Criteria |
 |-------|----------|
-| Static HTML | Content rendered in static HTML, not behind JavaScript |
+| Rendered content | Important content is present in the rendered DOM and accessible to the target crawler |
 | Google visibility | Normal crawlability and indexability for Googlebot. No special GEO/AEO file or markup is required for Google AI features |
 | Non-Google AI crawlers | If the site wants visibility in non-Google answer engines, check robots.txt treatment for GPTBot, ChatGPT-User, ClaudeBot, PerplexityBot, and related documented crawlers |
-| Schema in HTML | Schema markup in static HTML, not JS-injected |
+| Schema consistency | Structured data reaches the rendered DOM and matches visible content |
 | Page size | Reasonable page size within AI crawler limits |
 
 **Scoring:**
@@ -153,24 +157,27 @@ Check technical requirements for AI crawler indexing:
 
 ### Step 7: Platform-Specific Analysis
 
-Evaluate the post for each AI platform's citation preferences:
+Evaluate observable readiness for each declared surface. Product behavior
+changes by mode, query set, geography, and date, so do not infer causal
+preferences from a vendor sample.
 
 #### ChatGPT
-- Favors "Best X" listicles (43.8% of citations)
-- Prefers well-cited, authoritative content
-- Recency matters: recent updates get priority
-- Domain authority influences citation likelihood
+- Check that material claims are source-backed and useful without depending on
+  a specific content format.
+- Treat current citation samples as non-causal context, not a listicle,
+  freshness, or domain-authority rule.
 
 #### Perplexity
-- Often favors fresh, source-dense, community-validated content. Verify with
-  current logs or tooling before claiming a citation window.
+- Check crawlability, source fidelity, and material freshness when the query is
+  time-sensitive. Verify observations with current logs or reproducible tooling
+  before describing product behavior.
 
 #### Google AI Overviews
 - Follow Google's normal SEO guidance: make content helpful, crawlable,
   indexable, and eligible for snippets. No special GEO/AEO markup or llms.txt is
   required for Google visibility.
-- Prefers content that already ranks well organically, but verify any numeric
-  claims with dated source blocks.
+- Measure Search and AI-feature visibility separately. Organic overlap observed
+  in a sample does not establish a preference or guarantee inclusion.
 
 #### Google AI Mode
 - Treat separately from AI Overviews in reports. Emphasize normal Search
@@ -185,27 +192,15 @@ Evaluate the post for each AI platform's citation preferences:
 
 For each platform, provide:
 - Current citability rating (High / Medium / Low)
-- Specific improvements to increase citation likelihood
+- Specific improvements to clarity, source fidelity, usefulness, and crawlability
 - Content format recommendations
 
-### Step 8: Generate Citation Capsules
+### Step 8: Strengthen Reusable Evidence
 
-For each H2 section in the post, write a citation capsule:
-
-- **Length**: 40-60 words, self-contained
-- **Structure**: Specific claim + data point + source attribution
-- **Purpose**: A passage AI could directly quote as a citation
-- **Format**: Present as a suggested addition the author can embed
-
-Example:
-```
-According to [Source], [specific claim with number]. This represents
-[context/comparison], making it [significance]. [Supporting detail
-that reinforces the claim].
-```
-
-Generate one capsule per H2 section. Label each with the section heading
-it belongs under.
+For important sections that lack support, propose a self-contained improvement
+with a specific claim, the context needed to understand it, and a verified
+source or transparent original methodology. Do not pad every section, impose a
+word band, or manufacture statistics.
 
 ### Step 9: Calculate AI Citation Readiness Score (0-100)
 
@@ -213,8 +208,8 @@ Map the 15-point subcategory scores to a 0-100 display score:
 
 | Category | Raw Points | Display Weight | Max Display Score |
 |----------|-----------|----------------|-------------------|
-| Passage-Level Citability | /4 | x6.75 | 27 |
-| Q&A Formatting | /3 | x6.67 | 20 |
+| Evidence-Backed Citability | /4 | x6.75 | 27 |
+| Purpose Fit and Reader Utility | /3 | x6.67 | 20 |
 | Entity Clarity | /3 | x6.67 | 20 |
 | Content Structure | /3 | x6.67 | 20 |
 | AI Crawler Accessibility | /2 | x6.5 | 13 |
@@ -233,22 +228,24 @@ Output the following report:
 ```
 ## AI Citation Readiness Report: [Title]
 
-**AI Citation Readiness Score: [X]/100**: [Rating]
+**AI Citation Readiness Heuristic: [X]/100**: [Rating]
+
+This is an internal editorial heuristic, not a calibrated probability.
 
 ### Score Breakdown
 | Category | Raw | Display | Max |
 |----------|-----|---------|-----|
-| Passage-Level Citability | X/4 | X | 27 |
-| Q&A Formatting | X/3 | X | 20 |
+| Evidence-Backed Citability | X/4 | X | 27 |
+| Purpose Fit and Reader Utility | X/3 | X | 20 |
 | Entity Clarity | X/3 | X | 20 |
 | Content Structure | X/3 | X | 20 |
 | AI Crawler Accessibility | X/2 | X | 13 |
 | **Total** | **X/15** | **X** | **100** |
 
 ### Per-Section Citability Analysis
-| Section (H2) | Word Count | Self-Contained | Claim+Evidence | Citable |
-|---------------|-----------|----------------|----------------|---------|
-| [heading] | [N] | Yes/No | Yes/No | Yes/No |
+| Section (H2) | Purpose Clear | Self-Contained | Claim+Evidence | Ready |
+|---------------|---------------|----------------|----------------|-------|
+| [heading] | Yes/No | Yes/No | Yes/No | Yes/No |
 
 ### Platform-Specific Optimization
 #### ChatGPT
@@ -266,13 +263,13 @@ Output the following report:
 #### Claude / Gemini / Copilot / You.com
 - [specific recommendations]
 
-### Generated Citation Capsules
+### Evidence Improvements
 
 #### [H2 Section 1]
-> [40-60 word citation capsule]
+> [Self-contained, source-backed improvement sized to the material]
 
 #### [H2 Section 2]
-> [40-60 word citation capsule]
+> [Self-contained, source-backed improvement sized to the material]
 
 ### Technical Recommendations
 - [ ] [Technical fix with specifics]
@@ -299,14 +296,16 @@ If blog-google credentials include Tier 1 (GSC) and the post has a published URL
 5. If skipped, report `SKIPPED: credentials unavailable` or
    `SKIPPED: unpublished URL`.
 
-### Optional: AI Citation Probability Score
+### Optional: AI Citation Readiness Heuristic
 
-For a per-engine likelihood that the post gets cited by AI answer engines (distinct
+For a per-engine readiness view (distinct
 from the 15-point AI Citation Readiness category scored by `/blog analyze`), run:
 
 ```bash
 python3 scripts/ai_citation_score.py <file> --format markdown
 ```
 
-It returns a 0-100 overall score plus per-engine subscores for Google AI Overview,
-Perplexity, and ChatGPT, a factor breakdown, and up to three highest-impact fixes.
+It returns a non-calibrated 0-100 overall heuristic plus per-engine subscores
+for Google AI Overview, Perplexity, and ChatGPT, a factor breakdown, and up to
+three highest-impact fixes. Legacy `overall_probability` output is retained
+only as a compatibility alias.

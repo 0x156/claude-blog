@@ -157,10 +157,11 @@ D.C. Thomson case study results after replacing raster images with contextual SV
 Good: `Marketing team analyzing AI search traffic data on a dashboard showing citation metrics`
 Bad: `SEO AI marketing blog optimization image`
 
-**AI Systems and Images**: AI crawlers read alt text and captions, NOT the images
-themselves. Write context-rich alt text that conveys the data or insight the image
-represents. For charts, include the key data point in the alt text. For screenshots,
-describe what the screenshot demonstrates.
+**AI Systems and Images**: Multimodal systems may process images, while crawler
+and product capabilities vary. Alt text, captions, and visible surrounding
+context remain important accessibility and semantic support. For charts,
+describe the meaningful takeaway in accessible text. For screenshots, explain
+what the screenshot demonstrates.
 
 ### Embedding Images
 

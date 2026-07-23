@@ -80,7 +80,7 @@ The existing `blog-reviewer` agent (`agents/blog-reviewer.md`) runs against the 
 
 - Overall score **< 90/100** → BLOCK
 - **Any P0 issue** from `editorial-heuristics.md` → BLOCK (a draft can score 95 and still have one load-bearing fabricated stat; P0 is an absolute filter independent of the numeric score)
-- AI-detection burstiness flag OR more than 3 known AI phrases OR vocabulary diversity (TTR) below 0.4 → BLOCK
+- Advisory style diagnostics never block and never infer authorship
 - All clear → proceed to Gate 5
 
 The blocking decision is emitted as the last line of the reviewer scorecard, in the format:
@@ -93,6 +93,10 @@ BLOCKING: false (cleared all gates)
 Machine-readable by `scripts/blog_preflight.py` so the orchestrator does not have to parse the human-readable scorecard.
 
 Reviewer report saved to `<draft-folder>/review.md`. Shown to the user on success ("here is why this passed") and on final failure ("here is why this is still blocked after 3 iterations").
+
+Gate 4 may report sentence-length variation, configured phrase-list matches,
+or vocabulary sampling for editorial review. These diagnostics do not affect
+the numeric score and are never machine-enforced as evidence of AI authorship.
 
 ## Gate 5: Asset Existence + Link Integrity
 

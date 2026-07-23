@@ -7,7 +7,7 @@
 #   pwsh -File ./install.ps1
 
 $ErrorActionPreference = "Stop"
-$ClaudeBlogVersion = "2.0.0"
+$ClaudeBlogVersion = "2.1.0"
 
 function Write-Color($Color, $Text) {
     Write-Host $Text -ForegroundColor $Color
@@ -136,6 +136,16 @@ function Main {
     if (Test-Path (Join-Path (Join-Path (Join-Path $ScriptDir "skills") "blog") "templates")) {
         Write-Color White "Installing content templates..."
         Copy-Tree (Join-Path (Join-Path (Join-Path $ScriptDir "skills") "blog") "templates") (Join-Path (Join-Path $SkillDir "blog") "templates")
+    }
+
+    # Preserve the repository's data/google-updates.json ledger inside the
+    # standalone blog skill payload.
+    $GoogleLedger = Join-Path (Join-Path $ScriptDir "data") "google-updates.json"
+    if (Test-Path -LiteralPath $GoogleLedger) {
+        Write-Color White "Installing Google update ledger..."
+        $BlogDataDir = Join-Path (Join-Path $SkillDir "blog") "data"
+        New-Item -ItemType Directory -Force -Path $BlogDataDir | Out-Null
+        Copy-Item -LiteralPath $GoogleLedger -Destination (Join-Path $BlogDataDir "google-updates.json") -Force
     }
 
     # Copy sub-skills (auto-discovers all skill directories)

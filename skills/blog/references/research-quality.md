@@ -1,6 +1,9 @@
 # Research Quality: Rubric, Pre-Flight Traps, Clustering, Freshness
 
-claude-blog already enforces source-tier hygiene (Tier 1 to 3) and the FLOW evidence triple (year anchor + inline citation + URL with retrieval date). This reference adds four research-discipline layers adapted from `last30days-skill` (Matt Van Horn, MIT, https://github.com/mvanhorn/last30days-skill):
+claude-blog already enforces source-tier hygiene (Tier 1 to 3), source fidelity,
+and claim-appropriate provenance. This reference adds four research-discipline
+layers adapted from `last30days-skill` (Matt Van Horn, MIT,
+https://github.com/mvanhorn/last30days-skill):
 
 1. A **5-dimension quality rubric** for scoring research outputs
 2. **Topic pre-flight checks** for catching keyword-trap topics before search burns time
@@ -17,11 +20,11 @@ Score every research output against these five dimensions before passing to `blo
 
 | Dimension | Weight | What it asks |
 |---|---|---|
-| Groundedness | 30 | Every non-trivial claim ties to a named source. No "studies show," no "experts agree" without naming who. Each statistic has the FLOW triple (year + publisher + URL + retrieval date). |
+| Groundedness | 30 | Every non-trivial claim ties to evidence that substantiates it. No "studies show" or "experts agree" without identifying who and what. Source identity, dates, methodology, limitations, URLs, and retrieval notes are included when needed to verify or interpret the claim. |
 | Specificity | 25 | Named entities, exact numbers, dates beat general phrasing. "$47B Q3 2025 revenue" beats "tens of billions in revenue." Specific subreddit names, X handles, GitHub repos beat "the community says." |
 | Coverage | 20 | At least two independent sources per load-bearing claim. At least two perspectives represented (proponent + critic, vendor + customer, expert + practitioner). Single-source dependency on a load-bearing claim is a failure. |
 | Actionability | 15 | The reader can do something concrete with this. "Use X library, version Y, this way" beats "consider modern frameworks." Includes commands, configs, decision criteria, or a clear yes/no. |
-| Format compliance | 10 | Research synthesis uses citations inline as `[name](url)` per `synthesis-contract.md`. No duplicate trailing Sources block when inline citations are present. Publishable drafts may include compact retrieval notes required by FLOW. No invented titles. No em-dashes. No raw-cluster dumps. |
+| Format compliance | 10 | Research synthesis uses citations inline as `[name](url)` per `synthesis-contract.md`. No duplicate trailing Sources block when inline citations are present. Publishable drafts may include retrieval notes when they identify a changeable or undated source or change interpretation. No invented titles. No em-dashes. No raw-cluster dumps. |
 
 ### Scoring procedure
 
@@ -86,7 +89,9 @@ Some topic phrasings will never produce good research because their literal text
 3. If matched, emit a one-line note in research output: `Pre-Flight: matched Class N. Reframing to: "<new query>".`
 4. If not matched, proceed.
 
-Skipping pre-flight on a trap topic is the same failure mode as skipping the FLOW evidence triple. Both are mandatory.
+Skipping pre-flight on a trap topic creates avoidable research noise. Treat
+pre-flight as a required workflow check and keep enough source provenance to
+verify each material claim; no fixed citation form is required.
 
 ---
 

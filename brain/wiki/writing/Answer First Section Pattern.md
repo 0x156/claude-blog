@@ -4,7 +4,7 @@ title: "Answer First Section Pattern"
 domain: "Blog Writing"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-23
 tags: [writing, six-pillar, evergreen]
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
@@ -17,7 +17,12 @@ source_urls:
 
 ## Answer First Section Pattern Drafting Job
 
-This note owns the first 40 to 90 words under important H2 and H3 headings. Its job is to make the section useful before the reader reaches background, brand narrative, or tactical caveats. It supports [[6-Pillar Dual Optimization]] by turning a section heading into a concise answer, then adding proof and nuance.
+This note owns the opening passage under important H2 and H3 headings. Its job
+is to make the section useful before the reader reaches background, brand
+narrative, or tactical caveats. Passage length follows the claim and reader
+intent; no word band earns readiness credit. It supports [[6-Pillar Dual
+Optimization]] by turning a section heading into a clear answer, then adding
+proof and nuance.
 
 ### The Move Owned Here
 

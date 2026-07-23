@@ -4,7 +4,7 @@ description: >
   Translate existing blog posts into one or more target languages with
   SEO-optimized localization. Produces native-quality translations that
   preserve markdown structure, frontmatter, schema JSON-LD, image and chart
-  embeds, and citation capsules. Localizes keywords, meta tags, numbers,
+  embeds, and evidence-backed explanations. Localizes keywords, meta tags, numbers,
   dates, currencies, and quote styles per locale. Flags machine-translation
   artifacts for review. Run BEFORE blog-localize: this handles language
   conversion; localize handles cultural adaptation after translation
@@ -18,7 +18,7 @@ license: MIT
 compatibility: Standalone within claude-blog. Invoked by blog-multilingual.
 metadata:
   author: AgriciDaniel
-  version: "2.0.0"
+  version: "2.1.0"
   category: blog
 ---
 
@@ -78,7 +78,7 @@ Extract the translatable surface:
 - Chart `<text>` and `<tspan>` content; preserve every SVG attribute (`x`,
   `y`, `font-size`, `fill`, `transform`).
 - FAQ questions and answers.
-- Citation capsule text.
+- Evidence-backed explanation text.
 - Key Takeaways or summary box.
 - CTA text.
 - Internal-link zone anchor text.
@@ -143,7 +143,7 @@ For each translated version:
    - All SVG charts present with translated text labels (length-adjusted:
      DE +30%, FR +15%, JA -20%, others see `references/translation-rules.md`).
    - FAQ count matches.
-   - Citation capsules present in each H2.
+   - Evidence-backed explanations from the source remain intact where present.
 3. Save translated files:
    ```
    translations/

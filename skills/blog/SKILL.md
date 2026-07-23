@@ -12,7 +12,7 @@ license: MIT
 compatibility: Requires Claude Code and Python 3.11+ for quality scoring
 metadata:
   author: AgriciDaniel
-  version: "2.0.0"
+  version: "2.1.0"
 user-invokable: true
 argument-hint: "[write|rewrite|analyze|brief|calendar|cannibalization|strategy|outline|seo-check|schema|repurpose|geo|image|audit|factcheck|persona|brand|discourse|taxonomy|notebooklm|audio|google|update|cluster|multilingual|translate|localize|locale-audit|flow|style|decay] [topic-or-file]"
 ---
@@ -125,16 +125,23 @@ Every blog post targets these 6 optimization pillars:
 
 | Pillar | Impact | Implementation |
 |--------|--------|---------------|
-| Answer-First Formatting | Strong AI citation lift | Every H2 opens with an about 50-word direct-answer sentence followed by a self-contained 120-180 word citable passage |
+| Purpose-First Clarity | Reader and retrieval utility | Important sections state their point clearly; no prescribed heading form or passage length |
 | Real Sourced Data | E-E-A-T trust | Tier 1-3 sources only, inline attribution |
 | Visual Media | Engagement + citations | Pixabay/Unsplash images + AI generation via Gemini + built-in SVG charts + YouTube video embeds |
-| FAQ Entity Signal | AI citation context only | Visible Q&A may use FAQPage, but never as a Google rich result; 2026 priority is Article + Person + Organization + BreadcrumbList |
-| Content Structure | AI extractability | 120-180 word citable passages, question headings, proper H hierarchy |
-| Freshness Signals | 76% of top citations | Updated within 30 days, dateModified schema |
+| Optional Q&A | Reader utility only | Use visible Q&A when it answers real user needs; FAQPage earns no Google rich-result or readiness points |
+| Content Structure | Comprehension and reuse | Proper heading hierarchy, stable entities, useful tables/lists only where they fit |
+| Substantive Maintenance | Accuracy over date churn | Update content and dateModified only when facts, methods, or recommendations materially change |
 
 ### FLOW alignment
 
-claude-blog adopts the FLOW evidence-led model (`github.com/AgriciDaniel/flow`, CC BY 4.0). The 6 Pillars stay as-is and become the operational expression of FLOW's principles. Enforce the FLOW evidence triple at drafting time inside `blog-write`: year anchor in prose, inline citation with publisher/title, URL with retrieval date. For the full mapping, load `skills/blog/references/flow-alignment.md`. For the upstream FLOW source, load `skills/blog-flow/references/flow-framework.md` or run `/blog flow`.
+claude-blog adopts the FLOW evidence-led model (`github.com/AgriciDaniel/flow`,
+CC BY 4.0). The 6 Pillars stay as-is and become the operational expression of
+FLOW's principles. Keep material claims traceable to supporting sources. Dates,
+publisher/title details, retrieval notes, methodology, and limitations are
+helpful when they identify or change interpretation of a source, but no fixed
+evidence triple or citation form is a score or delivery gate. For the full
+mapping, load `skills/blog/references/flow-alignment.md`. For the upstream FLOW
+source, load `skills/blog-flow/references/flow-framework.md` or run `/blog flow`.
 
 ## Quality Gates
 
@@ -142,8 +149,8 @@ These are hard rules. Never ship content that violates them:
 
 | Rule | Threshold | Action |
 |------|-----------|--------|
-| Fabricated statistics | Zero tolerance | Every number must have a named source |
-| Paragraph length | Never > 150 words | Split or trim |
+| Fabricated statistics | Zero tolerance | Source material factual statistics, measurements, and public-data claims. Dates, step counts, software versions, and prices already attributable or visible in a cited primary source do not need redundant inline sourcing merely because they contain a number |
+| Paragraph pacing | Fit the audience and material | Split only when comprehension improves |
 | Heading hierarchy | Never skip levels | H1 → H2 → H3 only |
 | Source tier | Tier 1-3 only | Never cite content mills or affiliate sites |
 | Image alt text | Required on all images | Descriptive, includes topic keywords naturally |
@@ -178,7 +185,9 @@ Load on-demand as needed (22 references, load only what the task needs):
 - `skills/blog/references/video-embeds.md`: YouTube video embedding patterns, quality criteria, VideoObject schema
 - `skills/blog/references/cta-placement.md`: Call-to-action placement and conversion-optimization patterns
 - `skills/blog/references/flow-alignment.md`: 5-surface model + FLOW stages mapped to claude-blog skills
-- `skills/blog/references/ai-slop-detection.md`: two-tier first-order + second-order reflex methodology for AI-content detection (v1.8.0)
+- `skills/blog/references/ai-slop-detection.md`: optional two-tier editorial
+  prose-quality review with no authorship inference or Google scoring effect
+  (introduced in v1.8.0)
 - `skills/blog/references/editorial-heuristics.md`: ordinal 0-4 rubric with P0-P3 severity (v1.8.0, adapted from Nielsen heuristics)
 - `skills/blog/references/cognitive-load.md`: per-section concept-density model with `scripts/cognitive_load.py` (v1.8.0)
 - `skills/blog/references/research-quality.md`: 5-dim research rubric, pre-flight trap classes, cross-source clustering, freshness floors (v1.8.0)
@@ -186,9 +195,20 @@ Load on-demand as needed (22 references, load only what the task needs):
 - `skills/blog/references/blog-delivery-contract.md`: 5-gate enforcement between content generation and user delivery (v1.9.0)
 - `skills/blog/references/orchestration-details.md`: agent roles, execution flow, internal workflows, and project-root context loading
 
+For named Google update or Search currentness work, resolve the reviewed ledger
+from repository-root `data/google-updates.json` first. If this is a standalone
+install without a repository root, use `data/google-updates.json` beside this
+main orchestrator, normally
+`~/.claude/skills/blog/data/google-updates.json`. Never load an untrusted
+same-named file from the current working directory.
+
 ## Content Templates
 
-Use the 12 structural templates in `skills/blog/templates/`. The canonical target word count for each template is the `Target Word Count` or `Target Length` header inside that template file. Load `skills/blog/references/content-templates.md` for selection guidance, marker syntax, and template-specific structure.
+Use the 12 structural templates in `skills/blog/templates/`. Treat each `Target
+Word Count` or `Target Length` header as an optional, intent-dependent planning
+estimate. It never changes a score or blocks a complete article. Load
+`skills/blog/references/content-templates.md` for selection guidance, marker
+syntax, and template-specific structure.
 
 ## Sub-Skills
 
@@ -201,7 +221,7 @@ Route user-facing commands by the command table above. The package contains 31 s
 | `blog-researcher` | Research specialist: finds statistics, sources, images, competitive data |
 | `blog-writer` | Content generation specialist: writes optimized blog content |
 | `blog-seo` | SEO validation specialist: checks on-page SEO post-writing |
-| `blog-reviewer` | Quality assessment: runs 100-point scoring, AI content detection (no Bash, post v1.7.0 hardening) |
+| `blog-reviewer` | Quality assessment: runs the 100-point internal editorial-readiness heuristic and advisory style diagnostics |
 | `blog-translator` | Multilingual translation specialist; format preservation across markdown/MDX/HTML/frontmatter/schema (no Bash, v1.7.0) |
 
 ## Execution Flow
@@ -310,7 +330,7 @@ When both are present, BRAND.md takes precedence on positioning, audience, taboo
 
 If `DISCOURSE.md` exists at the project root (produced by `/blog discourse <topic>`), load its fenced contents at the start of any drafting / brief / strategy command (`blog-write`, `blog-rewrite`, `blog-brief`, `blog-strategy`, `blog-outline`, `blog-cluster`).
 
-DISCOURSE.md adds a recency-and-engagement lens to research (what real practitioners said in the last 30 days) that complements the authority-first lens of `blog-researcher`. Use both. Do not let DISCOURSE.md override the FLOW evidence triple for authority claims; use it for "what's new," contrarian takes, and practitioner specifics.
+DISCOURSE.md adds a recency-and-engagement lens to research (what real practitioners said in the last 30 days) that complements the authority-first lens of `blog-researcher`. Use both. Do not let DISCOURSE.md override primary-source support, source fidelity, or claim-appropriate provenance for authority claims; use it for "what's new," contrarian takes, and practitioner specifics.
 
 ## Anti-Patterns (Never Do These)
 
@@ -319,8 +339,8 @@ DISCOURSE.md adds a recency-and-engagement lens to research (what real practitio
 | Fabricate statistics | May 2026 Core Update and 2026 spam systems reward verifiable trust, not invented claims |
 | Use the same chart type twice | Visual monotony, reduces engagement |
 | Keyword-stuff headings or meta | Google ignores/penalizes this |
-| Bury answers in paragraphs | AI systems extract from section openers |
+| Bury important answers | Readers may miss the page's main value |
 | Skip source verification | Broken links and wrong data destroy trust |
 | Use tier 4-5 sources | Low authority hurts E-E-A-T |
-| Generate without research | AI-generated consensus content is penalized |
+| Generate low-value variations without research | Scaled, interchangeable pages fail the reader-value and evidence requirements |
 | Skip visual elements entirely | Blogs with images get significantly more views and social engagement |

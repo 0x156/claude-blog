@@ -9,7 +9,7 @@ set -euo pipefail
 
 # Declared outside main() so the EXIT trap can access it after main() returns
 TEMP_DIR=""
-readonly CLAUDE_BLOG_VERSION="2.0.0"
+readonly CLAUDE_BLOG_VERSION="2.1.0"
 
 copy_tree() {
     local src="$1"
@@ -130,6 +130,15 @@ main() {
     if [ -d "${SCRIPT_DIR}/skills/blog/templates" ]; then
         echo "→ Installing content templates..."
         copy_tree "${SCRIPT_DIR}/skills/blog/templates" "${SKILL_DIR}/blog/templates"
+    fi
+
+    # Ship the reviewed Google update ledger with the main skill. The source
+    # stays at data/google-updates.json in the repository; standalone installs
+    # receive it under the self-contained blog skill directory.
+    if [ -f "${SCRIPT_DIR}/data/google-updates.json" ]; then
+        echo "→ Installing Google update ledger..."
+        mkdir -p "${SKILL_DIR}/blog/data"
+        cp "${SCRIPT_DIR}/data/google-updates.json" "${SKILL_DIR}/blog/data/google-updates.json"
     fi
 
     # Copy sub-skills (auto-discovers all skill directories)

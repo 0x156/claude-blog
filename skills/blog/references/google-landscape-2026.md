@@ -1,13 +1,13 @@
 # SEO Landscape 2026: Google Updates & E-E-A-T
 
-## Mid 2026 Core Update Baseline
+## July 2026 Search Baseline
 
-Latest confirmed core update: May 2026 Core Update, 2026-05-21 to
-2026-06-02. March 2026 Core ran 2026-03-27 to 2026-04-08. The
-December 2025 Core Update ran 2025-12-11 to 2025-12-29 and remains
-important context for quality analysis. E-E-A-T is quality-rater language, not
-a single confirmed ranking factor; evidence expectations apply broadly and are
-highest for YMYL topics.
+As verified on 2026-07-23, the latest confirmed ranking event is the June 2026
+spam update, 2026-06-24 to 2026-06-26. The latest confirmed core update is the
+May 2026 core update, 2026-05-21 to 2026-06-02. Do not turn status-dashboard
+dates into causal claims about what a specific update rewarded or penalized.
+E-E-A-T is quality-rater language, not a single confirmed ranking factor;
+evidence expectations apply broadly and are highest for YMYL topics.
 
 ### Authenticity Signals Google Evaluates
 
@@ -15,31 +15,36 @@ highest for YMYL topics.
 |--------|-------------|
 | Original images/video | Not stock photos - real screenshots, photos, demos |
 | Specific language | Details only direct experience provides |
-| First-person perspective | "When we tested this..." "In our experience..." |
+| Verifiable first-hand evidence | Method, sample, result, screenshots, or other proof when experience is claimed |
 | Original data | Proprietary surveys, case studies, experiments |
 | Build-in-public docs | Process documentation, behind-the-scenes |
 
 ### What Gets Penalized
 - Articles that read like "summaries of top five search results"
-- Mass-produced AI content lacking human oversight
+- Scaled low-value content created primarily to manipulate Search, regardless of
+  whether people, automation, or both produced it
 - Content without unique perspective or original information
 
 ### Key Clarification
-John Mueller has stated in multiple Google Office Hours sessions that Google's systems
-evaluate content quality regardless of origin. AI as a research tool is fine; AI as sole
-content creator without human expertise and oversight is not.
+Google evaluates helpfulness, reliability, originality, and value rather than
+assigning quality by production method. Generative AI use is not itself a
+violation. Scaled content abuse applies when many pages are produced primarily
+to manipulate rankings and provide little value, whether the production is
+manual, automated, or mixed.
 
-### Post-Update Analysis: Winners & Losers
+### Post-Update Analysis
 
-Core update visibility patterns to preserve in 2026:
-- Sites with original testing, case studies, and first-hand experience gained visibility
-- 71% of affiliate sites without original testing lost rankings (ALM Corp analysis of 847
-  sites across 23 industries; methodology not independently verified)
-- Helpful, trustworthy content matters broadly; YMYL topics carry the highest
-  evidence and harm-prevention expectations
-- Winners share a common trait: unique data or perspectives AI cannot replicate
-- Losers overwhelmingly produced "consensus content" - rewritten summaries of existing
-  top results with no original contribution
+Use Google's documented procedure rather than reverse-engineering a winner
+profile:
+
+1. Confirm the update has finished, then wait at least one full week.
+2. Compare a week after completion with a week before rollout.
+3. Separate Web Search, Images, Video mode, and News tab data.
+4. Distinguish small position movement from a large, sustained site-wide drop.
+5. Avoid quick fixes and mass deletion. Improve reader value and structure in
+   durable ways; deletion is a last resort for content that cannot be salvaged.
+6. Remember that smaller core changes can be unannounced and improvements can
+   take effect without waiting for another named update.
 
 ### Quality Rater Guidelines Updates
 
@@ -51,25 +56,22 @@ Core update visibility patterns to preserve in 2026:
 
 **January 2025 QRG Update:**
 - First formal "generative AI" definition added to the guidelines
-- Scaled content abuse explicitly flagged - mass AI generation without human oversight
-  marked as lowest quality
-- Raters instructed to evaluate whether AI-generated content demonstrates genuine
-  expertise or merely mimics it
+- Scaled content abuse is explicitly flagged when content is produced at scale
+  primarily to manipulate rankings and provides little value
+- Raters evaluate the resulting page's purpose, originality, accuracy, effort,
+  and value rather than treating production method as a quality verdict
 
 ## 2026 Algorithm Timeline
 
-Google-owned status sources are current through 2026-07-07. From
-2026-07-01 through 2026-07-07, Google announced only AMP documentation
-simplification and a Barcelona event post. No ranking, spam, core, schema,
-policy, QRG, or AI search change was announced in that window.
+Google-owned status sources are current through 2026-07-23.
 
 | Update | Dates | Blog Impact |
 |--------|-------|-------------|
 | December 2025 Core Update | 2025-12-11 to 2025-12-29 | Quality reassessment; reinforce helpful, trustworthy, differentiated content |
 | Discover Update | 2026-02-05 | Monitor Discover traffic separately from core ranking volatility |
 | March 2026 Spam Update | 2026-03-24 | Spam enforcement; keep scaled and low-value AI pages out of the index |
-| March 2026 Core Update | 2026-03-27 to 2026-04-08 | Core quality reassessment; original experience and trust signals mattered most |
-| May 2026 Core Update | 2026-05-21 to 2026-06-02 | Latest core update as of 2026-07-07; reinforced differentiated, satisfying content |
+| March 2026 Core Update | 2026-03-27 to 2026-04-08 | Named core update; use the standard post-update analysis procedure |
+| May 2026 Core Update | 2026-05-21 to 2026-06-02 | Latest named core update as of 2026-07-23 |
 | June 2026 Spam Update | 2026-06-24 to 2026-06-26 | Spam enforcement; thin aggregation and abusive automation remain high risk |
 
 Treat third-party reports of an unconfirmed July 2026 update as volatility only,
@@ -83,17 +85,19 @@ the highest scrutiny for YMYL and other high-harm topics.
 
 | Factor | Internal review emphasis | Key Signals |
 |--------|--------------------------|-------------|
-| Experience | 20% | First-hand knowledge, original content, case studies |
-| Expertise | 25% | Credentials, depth, technical accuracy |
-| Authoritativeness | 25% | Industry recognition, citations, reputation |
-| Trustworthiness | 30% | Contact info, transparency, security (most important) |
+| Experience | Internal heuristic only | First-hand knowledge when genuine, original content, case studies |
+| Expertise | Internal heuristic only | Credentials, depth, technical accuracy |
+| Authoritativeness | Internal heuristic only | Industry recognition, citations, reputation |
+| Trustworthiness | Internal heuristic only | Contact info, transparency, security |
 
 ### YMYL Topics (Highest Scrutiny)
 Health, finance, legal, news, elections, democratic processes, groups of people.
 
-### AI Content Assessment (Sept 2025 QRG)
-- AI content acceptable IF it demonstrates genuine E-E-A-T
-- Low-quality AI markers: generic language, no unique insights, regurgitated facts
+### Content Assessment (September 2025 QRG)
+- Apply the same purpose, quality, accuracy, and value review regardless of how
+  the page was produced
+- Generic language, unsupported claims, no unique contribution, and
+  regurgitated facts are quality defects, not authorship proof
 
 ## Hidden Gems Ranking System
 
@@ -124,27 +128,29 @@ answer the query.
 Still rich-result-eligible for blog content in 2026: Article, BreadcrumbList,
 Video, Product, Review, and Event.
 
-FAQPage markup is optional entity support for visible Q&A. Google reduced FAQ
-rich-result visibility in August 2023, primarily showing it only for well-known,
-authoritative government and health sites. That restriction is superseded: FAQ
-rich results fully retired for all sites starting 2026-05-07, including
-government and health sites. Google added the deprecation notice on 2026-05-08
-and removed the FAQ rich-result documentation on 2026-06-15, with the FAQPage
-structured-data doc URL redirecting to the updates page. Existing FAQPage markup
-remains schema.org-valid and does not cause Search problems, but no site gets
-FAQ rich results now.
+FAQPage is optional only when visible Q&A independently helps readers. Google
+retired FAQ rich results for all sites starting 2026-05-07, including
+government and health sites, and removed the feature documentation in June.
+Existing FAQPage markup remains schema.org-valid, but it earns no Google rich
+result or generative-AI advantage.
 
 ### Rich-Result Eligibility Notes
 - FAQ rich results were fully retired for all sites starting 2026-05-07. HowTo
   was fully deprecated as of 2023-09-13.
-- Some rich-result reports and enhancements have been simplified over time, but
-  schema.org validity is separate from Google rich-result eligibility.
-- Treat Dataset, Q&A, and Sitelinks Search Box changes as watch items unless a
-  primary Google source is loaded for the specific page type.
+- ClaimReview, SpecialAnnouncement, Course Info, Estimated Salary, Learning
+  Video, and Vehicle Listing are former Google Search experiences.
+- PracticeProblem was removed from Search and its documentation. Dataset is for
+  Dataset Search, not ordinary Google Search rich results.
+- Course Info is retired, but Course list is a distinct currently documented
+  feature. QAPage remains narrow: one question with user-submitted answers.
+- Schema.org validity is separate from Google Search feature eligibility.
 
 ### Critical Technical Note
-Schema must appear in HTML source, not injected via JavaScript.
-Most AI crawlers cannot execute JS. 72% of first-page results use schema markup.
+
+Google can process JavaScript-generated structured data when it is present in
+the rendered DOM. Test the rendered URL and make sure the markup matches visible
+content. Source or server-rendered JSON-LD remains more portable for crawlers
+that do not render JavaScript, but it is not a Google requirement.
 
 ## Google AI Overviews & AI Mode
 
@@ -161,17 +167,24 @@ Most AI crawlers cannot execute JS. 72% of first-page results use schema markup.
   about 2.4% by February 2026.
 - The AIO-present CTR gap narrowed from about 61% to about 38% compared with
   no-AIO results.
-- Being cited inside the AI Overview is now the concrete target: cited pages
-  receive 120% more clicks per impression than uncited pages.
+- Vendor reporting described an association between being included as an AI
+  Overview source and higher click activity. Treat this as unverified,
+  methodology-specific, non-causal research context. It does not justify a
+  citation-format, citation-position, or optimization target.
 
-### AI Mode (Separate Product)
-- 1B+ monthly users announced at Google I/O 2026 on 2026-05-19
-- Only about 0.34% of US query volume (SparkToro, 2026-06-09)
-- About 12.6 links per answer
-- 97% of answers carry at least one citation
-- About 92-94% zero-click behavior
-- Model name omitted here; verify current Google AI Mode implementation before
-  naming a Gemini model in user-facing content.
+### AI Mode and Product Context
+
+Google I/O 2026 announced Gemini 3.5 Flash as AI Mode's global default,
+follow-up transitions from AI Overviews into AI Mode, multimodal inputs, and
+information agents. Google's May 2026 Explore-the-web update highlighted
+in-depth analyses, original content, public discussions, inline links, and link
+previews. These are product capabilities, not published ranking factors.
+
+Use them only as landscape context. Do not invent agent-specific schema,
+fan-out landing-page factories, or scoring bonuses. The defensible response is
+the same people-first SEO baseline: accurate, original, in-depth material;
+authentic public discussion where relevant; clear page identity; and useful
+images or video.
 
 ## Market Context
 
@@ -197,8 +210,9 @@ Most AI crawlers cannot execute JS. 72% of first-page results use schema markup.
 Emerging trends reshaping search monetization:
 
 - **ChatGPT Agent**: Autonomous web browsing, form-filling, purchasing on user's behalf
-- **Google Unified Commerce Platform (UCP)**: Single campaign type across Search, Shopping,
-  YouTube, Maps - replacing fragmented campaign management
+- **Universal Commerce Protocol (UCP)**: An open commerce standard for agentic
+  product discovery and transactions, not a campaign type or advertising
+  platform
 - **AI Overview Ads**: Sponsored placements in AI Overviews grew from 1% to 25% of queries;
   projected to reach 50%+ by end of 2026
 - **ChatGPT shopping traffic**: 11.4% conversion rate vs 5.3% organic search
@@ -217,14 +231,73 @@ Emerging trends reshaping search monetization:
 - Google's systems evaluate quality regardless of origin - but the sheer volume of AI
   content raises the bar for differentiation through original research and experience
 
-## AMP Deprecation
+## AMP Status
 
-AMP (Accelerated Mobile Pages) is effectively dead:
-- Squarespace deprecated AMP support in February 2025
-- Google removed AMP as a Top Stories ranking requirement in 2021
-- No SEO benefit to AMP implementation - Core Web Vitals replaced AMP's purpose
-- Recommendation: Remove AMP versions if maintaining them creates overhead; focus on
-  native page speed optimization instead
+AMP is supported but not required and has no special ranking benefit. As of
+2026-07-01, Google Search sends users directly to the publisher-hosted AMP URL
+instead of routing through the AMP viewer or cache. Keep AMP when it provides
+operational value; otherwise remove it carefully with correct canonicals and
+redirects. AMP content ranks like other web pages.
+
+## Search Feature Operations
+
+### Canonical Changes
+
+After fixing a duplicate or canonicalization issue, Google may keep pages in the
+same duplicate cluster for up to two weeks. Mark a recently fixed case as
+pending reevaluation rather than an immediate failure. Search Console's Request
+Indexing feature is quota-limited; reserve it for the most important URLs.
+
+### Search Console Generative AI Reports
+
+The dedicated generative-AI reports are rolling out to a subset of properties.
+Search and Discover have separate views. The Search view covers AI Overviews
+and AI Mode and exposes impressions, pages, countries, devices, and dates.
+Do not promise clicks or queries in this report. The blog-google API tooling
+does not fetch the dedicated view; report `SKIPPED` or unavailable and direct
+the user to Search Console until Google documents API support.
+
+Platform properties for Instagram, TikTok, X, and YouTube are also rolling out
+gradually. In their Search Console UI, eligible creators can see Search and
+Discover performance, including clicks, impressions, posts, and queries. Do not
+promise that the current Search Console API supports these property reports.
+
+### Discover
+
+Run Discover checks only when the site targets Discover or has Discover data.
+Favor original, in-depth, timely, non-sensational content with topic-level
+expertise and local relevance where applicable. Older useful content can still
+appear. No special schema is required.
+
+For a preferred Discover image, check all of:
+
+- At least 1200px wide.
+- More than 300,000 total pixels.
+- Prefer a useful 16:9 crop.
+- Relevant and representative, not generic or text-heavy.
+- Enabled with `max-image-preview:large` or AMP.
+- Declared through appropriate image markup or `og:image`.
+
+### Preferred Sources
+
+Preferred Sources is optional audience development, not a ranking signal. A
+reader-selected domain or subdomain is more likely to appear in Top Stories and
+may receive a preferred badge in AI Mode or AI Overviews for that reader. A
+subdirectory alone is not eligible. Offer Google's publisher button only when
+it fits the audience strategy.
+
+### Crawling, Navigation, and Snippets
+
+- Googlebot processes the first 2MB of a supported file and the first 64MB of a
+  PDF, using uncompressed size. Keep the title, metadata, canonical, essential
+  schema, and primary content before the HTML cutoff. Flag large inline
+  base64, CSS, or JavaScript payloads.
+- Back-button hijacking requires behavioral evidence that navigation is
+  obstructed or users are sent to deceptive history entries. Do not flag normal
+  History API use by syntax alone.
+- For "Read more" deep links, keep target content immediately visible and retain
+  its hash on page load. Avoid forced scroll resets or hash removal. This does
+  not ban every accordion elsewhere on the page.
 
 ## Readability & Engagement Signals
 

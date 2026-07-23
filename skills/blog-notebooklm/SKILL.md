@@ -14,7 +14,7 @@ argument-hint: "[ask|discover|library|setup|status|cleanup] [question-or-url]"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "2.0.0"
+  version: "2.1.0"
   source: "https://github.com/PleasePrompto/notebooklm-skill"
 ---
 
@@ -26,10 +26,11 @@ the answer from your uploaded documents, and closes. Responses are
 source-grounded model answers, not proof of truth: uploaded documents may be
 primary or secondary, and the answer can still omit context.
 
-Answers satisfy the FLOW evidence triple only when the returned citation includes
-a verifiable underlying source URL plus a publication or retrieval date. Use the
-underlying source title as the inline citation. Do not cite the private NotebookLM
-URL as the bibliography entry for public content.
+Answers provide usable provenance only when the returned citation identifies a
+verifiable underlying source. Record a stable source URL and a publication,
+study-period, or retrieval date when that detail affects verification or
+interpretation. Use the underlying source title as the inline citation. Do not
+cite the private NotebookLM URL as the bibliography entry for public content.
 
 ## Quick Reference
 

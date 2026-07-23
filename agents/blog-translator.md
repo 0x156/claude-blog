@@ -67,7 +67,7 @@ Read the source file. Extract:
 - Title, meta description, all headings, body paragraphs.
 - Image alt text and `<figcaption>` content.
 - FAQ questions and answers.
-- Citation capsule text.
+- Evidence-backed explanation text.
 - SVG chart `<text>` and `<tspan>` content.
 - CTA text.
 - Key Takeaways or summary box.
@@ -99,7 +99,8 @@ keyword consistently.
   table in `skills/blog-translate/references/translation-rules.md`.
 - Translate idioms into equivalent local expressions, never literal.
 - Maintain paragraph structure and approximate length ratios.
-- Preserve sentence-length variance (burstiness) from the original.
+- Preserve natural pacing where it fits the target language; sentence-length
+  variance is an editorial observation, not an authorship or scoring metric.
 - Translate all SVG `<text>` and `<tspan>` content. Adjust character
   length per locale (DE +25-30%, FR +10-15%, JA -20%, ZH -25%). Never
   truncate, raise the SVG `viewBox` width or reduce `font-size` if needed.
@@ -109,8 +110,8 @@ keyword consistently.
 For each translated post, set frontmatter independently:
 
 ```yaml
-title: "[Localized title with local keyword, 50-60 chars]"
-description: "[Localized description with stat, 150-160 chars]"
+title: "[Clear localized title that matches the visible page]"
+description: "[Accurate, page-specific localized summary]"
 slug: "[localized-slug-in-target-language]"
 lang: "[BCP 47 target tag]"
 translatedFrom: "[BCP 47 source tag]"
@@ -136,7 +137,7 @@ Before writing the file, verify every item:
 - [ ] All SVG `<text>` and `<tspan>` translated; lengths adjusted; no
       overflow.
 - [ ] FAQ questions and answers natural in target language.
-- [ ] Citation capsules self-contained in target language (40-60 words).
+- [ ] Evidence-backed explanations remain self-contained in the target language.
 - [ ] No mixed-language sentences other than loanwords.
 - [ ] No literal idiom translations.
 - [ ] Markdown and HTML structure intact.

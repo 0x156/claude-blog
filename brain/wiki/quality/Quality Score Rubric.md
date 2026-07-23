@@ -4,7 +4,7 @@ title: "Quality Score Rubric"
 domain: "Blog Quality"
 status: active
 created: 2026-07-06
-updated: 2026-07-10
+updated: 2026-07-23
 tags: [quality, scorecard, active]
 confidence: advisory
 related:
@@ -42,7 +42,14 @@ The subscore notes decide row-level proof. [[Content Quality Subscore]] owns use
 
 ## Point Weights, Required Proof, And Blockers
 
-Scores of 90 to 100 are release candidates only when no blocker exists. Scores from 75 to 89 require named fixes. Scores from 60 to 74 require revision. Scores below 60 are blocked. A single blocker from [[Quality Gate Failure Modes]] overrides the total because the rubric is a decision aid, not a way to average away risk.
+The pre-commit `quality_gate.py` threshold is 70: scores from 70 to 100 pass
+that repository check, while scores below 70 fail it. The rendered five-gate
+delivery contract is stricter: only scores from 90 to 100 are delivery
+candidates, and only when no blocker exists. Scores from 80 to 89 are strong
+and scores from 70 to 79 are acceptable as editorial bands, but both require
+revision before Gate 4 delivery. A single blocker from [[Quality Gate Failure
+Modes]] overrides either threshold because the rubric is a decision aid, not a
+way to average away risk.
 
 ## Quality Score Rubric Review Procedure
 
@@ -56,7 +63,8 @@ Scores of 90 to 100 are release candidates only when no blocker exists. Scores f
 
 Raw score: content 24, SEO 20, trust 13, technical 9, AI 12.
 Total: 78.
-Normal threshold would require named fixes.
+The score passes the 70 pre-commit threshold but requires revision before the
+90-point delivery gate.
 However, schema promises a retired rich result.
 Check the schema claim with `g-intro-sd`.
 Check AI surface wording with `g-ai-features`.
@@ -70,7 +78,8 @@ It cannot override the blocker.
 - The weakest confidence label is omitted from the summary.
 - QRG framing becomes a numeric ranking guarantee.
 - Field and lab performance evidence are blended.
-- AI citation readiness is scored as inclusion probability.
+- AI citation readiness is mistaken for a calibrated inclusion probability
+  instead of being labeled an internal editorial heuristic.
 
 ## Score Report Wiring
 

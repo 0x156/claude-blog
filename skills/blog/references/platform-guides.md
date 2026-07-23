@@ -25,13 +25,13 @@ the corresponding format rules below.
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize for Google rankings and AI citations in 2026."
+description: "A practical guide to measuring how AI search features affect organic traffic and reader journeys."
 date: "2026-02-18"
 lastUpdated: "2026-02-18"
 author: "Author Name"
 tags: ["ai-search", "seo", "traffic"]
 coverImage: "/images/blog/ai-search.jpg"
-coverImageAlt: "Marketing dashboard showing AI search traffic metrics and citation rates"
+coverImageAlt: "Marketing dashboard showing AI search traffic trends"
 ogImage: "/images/blog/ai-search.jpg"
 ---
 ```
@@ -126,11 +126,12 @@ import { FAQSchema } from '@/components/FAQSchema'
 Check the project's `components/` directory for available chart components
 before inlining SVG. Use project components when they exist.
 
-### generateStaticParams for SSG (Critical for AI Crawlers)
+### generateStaticParams for Broad Crawler Portability
 
-AI crawlers (GPTBot, ClaudeBot, PerplexityBot) cannot execute JavaScript.
-Pages must be statically generated or server-rendered. Never use client-only
-rendering for blog content.
+Crawler rendering capabilities vary. Prefer statically generated or
+server-rendered primary content for broad portability, and verify each target
+crawler. Google Search can process JavaScript-generated JSON-LD when it reaches
+the rendered DOM, matches visible content, and passes validation.
 
 ```typescript
 // app/blog/[slug]/page.tsx
@@ -163,7 +164,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 - MDX files require `@next/mdx` or `next-mdx-remote` package
 - Verify `mdx-components.tsx` exists at project root for custom element mapping
 - Use `export const metadata` or `generateMetadata` for per-page SEO
-- JSON-LD schema should be rendered in the page component, not injected client-side
+- Prefer server-rendered JSON-LD for crawler portability. Google can process
+  JavaScript-generated JSON-LD when it reaches the rendered DOM, matches visible
+  content, and passes validation.
 - Sitemap: use `app/sitemap.ts` with `MetadataRoute.Sitemap` type
 
 ---
@@ -174,7 +177,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
+description: "A practical guide to measuring how AI search features affect organic traffic and reader journeys."
 pubDate: 2026-02-18
 updatedDate: 2026-02-18
 author: "Author Name"
@@ -271,7 +274,7 @@ Use standard HTML attributes (not camelCase) in `.astro` and `.md` files:
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
+description: "A practical guide to measuring how AI search features affect organic traffic and reader journeys."
 date: 2026-02-18
 lastmod: 2026-02-18
 author: "Author Name"
@@ -288,7 +291,7 @@ draft: false
 ```toml
 +++
 title = "How Does AI Search Impact Organic Traffic in 2026?"
-description = "AI Overview CTR gap narrowed to about 38%."
+description = "A practical guide to measuring how AI search features affect organic traffic and reader journeys."
 date = 2026-02-18
 lastmod = 2026-02-18
 author = "Author Name"
@@ -402,7 +405,7 @@ Create new posts with: `hugo new blog/my-post-title.md`
 ---
 layout: post
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
+description: "A practical guide to measuring how AI search features affect organic traffic and reader journeys."
 date: 2026-02-18
 last_modified_at: 2026-02-18
 author: "Author Name"
@@ -520,8 +523,8 @@ Gutenberg uses block-based editing. Key blocks for blog content:
 
 <p>AIO organic CTR rebounded from 1.3% in December 2025 to about 2.4%
 in February 2026 (<a href="https://seerinteractive.com">Seer Interactive</a>,
-April 2026). This means brands should optimize for citation, since cited pages
-earn 120% more clicks per impression.</p>
+April 2026). Treat this vendor observation as methodology-specific,
+non-causal research context rather than a citation optimization target.</p>
 
 <figure>
   <img src="/images/blog/topic-hero.jpg"
@@ -557,7 +560,7 @@ references, `javascript:` URLs, `data:` URLs, and remote `<image href>`.
 |-------|-------|---------|
 | Focus keyword | SEO panel below editor | Primary target keyword |
 | SEO title | SEO panel | Title tag (if different from H1) |
-| Meta description | SEO panel | 150-160 chars, fact-dense |
+| Meta description | SEO panel | Accurate, page-specific visible-content summary |
 | Canonical URL | SEO panel → Advanced | Prevents duplicate content |
 | OG image | Social tab in SEO panel | Social sharing preview |
 | OG title | Social tab | Title for social shares |
@@ -576,14 +579,14 @@ Recommended size: 1200x630px.
 
 ### Excerpt Field
 The Excerpt field (in post sidebar) generates the meta description if Yoast/
-RankMath meta description is empty. Keep it to 150-160 characters, fact-dense,
-with at least one statistic.
+RankMath meta description is empty. Keep it accurate, page-specific, and
+consistent with the visible content.
 
 ### Key Configuration Notes
 - Permalink structure: Settings > Permalinks > Post name (`/%postname%/`)
 - REST API: `wp-json/wp/v2/posts` for programmatic publishing
 - Schema: Yoast/RankMath auto-generates BlogPosting schema
-- Caching: use WP Super Cache or W3 Total Cache for TTFB < 200ms
+- Caching: use an appropriate cache and investigate sustained TTFB regressions
 - Security: keep WordPress, themes, and plugins updated
 - robots.txt: accessible at `/robots.txt`, configure via Yoast
 
@@ -607,14 +610,14 @@ const api = new GhostAdminAPI({
 
 api.posts.add({
   title: 'How Does AI Search Impact Organic Traffic in 2026?',
-  html: '<p>AIO organic CTR rebounded from 1.3% to about 2.4%...</p>',
+  html: '<p>Measure how AI search features affect organic traffic and reader journeys.</p>',
   status: 'draft',
   tags: [{ name: 'AI Search' }, { name: 'SEO' }],
-  meta_title: 'AI Search Impact on Organic Traffic (2026 Data)',
-  meta_description: 'AI Overview CTR gap narrowed to about 38%...',
+  meta_title: 'Measuring AI Search Impact on Organic Traffic',
+  meta_description: 'A practical guide to measuring AI search features and organic traffic.',
   og_image: '/content/images/topic-hero.jpg',
   og_title: 'AI Search Impact on Organic Traffic',
-  og_description: 'New data reveals how AI search reshapes organic visibility.',
+  og_description: 'A practical guide to AI search features and organic traffic.',
   canonical_url: 'https://your-blog.com/ai-search-organic-traffic',
   feature_image: '/content/images/topic-hero.jpg',
   feature_image_alt: 'Marketing dashboard showing AI search metrics',
@@ -652,7 +655,7 @@ external references, `javascript:` URLs, `data:` URLs, and remote
 | Field | Location | Purpose |
 |-------|----------|---------|
 | Meta title | Post settings > Meta data | Title tag override |
-| Meta description | Post settings > Meta data | 150-160 chars |
+| Meta description | Post settings > Meta data | Accurate page summary |
 | Canonical URL | Post settings > Meta data | Duplicate prevention |
 | OG image | Post settings > Twitter/Facebook | Social preview image |
 | OG title | Post settings > Twitter/Facebook | Social preview title |
@@ -710,7 +713,7 @@ taxonomies:
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
+description: "A practical guide to measuring how AI search features affect organic traffic and reader journeys."
 date: 2026-02-18
 lastUpdated: 2026-02-18
 author: "Author Name"
@@ -809,7 +812,7 @@ module.exports = function(eleventyConfig) {
 ```yaml
 ---
 title: "How Does AI Search Impact Organic Traffic in 2026?"
-description: "AI Overview CTR gap narrowed to about 38%. Here's how to optimize."
+description: "A practical guide to measuring how AI search features affect organic traffic and reader journeys."
 date: "2026-02-18"
 lastUpdated: "2026-02-18"
 author: "Author Name"
@@ -942,12 +945,12 @@ exports.createPages = async ({ graphql, actions }) => {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How Does AI Search Impact Organic Traffic in 2026?</title>
-  <meta name="description" content="AI Overview CTR gap narrowed to about 38%. Here's how to optimize for Google rankings and AI citations in 2026.">
+  <meta name="description" content="A practical guide to measuring how AI search features affect organic traffic and reader journeys.">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="How Does AI Search Impact Organic Traffic in 2026?">
-  <meta property="og:description" content="AI Overview CTR gap narrowed to about 38%.">
+  <meta property="og:description" content="A practical guide to AI search features and organic traffic.">
   <meta property="og:image" content="/images/blog/topic-hero.jpg">
   <meta property="og:url" content="https://yourblog.com/ai-search-organic-traffic">
   <meta property="article:published_time" content="2026-02-18T00:00:00Z">
@@ -956,7 +959,7 @@ exports.createPages = async ({ graphql, actions }) => {
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How Does AI Search Impact Organic Traffic in 2026?">
-  <meta name="twitter:description" content="AI Overview CTR gap narrowed to about 38%.">
+  <meta name="twitter:description" content="A practical guide to AI search features and organic traffic.">
   <meta name="twitter:image" content="/images/blog/topic-hero.jpg">
 
   <!-- JSON-LD Structured Data -->
@@ -965,7 +968,7 @@ exports.createPages = async ({ graphql, actions }) => {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "How Does AI Search Impact Organic Traffic in 2026?",
-    "description": "AI Overview CTR gap narrowed to about 38%.",
+    "description": "A practical guide to AI search features and organic traffic.",
     "image": "/images/blog/topic-hero.jpg",
     "datePublished": "2026-02-18",
     "dateModified": "2026-02-18",
@@ -1004,8 +1007,8 @@ exports.createPages = async ({ graphql, actions }) => {
       <h2>What Is the Impact of AI Overviews on Click-Through Rates?</h2>
       <p>AIO organic CTR rebounded from 1.3% in December 2025 to about 2.4%
       in February 2026 (<a href="https://seerinteractive.com">Seer Interactive</a>,
-      April 2026). Cited pages now earn 120% more clicks per impression than
-      uncited pages.</p>
+      April 2026). This vendor observation is methodology-specific and
+      non-causal; it does not prescribe citation format or position.</p>
 
       <figure>
         <img src="/images/blog/topic-hero.jpg"
@@ -1094,10 +1097,12 @@ support for AI citation, not a Google rich result:
 
 ### Key Configuration Notes
 - No framework dependency: works with any hosting
-- AI crawlers can read static HTML without JS execution
+- Static HTML gives non-JavaScript crawlers the broadest access
 - Manually manage OG/Twitter meta tags in `<head>`
 - Use `loading="lazy"` and `decoding="async"` on images for performance
-- Schema must be in HTML source, not injected via JavaScript
+- Prefer schema in source HTML for portability. For Google, JavaScript-generated
+  JSON-LD is acceptable when present in the rendered DOM, consistent with
+  visible content, and validated.
 - Generate sitemap.xml manually or with a build script
 - Use `<link rel="canonical" href="...">` to prevent duplicate content
 - Place CSS in `<head>` (inline critical CSS for fast TTFB)
@@ -1109,18 +1114,23 @@ support for AI citation, not a Google rich result:
 | Priority | Criterion | Recommendation |
 |----------|-----------|---------------|
 | AI crawlers | JS execution required? | Use SSG/SSR (Next.js, Astro, Hugo, 11ty, Gatsby) |
-| Speed | TTFB < 200ms | Hugo (fastest builds), 11ty, Astro, static HTML |
+| Speed | Measured response reliability | Compare platforms against the site's tested performance budget |
 | MDX/React | Component-driven content | Next.js, Gatsby |
 | Simplicity | Minimal tooling | Hugo, Jekyll, 11ty, static HTML |
 | Non-technical users | Visual editor | WordPress, Ghost |
 | Headless CMS | API-first | Ghost (Content API), WordPress (REST API) |
 
-### Universal Requirements (All Platforms)
+### Cross-Platform Checks
 
-1. **Static or server-rendered HTML**: AI crawlers cannot execute JavaScript
-2. **TTFB under 200ms**: AI crawlers timeout at 3-5 seconds
-3. **Schema in HTML source**: not injected via client-side JS
-4. **robots.txt allowing AI crawlers**: GPTBot, ClaudeBot, PerplexityBot
+1. **Static or server-rendered primary content**: preferred for broad crawler
+   compatibility because JavaScript support varies by crawler
+2. **Response reliability**: treat TTFB and timeouts as measured operational
+   diagnostics, not universal crawler thresholds
+3. **Schema available to the target crawler**: prefer source/SSR for portability;
+   Google also accepts rendered-DOM JavaScript JSON-LD that matches visible
+   content and validates
+4. **robots.txt aligned with declared goals**: allow or block crawlers according
+   to current policy, product goals, and applicable crawler documentation
 5. **Sitemap at /sitemap.xml**: helps all crawlers discover content
 6. **OG meta tags**: required for social sharing previews
-7. **dateModified in schema**: critical for freshness signals
+7. **Truthful dateModified in schema**: update it only after substantive content changes; it is not a score or freshness shortcut

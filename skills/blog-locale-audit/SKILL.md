@@ -14,7 +14,7 @@ license: MIT
 compatibility: Standalone within claude-blog. Optional richer hreflang validation via claude-seo seo-hreflang.
 metadata:
   author: AgriciDaniel
-  version: "2.0.0"
+  version: "2.1.0"
   category: blog
 ---
 
@@ -79,7 +79,7 @@ For every post that exists in multiple languages:
 | Chart count | Same number of charts (SVG figures) | High |
 | Word count ratio | Within expected band for language pair (DE +20% to +30%, JA -20%, ES +10%) | Medium |
 | Link count | Similar internal and external link counts | Medium |
-| Citation capsule count | Same number per H2 across versions | Medium |
+| Evidence-backed claims | Same supported claims and citations across versions | Medium |
 | Frontmatter parity | All required fields present per version | High |
 
 Flag every significant deviation as an issue.
@@ -90,8 +90,8 @@ For every language version verify:
 
 | Element | Check | Severity |
 |---------|-------|----------|
-| Title tag | Present, correct length for the language | Critical |
-| Meta description | Present, correct length, localized and accurate summary; include a verified stat only when central to the article | Critical |
+| Title tag | Present, localized, clear, and appropriate for the page | Critical |
+| Meta description | Present, localized, accurate, and consistent with visible content | Critical |
 | `lang` attribute or frontmatter `lang` | Present, valid Google-compatible hreflang or BCP 47 language tag | Critical |
 | Canonical URL | Points to the same-language page, not the source-language page or x-default | Critical |
 | Schema `inLanguage` | Matches `lang` | High |

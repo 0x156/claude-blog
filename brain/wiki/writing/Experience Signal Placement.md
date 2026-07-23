@@ -4,7 +4,7 @@ title: "Experience Signal Placement"
 domain: "Blog Writing"
 status: evergreen
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-23
 tags: [writing, six-pillar, evergreen]
 source_urls:
   - "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
@@ -34,7 +34,7 @@ Do not turn an anecdote into a universal rule. Do not imply that a case example 
 | Author method | Intro or byline-adjacent note | Who did the work and how | `g-helpful-content`, `g-qrg-full` | Official quality framing | Add only if verifiable |
 | Tested example | Step section or comparison row | Screenshot, sample, or result context | `g-helpful-content` | Local evidence required | Link to proof or remove |
 | Expert caveat | Claim-bearing section | Reviewer note or field constraint | `g-qrg-full` | Trust-sensitive review | Escalate if YMYL-adjacent |
-| Extractable example | Under the exact question heading | Entity, answer, source, caveat | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Official boundary plus practitioner guidance | Shape as a self-contained paragraph |
+| Extractable example | Under the relevant intent-matched heading | Entity, answer, source, caveat | `g-ai-opt-guide`, `ziptie-aio-source-selection` | Official boundary plus practitioner guidance | Shape as a self-contained paragraph |
 | Failed attempt | Troubleshooting or limitations section | What was tried and why it failed | `g-helpful-content` | Reader usefulness depends on clarity | Keep if it changes action |
 | Reviewer proof | Near the claim requiring expertise | Reviewer name, role, and reviewed scope | `g-qrg-full` | Trust lens for sensitive advice | Add only when review happened |
 | Tool output caveat | Beside screenshots or generated drafts | Tool, prompt purpose, and human check | `g-helpful-content`, `g-ai-opt-guide` | Visible content accountability | Remove hidden AI-only framing |

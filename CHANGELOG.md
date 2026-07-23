@@ -9,6 +9,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes._
 
+## [2.1.0] - 2026-07-23
+
+Google policy alignment, public-backlog review, and private release safeguards.
+
+### Added
+
+- Added a primary-source Google update ledger, repository consistency checker,
+  and read-only public-release validator.
+- Added hash-locked, offline CI initialization checks for google-genai,
+  Patchright, and preflight capability discovery.
+- Added regression coverage for optional-module discovery, PageSpeed responses,
+  installer hashes, dependency locks, documentation safety, and release
+  payload completeness.
+
+### Changed
+
+- Reframed AI citation scoring as an internal readiness heuristic and removed
+  fixed passage lengths, FAQ insertion, metadata-only freshness, and
+  purported AI-authorship signals as Google requirements.
+- Updated canonicalization, structured data, Search Console, Discover,
+  Googlebot, core-update recovery, and generative Search guidance from current
+  first-party sources.
+- Updated `google-genai` to the tested 2.14.0 release and Patchright to 1.61.2
+  with regenerated hash locks.
+- Updated private installation and publishing documentation, corrected the
+  public marketplace slug, and shipped the Google update ledger in standalone
+  installs.
+
+### Fixed
+
+- Hardened optional dotted-module discovery for missing parents and modules
+  whose import specification is unset.
+- Stopped the Windows uninstaller from deleting shared Google credentials
+  owned by the user or other skills.
+- Removed the remaining active PowerShell pipe-to-execution instruction and
+  synchronized installer digests with the release files.
+
 ## [2.0.0] - 2026-07-15
 
 Version aligned to v2 to match the AI Marketing Hub skill family (Ads, SEO, Obsidian). No breaking changes; this carries the prompt-hygiene pass previously staged as 1.12.1.

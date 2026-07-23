@@ -4,7 +4,7 @@ title: "Delivery Contract Gate"
 domain: "Blog Quality"
 status: active
 created: 2026-07-06
-updated: 2026-07-10
+updated: 2026-07-23
 tags: [quality, scorecard, active]
 confidence: advisory
 related:
@@ -40,12 +40,18 @@ Required inputs are the draft folder, canonical `.md` source, rendered `.html`, 
 | 1. Capability Discovery | Available tools, required agents, env-key names only, helper scripts, project context files, and a valid hero-image path or permitted generation path. | Block when no local hero or allowed hero source exists, or when the `blog-reviewer` agent is unavailable. | `capabilities.json` | Orchestrator |
 | 2. Required Artifacts | Canonical `.md`, self-contained `.html`, rendered `.pdf`, and local `hero.png` or `hero.jpg`. | Block when any required artifact is missing, divergent, or outside the draft folder. | Rendered draft package | Content operator |
 | 3. Visual Verification | Headless render at mobile, tablet, and desktop widths, screenshots, console check, SVG or figure bounds check, dark-mode check, and valid BlogPosting JSON-LD. | Block on console errors, broken JSON-LD, visual overflow, failed dark-mode render, or unavailable strict renderer. | `preview/*.png` plus visual diagnostics | Visual reviewer |
-| 4. Content Review | `blog-reviewer` report against the rendered HTML, five-category score, P0 scan, and AI-content checks. | Block when score is below 90/100, any P0 issue exists, AI-detection burstiness trips, more than three known AI phrases appear, or vocabulary diversity falls below 0.4. | `review.md` | Quality reviewer |
-| 5. Link And Asset Integrity | Every image, link, canonical URL, social image, schema reference, and declared word count is checked under safe URL rules. | Block on unresolved images, unsafe URLs, broken required links, schema mismatch, or word-count mismatch beyond the allowed tolerance. | `preflight-report.json` | Delivery owner |
+| 4. Content Review | `blog-reviewer` report against the rendered HTML, five-category editorial-readiness score, P0 scan, and descriptive style diagnostics. | Block when the score is below 90/100 or any P0 issue exists. Burstiness, phrase matches, TTR, and purported authorship percentages remain descriptive and non-blocking. | `review.md` | Quality reviewer |
+| 5. Link And Asset Integrity | Every image, link, canonical URL, social image, schema reference, and declared word count is checked under safe URL rules. | Block on unresolved images, unsafe URLs, broken required links, or schema mismatch. Record declared word-count mismatches as manifest-integrity observations; completeness follows reader intent and is not blocked by length. | `preflight-report.json` | Delivery owner |
 
 ## Blocking Rules
 
-All gates run sequentially. The first failed gate halts later checks and marks the package blocked under strict mode. A blocked state is required when a source is missing for a current claim, when an AI inclusion guarantee appears, when the reviewer score is below 90, when a P0 exists, when required artifacts are absent, or when a URL or asset check fails. A ready label is allowed only after all five gates pass and the packet includes owner, source map, confidence label, and rollback trigger.
+All gates run sequentially. The first failed gate halts later checks and marks
+the package blocked under strict mode. A blocked state is required when a
+source is missing for a current claim, when an AI inclusion guarantee appears,
+when the reviewer score is below 90, when a P0 exists, when required artifacts
+are absent, or when a URL or asset check fails. A ready label is allowed only
+after all five gates pass and the packet includes owner, source map, confidence
+label, and rollback trigger.
 
 ## Retry Loop
 
@@ -77,7 +83,7 @@ If the packet lacks generative AI reporting evidence from `g-genai-reports`, rec
 - A ready label appears before all five gates pass.
 - A writer presents `.md` only when `.html`, `.pdf`, and hero are required.
 - Visual overflow is waived without `--no-strict` and a named owner.
-- Reviewer output is treated as advisory after score below 90 or any P0.
+- Reviewer output is treated as advisory after a score below 90 or any P0.
 - GSC evidence is assumed because the client has Search Console.
 - AI Overview reporting is claimed without `g-genai-reports`.
 - A broken link or unresolved image is hidden as a styling issue.

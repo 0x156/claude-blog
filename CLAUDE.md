@@ -22,7 +22,7 @@ claude-blog/
   CLAUDE.md                          # Project instructions (this file)
   docs/CONTRIBUTORS.md               # Pro Hub Challenge attribution and integration decisions
   CHANGELOG.md                       # Keep a Changelog format
-  .claude-plugin/plugin.json         # Plugin manifest (v1.12.0)
+  .claude-plugin/plugin.json         # Plugin manifest (v2.1.0)
   .claude-plugin/marketplace.json    # Marketplace catalog for distribution
   .mcp.example.json                  # MCP config example (tracked; .mcp.json is gitignored)
   pyproject.toml                     # Python packaging (3.11+)
@@ -37,10 +37,13 @@ claude-blog/
   scripts/load_untrusted_root.py     # Code-enforced fence helper for BRAND/VOICE/DISCOURSE (v1.8.3)
   scripts/lint_prose.py              # Fence-aware prose-hygiene linter (v1.8.4; CI-enforced)
   scripts/sync_flow.py               # Pulls FLOW references (stdlib, sandboxed)
-  scripts/ai_citation_score.py       # AI citation probability 0-100 per post (v1.10.0)
+  scripts/ai_citation_score.py       # AI citation readiness heuristic, 0-100
   scripts/content_decay.py           # GSC content-decay detector: 20%+ QoQ decline (v1.10.0)
   scripts/quality_gate.py            # Pre-commit gate: block posts scoring < 70 (v1.10.0)
   scripts/style_learn.py             # Author voice-profile learner from sample posts (v1.10.0)
+  scripts/consistency_check.py       # Local reference + FLOW lock validation
+  scripts/dependency_smoke.py        # Offline optional-runtime initialization checks
+  scripts/validate_public_release.py # Read-only public worktree validation
   skills/                            # 32 skill directories (1 orchestrator + 31 sub-skills)
     blog/SKILL.md                   # Main orchestrator, routing, scoring
       references/                   # 22 on-demand knowledge files (5 in v1.8.0, 1 in v1.9.0)
@@ -105,7 +108,7 @@ claude-blog/
     blog-seo.md                     # SEO validation
     blog-reviewer.md                # Quality scoring (no Bash, post v1.7.0 hardening)
     blog-translator.md              # Multilingual translation (no Bash, v1.7.0)
-  tests/                             # pytest suite (252 tests) incl. test_blog_delivery_contract.py + test_security_guardrails.py
+  tests/                             # 250+ pytest checks incl. delivery-contract + security suites
 ```
 
 ## Commands
@@ -114,7 +117,7 @@ claude-blog/
 |---------|---------|
 | `/blog write` | Write new articles optimized for rankings + AI citations |
 | `/blog rewrite` | Optimize existing posts with sourced statistics; `/blog update` aliases here |
-| `/blog analyze` | 5-category 100-point scoring with AI detection |
+| `/blog analyze` | 5-category 100-point scoring with evidence and style diagnostics, not authorship detection |
 | `/blog brief` | Detailed content briefs with competitive analysis |
 | `/blog outline` | SERP-informed outlines with heading hierarchy |
 | `/blog calendar` | Editorial calendars with topic clusters |
@@ -174,7 +177,7 @@ Submit at: claude.ai/settings/plugins/submit or platform.claude.com/plugins/subm
 
 ### Standalone Install (no marketplace)
 ```bash
-curl -sL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | CLAUDE_BLOG_REF=v1.11.0 bash
+curl -sL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | CLAUDE_BLOG_REF=v2.1.0 bash
 ```
 
 ## Release Blog Post

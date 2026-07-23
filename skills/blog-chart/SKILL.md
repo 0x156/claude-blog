@@ -33,8 +33,8 @@ The writer or researcher passes a chart request:
 ```
 Chart Request:
 - Type: horizontal bar
-- Title: "AI Citation Sources by Platform"
-- Data: ChatGPT 43.8%, Perplexity 6.6%, Google AI Overviews 2.2%, Reddit 7.15%
+- Title: "Quarterly Signups by Product"
+- Data: Product A 420, Product B 315, Product C 180
 - Source: [Verified source], [publication date]
 - Platform: mdx (or html)
 ```

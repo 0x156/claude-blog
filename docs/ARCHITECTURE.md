@@ -53,7 +53,7 @@ The Claude Blog Brain is vendored at `./brain` as a self-contained, evidence-gat
        |          |
        v          v
 +------------------+  +------------------------+
-|  5 Subagents     |  |  14 root-level Scripts  |
+|  5 Subagents     |  |  17 root-level Scripts  |
 |  agents/*.md     |  |  scripts/*.py          |
 |                  |  |                        |
 |  blog-researcher |  |  analyze_blog          |
@@ -199,7 +199,7 @@ docstring, JSON output, and stdlib-only or narrowly-pinned dependencies.
 | Script | Purpose | Introduced |
 |---|---|---|
 | `analyze_blog.py` | 5-category 100-point quality scoring; batch mode; JSON/markdown/table output | v1.0.0 |
-| `ai_citation_score.py` | AI citation probability 0-100 per post | v1.10.0 |
+| `ai_citation_score.py` | Non-calibrated AI citation readiness heuristic, 0-100 per post | v1.10.0 |
 | `blog_hygiene.py` | Optional deterministic hygiene: lazy-load images and auto-TOC | v1.11.0 |
 | `blog_preflight.py` | Runs 5-gate Blog Delivery Contract (Gates 1, 2, 3, 5; reads Gate 4 output) | v1.9.0 |
 | `blog_render.py` | md -> html -> pdf renderer; XSS-safe JSON-LD via `</`->`<\/`; O_NOFOLLOW symlink refusal; frontmatter validation | v1.9.0 |
@@ -343,9 +343,9 @@ AI Citation (15 pts)      ###############---------------
 | 60-69 | Below Standard | Significant improvements required |
 | < 60 | Rewrite | Full rewrite recommended |
 
-The v1.9.0 Blog Delivery Contract Gate 4 BLOCKS on score < 90 OR any P0 issue
-from `editorial-heuristics.md`. The orchestrator iterates the writer up to 3
-times before escalating with a diagnostic to the user.
+The Blog Delivery Contract uses the configured quality threshold of 70.
+Advisory style and length observations do not block delivery or infer
+authorship. Integrity and safety failures remain blocking.
 
 ### Quality Gates (Hard Rules)
 
@@ -354,7 +354,7 @@ These are non-negotiable. Content violating any of these must not be published:
 | Gate | Threshold |
 |------|-----------|
 | Fabricated statistics | Zero tolerance |
-| Paragraph length | Never > 150 words |
+| Paragraph clarity | Review in context; no fixed length gate |
 | Heading hierarchy | Never skip levels (H1 > H2 > H3) |
 | Source tier | Tier 1-3 only |
 | Image alt text | Required on all images |
@@ -505,21 +505,22 @@ After installation, `claude-blog` occupies this structure inside `~/.claude/`:
     └── blog-translator.md              # v1.7.0
 ```
 
-**Component counts (v1.12.0)**: 32 skill directories (1 orchestrator + 31
+**Component counts (v2.1.0)**: 32 skill directories (1 orchestrator + 31
 sub-skills); 30 user-facing commands, 5 agents (blog-researcher, blog-writer, blog-seo, blog-reviewer,
 blog-translator), 22 references in `skills/blog/references/` (plus per-sub-skill
 references and 30 synced FLOW prompts under `skills/blog-flow/references/`),
-12 content templates, 14 root-level scripts (`scripts/analyze_blog.py`,
+12 content templates, 17 root-level scripts (`scripts/analyze_blog.py`,
 `ai_citation_score.py`, `blog_hygiene.py`, `blog_preflight.py`,
 `blog_render.py`, `cognitive_load.py`, `content_decay.py`,
 `discourse_research.py`, `generate_hero.py`, `load_untrusted_root.py`,
-`lint_prose.py`, `quality_gate.py`, `style_learn.py`, `sync_flow.py`) plus per-sub-skill scripts under
+`lint_prose.py`, `quality_gate.py`, `style_learn.py`, `sync_flow.py`,
+`consistency_check.py`, `dependency_smoke.py`, `validate_public_release.py`) plus per-sub-skill scripts under
 `blog-google/`, `blog-notebooklm/`, `blog-audio/`, `blog-image/`.
 v1.8.0+ adds three project-root context files (BRAND.md / VOICE.md /
 DISCOURSE.md, auto-loaded via `scripts/load_untrusted_root.py` with
 CSPRNG nonce fencing). v1.8.4+ enforces prose hygiene and version
 coherence via CI (see `scripts/lint_prose.py`, `tests/test_version_coherence.py`).
 v1.9.0 adds the 5-gate Blog Delivery Contract (see
-`skills/blog/references/blog-delivery-contract.md`) and 252-test pytest
+`skills/blog/references/blog-delivery-contract.md`) and a 250+ test pytest
 suite including mutation-test-verified XSS, symlink, and frontmatter
 regression coverage.

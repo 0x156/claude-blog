@@ -106,6 +106,14 @@ Each row: `keys[]`, `clicks`, `impressions`, `ctr`, `position`.
 
 - Data lag by `dataState`: `final` = ~2-3 days; `all` = shorter lag; `hourly_all` = few hours (April 2025). Retention: ~16 months. Use `gsc_query.py --data-state hourly_all --dimensions date,hour,...`.
 - Country codes are **ISO 3166-1 alpha-3** (e.g., `USA`, `GBR`).
+- The dedicated generative-AI Search and Discover reports are a gradual
+  Search Console UI rollout. They are not an extra `type` or
+  `searchAppearance` value documented for this endpoint. Do not synthesize
+  clicks or queries for those reports or claim this API isolates AI Overviews
+  and AI Mode.
+- Instagram, TikTok, X, and YouTube platform properties also have a gradual UI
+  rollout. Do not promise that this endpoint supports their dedicated reports
+  until Google publishes API documentation.
 
 ---
 
@@ -184,7 +192,9 @@ Each entity includes `name`, `type`, `salience` (0-1), `sentiment`, and `metadat
 
 ## YouTube Data API v3
 
-YouTube mentions can support AI citation visibility as part of SEO research.
+YouTube results can support relevant media research and cross-platform
+distribution. Third-party visibility correlations are observational and do not
+establish a Google ranking or citation requirement.
 
 | Method | Quota Cost | Description |
 |--------|-----------|-------------|

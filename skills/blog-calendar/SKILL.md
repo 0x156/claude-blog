@@ -2,10 +2,10 @@
 name: blog-calendar
 description: >
   Generate editorial calendars for blogs with topic clusters, publishing
-  schedules, content decay detection, freshness update plans, seasonal
+  schedules, material-change reviews, update plans, seasonal
   opportunities, content mix formula, template integration, and distribution
-  scheduling. Plans monthly or quarterly calendars optimized for SEO topic
-  authority and freshness signals based on content priority.
+  scheduling. Plans monthly or quarterly calendars around reader needs,
+  evidence changes, and sustainable publishing capacity.
   Use when user says "editorial calendar", "content calendar", "blog calendar",
   "publishing schedule", "blog plan", "content plan", "what should I write".
 user-invokable: true
@@ -16,9 +16,9 @@ license: MIT
 # Blog Calendar: Editorial Planning
 
 Generates editorial calendars with topic clusters, publishing cadence,
-freshness update schedules, content decay detection, template recommendations,
-distribution planning, and seasonal hooks. Optimized for building topical
-authority (Google) and maintaining citation freshness for AI surfaces.
+material-change reviews, content-decay investigation, template recommendations,
+distribution planning, and seasonal hooks. It does not treat publication or
+update frequency as a ranking or citation signal.
 
 ## Cross-reference
 
@@ -59,43 +59,45 @@ Each cluster should:
 
 ### Step 2.5: Content Decay Detection
 
-Scan existing blog posts for `lastUpdated` or `date` fields in frontmatter.
-Classify each post by staleness using these thresholds:
+Scan existing posts for material change signals. Dates are inventory metadata,
+not proof that content is stale or fresh.
 
-| Traffic Level | Stale Threshold | At-Risk Threshold |
-|---------------|----------------|-------------------|
-| High-traffic posts | >30 days since update | >90 days |
-| Medium-traffic posts | >90 days since update | >180 days |
-| Low-traffic posts | >180 days since update | >365 days |
+| Signal | Review Question | Priority Effect |
+|--------|-----------------|-----------------|
+| Query or fact volatility | Have prices, laws, products, events, or guidance changed? | Raise when the changed fact is material |
+| Performance trend | Is there a sustained decline after controlling for seasonality and Search surface? | Investigate before rewriting |
+| Source availability | Are important sources outdated, contradicted, or unavailable? | Raise when claims lose support |
+| Reader intent | Does the page still solve the current task? | Raise when intent materially shifted |
 
-Reference: some practitioner AI-citation SEO datasets report a freshness skew toward recently updated content. Treat this as a directional signal, not a universal rule, unless the dataset, method, and date are available.
+Do not prioritize an update solely because a frontmatter date is old or a
+vendor sample observed recently updated citations.
 
 Output a decay report:
 
 ```
 ## Content Decay Report
-| Post | Last Updated | Days Stale | Priority | Action |
-|------|-------------|-----------|----------|--------|
-| [slug] | [date] | [N] | Critical | Refresh immediately |
-| [slug] | [date] | [N] | High | Schedule this month |
-| [slug] | [date] | [N] | Medium | Schedule this quarter |
+| Post | Material Change Evidence | Performance Context | Priority | Action |
+|------|--------------------------|---------------------|----------|--------|
+| [slug] | [changed fact/source/intent] | [surface and comparison] | Critical | Correct material error |
+| [slug] | [documented change] | [sustained trend] | High | Schedule substantive review |
+| [slug] | [no confirmed change] | [stable/unclear] | Low | Monitor |
 ```
 
 Priority levels:
-- **Critical**: High-traffic post stale >30 days: refresh immediately
-- **High**: Any post stale beyond its threshold: schedule this month
-- **Medium**: Posts approaching their threshold: schedule this quarter
-- **Low**: Posts within threshold: no action needed
+- **Critical**: Materially wrong or harmful information needs correction
+- **High**: Confirmed fact, source, product, or intent change affects usefulness
+- **Medium**: Sustained performance change warrants investigation
+- **Low**: No material change; monitor without editing the date
 
 ### Step 3: Freshness Update Schedule
 
-AI citation surfaces often favor fresh content, but the 30-day signal is directional and methodology-dependent, not a universal rule.
+Plan review triggers around the topic:
+- **Fast-changing topics**: Review when the governing facts or official sources change
+- **Seasonal topics**: Review before the relevant season using current evidence
+- **Product or pricing content**: Review after documented product changes
+- **Evergreen topics**: Review when evidence, intent, or performance indicates a need
 
-Plan update cycles:
-- **High-priority posts** (traffic drivers): Update every 30 days
-- **Medium-priority posts**: Update every 90 days
-- **Low-priority posts**: Update annually
-- **Evergreen posts**: Update when data changes
+Change `lastUpdated` only after substantive content changes.
 
 ### Step 4: Seasonal & Trending Hooks
 
@@ -273,20 +275,20 @@ Reference: `skills/blog/references/distribution-playbook.md` for detailed channe
 Set up a system for ongoing freshness maintenance:
 
 ```
-## Freshness Schedule: Next 30 Days
-| Post | Last Updated | Next Refresh Date | Priority | Owner |
-|------|-------------|-------------------|----------|-------|
-| [slug] | [date] | [date + 30] | High | [name] |
-| [slug] | [date] | [date + 90] | Medium | [name] |
+## Material-Change Review Queue
+| Post | Review Trigger | Evidence | Priority | Owner |
+|------|----------------|----------|----------|-------|
+| [slug] | [official source/product/fact changed] | [link or observation] | High | [name] |
+| [slug] | [sustained performance or intent shift] | [surface-specific comparison] | Medium | [name] |
 ```
 
 Automation recommendations:
-- Set calendar reminders for 30-day review cycles on high-traffic or fast-changing posts
-- List posts by "next refresh date" in ascending order (most urgent first)
-- Prioritize refresh order by traffic/importance
-- After each refresh, update the `lastUpdated` frontmatter field
-- Track refresh history to measure freshness impact on rankings/citations
-- Suggest running `/blog rewrite` for each scheduled refresh
+- Monitor official sources or product changes for fast-changing topics
+- Sort the queue by material risk and reader impact
+- Use traffic only as context, not proof that an update is needed
+- Update `lastUpdated` only after substantive content changes
+- Track what changed and compare relevant Search surfaces separately
+- Suggest `/blog rewrite` only when a substantive review finds work to do
 
 ### Step 6: Save & Next Steps
 

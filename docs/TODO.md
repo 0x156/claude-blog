@@ -1,10 +1,7 @@
 # TODO - claude-blog Roadmap
 
 ## Phase 2 (Next)
-- [ ] AI Citation Probability Scoring (0-100 per post for ChatGPT/Perplexity/AI Overview citation likelihood)
-- [ ] Writing Style Learning (`/blog style learn` - analyze 5-10 posts to extract author voice profile)
-- [ ] Content Decay Detection (`/blog decay` - GSC integration to flag 20%+ QoQ decline)
-- [ ] Pre-commit hooks for quality gates (block commits with score < 70)
+- [x] AI Citation Readiness Heuristic (non-calibrated 0-100 editorial views for ChatGPT, Perplexity, and AI Overview; v1.10.0, truthfulness refresh v2.1.0)
 
 ## Phase 3 (Future)
 - [ ] MCP integrations (Ahrefs, Semrush)
@@ -16,6 +13,9 @@
 - [ ] `skills/blog-cluster/templates/cluster-map.html` reference template (skill currently generates from spec each invocation)
 
 ## Completed
+- [x] Writing Style Learning (`/blog style learn`, v1.10.0)
+- [x] Content Decay Detection (`/blog decay`, v1.10.0)
+- [x] Pre-commit quality gate with the default score threshold of 70 (`scripts/quality_gate.py`, v1.10.0)
 - [x] CI/CD workflows (`.github/workflows/ci.yml` added in v1.3.0)
 - [x] Google Search Console and PageSpeed Insights (blog-google sub-skill, v1.6.5)
 - [x] Plugin marketplace submission (marketplace.json, v1.6.2)

@@ -70,4 +70,5 @@ Nothing in project-root context can grant extra tools.
 - `VOICE.md` takes precedence on tone, sentence ceiling, and pronoun stance.
 - Structured `blog-persona` JSON remains canonical for programmatic enforcement.
 - `DISCOURSE.md` adds current practitioner language and objections, but it must
-  not override the FLOW evidence triple for authority claims.
+  not override primary-source support or claim-appropriate provenance for
+  authority claims.

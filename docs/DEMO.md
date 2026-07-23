@@ -1,4 +1,4 @@
-# claude-blog v1.11.0: Demo Runbook
+# claude-blog v2.1.0: Demo Runbook
 
 End-to-end demo flow that exercises every wired integration: YouTube
 embedding (blog-google), keyword research (DataForSEO MCP), AI image
@@ -63,7 +63,7 @@ python3 skills/blog-google/scripts/google_auth.py --tier --json
 # 3. Plugin validate
 claude plugin validate .
 
-# 4. Full test suite (242 tests)
+# 4. Full test suite
 python -m pytest tests/ -q
 
 # 5. Sample local SVG chart
@@ -91,8 +91,8 @@ Each step is one slash command. Estimated total time: 8-12 min.
       Costs DataForSEO credits.
 
 4. /blog google youtube search "AI search citations 2025" --max-results 5
-   -> Top YouTube videos with quality scoring (audit VULN catalog
-      fix: 0.737 AI-visibility correlation).
+   -> Candidate YouTube videos with editorial suitability data.
+      Use a video only when it is relevant, accurate, useful, and eligible.
       Free quota.
 
 5. /blog write "AI search citations" --brief
@@ -100,8 +100,8 @@ Each step is one slash command. Estimated total time: 8-12 min.
       - invoke the internal blog-chart capability to generate SVG charts inline
       - call /blog image (nanobanana) to generate the cover + hero
       - embed YouTube videos via srcdoc lazy-load (~5KB)
-      - inject FAQ schema + JSON-LD
-      - add citation capsules + information gain markers
+      - add content-consistent JSON-LD; FAQPage only when visible questions warrant it
+      - strengthen evidence-backed explanations and supported original material
 
 6. /blog seo-check <output_path>
    -> Validates title, meta, headings, schema, alt text.

@@ -78,15 +78,20 @@ When the topic resolves to a person who ships code, also resolve their GitHub us
 4. Verify the statistic exists on the source page using WebFetch
 5. Flag any statistics that cannot be verified
 
-### Freshness Floor (v1.8.0)
+### Freshness Review (v2.1.0)
 
-For time-sensitive content (news, trend analysis, "state of X" posts, product updates), require at least 2 sources published within the last 30 days, in addition to the FLOW evidence triple. For evergreen content (definitional, historical, foundational), relax to 90 days. Report the freshness summary at the top of the research output. See `skills/blog/references/research-quality.md` for the full classification table.
+For time-sensitive content (news, trend analysis, "state of X" posts, product
+updates), use sources recent enough to support the claim at the time of
+publication. Evergreen content may rely on older authoritative sources when
+their facts remain current. Report the freshness summary and any material
+currency gaps at the top of the research output. See
+`skills/blog/references/research-quality.md` for the full classification table.
 
 ### Quality Rubric (v1.8.0)
 
 Before passing research to `blog-writer`, score the output against the 5-dimension rubric in `skills/blog/references/research-quality.md`:
 
-- 30% groundedness (named source per claim, FLOW triple)
+- 30% groundedness (claim-appropriate, verifiable source support)
 - 25% specificity (named entities, exact numbers)
 - 20% coverage (>=2 independent sources per load-bearing claim; cross-source clustering applied)
 - 15% actionability (the reader can do something concrete)

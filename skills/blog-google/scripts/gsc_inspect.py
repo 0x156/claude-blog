@@ -12,6 +12,7 @@ Usage:
 """
 
 import argparse
+import datetime as dt
 import json
 import sys
 import time
@@ -41,6 +42,7 @@ GSC_SCOPES = ["https://www.googleapis.com/auth/webmasters.readonly"]
 # Daily limit per site
 DAILY_LIMIT = 2000
 QPM_LIMIT = 600
+CANONICAL_REEVALUATION_DAYS = 14
 
 
 def _path_contains_symlink(path: Path, root: Path) -> bool:
@@ -124,11 +126,74 @@ def _build_inspection_service():
         return None
 
 
+def _parse_fix_date(value: str | dt.date | None) -> dt.date | None:
+    """Parse an optional declared canonical-fix date."""
+    if value is None or value == "":
+        return None
+    if isinstance(value, dt.datetime):
+        return value.date()
+    if isinstance(value, dt.date):
+        return value
+    try:
+        return dt.date.fromisoformat(str(value))
+    except ValueError as exc:
+        raise ValueError("canonical fix date must use YYYY-MM-DD") from exc
+
+
+def classify_canonical_reevaluation(
+    *,
+    inspection_url: str,
+    google_canonical: str | None,
+    user_canonical: str | None,
+    fix_date: str | dt.date,
+    expected_canonical: str | None = None,
+    today: dt.date | None = None,
+) -> dict:
+    """Classify a declared canonical fix without replacing Google's verdict.
+
+    Pending status requires all three facts: the inspected markup now declares
+    the expected canonical, Google still selects a different canonical, and the
+    declared fix is no more than 14 days old.
+    """
+    parsed_fix_date = _parse_fix_date(fix_date)
+    if parsed_fix_date is None:
+        raise ValueError("canonical fix date is required")
+    expected = _validate_url(expected_canonical or inspection_url)
+    current_date = today or dt.datetime.now(dt.timezone.utc).date()
+    age_days = (current_date - parsed_fix_date).days
+    implementation_correct = user_canonical == expected
+    selection_pending = bool(google_canonical) and google_canonical != expected
+    pending = (
+        implementation_correct
+        and selection_pending
+        and 0 <= age_days <= CANONICAL_REEVALUATION_DAYS
+    )
+    if pending:
+        classification = "PENDING_REEVALUATION"
+    elif google_canonical == expected and user_canonical == expected:
+        classification = "MATCH"
+    elif age_days < 0:
+        classification = "INVALID_FUTURE_FIX_DATE"
+    else:
+        classification = "MISMATCH"
+    return {
+        "classification": classification,
+        "pending_reevaluation": pending,
+        "fix_date": parsed_fix_date.isoformat(),
+        "age_days": age_days,
+        "expected_canonical": expected,
+        "implementation_correct": implementation_correct,
+    }
+
+
 def inspect_url(
     inspection_url: str,
     site_url: str,
     language_code: str = "en",
     service=None,
+    canonical_fix_date: str | dt.date | None = None,
+    expected_canonical: str | None = None,
+    today: dt.date | None = None,
 ) -> dict:
     """
     Inspect a single URL via the GSC URL Inspection API.
@@ -156,6 +221,13 @@ def inspect_url(
     try:
         inspection_url = _validate_url(inspection_url)
         result["url"] = inspection_url
+    except ValueError as e:
+        result["error"] = str(e)
+        return result
+    try:
+        parsed_fix_date = _parse_fix_date(canonical_fix_date)
+        if expected_canonical is not None:
+            expected_canonical = _validate_url(expected_canonical)
     except ValueError as e:
         result["error"] = str(e)
         return result
@@ -216,6 +288,17 @@ def inspect_url(
         "match": idx.get("googleCanonical") == idx.get("userCanonical")
         if idx.get("googleCanonical") and idx.get("userCanonical") else None,
     }
+    if parsed_fix_date is not None:
+        result["canonical"].update(
+            classify_canonical_reevaluation(
+                inspection_url=inspection_url,
+                google_canonical=idx.get("googleCanonical"),
+                user_canonical=idx.get("userCanonical"),
+                fix_date=parsed_fix_date,
+                expected_canonical=expected_canonical,
+                today=today,
+            )
+        )
 
     # Mobile usability (deprecated April 2023 but may still return data)
     mu = ir.get("mobileUsabilityResult", {})
@@ -253,6 +336,7 @@ def batch_inspect(
     site_url: str,
     delay: float = 1.0,
     language_code: str = "en",
+    canonical_fix_date: str | dt.date | None = None,
 ) -> dict:
     """
     Batch inspect multiple URLs with rate limiting.
@@ -307,7 +391,13 @@ def batch_inspect(
 
         print(f"Inspecting [{i + 1}/{len(urls)}]: {url}", file=sys.stderr)
 
-        inspection = inspect_url(url, site_url, language_code, service=service)
+        inspection = inspect_url(
+            url,
+            site_url,
+            language_code,
+            service=service,
+            canonical_fix_date=canonical_fix_date,
+        )
         result["results"].append(inspection)
 
         verdict = inspection.get("verdict", "")
@@ -347,8 +437,25 @@ def main():
         help="Delay between batch requests in seconds (default: 1.0)",
     )
     parser.add_argument("--json", "-j", action="store_true", help="Output as JSON")
+    parser.add_argument(
+        "--canonical-fix-date",
+        help=(
+            "Declared date a canonical implementation was fixed (YYYY-MM-DD). "
+            "Adds a pending-reevaluation classification without replacing the "
+            "Google URL Inspection verdict."
+        ),
+    )
+    parser.add_argument(
+        "--expected-canonical",
+        help=(
+            "Expected canonical URL for single-URL mode. Defaults to the "
+            "inspected URL."
+        ),
+    )
 
     args = parser.parse_args()
+    if args.batch and args.expected_canonical:
+        _exit_error("--expected-canonical is only valid for single-URL mode", args.json)
 
     # Resolve site URL
     site_url = args.site_url
@@ -366,9 +473,19 @@ def main():
         except (OSError, ValueError) as e:
             _exit_error(f"Error reading batch file: {e}", args.json)
 
-        result = batch_inspect(urls, site_url, delay=args.delay)
+        result = batch_inspect(
+            urls,
+            site_url,
+            delay=args.delay,
+            canonical_fix_date=args.canonical_fix_date,
+        )
     elif args.url:
-        result = inspect_url(args.url, site_url)
+        result = inspect_url(
+            args.url,
+            site_url,
+            canonical_fix_date=args.canonical_fix_date,
+            expected_canonical=args.expected_canonical,
+        )
     else:
         parser.print_help()
         sys.exit(1)
@@ -418,6 +535,8 @@ def main():
                 match = canon.get("match")
                 if match is not None:
                     print(f"  Match: {'Yes' if match else 'MISMATCH'}")
+                if canon.get("classification"):
+                    print(f"  Reevaluation: {canon['classification']}")
 
             rr = result.get("rich_results")
             if rr and rr.get("detected_items"):

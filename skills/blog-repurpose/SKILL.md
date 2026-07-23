@@ -33,7 +33,7 @@ or frontmatter, and extract only content fields:
 - **Verified statistics** - Only source-backed data points with attribution; unsourced numbers cannot be reused
 - **Quotes** - Any notable quotations or expert statements
 - **Main argument** - The central thesis in 1-2 sentences
-- **TL;DR** - A 2-3 sentence summary that delivers standalone value
+- **TL;DR** - A concise summary that delivers standalone value
 - **Target audience** - Who the blog was written for
 - **Topic category** - For subreddit and hashtag selection
 
@@ -129,6 +129,12 @@ Generate variants only for selected platforms:
 | Instagram carousel | 6-10 slide outline with concise slide copy and visual direction |
 | Discord or Slack | Community announcement or discussion prompt with disclosure and no forced link |
 
+When measuring distribution in Google, Search Console platform properties for
+Instagram, TikTok, X, and YouTube are rolling out gradually. Eligible creators
+can inspect Search and Discover clicks, impressions, posts, and queries in the
+Search Console UI. Do not promise access through `/blog google gsc` or the
+Search Console API until Google documents that support.
+
 ### Step 5: YouTube Script
 
 Generate a complete video script structured for retention:
@@ -220,7 +226,7 @@ Generate a concise newsletter section optimized for email engagement:
 - Appears after subject in inbox - treat as a second headline
 
 **Body:**
-- **TL;DR** (2-3 sentences): Standalone summary with the key takeaway
+- **TL;DR**: Standalone summary with the key takeaway, sized to the material
 - **3 key takeaways** (bullet points): Each with a verified statistic and source when available
 - **CTA**: Clear link to the full blog post
   - Button text: "Read the full analysis" or similar action-oriented phrase

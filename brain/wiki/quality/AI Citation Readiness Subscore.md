@@ -4,7 +4,7 @@ title: "AI Citation Readiness Subscore"
 domain: "Blog Quality"
 status: active
 created: 2026-07-06
-updated: 2026-07-09
+updated: 2026-07-23
 tags: [quality, scorecard, active]
 confidence: advisory
 related:
@@ -18,7 +18,14 @@ related:
 
 ## AI Citation Readiness Scoring Job
 
-This spoke grades whether a blog draft has passages that a reviewer can extract, verify, and safely reuse in AI-adjacent answer contexts. It is a 15 point subscore inside [[Blog Quality Score]], not a prediction engine for AI Overview, AI Mode, or chatbot inclusion. Cite `g-ai-features` for Google AI feature surface boundaries, `g-ai-opt-guide` for the no-special-file rule, `ziptie-aio-source-selection` for practitioner passage-shape heuristics, and `seer-aio-impact-ctr-2026` only as AS-REPORTED citation-click context.
+This spoke applies an internal AI citation readiness heuristic to whether a blog
+draft has passages that a reviewer can extract, verify, and safely reuse in
+AI-adjacent answer contexts. It is a 15 point editorial subscore inside [[Blog
+Quality Score]], not a calibrated probability or prediction engine for AI
+Overview, AI Mode, or chatbot inclusion. Cite `g-ai-features` for Google AI
+feature surface boundaries, `g-ai-opt-guide` for the no-special-file rule,
+`ziptie-aio-source-selection` for practitioner passage-shape heuristics, and
+`seer-aio-impact-ctr-2026` only as AS-REPORTED citation-click context.
 
 ## Answer Passage Criteria This Score Owns
 

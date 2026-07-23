@@ -25,8 +25,9 @@ The two repos share git history. The private mirror runs ahead of public; public
 3. **Pre-release sanity check** (run locally before pushing to public):
 
    ```bash
-   python3 -m pytest tests/                        # all 242 tests pass
+   python3 -m pytest tests/                        # complete suite passes
    python3 scripts/lint_prose.py --root .          # zero prose-hygiene violations
+   python3 scripts/consistency_check.py --root .    # no broken references or FLOW locks
    claude plugin validate .                        # marketplace manifest valid
    ```
 
@@ -41,7 +42,21 @@ The two repos share git history. The private mirror runs ahead of public; public
 
 5. **Pro-community review** in the [AI Marketing Hub Pro Skool](https://www.skool.com/ai-marketing-hub-pro). Post the release notes and collect feedback. This is the "approval gate" before the public push.
 
-6. **Push to public** (only after explicit approval):
+6. **Prepare and validate a public checkout**. Private canonical URLs and
+   membership-only instructions are correct in this working repository, but
+   must not be copied verbatim to the public distribution. Run the validator
+   against the prepared public worktree:
+
+   ```bash
+   python3 scripts/validate_public_release.py --root /path/to/public-worktree
+   ```
+
+   The validator checks raw installer URLs, the
+   `claude-blog@agricidaniel-blog` marketplace slug, canonical repository
+   metadata, and private-only installation language. It never edits either
+   repository.
+
+7. **Push to public** (only after explicit approval and a passing public-release validation):
 
    ```bash
    git push public-mirror main
@@ -50,7 +65,7 @@ The two repos share git history. The private mirror runs ahead of public; public
 
    Tags are recommended for the public mirror so users can pin a release version. See "Tag and release" below.
 
-7. **Post-release**:
+8. **Post-release**:
    - Append a session note to `~/Documents/Obsidian Vault/sessions/` per global rule.
    - Update the public README if the dual-version callout needs adjusting (most edits don't).
 

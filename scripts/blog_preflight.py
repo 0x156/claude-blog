@@ -67,6 +67,9 @@ USER_AGENT = f"claude-blog/{CONTRACT_VERSION} preflight (+https://github.com/Agr
 URL_ALLOWLIST = ("example.com", "example.org")
 URL_ALLOWLIST_FILE = "preflight-allowlist.json"
 ALLOWED_HTTP_SCHEMES = frozenset({"http", "https"})
+GOOGLEBOT_HTML_BYTE_LIMIT = 2 * 1024 * 1024
+INLINE_BLOAT_WARNING_BYTES = 256 * 1024
+PREFLIGHT_TARGETS_FILE = "preflight-targets.json"
 
 # VULN-802 code-enforced iteration counter (v1.9.1).
 # The contract documents "up to 3 retries before escalating." v1.9.0
@@ -110,6 +113,25 @@ def _read_text_no_follow(path: Path) -> str:
     fd = os.open(path, flags)
     try:
         with os.fdopen(fd, "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception:
+        try:
+            os.close(fd)
+        except OSError:
+            pass
+        raise
+
+
+def _read_bytes_no_follow(path: Path) -> bytes:
+    """Read bytes without following a symlink at the final path."""
+    if path.is_symlink():
+        raise ValueError(f"refusing to read symlink: {path}")
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    fd = os.open(path, flags)
+    try:
+        with os.fdopen(fd, "rb") as f:
             return f.read()
     except Exception:
         try:
@@ -271,7 +293,11 @@ def _gate_result(gate: int, name: str, passed: bool, violations: Optional[list] 
 def _has_module(name: str) -> bool:
     try:
         return importlib.util.find_spec(name) is not None
-    except ModuleNotFoundError:
+    except (ImportError, ValueError):
+        # ``find_spec("parent.child")`` raises ImportError when the parent is
+        # unavailable and can raise ValueError when an already-imported module
+        # has ``__spec__ = None``. Optional capability discovery must degrade
+        # to ``False`` for both cases rather than aborting the preflight.
         return False
 
 
@@ -611,6 +637,8 @@ def gate_3_visual_verification(draft_dir: Path, slug: str | None = None) -> dict
   const bg = getComputedStyle(document.body).backgroundColor;
   const jsonLd = document.querySelector('script[type="application/ld+json"]');
   let jsonLdValid = false, jsonLdType = null, jsonLdMissingFields = [];
+  let jsonLdVisibleConsistent = false, jsonLdConsistencyMismatches = [];
+  let jsonLdWordCount = null;
   if (jsonLd) {
     try {
       const raw = JSON.parse(jsonLd.textContent);
@@ -623,9 +651,24 @@ def gate_3_visual_verification(draft_dir: Path, slug: str | None = None) -> dict
       jsonLdType = obj['@type'];
       const required = ['headline','image','datePublished','author'];
       jsonLdMissingFields = required.filter(k => !obj[k]);
+      jsonLdWordCount = Number.isInteger(obj.wordCount) ? obj.wordCount : null;
+      const normalize = (value) => String(value || '').replace(/\\s+/g, ' ').trim().toLowerCase();
+      const visibleHeadline = normalize(document.querySelector('h1')?.textContent);
+      const schemaHeadline = normalize(obj.headline);
+      if (!visibleHeadline || visibleHeadline !== schemaHeadline) {
+        jsonLdConsistencyMismatches.push('headline');
+      }
+      const visibleDate = document.querySelector('time[datetime]')?.getAttribute('datetime');
+      if (visibleDate && !String(obj.datePublished || '').startsWith(visibleDate.slice(0, 10))) {
+        jsonLdConsistencyMismatches.push('datePublished');
+      }
+      jsonLdVisibleConsistent = jsonLdConsistencyMismatches.length === 0;
     } catch (e) { jsonLdValid = false; }
   }
-  return {overflows, bg, jsonLdValid, jsonLdType, jsonLdMissingFields};
+  return {
+    overflows, bg, jsonLdValid, jsonLdType, jsonLdMissingFields,
+    jsonLdVisibleConsistent, jsonLdConsistencyMismatches, jsonLdWordCount
+  };
 }
 """.strip()
 
@@ -668,6 +711,38 @@ def gate_3_visual_verification(draft_dir: Path, slug: str | None = None) -> dict
                     violations.append(f"{vp['name']}: JSON-LD @type != BlogPosting")
                 elif result["jsonLdMissingFields"]:
                     violations.append(f"{vp['name']}: JSON-LD missing fields: {result['jsonLdMissingFields']}")
+                elif not result["jsonLdVisibleConsistent"]:
+                    violations.append(
+                        f"{vp['name']}: JSON-LD does not match visible content: "
+                        f"{result['jsonLdConsistencyMismatches']}"
+                    )
+                if vp["name"] == "desktop":
+                    observation = {
+                        "attempted_back": True,
+                        "observation_complete": False,
+                        "returned_to_previous": False,
+                        "before_url": page.url,
+                    }
+                    try:
+                        page.go_back(wait_until="domcontentloaded", timeout=5_000)
+                        observation["observation_complete"] = True
+                        observation["after_url"] = page.url
+                        observation["returned_to_previous"] = page.url == "about:blank"
+                    except Exception as exc:
+                        observation["error"] = str(exc)
+                        observation["after_url"] = page.url
+                    back_check = _classify_back_button_behavior(observation)
+                    per_viewport[vp["name"]]["back_button"] = {
+                        **observation,
+                        **back_check,
+                    }
+                    if back_check["violation"]:
+                        violations.append(f"desktop: {back_check['violation']}")
+                    elif back_check["checked"] and not back_check["conclusive"]:
+                        warnings.append(
+                            "desktop: back-button behavior check was inconclusive; "
+                            "no violation was recorded"
+                        )
                 context.close()
 
             # Dark mode pass at desktop width
@@ -705,6 +780,50 @@ def gate_3_visual_verification(draft_dir: Path, slug: str | None = None) -> dict
     return _gate_result(3, "Visual Verification", not violations, violations, warnings, per_viewport=per_viewport)
 
 
+def _rendered_jsonld_handoff(gate_3_result: dict[str, Any] | None) -> dict[str, Any]:
+    """Derive an in-process Gate 5 schema handoff from conclusive Gate 3 data."""
+    unavailable = {
+        "available": False,
+        "valid": False,
+        "source": "rendered_dom",
+        "word_count": None,
+    }
+    if not gate_3_result or not gate_3_result.get("passed"):
+        return unavailable
+    per_viewport = gate_3_result.get("per_viewport")
+    if not isinstance(per_viewport, dict):
+        return unavailable
+
+    results: list[dict[str, Any]] = []
+    for viewport in (item["name"] for item in VIEWPORTS):
+        entry = per_viewport.get(viewport)
+        result = entry.get("result") if isinstance(entry, dict) else None
+        if not isinstance(result, dict):
+            return unavailable
+        results.append(result)
+
+    valid = all(
+        result.get("jsonLdValid") is True
+        and result.get("jsonLdType") == "BlogPosting"
+        and result.get("jsonLdMissingFields") == []
+        and result.get("jsonLdVisibleConsistent") is True
+        for result in results
+    )
+    if not valid:
+        return unavailable
+    word_counts = {result.get("jsonLdWordCount") for result in results}
+    word_count = word_counts.pop() if len(word_counts) == 1 else None
+    if not isinstance(word_count, int):
+        word_count = None
+    return {
+        "available": True,
+        "valid": True,
+        "source": "rendered_dom",
+        "word_count": word_count,
+        "viewports": [item["name"] for item in VIEWPORTS],
+    }
+
+
 class _MetaParser(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -713,6 +832,10 @@ class _MetaParser(HTMLParser):
         self.codes: list[str] = []
         self.ids: set[str] = set()
         self.og_image: Optional[str] = None
+        self.og_image_width: Optional[int] = None
+        self.og_image_height: Optional[int] = None
+        self.robots_content: list[str] = []
+        self.has_amp = False
         self.canonical: Optional[str] = None
         self.json_ld_blocks: list[str] = []
         self._in_jsonld = False
@@ -734,6 +857,21 @@ class _MetaParser(HTMLParser):
             self.links.append(d["href"])
         elif tag == "meta" and d.get("property") == "og:image" and d.get("content"):
             self.og_image = d["content"]
+        elif tag == "meta" and d.get("property") == "og:image:width" and d.get("content"):
+            try:
+                self.og_image_width = int(d["content"])
+            except (TypeError, ValueError):
+                pass
+        elif tag == "meta" and d.get("property") == "og:image:height" and d.get("content"):
+            try:
+                self.og_image_height = int(d["content"])
+            except (TypeError, ValueError):
+                pass
+        elif tag == "meta" and d.get("name", "").lower() in {"robots", "googlebot"}:
+            if d.get("content"):
+                self.robots_content.append(d["content"])
+        elif tag == "html" and "amp" in d:
+            self.has_amp = True
         elif tag == "link" and d.get("rel") == "canonical" and d.get("href"):
             self.canonical = d["href"]
         elif tag == "script" and d.get("type") == "application/ld+json":
@@ -828,7 +966,152 @@ def _is_blogposting_node(node: dict[str, Any]) -> bool:
     return False
 
 
-def gate_5_asset_link_integrity(draft_dir: Path, slug: str | None = None) -> dict:
+def _googlebot_html_prefix_check(raw_bytes: bytes) -> dict[str, Any]:
+    """Check whether critical HTML exists only after Googlebot's 2MB cutoff.
+
+    The byte limit is a fetch/indexing constraint, not a ranking factor. A
+    critical component found only after the limit is a crawl warning, not a
+    publication blocker. Missing components everywhere remain the
+    responsibility of Gate 5's existing semantic checks.
+    """
+    prefix = raw_bytes[:GOOGLEBOT_HTML_BYTE_LIMIT].lower()
+    full = raw_bytes.lower()
+    patterns = {
+        "title": re.compile(br"<title\b"),
+        "meta": re.compile(
+            br"<meta\b[^>]*(?:name|property)\s*=\s*[\"']"
+            br"(?:description|robots|googlebot|og:[^\"']+)[\"']"
+        ),
+        "canonical": re.compile(
+            br"<link\b[^>]*rel\s*=\s*[\"'][^\"']*\bcanonical\b[^\"']*[\"']"
+        ),
+        "json_ld": re.compile(
+            br"<script\b[^>]*type\s*=\s*[\"']application/ld\+json[\"']"
+        ),
+        "main_content": re.compile(br"<(?:main|article)\b"),
+    }
+    after_cutoff: list[str] = []
+    positions: dict[str, int | None] = {}
+    for name, pattern in patterns.items():
+        full_match = pattern.search(full)
+        prefix_match = pattern.search(prefix)
+        positions[name] = full_match.start() if full_match else None
+        if full_match is not None and prefix_match is None:
+            after_cutoff.append(name)
+
+    prefix_text = prefix.decode("utf-8", errors="ignore")
+    base64_bytes = sum(
+        len(match.group(0).encode("utf-8"))
+        for match in re.finditer(r"data:[^\"'\s>]+;base64,[a-z0-9+/=]+", prefix_text, re.IGNORECASE)
+    )
+    inline_bytes = base64_bytes
+    for match in re.finditer(
+        r"<(?:style|script)\b(?![^>]*\bsrc\s*=)[^>]*>.*?</(?:style|script)\s*>",
+        prefix_text,
+        re.IGNORECASE | re.DOTALL,
+    ):
+        inline_bytes += len(match.group(0).encode("utf-8"))
+
+    violations: list[str] = []
+    warnings = [
+        f"Googlebot first-2MB cutoff may hide critical {name.replace('_', ' ')} content"
+        for name in after_cutoff
+    ]
+    if inline_bytes > INLINE_BLOAT_WARNING_BYTES:
+        warnings.append(
+            "excessive inline base64/CSS/JS before critical content "
+            f"({inline_bytes} bytes); reduce HTML bloat. This is a crawl "
+            "visibility warning, not a ranking factor"
+        )
+    return {
+        "limit_bytes": GOOGLEBOT_HTML_BYTE_LIMIT,
+        "artifact_bytes": len(raw_bytes),
+        "critical_positions": positions,
+        "critical_after_cutoff": after_cutoff,
+        "inline_bloat_bytes": inline_bytes,
+        "violations": violations,
+        "warnings": warnings,
+    }
+
+
+def _discover_target_signal(draft_dir: Path) -> tuple[bool, str | None]:
+    """Return whether Discover checks were explicitly requested."""
+    path = draft_dir / PREFLIGHT_TARGETS_FILE
+    if not path.is_file() or path.is_symlink():
+        return False, None
+    try:
+        data = json.loads(_read_text_no_follow(path))
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        return False, f"{PREFLIGHT_TARGETS_FILE} ignored: {exc}"
+    targets = data.get("targets", [])
+    explicit_target = isinstance(targets, list) and any(
+        str(item).strip().lower() == "discover" for item in targets
+    )
+    has_data = data.get("has_discover_data") is True
+    return explicit_target or has_data or data.get("discover") is True, None
+
+
+def _discover_preflight_check(parser: _MetaParser, enabled: bool) -> dict[str, Any]:
+    """Validate preferred-image hints only for an explicit Discover target."""
+    if not enabled:
+        return {"enabled": False, "warnings": []}
+    warnings: list[str] = []
+    width = parser.og_image_width
+    height = parser.og_image_height
+    if not parser.og_image:
+        warnings.append("Discover target has no og:image preferred-image declaration")
+    if width is None or height is None:
+        warnings.append("Discover target is missing og:image width/height metadata")
+    else:
+        if width < 1200:
+            warnings.append(f"Discover preferred image width is {width}px; target at least 1200px")
+        if width * height <= 300_000:
+            warnings.append(
+                f"Discover preferred image has {width * height} pixels; target more than 300000"
+            )
+        ratio = width / height if height else 0
+        if ratio and not 1.6 <= ratio <= 1.9:
+            warnings.append("Discover preferred image is not near a useful 16:9 landscape crop")
+    preview_allowed = parser.has_amp or any(
+        "max-image-preview:large" in value.lower() for value in parser.robots_content
+    )
+    if not preview_allowed:
+        warnings.append(
+            "Discover target does not enable max-image-preview:large and is not AMP"
+        )
+    return {
+        "enabled": True,
+        "preferred_image": parser.og_image,
+        "width": width,
+        "height": height,
+        "warnings": warnings,
+    }
+
+
+def _classify_back_button_behavior(observation: dict[str, Any]) -> dict[str, Any]:
+    """Classify observed navigation behavior without scanning for API syntax."""
+    attempted = observation.get("attempted_back") is True
+    conclusive = observation.get("observation_complete") is True
+    returned = observation.get("returned_to_previous") is True
+    obstructed = attempted and conclusive and not returned
+    return {
+        "checked": attempted,
+        "conclusive": conclusive,
+        "obstructed": obstructed,
+        "violation": (
+            "back-button navigation was behaviorally obstructed; review page, "
+            "library, and advertising history manipulation"
+            if obstructed
+            else None
+        ),
+    }
+
+
+def gate_5_asset_link_integrity(
+    draft_dir: Path,
+    slug: str | None = None,
+    rendered_schema_validation: dict[str, Any] | None = None,
+) -> dict:
     """Verify all <img> resolve, all <a> return 200, schema validates,
     word count within +/-5%."""
     _stem, selected, artifact_violations = _select_artifact_stem(draft_dir, slug)
@@ -840,15 +1123,26 @@ def gate_5_asset_link_integrity(draft_dir: Path, slug: str | None = None) -> dic
 
     html_path = htmls[0]
     try:
-        raw = _read_text_no_follow(html_path)
+        raw_bytes = _read_bytes_no_follow(html_path)
+        raw = raw_bytes.decode("utf-8")
     except (OSError, ValueError) as e:
         return _gate_result(5, "Asset + Link Integrity", False, [f"html artifact unreadable: {e}"])
+    except UnicodeDecodeError as e:
+        return _gate_result(5, "Asset + Link Integrity", False, [f"html artifact is not valid UTF-8: {e}"])
     parser = _MetaParser()
     parser.feed(raw)
 
     violations = []
     warnings = []
     allowed_hosts = _load_unreachable_allowlist(draft_dir)
+    byte_check = _googlebot_html_prefix_check(raw_bytes)
+    violations.extend(byte_check["violations"])
+    warnings.extend(byte_check["warnings"])
+    discover_enabled, discover_config_warning = _discover_target_signal(draft_dir)
+    if discover_config_warning:
+        warnings.append(discover_config_warning)
+    discover_check = _discover_preflight_check(parser, discover_enabled)
+    warnings.extend(discover_check["warnings"])
 
     # img src resolution
     for src in parser.imgs:
@@ -921,29 +1215,54 @@ def gate_5_asset_link_integrity(draft_dir: Path, slug: str | None = None) -> dic
             if not local_href.exists():
                 violations.append(f"local link not on disk: {href}")
 
-    # JSON-LD validation
+    # JSON-LD validation. Prefer source markup when valid, but accept an
+    # in-process Gate 3 proof of valid, visible-content-consistent rendered-DOM
+    # markup. Never trust a persisted draft-side claim for this handoff.
     json_ld_ok = False
     declared_word_count: Optional[int] = None
+    schema_validation_source = "source_html"
+    schema_violations: list[str] = []
     if parser.json_ld_blocks:
         try:
             raw_jsonld = json.loads("".join(parser.json_ld_blocks))
             nodes = _jsonld_nodes(raw_jsonld)
             obj = next((node for node in nodes if _is_blogposting_node(node)), None)
             if obj is None:
-                violations.append("JSON-LD missing BlogPosting node")
+                schema_violations.append("JSON-LD missing BlogPosting node")
                 obj = {}
             json_ld_ok = True
             required = ("headline", "image", "datePublished", "author")
             missing = [k for k in required if not obj.get(k)]
             if missing:
-                violations.append(f"JSON-LD missing required fields: {missing}")
+                schema_violations.append(f"JSON-LD missing required fields: {missing}")
             declared_word_count = obj.get("wordCount")
             if not isinstance(declared_word_count, int):
-                violations.append("JSON-LD wordCount must be an integer")
+                schema_violations.append("JSON-LD wordCount must be an integer")
         except json.JSONDecodeError as e:
-            violations.append(f"JSON-LD invalid: {e}")
+            schema_violations.append(f"JSON-LD invalid: {e}")
     else:
-        violations.append("no JSON-LD <script> block present")
+        schema_violations.append("no source JSON-LD <script> block present")
+
+    rendered_valid = (
+        isinstance(rendered_schema_validation, dict)
+        and rendered_schema_validation.get("available") is True
+        and rendered_schema_validation.get("valid") is True
+        and rendered_schema_validation.get("source") == "rendered_dom"
+    )
+    if schema_violations and rendered_valid:
+        json_ld_ok = True
+        schema_validation_source = "rendered_dom"
+        rendered_word_count = rendered_schema_validation.get("word_count")
+        declared_word_count = (
+            rendered_word_count if isinstance(rendered_word_count, int) else None
+        )
+        warnings.append(
+            "source JSON-LD was absent or invalid; accepted JSON-LD validated "
+            "in the rendered DOM by Gate 3"
+        )
+        schema_violations = []
+    else:
+        violations.extend(schema_violations)
 
     # word count match
     if isinstance(declared_word_count, int):
@@ -957,14 +1276,27 @@ def gate_5_asset_link_integrity(draft_dir: Path, slug: str | None = None) -> dic
         5, "Asset + Link Integrity", not violations, violations, warnings,
         imgs=parser.imgs, links_checked=len(parser.links),
         json_ld_valid=json_ld_ok, declared_word_count=declared_word_count,
+        schema_validation_source=schema_validation_source,
         actual_word_count=parser.article_text_chars,
+        googlebot_byte_check={
+            key: value for key, value in byte_check.items()
+            if key not in {"violations", "warnings"}
+        },
+        discover_check={
+            key: value for key, value in discover_check.items()
+            if key != "warnings"
+        },
     )
 
 
 def gate_4_content_review(draft_dir: Path) -> dict:
     """Check that the blog-reviewer agent has run and emitted review.md
-    with `BLOCKING: false`, a matching Nonce, and machine-checkable
-    reviewer metrics.
+    with `BLOCKING: false`, a matching Nonce, and a machine-checkable score.
+
+    Editorial style diagnostics such as phrase counts, type-token ratio, and
+    sentence-length variance are never authorship classifiers or blocking
+    metrics. Gate 4 blocks on the score, P0 defects, provenance, or the
+    reviewer's explicit decision.
     """
     review = draft_dir / "review.md"
     if not review.is_file():
@@ -1034,24 +1366,6 @@ def gate_4_content_review(draft_dir: Path) -> dict:
         elif score < 90:
             metric_violations.append(f"review overall score {score}/100 is below 90")
 
-    burst_match = re.search(r"Burstiness score:\s*([0-9.]+)\s*-\s*(Natural|Borderline|Flagged)", text, re.IGNORECASE)
-    if not burst_match:
-        metric_violations.append("review.md missing Burstiness score line")
-    elif burst_match.group(2).lower() == "flagged" or float(burst_match.group(1)) < 0.3:
-        metric_violations.append(f"review burstiness is blocking: {burst_match.group(1)}")
-
-    phrases_match = re.search(r"AI phrases found:\s*(\d+)", text, re.IGNORECASE)
-    if not phrases_match:
-        metric_violations.append("review.md missing AI phrases found line")
-    elif int(phrases_match.group(1)) > 3:
-        metric_violations.append(f"review has more than 3 AI phrases: {phrases_match.group(1)}")
-
-    ttr_match = re.search(r"Vocabulary diversity \(TTR\):\s*([0-9.]+)\s*-\s*(Rich|Normal|Low)", text, re.IGNORECASE)
-    if not ttr_match:
-        metric_violations.append("review.md missing Vocabulary diversity (TTR) line")
-    elif ttr_match.group(2).lower() == "low" or float(ttr_match.group(1)) < 0.4:
-        metric_violations.append(f"review TTR is blocking: {ttr_match.group(1)}")
-
     if re.search(r"\bP0\b", text, re.IGNORECASE) and not re.search(r"\b(no|zero)\s+P0\b", text, re.IGNORECASE):
         metric_violations.append("review mentions P0 without a no/zero P0 clearance")
 
@@ -1112,12 +1426,26 @@ def main() -> int:
         return iteration_exit
 
     live_tools = _parse_tool_names(args.tools_json or os.environ.get("CLAUDE_BLOG_TOOLS_JSON"))
+    rendered_context: dict[str, Any] = {}
+
+    def run_gate_3(draft_dir: Path) -> dict:
+        result = gate_3_visual_verification(draft_dir, slug=args.slug)
+        rendered_context["schema"] = _rendered_jsonld_handoff(result)
+        return result
+
+    def run_gate_5(draft_dir: Path) -> dict:
+        return gate_5_asset_link_integrity(
+            draft_dir,
+            slug=args.slug,
+            rendered_schema_validation=rendered_context.get("schema"),
+        )
+
     gates = [
         (1, lambda d: gate_1_capability_discovery(d, live_tools=live_tools)),
         (2, lambda d: gate_2_format_completeness(d, slug=args.slug)),
-        (3, lambda d: gate_3_visual_verification(d, slug=args.slug)),
+        (3, run_gate_3),
         (4, gate_4_content_review),
-        (5, lambda d: gate_5_asset_link_integrity(d, slug=args.slug)),
+        (5, run_gate_5),
     ]
     if args.gate:
         gates = [(n, fn) for (n, fn) in gates if n == args.gate]

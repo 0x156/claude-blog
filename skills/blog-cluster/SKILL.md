@@ -15,7 +15,7 @@ license: MIT
 compatibility: Requires Claude Code and claude-blog (provides blog-write, blog-chart, blog-image)
 metadata:
   author: AgriciDaniel
-  version: "2.0.0"
+  version: "2.1.0"
   category: blog
 user-invokable: true
 argument-hint: "[plan|execute] [seed-keyword|cluster-plan.json]"
@@ -232,9 +232,16 @@ Before reading a user-supplied plan path, canonicalize it relative to the curren
 
 Construct the cluster context block (full schema in `references/execution-workflow.md`) and prepend it to the topic prompt passed to the Task tool invoking `blog-write`. The context tells `blog-write` the cluster name, the post's role (pillar or spoke), the primary and secondary keywords, the chosen template, the word count target, the list of already-written posts (link to these), the list of upcoming posts (use `[INTERNAL-LINK]` placeholders), and the linking requirements for this post.
 
-**FLOW evidence triple propagation (required).** The cluster context must include this directive for every spoke and the pillar: "Apply the FLOW evidence triple to every public statistic. Year anchor in prose ('In 2026,'), inline citation with publisher and title, URL with retrieval date in the source block. Drop unverifiable stats. Replace contradicted ones."
+**Evidence provenance propagation.** The cluster context includes this directive
+for every spoke and the pillar: "Keep material claims traceable to sources that
+support them. Record dates, publisher/title details, retrieval notes,
+methodology, and limitations when they help identify or interpret the source.
+Use the publication's citation style. Drop unverifiable statistics and replace
+contradicted ones."
 
-This cascade is required because cluster execution is a high-leverage operation (5 to 15 posts at once). Without explicit propagation, individual spokes could silently skip evidence discipline. See `skills/blog/references/flow-alignment.md`.
+This cascade preserves evidence discipline across batch execution without
+turning a fixed source-record format into a score or gate. See
+`skills/blog/references/flow-alignment.md`.
 
 The context also instructs `blog-write` to run autonomously: skip topic clarification, skip outline approval, do not auto-detect template, do not pause.
 
@@ -298,7 +305,7 @@ Return a concise summary to the user with totals, the scorecard path, and the ne
 | Cluster minimum | At least 2 clusters with at least 2 posts each | Warn during plan; suggest expansion |
 | Cannibalization | No two posts share primary keyword | Block execution; require plan adjustment |
 | Link completeness | Every post has 2 or more incoming internal links | Warn in scorecard |
-| Word count | Pillar at least 2,500 words; spokes at least 1,200 words | Pass to `blog-write` as a hard constraint |
+| Length estimate | Pillars often need more depth than spokes | Pass to `blog-write` as optional planning context; never enforce a raw word minimum |
 | Intent diversity | At least 2 distinct intents across clusters | Warn in scorecard |
 | Template diversity | At least 3 distinct templates across the cluster | Warn in scorecard |
 

@@ -41,6 +41,37 @@ jobs:
       - name: Run tests
         run: python3 -m pytest tests/ -v
 
+  dependency-smoke:
+    # Validate the exact hash-locked optional runtimes without API calls,
+    # secrets, a browser download, or a browser launch.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # SHA-pinned
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # SHA-pinned
+        with:
+          python-version: "3.11"
+
+      - name: Verify hash-locked google-genai client initialization
+        run: |
+          python3 -m venv .ci-audio-smoke
+          .ci-audio-smoke/bin/python -m pip install \
+            --disable-pip-version-check --require-hashes \
+            -r skills/blog-audio/scripts/requirements.lock
+          .ci-audio-smoke/bin/python scripts/dependency_smoke.py \
+            --component audio
+
+      - name: Verify hash-locked Patchright and preflight initialization
+        run: |
+          python3 -m venv .ci-browser-smoke
+          .ci-browser-smoke/bin/python -m pip install \
+            --disable-pip-version-check --require-hashes \
+            -r skills/blog-notebooklm/scripts/requirements.lock
+          .ci-browser-smoke/bin/python scripts/dependency_smoke.py \
+            --component browser --component preflight
+
   validate-skills:
     runs-on: ubuntu-latest
     steps:
@@ -161,6 +192,9 @@ jobs:
             exit 1
           fi
           echo "No stale path references found"
+
+      - name: Validate repository consistency and FLOW locks
+        run: python3 scripts/consistency_check.py --root .
 
   lint-prose-hygiene:
     # Enforces CONTRIBUTING.md prose rules (no em-dashes / en-dashes /
