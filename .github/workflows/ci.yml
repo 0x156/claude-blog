@@ -32,8 +32,8 @@ jobs:
 
       - name: Install dependencies
         # Use the dev extras group so PR builds resolve identically to local
-        # development. The pyproject.toml `dev` group pins pytest, textstat,
-        # and beautifulsoup4 within bounded ranges (closes audit VULN-502).
+        # development. The pyproject.toml `dev` group pins the complete
+        # dependency set exercised by tests within bounded ranges.
         run: |
           python3 -m pip install --upgrade pip
           pip install -e ".[dev]"

@@ -26,6 +26,8 @@ Public distribution normalization and a collision-safe patch release.
   the public issue template with their public canonical destinations.
 - Recomputed installer digests from canonical raw LF bytes while preserving
   checkout-independent verification for PowerShell.
+- Declared Pillow for presentation workflows and completed the development
+  dependency set used by rendering, image, PageSpeed, and Search Console tests.
 
 ## [2.1.0] - 2026-07-23
 
